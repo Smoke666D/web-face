@@ -1,0 +1,1753 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Энерган</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/nouislider.min.css">
+    <link rel="stylesheet" href="css/noUiSlider.css">
+  </head>
+  <body>
+		<div class="wrapper d-flex align-items-stretch">
+    <!------------------------------------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------------------------->
+			<nav id="sidebar">
+				<div class="p-4 pt-5">
+		  		<!--IMG-->
+	        <ul class="list-unstyled components mb-5">
+	          <li class="active">
+	            <a href="#outputSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Входы</a>
+	            <ul class="collapse list-unstyled" id="outputSubmenu">
+                <li>
+                  <a id="nav_oilPress" onclick="loadContent('oilPressPage')" href="#">Давление масла</a>
+                </li>
+                <li>
+                  <a id="nav_coolantTemp" onclick="loadContent('coolTempPage')" href="#">Температура охлаждающей жидкости</a>
+                </li>
+                <li>
+                  <a id="nav_fuelLevel" onclick="loadContent('fuelLevelPage')" href="#">Уровень топлива</a>
+                </li>
+                <li>
+                  <a onclick="loadContent('digitalInputAPage')" href="#">Цифровой вход A</a>
+                </li>
+                <li>
+                  <a onclick="loadContent('digitalInputBPage')" href="#">Цифровой вход B</a>
+                </li>
+                <li>
+                  <a onclick="loadContent('digitalInputCPage')" href="#">Цифровой вход C</a>
+                </li>
+                <li>
+                  <a onclick="loadContent('digitalInputDPage')" href="#">Цифровой вход D</a>
+                </li>
+	            </ul>
+	          </li>
+            <li>
+              <a onclick="loadContent('digitalOutputPage')" href="#">Цифровой выходы</a>
+            </li>
+            <li>
+              <a onclick="loadContent('timerPage')" href="#">Таймеры</a>
+            </li>
+            <li class="active">
+              <a href="#generatorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Генератор</a>
+              <ul class="collapse list-unstyled" id="generatorSubmenu">
+                <li>
+                  <a onclick="loadContent('generatorOptionPage')" href="#">Опции генератора</a>
+                </li>
+                <li>
+                  <a onclick="loadContent('generatorVoltagePage')" href="#">Напряжение генератора</a>
+                </li>
+                <li>
+                  <a onclick="loadContent('generatorFreqPage')" href="#">Частота генератора</a>
+                </li>
+                <li>
+                  <a onclick="loadContent('generatorCurrentPage')" href="#">Сила тока генератора</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="active">
+              <a href="#netSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Сеть</a>
+              <ul class="collapse list-unstyled" id="netSubmenu">
+                <li>
+                  <a onclick="loadContent('networkOptionPage')" href="#">Опции сети</a>
+                </li>
+                <li>
+                  <a onclick="loadContent('networkAlarmPage')" href="#">Сигналы тревоги сети</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="active">
+              <a href="#engineSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Двигатель</a>
+              <ul class="collapse list-unstyled" id="engineSubmenu">
+                <li>
+                  <a onclick="loadContent('engineOptionPage')" href="#">Опции двигателя</a>
+                </li>
+                <li>
+                  <a onclick="loadContent('crankshaftPage')" href="#">Отключение коленчатого вала</a>
+                </li>
+                <li>
+                  <a onclick="loadContent('battaryPage')" href="#">Аккумулятор агрегата</a>
+                </li>
+              </ul>
+            </li>
+
+	          <li>
+              <a onclick="loadContent('servicePage')" href="#">Сигналы техобслуживания</a>
+	          </li>
+	        </ul>
+
+	        <div class="footer">
+
+	        </div>
+
+	      </div>
+    	</nav>
+      <!------------------------------------------------------------------------------------------------------------->
+      <!------------------------------------------------------------------------------------------------------------->
+      <!------------------------------------------------------------------------------------------------------------->
+      <!-- Page Content  -->
+
+      <div id="content" class="p-4 p-md-5">
+
+        <!--
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+              <i class="fa fa-bars"></i>
+              <span class="sr-only">Toggle Menu</span>
+            </button>
+            <button class="btn d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        -->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="oilPressPage" class="content-data">
+          <h5>Давление масла</h5>
+          <div class="form-group">
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Не использовать</option>
+              <option value="1">Нормально открытый</option>
+              <option value="2">Нормально закрытый</option>
+              <option value="3">Резистивный</option>
+              <option value="4">Токовый</option>
+            </select>
+            <button type="button" class="btn btn-primary">
+              <i class="fa fa-gear"></i>
+            </button>
+          </div>
+
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать сигнал размыкания цепи</label>
+            </div>
+          </div>
+
+          <h6>Сигналы низкого давления масла</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">Атмосфер</label>
+              <div id="s-slider1"></div>
+            </div>
+          </div>
+
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">Атмосфер</label>
+              <div id="s-slider2"></div>
+            </div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="coolTempPage" class="content-data">
+          <h5>Температура охдаждающей жидкости</h5>
+          <div class="form-group">
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Не использовать</option>
+              <option value="1">Нормально открытый</option>
+              <option value="2">Нормально закрытый</option>
+              <option value="3">Резистивный</option>
+              <option value="4">Токовый</option>
+            </select>
+            <button type="button" class="btn btn-primary">
+              <i class="fa fa-gear"></i>
+            </button>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать сигнал размыкания цепи</label>
+            </div>
+          </div>
+
+          <h6>Сигналы высокой ткмпературы охлаждающей жидкости</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">'C</label>
+              <div id="s-slider3"></div>
+            </div>
+          </div>
+
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">'C</label>
+              <div id="s-slider4"></div>
+            </div>
+          </div>
+
+          <h6>Управление нагревателем охлаждающей жидкости</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать</label>
+            </div>
+            <div class="form-group">
+              <label>Вкл</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label>'C</label>
+              <label>Выкл</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label>'C</label>
+              <div id="d-slider1"></div>
+            </div>
+          </div>
+
+          <h6>Управление охлаждателем охлаждающей жидкости</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать</label>
+            </div>
+            <div class="form-group">
+              <label>Вкл</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label>'C</label>
+              <label>Выкл</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label>'C</label>
+              <div id="d-slider2"></div>
+            </div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="fuelLevelPage" class="content-data">
+          <h5>Давление масла</h5>
+          <div class="form-group">
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Не использовать</option>
+              <option value="1">Нормально открытый</option>
+              <option value="2">Нормально закрытый</option>
+              <option value="3">Резистивный</option>
+              <option value="4">Токовый</option>
+            </select>
+            <button type="button" class="btn btn-primary">
+              <i class="fa fa-gear"></i>
+            </button>
+          </div>
+
+          <h6>Сигналы тревоги датчика</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать сигнализатор нижнего предела</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-select">Действие</label>
+              <select class="custom-select sensor-select" name="sensor-type">
+                <option value="0">Останов</option>
+                <option value="1">Отключение нагрузки</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Уровень срабатывания</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">%</label>
+              <div id="s-slider5"></div>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Задержка</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider6"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать предварительный сигнализатор нижнего предела</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Уровень срабатывания</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">%</label>
+              <div id="s-slider7"></div>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Задержка</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider8"></div>
+            </div>
+          </div>
+
+          <h6>Сигналы по рпевышению уровня топлива</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать сигнализатор верхнего предела</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-select">Действие</label>
+              <select class="custom-select sensor-select" name="sensor-type">
+                <option value="0">Останов</option>
+                <option value="1">Отключение нагрузки</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Уровень срабатывания</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">%</label>
+              <div id="s-slider9"></div>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Задержка</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider10"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать предварительный сигнализатор верхнего предела</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Уровень срабатывания</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">%</label>
+              <div id="s-slider11"></div>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Задержка</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider12"></div>
+            </div>
+          </div>
+
+          <h6>Топливный насос</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="pos-name">Включение</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">%</label>
+            <div id="s-slider13"></div>
+          </div>
+          <div class="form-group">
+            <label class="pos-name">Выключение</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">%</label>
+            <div id="s-slider14"></div>
+          </div>
+
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="digitalInputAPage">
+          <h5>Цифровой вход A</h5>
+          <div class="form-group">
+            <label class="pos-select">Функция</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Конфигурируемый</option>
+              <option value="1">Предел дымности отработанных газов</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Полярность</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Нормально разомкнутый</option>
+              <option value="1">Нормально замкнутый</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Действие</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Включение</option>
+              <option value="1">Отключение</option>
+              <option value="2">Предупреждение</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Подготовка</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Всегда</option>
+              <option value="1">Никогда</option>
+              <option value="2">От безопастности</option>
+              <option value="3">От запуска</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-name">Промежуток времени между действиями</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">сек</label>
+            <div id="s-slider15"></div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="digitalInputBPage">
+          <h5>Цифровой вход B</h5>
+          <div class="form-group">
+            <label class="pos-select">Функция</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Конфигурируемый</option>
+              <option value="1">Предел дымности отработанных газов</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Полярность</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Нормально разомкнутый</option>
+              <option value="1">Нормально замкнутый</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Действие</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Включение</option>
+              <option value="1">Отключение</option>
+              <option value="2">Предупреждение</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Подготовка</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Всегда</option>
+              <option value="1">Никогда</option>
+              <option value="2">От безопастности</option>
+              <option value="3">От запуска</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-name">Промежуток времени между действиями</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">сек</label>
+            <div id="s-slider16"></div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="digitalInputCPage">
+          <h5>Цифровой вход C</h5>
+          <div class="form-group">
+            <label class="pos-select">Функция</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Конфигурируемый</option>
+              <option value="1">Предел дымности отработанных газов</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Полярность</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Нормально разомкнутый</option>
+              <option value="1">Нормально замкнутый</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Действие</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Включение</option>
+              <option value="1">Отключение</option>
+              <option value="2">Предупреждение</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Подготовка</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Всегда</option>
+              <option value="1">Никогда</option>
+              <option value="2">От безопастности</option>
+              <option value="3">От запуска</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-name">Промежуток времени между действиями</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">сек</label>
+            <div id="s-slider17"></div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="digitalInputDPage">
+          <h5>Цифровой вход D</h5>
+          <div class="form-group">
+            <label class="pos-select">Функция</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Конфигурируемый</option>
+              <option value="1">Предел дымности отработанных газов</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Полярность</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Нормально разомкнутый</option>
+              <option value="1">Нормально замкнутый</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Действие</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Включение</option>
+              <option value="1">Отключение</option>
+              <option value="2">Предупреждение</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Подготовка</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Всегда</option>
+              <option value="1">Никогда</option>
+              <option value="2">От безопастности</option>
+              <option value="3">От запуска</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-name">Промежуток времени между действиями</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">сек</label>
+            <div id="s-slider18"></div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="digitalOutputPage">
+          <h5>Цифровой выходы</h5>
+          <div class="form-group">
+            <label class="pos-select">Выход A</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Топливное реле</option>
+            </select>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="groupOfDefaultRadios1" checked>
+              <label class="custom-control-label" for="defaultGroupExample1">НО</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="groupOfDefaultRadios1">
+              <label class="custom-control-label" for="defaultGroupExample2">НЗ</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="pos-select">Выход B</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Реле запуска</option>
+            </select>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="defaultGroupExample3" name="groupOfDefaultRadios2" checked>
+              <label class="custom-control-label" for="defaultGroupExample3">НО</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="defaultGroupExample4" name="groupOfDefaultRadios2">
+              <label class="custom-control-label" for="defaultGroupExample4">НЗ</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="pos-select">Выход С</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Не использовать</option>
+              <option value="1">Аварийная остановка</option>
+              <option value="2">Автоматический режим</option>
+              <option value="3">Аналоговый вход A</option>
+              <option value="4">Аналоговый вход B</option>
+              <option value="5">Аналоговый вход C</option>
+              <option value="6">Высокая частота сети</option>
+              <option value="7">Высокое напряжение аккумулятора</option>
+              <option value="8">Высокое напряжение сети</option>
+              <option value="9">Выход разомкнутого генератора</option>
+              <option value="10">Выход разомкнутой сети</option>
+              <option value="11">Доступный генератор</option>
+              <option value="12">Замыкание входа генератора</option>
+              <option value="13">Замыкание выхода сети</option>
+              <option value="14">Звуковой сигнал</option>
+              <option value="15">Импульс выхода разомкнутого генератора</option>
+              <option value="16">Импульс выхода разомкнутой сети</option>
+              <option value="17">Импульс замыкания выхода генератора</option>
+              <option value="18">Импульс замыкания выхода сети</option>
+              <option value="19">Не удаёться запустить</option>
+              <option value="20">Не удалось остановить</option>
+              <option value="21">Низкая частота сети</option>
+              <option value="22">Низкое напряжение аккумулятора</option>
+              <option value="23">Низкое напряжение сети</option>
+              <option value="24">Общее выключение</option>
+              <option value="25">Общее отключение</option>
+              <option value="26">Общее предупреждение</option>
+              <option value="27">Общий сигнал тревоги</option>
+              <option value="28">Ожидание ручного восстановления</option>
+              <option value="29">Остывание</option>
+              <option value="30">Отключение зарядного генератора</option>
+              <option value="31">Отключение при низкой скорости</option>
+              <option value="32">Отключение при низкой частоте генератора</option>
+              <option value="33">Отключение при низком давлении масла</option>
+              <option value="34">Отключение при сверх частоте генератора</option>
+              <option value="35">Отключение при сверхскорости</option>
+              <option value="36">Отключение при высокой температуре охлаждающей жидкости</option>
+              <option value="37">Отложенный выход нагрузки 1</option>
+              <option value="38">Отложенный выход нагрузки 2</option>
+              <option value="39">Отложенный выход нагрузки 3</option>
+              <option value="40">Отложенный выход нагрузки 4</option>
+              <option value="41">Подавить питание чтобы остановить</option>
+              <option value="42">Подогрев во время таймера подогрева</option>
+              <option value="43">Подогрев до завершения запуска</option>
+              <option value="44">Подогрев до истечения времени таймера безопастности</option>
+              <option value="45">Подогрев до истечения времени таймера предупреждения</option>
+              <option value="46">Предворительный сигнал высокого уровня топлива</option>
+              <option value="47">Предворительный сигнал низкого уровня топлива</option>
+              <option value="48">Предел дымности отработавших газов</option>
+              <option value="49">Предупреждение зарядного генератора</option>
+              <option value="50">Размыкание сети датчика давления масла</option>
+              <option value="51">Размыкание цепи температурного датчика</option>
+              <option value="52">Режим остановки системы</option>
+              <option value="53">Реле воздушной заслонки</option>
+              <option value="54">Реле запуска</option>
+              <option value="55">Ручной режим системы</option>
+              <option value="56">Сбой объединенной сети</option>
+              <option value="57">Сигнал высокого напряжения генератора</option>
+              <option value="58">Сигнал высокого уровня топлива</option>
+              <option value="59">Сигнал избыточной сверхскорости</option>
+              <option value="60">Сигнал низкого напряжения генератора</option>
+              <option value="61">Сигнал низкого уровня топлива</option>
+              <option value="62">Сигнал сверхчастоты генератора</option>
+              <option value="63">Техобслуживание воздушного фильтра</option>
+              <option value="64">Техобслуживание маслянного фильтра</option>
+              <option value="65">Техобслуживание топливного фильтра</option>
+              <option value="66">Топливное реле</option>
+              <option value="67">Цифровой вход A</option>
+              <option value="68">Цифровой вход B</option>
+              <option value="69">Цифровой вход C</option>
+              <option value="70">Цифровой вход D</option>
+            </select>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="defaultGroupExample5" name="groupOfDefaultRadios3" checked>
+              <label class="custom-control-label" for="defaultGroupExample5">НО</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="defaultGroupExample6" name="groupOfDefaultRadios3">
+              <label class="custom-control-label" for="defaultGroupExample6">НЗ</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="pos-select">Выход D</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Не использовать</option>
+              <option value="1">Аварийная остановка</option>
+              <option value="2">Автоматический режим</option>
+              <option value="3">Аналоговый вход A</option>
+              <option value="4">Аналоговый вход B</option>
+              <option value="5">Аналоговый вход C</option>
+              <option value="6">Высокая частота сети</option>
+              <option value="7">Высокое напряжение аккумулятора</option>
+              <option value="8">Высокое напряжение сети</option>
+              <option value="9">Выход разомкнутого генератора</option>
+              <option value="10">Выход разомкнутой сети</option>
+              <option value="11">Доступный генератор</option>
+              <option value="12">Замыкание входа генератора</option>
+              <option value="13">Замыкание выхода сети</option>
+              <option value="14">Звуковой сигнал</option>
+              <option value="15">Импульс выхода разомкнутого генератора</option>
+              <option value="16">Импульс выхода разомкнутой сети</option>
+              <option value="17">Импульс замыкания выхода генератора</option>
+              <option value="18">Импульс замыкания выхода сети</option>
+              <option value="19">Не удаёться запустить</option>
+              <option value="20">Не удалось остановить</option>
+              <option value="21">Низкая частота сети</option>
+              <option value="22">Низкое напряжение аккумулятора</option>
+              <option value="23">Низкое напряжение сети</option>
+              <option value="24">Общее выключение</option>
+              <option value="25">Общее отключение</option>
+              <option value="26">Общее предупреждение</option>
+              <option value="27">Общий сигнал тревоги</option>
+              <option value="28">Ожидание ручного восстановления</option>
+              <option value="29">Остывание</option>
+              <option value="30">Отключение зарядного генератора</option>
+              <option value="31">Отключение при низкой скорости</option>
+              <option value="32">Отключение при низкой частоте генератора</option>
+              <option value="33">Отключение при низком давлении масла</option>
+              <option value="34">Отключение при сверх частоте генератора</option>
+              <option value="35">Отключение при сверхскорости</option>
+              <option value="36">Отключение при высокой температуре охлаждающей жидкости</option>
+              <option value="37">Отложенный выход нагрузки 1</option>
+              <option value="38">Отложенный выход нагрузки 2</option>
+              <option value="39">Отложенный выход нагрузки 3</option>
+              <option value="40">Отложенный выход нагрузки 4</option>
+              <option value="41">Подавить питание чтобы остановить</option>
+              <option value="42">Подогрев во время таймера подогрева</option>
+              <option value="43">Подогрев до завершения запуска</option>
+              <option value="44">Подогрев до истечения времени таймера безопастности</option>
+              <option value="45">Подогрев до истечения времени таймера предупреждения</option>
+              <option value="46">Предворительный сигнал высокого уровня топлива</option>
+              <option value="47">Предворительный сигнал низкого уровня топлива</option>
+              <option value="48">Предел дымности отработавших газов</option>
+              <option value="49">Предупреждение зарядного генератора</option>
+              <option value="50">Размыкание сети датчика давления масла</option>
+              <option value="51">Размыкание цепи температурного датчика</option>
+              <option value="52">Режим остановки системы</option>
+              <option value="53">Реле воздушной заслонки</option>
+              <option value="54">Реле запуска</option>
+              <option value="55">Ручной режим системы</option>
+              <option value="56">Сбой объединенной сети</option>
+              <option value="57">Сигнал высокого напряжения генератора</option>
+              <option value="58">Сигнал высокого уровня топлива</option>
+              <option value="59">Сигнал избыточной сверхскорости</option>
+              <option value="60">Сигнал низкого напряжения генератора</option>
+              <option value="61">Сигнал низкого уровня топлива</option>
+              <option value="62">Сигнал сверхчастоты генератора</option>
+              <option value="63">Техобслуживание воздушного фильтра</option>
+              <option value="64">Техобслуживание маслянного фильтра</option>
+              <option value="65">Техобслуживание топливного фильтра</option>
+              <option value="66">Топливное реле</option>
+              <option value="67">Цифровой вход A</option>
+              <option value="68">Цифровой вход B</option>
+              <option value="69">Цифровой вход C</option>
+              <option value="70">Цифровой вход D</option>
+            </select>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="defaultGroupExample7" name="groupOfDefaultRadios4" checked>
+              <label class="custom-control-label" for="defaultGroupExample7">НО</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="defaultGroupExample8" name="groupOfDefaultRadios4">
+              <label class="custom-control-label" for="defaultGroupExample8">НЗ</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="pos-select">Выход E</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Не использовать</option>
+              <option value="1">Аварийная остановка</option>
+              <option value="2">Автоматический режим</option>
+              <option value="3">Аналоговый вход A</option>
+              <option value="4">Аналоговый вход B</option>
+              <option value="5">Аналоговый вход C</option>
+              <option value="6">Высокая частота сети</option>
+              <option value="7">Высокое напряжение аккумулятора</option>
+              <option value="8">Высокое напряжение сети</option>
+              <option value="9">Выход разомкнутого генератора</option>
+              <option value="10">Выход разомкнутой сети</option>
+              <option value="11">Доступный генератор</option>
+              <option value="12">Замыкание входа генератора</option>
+              <option value="13">Замыкание выхода сети</option>
+              <option value="14">Звуковой сигнал</option>
+              <option value="15">Импульс выхода разомкнутого генератора</option>
+              <option value="16">Импульс выхода разомкнутой сети</option>
+              <option value="17">Импульс замыкания выхода генератора</option>
+              <option value="18">Импульс замыкания выхода сети</option>
+              <option value="19">Не удаёться запустить</option>
+              <option value="20">Не удалось остановить</option>
+              <option value="21">Низкая частота сети</option>
+              <option value="22">Низкое напряжение аккумулятора</option>
+              <option value="23">Низкое напряжение сети</option>
+              <option value="24">Общее выключение</option>
+              <option value="25">Общее отключение</option>
+              <option value="26">Общее предупреждение</option>
+              <option value="27">Общий сигнал тревоги</option>
+              <option value="28">Ожидание ручного восстановления</option>
+              <option value="29">Остывание</option>
+              <option value="30">Отключение зарядного генератора</option>
+              <option value="31">Отключение при низкой скорости</option>
+              <option value="32">Отключение при низкой частоте генератора</option>
+              <option value="33">Отключение при низком давлении масла</option>
+              <option value="34">Отключение при сверх частоте генератора</option>
+              <option value="35">Отключение при сверхскорости</option>
+              <option value="36">Отключение при высокой температуре охлаждающей жидкости</option>
+              <option value="37">Отложенный выход нагрузки 1</option>
+              <option value="38">Отложенный выход нагрузки 2</option>
+              <option value="39">Отложенный выход нагрузки 3</option>
+              <option value="40">Отложенный выход нагрузки 4</option>
+              <option value="41">Подавить питание чтобы остановить</option>
+              <option value="42">Подогрев во время таймера подогрева</option>
+              <option value="43">Подогрев до завершения запуска</option>
+              <option value="44">Подогрев до истечения времени таймера безопастности</option>
+              <option value="45">Подогрев до истечения времени таймера предупреждения</option>
+              <option value="46">Предворительный сигнал высокого уровня топлива</option>
+              <option value="47">Предворительный сигнал низкого уровня топлива</option>
+              <option value="48">Предел дымности отработавших газов</option>
+              <option value="49">Предупреждение зарядного генератора</option>
+              <option value="50">Размыкание сети датчика давления масла</option>
+              <option value="51">Размыкание цепи температурного датчика</option>
+              <option value="52">Режим остановки системы</option>
+              <option value="53">Реле воздушной заслонки</option>
+              <option value="54">Реле запуска</option>
+              <option value="55">Ручной режим системы</option>
+              <option value="56">Сбой объединенной сети</option>
+              <option value="57">Сигнал высокого напряжения генератора</option>
+              <option value="58">Сигнал высокого уровня топлива</option>
+              <option value="59">Сигнал избыточной сверхскорости</option>
+              <option value="60">Сигнал низкого напряжения генератора</option>
+              <option value="61">Сигнал низкого уровня топлива</option>
+              <option value="62">Сигнал сверхчастоты генератора</option>
+              <option value="63">Техобслуживание воздушного фильтра</option>
+              <option value="64">Техобслуживание маслянного фильтра</option>
+              <option value="65">Техобслуживание топливного фильтра</option>
+              <option value="66">Топливное реле</option>
+              <option value="67">Цифровой вход A</option>
+              <option value="68">Цифровой вход B</option>
+              <option value="69">Цифровой вход C</option>
+              <option value="70">Цифровой вход D</option>
+            </select>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="defaultGroupExample9" name="groupOfDefaultRadios5" checked>
+              <label class="custom-control-label" for="defaultGroupExample9">НО</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="defaultGroupExample10" name="groupOfDefaultRadios5">
+              <label class="custom-control-label" for="defaultGroupExample10">НЗ</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="pos-select">Выход F</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Не использовать</option>
+              <option value="1">Аварийная остановка</option>
+              <option value="2">Автоматический режим</option>
+              <option value="3">Аналоговый вход A</option>
+              <option value="4">Аналоговый вход B</option>
+              <option value="5">Аналоговый вход C</option>
+              <option value="6">Высокая частота сети</option>
+              <option value="7">Высокое напряжение аккумулятора</option>
+              <option value="8">Высокое напряжение сети</option>
+              <option value="9">Выход разомкнутого генератора</option>
+              <option value="10">Выход разомкнутой сети</option>
+              <option value="11">Доступный генератор</option>
+              <option value="12">Замыкание входа генератора</option>
+              <option value="13">Замыкание выхода сети</option>
+              <option value="14">Звуковой сигнал</option>
+              <option value="15">Импульс выхода разомкнутого генератора</option>
+              <option value="16">Импульс выхода разомкнутой сети</option>
+              <option value="17">Импульс замыкания выхода генератора</option>
+              <option value="18">Импульс замыкания выхода сети</option>
+              <option value="19">Не удаёться запустить</option>
+              <option value="20">Не удалось остановить</option>
+              <option value="21">Низкая частота сети</option>
+              <option value="22">Низкое напряжение аккумулятора</option>
+              <option value="23">Низкое напряжение сети</option>
+              <option value="24">Общее выключение</option>
+              <option value="25">Общее отключение</option>
+              <option value="26">Общее предупреждение</option>
+              <option value="27">Общий сигнал тревоги</option>
+              <option value="28">Ожидание ручного восстановления</option>
+              <option value="29">Остывание</option>
+              <option value="30">Отключение зарядного генератора</option>
+              <option value="31">Отключение при низкой скорости</option>
+              <option value="32">Отключение при низкой частоте генератора</option>
+              <option value="33">Отключение при низком давлении масла</option>
+              <option value="34">Отключение при сверх частоте генератора</option>
+              <option value="35">Отключение при сверхскорости</option>
+              <option value="36">Отключение при высокой температуре охлаждающей жидкости</option>
+              <option value="37">Отложенный выход нагрузки 1</option>
+              <option value="38">Отложенный выход нагрузки 2</option>
+              <option value="39">Отложенный выход нагрузки 3</option>
+              <option value="40">Отложенный выход нагрузки 4</option>
+              <option value="41">Подавить питание чтобы остановить</option>
+              <option value="42">Подогрев во время таймера подогрева</option>
+              <option value="43">Подогрев до завершения запуска</option>
+              <option value="44">Подогрев до истечения времени таймера безопастности</option>
+              <option value="45">Подогрев до истечения времени таймера предупреждения</option>
+              <option value="46">Предворительный сигнал высокого уровня топлива</option>
+              <option value="47">Предворительный сигнал низкого уровня топлива</option>
+              <option value="48">Предел дымности отработавших газов</option>
+              <option value="49">Предупреждение зарядного генератора</option>
+              <option value="50">Размыкание сети датчика давления масла</option>
+              <option value="51">Размыкание цепи температурного датчика</option>
+              <option value="52">Режим остановки системы</option>
+              <option value="53">Реле воздушной заслонки</option>
+              <option value="54">Реле запуска</option>
+              <option value="55">Ручной режим системы</option>
+              <option value="56">Сбой объединенной сети</option>
+              <option value="57">Сигнал высокого напряжения генератора</option>
+              <option value="58">Сигнал высокого уровня топлива</option>
+              <option value="59">Сигнал избыточной сверхскорости</option>
+              <option value="60">Сигнал низкого напряжения генератора</option>
+              <option value="61">Сигнал низкого уровня топлива</option>
+              <option value="62">Сигнал сверхчастоты генератора</option>
+              <option value="63">Техобслуживание воздушного фильтра</option>
+              <option value="64">Техобслуживание маслянного фильтра</option>
+              <option value="65">Техобслуживание топливного фильтра</option>
+              <option value="66">Топливное реле</option>
+              <option value="67">Цифровой вход A</option>
+              <option value="68">Цифровой вход B</option>
+              <option value="69">Цифровой вход C</option>
+              <option value="70">Цифровой вход D</option>
+            </select>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="defaultGroupExample11" name="groupOfDefaultRadios6" checked>
+              <label class="custom-control-label" for="defaultGroupExample11">НО</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="defaultGroupExample12" name="groupOfDefaultRadios6">
+              <label class="custom-control-label" for="defaultGroupExample12">НЗ</label>
+            </div>
+          </div>
+
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="timerPage">
+          <h5>Таймеры</h5>
+          <h6>Таймеры запуска</h6>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Задержка перехода сети</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider19"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Задержка запуска</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider20"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Время запуска двигателя</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider21"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Запуск пауза</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider22"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Время холостого хода при старте</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider23"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Задержка перехода на номинальые обороты</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider24"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Время игнорирования защиты при запуске</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider25"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Время прогрева</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider26"></div>
+            </div>
+          </div>
+          <h6>Таймеры контроля нагрузки</h6>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Время прогрева</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider27"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Время прогрева</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider28"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Время прогрева</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider29"></div>
+            </div>
+          </div>
+          <h6>Таймеры остановки</h6>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Время прогрева</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider30"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Время прогрева</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider31"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Время прогрева</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider32"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Время прогрева</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider33"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Время прогрева</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider34"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Время прогрева</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider35"></div>
+            </div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="generatorOptionPage">
+          <h5>Опции генератора</h5>
+          <h6>Генератор</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Контроль силового генератора</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="pos-select">Пар полюсов</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">2</option>
+              <option value="1">4</option>
+              <option value="2">6</option>
+              <option value="3">8</option>
+              <option value="4">10</option>
+              <option value="5">12</option>
+              <option value="6">14</option>
+              <option value="7">16</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="pos-select">Система переменного тока</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">2 фазы, 3 кабеля L1-L2</option>
+              <option value="1">2 фазы, 3 кабеля L1-L3</option>
+              <option value="2">3 фазы, 3 кабеля, треугольник</option>
+              <option value="3">3 фазы, 4 кабеля, звезда</option>
+              <option value="4">3 фазы, 4 кабеля, треугольник</option>
+              <option value="5">Однофазный, 2 кабеля</option>
+            </select>
+          </div>
+          <h6>Номинальная мощность генератор</h6>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Номинальная активная мощность</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">кВт</label>
+              <div id="s-slider36"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Номинальная рекактивная мощность</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">кВар</label>
+              <div id="s-slider37"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Номинальная полная мощность</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">кВА</label>
+              <div id="s-slider38"></div>
+            </div>
+          </div>
+          <h6>Номинальная частота</h6>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name"></label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">Гц</label>
+              <div id="s-slider39"></div>
+            </div>
+          </div>
+          <h6>Опции тока генератора</h6>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Первичный ток трансформатора</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">А</label>
+              <div id="s-slider40"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Полная номинальная нагрузка</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">А</label>
+              <div id="s-slider41"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Расположение трансформатора тока</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Генератор</option>
+              <option value="1">Нагрузка</option>
+            </select>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="generatorVoltagePage">
+          <h5>Напряжение генератора</h5>
+          <h6>Сигналы низкого напряжения</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">В</label>
+              <div id="s-slider42"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">В</label>
+              <div id="s-slider43"></div>
+            </div>
+          </div>
+          <h6>Сигналы перенапряжения</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">В</label>
+              <div id="s-slider44"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">В</label>
+              <div id="s-slider45"></div>
+            </div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="generatorFreqPage">
+          <h5>Частота генератора</h5>
+          <h6>Сигнал понижения частоты</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">Гц</label>
+              <div id="s-slider46"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">Гц</label>
+              <div id="s-slider47"></div>
+            </div>
+          </div>
+          <h6>Сигнал сверх частоты</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">Гц</label>
+              <div id="s-slider48"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">Гц</label>
+              <div id="s-slider49"></div>
+            </div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="generatorCurrentPage">
+          <h5>Сила тока генератора</h5>
+          <h6>Сигнал сверхтока</h6>
+          <div class="form-group">
+            <label class="pos-name">Тепловая защита</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">%</label>
+            <div id="s-slider50"></div>
+          </div>
+          <div class="form-group">
+            <label class="pos-name">Токовая отсечка</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">%</label>
+            <div id="s-slider51"></div>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Система переменного тока</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Выключение</option>
+              <option value="1">Отключение</option>
+              <option value="2">Предупреждение</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-name">Отключение</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">%</label>
+            <div id="s-slider52"></div>
+          </div>
+          <div class="form-group">
+            <label class="pos-name">Задержка</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">мин</label>
+            <div id="s-slider53"></div>
+          </div>
+          <h6>Защита от прегрузки</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Действие</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Отключение</option>
+              <option value="1">Предупреждение</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-name">Отключение</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">%</label>
+            <div id="s-slider54"></div>
+          </div>
+          <div class="form-group">
+            <label class="pos-name">Задержка</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">сек</label>
+            <div id="s-slider55"></div>
+          </div>
+          <h6>Перекос фаз</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="pos-select">Действие</label>
+            <select class="custom-select sensor-select" name="sensor-type">
+              <option value="0">Отключение</option>
+              <option value="1">Предупреждение</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="pos-name">Отключение</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">%</label>
+            <div id="s-slider56"></div>
+          </div>
+          <div class="form-group">
+            <label class="pos-name">Задержка</label>
+            <input type="number" class="form-control in-num" id="exampleInputEmail1">
+            <label class="pos-unit">сек</label>
+            <div id="s-slider57"></div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="networkOptionPage">
+          <h5>Опции сети</h5>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Контроль сети</label>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Немедленное отключение при потери сети</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-select">Система переменного тока</label>
+              <select class="custom-select sensor-select" name="sensor-type">
+                <option value="0">2 фазы, 3 кабеля L1-L2</option>
+                <option value="1">2 фазы, 3 кабеля L1-L3</option>
+                <option value="2">3 фазы, 3 кабеля, треугольник</option>
+                <option value="3">3 фазы, 4 кабеля, звезда</option>
+                <option value="4">3 фазы, 4 кабеля, треугольник</option>
+                <option value="5">Однофазный, 2 кабеля</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="networkAlarmPage">
+          <h5>Сигналы тревоги сети</h5>
+          <h6>Сигналы низкого напряжения</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Низкое напряжение</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">В</label>
+              <div id="s-slider58"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Перенапряжение</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">В</label>
+              <div id="s-slider59"></div>
+            </div>
+          </div>
+          <h6>Сигнал тревоги частоты</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Пониженная частота</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">Гц</label>
+              <div id="s-slider60"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Сверх частота</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">Гц</label>
+              <div id="s-slider61"></div>
+            </div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="engineOptionPage">
+          <h5>Опции двигателя</h5>
+          <h6>Опции запуска</h6>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Попытки запуска</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit"></label>
+            </div>
+          </div>
+          <h6>Включение свечи накаливания</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активирован</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Включение при температуре ниже</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">'C</label>
+              <div id="s-slider62"></div>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Длительность включения</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider63"></div>
+            </div>
+          </div>
+          <h6>Остывание стартера</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активирован</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Включен</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">'C</label>
+              <div id="s-slider64"></div>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Длительность</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider65"></div>
+            </div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="crankshaftPage">
+          <h5>Отключение коленчатого вала</h5>
+          <h6>Опции</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Отключение коленчатого вала при давлении масла</label>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Перед запуском проверить давление масла</label>
+            </div>
+          </div>
+          <h6>Отключение коленчатого вала</h6>
+          <div class="form-value">
+            <div class="form-group">
+              <label class="pos-name">Частота генератора</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">Гц</label>
+              <div id="s-slider66"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать по давлению масла</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Давление масла</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">Bar</label>
+              <div id="s-slider67"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Зарядный генератор</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name"></label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">B</label>
+              <div id="s-slider68"></div>
+            </div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="battaryPage">
+          <h5>Аккумулятор агрегата</h5>
+          <h6>Сигнал тревоги напряжения</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Низкое напряжение</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Предупреждение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">B</label>
+              <div id="s-slider69"></div>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Задержка</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">мин</label>
+              <div id="s-slider70"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Перенапряжение</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Предупреждение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">B</label>
+              <div id="s-slider71"></div>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Задержка</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">мин</label>
+              <div id="s-slider72"></div>
+            </div>
+          </div>
+          <h6>Сигнал зарядного генератора</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Отключения</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">B</label>
+              <div id="s-slider73"></div>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Задержка</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">сек</label>
+              <div id="s-slider74"></div>
+            </div>
+          </div>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Предупреждения</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Отключение</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">B</label>
+              <div id="s-slider75"></div>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Задержка</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">мин</label>
+              <div id="s-slider76"></div>
+            </div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="servicePage">
+          <h5>Сигналы техобслуживагия</h5>
+          <h6>Масло</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-select">Действие</label>
+              <select class="custom-select sensor-select" name="sensor-type">
+                <option value="0">Отключение</option>
+                <option value="1">Предупреждение</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Часы работы двигателя</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">час</label>
+              <div id="s-slider77"></div>
+            </div>
+          </div>
+          <h6>Воздух</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-select">Действие</label>
+              <select class="custom-select sensor-select" name="sensor-type">
+                <option value="0">Отключение</option>
+                <option value="1">Предупреждение</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Часы работы двигателя</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">час</label>
+              <div id="s-slider78"></div>
+            </div>
+          </div>
+          <h6>Топливо</h6>
+          <div class="form-value">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+              <label class="form-check-label" for="materialChecked2">Активировать</label>
+            </div>
+            <div class="form-group">
+              <label class="pos-select">Действие</label>
+              <select class="custom-select sensor-select" name="sensor-type">
+                <option value="0">Отключение</option>
+                <option value="1">Предупреждение</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="pos-name">Часы работы двигателя</label>
+              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <label class="pos-unit">час</label>
+              <div id="s-slider79"></div>
+            </div>
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <div id="noDataPage" class="content-data">
+          <h1>Страница находиться в разработке</h1>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------->
+        </div>
+      </div>
+		</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <script src="js/nouislider.min.js"></script>
+
+  </body>
+</html>
