@@ -683,3 +683,24 @@ a[data-toggle="collapse"] {
 .content-data {
   display: none;
 }
+
+.noUi-tooltip {
+  display: none;
+}
+
+.noUi-active .noUi-tooltip {
+  display: none;
+}
+
+.noUi-connect {
+  background: #f8b739;
+}
+
+.noUi-target {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.noUi-handle {
+  display: table;
+}
