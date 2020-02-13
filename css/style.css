@@ -153,7 +153,8 @@ h6 {
 
 .list-unstyled {
   padding-left: 0;
-  list-style: none; }
+  list-style: none;
+  transition: height 150ms ease-out}
 
 .form-control {
   display: block;
@@ -423,10 +424,12 @@ h6 {
       box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5); }
 
 .collapse:not(.show) {
-  display: none; }
+  display: none;
+}
 
 .dropdown-toggle {
-  white-space: nowrap; }
+  white-space: nowrap;
+}
   .dropdown-toggle::after {
     display: inline-block;
     margin-left: 0.255em;
@@ -681,7 +684,19 @@ a[data-toggle="collapse"] {
     border-color: #f8b739 !important; }
 
 .content-data {
-  display: none;
+  display: block;
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: visibility 0s .12s linear , opacity .12s ease-in, transform .12s ease-in;
+}
+.content-data.is-shown {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+  transition: visibility 0s 0s linear , opacity .36s ease-out, transform .36s ease-out;
 }
 
 .noUi-tooltip {
@@ -703,4 +718,16 @@ a[data-toggle="collapse"] {
 
 .noUi-handle {
   display: table;
+}
+
+.s-slider {
+  display: block;
+}
+
+.d-slider {
+  display: block;
+}
+
+.s-sinput{
+  display: block;
 }
