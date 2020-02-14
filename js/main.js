@@ -1,6 +1,14 @@
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+function toogleNav() {
+	var sb = document.getElementById("sidebar")
+	if (sb.classList.contains("active")){
+		sb.classList.remove("active");
+	} else {
+		sb.classList.add("active");
+	}
+}
 function hideConteny() {
 	var contentPages = document.getElementsByClassName("content-data");
 	for(var i=0;i<contentPages.length;i++){

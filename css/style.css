@@ -683,8 +683,25 @@ a[data-toggle="collapse"] {
     background: #f8b739 !important;
     border-color: #f8b739 !important; }
 
+.container-fluid {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto; }
+
+  .row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+
 .content-data {
-  display: block;
+  display: inline-block;
   position: absolute;
   visibility: hidden;
   opacity: 0;
@@ -692,7 +709,6 @@ a[data-toggle="collapse"] {
   transition: visibility 0s .12s linear , opacity .12s ease-in, transform .12s ease-in;
 }
 .content-data.is-shown {
-  display: block;
   visibility: visible;
   opacity: 1;
   transform: translateX(0);
