@@ -28,6 +28,10 @@
   --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;}
+
 *,
 *::before,
 *::after {
@@ -38,7 +42,9 @@ html {
   font-family: sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -ms-overflow-style: none;  /* IE 10+ */
+  scrollbar-width: none; /* Firefox */}
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block; }
@@ -8231,6 +8237,7 @@ h1, h2, h3, h4, h5,
   align-items: stretch }
 
 #sidebar {
+  height: 1370px;
   min-width: 300px;
   max-width: 300px;
   background: #1d1919;
@@ -8298,6 +8305,25 @@ a[data-toggle="collapse"] {
   -o-transition: all 0.3s;
   transition: all 0.3s; }
 
+.content-data {
+  position: absolute;
+  width: calc(100% - 60vh);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: visibility 0s .12s linear , opacity .12s ease-in, transform .12s ease-in;}
+  .content-data.is-shown {
+    position: absolute;
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
+    transition: visibility 0s 0s linear , opacity .36s ease-out, transform .36s ease-out;
+  }
+  .content-data h6{
+    padding: 10px
+  }
+
+
 .btn.btn-primary {
   background: #f8b739;
   border-color: #f8b739; }
@@ -8308,22 +8334,7 @@ a[data-toggle="collapse"] {
 .footer p {
   color: rgba(255, 255, 255, 0.5); }
 
-.content-data {
-  position: absolute;
-  width: calc(100% - 300px - 6rem);
-  visibility: hidden;
-  opacity: 0;
-  transform: translateX(-20px);
-  transition: visibility 0s .12s linear , opacity .12s ease-in, transform .12s ease-in;}
-  .content-data.is-shown {
-    visibility: visible;
-    opacity: 1;
-    transform: translateX(0);
-    transition: visibility 0s 0s linear , opacity .36s ease-out, transform .36s ease-out;
-  }
-  .content-data h6{
-    padding: 10px
-  }
+
 
 .noUi-tooltip {
   display: none;

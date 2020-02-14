@@ -13,6 +13,7 @@ function hideConteny() {
 	var contentPages = document.getElementsByClassName("content-data");
 	for(var i=0;i<contentPages.length;i++){
 		contentPages[i].classList.remove("is-shown");
+
 	}
 	return;
 }
