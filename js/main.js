@@ -8,7 +8,6 @@ function hideConteny() {
 	}
 	return;
 }
-
 function loadContent(id) {
 	hideConteny();
 	document.getElementById(id).classList.add("is-shown");
@@ -19,10 +18,7 @@ function loadContent(id) {
 //******************************************************************************
 function sliderInit() {
 	var i=0;
-
-	s_sinputs = document.getElementsByClassName("s-sinput");
-	s_sinputs[0].value = 0;
-
+	var s_sinputs = document.getElementsByClassName("s-sinput");
 	var s_sliders = document.getElementsByClassName("s-slider");
 	for(i=0; i<s_sliders.length; i++){
 		noUiSlider.create(s_sliders[i],{
@@ -35,20 +31,12 @@ function sliderInit() {
 				'max': 100
 			}
 		})
-	}
-
-
-
-
-
-	for(i=0;i<s_sinputs.length;i++){
 		s_sliders[i].noUiSlider.on('update', (function () {
 			var j=i;
 			return function(){
 				s_sinputs[j].value = s_sliders[j].noUiSlider.get();
 			}
 		})() );
-
 		s_sinputs[i].addEventListener('change', (function () {
 			var j=i;
 			return function(){
@@ -56,13 +44,9 @@ function sliderInit() {
 			}
 		})());
 	}
-
-
-
-
-
-
-	var d_sliders = document.getElementsByClassName("d-slider");
+	var d_sliders       = document.getElementsByClassName("d-slider");
+	var d_sinputs_left  = document.getElementsByClassName("d-sinput-left");
+	var d_sinputs_right = document.getElementsByClassName("d-sinput-right");
 	for (var i=0; i<d_sliders.length; i++){
 		noUiSlider.create(d_sliders[i],{
 			start: [20, 80],
@@ -74,6 +58,30 @@ function sliderInit() {
 		    'max': 100
 			}
 		})
+		d_sliders[i].noUiSlider.on('update',(function(){
+			var j=i;
+			return function(){
+				d_sinputs_left[j].value=d_sliders[j].noUiSlider.get()[0];
+			}
+		})());
+		d_sinputs_left[i].addEventListener('change',(function(){
+			var j=i;
+			return function(){
+	    	d_sliders[j].noUiSlider.set([d_sinputs_left[j].value,null]);
+			}
+		})());
+		d_sliders[i].noUiSlider.on('update',(function(){
+			var j=i;
+			return function(){
+				d_sinputs_right[j].value=d_sliders[j].noUiSlider.get()[1];
+			}
+		})());
+		d_sinputs_right[i].addEventListener('change',(function(){
+			var j=i;
+			return function(){
+	    	d_sliders[j].noUiSlider.set([null,d_sinputs_right[j].value]);
+			}
+		})());
 	}
 }
 //******************************************************************************

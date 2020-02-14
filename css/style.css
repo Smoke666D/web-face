@@ -731,3 +731,11 @@ a[data-toggle="collapse"] {
 .s-sinput{
   display: block;
 }
+
+.d-sinput-left{
+  display: block;
+}
+
+.d-sinput-right{
+  display: block;
+}
