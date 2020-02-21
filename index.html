@@ -130,7 +130,7 @@
           <h5>Давление масла</h5>
           <div class="row">
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" name="oilPressureSensorType">
                 <option value="0">Не использовать</option>
                 <option value="1">Нормально открытый</option>
                 <option value="2">Нормально закрытый</option>
@@ -139,7 +139,7 @@
               </select>
             </div>
             <div class="col-sm-auto">
-              <button type="button" class="btn btn-primary">
+              <button type="button" class="btn btn-primary" id="oilSetupSensor">
                 <i class="fa fa-gear"></i>
               </button>
             </div>
@@ -148,7 +148,7 @@
           <div class="row">
             <div class="col-sm-auto">
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+                <input type="checkbox" class="form-check-input" id="oilPressureEnbOpenCircuitAlarm" checked>
                 <label class="form-check-label" for="materialChecked2">Активировать сигнал размыкания цепи</label>
               </div>
             </div>
@@ -159,7 +159,7 @@
           <div class="row">
             <div class="col-sm-auto">
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+                <input type="checkbox" class="form-check-input" id="oilPressureAlarmEnb" checked>
                 <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
               </div>
             </div>
@@ -170,20 +170,20 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="s-sinput1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-oilPressureAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">Атмосфер</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider1"></div>
+              <div class="s-slider" id="s-slider-oilPressureAlarmLevel"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-auto">
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+                <input type="checkbox" class="form-check-input" id="oilPressurePreAlarmEnb" checked>
                 <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
               </div>
             </div>
@@ -193,13 +193,13 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="s-sinput2">
+              <input type="number" class="form-control in-num s-sinput" id="s-sinput-oilPressurePreAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">Атмосфер</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider2"></div>
+              <div class="s-slider" id="s-slider-oilPressurePreAlarmLevel"></div>
             </div>
           </div>
         </div>
@@ -208,7 +208,7 @@
           <h5>Температура охдаждающей жидкости</h5>
           <div class="row">
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" name="sensor-type" id="coolantTempSensorType">
                 <option value="0">Не использовать</option>
                 <option value="1">Нормально открытый</option>
                 <option value="2">Нормально закрытый</option>
@@ -226,7 +226,7 @@
           <div class="row">
             <div class="col-sm-auto">
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+                <input type="checkbox" class="form-check-input" id="coolantTempEnbOpenCircuitAlarm" checked>
                 <label class="form-check-label" for="materialChecked2">Активировать сигнал размыкания цепи</label>
               </div>
             </div>
@@ -237,6 +237,7 @@
           <div class="row">
             <div class="col-sm-auto">
               <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="coolantHightTempAlarmEnb" checked>
                 <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
             </div>
           </div>
@@ -247,20 +248,20 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="input-coolantHightTempAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">'C</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider3"></div>
+              <div class="s-slider" id="s-slider-coolantHightTempAlarmLevel"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-auto">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+                  <input type="checkbox" class="form-check-input" id="coolantHightTempPreAlarmEnb" checked>
                   <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
                 </div>
             </div>
@@ -271,13 +272,13 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="input-coolantHightTempPreAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">'C</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider4"></div>
+              <div class="s-slider" id="s-slider-coolantHightTempPreAlarmLevel"></div>
             </div>
           </div>
 
@@ -285,7 +286,7 @@
           <div class="row">
             <div class="col-sm-auto">
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+                <input type="checkbox" class="form-check-input" id="coolantTempHeaterEnb" checked>
                 <label class="form-check-label" for="materialChecked2">Активировать</label>
             </div>
           </div>
@@ -296,19 +297,19 @@
             <label>Вкл</label>
           </div>
           <div class="col-sm-2">
-            <input type="number" class="form-control in-num d-sinput-left" id="exampleInputEmail1">
+            <input type="number" class="form-control in-num d-sinput-left" id="input-coolantTempHeaterOffLevel">
           </div>
           <div class="col-sm-1">
             <label>'C</label>
           </div>
           <div class="col-sm-4">
-            <div class="d-slider" id="d-slider1"></div>
+            <div class="d-slider" id="d-slider-coolantTempHeaterLevel"></div>
           </div>
           <div class="col-sm-1">
             <label>Выкл</label>
           </div>
           <div class="col-sm-2">
-            <input type="number" class="form-control in-num d-sinput-right" id="exampleInputEmail1">
+            <input type="number" class="form-control in-num d-sinput-right" id="input-coolantTempHeaterOnLevel">
           </div>
           <div class="col-sm-1">
             <label>'C</label>
@@ -319,7 +320,7 @@
           <div class="row">
             <div class="col-sm-auto">
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
+                <input type="checkbox" class="form-check-input" id="coolantTempCoolerEnb" checked>
                 <label class="form-check-label" for="materialChecked2">Активировать</label>
               </div>
             </div>
@@ -331,27 +332,25 @@
               <label>Вкл</label>
             </div>
             <div class="col-sm-2">
-              <input type="number" class="form-control in-num d-sinput-left" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num d-sinput-left" id="input-coolantTempCoolerOffLevel">
             </div>
             <div class="col-sm-1">
               <label>'C</label>
             </div>
             <div class="col-sm-4">
-              <div class="d-slider" id="d-slider2"></div>
+              <div class="d-slider" id="d-slider-coolantTempCoolerLevel"></div>
             </div>
             <div class="col-sm-1">
               <label>Выкл</label>
             </div>
             <div class="col-sm-2">
-              <input type="number" class="form-control in-num d-sinput-right" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num d-sinput-right" id="input-coolantTempCoolerOnLevel">
             </div>
             <div class="col-sm-1">
               <label>'C</label>
             </div>
           </div>
         </div>
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <!------------------------------------------------------------------------------------------------------------->
         <div id="fuelLevelPage" class="content-data">
           <h5>Уровень топлива</h5>
@@ -599,8 +598,6 @@
           </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <div id="digitalInputAPage" class="content-data">
           <h5>Цифровой вход A</h5>
 
@@ -670,8 +667,6 @@
             </div>
           </div>
         </div>
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <!------------------------------------------------------------------------------------------------------------->
         <div id="digitalInputBPage" class="content-data">
           <h5>Цифровой вход B</h5>
@@ -743,8 +738,6 @@
           </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <div id="digitalInputCPage" class="content-data">
           <h5>Цифровой вход C</h5>
 
@@ -815,8 +808,6 @@
           </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <div id="digitalInputDPage" class="content-data">
           <h5>Цифровой вход D</h5>
 
@@ -886,8 +877,6 @@
             </div>
           </div>
         </div>
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <!------------------------------------------------------------------------------------------------------------->
         <div id="digitalOutputPage" class="content-data">
           <h5>Цифровые выходы</h5>
@@ -1311,8 +1300,6 @@
           </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <div id="timerPage" class="content-data">
           <h5>Таймеры</h5>
 
@@ -1576,8 +1563,6 @@
           </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <div id="generatorOptionPage" class="content-data">
           <h5>Опции генератора</h5>
 
@@ -1735,8 +1720,6 @@
           </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <div id="generatorVoltagePage" class="content-data">
           <h5>Напряжение генератора</h5>
 
@@ -1842,8 +1825,6 @@
           </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <div id="generatorFreqPage" class="content-data">
           <h5>Частота генератора</h5>
 
@@ -1947,8 +1928,6 @@
             </div>
           </div>
         </div>
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <!------------------------------------------------------------------------------------------------------------->
         <div id="generatorCurrentPage" class="content-data">
           <h5>Сила тока генератора</h5>
@@ -2134,8 +2113,6 @@
           </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <div id="networkOptionPage" class="content-data">
           <h5>Опции сети</h5>
 
@@ -2173,8 +2150,6 @@
             </div>
           </div>
         </div>
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <!------------------------------------------------------------------------------------------------------------->
         <div id="networkAlarmPage" class="content-data">
           <h5>Сигналы тревоги сети</h5>
@@ -2280,8 +2255,6 @@
           </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <div id="engineOptionPage" class="content-data">
 
           <h5>Опции двигателя</h5>
@@ -2380,8 +2353,6 @@
           </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <div id="crankshaftPage" class="content-data">
           <h5>Отключение коленчатого вала</h5>
 
@@ -2470,8 +2441,6 @@
             </div>
           </div>
         </div>
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <!------------------------------------------------------------------------------------------------------------->
         <div id="battaryPage" class="content-data">
           <h5>Аккумулятор агрегата</h5>
@@ -2637,8 +2606,6 @@
           </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <div id="servicePage" class="content-data">
           <h5>Сигналы техобслуживагия</h5>
 
@@ -2757,13 +2724,9 @@
           </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <div id="noDataPage" class="content-data">
           <h1>Страница находиться в разработке</h1>
         </div>
-        <!------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------------------------------------------------------------------->
         <!------------------------------------------------------------------------------------------------------------->
         </div>
       </div>

@@ -2,12 +2,17 @@
 //******************************************************************************
 //******************************************************************************
 function getConfig(n) {
+/*
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET","/configs/0",true);
+	xhr.open("GET","http://10.130.2.25/configs/0",true);
 	xhr.onload = function (){
 		alert(xhr.responseText);
 	}
 	xhr.send(null);
+	*/
+	var moduleSetup      = JSON.parse('{"page": 0,"adr": 0,"scale": 1,"value": 3,"min": 0,"max": 3,"units": "   ","type": "U","len": 1,"bitMapSize": 2,"bit": [{"mask": 1,"shift": 0,"min": 0,"max": 1},{"mask": 2,"shift": 1,"min": 0,"max": 1}]}');
+	var oilPressureSetup = JSON.parse('{"page": 0,"adr": 1,"scale": 1,"value": 36,"min": 0,"max": 63,"units": "   ","type": "U","len": 1,"bitMapSize": 3,"bit": [{"mask": 1,"shift": 0,"min": 0,"max": 1},{"mask": 30,"shift": 1,"min": 0,"max": 11},{"mask": 32,"shift": 5,"min": 0,"max": 1}]}');
+	console.log(moduleSetup);
 	return;
 }
 //******************************************************************************
