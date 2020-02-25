@@ -73,7 +73,7 @@ var data = [{
     "adr": 2,
     "name": "oilPressureAlarmLevel",
     "min": 0.0,
-    "max": 10.01,
+    "max": 10.3,
     "value": 1.03,
     "bitMapSize": 0,
     "len": 1,
@@ -86,7 +86,7 @@ var data = [{
     "adr": 3,
     "name": "oilPressurePreAlarmLevel",
     "min": 0.0,
-    "max": 10.01,
+    "max": 10.3,
     "value": 0.5,
     "bitMapSize": 0,
     "len": 1,
@@ -231,11 +231,11 @@ var data = [{
 },{
     "scale": 1.0,
     "adr": 11,
-    "name": "fuelLevelAlarms",
+    "name": "fuelLevelSetup",
     "min": 0.0,
     "max": 1023.0,
-    "value": 0,
-    "bitMapSize": 7,
+    "value": 665,
+    "bitMapSize": 8,
     "len": 1,
     "units": "",
     "bit": [
@@ -287,6 +287,13 @@ var data = [{
             "mask": 256,
             "name": "fuelLevelHightAlarmAction",
             "min": 0
+        },
+        {
+            "shift": 9,
+            "max": 1,
+            "mask": 512,
+            "name": "fuelPumpEnb",
+            "min": 0
         }
     ],
     "type": "U",
@@ -310,7 +317,7 @@ var data = [{
     "name": "fuelLevelLowAlarmDelay",
     "min": 0.0,
     "max": 3600.0,
-    "value": 0.0,
+    "value": 100.0,
     "bitMapSize": 0,
     "len": 1,
     "units": "s",
@@ -320,7 +327,7 @@ var data = [{
 },{
     "scale": 1.0,
     "adr": 14,
-    "name": "fuelLevelLowPreAlarmLevelTrip",
+    "name": "fuelLevelLowPreAlarmLevel",
     "min": 1.0,
     "max": 96.0,
     "value": 25.0,
@@ -333,23 +340,10 @@ var data = [{
 },{
     "scale": 1.0,
     "adr": 15,
-    "name": "fuelLevelLowPreAlarmLevelReturn",
-    "min": 2.0,
-    "max": 97.0,
-    "value": 30.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "%",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 16,
-    "name": "fuelLevelLowPreAlarmLevelDelay",
+    "name": "fuelLevelLowPreAlarmDelay",
     "min": 0.0,
     "max": 3600.0,
-    "value": 0.0,
+    "value": 100.0,
     "bitMapSize": 0,
     "len": 1,
     "units": "s",
@@ -358,8 +352,8 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 17,
-    "name": "fuelLevelHightPreAlarmLevelReturn",
+    "adr": 16,
+    "name": "fuelLevelHightPreAlarmLevel",
     "min": 3.0,
     "max": 98.0,
     "value": 65.0,
@@ -371,21 +365,8 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 18,
-    "name": "fuelFueLevelHightPreAlarmLevelTrip",
-    "min": 4.0,
-    "max": 99.0,
-    "value": 70.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "%",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 19,
-    "name": "fuelLevelHightPreAlarmLevelDelay",
+    "adr": 17,
+    "name": "fuelLevelHightPreAlarmDelay",
     "min": 0.0,
     "max": 3600.0,
     "value": 0.0,
@@ -397,7 +378,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 20,
+    "adr": 18,
     "name": "fuelLevelHightAlarmLevel",
     "min": 5.0,
     "max": 100.0,
@@ -410,7 +391,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 21,
+    "adr": 19,
     "name": "fuelLevelHightAlarmDelay",
     "min": 0.0,
     "max": 3600.0,
@@ -423,11 +404,37 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
+    "adr": 20,
+    "name": "fuelPumpOnLevel",
+    "min": 0.0,
+    "max": 100.0,
+    "value": 30.0,
+    "bitMapSize": 0,
+    "len": 1,
+    "units": "%",
+    "bit": [],
+    "type": "U",
+    "page": 0
+},{
+    "scale": 1.0,
+    "adr": 21,
+    "name": "fuelPumpOffLevel",
+    "min": 0.0,
+    "max": 100.0,
+    "value": 70.0,
+    "bitMapSize": 0,
+    "len": 1,
+    "units": "%",
+    "bit": [],
+    "type": "U",
+    "page": 0
+},{
+    "scale": 1.0,
     "adr": 22,
     "name": "diaSetup",
     "min": 0.0,
     "max": 1023.0,
-    "value": 19,
+    "value": 0,
     "bitMapSize": 4,
     "len": 1,
     "units": "",
@@ -469,7 +476,7 @@ var data = [{
     "name": "diaDelay",
     "min": 0.0,
     "max": 60.0,
-    "value": 0.0,
+    "value": 15.0,
     "bitMapSize": 0,
     "len": 1,
     "units": "s",
@@ -482,7 +489,7 @@ var data = [{
     "name": "dibSetup",
     "min": 0.0,
     "max": 1023.0,
-    "value": 8,
+    "value": 0,
     "bitMapSize": 4,
     "len": 1,
     "units": "",
@@ -524,7 +531,7 @@ var data = [{
     "name": "dibDelay",
     "min": 0.0,
     "max": 60.0,
-    "value": 0.0,
+    "value": 15.0,
     "bitMapSize": 0,
     "len": 1,
     "units": "s",
@@ -537,7 +544,7 @@ var data = [{
     "name": "dicSetup",
     "min": 0.0,
     "max": 1023.0,
-    "value": 2,
+    "value": 0,
     "bitMapSize": 4,
     "len": 1,
     "units": "",
@@ -579,7 +586,7 @@ var data = [{
     "name": "dicDelay",
     "min": 0.0,
     "max": 60.0,
-    "value": 0.0,
+    "value": 15.0,
     "bitMapSize": 0,
     "len": 1,
     "units": "s",
@@ -592,7 +599,7 @@ var data = [{
     "name": "didSetup",
     "min": 0.0,
     "max": 1023.0,
-    "value": 192,
+    "value": 64,
     "bitMapSize": 4,
     "len": 1,
     "units": "",
@@ -634,7 +641,7 @@ var data = [{
     "name": "didDelay",
     "min": 0.0,
     "max": 60.0,
-    "value": 0.0,
+    "value": 15.0,
     "bitMapSize": 0,
     "len": 1,
     "units": "s",
@@ -644,26 +651,54 @@ var data = [{
 },{
     "scale": 1.0,
     "adr": 30,
-    "name": "diabType",
+    "name": "doSetup",
     "min": 0.0,
     "max": 1023.0,
-    "value": 0,
-    "bitMapSize": 2,
+    "value": 21,
+    "bitMapSize": 6,
     "len": 1,
     "units": "",
     "bit": [
         {
             "shift": 0,
-            "max": 255,
-            "mask": 255,
-            "name": "diaType",
+            "max": 1,
+            "mask": 1,
+            "name": "doaNOC",
             "min": 0
         },
         {
-            "shift": 8,
-            "max": 255,
-            "mask": 65280,
-            "name": "diaType",
+            "shift": 1,
+            "max": 1,
+            "mask": 2,
+            "name": "dobNOC",
+            "min": 0
+        },
+        {
+            "shift": 2,
+            "max": 1,
+            "mask": 4,
+            "name": "docNOC",
+            "min": 0
+        },
+        {
+            "shift": 3,
+            "max": 1,
+            "mask": 8,
+            "name": "dodNOC",
+            "min": 0
+        },
+        {
+            "shift": 4,
+            "max": 1,
+            "mask": 16,
+            "name": "doeNOC",
+            "min": 0
+        },
+        {
+            "shift": 5,
+            "max": 1,
+            "mask": 32,
+            "name": "dofNOC",
             "min": 0
         }
     ],
@@ -672,7 +707,7 @@ var data = [{
 },{
     "scale": 1.0,
     "adr": 31,
-    "name": "dicdType",
+    "name": "doabType",
     "min": 0.0,
     "max": 1023.0,
     "value": 0,
@@ -684,14 +719,14 @@ var data = [{
             "shift": 0,
             "max": 255,
             "mask": 255,
-            "name": "dicType",
+            "name": "doaType",
             "min": 0
         },
         {
             "shift": 8,
             "max": 255,
             "mask": 65280,
-            "name": "didType",
+            "name": "dobType",
             "min": 0
         }
     ],
@@ -700,7 +735,7 @@ var data = [{
 },{
     "scale": 1.0,
     "adr": 32,
-    "name": "dirfType",
+    "name": "dodType",
     "min": 0.0,
     "max": 1023.0,
     "value": 0,
@@ -712,14 +747,14 @@ var data = [{
             "shift": 0,
             "max": 255,
             "mask": 255,
-            "name": "dieType",
+            "name": "docType",
             "min": 0
         },
         {
             "shift": 8,
             "max": 255,
             "mask": 65280,
-            "name": "difType",
+            "name": "doType",
             "min": 0
         }
     ],
@@ -728,6 +763,34 @@ var data = [{
 },{
     "scale": 1.0,
     "adr": 33,
+    "name": "doefType",
+    "min": 0.0,
+    "max": 1023.0,
+    "value": 0,
+    "bitMapSize": 2,
+    "len": 1,
+    "units": "",
+    "bit": [
+        {
+            "shift": 0,
+            "max": 255,
+            "mask": 255,
+            "name": "doeType",
+            "min": 0
+        },
+        {
+            "shift": 8,
+            "max": 255,
+            "mask": 65280,
+            "name": "dofType",
+            "min": 0
+        }
+    ],
+    "type": "U",
+    "page": 0
+},{
+    "scale": 1.0,
+    "adr": 34,
     "name": "timerMainsTransientDelay",
     "min": 0.0,
     "max": 30.0,
@@ -740,7 +803,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 34,
+    "adr": 35,
     "name": "timerStartDelay",
     "min": 0.0,
     "max": 36000.0,
@@ -753,21 +816,8 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 35,
-    "name": "timerDelayCrank",
-    "min": 3.0,
-    "max": 60.0,
-    "value": 10.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
     "adr": 36,
-    "name": "timerCranling",
+    "name": "timerCranking",
     "min": 3.0,
     "max": 60.0,
     "value": 10.0,
@@ -780,10 +830,10 @@ var data = [{
 },{
     "scale": 1.0,
     "adr": 37,
-    "name": "timerSmokeLimit",
-    "min": 0.0,
-    "max": 900.0,
-    "value": 0.0,
+    "name": "timerCrankDelay",
+    "min": 3.0,
+    "max": 60.0,
+    "value": 10.0,
     "bitMapSize": 0,
     "len": 1,
     "units": "s",
@@ -793,10 +843,10 @@ var data = [{
 },{
     "scale": 1.0,
     "adr": 38,
-    "name": "timerSmokeLimitOff",
+    "name": "timerStartupIdleTime",
     "min": 0.0,
     "max": 60.0,
-    "value": 0.0,
+    "value": 10.0,
     "bitMapSize": 0,
     "len": 1,
     "units": "s",
@@ -806,7 +856,7 @@ var data = [{
 },{
     "scale": 1.0,
     "adr": 39,
-    "name": "timerSafetyOnDelay",
+    "name": "timerNominalRPMDelay",
     "min": 0.0,
     "max": 60.0,
     "value": 10.0,
@@ -819,6 +869,19 @@ var data = [{
 },{
     "scale": 1.0,
     "adr": 40,
+    "name": "timerSafetyOnDelay",
+    "min": 0.0,
+    "max": 60.0,
+    "value": 10.0,
+    "bitMapSize": 0,
+    "len": 1,
+    "units": "s",
+    "bit": [],
+    "type": "U",
+    "page": 0
+},{
+    "scale": 1.0,
+    "adr": 41,
     "name": "timerWarming",
     "min": 0.0,
     "max": 3600.0,
@@ -831,7 +894,7 @@ var data = [{
     "page": 0
 },{
     "scale": 0.1,
-    "adr": 41,
+    "adr": 42,
     "name": "timerTransferDelay",
     "min": 0.0,
     "max": 600.0,
@@ -844,7 +907,7 @@ var data = [{
     "page": 0
 },{
     "scale": 0.1,
-    "adr": 42,
+    "adr": 43,
     "name": "timerBreakerTripPulse",
     "min": 0.0,
     "max": 5.0,
@@ -857,7 +920,7 @@ var data = [{
     "page": 0
 },{
     "scale": 0.1,
-    "adr": 43,
+    "adr": 44,
     "name": "timerBreakerClosePulse",
     "min": 0.0,
     "max": 5.0,
@@ -870,7 +933,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 44,
+    "adr": 45,
     "name": "timerReturnDelay",
     "min": 0.0,
     "max": 18000.0,
@@ -883,7 +946,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 45,
+    "adr": 46,
     "name": "timerCooling",
     "min": 0.0,
     "max": 3600.0,
@@ -896,7 +959,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 46,
+    "adr": 47,
     "name": "timerCoolingIdle",
     "min": 0.0,
     "max": 900.0,
@@ -909,7 +972,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 47,
+    "adr": 48,
     "name": "timerSolenoidHold",
     "min": 0.0,
     "max": 120.0,
@@ -922,7 +985,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 48,
+    "adr": 49,
     "name": "timerFailStopDelay",
     "min": 10.0,
     "max": 120.0,
@@ -935,8 +998,8 @@ var data = [{
     "page": 0
 },{
     "scale": 0.1,
-    "adr": 49,
-    "name": "timergenTransientDelay",
+    "adr": 50,
+    "name": "timerGenTransientDelay",
     "min": 0.0,
     "max": 30.0,
     "value": 0.0,
@@ -948,12 +1011,12 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 50,
+    "adr": 51,
     "name": "genSetup",
     "min": 0.0,
     "max": 255.0,
-    "value": 105,
-    "bitMapSize": 3,
+    "value": 104,
+    "bitMapSize": 4,
     "len": 1,
     "units": "",
     "bit": [
@@ -961,7 +1024,7 @@ var data = [{
             "shift": 0,
             "max": 1,
             "mask": 1,
-            "name": "genAltematorFitted",
+            "name": "genPowerGeneratorControlEnb",
             "min": 0
         },
         {
@@ -977,18 +1040,103 @@ var data = [{
             "mask": 224,
             "name": "genAcSys",
             "min": 0
+        },
+        {
+            "shift": 8,
+            "max": 1,
+            "mask": 256,
+            "name": "genLocationCurrentTransformer",
+            "min": 0
         }
     ],
     "type": "U",
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 51,
+    "adr": 52,
+    "name": "genRatedActivePower",
+    "min": 0.0,
+    "max": 65535.0,
+    "value": 40000.0,
+    "bitMapSize": 0,
+    "len": 1,
+    "units": "kW",
+    "bit": [],
+    "type": "U",
+    "page": 0
+},{
+    "scale": 1.0,
+    "adr": 53,
+    "name": "genRatedReactivePower",
+    "min": 0.0,
+    "max": 65535.0,
+    "value": 0.0,
+    "bitMapSize": 0,
+    "len": 1,
+    "units": "kVAR",
+    "bit": [],
+    "type": "U",
+    "page": 0
+},{
+    "scale": 1.0,
+    "adr": 54,
+    "name": "genRatedApparentPower",
+    "min": 0.0,
+    "max": 20000.0,
+    "value": 200.0,
+    "bitMapSize": 0,
+    "len": 1,
+    "units": "kVA",
+    "bit": [],
+    "type": "U",
+    "page": 0
+},{
+    "scale": 0.1,
+    "adr": 55,
+    "name": "genRatedFrequency",
+    "min": 0.3,
+    "max": 74.7,
+    "value": 50.0,
+    "bitMapSize": 0,
+    "len": 1,
+    "units": "Hz",
+    "bit": [],
+    "type": "U",
+    "page": 0
+},{
+    "scale": 1.0,
+    "adr": 56,
+    "name": "genCurrentPrimary",
+    "min": 5.0,
+    "max": 8000.0,
+    "value": 600.0,
+    "bitMapSize": 0,
+    "len": 1,
+    "units": "A",
+    "bit": [],
+    "type": "U",
+    "page": 0
+},{
+    "scale": 1.0,
+    "adr": 57,
+    "name": "genCurrentFullLoadRating",
+    "min": 5.0,
+    "max": 8000.0,
+    "value": 500.0,
+    "bitMapSize": 0,
+    "len": 1,
+    "units": "A",
+    "bit": [],
+    "type": "U",
+    "page": 0
+},{
+    "scale": 1.0,
+    "adr": 58,
     "name": "genAlarms",
     "min": 0.0,
     "max": 65535.0,
-    "value": 36351,
-    "bitMapSize": 15,
+    "value": 7167,
+    "bitMapSize": 12,
     "len": 1,
     "units": "",
     "bit": [
@@ -1003,7 +1151,7 @@ var data = [{
             "shift": 1,
             "max": 1,
             "mask": 2,
-            "name": "genUnderVoltagepreAlarmEnb",
+            "name": "genUnderVoltagePreAlarmEnb",
             "min": 0
         },
         {
@@ -1031,70 +1179,49 @@ var data = [{
             "shift": 5,
             "max": 1,
             "mask": 32,
-            "name": "genOverFrequencyPreAlrm",
+            "name": "genOverFrequencyPreAlrmEnb",
             "min": 0
         },
         {
             "shift": 6,
             "max": 1,
             "mask": 64,
-            "name": "genOverFrequencyShutdownEnb",
+            "name": "genOverFrequencyAlarmEnb",
             "min": 0
         },
         {
             "shift": 7,
             "max": 1,
             "mask": 128,
-            "name": "genCurrentPrimaryEnb",
+            "name": "genCurrentOverloadProtectionEnb",
             "min": 0
         },
         {
             "shift": 8,
             "max": 1,
             "mask": 256,
-            "name": "genCurrentSecondary",
+            "name": "genCurrentOverPhaseImbalanceEnb",
             "min": 0
         },
         {
             "shift": 9,
-            "max": 1,
-            "mask": 512,
-            "name": "genCurrentPosition",
-            "min": 0
-        },
-        {
-            "shift": 10,
-            "max": 1,
-            "mask": 1024,
-            "name": "genOverCurrentImmWarning",
+            "max": 3,
+            "mask": 1536,
+            "name": "genCurrentOverAlarmAction",
             "min": 0
         },
         {
             "shift": 11,
             "max": 1,
             "mask": 2048,
-            "name": "genOverCurrentDelayAlarmEnb",
+            "name": "genCurrentOverloadProtectionAction",
             "min": 0
         },
         {
             "shift": 12,
-            "max": 3,
-            "mask": 12288,
-            "name": "genOverCurrentDelayAlarmAction",
-            "min": 0
-        },
-        {
-            "shift": 14,
             "max": 1,
-            "mask": 16384,
-            "name": "genCurrentOverloadProtectionEnb",
-            "min": 0
-        },
-        {
-            "shift": 15,
-            "max": 1,
-            "mask": 32768,
-            "name": "genCurrentOverloadProtectionAction",
+            "mask": 4096,
+            "name": "genCurrentOverPhaseImbalanceAction",
             "min": 0
         }
     ],
@@ -1102,8 +1229,8 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 52,
-    "name": "genUnderVoltageAlarmTrip",
+    "adr": 59,
+    "name": "genUnderVoltageAlarmLevel",
     "min": 86.0,
     "max": 708.0,
     "value": 318.0,
@@ -1115,8 +1242,8 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 53,
-    "name": "genUnderVoltagepreAlarmTrip",
+    "adr": 60,
+    "name": "genUnderVoltagePreAlarmLevel",
     "min": 88.0,
     "max": 710.0,
     "value": 339.0,
@@ -1128,34 +1255,8 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 54,
-    "name": "genVoltageLoad",
-    "min": 90.0,
-    "max": 711.0,
-    "value": 358.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "V",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 55,
-    "name": "genVoltageNominal",
-    "min": 91.0,
-    "max": 713.0,
-    "value": 398.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "V",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 56,
-    "name": "genOverVoltagePreAlarmReturn",
+    "adr": 61,
+    "name": "genOverVoltagePreAlarmLevel",
     "min": 93.0,
     "max": 715.0,
     "value": 439.0,
@@ -1167,8 +1268,8 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 57,
-    "name": "genOverVoltagePreAlarmTrip",
+    "adr": 62,
+    "name": "genOverVoltageAlarmLevel",
     "min": 95.0,
     "max": 717.0,
     "value": 458.0,
@@ -1179,22 +1280,9 @@ var data = [{
     "type": "U",
     "page": 0
 },{
-    "scale": 1.0,
-    "adr": 58,
-    "name": "genOverVoltageShutdownTrip",
-    "min": 96.0,
-    "max": 718.0,
-    "value": 479.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "V",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
     "scale": 0.1,
-    "adr": 59,
-    "name": "genUnderFrequencyAlrmTrip",
+    "adr": 63,
+    "name": "genUnderFrequencyAlrmLevel",
     "min": 0.0,
     "max": 74.4,
     "value": 40.0,
@@ -1206,8 +1294,8 @@ var data = [{
     "page": 0
 },{
     "scale": 0.1,
-    "adr": 60,
-    "name": "genUnderFrequencyPreAlrmTrip",
+    "adr": 64,
+    "name": "genUnderFrequencyPreAlrmLevel",
     "min": 0.1,
     "max": 74.5,
     "value": 42.0,
@@ -1219,34 +1307,8 @@ var data = [{
     "page": 0
 },{
     "scale": 0.1,
-    "adr": 61,
-    "name": "genFrequencyLoad",
-    "min": 0.2,
-    "max": 74.6,
-    "value": 45.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "Hz",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 0.1,
-    "adr": 62,
-    "name": "genFrequencyNominal",
-    "min": 0.3,
-    "max": 74.7,
-    "value": 50.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "Hz",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 0.1,
-    "adr": 63,
-    "name": "genOverFrequencyPreAlrmReturn",
+    "adr": 65,
+    "name": "genOverFrequencyPreAlrmLevel",
     "min": 0.4,
     "max": 74.8,
     "value": 54.0,
@@ -1258,8 +1320,8 @@ var data = [{
     "page": 0
 },{
     "scale": 0.1,
-    "adr": 64,
-    "name": "genOverFrequencyPreAlrmTrip",
+    "adr": 66,
+    "name": "genOverFrequencyAlrmLevel",
     "min": 0.5,
     "max": 74.9,
     "value": 55.0,
@@ -1270,61 +1332,35 @@ var data = [{
     "type": "U",
     "page": 0
 },{
-    "scale": 0.1,
-    "adr": 65,
-    "name": "genOverFrequencyShutdownTrip",
-    "min": 0.6,
-    "max": 75.0,
-    "value": 57.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "Hz",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 66,
-    "name": "genCurrentPrimary",
-    "min": 5.0,
-    "max": 8000.0,
-    "value": 600.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "A",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
     "scale": 1.0,
     "adr": 67,
-    "name": "genCurrentFullLoadRating",
-    "min": 5.0,
-    "max": 8000.0,
-    "value": 500.0,
+    "name": "genOverCurrentThermalProtectionLevel",
+    "min": 0.0,
+    "max": 120.0,
+    "value": 20.0,
     "bitMapSize": 0,
     "len": 1,
-    "units": "A",
+    "units": "%",
     "bit": [],
     "type": "U",
     "page": 0
 },{
     "scale": 1.0,
     "adr": 68,
-    "name": "genOverCurrentAlarmDelay",
+    "name": "genOverCurrentCutoffLevel",
     "min": 0.0,
-    "max": 3600.0,
-    "value": 60.0,
+    "max": 120.0,
+    "value": 40.0,
     "bitMapSize": 0,
     "len": 1,
-    "units": "s",
+    "units": "%",
     "bit": [],
     "type": "U",
     "page": 0
 },{
     "scale": 1.0,
     "adr": 69,
-    "name": "genOverCurrentAlarmTrip",
+    "name": "genOverCurrentAlarmLevel",
     "min": 50.0,
     "max": 120.0,
     "value": 100.0,
@@ -1337,20 +1373,20 @@ var data = [{
 },{
     "scale": 1.0,
     "adr": 70,
-    "name": "genCurrentRating",
-    "min": 1.0,
-    "max": 20000.0,
-    "value": 200.0,
+    "name": "genOverCurrentAlarmDelay",
+    "min": 0.0,
+    "max": 3600.0,
+    "value": 60.0,
     "bitMapSize": 0,
     "len": 1,
-    "units": "A",
+    "units": "s",
     "bit": [],
     "type": "U",
     "page": 0
 },{
     "scale": 1.0,
     "adr": 71,
-    "name": "genCurrentOverloadProtectionTrip",
+    "name": "genCurrentOverloadProtectionLevel",
     "min": 1.0,
     "max": 125.0,
     "value": 100.0,
@@ -1376,6 +1412,32 @@ var data = [{
 },{
     "scale": 1.0,
     "adr": 73,
+    "name": "genCurrentOverPhaseImbalanceLevel",
+    "min": 1.0,
+    "max": 125.0,
+    "value": 100.0,
+    "bitMapSize": 0,
+    "len": 1,
+    "units": "%",
+    "bit": [],
+    "type": "U",
+    "page": 0
+},{
+    "scale": 1.0,
+    "adr": 74,
+    "name": "genCurrentOverPhaseImbalanceDelay",
+    "min": 0.0,
+    "max": 3600.0,
+    "value": 60.0,
+    "bitMapSize": 0,
+    "len": 1,
+    "units": "s",
+    "bit": [],
+    "type": "U",
+    "page": 0
+},{
+    "scale": 1.0,
+    "adr": 75,
     "name": "mainsSetup",
     "min": 0.0,
     "max": 31.0,
@@ -1388,14 +1450,14 @@ var data = [{
             "shift": 0,
             "max": 1,
             "mask": 1,
-            "name": "mainsFailDetection",
+            "name": "mainsControl",
             "min": 0
         },
         {
             "shift": 1,
             "max": 1,
             "mask": 2,
-            "name": "mainImmDropout",
+            "name": "mainsPowerOffImmediately",
             "min": 0
         },
         {
@@ -1410,7 +1472,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 74,
+    "adr": 76,
     "name": "mainsAlarms",
     "min": 0.0,
     "max": 15.0,
@@ -1452,8 +1514,8 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 75,
-    "name": "mainsUnderVoltageAlarmTrip",
+    "adr": 77,
+    "name": "mainsUnderVoltageAlarmLevel",
     "min": 86.0,
     "max": 713.0,
     "value": 318.0,
@@ -1465,21 +1527,8 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 76,
-    "name": "mainsUnderVoltageAlarmReturn",
-    "min": 88.0,
-    "max": 715.0,
-    "value": 358.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "V",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 77,
-    "name": "mainsOverVoltageAlarmReturn",
+    "adr": 78,
+    "name": "mainsOverVoltageAlarmLevel",
     "min": 90.0,
     "max": 717.0,
     "value": 438.0,
@@ -1490,22 +1539,9 @@ var data = [{
     "type": "U",
     "page": 0
 },{
-    "scale": 1.0,
-    "adr": 78,
-    "name": "mainsOverVoltageAlarmTrip",
-    "min": 91.0,
-    "max": 718.0,
-    "value": 478.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "V",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
     "scale": 0.1,
     "adr": 79,
-    "name": "mainsUnderFrequencyAlarmTrip",
+    "name": "mainsUnderFrequencyAlarmLevel",
     "min": 0.0,
     "max": 74.7,
     "value": 45.0,
@@ -1518,20 +1554,7 @@ var data = [{
 },{
     "scale": 0.1,
     "adr": 80,
-    "name": "mainsUnderFrequencyAlarmReturn",
-    "min": 0.1,
-    "max": 74.8,
-    "value": 48.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "Hz",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 0.1,
-    "adr": 81,
-    "name": "mainsOverFrequencyAlarmReturn",
+    "name": "mainsOverFrequencyAlarmLevel",
     "min": 0.2,
     "max": 74.9,
     "value": 52.0,
@@ -1542,21 +1565,8 @@ var data = [{
     "type": "U",
     "page": 0
 },{
-    "scale": 0.1,
-    "adr": 82,
-    "name": "mainsOverFrequencyAlarmTrip",
-    "min": 0.3,
-    "max": 75.0,
-    "value": 55.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "Hz",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
     "scale": 1.0,
-    "adr": 83,
+    "adr": 81,
     "name": "engineSetup",
     "min": 0.0,
     "max": 63.0,
@@ -1591,7 +1601,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 84,
+    "adr": 82,
     "name": "enginePreHeatOn",
     "min": 0.0,
     "max": 100.0,
@@ -1604,7 +1614,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 85,
+    "adr": 83,
     "name": "enginePreHeatDuration",
     "min": 0.0,
     "max": 3600.0,
@@ -1617,7 +1627,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 86,
+    "adr": 84,
     "name": "enginePostHeatOn",
     "min": 0.0,
     "max": 100.0,
@@ -1630,7 +1640,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 87,
+    "adr": 85,
     "name": "enginePostHeatDuration",
     "min": 0.0,
     "max": 3600.0,
@@ -1643,12 +1653,12 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 88,
+    "adr": 86,
     "name": "crankSetup",
     "min": 0.0,
     "max": 7.0,
-    "value": 2,
-    "bitMapSize": 3,
+    "value": 10,
+    "bitMapSize": 4,
     "len": 1,
     "units": "",
     "bit": [
@@ -1663,14 +1673,21 @@ var data = [{
             "shift": 1,
             "max": 1,
             "mask": 2,
-            "name": "oilPressureCheckOnStart",
+            "name": "crankOilPressureCheckOnStart",
             "min": 0
         },
         {
             "shift": 2,
             "max": 1,
             "mask": 4,
-            "name": "crankDisconnectCharge",
+            "name": "crankDisconnectOilPressureEnb",
+            "min": 0
+        },
+        {
+            "shift": 3,
+            "max": 1,
+            "mask": 8,
+            "name": "crankDisconnectChargeAlternatorEnb",
             "min": 0
         }
     ],
@@ -1678,8 +1695,8 @@ var data = [{
     "page": 0
 },{
     "scale": 0.1,
-    "adr": 89,
-    "name": "crankDisconnectgenFreq",
+    "adr": 87,
+    "name": "crankDisconnectgenFreqLevel",
     "min": 0.0,
     "max": 40.0,
     "value": 21.0,
@@ -1690,22 +1707,9 @@ var data = [{
     "type": "U",
     "page": 0
 },{
-    "scale": 1.0,
-    "adr": 90,
-    "name": "crankDisconnectEngineSpeed",
-    "min": 0.0,
-    "max": 3000.0,
-    "value": 600.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "RPM",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
     "scale": 0.1,
-    "adr": 91,
-    "name": "crankDisconnectOilPressure",
+    "adr": 88,
+    "name": "crankDisconnectOilPressureLevel",
     "min": 0.5,
     "max": 4.0,
     "value": 2.0,
@@ -1717,21 +1721,8 @@ var data = [{
     "page": 0
 },{
     "scale": 0.1,
-    "adr": 92,
-    "name": "crankDisconnectOilPressureDelay",
-    "min": 0.0,
-    "max": 60.0,
-    "value": 0.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 0.1,
-    "adr": 93,
-    "name": "crankDisconnectChargeAlternator",
+    "adr": 89,
+    "name": "crankDisconnectChargeAlternatorLevel",
     "min": 0.0,
     "max": 40.0,
     "value": 6.0,
@@ -1743,7 +1734,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 94,
+    "adr": 90,
     "name": "batteryAlarms",
     "min": 0.0,
     "max": 15.0,
@@ -1785,8 +1776,8 @@ var data = [{
     "page": 0
 },{
     "scale": 0.1,
-    "adr": 95,
-    "name": "batteryUnderVoltageWarning",
+    "adr": 91,
+    "name": "batteryUnderVoltageLevel",
     "min": 0.0,
     "max": 39.7,
     "value": 10.0,
@@ -1797,21 +1788,8 @@ var data = [{
     "type": "U",
     "page": 0
 },{
-    "scale": 0.1,
-    "adr": 96,
-    "name": "batteryUnderVoltageReturn",
-    "min": 0.1,
-    "max": 39.8,
-    "value": 10.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
     "scale": 1.0,
-    "adr": 97,
+    "adr": 92,
     "name": "batteryUnderVoltageDelay",
     "min": 0.0,
     "max": 86400.0,
@@ -1824,21 +1802,8 @@ var data = [{
     "page": 0
 },{
     "scale": 0.1,
-    "adr": 98,
-    "name": "batteryOverVoltageReturn",
-    "min": 0.2,
-    "max": 39.9,
-    "value": 10.0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 0.1,
-    "adr": 99,
-    "name": "batteryOverVoltageWarning",
+    "adr": 93,
+    "name": "batteryOverVoltageLevel",
     "min": 0.3,
     "max": 40.0,
     "value": 30.0,
@@ -1850,7 +1815,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 100,
+    "adr": 94,
     "name": "batteryOverVoltageDelay",
     "min": 0.0,
     "max": 86400.0,
@@ -1863,8 +1828,8 @@ var data = [{
     "page": 0
 },{
     "scale": 0.1,
-    "adr": 101,
-    "name": "batteryChargeShutdownTrip",
+    "adr": 95,
+    "name": "batteryChargeShutdownLevel",
     "min": 0.0,
     "max": 38.9,
     "value": 4.0,
@@ -1876,7 +1841,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 102,
+    "adr": 96,
     "name": "batteryChargeShutdownDelay",
     "min": 0.0,
     "max": 3600.0,
@@ -1889,8 +1854,8 @@ var data = [{
     "page": 0
 },{
     "scale": 0.1,
-    "adr": 103,
-    "name": "batteryChargeWarningTrip",
+    "adr": 97,
+    "name": "batteryChargeWarningLevel",
     "min": 0.1,
     "max": 39.0,
     "value": 6.0,
@@ -1902,7 +1867,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 104,
+    "adr": 98,
     "name": "batteryChargeWarningDelay",
     "min": 0.0,
     "max": 3600.0,
@@ -1915,7 +1880,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 105,
+    "adr": 99,
     "name": "maintenanceAlarms",
     "min": 0.0,
     "max": 63.0,
@@ -1971,7 +1936,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 106,
+    "adr": 100,
     "name": "maintenanceAlarmOilEngineRunTime",
     "min": 10.0,
     "max": 5000.0,
@@ -1984,7 +1949,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 107,
+    "adr": 101,
     "name": "maintenanceAlarmAirEngineRunTime",
     "min": 10.0,
     "max": 5000.0,
@@ -1997,7 +1962,7 @@ var data = [{
     "page": 0
 },{
     "scale": 1.0,
-    "adr": 108,
+    "adr": 102,
     "name": "maintenanceAlarmFuelEngineRunTime",
     "min": 10.0,
     "max": 5000.0,
@@ -2008,5 +1973,4 @@ var data = [{
     "bit": [],
     "type": "U",
     "page": 0
-}
-]
+}]

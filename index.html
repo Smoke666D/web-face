@@ -147,10 +147,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="oilPressureEnbOpenCircuitAlarm" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать сигнал размыкания цепи</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="oilPressureEnbOpenCircuitAlarmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать сигнал размыкания цепи</label>
             </div>
           </div>
 
@@ -158,10 +159,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="oilPressureAlarmEnb" checked>
-                <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="oilPressureAlarmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Сигнал тревоги</label>
             </div>
           </div>
 
@@ -182,10 +184,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="oilPressurePreAlarmEnb" checked>
-                <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="oilPressurePreAlarmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Предварительный сигнал тревоги</label>
             </div>
           </div>
           <div class="row">
@@ -225,10 +228,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="coolantTempEnbOpenCircuitAlarm" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать сигнал размыкания цепи</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="coolantTempEnbOpenCircuitAlarm">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать сигнал размыкания цепи</label>
             </div>
           </div>
 
@@ -236,10 +240,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="coolantHightTempAlarmEnb" checked>
-                <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
-            </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="coolantHightTempAlarmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Сигнал тревоги</label>
           </div>
         </div>
 
@@ -248,7 +253,7 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="input-coolantHightTempAlarmLevel">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-coolantHightTempAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">'C</label>
@@ -260,10 +265,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="coolantHightTempPreAlarmEnb" checked>
-                  <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
-                </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="coolantHightTempPreAlarmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Предварительный сигнал тревоги</label>
             </div>
           </div>
 
@@ -272,7 +278,7 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="input-coolantHightTempPreAlarmLevel">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-coolantHightTempPreAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">'C</label>
@@ -285,10 +291,11 @@
           <h6>Управление нагревателем охлаждающей жидкости</h6>
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="coolantTempHeaterEnb" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать</label>
-            </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="coolantTempHeaterEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать</label>
           </div>
         </div>
 
@@ -297,7 +304,7 @@
             <label>Вкл</label>
           </div>
           <div class="col-sm-2">
-            <input type="number" class="form-control in-num d-sinput-left" id="input-coolantTempHeaterOffLevel">
+            <input type="number" class="form-control in-num d-sinput-left" id="dinput-coolantTempHeaterOffLevel">
           </div>
           <div class="col-sm-1">
             <label>'C</label>
@@ -309,7 +316,7 @@
             <label>Выкл</label>
           </div>
           <div class="col-sm-2">
-            <input type="number" class="form-control in-num d-sinput-right" id="input-coolantTempHeaterOnLevel">
+            <input type="number" class="form-control in-num d-sinput-right" id="dinput-coolantTempHeaterOnLevel">
           </div>
           <div class="col-sm-1">
             <label>'C</label>
@@ -319,20 +326,20 @@
           <h6>Управление охлаждателем охлаждающей жидкости</h6>
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="coolantTempCoolerEnb" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="coolantTempCoolerEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать</label>
             </div>
           </div>
-
 
           <div class="row">
             <div class="col-sm-1">
               <label>Вкл</label>
             </div>
             <div class="col-sm-2">
-              <input type="number" class="form-control in-num d-sinput-left" id="input-coolantTempCoolerOffLevel">
+              <input type="number" class="form-control in-num d-sinput-left" id="dinput-coolantTempCoolerOffLevel">
             </div>
             <div class="col-sm-1">
               <label>'C</label>
@@ -344,7 +351,7 @@
               <label>Выкл</label>
             </div>
             <div class="col-sm-2">
-              <input type="number" class="form-control in-num d-sinput-right" id="input-coolantTempCoolerOnLevel">
+              <input type="number" class="form-control in-num d-sinput-right" id="dinput-coolantTempCoolerOnLevel">
             </div>
             <div class="col-sm-1">
               <label>'C</label>
@@ -356,7 +363,7 @@
           <h5>Уровень топлива</h5>
           <div class="row">
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="fuelLevelSensorType">
                 <option value="0">Не использовать</option>
                 <option value="1">Нормально открытый</option>
                 <option value="2">Нормально закрытый</option>
@@ -375,10 +382,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать сигнализатор нижнего предела</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="fuelLevelLowAlarmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать сигнализатор нижнего предела</label>
             </div>
           </div>
 
@@ -387,7 +395,7 @@
               <label class="pos-select">Действие</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="fuelLevelLowAlarmAction" disabled>
                 <option value="0">Останов</option>
                 <option value="1">Отключение нагрузки</option>
               </select>
@@ -399,13 +407,13 @@
               <label class="pos-name">Уровень срабатывания</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-fuelLevelLowAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">%</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider5"></div>
+              <div class="s-slider" id="s-slider-fuelLevelLowAlarmLevel"></div>
             </div>
           </div>
 
@@ -414,22 +422,23 @@
               <label class="pos-name">Задержка</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-fuelLevelLowAlarmDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider6"></div>
+              <div class="s-slider" id="s-slider-fuelLevelLowAlarmDelay"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать предварительный сигнализатор нижнего предела</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="fuelLevelLowPreAlarmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать предварительный сигнализатор нижнего предела</label>
             </div>
           </div>
 
@@ -438,13 +447,13 @@
               <label class="pos-name">Уровень срабатывания</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-fuelLevelLowPreAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">%</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider7"></div>
+              <div class="s-slider" id="s-slider-fuelLevelLowPreAlarmLevel"></div>
             </div>
           </div>
 
@@ -453,13 +462,13 @@
               <label class="pos-name">Задержка</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-fuelLevelLowPreAlarmDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider8"></div>
+              <div class="s-slider" id="s-slider-fuelLevelLowPreAlarmDelay"></div>
             </div>
           </div>
 
@@ -467,10 +476,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать сигнализатор верхнего предела</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="fuelLevelHightAlarmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать сигнализатор верхнего предела</label>
             </div>
           </div>
 
@@ -479,7 +489,7 @@
               <label class="pos-select">Действие</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="fuelLevelHightAlarmAction" disabled>
                 <option value="0">Останов</option>
                 <option value="1">Отключение нагрузки</option>
               </select>
@@ -491,13 +501,13 @@
               <label class="pos-name">Уровень срабатывания</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-fuelLevelHightAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">%</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider9"></div>
+              <div class="s-slider" id="s-slider-fuelLevelHightAlarmLevel"></div>
             </div>
           </div>
 <!---->
@@ -506,38 +516,38 @@
               <label class="pos-name">Задержка</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-fuelLevelHightAlarmDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider10"></div>
+              <div class="s-slider" id="s-slider-fuelLevelHightAlarmDelay"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать предварительный сигнализатор верхнего предела</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="fuelLevelHightPreAlarmLevelEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать предварительный сигнализатор верхнего предела</label>
             </div>
           </div>
-
 
           <div class="row">
             <div class="col-sm-2">
               <label class="pos-name">Уровень срабатывания</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-fuelLevelHightPreAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">%</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider11"></div>
+              <div class="s-slider" id="s-slider-fuelLevelHightPreAlarmLevel"></div>
             </div>
           </div>
 
@@ -546,13 +556,13 @@
               <label class="pos-name">Задержка</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-fuelLevelHightPreAlarmDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider12"></div>
+              <div class="s-slider" id="s-slider-fuelLevelHightPreAlarmDelay"></div>
             </div>
           </div>
 
@@ -560,40 +570,34 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="fuelPumpEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать</label>
             </div>
           </div>
-
           <div class="row">
-            <div class="col-sm-2">
-              <label class="pos-name">Включение</label>
-            </div>
-            <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+            <div class="col-sm-1">
+              <label>Вкл</label>
             </div>
             <div class="col-sm-2">
-              <label class="pos-unit">%</label>
+              <input type="number" class="form-control in-num d-sinput-left" id="dinput-fuelPumpOffLevel">
             </div>
-            <div class="col-sm">
-              <div class="s-slider" id="s-slider13"></div>
+            <div class="col-sm-1">
+              <label>%</label>
             </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-2">
-              <label class="pos-name">Выключение</label>
+            <div class="col-sm-4">
+              <div class="d-slider" id="d-slider-fuelPumpOnOffLevel"></div>
             </div>
-            <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+            <div class="col-sm-1">
+              <label>Выкл</label>
             </div>
             <div class="col-sm-2">
-              <label class="pos-unit">%</label>
+              <input type="number" class="form-control in-num d-sinput-right" id="dinput-fuelPumpOnLevel">
             </div>
-            <div class="col-sm">
-              <div class="s-slider" id="s-slider14"></div>
+            <div class="col-sm-1">
+              <label>%</label>
             </div>
           </div>
         </div>
@@ -606,7 +610,7 @@
               <label class="pos-select">Функция</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="diaFunction">
                 <option value="0">Конфигурируемый</option>
                 <option value="1">Предел дымности отработанных газов</option>
               </select>
@@ -618,7 +622,7 @@
               <label class="pos-select">Полярность</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="diaPolarity">
                 <option value="0">Нормально разомкнутый</option>
                 <option value="1">Нормально замкнутый</option>
               </select>
@@ -630,7 +634,7 @@
               <label class="pos-select">Действие</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="diaAction">
                 <option value="0">Включение</option>
                 <option value="1">Отключение</option>
                 <option value="2">Предупреждение</option>
@@ -643,7 +647,7 @@
               <label class="pos-select">Подготовка</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="diaArming">
                 <option value="0">Всегда</option>
                 <option value="1">Никогда</option>
                 <option value="2">От безопастности</option>
@@ -657,13 +661,13 @@
               <label class="pos-name">Промежуток времени между действиями</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-diaDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider15"></div>
+              <div class="s-slider" id="s-slider-diaDelay"></div>
             </div>
           </div>
         </div>
@@ -676,7 +680,7 @@
               <label class="pos-select">Функция</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="dibFunction">
                 <option value="0">Конфигурируемый</option>
                 <option value="1">Предел дымности отработанных газов</option>
               </select>
@@ -688,7 +692,7 @@
               <label class="pos-select">Полярность</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="dibPolarity">
                 <option value="0">Нормально разомкнутый</option>
                 <option value="1">Нормально замкнутый</option>
               </select>
@@ -700,7 +704,7 @@
               <label class="pos-select">Действие</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="dibAction">
                 <option value="0">Включение</option>
                 <option value="1">Отключение</option>
                 <option value="2">Предупреждение</option>
@@ -713,7 +717,7 @@
               <label class="pos-select">Подготовка</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="dibArming">
                 <option value="0">Всегда</option>
                 <option value="1">Никогда</option>
                 <option value="2">От безопастности</option>
@@ -727,13 +731,13 @@
               <label class="pos-name">Промежуток времени между действиями</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-dibDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider16"></div>
+              <div class="s-slider" id="s-slider-dibDelay"></div>
             </div>
           </div>
         </div>
@@ -746,7 +750,7 @@
               <label class="pos-select">Функция</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="dicFunction">
                 <option value="0">Конфигурируемый</option>
                 <option value="1">Предел дымности отработанных газов</option>
               </select>
@@ -758,7 +762,7 @@
               <label class="pos-select">Полярность</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="dicPolarity">
                 <option value="0">Нормально разомкнутый</option>
                 <option value="1">Нормально замкнутый</option>
               </select>
@@ -770,7 +774,7 @@
               <label class="pos-select">Действие</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="dicAction">
                 <option value="0">Включение</option>
                 <option value="1">Отключение</option>
                 <option value="2">Предупреждение</option>
@@ -783,7 +787,7 @@
               <label class="pos-select">Подготовка</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="dicArming">
                 <option value="0">Всегда</option>
                 <option value="1">Никогда</option>
                 <option value="2">От безопастности</option>
@@ -797,13 +801,13 @@
               <label class="pos-name">Промежуток времени между действиями</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-dicDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider17"></div>
+              <div class="s-slider" id="s-slider-dicDelay"></div>
             </div>
           </div>
         </div>
@@ -816,7 +820,7 @@
               <label class="pos-select">Функция</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="didFunction">
                 <option value="0">Конфигурируемый</option>
                 <option value="1">Предел дымности отработанных газов</option>
               </select>
@@ -828,7 +832,7 @@
               <label class="pos-select">Полярность</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="didPolarity">
                 <option value="0">Нормально разомкнутый</option>
                 <option value="1">Нормально замкнутый</option>
               </select>
@@ -840,7 +844,7 @@
               <label class="pos-select">Действие</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="didAction">
                 <option value="0">Включение</option>
                 <option value="1">Отключение</option>
                 <option value="2">Предупреждение</option>
@@ -853,7 +857,7 @@
               <label class="pos-select">Подготовка</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="didArming">
                 <option value="0">Всегда</option>
                 <option value="1">Никогда</option>
                 <option value="2">От безопастности</option>
@@ -867,13 +871,13 @@
               <label class="pos-name">Промежуток времени между действиями</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-didDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider18"></div>
+              <div class="s-slider" id="s-slider-didDelay"></div>
             </div>
           </div>
         </div>
@@ -886,20 +890,20 @@
               <label class="pos-select">Выход A</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="doaType">
                 <option value="0">Топливное реле</option>
               </select>
             </div>
             <div class="col-sm-1">
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="groupOfDefaultRadios1" checked>
-                <label class="custom-control-label" for="defaultGroupExample1">НО</label>
+                <input type="radio" class="custom-control-input" id="DOA_NO" name="groupDOA" checked>
+                <label class="custom-control-label" for="DOA_NO">НО</label>
               </div>
             </div>
             <div class="col-sm-1">
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="groupOfDefaultRadios1">
-                <label class="custom-control-label" for="defaultGroupExample2">НЗ</label>
+                <input type="radio" class="custom-control-input" id="DOA_NC" name="groupDOA">
+                <label class="custom-control-label" for="DOA_NC">НЗ</label>
               </div>
             </div>
           </div>
@@ -909,20 +913,20 @@
               <label class="pos-select">Выход B</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="dobType">
                 <option value="0">Реле запуска</option>
               </select>
             </div>
             <div class="col-sm-1">
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultGroupExample3" name="groupOfDefaultRadios2" checked>
-                <label class="custom-control-label" for="defaultGroupExample3">НО</label>
+                <input type="radio" class="custom-control-input" id="DOB_NO" name="groupDOB" checked>
+                <label class="custom-control-label" for="DOB_NO">НО</label>
               </div>
             </div>
             <div class="col-sm-1">
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultGroupExample4" name="groupOfDefaultRadios2">
-                <label class="custom-control-label" for="defaultGroupExample4">НЗ</label>
+                <input type="radio" class="custom-control-input" id="DOB_NC" name="groupDOB">
+                <label class="custom-control-label" for="DOB_NC">НЗ</label>
               </div>
             </div>
           </div>
@@ -932,7 +936,7 @@
               <label class="pos-select">Выход С</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="docType">
                 <option value="0">Не использовать</option>
                 <option value="1">Аварийная остановка</option>
                 <option value="2">Автоматический режим</option>
@@ -1008,14 +1012,14 @@
             </div>
             <div class="col-sm-1">
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultGroupExample5" name="groupOfDefaultRadios3" checked>
-                <label class="custom-control-label" for="defaultGroupExample5">НО</label>
+                <input type="radio" class="custom-control-input" id="DOC_NO" name="groupDOC" checked>
+                <label class="custom-control-label" for="DOC_NO">НО</label>
               </div>
             </div>
             <div class="col-sm-1">
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultGroupExample6" name="groupOfDefaultRadios3">
-                <label class="custom-control-label" for="defaultGroupExample6">НЗ</label>
+                <input type="radio" class="custom-control-input" id="DOC_NC" name="groupDOC">
+                <label class="custom-control-label" for="DOC_NC">НЗ</label>
               </div>
             </div>
           </div>
@@ -1025,7 +1029,7 @@
               <label class="pos-select">Выход D</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="dodType">
                 <option value="0">Не использовать</option>
                 <option value="1">Аварийная остановка</option>
                 <option value="2">Автоматический режим</option>
@@ -1101,14 +1105,14 @@
             </div>
             <div class="col-sm-1">
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultGroupExample7" name="groupOfDefaultRadios4" checked>
-                <label class="custom-control-label" for="defaultGroupExample7">НО</label>
+                <input type="radio" class="custom-control-input" id="DOD_NO" name="groupDOD" checked>
+                <label class="custom-control-label" for="DOD_NO">НО</label>
               </div>
             </div>
             <div class="col-sm-1">
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultGroupExample8" name="groupOfDefaultRadios4">
-                <label class="custom-control-label" for="defaultGroupExample8">НЗ</label>
+                <input type="radio" class="custom-control-input" id="DOD_NC" name="groupDOD">
+                <label class="custom-control-label" for="DOD_NC">НЗ</label>
               </div>
             </div>
           </div>
@@ -1118,7 +1122,7 @@
               <label class="pos-select">Выход E</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="doeType">
                 <option value="0">Не использовать</option>
                 <option value="1">Аварийная остановка</option>
                 <option value="2">Автоматический режим</option>
@@ -1194,14 +1198,14 @@
             </div>
             <div class="col-sm-1">
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultGroupExample9" name="groupOfDefaultRadios5" checked>
-                <label class="custom-control-label" for="defaultGroupExample9">НО</label>
+                <input type="radio" class="custom-control-input" id="DOE_NO" name="groupDOE" checked>
+                <label class="custom-control-label" for="DOE_NO">НО</label>
               </div>
             </div>
             <div class="col-sm-1">
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultGroupExample10" name="groupOfDefaultRadios5">
-                <label class="custom-control-label" for="defaultGroupExample10">НЗ</label>
+                <input type="radio" class="custom-control-input" id="DOE_NC" name="groupDOE">
+                <label class="custom-control-label" for="DOE_NC">НЗ</label>
               </div>
             </div>
           </div>
@@ -1211,7 +1215,7 @@
               <label class="pos-select">Выход F</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="dofType">
                 <option value="0">Не использовать</option>
                 <option value="1">Аварийная остановка</option>
                 <option value="2">Автоматический режим</option>
@@ -1287,14 +1291,14 @@
             </div>
             <div class="col-sm-1">
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultGroupExample11" name="groupOfDefaultRadios6" checked>
-                <label class="custom-control-label" for="defaultGroupExample11">НО</label>
+                <input type="radio" class="custom-control-input" id="DOF_NO" name="groupDOF" checked>
+                <label class="custom-control-label" for="DOF_NO">НО</label>
               </div>
             </div>
             <div class="col-sm-1">
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultGroupExample12" name="groupOfDefaultRadios6">
-                <label class="custom-control-label" for="defaultGroupExample12">НЗ</label>
+                <input type="radio" class="custom-control-input" id="DOF_NC" name="groupDOF">
+                <label class="custom-control-label" for="DOF_NC">НЗ</label>
               </div>
             </div>
           </div>
@@ -1310,13 +1314,13 @@
               <label class="pos-name">Задержка перехода сети</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerMainsTransientDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider19"></div>
+              <div class="s-slider" id="s-slider-timerMainsTransientDelay"></div>
             </div>
           </div>
 
@@ -1325,13 +1329,13 @@
               <label class="pos-name">Задержка запуска</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerStartDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider20"></div>
+              <div class="s-slider" id="s-slider-timerStartDelay"></div>
             </div>
           </div>
 
@@ -1340,13 +1344,13 @@
               <label class="pos-name">Время запуска двигателя</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerCranking">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider21"></div>
+              <div class="s-slider" id="s-slider-timerCranking"></div>
             </div>
           </div>
 
@@ -1355,13 +1359,13 @@
               <label class="pos-name">Запуск пауза</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerCrankDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider22"></div>
+              <div class="s-slider" id="s-slider-timerCrankDelay"></div>
             </div>
           </div>
 
@@ -1370,28 +1374,28 @@
               <label class="pos-name">Время холостого хода при старте</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerStartupIdleTime">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider23"></div>
+              <div class="s-slider" id="s-slider-timerStartupIdleTime"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name">Задержка перехода на номинальые обороты</label>
+              <label class="pos-name">Задержка перехода на номинальные обороты</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerNominalRPMDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider24"></div>
+              <div class="s-slider" id="s-slider-timerNominalRPMDelay"></div>
             </div>
           </div>
           <div class="row">
@@ -1399,13 +1403,13 @@
               <label class="pos-name">Время игнорирования защиты при запуске</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerSafetyOnDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider25"></div>
+              <div class="s-slider" id="s-slider-timerSafetyOnDelay"></div>
             </div>
           </div>
           <div class="row">
@@ -1413,13 +1417,13 @@
               <label class="pos-name">Время прогрева</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerWarming">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider26"></div>
+              <div class="s-slider" id="s-slider-timerWarming"></div>
             </div>
           </div>
 
@@ -1427,46 +1431,46 @@
 
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name">Время прогрева</label>
+              <label class="pos-name">Время передачи</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerTransferDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider27"></div>
+              <div class="s-slider" id="s-slider-timerTransferDelay"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name">Время прогрева</label>
+              <label class="pos-name">Время отключения автомата защиты</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerBreakerTripPulse">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider28"></div>
+              <div class="s-slider" id="s-slider-timerBreakerTripPulse"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name">Время прогрева</label>
+              <label class="pos-name">Время замыкания автомата защиты</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerBreakerClosePulse">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider29"></div>
+              <div class="s-slider" id="s-slider-timerBreakerClosePulse"></div>
             </div>
           </div>
 
@@ -1474,91 +1478,91 @@
 
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name">Время прогрева</label>
+              <label class="pos-name">Задержка возврата</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerReturnDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider30"></div>
+              <div class="s-slider" id="s-slider-timerReturnDelay"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name">Время прогрева</label>
+              <label class="pos-name">Время охлаждения</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerCooling">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider31"></div>
+              <div class="s-slider" id="s-slider-timerCooling"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name">Время прогрева</label>
+              <label class="pos-name">Время оствыания на холостом ходу</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerCoolingIdle">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider32"></div>
+              <div class="s-slider" id="s-slider-timerCoolingIdle"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name">Время прогрева</label>
+              <label class="pos-name">Время синхронизации солинойда</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerSolenoidHold">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider33"></div>
+              <div class="s-slider" id="s-slider-timerSolenoidHold"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name">Время прогрева</label>
+              <label class="pos-name">Задержка экстренного отключения</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerFailStopDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider34"></div>
+              <div class="s-slider" id="s-slider-timerFailStopDelay"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name">Время прогрева</label>
+              <label class="pos-name">Переходная задержка генератора</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-timerGenTransientDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider35"></div>
+              <div class="s-slider" id="s-slider-timerGenTransientDelay"></div>
             </div>
           </div>
         </div>
@@ -1566,14 +1570,13 @@
         <div id="generatorOptionPage" class="content-data">
           <h5>Опции генератора</h5>
 
-          <h6>Генератор</h6>
-
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Контроль силового генератора</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="genPowerGeneratorControlEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Контроль силового генератора</label>
             </div>
           </div>
 
@@ -1582,7 +1585,7 @@
               <label class="pos-select">Пар полюсов</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="genPoles">
                 <option value="0">2</option>
                 <option value="1">4</option>
                 <option value="2">6</option>
@@ -1600,7 +1603,7 @@
               <label class="pos-select">Система переменного тока</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="genAcSys">
                 <option value="0">2 фазы, 3 кабеля L1-L2</option>
                 <option value="1">2 фазы, 3 кабеля L1-L3</option>
                 <option value="2">3 фазы, 3 кабеля, треугольник</option>
@@ -1618,28 +1621,28 @@
               <label class="pos-name">Номинальная активная мощность</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genRatedActivePower">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">кВт</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider36"></div>
+              <div class="s-slider" id="s-slider-genRatedActivePower"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name">Номинальная рекактивная мощность</label>
+              <label class="pos-name">Номинальная реактивная мощность</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genRatedReactivePower">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">кВар</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider37"></div>
+              <div class="s-slider" id="s-slider-genRatedReactivePower"></div>
             </div>
           </div>
 
@@ -1648,30 +1651,28 @@
               <label class="pos-name">Номинальная полная мощность</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genRatedApparentPower">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">кВА</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider38"></div>
+              <div class="s-slider" id="s-slider-genRatedApparentPower"></div>
             </div>
           </div>
 
-          <h6>Номинальная частота</h6>
-
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name"></label>
+              <label class="pos-name">Номинальная частота</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genRatedFrequency">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">Гц</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider39"></div>
+              <div class="s-slider" id="s-slider-genRatedFrequency"></div>
             </div>
           </div>
 
@@ -1682,13 +1683,13 @@
               <label class="pos-name">Первичный ток трансформатора</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genCurrentPrimary">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">А</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider40"></div>
+              <div class="s-slider" id="s-slider-genCurrentPrimary"></div>
             </div>
           </div>
 
@@ -1697,13 +1698,13 @@
               <label class="pos-name">Полная номинальная нагрузка</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genCurrentFullLoadRating">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">А</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider41"></div>
+              <div class="s-slider" id="s-slider-genCurrentFullLoadRating"></div>
             </div>
           </div>
 
@@ -1712,7 +1713,7 @@
               <label class="pos-select">Расположение трансформатора тока</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="genLocationCurrentTransformer">
                 <option value="0">Генератор</option>
                 <option value="1">Нагрузка</option>
               </select>
@@ -1727,10 +1728,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="genUnderVoltageAlarmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Сигнал тревоги</label>
             </div>
           </div>
 
@@ -1739,23 +1741,24 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genUnderVoltageAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">В</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider42"></div>
+              <div class="s-slider" id="s-slider-genUnderVoltageAlarmLevel"></div>
             </div>
           </div>
 
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="genUnderVoltagePreAlarmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Предварительный сигнал тревоги</label>
             </div>
           </div>
 
@@ -1765,13 +1768,13 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genUnderVoltagePreAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">В</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider43"></div>
+              <div class="s-slider" id="s-slider-genUnderVoltagePreAlarmLevel"></div>
             </div>
           </div>
 
@@ -1779,8 +1782,33 @@
 
           <div class="row">
             <div class="col-sm-auto">
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="genOverVoltagePreAlarmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Предварительный сигнал тревоги</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-2">
+              <label class="pos-name">Отключение</label>
+            </div>
+            <div class="col-sm-auto">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genOverVoltagePreAlarmLevel">
+            </div>
+            <div class="col-sm-2">
+              <label class="pos-unit">В</label>
+            </div>
+            <div class="col-sm">
+              <div class="s-slider" id="s-slider-genOverVoltagePreAlarmLevel"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-auto">
               <div class="form-check">
-                <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
+                <label class="form-check-label">Сигнал тревоги</label>
               </div>
             </div>
           </div>
@@ -1790,39 +1818,16 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genOverVoltageAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">В</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider44"></div>
+              <div class="s-slider" id="s-slider-genOverVoltageAlarmLevel"></div>
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-2">
-              <label class="pos-name">Отключение</label>
-            </div>
-            <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
-            </div>
-            <div class="col-sm-2">
-              <label class="pos-unit">В</label>
-            </div>
-            <div class="col-sm">
-              <div class="s-slider" id="s-slider45"></div>
-            </div>
-          </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
         <div id="generatorFreqPage" class="content-data">
@@ -1832,10 +1837,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="genUnderFrequencyAlrmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Сигнал тревоги</label>
             </div>
           </div>
 
@@ -1844,22 +1850,23 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genUnderFrequencyAlrmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">Гц</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider46"></div>
+              <div class="s-slider" id="s-slider-genUnderFrequencyAlrmLevel"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="genUnderFrequencyPreAlrmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Предварительный сигнал тревоги</label>
             </div>
           </div>
 
@@ -1868,13 +1875,13 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genUnderFrequencyPreAlrmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">Гц</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider47"></div>
+              <div class="s-slider" id="s-slider-genUnderFrequencyPreAlrmLevel"></div>
             </div>
           </div>
 
@@ -1882,10 +1889,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Сигнал тревоги</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="genOverFrequencyPreAlrmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Предварительный сигнал тревоги</label>
             </div>
           </div>
 
@@ -1894,22 +1902,23 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genOverFrequencyPreAlrmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">Гц</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider48"></div>
+              <div class="s-slider" id="s-slider-genOverFrequencyPreAlrmLevel"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Предварительный сигнал тревоги</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="genOverFrequencyAlarmEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Сигнал тревоги</label>
             </div>
           </div>
 
@@ -1918,15 +1927,16 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genOverFrequencyAlrmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">Гц</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider49"></div>
+              <div class="s-slider" id="s-slider-genOverFrequencyAlrmLevel"></div>
             </div>
           </div>
+
         </div>
         <!------------------------------------------------------------------------------------------------------------->
         <div id="generatorCurrentPage" class="content-data">
@@ -1939,13 +1949,13 @@
               <label class="pos-name">Тепловая защита</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genOverCurrentThermalProtectionLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">%</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider50"></div>
+              <div class="s-slider" id="s-slider-genOverCurrentThermalProtectionLevel"></div>
             </div>
           </div>
 
@@ -1954,22 +1964,22 @@
               <label class="pos-name">Токовая отсечка</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genOverCurrentCutoffLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">%</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider51"></div>
+              <div class="s-slider" id="s-slider-genOverCurrentCutoffLevel"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-select">Система переменного тока</label>
+              <label class="pos-select">Действие</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="genCurrentOverAlarmAction">
                 <option value="0">Выключение</option>
                 <option value="1">Отключение</option>
                 <option value="2">Предупреждение</option>
@@ -1982,13 +1992,13 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genOverCurrentAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">%</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider52"></div>
+              <div class="s-slider" id="s-slider-genOverCurrentAlarmLevel"></div>
             </div>
           </div>
 
@@ -1997,13 +2007,13 @@
               <label class="pos-name">Задержка</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genOverCurrentAlarmDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">мин</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider53"></div>
+              <div class="s-slider" id="s-slider-genOverCurrentAlarmDelay"></div>
             </div>
           </div>
 
@@ -2011,10 +2021,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="genCurrentOverloadProtectionEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать</label>
             </div>
           </div>
 
@@ -2023,7 +2034,7 @@
               <label class="pos-select">Действие</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="genCurrentOverloadProtectionAction">
                 <option value="0">Отключение</option>
                 <option value="1">Предупреждение</option>
               </select>
@@ -2035,13 +2046,13 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genCurrentOverloadProtectionLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">%</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider54"></div>
+              <div class="s-slider" id="s-slider-genCurrentOverloadProtectionLevel"></div>
             </div>
           </div>
 
@@ -2050,13 +2061,13 @@
               <label class="pos-name">Задержка</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genCurrentOverloadProtectionDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider55"></div>
+              <div class="s-slider" id="s-slider-genCurrentOverloadProtectionDelay"></div>
             </div>
           </div>
 
@@ -2064,10 +2075,11 @@
 
           <div class="row">
             <div class="col-sm-2">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="genCurrentOverPhaseImbalanceEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать</label>
             </div>
           </div>
 
@@ -2076,7 +2088,7 @@
               <label class="pos-select">Действие</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="genCurrentOverPhaseImbalanceAction">
                 <option value="0">Отключение</option>
                 <option value="1">Предупреждение</option>
               </select>
@@ -2088,13 +2100,13 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genCurrentOverPhaseImbalanceLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">%</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider56"></div>
+              <div class="s-slider" id="s-slider-genCurrentOverPhaseImbalanceLevel"></div>
             </div>
           </div>
           <div class="row">
@@ -2102,13 +2114,13 @@
               <label class="pos-name">Задержка</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-genCurrentOverPhaseImbalanceDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider57"></div>
+              <div class="s-slider" id="s-slider-genCurrentOverPhaseImbalanceDelay"></div>
             </div>
           </div>
         </div>
@@ -2117,20 +2129,22 @@
           <h5>Опции сети</h5>
 
           <div class="row">
-            <div class="col-sm-2">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Контроль сети</label>
-              </div>
+            <div class="col-sm-auto">
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="mainsControl">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Контроль сети</label>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Немедленное отключение при потери сети</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="mainsPowerOffImmediately">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Немедленное отключение при потери сети</label>
             </div>
           </div>
 
@@ -2139,7 +2153,7 @@
               <label class="pos-select">Система переменного тока</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="mainAcSys">
                 <option value="0">2 фазы, 3 кабеля L1-L2</option>
                 <option value="1">2 фазы, 3 кабеля L1-L3</option>
                 <option value="2">3 фазы, 3 кабеля, треугольник</option>
@@ -2158,10 +2172,11 @@
 
           <div class="row">
             <div class="col-sm-2">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Низкое напряжение</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="mainsUnderVoltageAlarm">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Низкое напряжение</label>
             </div>
           </div>
 
@@ -2170,22 +2185,23 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-mainsUnderVoltageAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">В</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider58"></div>
+              <div class="s-slider" id="s-slider-mainsUnderVoltageAlarmLevel"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Перенапряжение</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="mainsOverVoltageAlarm">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Перенапряжение</label>
             </div>
           </div>
 
@@ -2194,13 +2210,13 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-mainsOverVoltageAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">В</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider59"></div>
+              <div class="s-slider" id="s-slider-mainsOverVoltageAlarmLevel"></div>
             </div>
           </div>
 
@@ -2208,10 +2224,11 @@
 
           <div class="row">
             <div class="col-sm-2">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Пониженная частота</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="mainsUnderFrequencyAlarm">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Пониженная частота</label>
             </div>
           </div>
 
@@ -2220,22 +2237,23 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-mainsUnderFrequencyAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">Гц</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider60"></div>
+              <div class="s-slider" id="s-slider-mainsUnderFrequencyAlarmLevel"></div>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-sm-2">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Сверх частота</label>
-              </div>
+            <div class="col-sm-auto">
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="mainsOverFrequencyAlarm">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Сверх частота</label>
             </div>
           </div>
 
@@ -2244,13 +2262,13 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-mainsOverFrequencyAlarmLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">Гц</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider61"></div>
+              <div class="s-slider" id="s-slider-mainsOverFrequencyAlarmLevel"></div>
             </div>
           </div>
         </div>
@@ -2266,7 +2284,7 @@
               <label class="pos-name">Попытки запуска</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num" id="engineStartAttempts">
             </div>
           </div>
 
@@ -2274,10 +2292,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Активирован</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="enginePreHeatEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активирован</label>
             </div>
           </div>
 
@@ -2286,13 +2305,13 @@
               <label class="pos-name">Включение при температуре ниже</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-enginePreHeatOn">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">'C</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider62"></div>
+              <div class="s-slider" id="s-slider-enginePreHeatOn"></div>
             </div>
           </div>
 
@@ -2301,24 +2320,25 @@
               <label class="pos-name">Длительность включения</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-enginePreHeatDuration">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider63"></div>
+              <div class="s-slider" id="s-slider-enginePreHeatDuration"></div>
             </div>
           </div>
 
           <h6>Остывание стартера</h6>
 
           <div class="row">
-            <div class="col-sm-2">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Активирован</label>
-              </div>
+            <div class="col-sm-auto">
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="enginePostHeatEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активирован</label>
             </div>
           </div>
 
@@ -2327,13 +2347,13 @@
               <label class="pos-name">Включен</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-enginePostHeatOn">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">'C</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider64"></div>
+              <div class="s-slider" id="s-slider-enginePostHeatOn"></div>
             </div>
           </div>
 
@@ -2342,13 +2362,13 @@
               <label class="pos-name">Длительность</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-enginePostHeatDuration">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider65"></div>
+              <div class="s-slider" id="s-slider-enginePostHeatDuration"></div>
             </div>
           </div>
         </div>
@@ -2356,23 +2376,23 @@
         <div id="crankshaftPage" class="content-data">
           <h5>Отключение коленчатого вала</h5>
 
-          <h6>Опции</h6>
-
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Отключение коленчатого вала при давлении масла</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="crankDisconnectOilPressure">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Отключение коленчатого вала при давлении масла</label>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Перед запуском проверить давление масла</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="crankOilPressureCheckOnStart">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Перед запуском проверить давление масла</label>
             </div>
           </div>
 
@@ -2383,22 +2403,23 @@
               <label class="pos-name">Частота генератора</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-crankDisconnectgenFreqLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">Гц</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider66"></div>
+              <div class="s-slider" id="s-slider-crankDisconnectgenFreqLevel"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать по давлению масла</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="crankDisconnectOilPressureEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать по давлению масла</label>
             </div>
           </div>
 
@@ -2407,22 +2428,23 @@
               <label class="pos-name">Давление масла</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-crankDisconnectOilPressureLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">Bar</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider67"></div>
+              <div class="s-slider" id="s-slider-crankDisconnectOilPressureLevel"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Зарядный генератор</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="crankDisconnectChargeAlternatorEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Зарядный генератор</label>
             </div>
           </div>
 
@@ -2431,13 +2453,13 @@
               <label class="pos-name"></label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-crankDisconnectChargeAlternatorLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">B</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider68"></div>
+              <div class="s-slider" id="s-slider-crankDisconnectChargeAlternatorLevel"></div>
             </div>
           </div>
         </div>
@@ -2449,10 +2471,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Низкое напряжение</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="batteryUnderVoltageEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Низкое напряжение</label>
             </div>
           </div>
 
@@ -2461,13 +2484,13 @@
               <label class="pos-name">Предупреждение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-batteryUnderVoltageLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">B</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider69"></div>
+              <div class="s-slider" id="s-slider-batteryUnderVoltageLevel"></div>
             </div>
           </div>
 
@@ -2476,22 +2499,23 @@
               <label class="pos-name">Задержка</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-batteryUnderVoltageDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">мин</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider70"></div>
+              <div class="s-slider" id="s-slider-batteryUnderVoltageDelay"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Перенапряжение</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="batteryOverVoltageEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Перенапряжение</label>
             </div>
           </div>
 
@@ -2500,13 +2524,13 @@
               <label class="pos-name">Предупреждение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-batteryOverVoltageLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">B</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider71"></div>
+              <div class="s-slider" id="s-slider-batteryOverVoltageLevel"></div>
             </div>
           </div>
 
@@ -2515,13 +2539,13 @@
               <label class="pos-name">Задержка</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-batteryOverVoltageDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">мин</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider72"></div>
+              <div class="s-slider" id="s-slider-batteryOverVoltageDelay"></div>
             </div>
           </div>
 
@@ -2529,10 +2553,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Отключения</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="batteryChargeShutdownEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Отключения</label>
             </div>
           </div>
 
@@ -2541,13 +2566,13 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-batteryChargeShutdownLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">B</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider73"></div>
+              <div class="s-slider" id="s-slider-batteryChargeShutdownLevel"></div>
             </div>
           </div>
 
@@ -2556,22 +2581,23 @@
               <label class="pos-name">Задержка</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-batteryChargeShutdownDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">сек</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider74"></div>
+              <div class="s-slider" id="s-slider-batteryChargeShutdownDelay"></div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Предупреждения</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="batteryChargeWarningEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Предупреждения</label>
             </div>
           </div>
 
@@ -2580,13 +2606,13 @@
               <label class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-batteryChargeWarningLevel">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">B</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider75"></div>
+              <div class="s-slider" id="s-slider-batteryChargeWarningLevel"></div>
             </div>
           </div>
 
@@ -2595,13 +2621,13 @@
               <label class="pos-name">Задержка</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-batteryChargeWarningDelay">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">мин</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider76"></div>
+              <div class="s-slider" id="s-slider-batteryChargeWarningDelay"></div>
             </div>
           </div>
         </div>
@@ -2613,10 +2639,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="maintenanceAlarmOilEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать</label>
             </div>
           </div>
 
@@ -2625,7 +2652,7 @@
               <label class="pos-select">Действие</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="maintenanceAlarmOilAction">
                 <option value="0">Отключение</option>
                 <option value="1">Предупреждение</option>
               </select>
@@ -2637,13 +2664,13 @@
               <label class="pos-name">Часы работы двигателя</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-maintenanceAlarmOilEngineRunTime">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">час</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider77"></div>
+              <div class="s-slider" id="s-slider-maintenanceAlarmOilEngineRunTime"></div>
             </div>
           </div>
 
@@ -2651,10 +2678,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="maintenanceAlarmAirEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать</label>
             </div>
           </div>
 
@@ -2663,7 +2691,7 @@
               <label class="pos-select">Действие</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="maintenanceAlarmAirAction">
                 <option value="0">Отключение</option>
                 <option value="1">Предупреждение</option>
               </select>
@@ -2675,13 +2703,13 @@
               <label class="pos-name">Часы работы двигателя</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-maintenanceAlarmAirEngineRunTime">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">час</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider78"></div>
+              <div class="s-slider" id="s-slider-maintenanceAlarmAirEngineRunTime"></div>
             </div>
           </div>
 
@@ -2689,10 +2717,11 @@
 
           <div class="row">
             <div class="col-sm-auto">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialChecked2" checked>
-                <label class="form-check-label" for="materialChecked2">Активировать</label>
-              </div>
+              <label class="switch">
+                <input type="checkbox" class="check-input" id="maintenanceAlarmFuelEnb">
+                <span class="slider"></span>
+              </label>
+              <label class="form-check-label">Активировать</label>
             </div>
           </div>
 
@@ -2701,7 +2730,7 @@
               <label class="pos-select">Действие</label>
             </div>
             <div class="col-sm-auto">
-              <select class="custom-select sensor-select" name="sensor-type">
+              <select class="custom-select sensor-select" id="maintenanceAlarmFuelAction">
                 <option value="0">Отключение</option>
                 <option value="1">Предупреждение</option>
               </select>
@@ -2713,13 +2742,13 @@
               <label class="pos-name">Часы работы двигателя</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control in-num s-sinput" id="exampleInputEmail1">
+              <input type="number" class="form-control in-num s-sinput" id="sinput-maintenanceAlarmFuelEngineRunTime">
             </div>
             <div class="col-sm-2">
               <label class="pos-unit">час</label>
             </div>
             <div class="col-sm">
-              <div class="s-slider" id="s-slider79"></div>
+              <div class="s-slider" id="s-slider-maintenanceAlarmFuelEngineRunTime"></div>
             </div>
           </div>
         </div>
