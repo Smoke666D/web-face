@@ -214,7 +214,6 @@ function getConfig(n) {
 	maintenanceAlarmFuelEngineRunTime = data[102];
 
 
-
 	// #1
 	selectorUpdate('oilPressureSensorType',oilPressureSetup,0,1);
 	checkboxUpdate('oilPressureEnbOpenCircuitAlarmEnb',oilPressureSetup,1);
@@ -452,6 +451,7 @@ function sliderInit() {
 				'max': 100
 			}
 		})
+
 		s_sliders[i].noUiSlider.on('update', (function () {
 			var j=i;
 			return function(){
@@ -466,6 +466,7 @@ function sliderInit() {
 		})());
 		s_sliders[i].setAttribute('disabled', false);
 	}
+
 	//******************
 	for (var i=0; i<d_sliders.length; i++){
 		noUiSlider.create(d_sliders[i],{
@@ -506,6 +507,127 @@ function sliderInit() {
 		d_sinputs_right[i].disabled = true;
 		d_sinputs_left[i].disabled = true;
 	}
+	return;
+}
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+function slider2InitLimits(id1,id2) {
+	slider1 = document.getElementById("s-slider-"+id1);
+	slider2 = document.getElementById("s-slider-"+id2);
+
+	input1  = document.getElementById("sinput-"+id1);
+	input2  = document.getElementById("sinput-"+id2);
+
+	slider1.noUiSlider.on('change', function(){
+		val = parseInt(slider2.noUiSlider.get())
+		if(parseInt(slider1.noUiSlider.get()) >= val){
+			slider1.noUiSlider.set(val);
+		}
+	});
+	input1.addEventListener('change',function(){
+		if (input1.value >= input2.value){
+			input1.value = input2.value;
+			slider1.noUiSlider.set(input2.value);
+		}
+	});
+
+	slider2.noUiSlider.on('change', function(){
+		val = parseInt(slider2.noUiSlider.get());
+		min = parseInt(slider1.noUiSlider.get());
+		if(val<=min){
+			slider2.noUiSlider.set(min);
+		}
+	});
+	input2.addEventListener('change',function(){
+		if (input2.value <= input1.value){
+			input2.value = input1.value;
+			slider2.noUiSlider.set(input1.value);
+		}
+	});
+	return;
+}
+function slider4InitLimits(id1,id2,id3,id4) {
+	slider1 = document.getElementById("s-slider-"+id1);
+	slider2 = document.getElementById("s-slider-"+id2);
+	slider3 = document.getElementById("s-slider-"+id3);
+	slider4 = document.getElementById("s-slider-"+id4);
+
+	input1  = document.getElementById("sinput-"+id1);
+	input2  = document.getElementById("sinput-"+id2);
+	input3  = document.getElementById("sinput-"+id3);
+	input4  = document.getElementById("sinput-"+id4);
+
+	slider1.noUiSlider.on('change', function(){
+		val = parseInt(slider2.noUiSlider.get())
+		if(parseInt(slider1.noUiSlider.get()) >= val){
+			slider1.noUiSlider.set(val);
+		}
+	});
+	input1.addEventListener('change',function(){
+		if (input1.value >= input2.value){
+			input1.value = input2.value;
+			slider1.noUiSlider.set(input2.value);
+		}
+	});
+
+	slider2.noUiSlider.on('change', function(){
+		val = parseInt(slider2.noUiSlider.get());
+		min = parseInt(slider1.noUiSlider.get());
+		max = parseInt(slider3.noUiSlider.get());
+		if(val<=min){
+			slider2.noUiSlider.set(min);
+		}
+		if(val>=max){
+			slider2.noUiSlider.set(max);
+		}
+	});
+	input2.addEventListener('change',function(){
+		if (input2.value <= input1.value){
+			input2.value = input1.value;
+			slider2.noUiSlider.set(input1.value);
+		}
+		if (input2.value >= input3.value){
+			input2.value = input3.value;
+			slider2.noUiSlider.set(input3.value);
+		}
+	});
+
+	slider3.noUiSlider.on('change', function(){
+		val = parseInt(slider3.noUiSlider.get());
+		min = parseInt(slider2.noUiSlider.get());
+		max = parseInt(slider4.noUiSlider.get());
+		if(val<=min){
+			slider3.noUiSlider.set(min);
+		}
+		if(val>=max){
+			slider3.noUiSlider.set(max);
+		}
+	});
+	input3.addEventListener('change',function(){
+		if (input3.value <= input2.value){
+			input3.value = input2.value;
+			slider3.noUiSlider.set(input2.value);
+		}
+		if (input3.value >= input4.value){
+			input3.value = input4.value;
+			slider3.noUiSlider.set(input4.value);
+		}
+	});
+
+	slider4.noUiSlider.on('change', function(){
+		val = parseInt(slider4.noUiSlider.get());
+		min = parseInt(slider3.noUiSlider.get());
+		if(val<=min){
+			slider4.noUiSlider.set(min);
+		}
+	});
+	input4.addEventListener('change',function(){
+		if (input4.value <= input3.value){
+			input4.value = input3.value;
+			slider4.noUiSlider.set(input3.value);
+		}
+	});
 	return;
 }
 //******************************************************************************
@@ -744,5 +866,9 @@ function checkboxInit() {
 document.addEventListener("DOMContentLoaded", function(event) {
 	loadContent("oilPressPage");
 	sliderInit();
+	slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
+	slider4InitLimits("genUnderFrequencyAlrmLevel","genUnderFrequencyPreAlrmLevel","genOverFrequencyPreAlrmLevel","genOverFrequencyAlrmLevel");
+	slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
+	slider2InitLimits("mainsUnderFrequencyAlarmLevel","mainsOverFrequencyAlarmLevel");
 	checkboxInit();
 });
