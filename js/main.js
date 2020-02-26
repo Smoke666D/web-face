@@ -86,7 +86,7 @@ function radioUpdate(r0ID,r1ID,state) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function getConfig(n) {
+function dataUpdate() {
 /*
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET","http://10.130.2.25/configs/0",true);
@@ -399,6 +399,8 @@ function getConfig(n) {
 	checkboxUpdate('maintenanceAlarmFuelEnb',maintenanceAlarms,4);
 	selectorUpdate('maintenanceAlarmFuelAction',maintenanceAlarms,5,bitVal(4,maintenanceAlarms));
 	s_sliderUpdate('s-slider-maintenanceAlarmFuelEngineRunTime','sinput-maintenanceAlarmFuelEngineRunTime',maintenanceAlarmFuelEngineRunTime,bitVal(4,maintenanceAlarms));
+
+	updateAllTimeSliders();
 	return;
 }
 //******************************************************************************
@@ -508,6 +510,77 @@ function sliderInit() {
 		d_sinputs_left[i].disabled = true;
 	}
 	return;
+}
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+function updateTimeSlider(id,reg){
+	slider = document.getElementById("s-slider-"+id);
+	input  = document.getElementById("sinput-"+id);
+	label  = document.getElementById("label-"+id);
+	switch(label.textContent) {
+		case 'сек':
+			if (input.value >= 3602){
+				label.textContent = 'ч';
+				slider.noUiSlider.updateOptions({
+					start: [input.value/3600],
+					range: {
+						'min': 0,
+						'max': reg.max/3600
+					}
+				})
+			} else	if (input.value >= 61){
+				label.textContent = 'мин';
+				slider.noUiSlider.updateOptions({
+					start: [input.value/60],
+					range: {
+						'min': 0,
+						'max': reg.max/60
+					}
+				})
+			}
+			break;
+		case 'мин':
+			if (input.value >= 62){
+				label.textContent = 'ч';
+				slider.noUiSlider.updateOptions({
+					start: [input.value/60],
+					range: {
+						'min': 0,
+						'max': reg.max/3600
+					}
+				})
+			} else if (input.value <= 1) {
+				label.textContent = 'сек';
+				slider.noUiSlider.updateOptions({
+					start: [input.value*60],
+					range: {
+						'min': 0,
+						'max': reg.max
+					}
+				})
+			}
+			break;
+		case 'ч':
+			if (input.value <= 1){
+				label.textContent = 'мин';
+				slider.noUiSlider.updateOptions({
+					start: [input.value*60],
+					range: {
+						'min': 0,
+						'max': reg.max/60
+					}
+				})
+			}
+			break;
+		default:
+			break;
+	}
+}
+function timerSliderTransform(id,reg){
+	document.getElementById("s-slider-"+id).noUiSlider.on('change',function(){
+		updateTimeSlider(id,reg);
+	});
 }
 //******************************************************************************
 //******************************************************************************
@@ -863,9 +936,76 @@ function checkboxInit() {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+function updateAllTimeSliders(){
+	updateTimeSlider("fuelLevelLowAlarmDelay",fuelLevelLowAlarmDelay);
+	updateTimeSlider("fuelLevelLowPreAlarmDelay",fuelLevelLowPreAlarmDelay);
+	updateTimeSlider("fuelLevelHightAlarmDelay",fuelLevelHightAlarmDelay);
+	updateTimeSlider("fuelLevelHightPreAlarmDelay",fuelLevelHightPreAlarmDelay);
+	updateTimeSlider("diaDelay",diaDelay);
+	updateTimeSlider("dibDelay",dibDelay);
+	updateTimeSlider("dicDelay",dicDelay);
+	updateTimeSlider("didDelay",didDelay);
+	updateTimeSlider("timerMainsTransientDelay",timerMainsTransientDelay);
+	updateTimeSlider("timerStartDelay",timerStartDelay);
+	updateTimeSlider("timerCranking",timerCranking);
+	updateTimeSlider("timerCrankDelay",timerCrankDelay);
+	updateTimeSlider("timerStartupIdleTime",timerStartupIdleTime);
+	updateTimeSlider("timerSafetyOnDelay",timerSafetyOnDelay);
+	updateTimeSlider("timerTransferDelay",timerTransferDelay);
+	updateTimeSlider("timerBreakerClosePulse",timerBreakerClosePulse);
+	updateTimeSlider("timerReturnDelay",timerReturnDelay);
+	updateTimeSlider("timerCooling",timerCooling);
+	updateTimeSlider("timerCoolingIdle",timerCoolingIdle);
+	updateTimeSlider("timerSolenoidHold",timerSolenoidHold);
+	updateTimeSlider("timerFailStopDelay",timerFailStopDelay);
+	updateTimeSlider("timerGenTransientDelay",timerGenTransientDelay);
+	updateTimeSlider("genCurrentOverloadProtectionDelay",genCurrentOverloadProtectionDelay);
+	updateTimeSlider("genCurrentOverPhaseImbalanceDelay",genCurrentOverPhaseImbalanceDelay);
+	updateTimeSlider("enginePreHeatDuration",enginePreHeatDuration);
+	updateTimeSlider("enginePostHeatDuration",enginePostHeatDuration);
+	updateTimeSlider("batteryChargeShutdownDelay",batteryChargeShutdownDelay);
+	updateTimeSlider("timerNominalRPMDelay",timerNominalRPMDelay);
+	updateTimeSlider("timerWarming",timerWarming);
+	updateTimeSlider("timerBreakerTripPulse",timerBreakerTripPulse);
+	return;
+}
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
 document.addEventListener("DOMContentLoaded", function(event) {
 	loadContent("oilPressPage");
 	sliderInit();
+	dataUpdate();
+	timerSliderTransform("fuelLevelLowAlarmDelay",fuelLevelLowAlarmDelay);
+	timerSliderTransform("fuelLevelLowPreAlarmDelay",fuelLevelLowPreAlarmDelay);
+	timerSliderTransform("fuelLevelHightAlarmDelay",fuelLevelHightAlarmDelay);
+	timerSliderTransform("fuelLevelHightPreAlarmDelay",fuelLevelHightPreAlarmDelay);
+	timerSliderTransform("diaDelay",diaDelay);
+	timerSliderTransform("dibDelay",dibDelay);
+	timerSliderTransform("dicDelay",dicDelay);
+	timerSliderTransform("didDelay",didDelay);
+	timerSliderTransform("timerMainsTransientDelay",timerMainsTransientDelay);
+	timerSliderTransform("timerStartDelay",timerStartDelay);
+	timerSliderTransform("timerCranking",timerCranking);
+	timerSliderTransform("timerCrankDelay",timerCrankDelay);
+	timerSliderTransform("timerStartupIdleTime",timerStartupIdleTime);
+	timerSliderTransform("timerSafetyOnDelay",timerSafetyOnDelay);
+	timerSliderTransform("timerTransferDelay",timerTransferDelay);
+	timerSliderTransform("timerBreakerClosePulse",timerBreakerClosePulse);
+	timerSliderTransform("timerReturnDelay",timerReturnDelay);
+	timerSliderTransform("timerCooling",timerCooling);
+	timerSliderTransform("timerCoolingIdle",timerCoolingIdle);
+	timerSliderTransform("timerSolenoidHold",timerSolenoidHold);
+	timerSliderTransform("timerFailStopDelay",timerFailStopDelay);
+	timerSliderTransform("timerGenTransientDelay",timerGenTransientDelay);
+	timerSliderTransform("genCurrentOverloadProtectionDelay",genCurrentOverloadProtectionDelay);
+	timerSliderTransform("genCurrentOverPhaseImbalanceDelay",genCurrentOverPhaseImbalanceDelay);
+	timerSliderTransform("enginePreHeatDuration",enginePreHeatDuration);
+	timerSliderTransform("enginePostHeatDuration",enginePostHeatDuration);
+	timerSliderTransform("batteryChargeShutdownDelay",batteryChargeShutdownDelay);
+	timerSliderTransform("timerNominalRPMDelay",timerNominalRPMDelay);
+	timerSliderTransform("timerWarming",timerWarming);
+	timerSliderTransform("timerBreakerTripPulse",timerBreakerTripPulse);
 	slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
 	slider4InitLimits("genUnderFrequencyAlrmLevel","genUnderFrequencyPreAlrmLevel","genOverFrequencyPreAlrmLevel","genOverFrequencyAlrmLevel");
 	slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
