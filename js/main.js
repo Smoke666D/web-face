@@ -5,6 +5,8 @@ var selectors;
 var d_sliders;
 var d_sinputs_left;
 var d_sinputs_right;
+
+const f = x => ( (x.toString().includes('.')) ? (x.toString().split('.').pop().length) : (0) );
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -39,7 +41,12 @@ function s_sliderUpdate(sliderID,inputID,reg,dis){
 		slider.setAttribute('disabled', false);
 	}
 	input.value = reg.value;
+	input.step = reg.scale;
+	input.addEventListener('change', function () {
+		this.value = parseFloat(this.value).toFixed(f(reg.scale));
+	});
 	slider.noUiSlider.updateOptions({
+		step: 	reg.scale,
 		start: [reg.value],
 		range: {
 			'min': reg.min,
@@ -63,7 +70,15 @@ function d_sliderUpdate(sliderID,inputlID,inputrID,regL,regR,dis){
 		slider.setAttribute('disabled', false);
 	}
 	inputl.value = regL.value;
+	inputl.step = regL.scale;
+	inputl.addEventListener('change',function(){
+		this.value = parseFloat(this.value).toFixed(f(regL.scale));
+	})
 	inputr.value = regR.value;
+	inputr.step = regR.scale;
+	inputr.addEventListener('change',function(){
+		this.value = parseFloat(this.value).toFixed(f(regR.scale));
+	})
 	slider.noUiSlider.updateOptions({
 		start: [regL.value, regR.value],
 		range: {
@@ -95,6 +110,7 @@ function dataUpdate() {
 	}
 	xhr.send(null);
 	*/
+	document.getElementById("i-loading").classList.add("loading");
 	oilPressureSetup = data[1];
 	oilPressureAlarmLevel = data[2];
 	oilPressurePreAlarmLevel = data[3];
@@ -401,6 +417,7 @@ function dataUpdate() {
 	s_sliderUpdate('s-slider-maintenanceAlarmFuelEngineRunTime','sinput-maintenanceAlarmFuelEngineRunTime',maintenanceAlarmFuelEngineRunTime,bitVal(4,maintenanceAlarms));
 
 	updateAllTimeSliders();
+	document.getElementById("i-loading").classList.remove("loading");
 	return;
 }
 //******************************************************************************
@@ -445,6 +462,7 @@ function sliderInit() {
 		s_sinputs[i].disabled = true;
 		noUiSlider.create(s_sliders[i],{
 			start: [20],
+			keyboardSupport: false,
 			tooltips: true,
 			connect: [true, false],
 			padding: 0,
@@ -453,11 +471,10 @@ function sliderInit() {
 				'max': 100
 			}
 		})
-
 		s_sliders[i].noUiSlider.on('update', (function () {
 			var j=i;
 			return function(){
-				s_sinputs[j].value = s_sliders[j].noUiSlider.get();
+				s_sinputs[j].value = parseFloat(s_sliders[j].noUiSlider.get()).toFixed(f(s_sinputs[j].step));
 			}
 		})() );
 		s_sinputs[i].addEventListener('change', (function () {
@@ -468,11 +485,11 @@ function sliderInit() {
 		})());
 		s_sliders[i].setAttribute('disabled', false);
 	}
-
 	//******************
 	for (var i=0; i<d_sliders.length; i++){
 		noUiSlider.create(d_sliders[i],{
 			start: [20, 80],
+			keyboardSupport: false,
 			tooltips: true,
 		  connect: true,
 			padding: 0,
@@ -484,7 +501,7 @@ function sliderInit() {
 		d_sliders[i].noUiSlider.on('update',(function(){
 			var j=i;
 			return function(){
-				d_sinputs_left[j].value=d_sliders[j].noUiSlider.get()[0];
+				d_sinputs_left[j].value = parseFloat(d_sliders[j].noUiSlider.get()[0]).toFixed(f(d_sinputs_left[j].step));
 			}
 		})());
 		d_sinputs_left[i].addEventListener('change',(function(){
@@ -496,7 +513,7 @@ function sliderInit() {
 		d_sliders[i].noUiSlider.on('update',(function(){
 			var j=i;
 			return function(){
-				d_sinputs_right[j].value=d_sliders[j].noUiSlider.get()[1];
+				d_sinputs_right[j].value = parseFloat(d_sliders[j].noUiSlider.get()[1]).toFixed(f(d_sinputs_right[j].step));
 			}
 		})());
 		d_sinputs_right[i].addEventListener('change',(function(){

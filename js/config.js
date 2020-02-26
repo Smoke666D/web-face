@@ -69,12 +69,12 @@ var data = [{
     "type": "U",
     "page": 0
 },{
-    "scale": 1.0,
+    "scale": 0.1,
     "adr": 2,
     "name": "oilPressureAlarmLevel",
     "min": 0.0,
     "max": 10.3,
-    "value": 1.03,
+    "value": 1.3,
     "bitMapSize": 0,
     "len": 1,
     "units": "Atm",
@@ -82,7 +82,7 @@ var data = [{
     "type": "U",
     "page": 0
 },{
-    "scale": 1.0,
+    "scale": 0.1,
     "adr": 3,
     "name": "oilPressurePreAlarmLevel",
     "min": 0.0,
