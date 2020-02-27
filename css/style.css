@@ -4807,7 +4807,14 @@ a.close.disabled {
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
-  outline: 0; }
+  outline: 0;
+  animation-name: animatetop;
+  animation-duration: 0.4s }
+
+  @keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+  }
 
 .modal-backdrop {
   position: fixed;
@@ -4823,6 +4830,7 @@ a.close.disabled {
     opacity: 0.5; }
 
 .modal-header {
+  background-color: #fafafa;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4845,6 +4853,7 @@ a.close.disabled {
   line-height: 1.5; }
 
 .modal-body {
+  background-color: #fafafa;
   position: relative;
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
@@ -4852,6 +4861,7 @@ a.close.disabled {
   padding: 1rem; }
 
 .modal-footer {
+  background-color: #fafafa;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4869,6 +4879,8 @@ a.close.disabled {
     margin-left: .25rem; }
   .modal-footer > :not(:last-child) {
     margin-right: .25rem; }
+  .modal-footer .modal-footer-left{
+  }
 
 .modal-scrollbar-measure {
   position: absolute;

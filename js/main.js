@@ -993,6 +993,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	loadContent("oilPressPage");
 	sliderInit();
 	dataUpdate();
+	sensorModalInit();
 	timerSliderTransform("fuelLevelLowAlarmDelay",fuelLevelLowAlarmDelay);
 	timerSliderTransform("fuelLevelLowPreAlarmDelay",fuelLevelLowPreAlarmDelay);
 	timerSliderTransform("fuelLevelHightAlarmDelay",fuelLevelHightAlarmDelay);
