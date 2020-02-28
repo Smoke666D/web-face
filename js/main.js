@@ -599,6 +599,102 @@ function timerSliderTransform(id,reg){
 		updateTimeSlider(id,reg);
 	});
 }
+
+
+
+function powerSliderInit(idActive, idReactive, idApparent, reg){
+	sliderActive   = document.getElementById("s-slider-"+idActive);
+	inputActive    = document.getElementById("sinput-"+idActive);
+	sliderReactive = document.getElementById("s-slider-"+idReactive);
+	inputReactive  = document.getElementById("sinput-"+idReactive);
+	sliderApparent = document.getElementById("s-slider-"+idApparent);
+	inputApparent  = document.getElementById("sinput-"+idApparent);
+
+	function powerApparentCalc(active,reactive){
+		return Math.sqrt(active*active + reactive*reactive);
+	}
+
+	function apparentActiveUpdate(){
+		powActive = sliderActive.noUiSlider.get();
+		powReactive = sliderReactive.noUiSlider.get();
+		pow = powerApparentCalc(powActive,powReactive);
+		if(pow < reg.max){
+			sliderApparent.noUiSlider.set(pow);
+		}	else {
+			sliderApparent.noUiSlider.set(reg.max);
+			val = Math.sqrt(reg.max*reg.max-Math.pow(parseInt(sliderReactive.noUiSlider.get()),2));
+			if(si = 1){
+				sliderActive.noUiSlider.set(val);
+			} else {
+				inputActive.value = val;
+			}
+		}
+	}
+
+	function apparentReactiveUpdate(){
+		powActive = sliderActive.noUiSlider.get();
+		powReactive = sliderReactive.noUiSlider.get();
+		pow = powerApparentCalc(powActive,powReactive);
+		if(pow < reg.max){
+			sliderApparent.noUiSlider.set(pow);
+		}	else {
+			sliderApparent.noUiSlider.set(reg.max);
+			val = Math.sqrt(reg.max*reg.max-Math.pow(parseInt(sliderActive.noUiSlider.get()),2));
+			if(si = 1){
+				sliderReactive.noUiSlider.set(val);
+			} else {
+				inputReactive.value = val;
+			}
+		}
+	}
+
+	function reactUpdate(){
+		pa = parseInt(sliderApparent.noUiSlider.get());
+		pb = parseInt(sliderActive.noUiSlider.get());
+		pc = parseInt(sliderReactive.noUiSlider.get());
+		if(pb == 0){
+			sliderReactive.noUiSlider.set(pa);
+		} else if (pc == 0){
+			sliderActive.noUiSlider.set(pa);
+		} else {
+			delta = (-pb-pc+Math.sqrt(2*pb*pc-pb*pb-pc*pc+2*pa*pa))/2;
+			if (pb > delta){
+				if (pc > delta){
+					sliderActive.noUiSlider.set(pb+delta);
+					sliderReactive.noUiSlider.set(pc+delta);
+				} else {
+					sliderReactive.noUiSlider.set(0);
+					sliderActive.noUiSlider.set(pa);
+				}
+			} else {
+				sliderActive.noUiSlider.set(0);
+				sliderReactive.noUiSlider.set(pa);
+			}
+		}
+	}
+
+	apparentActiveUpdate();
+	apparentReactiveUpdate();
+	sliderActive.noUiSlider.on("change",function(){
+		apparentActiveUpdate();
+	});
+	inputActive.addEventListener("change",function(){
+		apparentActiveUpdate();
+	});
+	sliderReactive.noUiSlider.on("change",function(){
+		apparentReactiveUpdate();
+	});
+	inputReactive.addEventListener("change",function(){
+		apparentReactiveUpdate();
+	});
+	sliderApparent.noUiSlider.on("change",function(){
+		reactUpdate();
+	});
+	inputApparent.addEventListener("change",function(){
+		reactUpdate();
+	})
+	return;
+}
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -994,6 +1090,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	sliderInit();
 	dataUpdate();
 	sensorModalInit();
+	powerSliderInit("genRatedActivePower","genRatedReactivePower","genRatedApparentPower",genRatedApparentPower);
 	timerSliderTransform("fuelLevelLowAlarmDelay",fuelLevelLowAlarmDelay);
 	timerSliderTransform("fuelLevelLowPreAlarmDelay",fuelLevelLowPreAlarmDelay);
 	timerSliderTransform("fuelLevelHightAlarmDelay",fuelLevelHightAlarmDelay);
