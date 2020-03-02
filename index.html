@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.css">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="https://kit.fontawesome.com/710b4ac03c.js" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
@@ -25,13 +25,22 @@
 	            <a for="outputSubmenu" aria-controls="outputSubmenu" href="#outputSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">Входы</a>
 	            <ul class="collapse list-unstyled" id="outputSubmenu">
                 <li>
-                  <a id="nav_oilPress" onclick="loadContent('oilPressPage')" href="#">Давление масла</a>
+                  <a id="nav_oilPress" onclick="loadContent('oilPressPage')" href="#">
+                    <i class="fas fa-oil-can"></i>
+                    Давление масла
+                  </a>
                 </li>
                 <li>
-                  <a id="nav_coolantTemp" onclick="loadContent('coolTempPage')" href="#">Температура охлаждающей жидкости</a>
+                  <a id="nav_coolantTemp" onclick="loadContent('coolTempPage')" href="#">
+                    <i class="fas fa-thermometer-full"></i>
+                    Температура охлаждающей жидкости
+                  </a>
                 </li>
                 <li>
-                  <a id="nav_fuelLevel" onclick="loadContent('fuelLevelPage')" href="#">Уровень топлива</a>
+                  <a id="nav_fuelLevel" onclick="loadContent('fuelLevelPage')" href="#">
+                    <i class="fas fa-gas-pump"></i>
+                    Уровень топлива
+                  </a>
                 </li>
                 <li>
                   <a onclick="loadContent('digitalInputAPage')" href="#">Цифровой вход A</a>
@@ -51,7 +60,10 @@
               <a onclick="loadContent('digitalOutputPage')" href="#">Цифровые выходы</a>
             </li>
             <li>
-              <a onclick="loadContent('timerPage')" href="#">Таймеры</a>
+              <a onclick="loadContent('timerPage')" href="#">
+                <i class="far fa-clock"></i>
+                Таймеры
+              </a>
             </li>
             <li class="active">
               <a href="#generatorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Генератор</a>
@@ -120,6 +132,11 @@
               <span class="sr-only">Refresh data</span>
             </button>
             &nbsp
+            <button onclick="dataGrab()" class="btn btn-primary">
+              <i class="fa fa-upload" id="i-upload"></i>
+              <span class="sr-only">Upload data</span>
+            </button>
+            &nbsp
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
@@ -133,7 +150,6 @@
         </nav>
         <!------------------------------------------------------------------------------------------------------------->
         <div id="oilPressPage" class="content-data">
-
           <h5>Давление масла</h5>
           <div class="row">
             <div class="col-sm-auto">
@@ -147,7 +163,7 @@
             </div>
             <div class="col-sm-auto">
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" id="oilSetupSensor">
-                <i class="fa fa-gear"></i>
+                <i class="fa fa-chart-line"></i>
               </button>
             </div>
           </div>
@@ -2802,8 +2818,31 @@
                     <span class="sr-only">Remove point</span>
                   </button>
                 </div>
-                <button type="button" class="btn btn-primary">Сохранить</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                &nbsp
+                &nbsp
+                &nbsp
+                &nbsp
+                &nbsp
+                &nbsp
+                &nbsp
+                &nbsp
+                &nbsp
+                <button type="button" class="btn btn-primary" onclick="saveChartData(sensorChartData)">
+                  <i class="fas fa-save"></i>
+                  <span class="sr-only">Сохранить</span>
+                </button>
+                <button type="button" class="btn btn-primary" onclick="downloadSensorData(sensorChartData)">
+                  <i class="fas fa-download"></i>
+                  <span class="sr-only">Сохранить на ПК</span>
+                </button>
+                <button  type="button"  class="btn btn-primary" onclick="uploadSensorData(sensorChartData)">
+                  <i class="fas fa-upload"></i>
+                  <span  class="sr-only">Загрузить с ПК</span>
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                  <i class="fas fa-times"></i>
+                  <span class="sr-only">Закрыть</span>
+                </button>
               </div>
             </div>
           </div>
@@ -2821,5 +2860,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.js"></script>
+
+    <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
   </body>
 </html>

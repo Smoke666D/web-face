@@ -584,9 +584,9 @@ function dataGrab(){
 		return;
 	}
 
-	function d_sliderGrab(sliderID,inputlID,inputrID,regL,regR,dis){
-		regL.value = document.getById(inputlID).value;
-		redR.value = document.getById(inputRID).value;
+	function d_sliderGrab(inputlID,inputrID,regL,regR){
+		regL.value = document.getElementById(inputlID).value;
+		regR.value = document.getElementById(inputrID).value;
 		return;
 	}
 
@@ -607,183 +607,183 @@ function dataGrab(){
 	checkboxGrab('oilPressurePreAlarmEnb',oilPressureSetup,3);
 	s_sliderGrab('sinput-oilPressurePreAlarmLevel',oilPressurePreAlarmLevel);
 	//#2
-	selectorUpdate('coolantTempSensorType',coolantTempSetup,0);
-	checkboxUpdate('coolantTempEnbOpenCircuitAlarm',coolantTempSetup);
-	checkboxUpdate('coolantHightTempAlarmEnb',coolantTempSetup,2);
-	s_sliderUpdate('sinput-coolantHightTempAlarmLevel',coolantHightTempAlarmLevel);
-	checkboxUpdate('coolantHightTempPreAlarmEnb',coolantTempSetup,3);
-	s_sliderUpdate('sinput-coolantHightTempPreAlarmLevel',coolantHightTempPreAlarmLevel);
-	checkboxUpdate('coolantTempHeaterEnb',coolantTempSetup,4);
-	d_sliderUpdate('dinput-coolantTempHeaterOffLevel','dinput-coolantTempHeaterOnLevel',coolantTempHeaterOnLevel,coolantTempHeaterOffLevel);
-	checkboxUpdate('coolantTempCoolerEnb',coolantTempSetup,5);
-	d_sliderUpdate('dinput-coolantTempCoolerOffLevel','dinput-coolantTempCoolerOnLevel',coolantTempCoolerOnLevel,coolantTempCoolerOffLevel);
+	selectorGrab('coolantTempSensorType',coolantTempSetup,0);
+	checkboxGrab('coolantTempEnbOpenCircuitAlarm',coolantTempSetup,1);
+	checkboxGrab('coolantHightTempAlarmEnb',coolantTempSetup,2);
+	s_sliderGrab('sinput-coolantHightTempAlarmLevel',coolantHightTempAlarmLevel);
+	checkboxGrab('coolantHightTempPreAlarmEnb',coolantTempSetup,3);
+	s_sliderGrab('sinput-coolantHightTempPreAlarmLevel',coolantHightTempPreAlarmLevel);
+	checkboxGrab('coolantTempHeaterEnb',coolantTempSetup,4);
+	s_sliderGrab('dinput-coolantTempHeaterOffLevel','dinput-coolantTempHeaterOnLevel',coolantTempHeaterOnLevel,coolantTempHeaterOffLevel);
+	checkboxGrab('coolantTempCoolerEnb',coolantTempSetup,5);
+	d_sliderGrab('dinput-coolantTempCoolerOffLevel','dinput-coolantTempCoolerOnLevel',coolantTempCoolerOnLevel,coolantTempCoolerOffLevel);
 	//#3
-	selectorUpdate('fuelLevelSensorType',fuelLevelSetup,0);
-	checkboxUpdate('fuelLevelLowAlarmEnb',fuelLevelSetup,1);
-	selectorUpdate('fuelLevelLowAlarmAction',fuelLevelSetup,2);
-	s_sliderUpdate('sinput-fuelLevelLowAlarmLevel',fuelLevelLowAlarmLevel);
-	s_sliderUpdate('sinput-fuelLevelLowAlarmDelay',fuelLevelLowAlarmDelay);
-	checkboxUpdate('fuelLevelLowPreAlarmEnb',fuelLevelSetup,3);
-	s_sliderUpdate('sinput-fuelLevelLowPreAlarmLevel',fuelLevelLowPreAlarmLevel);
-	s_sliderUpdate('sinput-fuelLevelLowPreAlarmDelay',fuelLevelLowPreAlarmDelay);
-	checkboxUpdate('fuelLevelHightAlarmEnb',fuelLevelSetup,5);
-	selectorUpdate('fuelLevelHightAlarmAction',fuelLevelSetup,6);
-	s_sliderUpdate('sinput-fuelLevelHightAlarmLevel',fuelLevelHightAlarmLevel);
-	s_sliderUpdate('sinput-fuelLevelHightAlarmDelay',fuelLevelHightAlarmDelay);
-	checkboxUpdate('fuelLevelHightPreAlarmLevelEnb',fuelLevelSetup,4);
-	s_sliderUpdate('sinput-fuelLevelHightPreAlarmLevel',fuelLevelHightPreAlarmLevel);
-	s_sliderUpdate('sinput-fuelLevelHightPreAlarmDelay',fuelLevelHightPreAlarmDelay);
-	checkboxUpdate('fuelPumpEnb',fuelLevelSetup,7);
-	d_sliderUpdate('dinput-fuelPumpOffLevel','dinput-fuelPumpOnLevel',fuelPumpOnLevel,fuelPumpOffLevel);
+	selectorGrab('fuelLevelSensorType',fuelLevelSetup,0);
+	checkboxGrab('fuelLevelLowAlarmEnb',fuelLevelSetup,1);
+	selectorGrab('fuelLevelLowAlarmAction',fuelLevelSetup,2);
+	s_sliderGrab('sinput-fuelLevelLowAlarmLevel',fuelLevelLowAlarmLevel);
+	s_sliderGrab('sinput-fuelLevelLowAlarmDelay',fuelLevelLowAlarmDelay);
+	checkboxGrab('fuelLevelLowPreAlarmEnb',fuelLevelSetup,3);
+	s_sliderGrab('sinput-fuelLevelLowPreAlarmLevel',fuelLevelLowPreAlarmLevel);
+	s_sliderGrab('sinput-fuelLevelLowPreAlarmDelay',fuelLevelLowPreAlarmDelay);
+	checkboxGrab('fuelLevelHightAlarmEnb',fuelLevelSetup,5);
+	selectorGrab('fuelLevelHightAlarmAction',fuelLevelSetup,6);
+	s_sliderGrab('sinput-fuelLevelHightAlarmLevel',fuelLevelHightAlarmLevel);
+	s_sliderGrab('sinput-fuelLevelHightAlarmDelay',fuelLevelHightAlarmDelay);
+	checkboxGrab('fuelLevelHightPreAlarmLevelEnb',fuelLevelSetup,4);
+	s_sliderGrab('sinput-fuelLevelHightPreAlarmLevel',fuelLevelHightPreAlarmLevel);
+	s_sliderGrab('sinput-fuelLevelHightPreAlarmDelay',fuelLevelHightPreAlarmDelay);
+	checkboxGrab('fuelPumpEnb',fuelLevelSetup,7);
+	d_sliderGrab('dinput-fuelPumpOffLevel','dinput-fuelPumpOnLevel',fuelPumpOnLevel,fuelPumpOffLevel);
 	//#4
-	selectorUpdate('diaFunction',diaSetup,0);
-	selectorUpdate('diaPolarity',diaSetup,1);
-	selectorUpdate('diaAction',diaSetup,2);
-	selectorUpdate('diaArming',diaSetup,3);
-	s_sliderUpdate('sinput-diaDelay',diaDelay);
+	selectorGrab('diaFunction',diaSetup,0);
+	selectorGrab('diaPolarity',diaSetup,1);
+	selectorGrab('diaAction',diaSetup,2);
+	selectorGrab('diaArming',diaSetup,3);
+	s_sliderGrab('sinput-diaDelay',diaDelay);
 	//#5
-	selectorUpdate('dibFunction',dibSetup,0);
-	selectorUpdate('dibPolarity',dibSetup,1);
-	selectorUpdate('dibAction',dibSetup,2);
-	selectorUpdate('dibArming',dibSetup,3);
-	s_sliderUpdate('sinput-dibDelay',dibDelay);
+	selectorGrab('dibFunction',dibSetup,0);
+	selectorGrab('dibPolarity',dibSetup,1);
+	selectorGrab('dibAction',dibSetup,2);
+	selectorGrab('dibArming',dibSetup,3);
+	s_sliderGrab('sinput-dibDelay',dibDelay);
 	//#6
-	selectorUpdate('dicFunction',dicSetup,0);
-	selectorUpdate('dicPolarity',dicSetup,1);
-	selectorUpdate('dicAction',dicSetup,2);
-	selectorUpdate('dicArming',dicSetup,3);
-	s_sliderUpdate('sinput-dicDelay',dicDelay);
+	selectorGrab('dicFunction',dicSetup,0);
+	selectorGrab('dicPolarity',dicSetup,1);
+	selectorGrab('dicAction',dicSetup,2);
+	selectorGrab('dicArming',dicSetup,3);
+	s_sliderGrab('sinput-dicDelay',dicDelay);
 	//#7
-	selectorUpdate('didFunction',didSetup,0);
-	selectorUpdate('didPolarity',didSetup,1);
-	selectorUpdate('didAction',didSetup,2);
-	selectorUpdate('didArming',didSetup,3);
-	s_sliderUpdate('sinput-didDelay',didDelay);
+	selectorGrab('didFunction',didSetup,0);
+	selectorGrab('didPolarity',didSetup,1);
+	selectorGrab('didAction',didSetup,2);
+	selectorGrab('didArming',didSetup,3);
+	s_sliderGrab('sinput-didDelay',didDelay);
 	//#8
-	selectorUpdate('doaType',doabType,0);
-	radioUpdate('DOA_NO','DOA_NC',doSetup,0);
-	selectorUpdate('dobType',doabType,1);
-	radioUpdate('DOB_NO','DOB_NC',doSetup,1);
-	selectorUpdate('docType',docdType,0);
-	radioUpdate('DOC_NO','DOC_NC',doSetup,2);
-	selectorUpdate('dodType',docdType,1);
-	radioUpdate('DOD_NO','DOD_NC',doSetup,3);
-	selectorUpdate('doeType',doefType,0);
-	radioUpdate('DOE_NO','DOE_NC',doSetup,4);
-	selectorUpdate('dofType',doefType,1);
-	radioUpdate('DOF_NO','DOF_NC',doSetup,5);
+	selectorGrab('doaType',doabType,0);
+	radioGrab('DOA_NO','DOA_NC',doSetup,0);
+	selectorGrab('dobType',doabType,1);
+	radioGrab('DOB_NO','DOB_NC',doSetup,1);
+	selectorGrab('docType',docdType,0);
+	radioGrab('DOC_NO','DOC_NC',doSetup,2);
+	selectorGrab('dodType',docdType,1);
+	radioGrab('DOD_NO','DOD_NC',doSetup,3);
+	selectorGrab('doeType',doefType,0);
+	radioGrab('DOE_NO','DOE_NC',doSetup,4);
+	selectorGrab('dofType',doefType,1);
+	radioGrab('DOF_NO','DOF_NC',doSetup,5);
 	//#9 Timers
-	s_sliderUpdate('sinput-timerMainsTransientDelay',timerMainsTransientDelay);
-	s_sliderUpdate('sinput-timerStartDelay',timerStartDelay);
-	s_sliderUpdate('sinput-timerCranking',timerCranking);
-	s_sliderUpdate('sinput-timerCrankDelay',timerCrankDelay);
-	s_sliderUpdate('sinput-timerStartupIdleTime',timerStartupIdleTime);
-	s_sliderUpdate('sinput-timerNominalRPMDelay',timerNominalRPMDelay);
-	s_sliderUpdate('sinput-timerSafetyOnDelay',timerSafetyOnDelay);
-	s_sliderUpdate('sinput-timerWarming',timerWarming);
-	s_sliderUpdate('sinput-timerTransferDelay',timerTransferDelay);
-	s_sliderUpdate('sinput-timerBreakerTripPulse',timerBreakerTripPulse);
-	s_sliderUpdate('sinput-timerBreakerClosePulse',timerBreakerClosePulse);
-	s_sliderUpdate('sinput-timerReturnDelay',timerReturnDelay);
-	s_sliderUpdate('sinput-timerCooling',timerCooling);
-	s_sliderUpdate('sinput-timerCoolingIdle',timerCoolingIdle);
-	s_sliderUpdate('sinput-timerSolenoidHold',timerSolenoidHold);
-	s_sliderUpdate('sinput-timerFailStopDelay',timerFailStopDelay);
-	s_sliderUpdate('sinput-timerGenTransientDelay',timerGenTransientDelay);
+	s_sliderGrab('sinput-timerMainsTransientDelay',timerMainsTransientDelay);
+	s_sliderGrab('sinput-timerStartDelay',timerStartDelay);
+	s_sliderGrab('sinput-timerCranking',timerCranking);
+	s_sliderGrab('sinput-timerCrankDelay',timerCrankDelay);
+	s_sliderGrab('sinput-timerStartupIdleTime',timerStartupIdleTime);
+	s_sliderGrab('sinput-timerNominalRPMDelay',timerNominalRPMDelay);
+	s_sliderGrab('sinput-timerSafetyOnDelay',timerSafetyOnDelay);
+	s_sliderGrab('sinput-timerWarming',timerWarming);
+	s_sliderGrab('sinput-timerTransferDelay',timerTransferDelay);
+	s_sliderGrab('sinput-timerBreakerTripPulse',timerBreakerTripPulse);
+	s_sliderGrab('sinput-timerBreakerClosePulse',timerBreakerClosePulse);
+	s_sliderGrab('sinput-timerReturnDelay',timerReturnDelay);
+	s_sliderGrab('sinput-timerCooling',timerCooling);
+	s_sliderGrab('sinput-timerCoolingIdle',timerCoolingIdle);
+	s_sliderGrab('sinput-timerSolenoidHold',timerSolenoidHold);
+	s_sliderGrab('sinput-timerFailStopDelay',timerFailStopDelay);
+	s_sliderGrab('sinput-timerGenTransientDelay',timerGenTransientDelay);
 	//#10
-	checkboxUpdate('genPowerGeneratorControlEnb',genSetup,0);
-	selectorUpdate('genPoles',genSetup,1);
-	selectorUpdate('genAcSys',genSetup,2);
-	s_sliderUpdate('sinput-genRatedActivePower',genRatedActivePower);
-	s_sliderUpdate('sinput-genRatedReactivePower',genRatedReactivePower);
-	s_sliderUpdate('sinput-genRatedApparentPower',genRatedApparentPower);
-	s_sliderUpdate('sinput-genRatedFrequency',genRatedFrequency);
-	s_sliderUpdate('sinput-genCurrentPrimary',genCurrentPrimary);
-	s_sliderUpdate('sinput-genCurrentFullLoadRating',genCurrentFullLoadRating);
-	selectorUpdate('genLocationCurrentTransformer',genSetup,3);
+	checkboxGrab('genPowerGeneratorControlEnb',genSetup,0);
+	selectorGrab('genPoles',genSetup,1);
+	selectorGrab('genAcSys',genSetup,2);
+	s_sliderGrab('sinput-genRatedActivePower',genRatedActivePower);
+	s_sliderGrab('sinput-genRatedReactivePower',genRatedReactivePower);
+	s_sliderGrab('sinput-genRatedApparentPower',genRatedApparentPower);
+	s_sliderGrab('sinput-genRatedFrequency',genRatedFrequency);
+	s_sliderGrab('sinput-genCurrentPrimary',genCurrentPrimary);
+	s_sliderGrab('sinput-genCurrentFullLoadRating',genCurrentFullLoadRating);
+	selectorGrab('genLocationCurrentTransformer',genSetup,3);
 	//#11
-	checkboxUpdate('genUnderVoltageAlarmEnb',genAlarms,0);
-	s_sliderUpdate('sinput-genUnderVoltageAlarmLevel',genUnderVoltageAlarmLevel);
-	checkboxUpdate('genUnderVoltagePreAlarmEnb',genAlarms,1);
-	s_sliderUpdate('sinput-genUnderVoltagePreAlarmLevel',genUnderVoltagePreAlarmLevel);
-	s_sliderUpdate('sinput-genOverVoltageAlarmLevel',genOverVoltageAlarmLevel);
-	checkboxUpdate('genOverVoltagePreAlarmEnb',genAlarms,2);
-	s_sliderUpdate('sinput-genOverVoltagePreAlarmLevel',genOverVoltagePreAlarmLevel);
+	checkboxGrab('genUnderVoltageAlarmEnb',genAlarms,0);
+	s_sliderGrab('sinput-genUnderVoltageAlarmLevel',genUnderVoltageAlarmLevel);
+	checkboxGrab('genUnderVoltagePreAlarmEnb',genAlarms,1);
+	s_sliderGrab('sinput-genUnderVoltagePreAlarmLevel',genUnderVoltagePreAlarmLevel);
+	s_sliderGrab('sinput-genOverVoltageAlarmLevel',genOverVoltageAlarmLevel);
+	checkboxGrab('genOverVoltagePreAlarmEnb',genAlarms,2);
+	s_sliderGrab('sinput-genOverVoltagePreAlarmLevel',genOverVoltagePreAlarmLevel);
 	//#12
-	checkboxUpdate('genUnderFrequencyAlrmEnb',genAlarms,3);
-	s_sliderUpdate('sinput-genUnderFrequencyAlrmLevel',genUnderFrequencyAlrmLevel);
-	checkboxUpdate('genUnderFrequencyPreAlrmEnb',genAlarms,4);
-	s_sliderUpdate('sinput-genUnderFrequencyPreAlrmLevel',genUnderFrequencyPreAlrmLevel);
-	checkboxUpdate('genOverFrequencyPreAlrmEnb',genAlarms,5);
-	s_sliderUpdate('sinput-genOverFrequencyPreAlrmLevel',genOverFrequencyPreAlrmLevel);
-	checkboxUpdate('genOverFrequencyAlarmEnb',genAlarms,6);
-	s_sliderUpdate('sinput-genOverFrequencyAlrmLevel',genOverFrequencyAlrmLevel);
+	checkboxGrab('genUnderFrequencyAlrmEnb',genAlarms,3);
+	s_sliderGrab('sinput-genUnderFrequencyAlrmLevel',genUnderFrequencyAlrmLevel);
+	checkboxGrab('genUnderFrequencyPreAlrmEnb',genAlarms,4);
+	s_sliderGrab('sinput-genUnderFrequencyPreAlrmLevel',genUnderFrequencyPreAlrmLevel);
+	checkboxGrab('genOverFrequencyPreAlrmEnb',genAlarms,5);
+	s_sliderGrab('sinput-genOverFrequencyPreAlrmLevel',genOverFrequencyPreAlrmLevel);
+	checkboxGrab('genOverFrequencyAlarmEnb',genAlarms,6);
+	s_sliderGrab('sinput-genOverFrequencyAlrmLevel',genOverFrequencyAlrmLevel);
 	//#13
-	s_sliderUpdate('sinput-genOverCurrentThermalProtectionLevel',genOverCurrentThermalProtectionLevel);
-	s_sliderUpdate('sinput-genOverCurrentCutoffLevel',genOverCurrentCutoffLevel);
-	selectorUpdate('genCurrentOverAlarmAction',genAlarms,9);
-	s_sliderUpdate('sinput-genOverCurrentAlarmLevel',genOverCurrentAlarmLevel);
-	s_sliderUpdate('sinput-genOverCurrentAlarmDelay',genOverCurrentAlarmDelay);
-	checkboxUpdate('genCurrentOverloadProtectionEnb',genAlarms,7);
-	selectorUpdate('genCurrentOverloadProtectionAction',genAlarms,10);
-	s_sliderUpdate('sinput-genCurrentOverloadProtectionLevel',genCurrentOverloadProtectionLevel);
-	s_sliderUpdate('sinput-genCurrentOverloadProtectionDelay',genCurrentOverloadProtectionDelay);
-	checkboxUpdate('genCurrentOverPhaseImbalanceEnb',genAlarms,8);
-	selectorUpdate('genCurrentOverPhaseImbalanceAction',genAlarms,11);
-	s_sliderUpdate('sinput-genCurrentOverPhaseImbalanceLevel',genCurrentOverPhaseImbalanceLevel);
-	s_sliderUpdate('sinput-genCurrentOverPhaseImbalanceDelay',genCurrentOverPhaseImbalanceDelay);
+	s_sliderGrab('sinput-genOverCurrentThermalProtectionLevel',genOverCurrentThermalProtectionLevel);
+	s_sliderGrab('sinput-genOverCurrentCutoffLevel',genOverCurrentCutoffLevel);
+	selectorGrab('genCurrentOverAlarmAction',genAlarms,9);
+	s_sliderGrab('sinput-genOverCurrentAlarmLevel',genOverCurrentAlarmLevel);
+	s_sliderGrab('sinput-genOverCurrentAlarmDelay',genOverCurrentAlarmDelay);
+	checkboxGrab('genCurrentOverloadProtectionEnb',genAlarms,7);
+	selectorGrab('genCurrentOverloadProtectionAction',genAlarms,10);
+	s_sliderGrab('sinput-genCurrentOverloadProtectionLevel',genCurrentOverloadProtectionLevel);
+	s_sliderGrab('sinput-genCurrentOverloadProtectionDelay',genCurrentOverloadProtectionDelay);
+	checkboxGrab('genCurrentOverPhaseImbalanceEnb',genAlarms,8);
+	selectorGrab('genCurrentOverPhaseImbalanceAction',genAlarms,11);
+	s_sliderGrab('sinput-genCurrentOverPhaseImbalanceLevel',genCurrentOverPhaseImbalanceLevel);
+	s_sliderGrab('sinput-genCurrentOverPhaseImbalanceDelay',genCurrentOverPhaseImbalanceDelay);
 	//#14
-	checkboxUpdate('mainsControl',mainsSetup,0);
-	checkboxUpdate('mainsPowerOffImmediately',mainsSetup,1);
-	selectorUpdate('mainAcSys',mainsSetup,2);
+	checkboxGrab('mainsControl',mainsSetup,0);
+	checkboxGrab('mainsPowerOffImmediately',mainsSetup,1);
+	selectorGrab('mainAcSys',mainsSetup,2);
 	//#15
-	checkboxUpdate('mainsUnderVoltageAlarm',mainsAlarms,0);
-	s_sliderUpdate('sinput-mainsUnderVoltageAlarmLevel',mainsUnderVoltageAlarmLevel);
-	checkboxUpdate('mainsOverVoltageAlarm',mainsAlarms,1);
-	s_sliderUpdate('sinput-mainsOverVoltageAlarmLevel',mainsOverVoltageAlarmLevel);
-	checkboxUpdate('mainsUnderFrequencyAlarm',mainsAlarms,2);
-	s_sliderUpdate('sinput-mainsUnderFrequencyAlarmLevel',mainsUnderFrequencyAlarmLevel);
-	checkboxUpdate('mainsOverFrequencyAlarm',mainsAlarms,3);
-	s_sliderUpdate('sinput-mainsOverFrequencyAlarmLevel',mainsOverFrequencyAlarmLevel);
+	checkboxGrab('mainsUnderVoltageAlarm',mainsAlarms,0);
+	s_sliderGrab('sinput-mainsUnderVoltageAlarmLevel',mainsUnderVoltageAlarmLevel);
+	checkboxGrab('mainsOverVoltageAlarm',mainsAlarms,1);
+	s_sliderGrab('sinput-mainsOverVoltageAlarmLevel',mainsOverVoltageAlarmLevel);
+	checkboxGrab('mainsUnderFrequencyAlarm',mainsAlarms,2);
+	s_sliderGrab('sinput-mainsUnderFrequencyAlarmLevel',mainsUnderFrequencyAlarmLevel);
+	checkboxGrab('mainsOverFrequencyAlarm',mainsAlarms,3);
+	s_sliderGrab('sinput-mainsOverFrequencyAlarmLevel',mainsOverFrequencyAlarmLevel);
 	//#16
 	bitWrite(0,engineSetup,document.getElementById('engineStartAttempts').value);
-	checkboxUpdate('enginePreHeatEnb',engineSetup,1);
-	s_sliderUpdate('sinput-enginePreHeatOn',enginePreHeatOn);
-	s_sliderUpdate('sinput-enginePreHeatDuration',enginePreHeatDuration);
-	checkboxUpdate('enginePostHeatEnb',engineSetup,2);
-	s_sliderUpdate('sinput-enginePostHeatOn',enginePostHeatOn);
-	s_sliderUpdate('sinput-enginePostHeatDuration',enginePostHeatDuration);
+	checkboxGrab('enginePreHeatEnb',engineSetup,1);
+	s_sliderGrab('sinput-enginePreHeatOn',enginePreHeatOn);
+	s_sliderGrab('sinput-enginePreHeatDuration',enginePreHeatDuration);
+	checkboxGrab('enginePostHeatEnb',engineSetup,2);
+	s_sliderGrab('sinput-enginePostHeatOn',enginePostHeatOn);
+	s_sliderGrab('sinput-enginePostHeatDuration',enginePostHeatDuration);
 	//#17
-	checkboxUpdate('crankDisconnectOilPressure',crankSetup,0);
-	checkboxUpdate('crankOilPressureCheckOnStart',crankSetup,1);
-	s_sliderUpdate('sinput-crankDisconnectgenFreqLevel',crankDisconnectgenFreqLevel);
-	checkboxUpdate('crankDisconnectOilPressureEnb',crankSetup,2);
-	s_sliderUpdate('sinput-crankDisconnectOilPressureLevel',crankDisconnectOilPressureLevel);
-	checkboxUpdate('crankDisconnectChargeAlternatorEnb',crankSetup,3);
-	s_sliderUpdate('sinput-crankDisconnectChargeAlternatorLevel',crankDisconnectChargeAlternatorLevel);
+	checkboxGrab('crankDisconnectOilPressure',crankSetup,0);
+	checkboxGrab('crankOilPressureCheckOnStart',crankSetup,1);
+	s_sliderGrab('sinput-crankDisconnectgenFreqLevel',crankDisconnectgenFreqLevel);
+	checkboxGrab('crankDisconnectOilPressureEnb',crankSetup,2);
+	s_sliderGrab('sinput-crankDisconnectOilPressureLevel',crankDisconnectOilPressureLevel);
+	checkboxGrab('crankDisconnectChargeAlternatorEnb',crankSetup,3);
+	s_sliderGrab('sinput-crankDisconnectChargeAlternatorLevel',crankDisconnectChargeAlternatorLevel);
 	//#18
-	checkboxUpdate('batteryUnderVoltageEnb',batteryAlarms,0);
-	s_sliderUpdate('sinput-batteryUnderVoltageLevel',batteryUnderVoltageLevel);
-	s_sliderUpdate('sinput-batteryUnderVoltageDelay',batteryUnderVoltageDelay);
-	checkboxUpdate('batteryOverVoltageEnb',batteryAlarms,1);
-	s_sliderUpdate('sinput-batteryOverVoltageLevel',batteryOverVoltageLevel);
-	s_sliderUpdate('sinput-batteryOverVoltageDelay',batteryOverVoltageDelay);
-	checkboxUpdate('batteryChargeShutdownEnb',batteryAlarms,2);
-	s_sliderUpdate('sinput-batteryChargeShutdownLevel',batteryChargeShutdownLevel);
-	s_sliderUpdate('sinput-batteryChargeShutdownDelay',batteryChargeShutdownDelay);
-	checkboxUpdate('batteryChargeWarningEnb',batteryAlarms,3);
-	s_sliderUpdate('sinput-batteryChargeWarningLevel',batteryChargeWarningLevel);
-	s_sliderUpdate('sinput-batteryChargeWarningDelay',batteryChargeWarningDelay);
+	checkboxGrab('batteryUnderVoltageEnb',batteryAlarms,0);
+	s_sliderGrab('sinput-batteryUnderVoltageLevel',batteryUnderVoltageLevel);
+	s_sliderGrab('sinput-batteryUnderVoltageDelay',batteryUnderVoltageDelay);
+	checkboxGrab('batteryOverVoltageEnb',batteryAlarms,1);
+	s_sliderGrab('sinput-batteryOverVoltageLevel',batteryOverVoltageLevel);
+	s_sliderGrab('sinput-batteryOverVoltageDelay',batteryOverVoltageDelay);
+	checkboxGrab('batteryChargeShutdownEnb',batteryAlarms,2);
+	s_sliderGrab('sinput-batteryChargeShutdownLevel',batteryChargeShutdownLevel);
+	s_sliderGrab('sinput-batteryChargeShutdownDelay',batteryChargeShutdownDelay);
+	checkboxGrab('batteryChargeWarningEnb',batteryAlarms,3);
+	s_sliderGrab('sinput-batteryChargeWarningLevel',batteryChargeWarningLevel);
+	s_sliderGrab('sinput-batteryChargeWarningDelay',batteryChargeWarningDelay);
 	//#19
-	checkboxUpdate('maintenanceAlarmOilEnb',maintenanceAlarms,0);
-	selectorUpdate('maintenanceAlarmOilAction',maintenanceAlarms,1);
-	s_sliderUpdate('sinput-maintenanceAlarmOilEngineRunTime',maintenanceAlarmOilEngineRunTime);
-	checkboxUpdate('maintenanceAlarmAirEnb',maintenanceAlarms,2);
-	selectorUpdate('maintenanceAlarmAirAction',maintenanceAlarms,3);
-	s_sliderUpdate('sinput-maintenanceAlarmAirEngineRunTime',maintenanceAlarmAirEngineRunTime);
-	checkboxUpdate('maintenanceAlarmFuelEnb',maintenanceAlarms,4);
-	selectorUpdate('maintenanceAlarmFuelAction',maintenanceAlarms,5);
-	s_sliderUpdate('sinput-maintenanceAlarmFuelEngineRunTime',maintenanceAlarmFuelEngineRunTime);
+	checkboxGrab('maintenanceAlarmOilEnb',maintenanceAlarms,0);
+	selectorGrab('maintenanceAlarmOilAction',maintenanceAlarms,1);
+	s_sliderGrab('sinput-maintenanceAlarmOilEngineRunTime',maintenanceAlarmOilEngineRunTime);
+	checkboxGrab('maintenanceAlarmAirEnb',maintenanceAlarms,2);
+	selectorGrab('maintenanceAlarmAirAction',maintenanceAlarms,3);
+	s_sliderGrab('sinput-maintenanceAlarmAirEngineRunTime',maintenanceAlarmAirEngineRunTime);
+	checkboxGrab('maintenanceAlarmFuelEnb',maintenanceAlarms,4);
+	selectorGrab('maintenanceAlarmFuelAction',maintenanceAlarms,5);
+	s_sliderGrab('sinput-maintenanceAlarmFuelEngineRunTime',maintenanceAlarmFuelEngineRunTime);
 	return;
 }
 //******************************************************************************
@@ -1528,3 +1528,65 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	slider2InitLimits("mainsUnderFrequencyAlarmLevel","mainsOverFrequencyAlarmLevel");
 	checkboxInit();
 });
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+function downloadSensorData(chrtData){
+
+	function SaveAsFile(t,f,m) {
+  	try {
+    	var b = new Blob([t],{type:m});
+      saveAs(b, f);
+    } catch (e) {
+    	window.open("data:"+m+"," + encodeURIComponent(t), '_blank','');
+    }
+  }
+
+	saveChartData(chrtData);
+	SaveAsFile(JSON.stringify(chrtData),"sensorData.JSON","text/plain;charset=utf-8");
+}
+
+function uploadSensorData(chrtData){
+	var newCart;
+	if (window.File && window.FileReader && window.FileList && window.Blob) {
+		var input = document.createElement("input");
+    input.setAttribute("type", "file");
+		input.addEventListener("change",function(){
+			file = input.files[0];
+			if (file.type != "application/json"){
+				alert("Выбран файл с неправильным расширением. Выберете JSON файл");
+			} else {
+				let reader = new FileReader();				reader.readAsText(file);
+				reader.onload = function() {
+					try{
+						newCart = JSON.parse(reader.result);
+						makeChart(newCart);
+					} catch {
+						alert("Неправильный формат файла")
+					}
+  			};
+			}
+		});
+		input.click();
+    // add onchange handler if you wish to get the file :)
+
+    return false; // avoiding navigation
+	} else {
+  	alert('Браузер не поддерживает загрузку файлов');
+	}
+}
+/*
+function handleFileSelect(evt) {
+	var files = evt.target.files; // FileList object
+
+  // files is a FileList of File objects. List some properties.
+  var output = [];
+  for (var i = 0, f; f = files[i]; i++) {
+  	output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ', f.size, ' bytes, last modified: ', f.lastModifiedDate.toLocaleDateString(), '</li>');
+  }
+  document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+}
+*/
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************

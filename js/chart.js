@@ -117,3 +117,20 @@ function removeChartPoint(){
   }
   return;
 }
+
+function saveChartData(chrtData){
+  var i = 0;
+
+  chrtData.size = sensorData.labels.length;
+  chrtData.ymax = chartOptions.scales.yAxes[0].ticks.max;
+  chrtData.ymin = chartOptions.scales.yAxes[0].ticks.min;
+  chrtData.dots.length = 0;
+  for(i=0;i<chrtData.size;i++){
+    chrtData.dots.push({
+      "x": parseFloat(sensorData.labels[i]),
+      "y": sensorData.datasets[0].data[i],
+    })
+  }
+  console.log(chrtData);
+  return;
+}
