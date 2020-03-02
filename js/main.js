@@ -14,90 +14,130 @@ function bitVal(n,reg) {
 	return (reg.value&reg.bit[n].mask)>>reg.bit[n].shift;
 }
 
-function checkboxUpdate(ID,reg,n) {
-	document.getElementById(ID).checked = bitVal(n,reg);
+function bitWrite(n,reg,val){
+	reg.value = (reg.value&(!reg.bit[n].mask))|(val<<reg.bit[n].shift);
 	return;
 }
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+var oilPressureSetup;
+var oilPressureAlarmLevel;
+var oilPressurePreAlarmLevel;
 
-function selectorUpdate(ID,reg,n,dis){
-	sel = document.getElementById(ID);
-	sel.value = bitVal(n,reg);
-	if (dis==1){
-		document.getElementById(ID).disabled = false;
-	} else {
-			sel.disabled = true;
-	}
-	return;
-}
+var coolantTempSetup;
+var coolantHightTempAlarmLevel;
+var coolantHightTempPreAlarmLevel;
+var coolantTempHeaterOffLevel;
+var coolantTempHeaterOnLevel;
+var coolantTempCoolerOffLevel;
+var coolantTempCoolerOnLevel;
 
-function s_sliderUpdate(sliderID,inputID,reg,dis){
-	slider = document.getElementById(sliderID);
-	input = document.getElementById(inputID);
-	if (dis == 1){
-		input.disabled = false;
-		slider.removeAttribute('disabled');
-	}	else {
-		input.disabled = true;
-		slider.setAttribute('disabled', false);
-	}
-	input.value = reg.value;
-	input.step = reg.scale;
-	input.addEventListener('change', function () {
-		this.value = parseFloat(this.value).toFixed(f(reg.scale));
-	});
-	slider.noUiSlider.updateOptions({
-		step: 	reg.scale,
-		start: [reg.value],
-		range: {
-			'min': reg.min,
-			'max': reg.max
-		}
-	})
-	return;
-}
+var fuelLevelSetup;
+var fuelLevelLowAlarmLevel;
+var fuelLevelLowAlarmDelay;
+var fuelLevelLowPreAlarmLevel;
+var fuelLevelLowPreAlarmDelay;
+var fuelLevelHightPreAlarmLevel;
+var fuelLevelHightPreAlarmDelay;
+var fuelLevelHightAlarmLevel;
+var fuelLevelHightAlarmDelay;
+var fuelPumpOnLevel;
+var fuelPumpOffLevel;
 
-function d_sliderUpdate(sliderID,inputlID,inputrID,regL,regR,dis){
-	slider = document.getElementById(sliderID);
-	inputl = document.getElementById(inputlID);
-	inputr = document.getElementById(inputrID);
-	if (dis==1){
-		inputl.disabled = false;
-		inputr.disabled = false;
-		slider.removeAttribute('disabled');
-	}	else {
-		inputl.disabled = true;
-		inputr.disabled = true;
-		slider.setAttribute('disabled', false);
-	}
-	inputl.value = regL.value;
-	inputl.step = regL.scale;
-	inputl.addEventListener('change',function(){
-		this.value = parseFloat(this.value).toFixed(f(regL.scale));
-	})
-	inputr.value = regR.value;
-	inputr.step = regR.scale;
-	inputr.addEventListener('change',function(){
-		this.value = parseFloat(this.value).toFixed(f(regR.scale));
-	})
-	slider.noUiSlider.updateOptions({
-		start: [regL.value, regR.value],
-		range: {
-			'min': regL.min,
-			'max': regL.max
-		}
-	})
-	return;
-}
+var diaSetup;
+var diaDelay;
+var dibSetup;
+var dibDelay;
+var dicSetup;
+var dicDelay;
+var didSetup;
+var didDelay;
 
-function radioUpdate(r0ID,r1ID,state) {
-	r0 = document.getElementById(r0ID);
-	r1 = document.getElementById(r1ID);
-	if (state==0) {
-		r0.checked = true;
-	} else {
-		r1.checked = true;
-	}
-}
+var doSetup;
+var doabType;
+var docdType;
+var doefType;
+
+var timerMainsTransientDelay;
+var timerStartDelay;
+var timerCranking;
+var timerCrankDelay;
+var timerStartupIdleTime;
+var timerNominalRPMDelay;
+var timerSafetyOnDelay;
+var timerWarming;
+var timerTransferDelay;
+var timerBreakerTripPulse;
+var timerBreakerClosePulse;
+var timerReturnDelay;
+var timerCooling;
+var timerCoolingIdle;
+var timerSolenoidHold;
+var timerFailStopDelay;
+var timerGenTransientDelay;
+
+var genSetup;
+var genRatedActivePower;
+var genRatedReactivePower;
+var genRatedApparentPower;
+var genRatedFrequency;
+var genCurrentPrimary;
+var genCurrentFullLoadRating;
+
+var genAlarms;
+var genUnderVoltageAlarmLevel;
+var genUnderVoltagePreAlarmLevel;
+var genOverVoltagePreAlarmLevel;
+var genOverVoltageAlarmLevel;
+
+var genUnderFrequencyAlrmLevel;
+var genUnderFrequencyPreAlrmLevel;
+var genOverFrequencyPreAlrmLevel;
+var genOverFrequencyAlrmLevel;
+
+var genOverCurrentThermalProtectionLevel;
+var genOverCurrentCutoffLevel;
+var genOverCurrentAlarmLevel;
+var genOverCurrentAlarmDelay;
+var genCurrentOverloadProtectionLevel;
+var genCurrentOverloadProtectionDelay;
+var genCurrentOverPhaseImbalanceLevel;
+var genCurrentOverPhaseImbalanceDelay;
+
+var mainsSetup;
+
+var mainsAlarms;
+var mainsUnderVoltageAlarmLevel;
+var mainsOverVoltageAlarmLevel;
+var mainsUnderFrequencyAlarmLevel;
+var mainsOverFrequencyAlarmLevel;
+
+var engineSetup;
+var enginePreHeatOn;
+var enginePreHeatDuration;
+var enginePostHeatOn;
+var enginePostHeatDuration;
+
+var crankSetup;
+var crankDisconnectgenFreqLevel;
+var crankDisconnectOilPressureLevel;
+var crankDisconnectChargeAlternatorLevel;
+
+var batteryAlarms;
+var batteryUnderVoltageLevel;
+var batteryUnderVoltageDelay;
+var batteryOverVoltageLevel;
+var batteryOverVoltageDelay;
+var batteryChargeShutdownLevel;
+var batteryChargeShutdownDelay;
+var batteryChargeWarningLevel;
+var batteryChargeWarningDelay;
+
+var maintenanceAlarms;
+var maintenanceAlarmOilEngineRunTime;
+var maintenanceAlarmAirEngineRunTime;
+var maintenanceAlarmFuelEngineRunTime;
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -229,6 +269,90 @@ function dataUpdate() {
 	maintenanceAlarmAirEngineRunTime = data[101];
 	maintenanceAlarmFuelEngineRunTime = data[102];
 
+	function selectorUpdate(ID,reg,n,dis){
+		sel = document.getElementById(ID);
+		sel.value = bitVal(n,reg);
+		if (dis==1){
+			document.getElementById(ID).disabled = false;
+		} else {
+			sel.disabled = true;
+		}
+		return;
+	}
+
+	function checkboxUpdate(ID,reg,n) {
+		document.getElementById(ID).checked = bitVal(n,reg);
+		return;
+	}
+
+	function s_sliderUpdate(sliderID,inputID,reg,dis){
+		slider = document.getElementById(sliderID);
+		input = document.getElementById(inputID);
+		if (dis == 1){
+			input.disabled = false;
+			slider.removeAttribute('disabled');
+		}	else {
+			input.disabled = true;
+			slider.setAttribute('disabled', false);
+		}
+		input.value = reg.value * reg.scale;
+		input.step = reg.scale;
+		input.addEventListener('change', function () {
+			this.value = parseFloat(this.value).toFixed(f(reg.scale));
+		});
+		slider.noUiSlider.updateOptions({
+			step: 	reg.scale,
+			start: [reg.value * reg.scale],
+			range: {
+				'min': (reg.min * reg.scale),
+				'max': (reg.max * reg.scale)
+			}
+		})
+		return;
+	}
+
+	function d_sliderUpdate(sliderID,inputlID,inputrID,regL,regR,dis){
+		slider = document.getElementById(sliderID);
+		inputl = document.getElementById(inputlID);
+		inputr = document.getElementById(inputrID);
+		if (dis==1){
+			inputl.disabled = false;
+			inputr.disabled = false;
+			slider.removeAttribute('disabled');
+		}	else {
+			inputl.disabled = true;
+			inputr.disabled = true;
+			slider.setAttribute('disabled', false);
+		}
+		inputl.value = regL.value * regL.scale;
+		inputl.step = regL.scale;
+		inputl.addEventListener('change',function(){
+			this.value = parseFloat(this.value).toFixed(f(regL.scale));
+		})
+		inputr.value = regR.value * regR.scale;
+		inputr.step = regR.scale;
+		inputr.addEventListener('change',function(){
+			this.value = parseFloat(this.value).toFixed(f(regR.scale));
+		})
+		slider.noUiSlider.updateOptions({
+			start: [regL.value*regL.scale, regR.value*regR.scale],
+			range: {
+				'min': (regL.min * regL.scale),
+				'max': (regL.max * regL.scale)
+			}
+		})
+		return;
+	}
+
+	function radioUpdate(r0ID,r1ID,state) {
+		r0 = document.getElementById(r0ID);
+		r1 = document.getElementById(r1ID);
+		if (state==0) {
+			r0.checked = true;
+		} else {
+			r1.checked = true;
+		}
+	}
 
 	// #1
 	selectorUpdate('oilPressureSensorType',oilPressureSetup,0,1);
@@ -332,6 +456,22 @@ function dataUpdate() {
 	s_sliderUpdate('s-slider-genCurrentPrimary','sinput-genCurrentPrimary',genCurrentPrimary,1);
 	s_sliderUpdate('s-slider-genCurrentFullLoadRating','sinput-genCurrentFullLoadRating',genCurrentFullLoadRating,1);
 	selectorUpdate('genLocationCurrentTransformer',genSetup,3,1);
+	slider = document.getElementById("s-slider-cosFi");
+	input = document.getElementById("sinput-cosFi");
+	input.disabled = false;
+	slider.removeAttribute('disabled');
+	input.step = 0.01;
+	input.addEventListener('change', function () {
+		this.value = parseFloat(this.value).toFixed(2);
+	});
+	slider.noUiSlider.updateOptions({
+		step: 	0.01,
+		start: [0],
+		range: {
+			'min': 0,
+			'max': 1
+		}
+	})
 	//#11
 	checkboxUpdate('genUnderVoltageAlarmEnb',genAlarms,0);
 	s_sliderUpdate('s-slider-genUnderVoltageAlarmLevel','sinput-genUnderVoltageAlarmLevel',genUnderVoltageAlarmLevel,bitVal(0,genAlarms));
@@ -423,12 +563,246 @@ function dataUpdate() {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+function dataGrab(){
+
+	function checkboxGrab(id,reg,n){
+		input = 0;
+		if(document.getElementById(id).checked > 0){
+			input = 1;
+		}
+		bitWrite(n,reg,input);
+		return;
+	}
+
+	function selectorGrab(id,reg,n){
+		bitWrite(n,reg,document.getElementById(id).value);
+		return;
+	}
+
+	function s_sliderGrab(inputID,reg){
+		reg.value = document.getElementById(inputID).value;
+		return;
+	}
+
+	function d_sliderGrab(sliderID,inputlID,inputrID,regL,regR,dis){
+		regL.value = document.getById(inputlID).value;
+		redR.value = document.getById(inputRID).value;
+		return;
+	}
+
+	function radioGrab(r0ID,r1ID,reg,n) {
+		if (document.getElementById(r1ID).checked = true){
+			bitWrite(n,reg,1);
+		} else {
+			bitWrite(n,reg,0);
+		}
+		return;
+	}
+
+	// #1
+	checkboxGrab('oilPressureSensorType',oilPressureSetup,0);
+	checkboxGrab('oilPressureEnbOpenCircuitAlarmEnb',oilPressureSetup,1);
+	checkboxGrab('oilPressureAlarmEnb',oilPressureSetup,2);
+	s_sliderGrab('sinput-oilPressureAlarmLevel',oilPressureAlarmLevel);
+	checkboxGrab('oilPressurePreAlarmEnb',oilPressureSetup,3);
+	s_sliderGrab('sinput-oilPressurePreAlarmLevel',oilPressurePreAlarmLevel);
+	//#2
+	selectorUpdate('coolantTempSensorType',coolantTempSetup,0);
+	checkboxUpdate('coolantTempEnbOpenCircuitAlarm',coolantTempSetup);
+	checkboxUpdate('coolantHightTempAlarmEnb',coolantTempSetup,2);
+	s_sliderUpdate('sinput-coolantHightTempAlarmLevel',coolantHightTempAlarmLevel);
+	checkboxUpdate('coolantHightTempPreAlarmEnb',coolantTempSetup,3);
+	s_sliderUpdate('sinput-coolantHightTempPreAlarmLevel',coolantHightTempPreAlarmLevel);
+	checkboxUpdate('coolantTempHeaterEnb',coolantTempSetup,4);
+	d_sliderUpdate('dinput-coolantTempHeaterOffLevel','dinput-coolantTempHeaterOnLevel',coolantTempHeaterOnLevel,coolantTempHeaterOffLevel);
+	checkboxUpdate('coolantTempCoolerEnb',coolantTempSetup,5);
+	d_sliderUpdate('dinput-coolantTempCoolerOffLevel','dinput-coolantTempCoolerOnLevel',coolantTempCoolerOnLevel,coolantTempCoolerOffLevel);
+	//#3
+	selectorUpdate('fuelLevelSensorType',fuelLevelSetup,0);
+	checkboxUpdate('fuelLevelLowAlarmEnb',fuelLevelSetup,1);
+	selectorUpdate('fuelLevelLowAlarmAction',fuelLevelSetup,2);
+	s_sliderUpdate('sinput-fuelLevelLowAlarmLevel',fuelLevelLowAlarmLevel);
+	s_sliderUpdate('sinput-fuelLevelLowAlarmDelay',fuelLevelLowAlarmDelay);
+	checkboxUpdate('fuelLevelLowPreAlarmEnb',fuelLevelSetup,3);
+	s_sliderUpdate('sinput-fuelLevelLowPreAlarmLevel',fuelLevelLowPreAlarmLevel);
+	s_sliderUpdate('sinput-fuelLevelLowPreAlarmDelay',fuelLevelLowPreAlarmDelay);
+	checkboxUpdate('fuelLevelHightAlarmEnb',fuelLevelSetup,5);
+	selectorUpdate('fuelLevelHightAlarmAction',fuelLevelSetup,6);
+	s_sliderUpdate('sinput-fuelLevelHightAlarmLevel',fuelLevelHightAlarmLevel);
+	s_sliderUpdate('sinput-fuelLevelHightAlarmDelay',fuelLevelHightAlarmDelay);
+	checkboxUpdate('fuelLevelHightPreAlarmLevelEnb',fuelLevelSetup,4);
+	s_sliderUpdate('sinput-fuelLevelHightPreAlarmLevel',fuelLevelHightPreAlarmLevel);
+	s_sliderUpdate('sinput-fuelLevelHightPreAlarmDelay',fuelLevelHightPreAlarmDelay);
+	checkboxUpdate('fuelPumpEnb',fuelLevelSetup,7);
+	d_sliderUpdate('dinput-fuelPumpOffLevel','dinput-fuelPumpOnLevel',fuelPumpOnLevel,fuelPumpOffLevel);
+	//#4
+	selectorUpdate('diaFunction',diaSetup,0);
+	selectorUpdate('diaPolarity',diaSetup,1);
+	selectorUpdate('diaAction',diaSetup,2);
+	selectorUpdate('diaArming',diaSetup,3);
+	s_sliderUpdate('sinput-diaDelay',diaDelay);
+	//#5
+	selectorUpdate('dibFunction',dibSetup,0);
+	selectorUpdate('dibPolarity',dibSetup,1);
+	selectorUpdate('dibAction',dibSetup,2);
+	selectorUpdate('dibArming',dibSetup,3);
+	s_sliderUpdate('sinput-dibDelay',dibDelay);
+	//#6
+	selectorUpdate('dicFunction',dicSetup,0);
+	selectorUpdate('dicPolarity',dicSetup,1);
+	selectorUpdate('dicAction',dicSetup,2);
+	selectorUpdate('dicArming',dicSetup,3);
+	s_sliderUpdate('sinput-dicDelay',dicDelay);
+	//#7
+	selectorUpdate('didFunction',didSetup,0);
+	selectorUpdate('didPolarity',didSetup,1);
+	selectorUpdate('didAction',didSetup,2);
+	selectorUpdate('didArming',didSetup,3);
+	s_sliderUpdate('sinput-didDelay',didDelay);
+	//#8
+	selectorUpdate('doaType',doabType,0);
+	radioUpdate('DOA_NO','DOA_NC',doSetup,0);
+	selectorUpdate('dobType',doabType,1);
+	radioUpdate('DOB_NO','DOB_NC',doSetup,1);
+	selectorUpdate('docType',docdType,0);
+	radioUpdate('DOC_NO','DOC_NC',doSetup,2);
+	selectorUpdate('dodType',docdType,1);
+	radioUpdate('DOD_NO','DOD_NC',doSetup,3);
+	selectorUpdate('doeType',doefType,0);
+	radioUpdate('DOE_NO','DOE_NC',doSetup,4);
+	selectorUpdate('dofType',doefType,1);
+	radioUpdate('DOF_NO','DOF_NC',doSetup,5);
+	//#9 Timers
+	s_sliderUpdate('sinput-timerMainsTransientDelay',timerMainsTransientDelay);
+	s_sliderUpdate('sinput-timerStartDelay',timerStartDelay);
+	s_sliderUpdate('sinput-timerCranking',timerCranking);
+	s_sliderUpdate('sinput-timerCrankDelay',timerCrankDelay);
+	s_sliderUpdate('sinput-timerStartupIdleTime',timerStartupIdleTime);
+	s_sliderUpdate('sinput-timerNominalRPMDelay',timerNominalRPMDelay);
+	s_sliderUpdate('sinput-timerSafetyOnDelay',timerSafetyOnDelay);
+	s_sliderUpdate('sinput-timerWarming',timerWarming);
+	s_sliderUpdate('sinput-timerTransferDelay',timerTransferDelay);
+	s_sliderUpdate('sinput-timerBreakerTripPulse',timerBreakerTripPulse);
+	s_sliderUpdate('sinput-timerBreakerClosePulse',timerBreakerClosePulse);
+	s_sliderUpdate('sinput-timerReturnDelay',timerReturnDelay);
+	s_sliderUpdate('sinput-timerCooling',timerCooling);
+	s_sliderUpdate('sinput-timerCoolingIdle',timerCoolingIdle);
+	s_sliderUpdate('sinput-timerSolenoidHold',timerSolenoidHold);
+	s_sliderUpdate('sinput-timerFailStopDelay',timerFailStopDelay);
+	s_sliderUpdate('sinput-timerGenTransientDelay',timerGenTransientDelay);
+	//#10
+	checkboxUpdate('genPowerGeneratorControlEnb',genSetup,0);
+	selectorUpdate('genPoles',genSetup,1);
+	selectorUpdate('genAcSys',genSetup,2);
+	s_sliderUpdate('sinput-genRatedActivePower',genRatedActivePower);
+	s_sliderUpdate('sinput-genRatedReactivePower',genRatedReactivePower);
+	s_sliderUpdate('sinput-genRatedApparentPower',genRatedApparentPower);
+	s_sliderUpdate('sinput-genRatedFrequency',genRatedFrequency);
+	s_sliderUpdate('sinput-genCurrentPrimary',genCurrentPrimary);
+	s_sliderUpdate('sinput-genCurrentFullLoadRating',genCurrentFullLoadRating);
+	selectorUpdate('genLocationCurrentTransformer',genSetup,3);
+	//#11
+	checkboxUpdate('genUnderVoltageAlarmEnb',genAlarms,0);
+	s_sliderUpdate('sinput-genUnderVoltageAlarmLevel',genUnderVoltageAlarmLevel);
+	checkboxUpdate('genUnderVoltagePreAlarmEnb',genAlarms,1);
+	s_sliderUpdate('sinput-genUnderVoltagePreAlarmLevel',genUnderVoltagePreAlarmLevel);
+	s_sliderUpdate('sinput-genOverVoltageAlarmLevel',genOverVoltageAlarmLevel);
+	checkboxUpdate('genOverVoltagePreAlarmEnb',genAlarms,2);
+	s_sliderUpdate('sinput-genOverVoltagePreAlarmLevel',genOverVoltagePreAlarmLevel);
+	//#12
+	checkboxUpdate('genUnderFrequencyAlrmEnb',genAlarms,3);
+	s_sliderUpdate('sinput-genUnderFrequencyAlrmLevel',genUnderFrequencyAlrmLevel);
+	checkboxUpdate('genUnderFrequencyPreAlrmEnb',genAlarms,4);
+	s_sliderUpdate('sinput-genUnderFrequencyPreAlrmLevel',genUnderFrequencyPreAlrmLevel);
+	checkboxUpdate('genOverFrequencyPreAlrmEnb',genAlarms,5);
+	s_sliderUpdate('sinput-genOverFrequencyPreAlrmLevel',genOverFrequencyPreAlrmLevel);
+	checkboxUpdate('genOverFrequencyAlarmEnb',genAlarms,6);
+	s_sliderUpdate('sinput-genOverFrequencyAlrmLevel',genOverFrequencyAlrmLevel);
+	//#13
+	s_sliderUpdate('sinput-genOverCurrentThermalProtectionLevel',genOverCurrentThermalProtectionLevel);
+	s_sliderUpdate('sinput-genOverCurrentCutoffLevel',genOverCurrentCutoffLevel);
+	selectorUpdate('genCurrentOverAlarmAction',genAlarms,9);
+	s_sliderUpdate('sinput-genOverCurrentAlarmLevel',genOverCurrentAlarmLevel);
+	s_sliderUpdate('sinput-genOverCurrentAlarmDelay',genOverCurrentAlarmDelay);
+	checkboxUpdate('genCurrentOverloadProtectionEnb',genAlarms,7);
+	selectorUpdate('genCurrentOverloadProtectionAction',genAlarms,10);
+	s_sliderUpdate('sinput-genCurrentOverloadProtectionLevel',genCurrentOverloadProtectionLevel);
+	s_sliderUpdate('sinput-genCurrentOverloadProtectionDelay',genCurrentOverloadProtectionDelay);
+	checkboxUpdate('genCurrentOverPhaseImbalanceEnb',genAlarms,8);
+	selectorUpdate('genCurrentOverPhaseImbalanceAction',genAlarms,11);
+	s_sliderUpdate('sinput-genCurrentOverPhaseImbalanceLevel',genCurrentOverPhaseImbalanceLevel);
+	s_sliderUpdate('sinput-genCurrentOverPhaseImbalanceDelay',genCurrentOverPhaseImbalanceDelay);
+	//#14
+	checkboxUpdate('mainsControl',mainsSetup,0);
+	checkboxUpdate('mainsPowerOffImmediately',mainsSetup,1);
+	selectorUpdate('mainAcSys',mainsSetup,2);
+	//#15
+	checkboxUpdate('mainsUnderVoltageAlarm',mainsAlarms,0);
+	s_sliderUpdate('sinput-mainsUnderVoltageAlarmLevel',mainsUnderVoltageAlarmLevel);
+	checkboxUpdate('mainsOverVoltageAlarm',mainsAlarms,1);
+	s_sliderUpdate('sinput-mainsOverVoltageAlarmLevel',mainsOverVoltageAlarmLevel);
+	checkboxUpdate('mainsUnderFrequencyAlarm',mainsAlarms,2);
+	s_sliderUpdate('sinput-mainsUnderFrequencyAlarmLevel',mainsUnderFrequencyAlarmLevel);
+	checkboxUpdate('mainsOverFrequencyAlarm',mainsAlarms,3);
+	s_sliderUpdate('sinput-mainsOverFrequencyAlarmLevel',mainsOverFrequencyAlarmLevel);
+	//#16
+	bitWrite(0,engineSetup,document.getElementById('engineStartAttempts').value);
+	checkboxUpdate('enginePreHeatEnb',engineSetup,1);
+	s_sliderUpdate('sinput-enginePreHeatOn',enginePreHeatOn);
+	s_sliderUpdate('sinput-enginePreHeatDuration',enginePreHeatDuration);
+	checkboxUpdate('enginePostHeatEnb',engineSetup,2);
+	s_sliderUpdate('sinput-enginePostHeatOn',enginePostHeatOn);
+	s_sliderUpdate('sinput-enginePostHeatDuration',enginePostHeatDuration);
+	//#17
+	checkboxUpdate('crankDisconnectOilPressure',crankSetup,0);
+	checkboxUpdate('crankOilPressureCheckOnStart',crankSetup,1);
+	s_sliderUpdate('sinput-crankDisconnectgenFreqLevel',crankDisconnectgenFreqLevel);
+	checkboxUpdate('crankDisconnectOilPressureEnb',crankSetup,2);
+	s_sliderUpdate('sinput-crankDisconnectOilPressureLevel',crankDisconnectOilPressureLevel);
+	checkboxUpdate('crankDisconnectChargeAlternatorEnb',crankSetup,3);
+	s_sliderUpdate('sinput-crankDisconnectChargeAlternatorLevel',crankDisconnectChargeAlternatorLevel);
+	//#18
+	checkboxUpdate('batteryUnderVoltageEnb',batteryAlarms,0);
+	s_sliderUpdate('sinput-batteryUnderVoltageLevel',batteryUnderVoltageLevel);
+	s_sliderUpdate('sinput-batteryUnderVoltageDelay',batteryUnderVoltageDelay);
+	checkboxUpdate('batteryOverVoltageEnb',batteryAlarms,1);
+	s_sliderUpdate('sinput-batteryOverVoltageLevel',batteryOverVoltageLevel);
+	s_sliderUpdate('sinput-batteryOverVoltageDelay',batteryOverVoltageDelay);
+	checkboxUpdate('batteryChargeShutdownEnb',batteryAlarms,2);
+	s_sliderUpdate('sinput-batteryChargeShutdownLevel',batteryChargeShutdownLevel);
+	s_sliderUpdate('sinput-batteryChargeShutdownDelay',batteryChargeShutdownDelay);
+	checkboxUpdate('batteryChargeWarningEnb',batteryAlarms,3);
+	s_sliderUpdate('sinput-batteryChargeWarningLevel',batteryChargeWarningLevel);
+	s_sliderUpdate('sinput-batteryChargeWarningDelay',batteryChargeWarningDelay);
+	//#19
+	checkboxUpdate('maintenanceAlarmOilEnb',maintenanceAlarms,0);
+	selectorUpdate('maintenanceAlarmOilAction',maintenanceAlarms,1);
+	s_sliderUpdate('sinput-maintenanceAlarmOilEngineRunTime',maintenanceAlarmOilEngineRunTime);
+	checkboxUpdate('maintenanceAlarmAirEnb',maintenanceAlarms,2);
+	selectorUpdate('maintenanceAlarmAirAction',maintenanceAlarms,3);
+	s_sliderUpdate('sinput-maintenanceAlarmAirEngineRunTime',maintenanceAlarmAirEngineRunTime);
+	checkboxUpdate('maintenanceAlarmFuelEnb',maintenanceAlarms,4);
+	selectorUpdate('maintenanceAlarmFuelAction',maintenanceAlarms,5);
+	s_sliderUpdate('sinput-maintenanceAlarmFuelEngineRunTime',maintenanceAlarmFuelEngineRunTime);
+	return;
+}
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
 function toogleNav() {
-	var sb = document.getElementById("sidebar")
+	var sb   = document.getElementById("sidebar");
+	var cont = document.getElementsByClassName("content-data");
+	var i = 0;
 	if (sb.classList.contains("active")){
 		sb.classList.remove("active");
+		for(i=0;i<cont.length;i++){
+			cont[i].classList.remove("full");
+		}
 	} else {
 		sb.classList.add("active");
+		for(i=0;i<cont.length;i++){
+			cont[i].classList.add("full");
+		}
 	}
 	return;
 }
@@ -602,96 +976,123 @@ function timerSliderTransform(id,reg){
 
 
 
-function powerSliderInit(idActive, idReactive, idApparent, reg){
-	sliderActive   = document.getElementById("s-slider-"+idActive);
-	inputActive    = document.getElementById("sinput-"+idActive);
-	sliderReactive = document.getElementById("s-slider-"+idReactive);
-	inputReactive  = document.getElementById("sinput-"+idReactive);
-	sliderApparent = document.getElementById("s-slider-"+idApparent);
-	inputApparent  = document.getElementById("sinput-"+idApparent);
+function powerSliderInit(idActive, idReactive, idApparent, idCosFi, reg){
+	sliderActive   = document.getElementById("s-slider-"+idActive);		// P кВт
+	inputActive    = document.getElementById("sinput-"+idActive);			// P кВт
+	sliderReactive = document.getElementById("s-slider-"+idReactive);	// Q кВар
+	inputReactive  = document.getElementById("sinput-"+idReactive);		// Q кВар
+	sliderApparent = document.getElementById("s-slider-"+idApparent);	// S кВА
+	inputApparent  = document.getElementById("sinput-"+idApparent);		// S кВА
+	sliderCosFi    = document.getElementById("s-slider-"+idCosFi);
+	inputCosFi     = document.getElementById("sinput-"+idCosFi);
 
-	function powerApparentCalc(active,reactive){
-		return Math.sqrt(active*active + reactive*reactive);
+	function powerApparentCalc(p,q){
+		return Math.sqrt(p*p+q*q);
 	}
 
-	function apparentActiveUpdate(){
-		powActive = sliderActive.noUiSlider.get();
-		powReactive = sliderReactive.noUiSlider.get();
-		pow = powerApparentCalc(powActive,powReactive);
-		if(pow < reg.max){
-			sliderApparent.noUiSlider.set(pow);
-		}	else {
-			sliderApparent.noUiSlider.set(reg.max);
-			val = Math.sqrt(reg.max*reg.max-Math.pow(parseInt(sliderReactive.noUiSlider.get()),2));
-			if(si = 1){
-				sliderActive.noUiSlider.set(val);
-			} else {
-				inputActive.value = val;
-			}
-		}
+	function powerReaCalc(s,e){
+		return Math.sqrt(s*s-e*e);
 	}
 
-	function apparentReactiveUpdate(){
-		powActive = sliderActive.noUiSlider.get();
-		powReactive = sliderReactive.noUiSlider.get();
-		pow = powerApparentCalc(powActive,powReactive);
-		if(pow < reg.max){
-			sliderApparent.noUiSlider.set(pow);
-		}	else {
-			sliderApparent.noUiSlider.set(reg.max);
-			val = Math.sqrt(reg.max*reg.max-Math.pow(parseInt(sliderActive.noUiSlider.get()),2));
-			if(si = 1){
-				sliderReactive.noUiSlider.set(val);
-			} else {
-				inputReactive.value = val;
-			}
-		}
+	function coeffPCalc(s,cosfi){
+		return s*cosfi;
 	}
 
-	function reactUpdate(){
-		pa = parseInt(sliderApparent.noUiSlider.get());
-		pb = parseInt(sliderActive.noUiSlider.get());
-		pc = parseInt(sliderReactive.noUiSlider.get());
-		if(pb == 0){
-			sliderReactive.noUiSlider.set(pa);
-		} else if (pc == 0){
-			sliderActive.noUiSlider.set(pa);
+	function coeffCalc(s,p){
+		return p/s;
+	}
+
+	function activeUpdate(){
+		powActive   = parseInt(sliderActive.noUiSlider.get());
+		powApparent = parseInt(sliderApparent.noUiSlider.get());
+
+		if(powActive<=powApparent){
+			powReactive = powerReaCalc(powApparent,powActive);
+			sliderReactive.noUiSlider.set(powReactive);
+			sliderCosFi.noUiSlider.set(powActive/powApparent);
 		} else {
-			delta = (-pb-pc+Math.sqrt(2*pb*pc-pb*pb-pc*pc+2*pa*pa))/2;
-			if (pb > delta){
-				if (pc > delta){
-					sliderActive.noUiSlider.set(pb+delta);
-					sliderReactive.noUiSlider.set(pc+delta);
-				} else {
-					sliderReactive.noUiSlider.set(0);
-					sliderActive.noUiSlider.set(pa);
-				}
-			} else {
-				sliderActive.noUiSlider.set(0);
-				sliderReactive.noUiSlider.set(pa);
-			}
+			powReactive = 0;
+			powActive = powerReaCalc(powApparent,powReactive);
+			sliderActive.noUiSlider.set(powActive);
+			sliderReactive.noUiSlider.set(0);
+			sliderCosFi.noUiSlider.set(powActive/powApparent);
 		}
+		return;
 	}
 
-	apparentActiveUpdate();
-	apparentReactiveUpdate();
+	function apparentUpdate(){
+		powActive   = parseInt(sliderActive.noUiSlider.get());
+		powApparent = parseInt(sliderApparent.noUiSlider.get());
+		if(powApparent>=powActive){
+			powReactive = powerReaCalc(powApparent,powActive);
+			sliderReactive.noUiSlider.set(powReactive);
+			sliderCosFi.noUiSlider.set(powActive/powApparent);
+		} else {
+			sliderApparent.noUiSlider.set(powActive);
+			sliderReactive.noUiSlider.set(0);
+			sliderCosFi.noUiSlider.set(powActive/powApparent);
+		}
+		return;
+	}
+
+	function reactiveUpdate(){
+		powApparent = parseInt(sliderApparent.noUiSlider.get());
+		powReactive = parseInt(sliderReactive.noUiSlider.get());
+		powActive   = powerReaCalc(powApparent,powReactive);
+
+		if (powActive<=powApparent){
+			sliderActive.noUiSlider.set(powActive);
+			sliderCosFi.noUiSlider.set(powActive/powApparent);
+		} else {
+			powReactive = powApparent;
+			sliderActive.noUiSlider.set(0);
+			sliderReactive.noUiSlider.set(powReactive);
+			sliderCosFi.noUiSlider.set(powActive/powApparent);
+		}
+		return;
+	}
+
+	function cosFiUpdate(){
+		powApparent = parseInt(sliderApparent.noUiSlider.get());
+		cosFi       = parseFloat(sliderCosFi.noUiSlider.get());
+		powReactive = powApparent*Math.sin(Math.acos(cosFi));
+		powActive   = powerReaCalc(powApparent,powReactive);
+		if (powActive<=powApparent){
+			sliderActive.noUiSlider.set(powActive);
+			sliderReactive.noUiSlider.set(powReactive);
+		} else {
+			powActive = powApparent;
+			sliderActive.noUiSlider.set(powActive);
+			powReactive = powerReaCalc(powApparent,powActive);
+			sliderReactive.noUiSlider.set(powReactive);
+			sliderCosFi.noUiSlider.set(powActive/powApparent);
+		}
+		return;
+	}
+
+	activeUpdate();
+	reactiveUpdate();
+
 	sliderActive.noUiSlider.on("change",function(){
-		apparentActiveUpdate();
+		activeUpdate();
 	});
 	inputActive.addEventListener("change",function(){
-		apparentActiveUpdate();
+		activeUpdate();
 	});
 	sliderReactive.noUiSlider.on("change",function(){
-		apparentReactiveUpdate();
+		reactiveUpdate();
 	});
 	inputReactive.addEventListener("change",function(){
-		apparentReactiveUpdate();
+		reactiveUpdate();
 	});
 	sliderApparent.noUiSlider.on("change",function(){
-		reactUpdate();
+		apparentUpdate();
 	});
 	inputApparent.addEventListener("change",function(){
-		reactUpdate();
+		apparentUpdate();
+	})
+	sliderCosFi.noUiSlider.on("change",function(){
+		cosFiUpdate();
 	})
 	return;
 }
@@ -1090,7 +1491,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	sliderInit();
 	dataUpdate();
 	sensorModalInit();
-	powerSliderInit("genRatedActivePower","genRatedReactivePower","genRatedApparentPower",genRatedApparentPower);
+	powerSliderInit("genRatedActivePower","genRatedReactivePower","genRatedApparentPower","cosFi",genRatedApparentPower);
 	timerSliderTransform("fuelLevelLowAlarmDelay",fuelLevelLowAlarmDelay);
 	timerSliderTransform("fuelLevelLowPreAlarmDelay",fuelLevelLowPreAlarmDelay);
 	timerSliderTransform("fuelLevelHightAlarmDelay",fuelLevelHightAlarmDelay);
