@@ -131,6 +131,5 @@ function saveChartData(chrtData){
       "y": sensorData.datasets[0].data[i],
     })
   }
-  console.log(chrtData);
   return;
 }

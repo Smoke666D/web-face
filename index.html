@@ -27,19 +27,19 @@
                 <li>
                   <a id="nav_oilPress" onclick="loadContent('oilPressPage')" href="#">
                     <i class="fas fa-oil-can"></i>
-                    Давление масла
+                    <span>Давление масла</span>
                   </a>
                 </li>
                 <li>
                   <a id="nav_coolantTemp" onclick="loadContent('coolTempPage')" href="#">
                     <i class="fas fa-thermometer-full"></i>
-                    Температура охлаждающей жидкости
+                    <span>Температура охлаждающей жидкости</span>
                   </a>
                 </li>
                 <li>
                   <a id="nav_fuelLevel" onclick="loadContent('fuelLevelPage')" href="#">
                     <i class="fas fa-gas-pump"></i>
-                    Уровень топлива
+                    <span>Уровень топлива</span>
                   </a>
                 </li>
                 <li>
@@ -62,7 +62,7 @@
             <li>
               <a onclick="loadContent('timerPage')" href="#">
                 <i class="far fa-clock"></i>
-                Таймеры
+                <span>Таймеры</span>
               </a>
             </li>
             <li class="active">
@@ -117,7 +117,6 @@
 	      </div>
     	</nav>
       <!------------------------------------------------------------------------------------------------------------->
-      <!-- Page Content  -->
       <div id="content" class="p-4 p-md-5">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
@@ -126,17 +125,17 @@
               <i class="fa fa-bars"></i>
               <span class="sr-only">Toggle Menu</span>
             </button>
-            &nbsp
+            <span>&nbsp</span>
             <button onclick="dataUpdate()" class="btn btn-primary">
               <i class="fa fa-refresh" id="i-loading"></i>
               <span class="sr-only">Refresh data</span>
             </button>
-            &nbsp
+            <span>&nbsp</span>
             <button onclick="dataGrab()" class="btn btn-primary">
               <i class="fa fa-upload" id="i-upload"></i>
               <span class="sr-only">Upload data</span>
             </button>
-            &nbsp
+            <span>&nbsp</span>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
@@ -2818,15 +2817,15 @@
                     <span class="sr-only">Remove point</span>
                   </button>
                 </div>
-                &nbsp
-                &nbsp
-                &nbsp
-                &nbsp
-                &nbsp
-                &nbsp
-                &nbsp
-                &nbsp
-                &nbsp
+                <span>&nbsp</span>
+                <span>&nbsp</span>
+                <span>&nbsp</span>
+                <span>&nbsp</span>
+                <span>&nbsp</span>
+                <span>&nbsp</span>
+                <span>&nbsp</span>
+                <span>&nbsp</span>
+                <span>&nbsp</span>
                 <button type="button" class="btn btn-primary" onclick="saveChartData(sensorChartData)">
                   <i class="fas fa-save"></i>
                   <span class="sr-only">Сохранить</span>
