@@ -10,9 +10,12 @@ sys.path.append('F:/PROJ/190729_ERGAN/SOFTWARE/embSite/UTIL/rjsmin-1.1.0')
 from rjsmin import jsmin
 #*******************************************************************************
 def removeLink(string, name, type):
+    result = 1
+    out    = string
     index = string.find(name)
     if (index > 0):
         stIndex = -1
+        enIndex = -1
         i = 1;
         while (stIndex < 0):
             stIndex = string.find('<',index-i,index)
@@ -21,7 +24,10 @@ def removeLink(string, name, type):
             enIndex = string.find('>',index)
         elif (type == 'js'):
             enIndex = string.find('</script>',index) + 9
-    return  string[:stIndex] + string[enIndex+1:]
+        out = string[:stIndex] + string[enIndex+1:]
+    else:
+        result = 0
+    return  [out, result]
 #*******************************************************************************
 def minifyCss(css):
     return cssmin(css, keep_bang_comments=True)
@@ -78,9 +84,22 @@ def compilNex( text ):
     f.write("};\n" )
     f.write("#endif /* INC_INDEX_H_ */")
     f.close()
-    return
+    return ( len( text ) / 1024)
 #*******************************************************************************
-def make():
+def make(  minifyHTML = True, minifyCSS = True, minifyJS = True, ):
+    print("****************************************************")
+    if (minifyHTML == True):
+        print("HTML mimnfy: On")
+    else:
+        print("HTML mimnfy: Off")
+    if (minifyCSS == True):
+        print("CSS mimnfy:  On")
+    else:
+        print("CSS mimnfy:  Off")
+    if (minifyJS == True):
+        print("JS mimnfy:   On")
+    else:
+        print("JS mimnfy:   Off")
     # Get paths to html, css and js files
     localPath = os.getcwd()
     htmlPath  = os.path.split(localPath)[0]
@@ -94,20 +113,46 @@ def make():
         cssFiles = files
     # Read html file
     htmlFile = open(htmlPath,"r")
-    htmlText = minifyHtml(htmlFile.read())
+    if (minifyHTML == True):
+        htmlText = minifyHtml(htmlFile.read())
+    else:
+        htmlText = htmlFile.read()
     # Remove links to the css and js files from html file
-    for cssFile in cssFiles:
-        htmlText = removeLink(htmlText, cssFile,'css')
-    for jsFile in jsFiles:
-        htmlText = removeLink(htmlText, jsFile,'js')
+    valid = []
+    for i in range(0, len(cssFiles)):
+        [htmlText, res] = removeLink(htmlText, cssFiles[i],'css')
+        if (res == 0):
+            valid.append(0)
+        else:
+            valid.append(1)
+    for i in range(0, len(valid)):
+        if (valid[i] == 0):
+            del cssFiles[i]
+    #del cssFiles[i]
+    valid = []
+    for i in range(0, len(jsFiles)):
+        [htmlText, res] = removeLink(htmlText, jsFiles[i],'js')
+        if (res == 0):
+            valid.append(0)
+        else:
+            valid.append(1)
+    for i in range(0, len(valid)):
+        if (valid[i] == 0):
+            del jsFiles[i]
+    for file in jsFiles:
+        print("include " + file)
+    for file in cssFiles:
+        print("include " + file)
     # Add css section
     index = htmlText.find("</head>")
-
     htmlText = htmlText[:index] + "<style>" + htmlText[index:]
     index = index + 7
     for cssFile in cssFiles:
         cssLink = os.path.join(cssPath,cssFile)
-        cssText = minifyCss(open(cssLink,"r").read())
+        if (minifyCSS == True):
+            cssText = minifyCss(open(cssLink,"r").read())
+        else:
+            cssText = open(cssLink,"r").read()
         htmlText = htmlText[:index] + cssText + htmlText[index:]
         index = index + len(cssText)
     htmlText = htmlText[:index] + "</style>" + htmlText[index:]
@@ -123,7 +168,10 @@ def make():
     index = index + 8
     for jsFile in jsFiles:
         jsLink = os.path.join(jsPath,jsFile)
-        jsText = minifyJs(open(jsLink,"r").read())
+        if (minifyJS == True):
+            jsText = minifyJs(open(jsLink,"r").read())
+        else:
+            jsText = open(jsLink,"r").read()
         htmlText = htmlText[:index] + " " + jsText + htmlText[index:]
         index = index + len(jsText) + 1  #
     htmlText = htmlText[:index] + "</script><s" + htmlText[index:]
@@ -131,8 +179,9 @@ def make():
     output = open("index_make.html","w+")
     output.write(htmlText)
     output.close()
-
-    compilNex(htmlText)
+    size = compilNex(htmlText)
+    print("HEX file: " + str(size) + " Kb")
+    print("****************************************************")
 #*******************************************************************************
-make()
+make(minifyHTML = True, minifyCSS = True, minifyJS = True)
 #*******************************************************************************

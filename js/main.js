@@ -142,15 +142,31 @@ var maintenanceAlarmFuelEngineRunTime;
 //******************************************************************************
 //******************************************************************************
 function dataUpdate() {
-/*
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET","http://10.130.2.25/configs/0",true);
-	xhr.onload = function (){
-		alert(xhr.responseText);
+
+	try {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET","http://10.130.2.25/configs/0",true);
+		xhr.onload = function (){
+			log(xhr.responseText)
+		}
+		xhr.send(null);
+		//var xhr = new XMLHttpRequest();
+		/*for (var i=0; i<103; i++){
+			xhr.open("GET","http://10.130.2.25/configs/"+i,true);
+			xhr.onload = function (){
+				log(xhr.responseText)
+				data[i] = JSON.parse(xhr.responseText);
+			}
+			xhr.send(null);
+		}*/
+
+	} catch  {
+		alert("Нет связи с сервером")
 	}
-	xhr.send(null);
-	*/
+
 	document.getElementById("i-loading").classList.add("loading");
+	/*
+	try{
 	oilPressureSetup = data[1];
 	oilPressureAlarmLevel = data[2];
 	oilPressurePreAlarmLevel = data[3];
@@ -557,7 +573,12 @@ function dataUpdate() {
 	s_sliderUpdate('s-slider-maintenanceAlarmFuelEngineRunTime','sinput-maintenanceAlarmFuelEngineRunTime',maintenanceAlarmFuelEngineRunTime,bitVal(4,maintenanceAlarms));
 
 	updateAllTimeSliders();
+	}
+	catch{
+		alert("Нет структуры данных")
+	}
 	document.getElementById("i-loading").classList.remove("loading");
+	*/
 	return;
 }
 //******************************************************************************
