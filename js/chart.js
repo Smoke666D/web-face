@@ -1,4 +1,3 @@
-var speedCanvas = document.getElementById("speedChart");
 var sensorData = {
   labels: ["0", "10"],
   datasets: [{

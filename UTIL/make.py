@@ -60,8 +60,8 @@ def minifyHtml(html):
             out = out[:index] + out[subindex:]
     return out
 #*******************************************************************************
-def compilNex( text ):
-    f = open("html.h","w+")
+def compilHex( path, text ):
+    f = open(path,"w+")
     f.write("#ifndef INC_HTML_H_\n");
     f.write("#define INC_HTML_H_\n");
     f.write("/*----------------------- Includes -------------------------------------*/\n");
@@ -86,20 +86,20 @@ def compilNex( text ):
     f.close()
     return ( len( text ) / 1024)
 #*******************************************************************************
-def make(  minifyHTML = True, minifyCSS = True, minifyJS = True, ):
+def make(  minifyHTML = True, minifyCSS = True, minifyJS = True, outPath = "F:/PROJ/190729_ERGAN/SOFTWARE/ERGAN_EMB/eth/site/index.h"):
     print("****************************************************")
     if (minifyHTML == True):
-        print("HTML mimnfy: On")
+        print("HTML mimnfy   : On")
     else:
-        print("HTML mimnfy: Off")
+        print("HTML mimnfy   : Off")
     if (minifyCSS == True):
-        print("CSS mimnfy:  On")
+        print("CSS mimnfy    : On")
     else:
-        print("CSS mimnfy:  Off")
+        print("CSS mimnfy    : Off")
     if (minifyJS == True):
-        print("JS mimnfy:   On")
+        print("JS mimnfy     : On")
     else:
-        print("JS mimnfy:   Off")
+        print("JS mimnfy     : Off")
     # Get paths to html, css and js files
     localPath = os.getcwd()
     htmlPath  = os.path.split(localPath)[0]
@@ -140,9 +140,9 @@ def make(  minifyHTML = True, minifyCSS = True, minifyJS = True, ):
         if (valid[i] == 0):
             del jsFiles[i]
     for file in jsFiles:
-        print("include " + file)
+        print("include       : " + file)
     for file in cssFiles:
-        print("include " + file)
+        print("include       : " + file)
     # Add css section
     index = htmlText.find("</head>")
     htmlText = htmlText[:index] + "<style>" + htmlText[index:]
@@ -179,9 +179,10 @@ def make(  minifyHTML = True, minifyCSS = True, minifyJS = True, ):
     output = open("index_make.html","w+")
     output.write(htmlText)
     output.close()
-    size = compilNex(htmlText)
-    print("HEX file: " + str(size) + " Kb")
+    size = compilHex(outPath, htmlText)
+    print("Outut HEX     : " + outPath)
+    print("HEX file      : " + str(size) + " Kb")
     print("****************************************************")
 #*******************************************************************************
-make(minifyHTML = True, minifyCSS = True, minifyJS = True)
+make(minifyHTML = True, minifyCSS = True, minifyJS = False)
 #*******************************************************************************

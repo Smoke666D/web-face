@@ -143,30 +143,57 @@ var maintenanceAlarmFuelEngineRunTime;
 //******************************************************************************
 function dataUpdate() {
 
-	try {
-		var xhr = new XMLHttpRequest();
-		xhr.open("GET","http://10.130.2.25/configs/0",true);
-		xhr.onload = function (){
-			log(xhr.responseText)
-		}
-		xhr.send(null);
-		//var xhr = new XMLHttpRequest();
-		/*for (var i=0; i<103; i++){
-			xhr.open("GET","http://10.130.2.25/configs/"+i,true);
-			xhr.onload = function (){
-				log(xhr.responseText)
-				data[i] = JSON.parse(xhr.responseText);
-			}
-			xhr.send(null);
-		}*/
-
-	} catch  {
-		alert("Нет связи с сервером")
-	}
+	const reqs = (requests = [], store = [], failback) => {
+  	// Check if there are still requests to make
+  	if (requests instanceof Array && requests.length > 0) {
+    	const xhr = new XMLHttpRequest();
+      // Success handling
+      xhr.addEventListener('load', (data) => {
+      	const status = data.currentTarget.status;
+        const response = data.currentTarget.response;
+        if (status === 200) {;
+        	// add to store
+          store.push(JSON.parse(response));
+          // remove first request from array of requests
+          requests.shift();
+          // move on to next request
+          return reqs(requests, store, failback);
+        } else {
+        	if (failback) {
+          	failback(`Request Error: ${status}`);
+          }
+        }
+      });
+      // Failure handling
+      xhr.addEventListener('error', (error) => {
+      	if (failback) {
+        	failback('Something went wrong.');
+        }
+      });
+      xhr.open(requests[0].method, requests[0].url);
+      xhr.send();
+  	} else {
+			dataApply(store);
+			document.getElementById("i-loading").classList.remove("loading");
+      return store;
+  	}
+	};
 
 	document.getElementById("i-loading").classList.add("loading");
-	/*
 	try{
+		restSeq = []
+		for ( i=0; i<103; i++ ){
+			str = '/configs/' + i;
+			restSeq.push({method: 'get', url: str})
+		}
+		const results = reqs(restSeq, [],	(error) => console.log(error)	);
+	} catch {
+		alert("Нет связи с сервером")
+	}
+	return;
+}
+
+function dataApply(data){
 	oilPressureSetup = data[1];
 	oilPressureAlarmLevel = data[2];
 	oilPressurePreAlarmLevel = data[3];
@@ -311,17 +338,18 @@ function dataUpdate() {
 			input.disabled = true;
 			slider.setAttribute('disabled', false);
 		}
-		input.value = reg.value * reg.scale;
-		input.step = reg.scale;
+		scl = Math.pow(10,reg.scale)
+		input.value = reg.value * scl;
+		input.step = scl;
 		input.addEventListener('change', function () {
-			this.value = parseFloat(this.value).toFixed(f(reg.scale));
+			this.value = parseFloat(this.value).toFixed(f(scl));
 		});
 		slider.noUiSlider.updateOptions({
-			step: 	reg.scale,
-			start: [reg.value * reg.scale],
+			step: 	scl,
+			start: [reg.value * scl],
 			range: {
-				'min': (reg.min * reg.scale),
-				'max': (reg.max * reg.scale)
+				'min': (reg.min * scl),
+				'max': (reg.max * scl)
 			}
 		})
 		return;
@@ -340,21 +368,22 @@ function dataUpdate() {
 			inputr.disabled = true;
 			slider.setAttribute('disabled', false);
 		}
-		inputl.value = regL.value * regL.scale;
-		inputl.step = regL.scale;
+		scl = Math.pow(10,regL.scale)
+		inputl.value = regL.value * scl;
+		inputl.step = scl;
 		inputl.addEventListener('change',function(){
-			this.value = parseFloat(this.value).toFixed(f(regL.scale));
+			this.value = parseFloat(this.value).toFixed(f(scl));
 		})
-		inputr.value = regR.value * regR.scale;
+		inputr.value = regR.value * Math.pow(10,regR.scale);
 		inputr.step = regR.scale;
 		inputr.addEventListener('change',function(){
 			this.value = parseFloat(this.value).toFixed(f(regR.scale));
 		})
 		slider.noUiSlider.updateOptions({
-			start: [regL.value*regL.scale, regR.value*regR.scale],
+			start: [regL.value * Math.pow(10,regL.scale), regR.value * Math.pow(10,regR.scale)],
 			range: {
-				'min': (regL.min * regL.scale),
-				'max': (regL.max * regL.scale)
+				'min': (regL.min * scl),
+				'max': (regL.max * scl)
 			}
 		})
 		return;
@@ -573,12 +602,6 @@ function dataUpdate() {
 	s_sliderUpdate('s-slider-maintenanceAlarmFuelEngineRunTime','sinput-maintenanceAlarmFuelEngineRunTime',maintenanceAlarmFuelEngineRunTime,bitVal(4,maintenanceAlarms));
 
 	updateAllTimeSliders();
-	}
-	catch{
-		alert("Нет структуры данных")
-	}
-	document.getElementById("i-loading").classList.remove("loading");
-	*/
 	return;
 }
 //******************************************************************************
