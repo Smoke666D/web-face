@@ -23,7 +23,7 @@ def removeLink(string, name, type):
         if (type == 'css'):
             enIndex = string.find('>',index)
         elif (type == 'js'):
-            enIndex = string.find('</script>',index) + 9
+            enIndex = string.find('</script>',index) + 8
         out = string[:stIndex] + string[enIndex+1:]
     else:
         result = 0
@@ -174,7 +174,7 @@ def make(  minifyHTML = True, minifyCSS = True, minifyJS = True, outPath = "F:/P
             jsText = open(jsLink,"r").read()
         htmlText = htmlText[:index] + " " + jsText + htmlText[index:]
         index = index + len(jsText) + 1  #
-    htmlText = htmlText[:index] + "</script><s" + htmlText[index:]
+    htmlText = htmlText[:index] + "</script>" + htmlText[index:]
     # Write output file
     output = open("index_make.html","w+")
     output.write(htmlText)
@@ -182,7 +182,8 @@ def make(  minifyHTML = True, minifyCSS = True, minifyJS = True, outPath = "F:/P
     size = compilHex(outPath, htmlText)
     print("Outut HEX     : " + outPath)
     print("HEX file      : " + str(size) + " Kb")
+    print("Done!")
     print("****************************************************")
 #*******************************************************************************
-make(minifyHTML = True, minifyCSS = True, minifyJS = False)
+make(minifyHTML = True, minifyCSS = True, minifyJS = True)
 #*******************************************************************************
