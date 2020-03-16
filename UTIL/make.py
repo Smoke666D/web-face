@@ -1,15 +1,18 @@
-#*******************************************************************************
-#*******************************************************************************
-#*******************************************************************************
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 import os
 import codecs
 import sys
 from rjsmin import jsmin
 import gzip
 import StringIO
+import base64
 sys.path.append('F:/PROJ/190729_ERGAN/SOFTWARE/embSite/UTIL/rcssmin-1.0.6')
 from rcssmin import cssmin
-#*******************************************************************************
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 def removeLink(string, name, type):
     result = 1
     out    = string
@@ -29,19 +32,31 @@ def removeLink(string, name, type):
     else:
         result = 0
     return  [out, result]
-#*******************************************************************************
+#-------------------------------------------------------------------------------
 def minifyCss(css):
     return cssmin(css, keep_bang_comments=True)
-#*******************************************************************************
+#-------------------------------------------------------------------------------
 def cleanCss(css, html):
     cssOut = css
     cssCleaner(cssOut, html)
     return cssOut
-#*******************************************************************************
+#-------------------------------------------------------------------------------
 def  minifyJs(js):
     out = jsmin(js, keep_bang_comments=False)
     return out
-#*******************************************************************************
+#-------------------------------------------------------------------------------
+def encodeImg(imgPath):
+    with open(imgPath, "rb") as f:
+        data = f.read()
+        return 'data:image/png;base64,' + data.encode("base64")
+#-------------------------------------------------------------------------------
+def compressString(string):
+    out = StringIO.StringIO()
+    with gzip.GzipFile(fileobj=out, mode="w") as f:
+        f.write(string)
+        string = out.getvalue()
+    return len(string)
+#-------------------------------------------------------------------------------
 def minifyHtml(html):
     index = 1
     out = html
@@ -65,7 +80,7 @@ def minifyHtml(html):
             subindex = out.find("-->", index) + 3
             out = out[:index] + out[subindex:]
     return out
-#*******************************************************************************
+#-------------------------------------------------------------------------------
 def compilHex( path, text, compressed ):
     f = open(path,"w+")
     f.write("#ifndef INC_HTML_H_\n");
@@ -97,7 +112,9 @@ def compilHex( path, text, compressed ):
     f.write("#endif /* INC_INDEX_H_ */")
     f.close()
     return ( len( text ) / 1024)
-#*******************************************************************************
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True, compress = True, outPath = "F:/PROJ/190729_ERGAN/SOFTWARE/ERGAN_EMB/eth/site/index.h"):
     print("****************************************************")
     if (minifyHTML == True):
@@ -120,24 +137,27 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
         print("Compression   : On")
     else:
         print("Compression   : Off")
-    # Get paths to html, css and js files
+    #------------ Get paths to html, css, js and img files -----------
     localPath = os.getcwd()
     htmlPath  = os.path.split(localPath)[0]
     jsPath    = os.path.join(htmlPath,"js")
     cssPath   = os.path.join(htmlPath,"css")
+    imgPath   = os.path.join(htmlPath,"img")
     htmlPath  = os.path.join(htmlPath,"index.html")
-    # Get lists of js and css files
+    #------------- Get lists of js, css and image files --------------
     for root, dirs, files in os.walk(jsPath):
         jsFiles = files
     for root, dirs, files in os.walk(cssPath):
         cssFiles = files
-    # Read html file
+    for root, dirs, files in os.walk(imgPath):
+        imgFiles = files
+    #------------------------- Read html file ------------------------
     htmlFile = open(htmlPath,"r")
     if (minifyHTML == True):
         htmlText = minifyHtml(htmlFile.read())
     else:
         htmlText = htmlFile.read()
-    # Remove links to the css and js files from html file
+    #------- Remove links to the css and js files from html file -----
     valid = []
     for i in range(0, len(cssFiles)):
         [htmlText, res] = removeLink(htmlText, cssFiles[i],'css')
@@ -163,7 +183,38 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
         print("include       : " + file)
     for file in cssFiles:
         print("include       : " + file)
-    # Add css section
+    #------------------------ Encode favicon -------------------------
+    length = len('<link rel="shortcut icon" href="')
+    index  = htmlText.find('<link rel="shortcut icon" href="')
+    if (index > 0):
+        nameSt = htmlText.find('/',index) + 1
+        nameEn = htmlText.find('">', nameSt)
+        favName = htmlText[nameSt:nameEn]
+        for name in imgFiles:
+            if (name == favName):
+                imgStr = encodeImg(os.path.join(imgPath,favName))
+                htmlText = htmlText[:(index+length)] + imgStr + htmlText[nameEn:]
+                sizeA = len(imgStr)/1024
+                sizeB = compressString(imgStr)/1024
+                delta = (sizeA - sizeB) * 100 / sizeA
+                print("Favicon size  : from {} Kb to {} Kb ({}%)".format(sizeA,sizeB,delta))
+    else:
+        print("There is no favicon")
+    #------------------------- Encode images -------------------------
+    counter = 1
+    for img in imgFiles:
+        index = htmlText.find(img)
+        if (index > 0):
+            nameSt = htmlText.rfind('"',0,index)+1
+            nameEn = htmlText.find('"',index)
+            imgStr = encodeImg(os.path.join(imgPath,img))
+            htmlText = htmlText[:nameSt] + imgStr + htmlText[nameEn:]
+            sizeA = len(imgStr)/1024
+            sizeB = compressString(imgStr)/1024
+            delta = (sizeA - sizeB) * 100 / sizeA
+            print("Image {}       : from {} Kb to {} Kb ({}%)".format(counter,sizeA,sizeB,delta))
+            counter = counter + 1;
+    #------------------------ Add css section ------------------------
     index = htmlText.find("</head>")
     htmlText = htmlText[:index] + "<style>" + htmlText[index:]
     index = index + 7
@@ -185,7 +236,7 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
         htmlText = htmlText[:index] + cssText + htmlText[index:]
         index = index + len(cssText)
     htmlText = htmlText[:index] + "</style>" + htmlText[index:]
-    # Add js section
+    #------------------------ Add js section -------------------------
     index = htmlText.find("</body>")
     stIndex = -1
     i = 0
@@ -234,5 +285,5 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
     print("Done!")
     print("****************************************************")
 #*******************************************************************************
-make(minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True, compress = True)
+make(minifyHTML = False, optimCSS = True, minifyCSS = True, minifyJS = True, compress = True)
 #*******************************************************************************
