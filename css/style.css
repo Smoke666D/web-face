@@ -69,6 +69,7 @@ hr {
   overflow: visible; }
 
 h1, h2, h3, h4, h5, h6 {
+  color: #727272;
   margin-top: 0;
   margin-bottom: 0.5rem; }
 
@@ -186,6 +187,7 @@ th {
   text-align: inherit; }
 
 label {
+  color: #727272;
   display: inline-block;
   margin-bottom: 0.5rem; }
 

@@ -385,17 +385,10 @@ function dataUpdate() {
       xhr.addEventListener('load', (data) => {
       	const status = data.currentTarget.status;
         const response = data.currentTarget.response;
-        if (status === 200) {;
-        	// add to store
-          store.push(JSON.parse(response));
-          // remove first request from array of requests
-          requests.shift();
-          // move on to next request
-          return reqs(requests, store, failback);
-        } else {
-        	if (failback) {
-          	failback(`Request Error: ${status}`);
-          }
+        if (status === 200) {
+          store.push(JSON.parse(response));					// add to store
+          requests.shift();													// remove first request from array of requests
+          return reqs(requests, store, failback);		// move on to next request
         }
       });
       // Failure handling
@@ -410,7 +403,7 @@ function dataUpdate() {
       xhr.timeout = 2000;
       xhr.send();
   	} else {
-			dataApply(store);
+			dataApply(store[0]);
 			document.getElementById("i-loading").classList.remove("loading");
       return store;
   	}
@@ -419,10 +412,13 @@ function dataUpdate() {
 	document.getElementById("i-loading").classList.add("loading");
 	try{
 		restSeq = []
+		/*
 		for ( i=0; i<103; i++ ){
 			str = '/configs/' + i;
 			restSeq.push({method: 'get', url: str})
 		}
+		*/
+		restSeq.push({method: 'get', url: '/configs/'})
 		const results = reqs(restSeq, [],	(error) => console.log(error)	);
 	} catch {
 		alert("Нет связи с сервером")

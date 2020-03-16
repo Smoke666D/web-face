@@ -1,0 +1,9 @@
+{
+  "name": "Энерган",
+  "short_name": "Энерган",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme-color": "#f8b739",
+  "description": "Конфигуратор контроллера дизельного генератора",
+}

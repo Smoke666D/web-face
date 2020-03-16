@@ -4,6 +4,7 @@
   	<title>Энерган</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#f8b739">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.css">
 		<script src="https://kit.fontawesome.com/710b4ac03c.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
@@ -117,19 +118,16 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
 
-            <button onclick="toogleNav()" class="btn btn-primary">
+            <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary">
               <i class="fa fa-bars"></i>
-              <span class="sr-only">Toggle Menu</span>
             </button>
             <span>&nbsp</span>
-            <button onclick="dataUpdate()" class="btn btn-primary">
+            <button aria-label="Refresh data" onclick="dataUpdate()" class="btn btn-primary">
               <i class="fa fa-refresh" id="i-loading"></i>
-              <span class="sr-only">Refresh data</span>
             </button>
             <span>&nbsp</span>
-            <button onclick="dataGrab()" class="btn btn-primary">
+            <button aria-label="Upload data" onclick="dataGrab()" class="btn btn-primary">
               <i class="fa fa-upload" id="i-upload"></i>
-              <span class="sr-only">Upload data</span>
             </button>
             <span>&nbsp</span>
 
@@ -157,7 +155,7 @@
               </select>
             </div>
             <div class="col-sm-auto">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" id="oilSetupSensor">
+              <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" id="oilSetupSensor">
                 <i class="fa fa-chart-line"></i>
               </button>
             </div>
@@ -169,7 +167,7 @@
                 <input type="checkbox" class="check-input" id="oilPressureEnbOpenCircuitAlarmEnb">
                 <span class="slider"></span>
               </label>
-              <label class="form-check-label">Активировать сигнал размыкания цепи</label>
+              <label for="oilPressureEnbOpenCircuitAlarmEnb" class="form-check-label">Активировать сигнал размыкания цепи</label>
             </div>
           </div>
 
@@ -181,13 +179,13 @@
                 <input type="checkbox" class="check-input" id="oilPressureAlarmEnb">
                 <span class="slider"></span>
               </label>
-              <label class="form-check-label">Сигнал тревоги</label>
+              <label for="oilPressureAlarmEnb" class="form-check-label">Сигнал тревоги</label>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name">Отключение</label>
+              <label for="sinput-oilPressureAlarmLevel" class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
               <input type="number" class="form-control s-sinput" id="sinput-oilPressureAlarmLevel" step="1">
@@ -206,12 +204,12 @@
                 <input type="checkbox" class="check-input" id="oilPressurePreAlarmEnb">
                 <span class="slider"></span>
               </label>
-              <label class="form-check-label">Предварительный сигнал тревоги</label>
+              <label for="oilPressurePreAlarmEnb" class="form-check-label">Предварительный сигнал тревоги</label>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-2">
-              <label class="pos-name">Отключение</label>
+              <label for="sinput-oilPressurePreAlarmLevel" class="pos-name">Отключение</label>
             </div>
             <div class="col-sm-auto">
               <input type="number" class="form-control s-sinput" id="sinput-oilPressurePreAlarmLevel" step="1">
@@ -238,7 +236,7 @@
               </select>
             </div>
             <div class="col-sm-auto">
-              <button type="button" class="btn btn-primary">
+              <button type="button" aria-label="Sensor data" class="btn btn-primary">
                 <i class="fa fa-gear"></i>
               </button>
             </div>
@@ -390,7 +388,7 @@
             </select>
           </div>
           <div class="col-sm-auto">
-            <button type="button" class="btn btn-primary">
+            <button type="button" aria-label="Sensor data" class="btn btn-primary">
               <i class="fa fa-gear"></i>
             </button>
           </div>
@@ -2744,11 +2742,11 @@
             </div>
             <div class="modal-footer">
               <div class="modal-footer-left">
-                <button type="button" onclick="addChartPoint()" class="btn btn-primary">
+                <button type="button" aria-label="Add point" onclick="addChartPoint()" class="btn btn-primary">
                   <i class="fa fa-plus"></i>
                   <span class="sr-only">Add point</span>
                 </button>
-                <button type="button" onclick="removeChartPoint()" class="btn btn-primary">
+                <button type="button" aria-label="Remove point" onclick="removeChartPoint()" class="btn btn-primary">
                   <i class="fa fa-minus"></i>
                   <span class="sr-only">Remove point</span>
                 </button>
@@ -2762,19 +2760,19 @@
               <span>&nbsp</span>
               <span>&nbsp</span>
               <span>&nbsp</span>
-              <button type="button" class="btn btn-primary" onclick="saveChartData(sensorChartData)">
+              <button type="button" aria-label="Save" class="btn btn-primary" onclick="saveChartData(sensorChartData)">
                 <i class="fas fa-save"></i>
                 <span class="sr-only">Сохранить</span>
               </button>
-              <button type="button" class="btn btn-primary" onclick="downloadSensorData(sensorChartData)">
+              <button type="button" aria-label="Save to PC" class="btn btn-primary" onclick="downloadSensorData(sensorChartData)">
                 <i class="fas fa-download"></i>
                 <span class="sr-only">Сохранить на ПК</span>
               </button>
-              <button  type="button"  class="btn btn-primary" onclick="uploadSensorData(sensorChartData)">
+              <button  type="button" aria-label="Load from PC" class="btn btn-primary" onclick="uploadSensorData(sensorChartData)">
                 <i class="fas fa-upload"></i>
                 <span  class="sr-only">Загрузить с ПК</span>
               </button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal">
                 <i class="fas fa-times"></i>
                 <span class="sr-only">Закрыть</span>
               </button>

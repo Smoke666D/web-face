@@ -4,15 +4,16 @@
 import os
 import codecs
 import sys
+from rjsmin import jsmin
+import gzip
+import StringIO
 sys.path.append('F:/PROJ/190729_ERGAN/SOFTWARE/embSite/UTIL/rcssmin-1.0.6')
 from rcssmin import cssmin
-sys.path.append('F:/PROJ/190729_ERGAN/SOFTWARE/embSite/UTIL/rjsmin-1.1.0')
-from rjsmin import jsmin
 #*******************************************************************************
 def removeLink(string, name, type):
     result = 1
     out    = string
-    index = string.find(name)
+    index  = string.find(name)
     if (index > 0):
         stIndex = -1
         enIndex = -1
@@ -31,6 +32,11 @@ def removeLink(string, name, type):
 #*******************************************************************************
 def minifyCss(css):
     return cssmin(css, keep_bang_comments=True)
+#*******************************************************************************
+def cleanCss(css, html):
+    cssOut = css
+    cssCleaner(cssOut, html)
+    return cssOut
 #*******************************************************************************
 def  minifyJs(js):
     out = jsmin(js, keep_bang_comments=False)
@@ -60,14 +66,20 @@ def minifyHtml(html):
             out = out[:index] + out[subindex:]
     return out
 #*******************************************************************************
-def compilHex( path, text ):
+def compilHex( path, text, compressed ):
     f = open(path,"w+")
     f.write("#ifndef INC_HTML_H_\n");
     f.write("#define INC_HTML_H_\n");
     f.write("/*----------------------- Includes -------------------------------------*/\n");
     f.write("#include\t\"stm32f2xx_hal.h\"\n")
     f.write("/*------------------------ Define --------------------------------------*/\n")
-    f.write("#define\t\tHTML_LENGTH\t\t" + str( len( text ) ) + "U\t\t//" + str( len( text ) / 1024 )  +  " Kb\n")
+    f.write("#define\t\tHTML_LENGTH\t\t\t" + str( len( text ) ) + "U\t\t//" + str( len( text ) / 1024 )  +  " Kb\n")
+    cmpr = " "
+    if ( compressed == 0 ):
+        cmpr = "0U"
+    else:
+        cmpr = "1U"
+    f.write("#define\t\tHTML_ENCODING\t\t" + cmpr + "\n")
     f.write("static const unsigned char data__index_html[HTML_LENGTH] = {\n")
 
     length = len( text ) / 16;
@@ -75,18 +87,18 @@ def compilHex( path, text ):
     for i in range( 0, length ):
         f.write("\t\t")
         for j in range( 0, 16 ):
-            f.write( hex(ord(text[i*16 + j])) + ", ")
+            f.write( hex(ord(text[i*16 + j])) + ",\t")
         f.write("\n")
     if (last > 0):
         f.write("\t\t")
         for i in range( 0, last ):
-            f.write( hex(ord(text[len( text ) - last + i]))+ ", " )
+            f.write( hex(ord(text[len( text ) - last + i]))+ ",\t" )
     f.write("};\n" )
     f.write("#endif /* INC_INDEX_H_ */")
     f.close()
     return ( len( text ) / 1024)
 #*******************************************************************************
-def make(  minifyHTML = True, minifyCSS = True, minifyJS = True, outPath = "F:/PROJ/190729_ERGAN/SOFTWARE/ERGAN_EMB/eth/site/index.h"):
+def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True, compress = True, outPath = "F:/PROJ/190729_ERGAN/SOFTWARE/ERGAN_EMB/eth/site/index.h"):
     print("****************************************************")
     if (minifyHTML == True):
         print("HTML mimnfy   : On")
@@ -100,6 +112,14 @@ def make(  minifyHTML = True, minifyCSS = True, minifyJS = True, outPath = "F:/P
         print("JS mimnfy     : On")
     else:
         print("JS mimnfy     : Off")
+    if (optimCSS == True):
+        print("CSS cleaner   : On")
+    else:
+        print("CSS cleaner   : Off")
+    if (compress == True):
+        print("Compression   : On")
+    else:
+        print("Compression   : Off")
     # Get paths to html, css and js files
     localPath = os.getcwd()
     htmlPath  = os.path.split(localPath)[0]
@@ -149,10 +169,19 @@ def make(  minifyHTML = True, minifyCSS = True, minifyJS = True, outPath = "F:/P
     index = index + 7
     for cssFile in cssFiles:
         cssLink = os.path.join(cssPath,cssFile)
+        cssText = open(cssLink,"r").read()
+        #if (optimCSS == True):
+            #
+            #
+            #cssText = cleanCss(cssText, htmlText)
+            #
+            #
         if (minifyCSS == True):
-            cssText = minifyCss(open(cssLink,"r").read())
-        else:
-            cssText = open(cssLink,"r").read()
+            startSize = len(cssText)/1024
+            cssText = minifyCss(cssText)
+            finishSize = len(cssText)/1024
+            delta = (startSize-finishSize)*100/startSize
+            print("CSS mimnfy    : {} - from {} Kb to {} Kb ({}%)".format(cssFile,startSize,finishSize,delta))
         htmlText = htmlText[:index] + cssText + htmlText[index:]
         index = index + len(cssText)
     htmlText = htmlText[:index] + "</style>" + htmlText[index:]
@@ -168,22 +197,42 @@ def make(  minifyHTML = True, minifyCSS = True, minifyJS = True, outPath = "F:/P
     index = index + 8
     for jsFile in jsFiles:
         jsLink = os.path.join(jsPath,jsFile)
+        jsText = open(jsLink,"r").read()
         if (minifyJS == True):
-            jsText = minifyJs(open(jsLink,"r").read())
+            startSize = len(jsText)/1024
+            jsText = minifyJs(jsText)
+            finishSize = len(jsText)/1024
+            delta = (startSize-finishSize)*100/startSize
+            print("JS mimnfy     : {} - from {} Kb to {} Kb ({}%)".format(jsFile,startSize,finishSize,delta))
         else:
             jsText = open(jsLink,"r").read()
         htmlText = htmlText[:index] + " " + jsText + htmlText[index:]
         index = index + len(jsText) + 1  #
     htmlText = htmlText[:index] + "</script>" + htmlText[index:]
-    # Write output file
-    output = open("index_make.html","w+")
+    #------------------------- Compress file -------------------------
+    if compress == True:
+        startSize = len(htmlText)/1024
+
+        out = StringIO.StringIO()
+        with gzip.GzipFile(fileobj=out, mode="w") as f:
+            f.write(htmlText)
+        htmlCompress = out.getvalue()
+
+        finishSize = len(htmlCompress)/1024
+        delta = (startSize-finishSize)*100/startSize
+        print("Compression   : from {} Kb to {} Kb ({}%)".format(startSize,finishSize,delta))
+    #----------------------- Write output files -----------------------
+    output = open("index.html","w+")
     output.write(htmlText)
     output.close()
-    size = compilHex(outPath, htmlText)
+    if (compress == True):
+        size = compilHex(outPath, htmlCompress, 1)
+    else:
+        size = compilHex(outPath, htmlText, 0)
     print("Outut HEX     : " + outPath)
     print("HEX file      : " + str(size) + " Kb")
     print("Done!")
     print("****************************************************")
 #*******************************************************************************
-make(minifyHTML = True, minifyCSS = True, minifyJS = True)
+make(minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True, compress = True)
 #*******************************************************************************
