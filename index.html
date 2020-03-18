@@ -122,28 +122,23 @@
       <div id="content" class="p-4 p-md-5">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
-
-            <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary">
-              <i class="fa fa-bars"></i>
-            </button>
-            <span>&nbsp</span>
-            <button aria-label="Refresh data" onclick="dataUpdate()" class="btn btn-primary">
-              <i class="fa fa-refresh" id="i-loading"></i>
-            </button>
-            <span>&nbsp</span>
-            <button aria-label="Upload data" onclick="dataGrab()" class="btn btn-primary">
-              <i class="fa fa-upload" id="i-upload"></i>
-            </button>
-            <span>&nbsp</span>
-
+            <div class="container-fluid">
+              <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary">
+                <i class="fa fa-bars"></i>
+              </button>
+              <button aria-label="Refresh data" onclick="dataUpdate()" class="btn btn-primary">
+                <i class="fa fa-refresh" id="i-loading"></i>
+              </button>
+              <button aria-label="Upload data" onclick="dataGrab()" class="btn btn-primary">
+                <i class="fa fa-upload" id="i-upload"></i>
+              </button>
+            </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item active">
-
                 </li>
               </ul>
             </div>
-
           </div>
         </nav>
         <!------------------------------------------------------------------------------------------------------------->
@@ -2747,6 +2742,24 @@
             </div>
             <div class="modal-footer">
               <div class="modal-footer-left">
+                <button type="button" aria-label="Save" class="btn btn-primary" onclick="saveChartData(sensorChartData)">
+                  <i class="fas fa-save"></i>
+                  <span class="sr-only">Сохранить</span>
+                </button>
+                <button type="button" aria-label="Save to PC" class="btn btn-primary" onclick="downloadSensorData(sensorChartData)">
+                  <i class="fas fa-download"></i>
+                  <span class="sr-only">Сохранить на ПК</span>
+                </button>
+                <button  type="button" aria-label="Load from PC" class="btn btn-primary" onclick="uploadSensorData(sensorChartData)">
+                  <i class="fas fa-upload"></i>
+                  <span  class="sr-only">Загрузить с ПК</span>
+                </button>
+                <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal">
+                  <i class="fas fa-times"></i>
+                  <span class="sr-only">Закрыть</span>
+                </button>
+              </div>
+              <div class="modal-footer-right">
                 <button type="button" aria-label="Add point" onclick="addChartPoint()" class="btn btn-primary">
                   <i class="fa fa-plus"></i>
                   <span class="sr-only">Add point</span>
@@ -2756,31 +2769,6 @@
                   <span class="sr-only">Remove point</span>
                 </button>
               </div>
-              <span>&nbsp</span>
-              <span>&nbsp</span>
-              <span>&nbsp</span>
-              <span>&nbsp</span>
-              <span>&nbsp</span>
-              <span>&nbsp</span>
-              <span>&nbsp</span>
-              <span>&nbsp</span>
-              <span>&nbsp</span>
-              <button type="button" aria-label="Save" class="btn btn-primary" onclick="saveChartData(sensorChartData)">
-                <i class="fas fa-save"></i>
-                <span class="sr-only">Сохранить</span>
-              </button>
-              <button type="button" aria-label="Save to PC" class="btn btn-primary" onclick="downloadSensorData(sensorChartData)">
-                <i class="fas fa-download"></i>
-                <span class="sr-only">Сохранить на ПК</span>
-              </button>
-              <button  type="button" aria-label="Load from PC" class="btn btn-primary" onclick="uploadSensorData(sensorChartData)">
-                <i class="fas fa-upload"></i>
-                <span  class="sr-only">Загрузить с ПК</span>
-              </button>
-              <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal">
-                <i class="fas fa-times"></i>
-                <span class="sr-only">Закрыть</span>
-              </button>
             </div>
           </div>
         </div>

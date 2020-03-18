@@ -4873,7 +4873,7 @@ a.close.disabled {
   background-color: #fafafa;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+  display: inline-block;;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -4883,12 +4883,16 @@ a.close.disabled {
   padding: 1rem;
   border-top: 1px solid #dee2e6;
   border-bottom-right-radius: 0.3rem;
-  border-bottom-left-radius: 0.3rem; }
+  border-bottom-left-radius: 0.3rem;
+  float: right;}
   .modal-footer > :not(:first-child) {
     margin-left: .25rem; }
   .modal-footer > :not(:last-child) {
     margin-right: .25rem; }
   .modal-footer .modal-footer-left{
+    float: right; }
+  .modal-footer .modal-footer-right{
+    float: left; }
   }
 
 .modal-scrollbar-measure {
