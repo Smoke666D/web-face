@@ -8331,21 +8331,14 @@ a[data-toggle="collapse"] {
   transition: all 0.3s; }
 
 .content-data {
-  position: absolute;
-  padding: 0;
-  width: calc(100% - 44vh);
-  visibility: hidden;
-  opacity: 0;
-  transform: translateX(-20px);
-  transition: visibility 0s .12s linear , opacity .12s ease-in, transform .12s ease-in, width .3s;}
-  .content-data.is-shown {
-    position: absolute;
-    visibility: visible;
-    opacity: 1;
-    transform: translateX(0);
-    transition: visibility 0s 0s linear , opacity .36s ease-out, transform .36s ease-out, width .3s;}
-  .content-data.full{
-    width: calc(100% - 10vh)!important;
+  position: flex;
+  width: 100%;
+  transition: opacity .22s ease-in, height .12s step-start;
+}
+  .content-data.hidden {
+    height: 0;
+    overflow: hidden;
+    transition-timing-function: linear, step-end;
   }
   .content-data h6{
     padding: 10px

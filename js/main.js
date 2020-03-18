@@ -16,14 +16,8 @@ function toogleNav() {
 	var i = 0;
 	if (sb.classList.contains("active")){
 		sb.classList.remove("active");
-		for(i=0;i<cont.length;i++){
-			cont[i].classList.remove("full");
-		}
 	} else {
 		sb.classList.add("active");
-		for(i=0;i<cont.length;i++){
-			cont[i].classList.add("full");
-		}
 	}
 	return;
 }
@@ -31,14 +25,14 @@ function toogleNav() {
 function hideConteny() {
 	var contentPages = document.getElementsByClassName("content-data");
 	for(var i=0;i<contentPages.length;i++){
-		contentPages[i].classList.remove("is-shown");
+		contentPages[i].classList.add("hidden");
 	}
 	return;
 }
 
 function loadContent(id) {
 	hideConteny();
-	document.getElementById(id).classList.add("is-shown");
+	document.getElementById(id).classList.remove("hidden");
 	return;
 }
 //******************************************************************************
