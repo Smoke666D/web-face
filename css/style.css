@@ -368,7 +368,7 @@ mark,
 
 .list-unstyled {
   padding-left: 0;
-  list-style: none; }
+  list-style: none;}
 
 .list-inline {
   padding-left: 0;
@@ -8262,20 +8262,22 @@ h1, h2, h3, h4, h5,
   align-items: stretch }
 
 #sidebar {
-  height: 1370px;
+  height: auto;
   min-width: 300px;
   max-width: 300px;
-  background: #1d1919;
+  background: #373a40;
   color: #fff;
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s; }
   #sidebar.active {
-    margin-left: -300px; }
+  margin-left: -300px; }
   #sidebar .logo {
+    padding: 1.5rem;
+    padding-top: 0rem;
     display: block;
-    width: 120px;
-    height: 120px;
+    max-width: 100%;
+    height: auto;
     margin: 0 auto; }
     #sidebar .logo span {
       display: block; }
@@ -8284,24 +8286,39 @@ h1, h2, h3, h4, h5,
   #sidebar ul li {
     font-size: 16px; }
     #sidebar ul li > ul {
-      margin-left: 10px; }
+      background: #21252B}
       #sidebar ul li > ul li {
-        font-size: 14px; }
+        font-size: 16px; }
     #sidebar ul li a {
-      padding: 10px 0;
+      padding: 12px;
       display: block;
-      color: rgba(255, 255, 255, 0.8);
+      color: #d2d3d4;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
       #sidebar ul li a:hover {
-        color: #f8b739; }
+        background: #4d5055;}
+    #sidebar ul li a .fas{
+      padding-right: 20px;
+      font-size: 22px;
+    }
+    #sidebar ul li a .svg-icon {
+      width: 1em;
+      height: 1em;
+    }
+    #sidebar ul li a .svg-icon path,
+    #sidebar ul li a .svg-icon polygon,
+    #sidebar ul li a .svg-icon rect {
+      fill: #d2d3d4;
+    }
     #sidebar ul li.active > a {
-      background: transparent;
-      color: #f8b739; }
+      }
   @media (max-width: 991.98px) {
     #sidebar {
       margin-left: -300px; }
       #sidebar.active {
         margin-left: 0; } }
+
+
+
 
 a[data-toggle="collapse"] {
   position: relative; }
@@ -8336,6 +8353,7 @@ a[data-toggle="collapse"] {
   transition: opacity .22s ease-in, height .12s step-start;
 }
   .content-data.hidden {
+    opacity: 0;
     height: 0;
     overflow: hidden;
     transition-timing-function: linear, step-end;

@@ -19,105 +19,170 @@
   <body>
 		<div class="wrapper d-flex align-items-stretch">
     <!------------------------------------------------------------------------------------------------------------->
-			<nav id="sidebar">
-				<div class="p-4 pt-5">
-		  		<!--IMG-->
-          <img src="img/light_logo_energan_spb.png" class="img-fluid">
-	        <ul class="list-unstyled components mb-5">
-	          <li class="active">
-	            <a for="outputSubmenu" aria-controls="outputSubmenu" href="#outputSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">Входы</a>
-	            <ul class="collapse list-unstyled" id="outputSubmenu">
-                <li>
-                  <a id="nav_oilPress" onclick="loadContent('oilPressPage')" href="#">
-                    <i class="fas fa-oil-can"></i>
-                    <span>Давление масла</span>
-                  </a>
-                </li>
-                <li>
-                  <a id="nav_coolantTemp" onclick="loadContent('coolTempPage')" href="#">
-                    <i class="fas fa-thermometer-full"></i>
-                    <span>Температура охлаждающей жидкости</span>
-                  </a>
-                </li>
-                <li>
-                  <a id="nav_fuelLevel" onclick="loadContent('fuelLevelPage')" href="#">
-                    <i class="fas fa-gas-pump"></i>
-                    <span>Уровень топлива</span>
-                  </a>
-                </li>
-                <li>
-                  <a onclick="loadContent('digitalInputAPage')" href="#">Цифровой вход A</a>
-                </li>
-                <li>
-                  <a onclick="loadContent('digitalInputBPage')" href="#">Цифровой вход B</a>
-                </li>
-                <li>
-                  <a onclick="loadContent('digitalInputCPage')" href="#">Цифровой вход C</a>
-                </li>
-                <li>
-                  <a onclick="loadContent('digitalInputDPage')" href="#">Цифровой вход D</a>
-                </li>
-	            </ul>
-	          </li>
+		<nav id="sidebar" class="pt-5">
+		 	<!--IMG-->
+      <img src="img/light_logo_energan_spb.png" class="logo">
+	    <ul class="list-unstyled components mb-5">
+        <li class="active">
+          <a for="outputSubmenu" aria-controls="outputSubmenu" href="#outputSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
+            <i class="fas fa-angle-double-right"></i>
+            <span>Входы</span>
+          </a>
+          <ul class="collapse list-unstyled" id="outputSubmenu">
             <li>
-              <a onclick="loadContent('digitalOutputPage')" href="#">Цифровые выходы</a>
-            </li>
-            <li>
-              <a onclick="loadContent('timerPage')" href="#">
-                <i class="far fa-clock"></i>
-                <span>Таймеры</span>
+              <a id="nav_oilPress" onclick="loadContent('oilPressPage')" href="#">
+                <i class="fas fa-oil-can"></i>
+                <span>Давление масла</span>
               </a>
             </li>
-            <li class="active">
-              <a href="#generatorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Генератор</a>
-              <ul class="collapse list-unstyled" id="generatorSubmenu">
-                <li>
-                  <a onclick="loadContent('generatorOptionPage')" href="#">Опции генератора</a>
-                </li>
-                <li>
-                  <a onclick="loadContent('generatorVoltagePage')" href="#">Напряжение генератора</a>
-                </li>
-                <li>
-                  <a onclick="loadContent('generatorFreqPage')" href="#">Частота генератора</a>
-                </li>
-                <li>
-                  <a onclick="loadContent('generatorCurrentPage')" href="#">Сила тока генератора</a>
-                </li>
-              </ul>
+            <li>
+              <a id="nav_coolantTemp" onclick="loadContent('coolTempPage')" href="#">
+                <i class="fas fa-thermometer-full"></i>
+                <span>Температура охлаждающей жидкости</span>
+              </a>
             </li>
-            <li class="active">
-              <a href="#netSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Сеть</a>
-              <ul class="collapse list-unstyled" id="netSubmenu">
-                <li>
-                  <a onclick="loadContent('networkOptionPage')" href="#">Опции сети</a>
-                </li>
-                <li>
-                  <a onclick="loadContent('networkAlarmPage')" href="#">Сигналы тревоги сети</a>
-                </li>
-              </ul>
+            <li>
+              <a id="nav_fuelLevel" onclick="loadContent('fuelLevelPage')" href="#">
+                <i class="fas fa-gas-pump"></i>
+                <span>Уровень топлива</span>
+              </a>
             </li>
-            <li class="active">
-              <a href="#engineSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Двигатель</a>
-              <ul class="collapse list-unstyled" id="engineSubmenu">
-                <li>
-                  <a onclick="loadContent('engineOptionPage')" href="#">Опции двигателя</a>
-                </li>
-                <li>
-                  <a onclick="loadContent('crankshaftPage')" href="#">Отключение коленчатого вала</a>
-                </li>
-                <li>
-                  <a onclick="loadContent('battaryPage')" href="#">Аккумулятор агрегата</a>
-                </li>
-              </ul>
+            <li>
+              <a onclick="loadContent('digitalInputAPage')" href="#">
+                <i class="fas fa-chevron-right"></i>
+                <span>Цифровой вход A</span>
+              </a>
             </li>
-	          <li>
-              <a onclick="loadContent('servicePage')" href="#">Сигналы техобслуживания</a>
-	          </li>
-	        </ul>
-	        <div class="footer">
-	        </div>
-	      </div>
-    	</nav>
+            <li>
+              <a onclick="loadContent('digitalInputBPage')" href="#">
+                <i class="fas fa-chevron-right"></i>
+                <span>Цифровой вход B</span>
+              </a>
+            </li>
+            <li>
+              <a onclick="loadContent('digitalInputCPage')" href="#">
+                <i class="fas fa-chevron-right"></i>
+                <span>Цифровой вход C</span>
+              </a>
+            </li>
+            <li>
+              <a onclick="loadContent('digitalInputDPage')" href="#">
+                <i class="fas fa-chevron-right"></i>
+                <span>Цифровой вход D</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a onclick="loadContent('digitalOutputPage')" href="#">
+            <i class="fas fa-angle-double-left"></i>
+            <span>Цифровые выходы</span>
+          </a>
+        </li>
+        <li>
+          <a onclick="loadContent('timerPage')" href="#">
+            <i class="fas fa-clock"></i>
+            <span>Таймеры</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="#generatorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <div class="fas">
+              <svg height="511pt" viewBox="0 -16 511.99994 511" width="511pt" class="svg-icon"><path d="m.148438 480.359375h112.269531l29.992187-29.992187h227.332032l29.988281 29.992187h112.269531v-89.972656h-511.851562zm0 0"/><path d="m256.074219 150.457031c-41.386719 0-74.976563 33.589844-74.976563 74.976563 0 41.386718 33.589844 74.976562 74.976563 74.976562s74.980469-33.589844 74.980469-74.976562c0-41.386719-33.59375-74.976563-74.980469-74.976563zm14.09375 124.761719-28.1875-9.597656 8.394531-25.191406h-29.988281l21.59375-64.78125 28.1875 9.597656-8.394531 25.191406h29.992187zm0 0"/><path d="m.148438 90.472656v269.921875h511.851562v-269.921875zm255.925781 239.929688c-57.882813 0-104.96875-47.085938-104.96875-104.96875 0-57.882813 47.085937-104.96875 104.96875-104.96875 57.882812 0 104.96875 47.085937 104.96875 104.96875 0 57.882812-47.085938 104.96875-104.96875 104.96875zm0 0"/><path d="m31.140625 60.480469h119.964844v-29.988281h29.992187v-29.992188c-4.359375 0-187.058594 0-180.949218 0v29.992188h30.992187zm0 0"/></svg>
+            </div>
+            <span>Генератор</span>
+          </a>
+          <ul class="collapse list-unstyled" id="generatorSubmenu">
+            <li>
+              <a onclick="loadContent('generatorOptionPage')" href="#">
+                <i class="fas fa-cog"></i>
+                <span>Опции генератора</span>
+              </a>
+            </li>
+            <li>
+              <a onclick="loadContent('generatorVoltagePage')" href="#">
+                <div class="fas">U</div>
+                <span>Напряжение генератора</span>
+              </a>
+            </li>
+            <li>
+              <a onclick="loadContent('generatorFreqPage')" href="#">
+                <div class="fas">F</div>
+                <span>Частота генератора</span>
+              </a>
+            </li>
+            <li>
+              <a onclick="loadContent('generatorCurrentPage')" href="#">
+                <div class="fas">I</div>
+                <span>Сила тока генератора</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="active">
+          <a href="#netSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <div class="fas">
+              <svg class="svg-icon" viewBox="0 0 512 512"><path d="M472 243l-141-56v-35h60v15a15 15 0 0030 0v-15h15c16 0 21-21 7-28L325 65 267 5c-6-7-16-7-22 0l-58 60-118 59c-14 7-9 28 7 28h15v15a15 15 0 0030 0v-15h60v35L40 243c-15 6-10 29 6 29h15v15a15 15 0 0030 0v-15h90v44l-28 166h-47a15 15 0 000 30h300a15 15 0 000-30h-47l-28-166v-44h90v15a15 15 0 0030 0v-15h15c16 0 21-23 6-29zM256 380l-41-61 41-41 41 41zm-45-267l24 24-24 24zm90 48l-24-24 24-24zm-6 36l-39 39-39-39 39-39zm-84 36l24 24-24 24zm-6 124l32 48-49 48zm102 0l17 96-49-48zm-6-76l-24-24 24-24zm30-159v-21l41 21zm-75-85l39 40-39 39-39-39zm-116 85l41-21v21h-41zm-16 120l57-23v23zm78 240l54-54 54 54zm129-240v-23l57 23z"/></svg>
+            </div>
+            <span>Сеть</span>
+          </a>
+          <ul class="collapse list-unstyled" id="netSubmenu">
+            <li>
+              <a onclick="loadContent('networkOptionPage')" href="#">
+                <i class="fas fa-cog"></i>
+                <span>Опции сети</span>
+              </a>
+            </li>
+            <li>
+              <a onclick="loadContent('networkAlarmPage')" href="#">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Сигналы тревоги сети</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="active">
+          <a href="#engineSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <div class="fas">
+              <svg class="svg-icon" viewBox="0 0 512 512"><path d="M480 213.333c-17.646 0-32 14.354-32 32v32h-21.333V237.25c0-11.229-4.552-22.229-12.5-30.167l-23.917-23.917c-7.938-7.948-18.938-12.5-30.167-12.5h-61.417V128h32c17.646 0 32-14.354 32-32s-14.354-32-32-32h-128c-17.646 0-32 14.354-32 32s14.354 32 32 32h32v42.667h-40.083c-11.229 0-22.229 4.552-30.167 12.5l-30.167 30.167h-16.917c-17.646 0-32 14.354-32 32v32H64v-32c0-17.646-14.354-32-32-32s-32 14.354-32 32v128c0 17.646 14.354 32 32 32s32-14.354 32-32v-32h21.333v32c0 17.646 14.354 32 32 32h16.917l30.167 30.167c7.938 7.948 18.938 12.5 30.167 12.5H338.75c11.229 0 22.229-4.552 30.167-12.5l45.25-45.25c7.948-7.938 12.5-18.938 12.5-30.167v-18.75H448v32c0 17.646 14.354 32 32 32s32-14.354 32-32v-128c0-17.646-14.354-32.001-32-32.001z"/></svg>
+            </div>
+            <span>Двигатель</span>
+          </a>
+          <ul class="collapse list-unstyled" id="engineSubmenu">
+            <li>
+              <a onclick="loadContent('engineOptionPage')" href="#">
+                <i class="fas fa-cog"></i>
+                <span>Опции двигателя</span>
+              </a>
+            </li>
+            <li>
+              <a onclick="loadContent('crankshaftPage')" href="#">
+                <div class="fas">
+                  <svg class="svg-icon" viewBox="0 -76 512 512"><path d="M15 210h46v15c0 8 7 15 15 15h15V90H76c-8 0-15 7-15 15v15H15c-8 0-15 7-15 15v60c0 8 7 15 15 15zm0 0M211 315V15c0-8-7-15-15-15-41 0-75 34-75 75v240a45 45 0 0090 0zm0 0M316 0c-20 0-36 13-42 30h-33v120h30v165a45 45 0 0090 0V45c0-25-20-45-45-45zm0 0M512 45c0-25-21-45-46-45s-45 20-45 45v195h-30v90h30v15c0 8 7 15 15 15 41 0 76-34 76-75zm0 0"/></svg>
+                </div>
+                <span>Отключение коленчатого вала</span>
+              </a>
+            </li>
+            <li>
+              <a onclick="loadContent('battaryPage')" href="#">
+                <div class="fas">
+                  <svg class="svg-icon" viewBox="0 0 512 512"><path d="M469 107V85c0-11-9-21-21-21h-64c-12 0-21 10-21 21v22h-7l-8-9c-8-8-19-13-31-13H195c-12 0-23 5-31 13l-8 9h-7V85c0-11-9-21-21-21H64c-12 0-21 10-21 21v22c-24 0-43 19-43 42v256c0 24 19 43 43 43h426c24 0 43-19 43-43V149c0-23-19-42-43-42zM117 213H75a11 11 0 110-21h42a11 11 0 110 21zm320 0h-10v11a11 11 0 11-22 0v-11h-10a11 11 0 110-21h10v-11a11 11 0 1122 0v11h10a11 11 0 110 21z"/></svg>
+                </div>
+                <span>Аккумулятор агрегата</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a onclick="loadContent('servicePage')" href="#">
+            <i class="fas fa-tools"></i>
+            <span>Сигналы техобслуживания</span>
+          </a>
+        </li>
+      </ul>
+      <div class="footer">
+      </div>
+    </nav>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="content" class="p-4 p-md-5">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -223,7 +288,7 @@
           </div>
         </div>
         <!------------------------------------------------------------------------------------------------------------->
-        <div id="coolTempPage" class="content-data">
+        <div id="coolTempPage" class="content-data hidden">
           <h5>Температура охдаждающей жидкости</h5>
           <div class="row">
             <div class="col-sm-auto">
@@ -375,7 +440,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="fuelLevelPage" class="content-data">
+      <div id="fuelLevelPage" class="content-data hidden">
         <h5>Уровень топлива</h5>
         <div class="row">
           <div class="col-sm-auto">
@@ -618,7 +683,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="digitalInputAPage" class="content-data">
+      <div id="digitalInputAPage" class="content-data hidden">
         <h5>Цифровой вход A</h5>
 
         <div class="row">
@@ -688,7 +753,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="digitalInputBPage" class="content-data">
+      <div id="digitalInputBPage" class="content-data hidden">
         <h5>Цифровой вход B</h5>
 
         <div class="row">
@@ -758,7 +823,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="digitalInputCPage" class="content-data">
+      <div id="digitalInputCPage" class="content-data hidden">
         <h5>Цифровой вход C</h5>
 
         <div class="row">
@@ -828,7 +893,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="digitalInputDPage" class="content-data">
+      <div id="digitalInputDPage" class="content-data hidden">
         <h5>Цифровой вход D</h5>
 
         <div class="row">
@@ -898,7 +963,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="digitalOutputPage" class="content-data">
+      <div id="digitalOutputPage" class="content-data hidden">
         <h5>Цифровые выходы</h5>
 
         <div class="row">
@@ -1320,7 +1385,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="timerPage" class="content-data">
+      <div id="timerPage" class="content-data hidden">
         <h5>Таймеры</h5>
 
         <h6>Таймеры запуска</h6>
@@ -1583,7 +1648,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="generatorOptionPage" class="content-data">
+      <div id="generatorOptionPage" class="content-data hidden">
         <h5>Опции генератора</h5>
 
         <div class="row">
@@ -1752,7 +1817,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="generatorVoltagePage" class="content-data">
+      <div id="generatorVoltagePage" class="content-data hidden">
         <h5>Напряжение генератора</h5>
 
         <h6>Сигналы низкого напряжения</h6>
@@ -1860,7 +1925,7 @@
 
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="generatorFreqPage" class="content-data">
+      <div id="generatorFreqPage" class="content-data hidden">
         <h5>Частота генератора</h5>
 
         <h6>Сигнал понижения частоты</h6>
@@ -1968,7 +2033,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="generatorCurrentPage" class="content-data">
+      <div id="generatorCurrentPage" class="content-data hidden">
         <h5>Сила тока генератора</h5>
 
         <h6>Сигнал сверхтока</h6>
@@ -2154,7 +2219,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="networkOptionPage" class="content-data">
+      <div id="networkOptionPage" class="content-data hidden">
         <h5>Опции сети</h5>
         <div class="row">
           <div class="col-sm-auto">
@@ -2191,7 +2256,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="networkAlarmPage" class="content-data">
+      <div id="networkAlarmPage" class="content-data hidden">
         <h5>Сигналы тревоги сети</h5>
         <h6>Сигналы низкого напряжения</h6>
         <div class="row">
@@ -2289,7 +2354,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="engineOptionPage" class="content-data">
+      <div id="engineOptionPage" class="content-data hidden">
         <h5>Опции двигателя</h5>
         <h6>Опции запуска</h6>
         <div class="row">
@@ -2378,7 +2443,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="crankshaftPage" class="content-data">
+      <div id="crankshaftPage" class="content-data hidden">
         <h5>Отключение коленчатого вала</h5>
         <div class="row">
           <div class="col-sm-auto">
@@ -2461,7 +2526,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="battaryPage" class="content-data">
+      <div id="battaryPage" class="content-data hidden">
         <h5>Аккумулятор агрегата</h5>
         <h6>Сигнал тревоги напряжения</h6>
         <div class="row">
@@ -2615,7 +2680,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="servicePage" class="content-data">
+      <div id="servicePage" class="content-data hidden">
         <h5>Сигналы техобслуживагия</h5>
         <h6>Масло</h6>
         <div class="row">
@@ -2724,7 +2789,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="noDataPage" class="content-data">
+      <div id="noDataPage" class="content-data hidden">
         <h1>Страница находиться в разработке</h1>
       </div>
       <!------------------------------------------------------------------------------------------------------------->

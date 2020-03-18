@@ -704,7 +704,7 @@ function updateAllTimeSliders(){
 document.addEventListener("DOMContentLoaded", function(event) {
 	loadContent("oilPressPage");
 	sliderInit();
-	dataUpdate();
+	//dataUpdate();
 	sensorModalInit();
 	powerSliderInit("genRatedActivePower","genRatedReactivePower","genRatedApparentPower","cosFi",genRatedApparentPower);
 	timerSliderTransform("fuelLevelLowAlarmDelay",fuelLevelLowAlarmDelay);
