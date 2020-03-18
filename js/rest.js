@@ -377,51 +377,44 @@ function bitWrite(n,reg,val){
 //******************************************************************************
 
 function dataUpdate() {
-	const reqs = (requests = [], store = [], failback) => {
-  	// Check if there are still requests to make
-  	if (requests instanceof Array && requests.length > 0) {
-    	const xhr = new XMLHttpRequest();
-      // Success handling
-      xhr.addEventListener('load', (data) => {
-      	const status = data.currentTarget.status;
-        const response = data.currentTarget.response;
-        if (status === 200) {
-          store.push(JSON.parse(response));					// add to store
-          requests.shift();													// remove first request from array of requests
-          return reqs(requests, store, failback);		// move on to next request
-        }
-      });
-      // Failure handling
-      xhr.addEventListener('error', (error) => {
-      	if (failback) {
-          document.getElementById("i-loading").classList.remove("loading");
-        	failback('Something went wrong.');
-          alert("Нет связи с сервером");
-        }
-      });
-      xhr.open(requests[0].method, requests[0].url);
-      xhr.timeout = 2000;
-      xhr.send();
-  	} else {
-			dataApply(store[0]);
-			document.getElementById("i-loading").classList.remove("loading");
-      return store;
-  	}
-	};
-
 	document.getElementById("i-loading").classList.add("loading");
 	try{
+		const reqs = (requests = [], store = [], failback) => {
+	  	// Check if there are still requests to make
+	  	if (requests instanceof Array && requests.length > 0) {
+	    	const xhr = new XMLHttpRequest();
+	      // Success handling
+	      xhr.addEventListener('load', (data) => {
+	      	const status = data.currentTarget.status;
+	        const response = data.currentTarget.response;
+	        if (status === 200) {
+	          store.push(JSON.parse(response));					// add to store
+	          requests.shift();													// remove first request from array of requests
+	          return reqs(requests, store, failback);		// move on to next request
+	        }
+	      });
+	      // Failure handling
+	      xhr.addEventListener('error', (error) => {
+	      	if (failback) {
+	          document.getElementById("i-loading").classList.remove("loading");
+	        	failback('Something went wrong.');
+						showAlert("alert-danger","Нет связи с сервером");
+	        }
+	      });
+	      xhr.open(requests[0].method, requests[0].url);
+	      xhr.timeout = 2000;
+	      xhr.send();
+	  	} else {
+				dataApply(store[0]);
+				document.getElementById("i-loading").classList.remove("loading");
+	      return store;
+	  	}
+		};
 		restSeq = []
-		/*
-		for ( i=0; i<103; i++ ){
-			str = '/configs/' + i;
-			restSeq.push({method: 'get', url: str})
-		}
-		*/
 		restSeq.push({method: 'get', url: '/configs/'})
 		const results = reqs(restSeq, [],	(error) => console.log(error)	);
 	} catch {
-		alert("Нет связи с сервером")
+		showAlert("alert-danger","Нет связи с сервером");
 	}
 	return;
 }
@@ -760,293 +753,233 @@ function dataGrab(){
 		}
 		return;
 	}
+	try {
+		// #1
+		checkboxGrab('oilPressureSensorType',oilPressureSetup,0);
+		checkboxGrab('oilPressureEnbOpenCircuitAlarmEnb',oilPressureSetup,1);
+		checkboxGrab('oilPressureAlarmEnb',oilPressureSetup,2);
+		s_sliderGrab('sinput-oilPressureAlarmLevel',oilPressureAlarmLevel);
+		checkboxGrab('oilPressurePreAlarmEnb',oilPressureSetup,3);
+		s_sliderGrab('sinput-oilPressurePreAlarmLevel',oilPressurePreAlarmLevel);
+		//#2
+		selectorGrab('coolantTempSensorType',coolantTempSetup,0);
+		checkboxGrab('coolantTempEnbOpenCircuitAlarm',coolantTempSetup,1);
+		checkboxGrab('coolantHightTempAlarmEnb',coolantTempSetup,2);
+		s_sliderGrab('sinput-coolantHightTempAlarmLevel',coolantHightTempAlarmLevel);
+		checkboxGrab('coolantHightTempPreAlarmEnb',coolantTempSetup,3);
+		s_sliderGrab('sinput-coolantHightTempPreAlarmLevel',coolantHightTempPreAlarmLevel);
+		checkboxGrab('coolantTempHeaterEnb',coolantTempSetup,4);
+		d_sliderGrab('dinput-coolantTempHeaterOffLevel','dinput-coolantTempHeaterOnLevel',coolantTempHeaterOnLevel,coolantTempHeaterOffLevel);
+		checkboxGrab('coolantTempCoolerEnb',coolantTempSetup,5);
+		d_sliderGrab('dinput-coolantTempCoolerOffLevel','dinput-coolantTempCoolerOnLevel',coolantTempCoolerOnLevel,coolantTempCoolerOffLevel);
+		//#3
+		selectorGrab('fuelLevelSensorType',fuelLevelSetup,0);
+		checkboxGrab('fuelLevelLowAlarmEnb',fuelLevelSetup,1);
+		selectorGrab('fuelLevelLowAlarmAction',fuelLevelSetup,2);
+		s_sliderGrab('sinput-fuelLevelLowAlarmLevel',fuelLevelLowAlarmLevel);
+		s_sliderGrab('sinput-fuelLevelLowAlarmDelay',fuelLevelLowAlarmDelay);
+		checkboxGrab('fuelLevelLowPreAlarmEnb',fuelLevelSetup,3);
+		s_sliderGrab('sinput-fuelLevelLowPreAlarmLevel',fuelLevelLowPreAlarmLevel);
+		s_sliderGrab('sinput-fuelLevelLowPreAlarmDelay',fuelLevelLowPreAlarmDelay);
+		checkboxGrab('fuelLevelHightAlarmEnb',fuelLevelSetup,5);
+		selectorGrab('fuelLevelHightAlarmAction',fuelLevelSetup,6);
+		s_sliderGrab('sinput-fuelLevelHightAlarmLevel',fuelLevelHightAlarmLevel);
+		s_sliderGrab('sinput-fuelLevelHightAlarmDelay',fuelLevelHightAlarmDelay);
+		checkboxGrab('fuelLevelHightPreAlarmLevelEnb',fuelLevelSetup,4);
+		s_sliderGrab('sinput-fuelLevelHightPreAlarmLevel',fuelLevelHightPreAlarmLevel);
+		s_sliderGrab('sinput-fuelLevelHightPreAlarmDelay',fuelLevelHightPreAlarmDelay);
+		checkboxGrab('fuelPumpEnb',fuelLevelSetup,7);
+		d_sliderGrab('dinput-fuelPumpOffLevel','dinput-fuelPumpOnLevel',fuelPumpOnLevel,fuelPumpOffLevel);
+		//#4
+		selectorGrab('diaFunction',diaSetup,0);
+		selectorGrab('diaPolarity',diaSetup,1);
+		selectorGrab('diaAction',diaSetup,2);
+		selectorGrab('diaArming',diaSetup,3);
+		s_sliderGrab('sinput-diaDelay',diaDelay);
+		//#5
+		selectorGrab('dibFunction',dibSetup,0);
+		selectorGrab('dibPolarity',dibSetup,1);
+		selectorGrab('dibAction',dibSetup,2);
+		selectorGrab('dibArming',dibSetup,3);
+		s_sliderGrab('sinput-dibDelay',dibDelay);
+		//#6
+		selectorGrab('dicFunction',dicSetup,0);
+		selectorGrab('dicPolarity',dicSetup,1);
+		selectorGrab('dicAction',dicSetup,2);
+		selectorGrab('dicArming',dicSetup,3);
+		s_sliderGrab('sinput-dicDelay',dicDelay);
+		//#7
+		selectorGrab('didFunction',didSetup,0);
+		selectorGrab('didPolarity',didSetup,1);
+		selectorGrab('didAction',didSetup,2);
+		selectorGrab('didArming',didSetup,3);
+		s_sliderGrab('sinput-didDelay',didDelay);
+		//#8
+		selectorGrab('doaType',doabType,0);
+		radioGrab('DOA_NO','DOA_NC',doSetup,0);
+		selectorGrab('dobType',doabType,1);
+		radioGrab('DOB_NO','DOB_NC',doSetup,1);
+		selectorGrab('docType',docdType,0);
+		radioGrab('DOC_NO','DOC_NC',doSetup,2);
+		selectorGrab('dodType',docdType,1);
+		radioGrab('DOD_NO','DOD_NC',doSetup,3);
+		selectorGrab('doeType',doefType,0);
+		radioGrab('DOE_NO','DOE_NC',doSetup,4);
+		selectorGrab('dofType',doefType,1);
+		radioGrab('DOF_NO','DOF_NC',doSetup,5);
+		//#9 Timers
+		s_sliderGrab('sinput-timerMainsTransientDelay',timerMainsTransientDelay);
+		s_sliderGrab('sinput-timerStartDelay',timerStartDelay);
+		s_sliderGrab('sinput-timerCranking',timerCranking);
+		s_sliderGrab('sinput-timerCrankDelay',timerCrankDelay);
+		s_sliderGrab('sinput-timerStartupIdleTime',timerStartupIdleTime);
+		s_sliderGrab('sinput-timerNominalRPMDelay',timerNominalRPMDelay);
+		s_sliderGrab('sinput-timerSafetyOnDelay',timerSafetyOnDelay);
+		s_sliderGrab('sinput-timerWarming',timerWarming);
+		s_sliderGrab('sinput-timerTransferDelay',timerTransferDelay);
+		s_sliderGrab('sinput-timerBreakerTripPulse',timerBreakerTripPulse);
+		s_sliderGrab('sinput-timerBreakerClosePulse',timerBreakerClosePulse);
+		s_sliderGrab('sinput-timerReturnDelay',timerReturnDelay);
+		s_sliderGrab('sinput-timerCooling',timerCooling);
+		s_sliderGrab('sinput-timerCoolingIdle',timerCoolingIdle);
+		s_sliderGrab('sinput-timerSolenoidHold',timerSolenoidHold);
+		s_sliderGrab('sinput-timerFailStopDelay',timerFailStopDelay);
+		s_sliderGrab('sinput-timerGenTransientDelay',timerGenTransientDelay);
+		//#10
+		checkboxGrab('genPowerGeneratorControlEnb',genSetup,0);
+		selectorGrab('genPoles',genSetup,1);
+		selectorGrab('genAcSys',genSetup,2);
+		s_sliderGrab('sinput-genRatedActivePower',genRatedActivePower);
+		s_sliderGrab('sinput-genRatedReactivePower',genRatedReactivePower);
+		s_sliderGrab('sinput-genRatedApparentPower',genRatedApparentPower);
+		s_sliderGrab('sinput-genRatedFrequency',genRatedFrequency);
+		s_sliderGrab('sinput-genCurrentPrimary',genCurrentPrimary);
+		s_sliderGrab('sinput-genCurrentFullLoadRating',genCurrentFullLoadRating);
+		selectorGrab('genLocationCurrentTransformer',genSetup,3);
+		//#11
+		checkboxGrab('genUnderVoltageAlarmEnb',genAlarms,0);
+		s_sliderGrab('sinput-genUnderVoltageAlarmLevel',genUnderVoltageAlarmLevel);
+		checkboxGrab('genUnderVoltagePreAlarmEnb',genAlarms,1);
+		s_sliderGrab('sinput-genUnderVoltagePreAlarmLevel',genUnderVoltagePreAlarmLevel);
+		s_sliderGrab('sinput-genOverVoltageAlarmLevel',genOverVoltageAlarmLevel);
+		checkboxGrab('genOverVoltagePreAlarmEnb',genAlarms,2);
+		s_sliderGrab('sinput-genOverVoltagePreAlarmLevel',genOverVoltagePreAlarmLevel);
+		//#12
+		checkboxGrab('genUnderFrequencyAlrmEnb',genAlarms,3);
+		s_sliderGrab('sinput-genUnderFrequencyAlrmLevel',genUnderFrequencyAlrmLevel);
+		checkboxGrab('genUnderFrequencyPreAlrmEnb',genAlarms,4);
+		s_sliderGrab('sinput-genUnderFrequencyPreAlrmLevel',genUnderFrequencyPreAlrmLevel);
+		checkboxGrab('genOverFrequencyPreAlrmEnb',genAlarms,5);
+		s_sliderGrab('sinput-genOverFrequencyPreAlrmLevel',genOverFrequencyPreAlrmLevel);
+		checkboxGrab('genOverFrequencyAlarmEnb',genAlarms,6);
+		s_sliderGrab('sinput-genOverFrequencyAlrmLevel',genOverFrequencyAlrmLevel);
+		//#13
+		s_sliderGrab('sinput-genOverCurrentThermalProtectionLevel',genOverCurrentThermalProtectionLevel);
+		s_sliderGrab('sinput-genOverCurrentCutoffLevel',genOverCurrentCutoffLevel);
+		selectorGrab('genCurrentOverAlarmAction',genAlarms,9);
+		s_sliderGrab('sinput-genOverCurrentAlarmLevel',genOverCurrentAlarmLevel);
+		s_sliderGrab('sinput-genOverCurrentAlarmDelay',genOverCurrentAlarmDelay);
+		checkboxGrab('genCurrentOverloadProtectionEnb',genAlarms,7);
+		selectorGrab('genCurrentOverloadProtectionAction',genAlarms,10);
+		s_sliderGrab('sinput-genCurrentOverloadProtectionLevel',genCurrentOverloadProtectionLevel);
+		s_sliderGrab('sinput-genCurrentOverloadProtectionDelay',genCurrentOverloadProtectionDelay);
+		checkboxGrab('genCurrentOverPhaseImbalanceEnb',genAlarms,8);
+		selectorGrab('genCurrentOverPhaseImbalanceAction',genAlarms,11);
+		s_sliderGrab('sinput-genCurrentOverPhaseImbalanceLevel',genCurrentOverPhaseImbalanceLevel);
+		s_sliderGrab('sinput-genCurrentOverPhaseImbalanceDelay',genCurrentOverPhaseImbalanceDelay);
+		//#14
+		checkboxGrab('mainsControl',mainsSetup,0);
+		checkboxGrab('mainsPowerOffImmediately',mainsSetup,1);
+		selectorGrab('mainAcSys',mainsSetup,2);
+		//#15
+		checkboxGrab('mainsUnderVoltageAlarm',mainsAlarms,0);
+		s_sliderGrab('sinput-mainsUnderVoltageAlarmLevel',mainsUnderVoltageAlarmLevel);
+		checkboxGrab('mainsOverVoltageAlarm',mainsAlarms,1);
+		s_sliderGrab('sinput-mainsOverVoltageAlarmLevel',mainsOverVoltageAlarmLevel);
+		checkboxGrab('mainsUnderFrequencyAlarm',mainsAlarms,2);
+		s_sliderGrab('sinput-mainsUnderFrequencyAlarmLevel',mainsUnderFrequencyAlarmLevel);
+		checkboxGrab('mainsOverFrequencyAlarm',mainsAlarms,3);
+		s_sliderGrab('sinput-mainsOverFrequencyAlarmLevel',mainsOverFrequencyAlarmLevel);
+		//#16
+		bitWrite(0,engineSetup,document.getElementById('engineStartAttempts').value);
+		checkboxGrab('enginePreHeatEnb',engineSetup,1);
+		s_sliderGrab('sinput-enginePreHeatOn',enginePreHeatOn);
+		s_sliderGrab('sinput-enginePreHeatDuration',enginePreHeatDuration);
+		checkboxGrab('enginePostHeatEnb',engineSetup,2);
+		s_sliderGrab('sinput-enginePostHeatOn',enginePostHeatOn);
+		s_sliderGrab('sinput-enginePostHeatDuration',enginePostHeatDuration);
+		//#17
+		checkboxGrab('crankDisconnectOilPressure',crankSetup,0);
+		checkboxGrab('crankOilPressureCheckOnStart',crankSetup,1);
+		s_sliderGrab('sinput-crankDisconnectgenFreqLevel',crankDisconnectgenFreqLevel);
+		checkboxGrab('crankDisconnectOilPressureEnb',crankSetup,2);
+		s_sliderGrab('sinput-crankDisconnectOilPressureLevel',crankDisconnectOilPressureLevel);
+		checkboxGrab('crankDisconnectChargeAlternatorEnb',crankSetup,3);
+		s_sliderGrab('sinput-crankDisconnectChargeAlternatorLevel',crankDisconnectChargeAlternatorLevel);
+		//#18
+		checkboxGrab('batteryUnderVoltageEnb',batteryAlarms,0);
+		s_sliderGrab('sinput-batteryUnderVoltageLevel',batteryUnderVoltageLevel);
+		s_sliderGrab('sinput-batteryUnderVoltageDelay',batteryUnderVoltageDelay);
+		checkboxGrab('batteryOverVoltageEnb',batteryAlarms,1);
+		s_sliderGrab('sinput-batteryOverVoltageLevel',batteryOverVoltageLevel);
+		s_sliderGrab('sinput-batteryOverVoltageDelay',batteryOverVoltageDelay);
+		checkboxGrab('batteryChargeShutdownEnb',batteryAlarms,2);
+		s_sliderGrab('sinput-batteryChargeShutdownLevel',batteryChargeShutdownLevel);
+		s_sliderGrab('sinput-batteryChargeShutdownDelay',batteryChargeShutdownDelay);
+		checkboxGrab('batteryChargeWarningEnb',batteryAlarms,3);
+		s_sliderGrab('sinput-batteryChargeWarningLevel',batteryChargeWarningLevel);
+		s_sliderGrab('sinput-batteryChargeWarningDelay',batteryChargeWarningDelay);
+		//#19
+		checkboxGrab('maintenanceAlarmOilEnb',maintenanceAlarms,0);
+		selectorGrab('maintenanceAlarmOilAction',maintenanceAlarms,1);
+		s_sliderGrab('sinput-maintenanceAlarmOilEngineRunTime',maintenanceAlarmOilEngineRunTime);
+		checkboxGrab('maintenanceAlarmAirEnb',maintenanceAlarms,2);
+		selectorGrab('maintenanceAlarmAirAction',maintenanceAlarms,3);
+		s_sliderGrab('sinput-maintenanceAlarmAirEngineRunTime',maintenanceAlarmAirEngineRunTime);
+		checkboxGrab('maintenanceAlarmFuelEnb',maintenanceAlarms,4);
+		selectorGrab('maintenanceAlarmFuelAction',maintenanceAlarms,5);
+		s_sliderGrab('sinput-maintenanceAlarmFuelEngineRunTime',maintenanceAlarmFuelEngineRunTime);
 
-	// #1
-	checkboxGrab('oilPressureSensorType',oilPressureSetup,0);
-	checkboxGrab('oilPressureEnbOpenCircuitAlarmEnb',oilPressureSetup,1);
-	checkboxGrab('oilPressureAlarmEnb',oilPressureSetup,2);
-	s_sliderGrab('sinput-oilPressureAlarmLevel',oilPressureAlarmLevel);
-	checkboxGrab('oilPressurePreAlarmEnb',oilPressureSetup,3);
-	s_sliderGrab('sinput-oilPressurePreAlarmLevel',oilPressurePreAlarmLevel);
-	//#2
-	selectorGrab('coolantTempSensorType',coolantTempSetup,0);
-	checkboxGrab('coolantTempEnbOpenCircuitAlarm',coolantTempSetup,1);
-	checkboxGrab('coolantHightTempAlarmEnb',coolantTempSetup,2);
-	s_sliderGrab('sinput-coolantHightTempAlarmLevel',coolantHightTempAlarmLevel);
-	checkboxGrab('coolantHightTempPreAlarmEnb',coolantTempSetup,3);
-	s_sliderGrab('sinput-coolantHightTempPreAlarmLevel',coolantHightTempPreAlarmLevel);
-	checkboxGrab('coolantTempHeaterEnb',coolantTempSetup,4);
-	d_sliderGrab('dinput-coolantTempHeaterOffLevel','dinput-coolantTempHeaterOnLevel',coolantTempHeaterOnLevel,coolantTempHeaterOffLevel);
-	checkboxGrab('coolantTempCoolerEnb',coolantTempSetup,5);
-	d_sliderGrab('dinput-coolantTempCoolerOffLevel','dinput-coolantTempCoolerOnLevel',coolantTempCoolerOnLevel,coolantTempCoolerOffLevel);
-	//#3
-	selectorGrab('fuelLevelSensorType',fuelLevelSetup,0);
-	checkboxGrab('fuelLevelLowAlarmEnb',fuelLevelSetup,1);
-	selectorGrab('fuelLevelLowAlarmAction',fuelLevelSetup,2);
-	s_sliderGrab('sinput-fuelLevelLowAlarmLevel',fuelLevelLowAlarmLevel);
-	s_sliderGrab('sinput-fuelLevelLowAlarmDelay',fuelLevelLowAlarmDelay);
-	checkboxGrab('fuelLevelLowPreAlarmEnb',fuelLevelSetup,3);
-	s_sliderGrab('sinput-fuelLevelLowPreAlarmLevel',fuelLevelLowPreAlarmLevel);
-	s_sliderGrab('sinput-fuelLevelLowPreAlarmDelay',fuelLevelLowPreAlarmDelay);
-	checkboxGrab('fuelLevelHightAlarmEnb',fuelLevelSetup,5);
-	selectorGrab('fuelLevelHightAlarmAction',fuelLevelSetup,6);
-	s_sliderGrab('sinput-fuelLevelHightAlarmLevel',fuelLevelHightAlarmLevel);
-	s_sliderGrab('sinput-fuelLevelHightAlarmDelay',fuelLevelHightAlarmDelay);
-	checkboxGrab('fuelLevelHightPreAlarmLevelEnb',fuelLevelSetup,4);
-	s_sliderGrab('sinput-fuelLevelHightPreAlarmLevel',fuelLevelHightPreAlarmLevel);
-	s_sliderGrab('sinput-fuelLevelHightPreAlarmDelay',fuelLevelHightPreAlarmDelay);
-	checkboxGrab('fuelPumpEnb',fuelLevelSetup,7);
-	d_sliderGrab('dinput-fuelPumpOffLevel','dinput-fuelPumpOnLevel',fuelPumpOnLevel,fuelPumpOffLevel);
-	//#4
-	selectorGrab('diaFunction',diaSetup,0);
-	selectorGrab('diaPolarity',diaSetup,1);
-	selectorGrab('diaAction',diaSetup,2);
-	selectorGrab('diaArming',diaSetup,3);
-	s_sliderGrab('sinput-diaDelay',diaDelay);
-	//#5
-	selectorGrab('dibFunction',dibSetup,0);
-	selectorGrab('dibPolarity',dibSetup,1);
-	selectorGrab('dibAction',dibSetup,2);
-	selectorGrab('dibArming',dibSetup,3);
-	s_sliderGrab('sinput-dibDelay',dibDelay);
-	//#6
-	selectorGrab('dicFunction',dicSetup,0);
-	selectorGrab('dicPolarity',dicSetup,1);
-	selectorGrab('dicAction',dicSetup,2);
-	selectorGrab('dicArming',dicSetup,3);
-	s_sliderGrab('sinput-dicDelay',dicDelay);
-	//#7
-	selectorGrab('didFunction',didSetup,0);
-	selectorGrab('didPolarity',didSetup,1);
-	selectorGrab('didAction',didSetup,2);
-	selectorGrab('didArming',didSetup,3);
-	s_sliderGrab('sinput-didDelay',didDelay);
-	//#8
-	selectorGrab('doaType',doabType,0);
-	radioGrab('DOA_NO','DOA_NC',doSetup,0);
-	selectorGrab('dobType',doabType,1);
-	radioGrab('DOB_NO','DOB_NC',doSetup,1);
-	selectorGrab('docType',docdType,0);
-	radioGrab('DOC_NO','DOC_NC',doSetup,2);
-	selectorGrab('dodType',docdType,1);
-	radioGrab('DOD_NO','DOD_NC',doSetup,3);
-	selectorGrab('doeType',doefType,0);
-	radioGrab('DOE_NO','DOE_NC',doSetup,4);
-	selectorGrab('dofType',doefType,1);
-	radioGrab('DOF_NO','DOF_NC',doSetup,5);
-	//#9 Timers
-	s_sliderGrab('sinput-timerMainsTransientDelay',timerMainsTransientDelay);
-	s_sliderGrab('sinput-timerStartDelay',timerStartDelay);
-	s_sliderGrab('sinput-timerCranking',timerCranking);
-	s_sliderGrab('sinput-timerCrankDelay',timerCrankDelay);
-	s_sliderGrab('sinput-timerStartupIdleTime',timerStartupIdleTime);
-	s_sliderGrab('sinput-timerNominalRPMDelay',timerNominalRPMDelay);
-	s_sliderGrab('sinput-timerSafetyOnDelay',timerSafetyOnDelay);
-	s_sliderGrab('sinput-timerWarming',timerWarming);
-	s_sliderGrab('sinput-timerTransferDelay',timerTransferDelay);
-	s_sliderGrab('sinput-timerBreakerTripPulse',timerBreakerTripPulse);
-	s_sliderGrab('sinput-timerBreakerClosePulse',timerBreakerClosePulse);
-	s_sliderGrab('sinput-timerReturnDelay',timerReturnDelay);
-	s_sliderGrab('sinput-timerCooling',timerCooling);
-	s_sliderGrab('sinput-timerCoolingIdle',timerCoolingIdle);
-	s_sliderGrab('sinput-timerSolenoidHold',timerSolenoidHold);
-	s_sliderGrab('sinput-timerFailStopDelay',timerFailStopDelay);
-	s_sliderGrab('sinput-timerGenTransientDelay',timerGenTransientDelay);
-	//#10
-	checkboxGrab('genPowerGeneratorControlEnb',genSetup,0);
-	selectorGrab('genPoles',genSetup,1);
-	selectorGrab('genAcSys',genSetup,2);
-	s_sliderGrab('sinput-genRatedActivePower',genRatedActivePower);
-	s_sliderGrab('sinput-genRatedReactivePower',genRatedReactivePower);
-	s_sliderGrab('sinput-genRatedApparentPower',genRatedApparentPower);
-	s_sliderGrab('sinput-genRatedFrequency',genRatedFrequency);
-	s_sliderGrab('sinput-genCurrentPrimary',genCurrentPrimary);
-	s_sliderGrab('sinput-genCurrentFullLoadRating',genCurrentFullLoadRating);
-	selectorGrab('genLocationCurrentTransformer',genSetup,3);
-	//#11
-	checkboxGrab('genUnderVoltageAlarmEnb',genAlarms,0);
-	s_sliderGrab('sinput-genUnderVoltageAlarmLevel',genUnderVoltageAlarmLevel);
-	checkboxGrab('genUnderVoltagePreAlarmEnb',genAlarms,1);
-	s_sliderGrab('sinput-genUnderVoltagePreAlarmLevel',genUnderVoltagePreAlarmLevel);
-	s_sliderGrab('sinput-genOverVoltageAlarmLevel',genOverVoltageAlarmLevel);
-	checkboxGrab('genOverVoltagePreAlarmEnb',genAlarms,2);
-	s_sliderGrab('sinput-genOverVoltagePreAlarmLevel',genOverVoltagePreAlarmLevel);
-	//#12
-	checkboxGrab('genUnderFrequencyAlrmEnb',genAlarms,3);
-	s_sliderGrab('sinput-genUnderFrequencyAlrmLevel',genUnderFrequencyAlrmLevel);
-	checkboxGrab('genUnderFrequencyPreAlrmEnb',genAlarms,4);
-	s_sliderGrab('sinput-genUnderFrequencyPreAlrmLevel',genUnderFrequencyPreAlrmLevel);
-	checkboxGrab('genOverFrequencyPreAlrmEnb',genAlarms,5);
-	s_sliderGrab('sinput-genOverFrequencyPreAlrmLevel',genOverFrequencyPreAlrmLevel);
-	checkboxGrab('genOverFrequencyAlarmEnb',genAlarms,6);
-	s_sliderGrab('sinput-genOverFrequencyAlrmLevel',genOverFrequencyAlrmLevel);
-	//#13
-	s_sliderGrab('sinput-genOverCurrentThermalProtectionLevel',genOverCurrentThermalProtectionLevel);
-	s_sliderGrab('sinput-genOverCurrentCutoffLevel',genOverCurrentCutoffLevel);
-	selectorGrab('genCurrentOverAlarmAction',genAlarms,9);
-	s_sliderGrab('sinput-genOverCurrentAlarmLevel',genOverCurrentAlarmLevel);
-	s_sliderGrab('sinput-genOverCurrentAlarmDelay',genOverCurrentAlarmDelay);
-	checkboxGrab('genCurrentOverloadProtectionEnb',genAlarms,7);
-	selectorGrab('genCurrentOverloadProtectionAction',genAlarms,10);
-	s_sliderGrab('sinput-genCurrentOverloadProtectionLevel',genCurrentOverloadProtectionLevel);
-	s_sliderGrab('sinput-genCurrentOverloadProtectionDelay',genCurrentOverloadProtectionDelay);
-	checkboxGrab('genCurrentOverPhaseImbalanceEnb',genAlarms,8);
-	selectorGrab('genCurrentOverPhaseImbalanceAction',genAlarms,11);
-	s_sliderGrab('sinput-genCurrentOverPhaseImbalanceLevel',genCurrentOverPhaseImbalanceLevel);
-	s_sliderGrab('sinput-genCurrentOverPhaseImbalanceDelay',genCurrentOverPhaseImbalanceDelay);
-	//#14
-	checkboxGrab('mainsControl',mainsSetup,0);
-	checkboxGrab('mainsPowerOffImmediately',mainsSetup,1);
-	selectorGrab('mainAcSys',mainsSetup,2);
-	//#15
-	checkboxGrab('mainsUnderVoltageAlarm',mainsAlarms,0);
-	s_sliderGrab('sinput-mainsUnderVoltageAlarmLevel',mainsUnderVoltageAlarmLevel);
-	checkboxGrab('mainsOverVoltageAlarm',mainsAlarms,1);
-	s_sliderGrab('sinput-mainsOverVoltageAlarmLevel',mainsOverVoltageAlarmLevel);
-	checkboxGrab('mainsUnderFrequencyAlarm',mainsAlarms,2);
-	s_sliderGrab('sinput-mainsUnderFrequencyAlarmLevel',mainsUnderFrequencyAlarmLevel);
-	checkboxGrab('mainsOverFrequencyAlarm',mainsAlarms,3);
-	s_sliderGrab('sinput-mainsOverFrequencyAlarmLevel',mainsOverFrequencyAlarmLevel);
-	//#16
-	bitWrite(0,engineSetup,document.getElementById('engineStartAttempts').value);
-	checkboxGrab('enginePreHeatEnb',engineSetup,1);
-	s_sliderGrab('sinput-enginePreHeatOn',enginePreHeatOn);
-	s_sliderGrab('sinput-enginePreHeatDuration',enginePreHeatDuration);
-	checkboxGrab('enginePostHeatEnb',engineSetup,2);
-	s_sliderGrab('sinput-enginePostHeatOn',enginePostHeatOn);
-	s_sliderGrab('sinput-enginePostHeatDuration',enginePostHeatDuration);
-	//#17
-	checkboxGrab('crankDisconnectOilPressure',crankSetup,0);
-	checkboxGrab('crankOilPressureCheckOnStart',crankSetup,1);
-	s_sliderGrab('sinput-crankDisconnectgenFreqLevel',crankDisconnectgenFreqLevel);
-	checkboxGrab('crankDisconnectOilPressureEnb',crankSetup,2);
-	s_sliderGrab('sinput-crankDisconnectOilPressureLevel',crankDisconnectOilPressureLevel);
-	checkboxGrab('crankDisconnectChargeAlternatorEnb',crankSetup,3);
-	s_sliderGrab('sinput-crankDisconnectChargeAlternatorLevel',crankDisconnectChargeAlternatorLevel);
-	//#18
-	checkboxGrab('batteryUnderVoltageEnb',batteryAlarms,0);
-	s_sliderGrab('sinput-batteryUnderVoltageLevel',batteryUnderVoltageLevel);
-	s_sliderGrab('sinput-batteryUnderVoltageDelay',batteryUnderVoltageDelay);
-	checkboxGrab('batteryOverVoltageEnb',batteryAlarms,1);
-	s_sliderGrab('sinput-batteryOverVoltageLevel',batteryOverVoltageLevel);
-	s_sliderGrab('sinput-batteryOverVoltageDelay',batteryOverVoltageDelay);
-	checkboxGrab('batteryChargeShutdownEnb',batteryAlarms,2);
-	s_sliderGrab('sinput-batteryChargeShutdownLevel',batteryChargeShutdownLevel);
-	s_sliderGrab('sinput-batteryChargeShutdownDelay',batteryChargeShutdownDelay);
-	checkboxGrab('batteryChargeWarningEnb',batteryAlarms,3);
-	s_sliderGrab('sinput-batteryChargeWarningLevel',batteryChargeWarningLevel);
-	s_sliderGrab('sinput-batteryChargeWarningDelay',batteryChargeWarningDelay);
-	//#19
-	checkboxGrab('maintenanceAlarmOilEnb',maintenanceAlarms,0);
-	selectorGrab('maintenanceAlarmOilAction',maintenanceAlarms,1);
-	s_sliderGrab('sinput-maintenanceAlarmOilEngineRunTime',maintenanceAlarmOilEngineRunTime);
-	checkboxGrab('maintenanceAlarmAirEnb',maintenanceAlarms,2);
-	selectorGrab('maintenanceAlarmAirAction',maintenanceAlarms,3);
-	s_sliderGrab('sinput-maintenanceAlarmAirEngineRunTime',maintenanceAlarmAirEngineRunTime);
-	checkboxGrab('maintenanceAlarmFuelEnb',maintenanceAlarms,4);
-	selectorGrab('maintenanceAlarmFuelAction',maintenanceAlarms,5);
-	s_sliderGrab('sinput-maintenanceAlarmFuelEngineRunTime',maintenanceAlarmFuelEngineRunTime);
-
-	setDataToBuffer(data);
-
-  //*******
-
-const reqs = (requests = [], failback) => {
-	if (requests instanceof Array && requests.length > 0) {
-  	var xhr = new XMLHttpRequest();
-		xhr.onload = function () {
-			const status = xhr.status;
-			if (xhr.readyState == 4 && status == "200") {
-				requests.shift();
-				return reqs(requests, content, failback);
-	  	} else if (failback) {
-				failback(`Request Error: ${status}`);
-			}
-		};
-		xhr.addEventListener('error', (error) => {
-			if (failback) {
-				failback('Something went wrong.');
-			}
-		});
-  	xhr.open(requests[0].method, requests[0].url, true);
-  	xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
-  	xhr.send(requests[0].content);
-	}
-};
-
-restSeq = []
-for ( i=1; i<103; i++ ){
-	str = '/configs/' + i;
-	restSeq.push({
-		method: 'PUT',
-		url: str,
-		content: JSON.stringify(data[i])
-	})
-}
-const results = reqs(restSeq, (error) => console.log(error));
-
-	/*
-  var json = JSON.stringify(data[1]);
-  var xhr = new XMLHttpRequest();
-  xhr.open("PUT", '/configs/1', true);
-  xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
-  xhr.send(json);
-  xhr.onload = function () {
-    var users = JSON.parse(xhr.responseText);
-    if (xhr.readyState == 4 && xhr.status == "201") {
-      console.log('Put Ok');
-    } else {
-      console.log('Put Fail');
-    }
-  }
-*/
-  //******
-
-/*
-	const reqs = (requests = [], content=[], failback) => {
-  	// Check if there are still requests to make
-  	if (requests instanceof Array && requests.length > 0) {
-    	const xhr = new XMLHttpRequest();
-      // Success handling
-      xhr.addEventListener('load', (data) => {
-      	const status = data.currentTarget.status;
-        if (status === 200) {;
-          requests.shift();														// remove first request from array of requests
-          return reqs(requests, content, failback);		// move on to next request
-        } else {
-        	if (failback) {
-          	failback(`Request Error: ${status}`);
-          }
-        }
-      });
-      // Failure handling
-      xhr.addEventListener('error', (error) => {
-      	if (failback) {
-        	failback('Something went wrong.');
-        }
-      });
-      xhr.open(requests[0].method, requests[0].url, true);
-			xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
-      xhr.send(requests[0].content);
-  	} else {
-			document.getElementById("i-loading").classList.remove("loading");
-      return store;
-  	}
+		setDataToBuffer(data);
+	  //*******
+	const reqs = (requests = [], failback) => {
+		if (requests instanceof Array && requests.length > 0) {
+	  	var xhr = new XMLHttpRequest();
+			xhr.onload = function () {
+				const status = xhr.status;
+				if (xhr.readyState == 4 && status == "200") {
+					requests.shift();
+					return reqs(requests, content, failback);
+		  	} else if (failback) {
+					failback(`Request Error: ${status}`);
+				}
+			};
+			xhr.addEventListener('error', (error) => {
+				if (failback) {
+					failback('Something went wrong.');
+					showAlert("alert-danger","Нет связи с сервером");
+				}
+			});
+	  	xhr.open(requests[0].method, requests[0].url, true);
+	  	xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+	  	xhr.send(requests[0].content);
+		} else {
+			showAlert("alert-success","Прибор успешно сконфигурирован");
+		}
 	};
 
-	document.getElementById("i-loading").classList.add("loading");
-
-	try{
-		restSeq = []
-		for ( i=0; i<103; i++ ){
-			str = '/configs/' + i;
-			restSeq.push({method: 'PUT', url: str, content: JSON.stringify(data[i])})
-		}
-		const results = reqs(restSeq, [],	(error) => console.log(error)	);
-	} catch {
-		alert("Нет связи с сервером")
+	restSeq = []
+	for ( i=1; i<103; i++ ){
+		str = '/configs/' + i;
+		restSeq.push({
+			method: 'PUT',
+			url: str,
+			content: JSON.stringify(data[i])
+		})}
+		const results = reqs(restSeq, (error) => console.log(error));
+	} catch (e) {
+		showAlert("alert-danger","Нет связи с сервером");
 	}
-	*/
 	return;
 }
 //******************************************************************************

@@ -3466,8 +3466,6 @@ input[type="button"].btn-block {
   padding: 0.5rem 1rem; }
   .navbar > .container,
   .navbar > .container-fluid {
-
-
   }
 
 .navbar-brand {
@@ -4329,6 +4327,24 @@ input[type="button"].btn-block {
     border-top-color: #b9bbbe; }
   .alert-dark .alert-link {
     color: #040505; }
+
+.alert-message{
+  position: absolute;
+  width: 400px;
+  right: 20px;
+  bottom: 20px;
+  }
+  .alert-message .alert-icon {
+    font-size: 22px;
+    width: 3rem;}
+  .alert-message .close{
+    font-size: 1rem;
+    color: #a6a6a6;
+}
+
+.alert-primary .alert-icon {
+  background-color: #b8daff;
+}
 
 @-webkit-keyframes progress-bar-stripes {
   from {
@@ -8290,24 +8306,20 @@ h1, h2, h3, h4, h5,
         background: #4d5055;}
     #sidebar ul li a .fas{
       font-size: 22px;
-      width: 50px;
-    }
+      width: 50px;}
     #sidebar ul li a .svg-icon {
       width: 1em;
-      height: 1em;
-    }
+      height: 1em;}
     #sidebar ul li a span {
       display:inline-block;
       vertical-align:middle;
-      width:200px;
-    }
+      width:200px;}
     #sidebar ul li a .svg-icon path,
     #sidebar ul li a .svg-icon polygon,
     #sidebar ul li a .svg-icon rect {
-      fill: #d2d3d4;
-    }
+      fill: #d2d3d4;}
     #sidebar ul li.active > a {
-      }
+}
   @media (max-width: 991.98px) {
     #sidebar {
       margin-left: -300px; }
@@ -8340,10 +8352,10 @@ a[data-toggle="collapse"] {
 
 @media (max-width: 991.98px) {
   #sidebar {
-    margin-left: -300px;
-  }
+    margin-left: -300px;}
   #sidebarCollapse span {
-    display: none; } }
+    display: none; }
+}
 
 #content {
   width: 100%;
@@ -8356,14 +8368,12 @@ a[data-toggle="collapse"] {
 .content-data {
   position: flex;
   width: 100%;
-  transition: opacity .22s ease-in, height .12s step-start;
-}
+  transition: opacity .22s ease-in, height .12s step-start;}
   .content-data.hidden {
     opacity: 0;
     height: 0;
     overflow: hidden;
-    transition-timing-function: linear, step-end;
-  }
+    transition-timing-function: linear, step-end;}
   .content-data h6{
     padding: 10px
   }

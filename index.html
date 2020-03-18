@@ -37,10 +37,8 @@
             </li>
             <li>
               <a id="nav_coolantTemp" onclick="loadContent('coolTempPage')" href="#">
-
-                  <i class="fas fa-thermometer-full"></i>
-                  <span>Температура охлаждающей жидкости</span>
-
+                <i class="fas fa-thermometer-full"></i>
+                <span>Температура охлаждающей жидкости</span>
               </a>
             </li>
             <li>
@@ -2834,6 +2832,17 @@
       </div>
       <!------------------------------------------------------------------------------------------------------------->
         </div>
+      </div>
+      <div id="alert-message" class="alert alert-danger alert-message d-flex rounded p-0 fade" role="alert">
+        <div class="alert-icon d-flex justify-content-center align-items-center flex-grow-0 flex-shrink-0 py-3">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div id="alert-text" class="d-flex align-items-center py-2 px-3">
+          Text
+        </div>
+        <a href="#" class="close d-flex ml-auto justify-content-center align-items-center px-3" onclick="closeAlert()">
+          <i class="fas fa-times"></i>
+        </a>
       </div>
     </div>
     <script type="text/javascript" src="js/rest.js"></script>

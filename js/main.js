@@ -35,6 +35,28 @@ function loadContent(id) {
 	document.getElementById(id).classList.remove("hidden");
 	return;
 }
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+function showAlert(type,text) {
+	document.getElementById('alert-message').classList.remove("alert-danger");
+	document.getElementById('alert-message').classList.remove("alert-warning");
+	document.getElementById('alert-message').classList.remove("alert-info");
+	document.getElementById('alert-message').classList.remove("alert-success");
+	document.getElementById('alert-message').classList.remove("alert-secondary");
+	document.getElementById('alert-message').classList.remove("alert-primary");
+	document.getElementById('alert-message').classList.add(type);
+	document.getElementById('alert-text').innerHTML = text;
+	document.getElementById('alert-message').classList.add("show");
+	return;
+}
+
+function closeAlert() {
+	document.getElementById('alert-message').classList.remove("show");
+	document.getElementById('alert-message').classList.add("fade");
+	return;
+}
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
