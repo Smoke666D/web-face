@@ -24,7 +24,7 @@
       <img src="img/light_logo_energan_spb.png" class="logo">
 	    <ul class="list-unstyled components mb-5">
         <li class="active">
-          <a for="outputSubmenu" aria-controls="outputSubmenu" href="#outputSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
+          <a for="outputSubmenu" href="#outputSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
             <i class="fas fa-angle-double-right"></i>
             <span>Входы</span>
           </a>
@@ -37,8 +37,10 @@
             </li>
             <li>
               <a id="nav_coolantTemp" onclick="loadContent('coolTempPage')" href="#">
-                <i class="fas fa-thermometer-full"></i>
-                <span>Температура охлаждающей жидкости</span>
+
+                  <i class="fas fa-thermometer-full"></i>
+                  <span>Температура охлаждающей жидкости</span>
+
               </a>
             </li>
             <li>
@@ -183,30 +185,22 @@
       <div class="footer">
       </div>
     </nav>
+    <!------------------------------------------------------------------------------------------------------------->
+    <div id="content" class="p-4 p-md-5">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary">
+              <i class="fa fa-bars"></i>
+            </button>
+            <button aria-label="Refresh data" onclick="dataUpdate()" class="btn btn-primary">
+              <i class="fa fa-refresh" id="i-loading"></i>
+            </button>
+            <button aria-label="Upload data" onclick="dataGrab()" class="btn btn-primary">
+              <i class="fa fa-upload" id="i-upload"></i>
+            </button>
+        </div>
+      </nav>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="content" class="p-4 p-md-5">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-            <div class="container-fluid">
-              <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary">
-                <i class="fa fa-bars"></i>
-              </button>
-              <button aria-label="Refresh data" onclick="dataUpdate()" class="btn btn-primary">
-                <i class="fa fa-refresh" id="i-loading"></i>
-              </button>
-              <button aria-label="Upload data" onclick="dataGrab()" class="btn btn-primary">
-                <i class="fa fa-upload" id="i-upload"></i>
-              </button>
-            </div>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item active">
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-        <!------------------------------------------------------------------------------------------------------------->
         <div id="oilPressPage" class="content-data">
           <h5>Давление масла</h5>
           <div class="row">
