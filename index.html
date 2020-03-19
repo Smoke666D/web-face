@@ -9,11 +9,11 @@
     <link rel="manifest" href="json/manifest.json" >
     <link rel="shortcut icon" href="img/cropped-favicon_energan.png">
     <!------------------------------------------------------------------------------------------------------------->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.css">
 		<script src="https://kit.fontawesome.com/710b4ac03c.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-dragdata@latest/dist/chartjs-plugin-dragdata.min.js"></script>
+    <link rel="stylesheet" href="css/Chart.min.css">
+    <link rel="stylesheet" href="css/nouislider.min.css">
 		<link rel="stylesheet" href="css/style.css">
   </head>
   <body>
@@ -177,6 +177,12 @@
           <a onclick="loadContent('servicePage')" href="#">
             <i class="fas fa-tools"></i>
             <span>Сигналы техобслуживания</span>
+          </a>
+        </li>
+        <li>
+          <a onclick="loadContent('logPage')" href="#">
+            <i class="fas fa-book"></i>
+            <span>Журнал</span>
           </a>
         </li>
       </ul>
@@ -2780,6 +2786,51 @@
           </div>
         </div>
       </div>
+      <div id="logPage" class="content-data hidden">
+        <h1>Журнал</h1>
+        <table class="table table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th>№</th>
+              <th>Дата</th>
+              <th>Время</th>
+              <th>Тип</th>
+              <th>Источник</th>
+              <th>Сообшение</th>
+              <th>Значение</th>
+            </tr>
+          </thead>
+          <tbody id="log-body">
+            <tr class="table-warning">
+              <td>1</td>
+              <td>19.03.2020</td>
+              <td>21:45:05</td>
+              <td>Предупреждение</td>
+              <td>Двигатель</td>
+              <td>Высокий уровень тока</td>
+              <td>30 А</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>19.03.2020</td>
+              <td>21:55:25</td>
+              <td>Сообшение</td>
+              <td>Двигатель</td>
+              <td>Произведена остановка двигателя</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>19.03.2020</td>
+              <td>22:25:25</td>
+              <td>Сообшение</td>
+              <td>Двигатель</td>
+              <td>Произведен запуск двигателя</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="noDataPage" class="content-data hidden">
         <h1>Страница находиться в разработке</h1>
@@ -2847,11 +2898,11 @@
     </div>
     <script type="text/javascript" src="js/rest.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="js/chart.js"></script>
+    <script type="text/javascript" src="js/sensorchart.js"></script>
+    <script type="text/javascript" src="js/nouislider.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.js"></script>
     <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
   </body>
 </html>

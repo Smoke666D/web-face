@@ -1383,6 +1383,7 @@ pre {
   background-color: rgba(0, 0, 0, 0.05); }
 
 .table-hover tbody tr:hover {
+  transition: background-color 0.5s ease;
   color: #212529;
   background-color: rgba(0, 0, 0, 0.075); }
 
@@ -1517,10 +1518,10 @@ pre {
   border-color: #95999c; }
 
 .table-hover .table-dark:hover {
-  background-color: #b9bbbe; }
+  background-color: #4d5055; }
   .table-hover .table-dark:hover > td,
   .table-hover .table-dark:hover > th {
-    background-color: #b9bbbe; }
+    background-color: #4d5055; }
 
 .table-active,
 .table-active > th,
@@ -1534,9 +1535,9 @@ pre {
     background-color: rgba(0, 0, 0, 0.075); }
 
 .table .thead-dark th {
-  color: #fff;
-  background-color: #343a40;
-  border-color: #454d55; }
+  color: #d2d3d4;
+  background-color: #4d5055;
+  border-color: #4d5055; }
 
 .table .thead-light th {
   color: #495057;
@@ -8346,9 +8347,8 @@ a[data-toggle="collapse"] {
 
 .dropdown-toggle[aria-expanded="true"]:after {
   transform:rotate(-90deg);
-    -ms-transform:rotate(-90deg);
-    -webkit-transform:rotate(-90deg);
-}
+  -ms-transform:rotate(-90deg);
+  -webkit-transform:rotate(-90deg);}
 
 @media (max-width: 991.98px) {
   #sidebar {
