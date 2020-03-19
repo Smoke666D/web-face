@@ -6,7 +6,9 @@ var d_sliders;
 var d_sinputs_left;
 var d_sinputs_right;
 
-const f = x => ( (x.toString().includes('.')) ? (x.toString().split('.').pop().length) : (0) );
+function calcFracLength(x) {
+	return (x.toString().indexOf ('.') >= 0) ? (x.toString().split('.').pop().length) : (0);
+}
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -82,13 +84,13 @@ function sliderInit() {
 				'max': 100
 			}
 		})
-		s_sliders[i].noUiSlider.on('update', (function () {
+		s_sliders[i].noUiSlider.on('update', (function() {
 			var j=i;
 			return function(){
-				s_sinputs[j].value = parseFloat(s_sliders[j].noUiSlider.get()).toFixed(f(s_sinputs[j].step));
+				s_sinputs[j].value = parseFloat(s_sliders[j].noUiSlider.get()).toFixed(calcFracLength(s_sinputs[j].step));
 			}
 		})() );
-		s_sinputs[i].addEventListener('change', (function () {
+		s_sinputs[i].addEventListener('change', (function() {
 			var j=i;
 			return function(){
 	    	s_sliders[j].noUiSlider.set([s_sinputs[j].value]);
@@ -112,7 +114,7 @@ function sliderInit() {
 		d_sliders[i].noUiSlider.on('update',(function(){
 			var j=i;
 			return function(){
-				d_sinputs_left[j].value = parseFloat(d_sliders[j].noUiSlider.get()[0]).toFixed(f(d_sinputs_left[j].step));
+				d_sinputs_left[j].value = parseFloat(d_sliders[j].noUiSlider.get()[0]).toFixed(calcFracLength(d_sinputs_left[j].step));
 			}
 		})());
 		d_sinputs_left[i].addEventListener('change',(function(){
@@ -124,7 +126,7 @@ function sliderInit() {
 		d_sliders[i].noUiSlider.on('update',(function(){
 			var j=i;
 			return function(){
-				d_sinputs_right[j].value = parseFloat(d_sliders[j].noUiSlider.get()[1]).toFixed(f(d_sinputs_right[j].step));
+				d_sinputs_right[j].value = parseFloat(d_sliders[j].noUiSlider.get()[1]).toFixed(calcFracLength(d_sinputs_right[j].step));
 			}
 		})());
 		d_sinputs_right[i].addEventListener('change',(function(){
@@ -243,7 +245,7 @@ function powerSliderInit(idActive, idReactive, idApparent, idCosFi, reg){
 		powActive   = parseInt(sliderActive.noUiSlider.get());
 		powApparent = parseInt(sliderApparent.noUiSlider.get());
 
-		if(powActive<=powApparent){
+		if (powActive<=powApparent){
 			powReactive = powerReaCalc(powApparent,powActive);
 			sliderReactive.noUiSlider.set(powReactive);
 			sliderCosFi.noUiSlider.set(powActive/powApparent);
@@ -260,7 +262,7 @@ function powerSliderInit(idActive, idReactive, idApparent, idCosFi, reg){
 	function apparentUpdate(){
 		powActive   = parseInt(sliderActive.noUiSlider.get());
 		powApparent = parseInt(sliderApparent.noUiSlider.get());
-		if(powApparent>=powActive){
+		if (powApparent>=powActive){
 			powReactive = powerReaCalc(powApparent,powActive);
 			sliderReactive.noUiSlider.set(powReactive);
 			sliderCosFi.noUiSlider.set(powActive/powApparent);
@@ -345,7 +347,7 @@ function slider2InitLimits(id1,id2) {
 
 	slider1.noUiSlider.on('change', function(){
 		val = parseInt(slider2.noUiSlider.get())
-		if(parseInt(slider1.noUiSlider.get()) >= val){
+		if (parseInt(slider1.noUiSlider.get()) >= val){
 			slider1.noUiSlider.set(val);
 		}
 	});
@@ -359,7 +361,7 @@ function slider2InitLimits(id1,id2) {
 	slider2.noUiSlider.on('change', function(){
 		val = parseInt(slider2.noUiSlider.get());
 		min = parseInt(slider1.noUiSlider.get());
-		if(val<=min){
+		if (val<=min){
 			slider2.noUiSlider.set(min);
 		}
 	});
@@ -384,7 +386,7 @@ function slider4InitLimits(id1,id2,id3,id4) {
 
 	slider1.noUiSlider.on('change', function(){
 		val = parseInt(slider2.noUiSlider.get())
-		if(parseInt(slider1.noUiSlider.get()) >= val){
+		if (parseInt(slider1.noUiSlider.get()) >= val){
 			slider1.noUiSlider.set(val);
 		}
 	});
@@ -399,10 +401,10 @@ function slider4InitLimits(id1,id2,id3,id4) {
 		val = parseInt(slider2.noUiSlider.get());
 		min = parseInt(slider1.noUiSlider.get());
 		max = parseInt(slider3.noUiSlider.get());
-		if(val<=min){
+		if (val<=min){
 			slider2.noUiSlider.set(min);
 		}
-		if(val>=max){
+		if (val>=max){
 			slider2.noUiSlider.set(max);
 		}
 	});
@@ -421,10 +423,10 @@ function slider4InitLimits(id1,id2,id3,id4) {
 		val = parseInt(slider3.noUiSlider.get());
 		min = parseInt(slider2.noUiSlider.get());
 		max = parseInt(slider4.noUiSlider.get());
-		if(val<=min){
+		if (val<=min){
 			slider3.noUiSlider.set(min);
 		}
-		if(val>=max){
+		if (val>=max){
 			slider3.noUiSlider.set(max);
 		}
 	});
@@ -442,7 +444,7 @@ function slider4InitLimits(id1,id2,id3,id4) {
 	slider4.noUiSlider.on('change', function(){
 		val = parseInt(slider4.noUiSlider.get());
 		min = parseInt(slider3.noUiSlider.get());
-		if(val<=min){
+		if (val<=min){
 			slider4.noUiSlider.set(min);
 		}
 	});
@@ -504,45 +506,45 @@ function toggleDslider(sliderID,inputlID,inputrID) {
 
 function checkboxInit() {
 	//#1
-	document.getElementById('oilPressureAlarmEnb').addEventListener('click', function () {
+	document.getElementById('oilPressureAlarmEnb').addEventListener('click', function() {
     toggleSslider.call(this, 's-slider-oilPressureAlarmLevel','sinput-oilPressureAlarmLevel');
 	});
-	document.getElementById('oilPressurePreAlarmEnb').addEventListener('change', function () {
+	document.getElementById('oilPressurePreAlarmEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-oilPressurePreAlarmLevel','sinput-oilPressurePreAlarmLevel');
 	});
 	//#2
-	document.getElementById('coolantHightTempAlarmEnb').addEventListener('change', function () {
+	document.getElementById('coolantHightTempAlarmEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-coolantHightTempAlarmLevel','sinput-coolantHightTempAlarmLevel');
 	});
-	document.getElementById('coolantHightTempPreAlarmEnb').addEventListener('change', function () {
+	document.getElementById('coolantHightTempPreAlarmEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-coolantHightTempPreAlarmLevel','sinput-coolantHightTempPreAlarmLevel');
 	});
-	document.getElementById('coolantTempHeaterEnb').addEventListener('change', function () {
+	document.getElementById('coolantTempHeaterEnb').addEventListener('change', function() {
 		toggleDslider.call(this, 'd-slider-coolantTempHeaterLevel','dinput-coolantTempHeaterOffLevel','dinput-coolantTempHeaterOnLevel');
 	});
-	document.getElementById('coolantTempCoolerEnb').addEventListener('change', function () {
+	document.getElementById('coolantTempCoolerEnb').addEventListener('change', function() {
 		toggleDslider.call(this, 'd-slider-coolantTempCoolerLevel','dinput-coolantTempCoolerOffLevel','dinput-coolantTempCoolerOnLevel');
 	});
 	//#3
-	document.getElementById('fuelLevelLowAlarmEnb').addEventListener('change', function () {
+	document.getElementById('fuelLevelLowAlarmEnb').addEventListener('change', function() {
 		toggleSelector.call(this, 'fuelLevelLowAlarmAction');
 		toggleSslider.call(this, 's-slider-fuelLevelLowAlarmLevel','sinput-fuelLevelLowAlarmLevel');
 		toggleSslider.call(this, 's-slider-fuelLevelLowAlarmDelay','sinput-fuelLevelLowAlarmDelay');
 	});
-	document.getElementById('fuelLevelLowPreAlarmEnb').addEventListener('change', function () {
+	document.getElementById('fuelLevelLowPreAlarmEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-fuelLevelLowPreAlarmLevel','sinput-fuelLevelLowPreAlarmLevel');
 		toggleSslider.call(this, 's-slider-fuelLevelLowPreAlarmDelay','sinput-fuelLevelLowPreAlarmDelay');
 	});
-	document.getElementById('fuelLevelHightAlarmEnb').addEventListener('change', function () {
+	document.getElementById('fuelLevelHightAlarmEnb').addEventListener('change', function() {
 		toggleSelector.call(this, 'fuelLevelHightAlarmAction');
 		toggleSslider.call(this, 's-slider-fuelLevelHightAlarmLevel','sinput-fuelLevelHightAlarmLevel');
 		toggleSslider.call(this, 's-slider-fuelLevelHightAlarmDelay','sinput-fuelLevelHightAlarmDelay');
 	});
-	document.getElementById('fuelLevelHightPreAlarmLevelEnb').addEventListener('change', function () {
+	document.getElementById('fuelLevelHightPreAlarmLevelEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-fuelLevelHightPreAlarmLevel','sinput-fuelLevelHightPreAlarmLevel');
 		toggleSslider.call(this, 's-slider-fuelLevelHightPreAlarmDelay','sinput-fuelLevelHightPreAlarmDelay');
 	});
-	document.getElementById('fuelPumpEnb').addEventListener('change', function () {
+	document.getElementById('fuelPumpEnb').addEventListener('change', function() {
 		toggleDslider.call(this, 'd-slider-fuelPumpOnOffLevel','dinput-fuelPumpOffLevel','dinput-fuelPumpOnLevel');
 	});
 	//#4
@@ -579,32 +581,32 @@ function checkboxInit() {
 	enableSslider('s-slider-genRatedFrequency','sinput-genRatedFrequency');
 	enableSslider('s-slider-genCurrentPrimary','sinput-genCurrentPrimary');
 	enableSslider('s-slider-genCurrentFullLoadRating','sinput-genCurrentFullLoadRating');
-	document.getElementById('genPowerGeneratorControlEnb').addEventListener('change', function () {
+	document.getElementById('genPowerGeneratorControlEnb').addEventListener('change', function() {
 		toggleSelector.call(this, 'genPoles');
 		toggleSelector.call(this, 'genAcSys');
 	});
 	//#11
-	document.getElementById('genUnderVoltageAlarmEnb').addEventListener('change', function () {
+	document.getElementById('genUnderVoltageAlarmEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-genUnderVoltageAlarmLevel','sinput-genUnderVoltageAlarmLevel');
 	});
-	document.getElementById('genUnderVoltagePreAlarmEnb').addEventListener('change', function () {
+	document.getElementById('genUnderVoltagePreAlarmEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-genUnderVoltagePreAlarmLevel','sinput-genUnderVoltagePreAlarmLevel');
 	});
-	document.getElementById('genOverVoltagePreAlarmEnb').addEventListener('change', function () {
+	document.getElementById('genOverVoltagePreAlarmEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-genOverVoltagePreAlarmLevel','sinput-genOverVoltagePreAlarmLevel');
 	});
 	enableSslider('s-slider-genOverVoltageAlarmLevel','sinput-genOverVoltageAlarmLevel');
 	//#12
-	document.getElementById('genUnderFrequencyAlrmEnb').addEventListener('change', function () {
+	document.getElementById('genUnderFrequencyAlrmEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-genUnderFrequencyAlrmLevel','sinput-genUnderFrequencyAlrmLevel');
 	});
-	document.getElementById('genUnderFrequencyPreAlrmEnb').addEventListener('change', function () {
+	document.getElementById('genUnderFrequencyPreAlrmEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-genUnderFrequencyPreAlrmLevel','sinput-genUnderFrequencyPreAlrmLevel');
 	});
-	document.getElementById('genOverFrequencyPreAlrmEnb').addEventListener('change', function () {
+	document.getElementById('genOverFrequencyPreAlrmEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-genOverFrequencyPreAlrmLevel','sinput-genOverFrequencyPreAlrmLevel');
 	});
-	document.getElementById('genOverFrequencyAlarmEnb').addEventListener('change', function () {
+	document.getElementById('genOverFrequencyAlarmEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-genOverFrequencyAlrmLevel','sinput-genOverFrequencyAlrmLevel');
 	});
 	//#13
@@ -612,73 +614,73 @@ function checkboxInit() {
 	enableSslider('s-slider-genOverCurrentCutoffLevel','sinput-genOverCurrentCutoffLevel');
 	enableSslider('s-slider-genOverCurrentAlarmLevel','sinput-genOverCurrentAlarmLevel');
 	enableSslider('s-slider-genOverCurrentAlarmDelay','sinput-genOverCurrentAlarmDelay');
-	document.getElementById('genCurrentOverloadProtectionEnb').addEventListener('change', function () {
+	document.getElementById('genCurrentOverloadProtectionEnb').addEventListener('change', function() {
 		toggleSelector.call(this, 'genCurrentOverloadProtectionAction');
 		toggleSslider.call(this, 's-slider-genCurrentOverloadProtectionLevel','sinput-genCurrentOverloadProtectionLevel');
 		toggleSslider.call(this, 's-slider-genCurrentOverloadProtectionDelay','sinput-genCurrentOverloadProtectionDelay');
 	});
-	document.getElementById('genCurrentOverPhaseImbalanceEnb').addEventListener('change', function () {
+	document.getElementById('genCurrentOverPhaseImbalanceEnb').addEventListener('change', function() {
 		toggleSelector.call(this, 'genCurrentOverPhaseImbalanceAction');
 		toggleSslider.call(this, 's-slider-genCurrentOverPhaseImbalanceLevel','sinput-genCurrentOverPhaseImbalanceLevel');
 		toggleSslider.call(this, 's-slider-genCurrentOverPhaseImbalanceDelay','sinput-genCurrentOverPhaseImbalanceDelay');
 	});
 	//#14
 	//#15
-	document.getElementById('mainsUnderVoltageAlarm').addEventListener('change', function () {
+	document.getElementById('mainsUnderVoltageAlarm').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-mainsUnderVoltageAlarmLevel','sinput-mainsUnderVoltageAlarmLevel');
 	});
-	document.getElementById('mainsOverVoltageAlarm').addEventListener('change', function () {
+	document.getElementById('mainsOverVoltageAlarm').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-mainsOverVoltageAlarmLevel','sinput-mainsOverVoltageAlarmLevel');
 	});
-	document.getElementById('mainsUnderFrequencyAlarm').addEventListener('change', function () {
+	document.getElementById('mainsUnderFrequencyAlarm').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-mainsUnderFrequencyAlarmLevel','sinput-mainsUnderFrequencyAlarmLevel');
 	});
-	document.getElementById('mainsOverFrequencyAlarm').addEventListener('change', function () {
+	document.getElementById('mainsOverFrequencyAlarm').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-mainsOverFrequencyAlarmLevel','sinput-mainsOverFrequencyAlarmLevel');
 	});
 	//#16
-	document.getElementById('enginePreHeatEnb').addEventListener('change', function () {
+	document.getElementById('enginePreHeatEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-enginePreHeatOn','sinput-enginePreHeatOn');
 		toggleSslider.call(this, 's-slider-enginePreHeatDuration','sinput-enginePreHeatDuration');
 	});
-	document.getElementById('enginePostHeatEnb').addEventListener('change', function () {
+	document.getElementById('enginePostHeatEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-enginePostHeatOn','sinput-enginePostHeatOn');
 		toggleSslider.call(this, 's-slider-enginePostHeatDuration','sinput-enginePostHeatDuration');
 	});
 	//#17
-	document.getElementById('crankDisconnectOilPressureEnb').addEventListener('change', function () {
+	document.getElementById('crankDisconnectOilPressureEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-crankDisconnectOilPressureLevel','sinput-crankDisconnectOilPressureLevel');
 	});
-	document.getElementById('crankDisconnectChargeAlternatorEnb').addEventListener('change', function () {
+	document.getElementById('crankDisconnectChargeAlternatorEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-crankDisconnectChargeAlternatorLevel','sinput-crankDisconnectChargeAlternatorLevel');
 	});
 	//#18
-	document.getElementById('batteryUnderVoltageEnb').addEventListener('change', function () {
+	document.getElementById('batteryUnderVoltageEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-batteryUnderVoltageLevel','sinput-batteryUnderVoltageLevel');
 		toggleSslider.call(this, 's-slider-batteryUnderVoltageDelay','sinput-batteryUnderVoltageDelay');
 	});
-	document.getElementById('batteryOverVoltageEnb').addEventListener('change', function () {
+	document.getElementById('batteryOverVoltageEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-batteryOverVoltageLevel','sinput-batteryOverVoltageLevel');
 		toggleSslider.call(this, 's-slider-batteryOverVoltageDelay','sinput-batteryOverVoltageDelay');
 	});
-	document.getElementById('batteryChargeShutdownEnb').addEventListener('change', function () {
+	document.getElementById('batteryChargeShutdownEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-batteryChargeShutdownLevel','sinput-batteryChargeShutdownLevel');
 		toggleSslider.call(this, 's-slider-batteryChargeShutdownDelay','sinput-batteryChargeShutdownDelay');
 	});
-	document.getElementById('batteryChargeWarningEnb').addEventListener('change', function () {
+	document.getElementById('batteryChargeWarningEnb').addEventListener('change', function() {
 		toggleSslider.call(this, 's-slider-batteryChargeWarningLevel','sinput-batteryChargeWarningLevel');
 		toggleSslider.call(this, 's-slider-batteryChargeWarningDelay','sinput-batteryChargeWarningDelay');
 	});
 	//#19
-	document.getElementById('maintenanceAlarmOilEnb').addEventListener('change', function () {
+	document.getElementById('maintenanceAlarmOilEnb').addEventListener('change', function() {
 		toggleSelector.call(this, 'maintenanceAlarmOilAction');
 		toggleSslider.call(this, 's-slider-maintenanceAlarmOilEngineRunTime','sinput-maintenanceAlarmOilEngineRunTime');
 	});
-	document.getElementById('maintenanceAlarmAirEnb').addEventListener('change', function () {
+	document.getElementById('maintenanceAlarmAirEnb').addEventListener('change', function() {
 		toggleSelector.call(this, 'maintenanceAlarmAirAction');
 		toggleSslider.call(this, 's-slider-maintenanceAlarmAirEngineRunTime','sinput-maintenanceAlarmAirEngineRunTime');
 	});
-	document.getElementById('maintenanceAlarmFuelEnb').addEventListener('change', function () {
+	document.getElementById('maintenanceAlarmFuelEnb').addEventListener('change', function() {
 		toggleSelector.call(this, 'maintenanceAlarmFuelAction');
 		toggleSslider.call(this, 's-slider-maintenanceAlarmFuelEngineRunTime','sinput-maintenanceAlarmFuelEngineRunTime');
 	});
@@ -726,7 +728,7 @@ function updateAllTimeSliders(){
 document.addEventListener("DOMContentLoaded", function(event) {
 	loadContent("oilPressPage");
 	sliderInit();
-	//dataUpdate();
+	dataUpdate();
 	sensorModalInit();
 	powerSliderInit("genRatedActivePower","genRatedReactivePower","genRatedApparentPower","cosFi",genRatedApparentPower);
 	timerSliderTransform("fuelLevelLowAlarmDelay",fuelLevelLowAlarmDelay);
@@ -774,7 +776,7 @@ function downloadSensorData(chrtData){
   	try {
     	var b = new Blob([t],{type:m});
       saveAs(b, f);
-    } catch (e) {
+    } catch(e) {
     	window.open("data:"+m+"," + encodeURIComponent(t), '_blank','');
     }
   }
@@ -783,47 +785,33 @@ function downloadSensorData(chrtData){
 	SaveAsFile(JSON.stringify(chrtData),"sensorData.JSON","text/plain;charset=utf-8");
 }
 
-function uploadSensorData(chrtData){
+function uploadSensorData(chrtData) {
 	var newCart;
 	if (window.File && window.FileReader && window.FileList && window.Blob) {
 		var input = document.createElement("input");
-    input.setAttribute("type", "file");
-		input.addEventListener("change",function(){
+    input.setAttribute("type","file");
+		input.addEventListener("change",function() {
 			file = input.files[0];
-			if (file.type != "application/json"){
-				alert("Выбран файл с неправильным расширением. Выберете JSON файл");
+			if (file.type != "application/json") {
+				showAlert("alert-warning","Выбран файл с неправильным расширением. Выберете JSON файл");
 			} else {
 				let reader = new FileReader();				reader.readAsText(file);
 				reader.onload = function() {
-					try{
+					try {
 						newCart = JSON.parse(reader.result);
 						makeChart(newCart);
-					} catch {
-						alert("Неправильный формат файла")
+					} catch(e) {
+						showAlert("alert-warning","Неправильный формат файла");
 					}
   			};
 			}
 		});
 		input.click();
-    // add onchange handler if you wish to get the file :)
-
     return false; // avoiding navigation
 	} else {
-  	alert('Браузер не поддерживает загрузку файлов');
+		showAlert("alert-warning","Браузер не поддерживает загрузку файлов");
 	}
 }
-/*
-function handleFileSelect(evt) {
-	var files = evt.target.files; // FileList object
-
-  // files is a FileList of File objects. List some properties.
-  var output = [];
-  for (var i = 0, f; f = files[i]; i++) {
-  	output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ', f.size, ' bytes, last modified: ', f.lastModifiedDate.toLocaleDateString(), '</li>');
-  }
-  document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-}
-*/
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************

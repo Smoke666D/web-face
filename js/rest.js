@@ -1,4 +1,4 @@
-var data = new Array();;
+var data = new Array();
 
 var oilPressureSetup;
 var oilPressureAlarmLevel;
@@ -375,26 +375,22 @@ function bitWrite(n,reg,val){
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-
 function dataUpdate() {
 	document.getElementById("i-loading").classList.add("loading");
 	try{
-		const reqs = (requests = [], store = [], failback) => {
-	  	// Check if there are still requests to make
+		const reqs = function(requests, store, failback) {
 	  	if (requests instanceof Array && requests.length > 0) {
 	    	const xhr = new XMLHttpRequest();
-	      // Success handling
-	      xhr.addEventListener('load', (data) => {
+	      xhr.addEventListener('load', function(data) {
 	      	const status = data.currentTarget.status;
 	        const response = data.currentTarget.response;
 	        if (status === 200) {
-	          store.push(JSON.parse(response));					// add to store
-	          requests.shift();													// remove first request from array of requests
-	          return reqs(requests, store, failback);		// move on to next request
+	          store.push(JSON.parse(response));
+	          requests.shift();
+	          return reqs(requests, store, failback);
 	        }
 	      });
-	      // Failure handling
-	      xhr.addEventListener('error', (error) => {
+	      xhr.addEventListener('error', function(error) {
 	      	if (failback) {
 	          document.getElementById("i-loading").classList.remove("loading");
 	        	failback('Something went wrong.');
@@ -412,8 +408,8 @@ function dataUpdate() {
 		};
 		restSeq = []
 		restSeq.push({method: 'get', url: '/configs/'})
-		const results = reqs(restSeq, [],	(error) => console.log(error)	);
-	} catch {
+		const results = reqs(restSeq, [],	function(error) { console.log(error)	});
+	} catch(e) {
 		showAlert("alert-danger","Нет связи с сервером");
 	}
 	return;
@@ -450,7 +446,7 @@ function dataApply(data){
 		scl = Math.pow(10,reg.scale)
 		input.value = reg.value * scl;
 		input.step = scl;
-		input.addEventListener('change', function () {
+		input.addEventListener('change', function() {
 			this.value = parseFloat(this.value).toFixed(f(scl));
 		});
 		slider.noUiSlider.updateOptions({
@@ -616,7 +612,7 @@ function dataApply(data){
 	input.disabled = false;
 	slider.removeAttribute('disabled');
 	input.step = 0.01;
-	input.addEventListener('change', function () {
+	input.addEventListener('change', function() {
 		this.value = parseFloat(this.value).toFixed(2);
 	});
 	slider.noUiSlider.updateOptions({
@@ -942,21 +938,20 @@ function dataGrab(){
 
 		setDataToBuffer(data);
 	  //*******
-	const reqs = (requests = [], failback) => {
+	const reqs = function(requests, failback) {
 		if (requests instanceof Array && requests.length > 0) {
 	  	var xhr = new XMLHttpRequest();
-			xhr.onload = function () {
+			xhr.onload = function() {
 				const status = xhr.status;
 				if (xhr.readyState == 4 && status == "200") {
 					requests.shift();
 					return reqs(requests, content, failback);
 		  	} else if (failback) {
-					failback(`Request Error: ${status}`);
+
 				}
 			};
-			xhr.addEventListener('error', (error) => {
+			xhr.addEventListener('error', function(error) {
 				if (failback) {
-					failback('Something went wrong.');
 					showAlert("alert-danger","Нет связи с сервером");
 				}
 			});
@@ -976,8 +971,8 @@ function dataGrab(){
 			url: str,
 			content: JSON.stringify(data[i])
 		})}
-		const results = reqs(restSeq, (error) => console.log(error));
-	} catch (e) {
+		const results = reqs(restSeq, function(error) { console.log(error) });
+	} catch(e) {
 		showAlert("alert-danger","Нет связи с сервером");
 	}
 	return;

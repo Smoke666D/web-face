@@ -58,7 +58,7 @@ function sensorModalInit(){
 
 function cleanChart(){
   lineChart.data.labels.length = 0;
-  lineChart.data.datasets.forEach((dataset) => {
+  lineChart.data.datasets.forEach(function(dataset) {
     dataset.data.length=0;
   });
 }
@@ -89,7 +89,7 @@ function addChartPoint(){
   for(var i=0;i<lebLen;i++){
     lineChart.data.labels[i]=(i*stp).toFixed(1).toString();
   }
-  lineChart.data.datasets.forEach((dataset) => {
+  lineChart.data.datasets.forEach( function(dataset) {
     dataset.data.push(oldVal);
   });
   lineChart.data.datasets[0].data[lebLen-1] = newVal;
@@ -108,7 +108,7 @@ function removeChartPoint(){
       lineChart.data.labels[i]=(i*stp).toFixed(1).toString();
     }
     lineChart.data.labels.pop();
-    lineChart.data.datasets.forEach((dataset) => {
+    lineChart.data.datasets.forEach( function(dataset) {
       dataset.data.pop();
     });
     lineChart.data.datasets[0].data[lebLen-2] = oldVal;

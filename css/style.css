@@ -1756,9 +1756,9 @@ textarea.form-control {
 
 .form-check-label {
   position: relative;
+  margin-left: 4px;
   top: 5px;
-  margin-bottom: 0;
-}
+  margin-bottom: 0;}
 
 .form-check-inline {
   display: -webkit-inline-box;
@@ -2057,6 +2057,7 @@ textarea.form-control {
 
 .btn {
   display: inline-block;
+  margin: 2px;
   font-weight: 400;
   color: #212529;
   text-align: center;
@@ -8487,20 +8488,13 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-.check-input
-{
-
-}
-
 .loading {
-		-webkit-animation: rotation 2s infinite linear;
+	-webkit-animation: rotation 2s infinite linear;
 }
 
 @-webkit-keyframes rotation {
-		from {
-				-webkit-transform: rotate(0deg);
-		}
-		to {
-				-webkit-transform: rotate(359deg);
-		}
+  from {
+	   -webkit-transform: rotate(0deg);}
+	to {
+	   -webkit-transform: rotate(359deg);}
 }

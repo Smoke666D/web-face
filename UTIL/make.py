@@ -11,7 +11,7 @@ try:
 except ImportError:
     from io import StringIO         ## for Python 3
 import base64
-sys.path.append('F:/PROJ/190729_ERGAN/SOFTWARE/embSite/UTIL/rcssmin-1.0.6')
+sys.path.append('rcssmin-1.0.6')
 from rcssmin import cssmin
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
@@ -51,10 +51,16 @@ def  minifyJs(js):
 def encodeImg(imgPath):
     with open(imgPath, "rb") as f:
         data = f.read()
-        return 'data:image/png;base64,' + data.encode("base64")
+        try:
+            return 'data:image/png;base64,' + str(base64.b64encode(data), "utf-8")
+        except:
+            return 'data:image/png;base64,' + data.encode("base64")
 #-------------------------------------------------------------------------------
 def compressString(string):
-    out = StringIO.StringIO()
+    try:
+        out = StringIO.StringIO()
+    except:
+        out = StringIO()
     with gzip.GzipFile(fileobj=out, mode="w") as f:
         f.write(string)
         string = out.getvalue()
@@ -155,33 +161,37 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
     for root, dirs, files in os.walk(imgPath):
         imgFiles = files
     #------------------------- Read html file ------------------------
-    htmlFile = open(htmlPath,"r")
+    try:
+        htmlFile = open(htmlPath,encoding="utf-8")
+    except:
+        htmlFile = open(htmlPath,"r")
     if (minifyHTML == True):
         htmlText = minifyHtml(htmlFile.read())
     else:
         htmlText = htmlFile.read()
-    #------- Remove links to the css and js files from html file -----
-    valid = []
-    for i in range(0, len(cssFiles)):
-        [htmlText, res] = removeLink(htmlText, cssFiles[i],'css')
+    #----------- Remove links to the css files from html file --------
+    valid=[]
+    for cssFile in cssFiles:
+        [htmlText, res] = removeLink(htmlText, cssFile,'css')
         if (res == 0):
             valid.append(0)
         else:
             valid.append(1)
-    for i in range(0, len(valid)):
-        if (valid[i] == 0):
+    for i in range(0,len(valid)):
+        if(valid[i] == 0):
             del cssFiles[i]
-    #del cssFiles[i]
-    valid = []
-    for i in range(0, len(jsFiles)):
+    #----------- Remove links to the js files from html file --------
+    valid=[]
+    for i in range(0,len(jsFiles)):
         [htmlText, res] = removeLink(htmlText, jsFiles[i],'js')
         if (res == 0):
             valid.append(0)
         else:
             valid.append(1)
-    for i in range(0, len(valid)):
-        if (valid[i] == 0):
+    for i in range(0,len(valid)):
+        if(valid[i] == 0):
             del jsFiles[i]
+    #----------------- Print all included files ---------------------
     for file in jsFiles:
         print("include       : " + file)
     for file in cssFiles:
@@ -230,12 +240,24 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
             #cssText = cleanCss(cssText, htmlText)
             #
             #
+        smallFile = 0;
         if (minifyCSS == True):
-            startSize = len(cssText)/1024
-            cssText = minifyCss(cssText)
-            finishSize = len(cssText)/1024
+            if (len(cssText) < 1024):
+                startSize = len(cssText)
+                smallFile = 1
+            else:
+                startSize = len(cssText)/1024
+            if not (cssFile.find(".min.")):
+                cssText = minifyCss(cssText)
+            if (smallFile == 1):
+                finishSize = len(cssText)
+            else:
+                finishSize = len(cssText)/1024
             delta = (startSize-finishSize)*100/startSize
-            print("CSS mimnfy    : {} - from {} Kb to {} Kb ({}%)".format(cssFile,startSize,finishSize,delta))
+            if (smallFile == 0):
+                print("CSS mimnfy    : {} - from {} Kb to {} Kb ({}%)".format(cssFile,startSize,finishSize,delta))
+            else:
+                print("CSS mimnfy    : {} - from {} byte to {} byte ({}%)".format(cssFile,startSize,finishSize,delta))
         htmlText = htmlText[:index] + cssText + htmlText[index:]
         index = index + len(cssText)
     htmlText = htmlText[:index] + "</style>" + htmlText[index:]
@@ -252,12 +274,23 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
     for jsFile in jsFiles:
         jsLink = os.path.join(jsPath,jsFile)
         jsText = open(jsLink,"r").read()
+        smallFile = 0;
         if (minifyJS == True):
-            startSize = len(jsText)/1024
+            if (len(jsText) < 1024):
+                startSize = len(jsText)
+                smallFile = 1
+            else:
+                startSize = len(jsText)/1024
             jsText = minifyJs(jsText)
-            finishSize = len(jsText)/1024
+            if (smallFile == 1):
+                finishSize = len(jsText)
+            else:
+                finishSize = len(jsText)/1024
             delta = (startSize-finishSize)*100/startSize
-            print("JS mimnfy     : {} - from {} Kb to {} Kb ({}%)".format(jsFile,startSize,finishSize,delta))
+            if (smallFile == 0):
+                print("JS mimnfy     : {} - from {} Kb to {} Kb ({}%)".format(jsFile,startSize,finishSize,delta))
+            else:
+                print("JS mimnfy     : {} - from {} byte to {} byte ({}%)".format(jsFile,startSize,finishSize,delta))
         else:
             jsText = open(jsLink,"r").read()
         htmlText = htmlText[:index] + " " + jsText + htmlText[index:]
@@ -267,7 +300,10 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
     if compress == True:
         startSize = len(htmlText)/1024
 
-        out = StringIO.StringIO()
+        try:
+            out = StringIO.StringIO()
+        except:
+            out = StringIO()
         with gzip.GzipFile(fileobj=out, mode="w") as f:
             f.write(htmlText)
         htmlCompress = out.getvalue()
@@ -288,5 +324,5 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
     print("Done!")
     print("****************************************************")
 #*******************************************************************************
-make(minifyHTML = False, optimCSS = True, minifyCSS = True, minifyJS = True, compress = True)
+make(minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = False, compress = True)
 #*******************************************************************************
