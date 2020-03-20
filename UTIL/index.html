@@ -15315,7 +15315,7 @@ function bitVal(n,reg) {
 }
 
 function bitWrite(n,reg,val){
-	reg.value = (reg.value&(!reg.bit[n].mask))|(val<<reg.bit[n].shift);
+	reg.value = (reg.value & (~reg.bit[n].mask)) | (val<<reg.bit[n].shift);
 	return;
 }
 //******************************************************************************
@@ -15697,7 +15697,8 @@ function dataGrab(){
 	}
 	try {
 		// #1
-		checkboxGrab('oilPressureSensorType',oilPressureSetup,0);
+		console.log(oilPressureSetup);
+		selectorGrab('oilPressureSensorType',oilPressureSetup,0);
 		checkboxGrab('oilPressureEnbOpenCircuitAlarmEnb',oilPressureSetup,1);
 		checkboxGrab('oilPressureAlarmEnb',oilPressureSetup,2);
 		s_sliderGrab('sinput-oilPressureAlarmLevel',oilPressureAlarmLevel);
@@ -15884,38 +15885,35 @@ function dataGrab(){
 
 		setDataToBuffer(data);
 	  //*******
-	const reqs = function(requests, failback) {
-		if (requests instanceof Array && requests.length > 0) {
-	  	var xhr = new XMLHttpRequest();
-			xhr.onload = function() {
-				const status = xhr.status;
-				if (xhr.readyState == 4 && status == "200") {
-					requests.shift();
-					return reqs(requests, content, failback);
-		  	} else if (failback) {
+		const reqs = function(requests = [], failback) {
+			if (requests instanceof Array && requests.length > 0) {
+	  		var xhr = new XMLHttpRequest();
+				xhr.onload = function() {
+					const status = xhr.status;
+					if (xhr.readyState == 4 && status == "200") {
+						requests.shift();
+						return reqs(requests, content, failback);
+		  		}
+				};
+				xhr.addEventListener('error', function(error) {
+					if (failback) {
+						showAlert("alert-danger","Ошибка передачи данных");
+					}
+				});
+	  		xhr.open(requests[0].method, requests[0].url, true);
+	  		xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+	  		xhr.send(requests[0].content);
+			} else {
+				showAlert("alert-success","Прибор успешно сконфигурирован");
+			}
+		};
 
-				}
-			};
-			xhr.addEventListener('error', function(error) {
-				if (failback) {
-					showAlert("alert-danger","Нет связи с сервером");
-				}
-			});
-	  	xhr.open(requests[0].method, requests[0].url, true);
-	  	xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
-	  	xhr.send(requests[0].content);
-		} else {
-			showAlert("alert-success","Прибор успешно сконфигурирован");
-		}
-	};
-
-	restSeq = []
-	for ( i=1; i<103; i++ ){
-		str = '/configs/' + i;
-		restSeq.push({
-			method: 'PUT',
-			url: str,
-			content: JSON.stringify(data[i])
+		restSeq = []
+		for ( i=1; i<103; i++ ) {
+			restSeq.push({
+				method:  'PUT',
+				url:     '/configs/' + i,
+				content: JSON.stringify(data[i])
 		})}
 		const results = reqs(restSeq, function(error) { console.log(error) });
 	} catch(e) {
