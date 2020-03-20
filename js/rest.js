@@ -1,3 +1,302 @@
+//******************************************************************************
+function bitVal(n,reg) {
+	return (reg.value&reg.bit[n].mask)>>reg.bit[n].shift;
+}
+
+function bitWrite(n,reg,val){
+	reg.value = (reg.value & (~reg.bit[n].mask)) | (val<<reg.bit[n].shift);
+	return;
+}
+//******************************************************************************
+function Switch(name) {
+	this.name = name;
+
+	this.getData = function() {
+		for(var i=0; i<dataReg.length; i++ ){
+			if (dataReg[i].bitMapSize > 0) {
+				for (var j=0; j<dataReg[i].bitMapSize; j++) {
+					if (dataReg[i].bit[j].name == this.name) {
+						this.regNum = i;
+						this.bitNum = j
+					}
+				}
+			}
+		}
+		return;
+	}
+
+	this.getVal = function() {
+		return bitVal(this.bitNum, dataReg[this.regNum]);
+	}
+
+	this.setVal = function(input) {
+		bitWrite(this.bitNum, dataReg[this.regNum],input)
+		return;
+	}
+
+	this.init = function() {
+		this.object = document.getElementById(name);
+		this.getData();
+		return;
+	}
+
+	this.update = function() {
+		this.object.checked = this.getVal();
+		return;
+	}
+
+	this.grab = function() {
+		if(this.object.checked > 0){
+			this.setVal(1);
+		} else {
+			this.setVal(0);
+		}
+		return;
+	}
+
+	this.init();
+}
+//******************************************************************************
+function Select(name) {
+	this.name = name;
+
+	this.getData = function() {
+		for(var i=0; i<dataReg.length; i++ ){
+			if (dataReg[i].bitMapSize > 0) {
+				for (var j=0; j<dataReg[i].bitMapSize; j++) {
+					if (dataReg[i].bit[j].name == this.name) {
+						this.regNum = i;
+						this.bitNum = j
+					}
+				}
+			}
+		}
+		return;
+	}
+
+	this.init = function() {
+		this.getData();
+		this.object = document.getElementById(this.name);
+		swName = this.name.replace("Action", "")
+		this.sw = new Switch(swName + "Enb")
+		if (this.sw.switch){
+			this.enable = this.sw.getVal();
+		} else {
+			this.enable = 1;
+		}
+		return;
+	}
+
+	this.update = function() {
+		this.object.value = bitVal(this.bitNum,dataReg[this.regNum]);
+		if (this.enable == 1){
+			this.object.disabled = false;
+		} else {
+			this.object.disabled = true;
+		}
+		return;
+	}
+
+	this.grab = function() {
+		bitWrite(this.bitNum,dataReg[this.regNum],this.object.value);
+		return;
+	}
+
+	this.init();
+	if(this.object){
+		this.update();
+	}
+}
+//******************************************************************************
+function Radio(name) {
+	this.name = name;
+
+	this.getData = function() {
+		for(var i=0; i<dataReg.length; i++ ){
+			if (dataReg[i].bitMapSize > 0) {
+				for (var j=0; j<dataReg[i].bitMapSize; j++) {
+					if (dataReg[i].bit[j].name == (this.name)) {
+						this.regNum = i;
+						this.bitNum = j
+					}
+				}
+			}
+		}
+		return;
+	}
+
+	this.init = function() {
+		this.getData();
+		this.objectNO = document.getElementById(this.name.replace("NOC","") + "NO");
+		this.objectNC = document.getElementById(this.name.replace("NOC","") + "NC");
+		this.sw = 0;
+		this.enable = 1;
+		return;
+	}
+
+	this.update = function() {
+		if(bitVal(this.bitNum,dataReg[this.regNum]) == 0) {
+			this.objectNO.checked = true;
+		} else {
+			this.objectNC.checked = true;
+		}
+		return;
+	}
+
+	this.grab = function() {
+		if(this.objectNC.checked = true) {
+			bitWrite(this.bitNum,dataReg[this.regNum],1);
+		} else {
+			bitWrite(this.bitNum,dataReg[this.regNum],0);
+		}
+		return;
+	}
+
+	this.init();
+	if((this.objectNO)&&(this.objectNC)){
+		this.update();
+	}
+}
+//******************************************************************************
+function Slider(name) {
+	this.name = name;
+
+	this.getData = function() {
+		for (var i=0; i<dataReg.length; i++ ){
+			if (dataReg[i].name == name)
+			{
+				this.regNum = i;
+			}
+		}
+		return;
+	}
+
+	this.init = function() {
+		this.getData();
+		this.slider = document.getElementById("s-slider-" + this.name);
+		this.input  = document.getElementById("sinput-" + this.name);
+		swName = this.name.replace("Level", "")
+		swName = swName.replace("Delay", "")
+		swName = swName.replace("On","");
+		swName = swName.replace("Off","");
+		this.sw = new Switch(swName + "Enb")
+		if (this.sw.object){
+			this.enable = this.sw.getVal();
+		} else {
+			this.enable = 1;
+		}
+		return;
+	}
+
+	this.update = function() {
+		reg = dataReg[this.regNum];
+		if (this.enable == 1){
+			this.input.disabled = false;
+			this.slider.removeAttribute('disabled');
+		} else {
+			this.input.disabled = true;
+			this.slider.setAttribute('disabled', false);
+		}
+		scl = Math.pow(10,reg.scale);
+		this.input.value = reg.value * scl;
+		this.input.step  = scl;
+		this.input.addEventListener('change', function() {
+			this.value = parseFloat(this.value).toFixed(calcFracLength(scl));
+		});
+		this.slider.noUiSlider.updateOptions({
+			step: 	scl,
+			start: [reg.value * scl],
+			range: {
+				'min': (reg.min * scl),
+				'max': (reg.max * scl)
+			}
+		})
+		return;
+	}
+
+	this.grab = function() {
+		val = parseFloat(this.input.value) / Math.pow(10,dataReg[this.regNum].scale)
+		dataReg[this.regNum].value = parseFloat(val.toFixed(0));
+		return;
+	}
+
+	this.init();
+	if ((this.slider)&&(this.input)) {
+		this.update();
+	}
+}
+//******************************************************************************
+var slidersArray = [];
+var switcherArray = [];
+var selectorArray = [];
+var radioArray = [];
+
+function declareSliders() {
+	for(var i=0; i<dataReg.length; i++) {
+		str = dataReg[i].name
+		if (str.endsWith("Level") || str.endsWith("Delay") || str.startsWith("timer")) {
+			slidersArray.push(new Slider(dataReg[i].name));
+		}
+	}
+	return;
+}
+
+function declareSwitches() {
+	var l = 0;
+	for(var i=0; i<dataReg.length; i++) {
+		if (dataReg[i].bitMapSize > 0) {
+			for(var j=0; j<dataReg[i].bitMapSize; j++) {
+				if (dataReg[i].bit[j].name.endsWith("Enb") ) {
+					switcherArray.push(new Switch(dataReg[i].bit[j].name));
+					switcherArray[l].update();
+					l++;
+				}
+			}
+		}
+	}
+	return;
+}
+
+function declareSelects() {
+	for(var i=0; i<dataReg.length; i++) {
+		if (dataReg[i].bitMapSize > 0) {
+			for(var j=0; j<dataReg[i].bitMapSize; j++) {
+				if((dataReg[i].bit[j].max > 1) ||
+					 (dataReg[i].bit[j].name.endsWith("Action")) ||
+					 (dataReg[i].bit[j].name.endsWith("Type")) ||
+					 (dataReg[i].bit[j].name.endsWith("Function")) ||
+					 (dataReg[i].bit[j].name.endsWith("Polarity")) ||
+					 (dataReg[i].bit[j].name.endsWith("Arming")) ) {
+					selectorArray.push(new Select(dataReg[i].bit[j].name));
+				}
+			}
+		}
+	}
+	return;
+}
+
+function declareRadio() {
+	for(var i=0; i<dataReg.length; i++) {
+		if (dataReg[i].bitMapSize > 0) {
+			for(var j=0; j<dataReg[i].bitMapSize; j++) {
+				if(dataReg[i].bit[j].name.endsWith("NOC")){
+					radioArray.push(new Radio(dataReg[i].bit[j].name));
+				}
+			}
+		}
+	}
+	return;
+}
+
+function declareInterface() {
+	declareSliders();
+	declareSwitches();
+	declareSelects();
+	declareRadio();
+	return;
+}
+//******************************************************************************
+//******************************************************************************
 var data = new Array();
 
 var oilPressureSetup;
@@ -364,14 +663,6 @@ function getDataFromBuffer(data){
 	maintenanceAlarmFuelEngineRunTime = data[102];
 	return;
 }
-function bitVal(n,reg) {
-	return (reg.value&reg.bit[n].mask)>>reg.bit[n].shift;
-}
-
-function bitWrite(n,reg,val){
-	reg.value = (reg.value & (~reg.bit[n].mask)) | (val<<reg.bit[n].shift);
-	return;
-}
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -507,7 +798,7 @@ function dataApply(data){
 	getDataFromBuffer(data);
 	// #1
 	selectorUpdate('oilPressureSensorType',oilPressureSetup,0,1);
-	checkboxUpdate('oilPressureEnbOpenCircuitAlarmEnb',oilPressureSetup,1);
+	checkboxUpdate('oilPressureOpenCircuitAlarmEnb',oilPressureSetup,1);
 	checkboxUpdate('oilPressureAlarmEnb',oilPressureSetup,2);
 	s_sliderUpdate('s-slider-oilPressureAlarmLevel','sinput-oilPressureAlarmLevel',oilPressureAlarmLevel,bitVal(2,oilPressureSetup));
 	checkboxUpdate('oilPressurePreAlarmEnb',oilPressureSetup,3);
@@ -753,7 +1044,7 @@ function dataGrab(){
 		// #1
 		console.log(oilPressureSetup);
 		selectorGrab('oilPressureSensorType',oilPressureSetup,0);
-		checkboxGrab('oilPressureEnbOpenCircuitAlarmEnb',oilPressureSetup,1);
+		checkboxGrab('oilPressureOpenCircuitAlarmEnb',oilPressureSetup,1);
 		checkboxGrab('oilPressureAlarmEnb',oilPressureSetup,2);
 		s_sliderGrab('sinput-oilPressureAlarmLevel',oilPressureAlarmLevel);
 		checkboxGrab('oilPressurePreAlarmEnb',oilPressureSetup,3);

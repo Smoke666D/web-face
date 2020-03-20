@@ -1,1976 +1,2067 @@
-var data = [{
-    "scale": 1.0,
+var dataReg = [{
+    "page": 0,
     "adr": 0,
+    "name": "versionController",
+    "value": 1,
+    "scale": 0,
+    "min": 0,
+    "max": 0,
+    "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 1,
+    "name": "versionFirmware",
+    "value": 1,
+    "scale": 0,
+    "min": 0,
+    "max": 0,
+    "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 2,
+    "name": "serialNumber",
+    "value": 0,
+    "scale": 0,
+    "min": 0,
+    "max": 0,
+    "units": "",
+    "type": "U",
+    "len": 6,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 8,
+    "name": "displayBrightnesLevel",
+    "value": 50,
+    "scale": 0,
+    "min": 0,
+    "max": 100,
+    "units": "%",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 9,
+    "name": "displayContarstLevel",
+    "value": 30,
+    "scale": 0,
+    "min": 0,
+    "max": 100,
+    "units": "%",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 10,
+    "name": "displaySleepDelay",
+    "value": 10,
+    "scale": 0,
+    "min": 2,
+    "max": 600,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 11,
     "name": "moduleSetup",
+    "value": 3,
+    "scale": 0,
     "min": 0,
     "max": 3,
-    "value": 3,
+    "units": "",
+    "type": "U",
+    "len": 1,
     "bitMapSize": 2,
-    "len": 1,
-    "units": "",
     "bit": [
         {
-            "shift": 0,
-            "max": 1,
-            "mask": 1,
             "name": "moduleType",
-            "min": 0
+            "mask": 1,
+            "min": 0,
+            "shift": 0,
+            "max": 1
         },
         {
-            "shift": 1,
-            "max": 1,
-            "mask": 2,
             "name": "alarmAllBlock",
-            "min": 0
+            "mask": 2,
+            "min": 0,
+            "shift": 1,
+            "max": 1
         }
-    ],
-    "type": "U",
-    "page": 0
+    ]
 },{
-    "scale": 1.0,
-    "adr": 1,
+    "page": 0,
+    "adr": 12,
     "name": "oilPressureSetup",
-    "min": 0,
-    "max": 63,
     "value": 50,
-    "bitMapSize": 4,
-    "len": 1,
-    "units": "",
-    "bit": [
-        {
-            "shift": 0,
-            "max": 11,
-            "mask": 15,
-            "name": "oilPressureSensorType",
-            "min": 0
-        },
-        {
-            "shift": 4,
-            "max": 1,
-            "mask": 16,
-            "name": "oilPressureEnbOpenCircuitAlarm",
-            "min": 0
-        },
-        {
-            "shift": 5,
-            "max": 1,
-            "mask": 32,
-            "name": "oilPressureAlarmEnb",
-            "min": 0
-        },
-        {
-            "shift": 6,
-            "max": 1,
-            "mask": 64,
-            "name": "oilPressurePreAlarmEnb",
-            "min": 0
-        }
-    ],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 0.1,
-    "adr": 2,
-    "name": "oilPressureAlarmLevel",
-    "min": 0,
-    "max": 103,
-    "value": 13,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "Atm",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 0.1,
-    "adr": 3,
-    "name": "oilPressurePreAlarmLevel",
-    "min": 0,
-    "max": 103,
-    "value": 5,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "Atm",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 4,
-    "name": "coolantTempSetup",
+    "scale": 0,
     "min": 0,
     "max": 63,
-    "value": 51,
-    "bitMapSize": 6,
-    "len": 1,
     "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 4,
     "bit": [
         {
-            "shift": 0,
-            "max": 11,
+            "name": "oilPressureSensorType",
             "mask": 15,
-            "name": "coolantTempSensorType",
-            "min": 0
+            "min": 0,
+            "shift": 0,
+            "max": 11
         },
         {
-            "shift": 4,
-            "max": 1,
+            "name": "oilPressureOpenCircuitAlarmEnb",
             "mask": 16,
-            "name": "coolantTempEnbOpenCircuitAlarm",
-            "min": 0
+            "min": 0,
+            "shift": 4,
+            "max": 1
         },
         {
-            "shift": 5,
-            "max": 1,
+            "name": "oilPressureAlarmEnb",
             "mask": 32,
-            "name": "coolantHightTempAlarmEnb",
-            "min": 0
+            "min": 0,
+            "shift": 5,
+            "max": 1
         },
         {
-            "shift": 6,
-            "max": 1,
+            "name": "oilPressurePreAlarmEnb",
             "mask": 64,
-            "name": "coolantHightTempPreAlarmEnb",
-            "min": 0
-        },
-        {
-            "shift": 7,
-            "max": 1,
-            "mask": 128,
-            "name": "coolantTempHeaterEnb",
-            "min": 0
-        },
-        {
-            "shift": 8,
-            "max": 1,
-            "mask": 256,
-            "name": "coolantTempCoolerEnb",
-            "min": 0
+            "min": 0,
+            "shift": 6,
+            "max": 1
         }
-    ],
-    "type": "U",
-    "page": 0
+    ]
 },{
-    "scale": 1.0,
-    "adr": 5,
+    "page": 0,
+    "adr": 13,
+    "name": "oilPressureAlarmLevel",
+    "value": 13,
+    "scale": -1,
+    "min": 0,
+    "max": 103,
+    "units": "Atm",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 14,
+    "name": "oilPressurePreAlarmLevel",
+    "value": 5,
+    "scale": -1,
+    "min": 0,
+    "max": 103,
+    "units": "Atm",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 15,
+    "name": "coolantTempSetup",
+    "value": 51,
+    "scale": 0,
+    "min": 0,
+    "max": 63,
+    "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 6,
+    "bit": [
+        {
+            "name": "coolantTempSensorType",
+            "mask": 15,
+            "min": 0,
+            "shift": 0,
+            "max": 11
+        },
+        {
+            "name": "coolantTempOpenCircuitAlarmEnb",
+            "mask": 16,
+            "min": 0,
+            "shift": 4,
+            "max": 1
+        },
+        {
+            "name": "coolantHightTempAlarmEnb",
+            "mask": 32,
+            "min": 0,
+            "shift": 5,
+            "max": 1
+        },
+        {
+            "name": "coolantHightTempPreAlarmEnb",
+            "mask": 64,
+            "min": 0,
+            "shift": 6,
+            "max": 1
+        },
+        {
+            "name": "coolantTempHeaterEnb",
+            "mask": 128,
+            "min": 0,
+            "shift": 7,
+            "max": 1
+        },
+        {
+            "name": "coolantTempCoolerEnb",
+            "mask": 256,
+            "min": 0,
+            "shift": 8,
+            "max": 1
+        }
+    ]
+},{
+    "page": 0,
+    "adr": 16,
     "name": "coolantHightTempAlarmLevel",
-    "min": 0,
-    "max": 250,
     "value": 96,
-    "bitMapSize": 0,
-    "len": 1,
+    "scale": 0,
+    "min": 0,
+    "max": 250,
     "units": "C",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 6,
+    "page": 0,
+    "adr": 17,
     "name": "coolantHightTempPreAlarmLevel",
-    "min": 0,
-    "max": 250,
     "value": 90,
-    "bitMapSize": 0,
-    "len": 1,
+    "scale": 0,
+    "min": 0,
+    "max": 250,
     "units": "C",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 7,
+    "page": 0,
+    "adr": 18,
     "name": "coolantTempHeaterOffLevel",
-    "min": 0,
-    "max": 250,
     "value": 60,
-    "bitMapSize": 0,
-    "len": 1,
+    "scale": 0,
+    "min": 0,
+    "max": 250,
     "units": "C",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 8,
+    "page": 0,
+    "adr": 19,
     "name": "coolantTempHeaterOnLevel",
-    "min": 0,
-    "max": 250,
     "value": 10,
-    "bitMapSize": 0,
-    "len": 1,
+    "scale": 0,
+    "min": 0,
+    "max": 250,
     "units": "C",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 9,
+    "page": 0,
+    "adr": 20,
     "name": "coolantTempCoolerOffLevel",
-    "min": 0,
-    "max": 250,
     "value": 120,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "C",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 10,
-    "name": "coolantTempCoolerOnLevel",
+    "scale": 0,
     "min": 0,
     "max": 250,
-    "value": 80,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "C",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 11,
+    "page": 0,
+    "adr": 21,
+    "name": "coolantTempCoolerOnLevel",
+    "value": 80,
+    "scale": 0,
+    "min": 0,
+    "max": 250,
+    "units": "C",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 22,
     "name": "fuelLevelSetup",
+    "value": 665,
+    "scale": 0,
     "min": 0,
     "max": 1023,
-    "value": 665,
-    "bitMapSize": 8,
-    "len": 1,
     "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 8,
     "bit": [
         {
-            "shift": 0,
-            "max": 5,
-            "mask": 7,
             "name": "fuelLevelSensorType",
-            "min": 0
+            "mask": 7,
+            "min": 0,
+            "shift": 0,
+            "max": 5
         },
         {
-            "shift": 3,
-            "max": 1,
-            "mask": 8,
             "name": "fuelLevelLowAlarmEnb",
-            "min": 0
+            "mask": 8,
+            "min": 0,
+            "shift": 3,
+            "max": 1
         },
         {
-            "shift": 4,
-            "max": 1,
-            "mask": 16,
             "name": "fuelLevelLowAlarmAction",
-            "min": 0
+            "mask": 16,
+            "min": 0,
+            "shift": 4,
+            "max": 1
         },
         {
-            "shift": 5,
-            "max": 1,
-            "mask": 32,
             "name": "fuelLevelLowPreAlarmEnb",
-            "min": 0
+            "mask": 32,
+            "min": 0,
+            "shift": 5,
+            "max": 1
         },
         {
-            "shift": 6,
-            "max": 1,
-            "mask": 64,
             "name": "fuelLevelHightPreAlarmLevelEnb",
-            "min": 0
+            "mask": 64,
+            "min": 0,
+            "shift": 6,
+            "max": 1
         },
         {
-            "shift": 7,
-            "max": 1,
-            "mask": 128,
             "name": "fuelLevelHightAlarmEnb",
-            "min": 0
+            "mask": 128,
+            "min": 0,
+            "shift": 7,
+            "max": 1
         },
         {
-            "shift": 8,
-            "max": 1,
-            "mask": 256,
             "name": "fuelLevelHightAlarmAction",
-            "min": 0
+            "mask": 256,
+            "min": 0,
+            "shift": 8,
+            "max": 1
         },
         {
-            "shift": 9,
-            "max": 1,
-            "mask": 512,
             "name": "fuelPumpEnb",
-            "min": 0
+            "mask": 512,
+            "min": 0,
+            "shift": 9,
+            "max": 1
         }
-    ],
-    "type": "U",
-    "page": 0
+    ]
 },{
-    "scale": 1.0,
-    "adr": 12,
+    "page": 0,
+    "adr": 23,
     "name": "fuelLevelLowAlarmLevel",
+    "value": 10,
+    "scale": 0,
     "min": 0,
     "max": 95,
-    "value": 10,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "%",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 13,
+    "page": 0,
+    "adr": 24,
     "name": "fuelLevelLowAlarmDelay",
+    "value": 100,
+    "scale": 0,
     "min": 0,
     "max": 3600,
-    "value": 100,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 14,
+    "page": 0,
+    "adr": 25,
     "name": "fuelLevelLowPreAlarmLevel",
+    "value": 25,
+    "scale": 0,
     "min": 1,
     "max": 96,
-    "value": 25,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "%",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 15,
+    "page": 0,
+    "adr": 26,
     "name": "fuelLevelLowPreAlarmDelay",
+    "value": 100,
+    "scale": 0,
     "min": 0,
     "max": 3600,
-    "value": 100,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 16,
+    "page": 0,
+    "adr": 27,
     "name": "fuelLevelHightPreAlarmLevel",
+    "value": 65,
+    "scale": 0,
     "min": 3,
     "max": 98,
-    "value": 65,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "%",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 17,
+    "page": 0,
+    "adr": 28,
     "name": "fuelLevelHightPreAlarmDelay",
+    "value": 0,
+    "scale": 0,
     "min": 0,
     "max": 3600,
-    "value": 0,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 18,
+    "page": 0,
+    "adr": 29,
     "name": "fuelLevelHightAlarmLevel",
+    "value": 90,
+    "scale": 0,
     "min": 5,
     "max": 100,
-    "value": 90,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "%",
-    "bit": [],
     "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 19,
-    "name": "fuelLevelHightAlarmDelay",
-    "min": 0,
-    "max": 3600,
-    "value": 0,
+    "len": 1,
     "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
-    "type": "U",
-    "page": 0
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 20,
-    "name": "fuelPumpOnLevel",
-    "min": 0,
-    "max": 100,
-    "value": 30,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "%",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 21,
-    "name": "fuelPumpOffLevel",
-    "min": 0,
-    "max": 100,
-    "value": 70,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "%",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 22,
-    "name": "diaSetup",
-    "min": 0,
-    "max": 1023,
-    "value": 0,
-    "bitMapSize": 4,
-    "len": 1,
-    "units": "",
-    "bit": [
-        {
-            "shift": 0,
-            "max": 27,
-            "mask": 31,
-            "name": "diaFunction",
-            "min": 0
-        },
-        {
-            "shift": 5,
-            "max": 1,
-            "mask": 32,
-            "name": "diaPolarity",
-            "min": 0
-        },
-        {
-            "shift": 6,
-            "max": 3,
-            "mask": 192,
-            "name": "diaAction",
-            "min": 0
-        },
-        {
-            "shift": 8,
-            "max": 4,
-            "mask": 768,
-            "name": "diaArming",
-            "min": 0
-        }
-    ],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 23,
-    "name": "diaDelay",
-    "min": 0,
-    "max": 60,
-    "value": 15,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 24,
-    "name": "dibSetup",
-    "min": 0,
-    "max": 1023,
-    "value": 0,
-    "bitMapSize": 4,
-    "len": 1,
-    "units": "",
-    "bit": [
-        {
-            "shift": 0,
-            "max": 27,
-            "mask": 31,
-            "name": "dibFunction",
-            "min": 0
-        },
-        {
-            "shift": 5,
-            "max": 1,
-            "mask": 32,
-            "name": "dibPolarity",
-            "min": 0
-        },
-        {
-            "shift": 6,
-            "max": 3,
-            "mask": 192,
-            "name": "dibAction",
-            "min": 0
-        },
-        {
-            "shift": 8,
-            "max": 4,
-            "mask": 768,
-            "name": "dibArming",
-            "min": 0
-        }
-    ],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 25,
-    "name": "dibDelay",
-    "min": 0,
-    "max": 60,
-    "value": 15,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 26,
-    "name": "dicSetup",
-    "min": 0,
-    "max": 1023,
-    "value": 0,
-    "bitMapSize": 4,
-    "len": 1,
-    "units": "",
-    "bit": [
-        {
-            "shift": 0,
-            "max": 27,
-            "mask": 31,
-            "name": "dicFunction",
-            "min": 0
-        },
-        {
-            "shift": 5,
-            "max": 1,
-            "mask": 32,
-            "name": "dicPolarity",
-            "min": 0
-        },
-        {
-            "shift": 6,
-            "max": 3,
-            "mask": 192,
-            "name": "dicAction",
-            "min": 0
-        },
-        {
-            "shift": 8,
-            "max": 4,
-            "mask": 768,
-            "name": "dicArming",
-            "min": 0
-        }
-    ],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 27,
-    "name": "dicDelay",
-    "min": 0,
-    "max": 60,
-    "value": 15,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 28,
-    "name": "didSetup",
-    "min": 0,
-    "max": 1023,
-    "value": 64,
-    "bitMapSize": 4,
-    "len": 1,
-    "units": "",
-    "bit": [
-        {
-            "shift": 0,
-            "max": 27,
-            "mask": 31,
-            "name": "didFunction",
-            "min": 0
-        },
-        {
-            "shift": 5,
-            "max": 1,
-            "mask": 32,
-            "name": "didPolarity",
-            "min": 0
-        },
-        {
-            "shift": 6,
-            "max": 3,
-            "mask": 192,
-            "name": "didAction",
-            "min": 0
-        },
-        {
-            "shift": 8,
-            "max": 4,
-            "mask": 768,
-            "name": "didArming",
-            "min": 0
-        }
-    ],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 29,
-    "name": "didDelay",
-    "min": 0,
-    "max": 60,
-    "value": 15,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
+    "page": 0,
     "adr": 30,
-    "name": "doSetup",
+    "name": "fuelLevelHightAlarmDelay",
+    "value": 0,
+    "scale": 0,
     "min": 0,
-    "max": 1023,
-    "value": 21,
-    "bitMapSize": 6,
-    "len": 1,
-    "units": "",
-    "bit": [
-        {
-            "shift": 0,
-            "max": 1,
-            "mask": 1,
-            "name": "doaNOC",
-            "min": 0
-        },
-        {
-            "shift": 1,
-            "max": 1,
-            "mask": 2,
-            "name": "dobNOC",
-            "min": 0
-        },
-        {
-            "shift": 2,
-            "max": 1,
-            "mask": 4,
-            "name": "docNOC",
-            "min": 0
-        },
-        {
-            "shift": 3,
-            "max": 1,
-            "mask": 8,
-            "name": "dodNOC",
-            "min": 0
-        },
-        {
-            "shift": 4,
-            "max": 1,
-            "mask": 16,
-            "name": "doeNOC",
-            "min": 0
-        },
-        {
-            "shift": 5,
-            "max": 1,
-            "mask": 32,
-            "name": "dofNOC",
-            "min": 0
-        }
-    ],
+    "max": 3600,
+    "units": "s",
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
+    "page": 0,
     "adr": 31,
-    "name": "doabType",
+    "name": "fuelPumpOnLevel",
+    "value": 30,
+    "scale": 0,
     "min": 0,
-    "max": 1023,
-    "value": 0,
-    "bitMapSize": 2,
-    "len": 1,
-    "units": "",
-    "bit": [
-        {
-            "shift": 0,
-            "max": 255,
-            "mask": 255,
-            "name": "doaType",
-            "min": 0
-        },
-        {
-            "shift": 8,
-            "max": 255,
-            "mask": 65280,
-            "name": "dobType",
-            "min": 0
-        }
-    ],
+    "max": 100,
+    "units": "%",
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
+    "page": 0,
     "adr": 32,
-    "name": "dodType",
+    "name": "fuelPumpOffLevel",
+    "value": 70,
+    "scale": 0,
     "min": 0,
-    "max": 1023,
-    "value": 0,
-    "bitMapSize": 2,
-    "len": 1,
-    "units": "",
-    "bit": [
-        {
-            "shift": 0,
-            "max": 255,
-            "mask": 255,
-            "name": "docType",
-            "min": 0
-        },
-        {
-            "shift": 8,
-            "max": 255,
-            "mask": 65280,
-            "name": "doType",
-            "min": 0
-        }
-    ],
+    "max": 100,
+    "units": "%",
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
+    "page": 0,
     "adr": 33,
-    "name": "doefType",
+    "name": "diaSetup",
+    "value": 0,
+    "scale": 0,
     "min": 0,
     "max": 1023,
-    "value": 0,
-    "bitMapSize": 2,
-    "len": 1,
     "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 4,
     "bit": [
         {
+            "name": "diaFunction",
+            "mask": 31,
+            "min": 0,
             "shift": 0,
-            "max": 255,
-            "mask": 255,
-            "name": "doeType",
-            "min": 0
+            "max": 27
         },
         {
+            "name": "diaPolarity",
+            "mask": 32,
+            "min": 0,
+            "shift": 5,
+            "max": 1
+        },
+        {
+            "name": "diaAction",
+            "mask": 192,
+            "min": 0,
+            "shift": 6,
+            "max": 3
+        },
+        {
+            "name": "diaArming",
+            "mask": 768,
+            "min": 0,
             "shift": 8,
-            "max": 255,
-            "mask": 65280,
-            "name": "dofType",
-            "min": 0
+            "max": 4
         }
-    ],
-    "type": "U",
-    "page": 0
+    ]
 },{
-    "scale": 1.0,
+    "page": 0,
     "adr": 34,
-    "name": "timerMainsTransientDelay",
+    "name": "diaDelay",
+    "value": 15,
+    "scale": 0,
     "min": 0,
-    "max": 30,
-    "value": 2,
-    "bitMapSize": 0,
-    "len": 1,
+    "max": 60,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
+    "page": 0,
     "adr": 35,
-    "name": "timerStartDelay",
+    "name": "dibSetup",
+    "value": 0,
+    "scale": 0,
     "min": 0,
-    "max": 36000,
-    "value": 5,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
+    "max": 1023,
+    "units": "",
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 4,
+    "bit": [
+        {
+            "name": "dibFunction",
+            "mask": 31,
+            "min": 0,
+            "shift": 0,
+            "max": 27
+        },
+        {
+            "name": "dibPolarity",
+            "mask": 32,
+            "min": 0,
+            "shift": 5,
+            "max": 1
+        },
+        {
+            "name": "dibAction",
+            "mask": 192,
+            "min": 0,
+            "shift": 6,
+            "max": 3
+        },
+        {
+            "name": "dibArming",
+            "mask": 768,
+            "min": 0,
+            "shift": 8,
+            "max": 4
+        }
+    ]
 },{
-    "scale": 1.0,
+    "page": 0,
     "adr": 36,
-    "name": "timerCranking",
-    "min": 3,
+    "name": "dibDelay",
+    "value": 15,
+    "scale": 0,
+    "min": 0,
     "max": 60,
-    "value": 10,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
+    "page": 0,
     "adr": 37,
-    "name": "timerCrankDelay",
-    "min": 3,
-    "max": 60,
-    "value": 10,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
+    "name": "dicSetup",
+    "value": 0,
+    "scale": 0,
+    "min": 0,
+    "max": 1023,
+    "units": "",
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 4,
+    "bit": [
+        {
+            "name": "dicFunction",
+            "mask": 31,
+            "min": 0,
+            "shift": 0,
+            "max": 27
+        },
+        {
+            "name": "dicPolarity",
+            "mask": 32,
+            "min": 0,
+            "shift": 5,
+            "max": 1
+        },
+        {
+            "name": "dicAction",
+            "mask": 192,
+            "min": 0,
+            "shift": 6,
+            "max": 3
+        },
+        {
+            "name": "dicArming",
+            "mask": 768,
+            "min": 0,
+            "shift": 8,
+            "max": 4
+        }
+    ]
 },{
-    "scale": 1.0,
+    "page": 0,
     "adr": 38,
-    "name": "timerStartupIdleTime",
+    "name": "dicDelay",
+    "value": 15,
+    "scale": 0,
     "min": 0,
     "max": 60,
-    "value": 10,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
+    "page": 0,
     "adr": 39,
-    "name": "timerNominalRPMDelay",
+    "name": "didSetup",
+    "value": 64,
+    "scale": 0,
     "min": 0,
-    "max": 60,
-    "value": 10,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
+    "max": 1023,
+    "units": "",
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 4,
+    "bit": [
+        {
+            "name": "didFunction",
+            "mask": 31,
+            "min": 0,
+            "shift": 0,
+            "max": 27
+        },
+        {
+            "name": "didPolarity",
+            "mask": 32,
+            "min": 0,
+            "shift": 5,
+            "max": 1
+        },
+        {
+            "name": "didAction",
+            "mask": 192,
+            "min": 0,
+            "shift": 6,
+            "max": 3
+        },
+        {
+            "name": "didArming",
+            "mask": 768,
+            "min": 0,
+            "shift": 8,
+            "max": 4
+        }
+    ]
 },{
-    "scale": 1.0,
+    "page": 0,
     "adr": 40,
-    "name": "timerSafetyOnDelay",
+    "name": "didDelay",
+    "value": 15,
+    "scale": 0,
     "min": 0,
     "max": 60,
-    "value": 10,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
+    "page": 0,
     "adr": 41,
-    "name": "timerWarming",
+    "name": "doSetup",
+    "value": 21,
+    "scale": 0,
     "min": 0,
-    "max": 3600,
-    "value": 1,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
+    "max": 1023,
+    "units": "",
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 6,
+    "bit": [
+        {
+            "name": "doaNOC",
+            "mask": 1,
+            "min": 0,
+            "shift": 0,
+            "max": 1
+        },
+        {
+            "name": "dobNOC",
+            "mask": 2,
+            "min": 0,
+            "shift": 1,
+            "max": 1
+        },
+        {
+            "name": "docNOC",
+            "mask": 4,
+            "min": 0,
+            "shift": 2,
+            "max": 1
+        },
+        {
+            "name": "dodNOC",
+            "mask": 8,
+            "min": 0,
+            "shift": 3,
+            "max": 1
+        },
+        {
+            "name": "doeNOC",
+            "mask": 16,
+            "min": 0,
+            "shift": 4,
+            "max": 1
+        },
+        {
+            "name": "dofNOC",
+            "mask": 32,
+            "min": 0,
+            "shift": 5,
+            "max": 1
+        }
+    ]
 },{
-    "scale": 0.1,
+    "page": 0,
     "adr": 42,
-    "name": "timerTransferDelay",
+    "name": "doabType",
+    "value": 0,
+    "scale": 0,
     "min": 0,
-    "max": 6000,
-    "value": 6,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
+    "max": 1023,
+    "units": "",
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 2,
+    "bit": [
+        {
+            "name": "doaType",
+            "mask": 255,
+            "min": 0,
+            "shift": 0,
+            "max": 255
+        },
+        {
+            "name": "dobType",
+            "mask": 65280,
+            "min": 0,
+            "shift": 8,
+            "max": 255
+        }
+    ]
 },{
-    "scale": 0.1,
+    "page": 0,
     "adr": 43,
-    "name": "timerBreakerTripPulse",
+    "name": "dodType",
+    "value": 0,
+    "scale": 0,
     "min": 0,
-    "max": 50,
-    "value": 5,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
+    "max": 1023,
+    "units": "",
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 2,
+    "bit": [
+        {
+            "name": "docType",
+            "mask": 255,
+            "min": 0,
+            "shift": 0,
+            "max": 255
+        },
+        {
+            "name": "doType",
+            "mask": 65280,
+            "min": 0,
+            "shift": 8,
+            "max": 255
+        }
+    ]
 },{
-    "scale": 0.1,
+    "page": 0,
     "adr": 44,
-    "name": "timerBreakerClosePulse",
+    "name": "doefType",
+    "value": 0,
+    "scale": 0,
     "min": 0,
-    "max": 50,
-    "value": 5,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
+    "max": 1023,
+    "units": "",
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 2,
+    "bit": [
+        {
+            "name": "doeType",
+            "mask": 255,
+            "min": 0,
+            "shift": 0,
+            "max": 255
+        },
+        {
+            "name": "dofType",
+            "mask": 65280,
+            "min": 0,
+            "shift": 8,
+            "max": 255
+        }
+    ]
 },{
-    "scale": 1.0,
+    "page": 0,
     "adr": 45,
-    "name": "timerReturnDelay",
-    "min": 0,
-    "max": 18000,
-    "value": 30,
-    "bitMapSize": 0,
-    "len": 1,
+    "name": "timerMainsTransientDelay",
+    "value": 1,
+    "scale": -1,
+    "min": 1,
+    "max": 100,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
+    "page": 0,
     "adr": 46,
-    "name": "timerCooling",
-    "min": 0,
-    "max": 3600,
-    "value": 60,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 47,
-    "name": "timerCoolingIdle",
-    "min": 0,
-    "max": 900,
-    "value": 0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 48,
-    "name": "timerSolenoidHold",
-    "min": 0,
-    "max": 120,
-    "value": 0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 49,
-    "name": "timerFailStopDelay",
-    "min": 10,
-    "max": 120,
-    "value": 30,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "s",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 0.1,
-    "adr": 50,
-    "name": "timerGenTransientDelay",
-    "min": 0,
+    "name": "timerStartDelay",
+    "value": 5,
+    "scale": 0,
+    "min": 1,
     "max": 300,
-    "value": 0,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
+    "page": 0,
+    "adr": 47,
+    "name": "timerPreheating",
+    "value": 5,
+    "scale": 0,
+    "min": 1,
+    "max": 300,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 48,
+    "name": "timerCranking",
+    "value": 10,
+    "scale": 0,
+    "min": 1,
+    "max": 30,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 49,
+    "name": "timerCrankDelay",
+    "value": 10,
+    "scale": 0,
+    "min": 1,
+    "max": 30,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 50,
+    "name": "timerStartupIdleTime",
+    "value": 10,
+    "scale": 0,
+    "min": 1,
+    "max": 300,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
     "adr": 51,
+    "name": "timerNominalRPMDelay",
+    "value": 10,
+    "scale": 0,
+    "min": 1,
+    "max": 30,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 52,
+    "name": "timerSafetyOnDelay",
+    "value": 10,
+    "scale": 0,
+    "min": 1,
+    "max": 60,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 53,
+    "name": "timerWarming",
+    "value": 1,
+    "scale": 0,
+    "min": 1,
+    "max": 300,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 54,
+    "name": "timerTransferDelay",
+    "value": 6,
+    "scale": -1,
+    "min": 1,
+    "max": 300,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 55,
+    "name": "timerBreakerTripPulse",
+    "value": 5,
+    "scale": -1,
+    "min": 1,
+    "max": 50,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 56,
+    "name": "timerBreakerClosePulse",
+    "value": 5,
+    "scale": -1,
+    "min": 1,
+    "max": 50,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 57,
+    "name": "timerReturnDelay",
+    "value": 30,
+    "scale": 0,
+    "min": 1,
+    "max": 300,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 58,
+    "name": "timerCooling",
+    "value": 60,
+    "scale": 0,
+    "min": 1,
+    "max": 300,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 59,
+    "name": "timerCoolingIdle",
+    "value": 20,
+    "scale": 0,
+    "min": 1,
+    "max": 300,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 60,
+    "name": "timerSolenoidHold",
+    "value": 20,
+    "scale": 0,
+    "min": 1,
+    "max": 60,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 61,
+    "name": "timerFailStopDelay",
+    "value": 30,
+    "scale": 0,
+    "min": 1,
+    "max": 60,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 62,
+    "name": "timerGenTransientDelay",
+    "value": 10,
+    "scale": -1,
+    "min": 1,
+    "max": 100,
+    "units": "s",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 63,
     "name": "genSetup",
+    "value": 104,
+    "scale": 0,
     "min": 0,
     "max": 255,
-    "value": 104,
-    "bitMapSize": 4,
-    "len": 1,
     "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 4,
     "bit": [
         {
-            "shift": 0,
-            "max": 1,
-            "mask": 1,
             "name": "genPowerGeneratorControlEnb",
-            "min": 0
+            "mask": 1,
+            "min": 0,
+            "shift": 0,
+            "max": 1
         },
         {
-            "shift": 1,
-            "max": 16,
-            "mask": 30,
             "name": "genPoles",
-            "min": 0
+            "mask": 30,
+            "min": 0,
+            "shift": 1,
+            "max": 16
         },
         {
-            "shift": 5,
-            "max": 5,
-            "mask": 224,
             "name": "genAcSys",
-            "min": 0
+            "mask": 224,
+            "min": 0,
+            "shift": 5,
+            "max": 5
         },
         {
-            "shift": 8,
-            "max": 1,
-            "mask": 256,
             "name": "genLocationCurrentTransformer",
-            "min": 0
+            "mask": 256,
+            "min": 0,
+            "shift": 8,
+            "max": 1
         }
-    ],
-    "type": "U",
-    "page": 0
+    ]
 },{
-    "scale": 1.0,
-    "adr": 52,
+    "page": 0,
+    "adr": 64,
     "name": "genRatedActivePower",
-    "min": 0,
-    "max": 20000,
     "value": 40000,
-    "bitMapSize": 0,
-    "len": 1,
+    "scale": 0,
+    "min": 0,
+    "max": 10000,
     "units": "kW",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 53,
+    "page": 0,
+    "adr": 65,
     "name": "genRatedReactivePower",
-    "min": 0,
-    "max": 20000,
     "value": 0,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "kVAR",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 54,
-    "name": "genRatedApparentPower",
+    "scale": 0,
     "min": 0,
-    "max": 20000,
-    "value": 200,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "kVA",
-    "bit": [],
+    "max": 10000,
+    "units": "kVAR",
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 0.1,
-    "adr": 55,
+    "page": 0,
+    "adr": 66,
+    "name": "genRatedApparentPower",
+    "value": 200,
+    "scale": 0,
+    "min": 0,
+    "max": 10000,
+    "units": "kVA",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 67,
     "name": "genRatedFrequency",
+    "value": 500,
+    "scale": -1,
     "min": 2,
     "max": 747,
-    "value": 500,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "Hz",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 56,
+    "page": 0,
+    "adr": 68,
     "name": "genCurrentPrimary",
-    "min": 5,
-    "max": 8000,
     "value": 600,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "A",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 57,
-    "name": "genCurrentFullLoadRating",
+    "scale": 0,
     "min": 5,
     "max": 8000,
-    "value": 500,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "A",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 58,
+    "page": 0,
+    "adr": 69,
+    "name": "genCurrentFullLoadRating",
+    "value": 500,
+    "scale": 0,
+    "min": 5,
+    "max": 8000,
+    "units": "A",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 70,
     "name": "genAlarms",
+    "value": 7167,
+    "scale": 0,
     "min": 0,
     "max": 65535,
-    "value": 7167,
-    "bitMapSize": 12,
-    "len": 1,
     "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 12,
     "bit": [
         {
-            "shift": 0,
-            "max": 1,
-            "mask": 1,
             "name": "genUnderVoltageAlarmEnb",
-            "min": 0
+            "mask": 1,
+            "min": 0,
+            "shift": 0,
+            "max": 1
         },
         {
-            "shift": 1,
-            "max": 1,
-            "mask": 2,
             "name": "genUnderVoltagePreAlarmEnb",
-            "min": 0
+            "mask": 2,
+            "min": 0,
+            "shift": 1,
+            "max": 1
         },
         {
-            "shift": 2,
-            "max": 1,
-            "mask": 4,
             "name": "genOverVoltagePreAlarmEnb",
-            "min": 0
+            "mask": 4,
+            "min": 0,
+            "shift": 2,
+            "max": 1
         },
         {
-            "shift": 3,
-            "max": 1,
-            "mask": 8,
             "name": "genUnderFrequencyAlrmEnb",
-            "min": 0
+            "mask": 8,
+            "min": 0,
+            "shift": 3,
+            "max": 1
         },
         {
-            "shift": 4,
-            "max": 1,
-            "mask": 16,
             "name": "genUnderFrequencyPreAlrmEnb",
-            "min": 0
+            "mask": 16,
+            "min": 0,
+            "shift": 4,
+            "max": 1
         },
         {
-            "shift": 5,
-            "max": 1,
-            "mask": 32,
             "name": "genOverFrequencyPreAlrmEnb",
-            "min": 0
+            "mask": 32,
+            "min": 0,
+            "shift": 5,
+            "max": 1
         },
         {
-            "shift": 6,
-            "max": 1,
-            "mask": 64,
             "name": "genOverFrequencyAlarmEnb",
-            "min": 0
+            "mask": 64,
+            "min": 0,
+            "shift": 6,
+            "max": 1
         },
         {
-            "shift": 7,
-            "max": 1,
-            "mask": 128,
             "name": "genCurrentOverloadProtectionEnb",
-            "min": 0
+            "mask": 128,
+            "min": 0,
+            "shift": 7,
+            "max": 1
         },
         {
-            "shift": 8,
-            "max": 1,
-            "mask": 256,
             "name": "genCurrentOverPhaseImbalanceEnb",
-            "min": 0
+            "mask": 256,
+            "min": 0,
+            "shift": 8,
+            "max": 1
         },
         {
-            "shift": 9,
-            "max": 3,
-            "mask": 1536,
             "name": "genCurrentOverAlarmAction",
-            "min": 0
+            "mask": 1536,
+            "min": 0,
+            "shift": 9,
+            "max": 3
         },
         {
-            "shift": 11,
-            "max": 1,
-            "mask": 2048,
             "name": "genCurrentOverloadProtectionAction",
-            "min": 0
+            "mask": 2048,
+            "min": 0,
+            "shift": 11,
+            "max": 1
         },
         {
-            "shift": 12,
-            "max": 1,
-            "mask": 4096,
             "name": "genCurrentOverPhaseImbalanceAction",
-            "min": 0
+            "mask": 4096,
+            "min": 0,
+            "shift": 12,
+            "max": 1
         }
-    ],
-    "type": "U",
-    "page": 0
+    ]
 },{
-    "scale": 1.0,
-    "adr": 59,
+    "page": 0,
+    "adr": 71,
     "name": "genUnderVoltageAlarmLevel",
+    "value": 318,
+    "scale": 0,
     "min": 86,
     "max": 708,
-    "value": 318,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "V",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 60,
+    "page": 0,
+    "adr": 72,
     "name": "genUnderVoltagePreAlarmLevel",
+    "value": 339,
+    "scale": 0,
     "min": 88,
     "max": 710,
-    "value": 339,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "V",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 61,
+    "page": 0,
+    "adr": 73,
     "name": "genOverVoltagePreAlarmLevel",
+    "value": 439,
+    "scale": 0,
     "min": 93,
     "max": 715,
-    "value": 439,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "V",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 62,
+    "page": 0,
+    "adr": 74,
     "name": "genOverVoltageAlarmLevel",
+    "value": 458,
+    "scale": 0,
     "min": 95,
     "max": 717,
-    "value": 458,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "V",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 0.1,
-    "adr": 63,
+    "page": 0,
+    "adr": 75,
     "name": "genUnderFrequencyAlrmLevel",
+    "value": 400,
+    "scale": -1,
     "min": 0,
     "max": 744,
-    "value": 400,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "Hz",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 0.1,
-    "adr": 64,
+    "page": 0,
+    "adr": 76,
     "name": "genUnderFrequencyPreAlrmLevel",
+    "value": 420,
+    "scale": -1,
     "min": 1,
     "max": 745,
-    "value": 420,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "Hz",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 0.1,
-    "adr": 65,
+    "page": 0,
+    "adr": 77,
     "name": "genOverFrequencyPreAlrmLevel",
+    "value": 540,
+    "scale": -1,
     "min": 4,
     "max": 747,
-    "value": 540,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "Hz",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 0.1,
-    "adr": 66,
+    "page": 0,
+    "adr": 78,
     "name": "genOverFrequencyAlrmLevel",
+    "value": 550,
+    "scale": -1,
     "min": 5,
     "max": 749,
-    "value": 550,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "Hz",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 67,
+    "page": 0,
+    "adr": 79,
     "name": "genOverCurrentThermalProtectionLevel",
-    "min": 0,
-    "max": 120,
     "value": 20,
-    "bitMapSize": 0,
-    "len": 1,
-    "units": "%",
-    "bit": [],
-    "type": "U",
-    "page": 0
-},{
-    "scale": 1.0,
-    "adr": 68,
-    "name": "genOverCurrentCutoffLevel",
+    "scale": 0,
     "min": 0,
     "max": 120,
-    "value": 40,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "%",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 69,
+    "page": 0,
+    "adr": 80,
+    "name": "genOverCurrentCutoffLevel",
+    "value": 40,
+    "scale": 0,
+    "min": 0,
+    "max": 120,
+    "units": "%",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
+},{
+    "page": 0,
+    "adr": 81,
     "name": "genOverCurrentAlarmLevel",
+    "value": 100,
+    "scale": 0,
     "min": 50,
     "max": 120,
-    "value": 100,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "%",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 70,
+    "page": 0,
+    "adr": 82,
     "name": "genOverCurrentAlarmDelay",
+    "value": 60,
+    "scale": 0,
     "min": 0,
     "max": 3600,
-    "value": 60,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 71,
+    "page": 0,
+    "adr": 83,
     "name": "genCurrentOverloadProtectionLevel",
+    "value": 100,
+    "scale": 0,
     "min": 1,
     "max": 125,
-    "value": 100,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "%",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 72,
+    "page": 0,
+    "adr": 84,
     "name": "genCurrentOverloadProtectionDelay",
+    "value": 5,
+    "scale": 0,
     "min": 0,
     "max": 3600,
-    "value": 5,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 73,
+    "page": 0,
+    "adr": 85,
     "name": "genCurrentOverPhaseImbalanceLevel",
+    "value": 100,
+    "scale": 0,
     "min": 1,
     "max": 125,
-    "value": 100,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "%",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 74,
+    "page": 0,
+    "adr": 86,
     "name": "genCurrentOverPhaseImbalanceDelay",
+    "value": 60,
+    "scale": 0,
     "min": 0,
     "max": 3600,
-    "value": 60,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 75,
+    "page": 0,
+    "adr": 87,
     "name": "mainsSetup",
+    "value": 13,
+    "scale": 0,
     "min": 0,
     "max": 31,
-    "value": 13,
-    "bitMapSize": 3,
-    "len": 1,
     "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 3,
     "bit": [
         {
-            "shift": 0,
-            "max": 1,
+            "name": "mainsControlEnb",
             "mask": 1,
-            "name": "mainsControl",
-            "min": 0
+            "min": 0,
+            "shift": 0,
+            "max": 1
         },
         {
-            "shift": 1,
-            "max": 1,
+            "name": "mainsPowerOffImmediatelyEnb",
             "mask": 2,
-            "name": "mainsPowerOffImmediately",
-            "min": 0
+            "min": 0,
+            "shift": 1,
+            "max": 1
         },
         {
-            "shift": 2,
-            "max": 5,
-            "mask": 28,
             "name": "mainAcSys",
-            "min": 0
+            "mask": 28,
+            "min": 0,
+            "shift": 2,
+            "max": 5
         }
-    ],
-    "type": "U",
-    "page": 0
+    ]
 },{
-    "scale": 1.0,
-    "adr": 76,
+    "page": 0,
+    "adr": 88,
     "name": "mainsAlarms",
+    "value": 15,
+    "scale": 0,
     "min": 0,
     "max": 15,
-    "value": 15,
-    "bitMapSize": 4,
-    "len": 1,
     "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 4,
     "bit": [
         {
-            "shift": 0,
-            "max": 1,
+            "name": "mainsUnderVoltageAlarmEnb",
             "mask": 1,
-            "name": "mainsUnderVoltageAlarm",
-            "min": 0
+            "min": 0,
+            "shift": 0,
+            "max": 1
         },
         {
-            "shift": 1,
-            "max": 1,
+            "name": "mainsOverVoltageAlarmEnb",
             "mask": 2,
-            "name": "mainsOverVoltageAlarm",
-            "min": 0
+            "min": 0,
+            "shift": 1,
+            "max": 1
         },
         {
-            "shift": 2,
-            "max": 1,
+            "name": "mainsUnderFrequencyAlarmEnb",
             "mask": 4,
-            "name": "mainsUnderFrequencyAlarm",
-            "min": 0
+            "min": 0,
+            "shift": 2,
+            "max": 1
         },
         {
-            "shift": 3,
-            "max": 1,
+            "name": "mainsOverFrequencyAlarmEnb",
             "mask": 8,
-            "name": "mainsOverFrequencyAlarm",
-            "min": 0
+            "min": 0,
+            "shift": 3,
+            "max": 1
         }
-    ],
-    "type": "U",
-    "page": 0
+    ]
 },{
-    "scale": 1.0,
-    "adr": 77,
+    "page": 0,
+    "adr": 89,
     "name": "mainsUnderVoltageAlarmLevel",
+    "value": 318,
+    "scale": 0,
     "min": 86,
     "max": 713,
-    "value": 318,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "V",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 78,
+    "page": 0,
+    "adr": 90,
     "name": "mainsOverVoltageAlarmLevel",
+    "value": 438,
+    "scale": 0,
     "min": 90,
     "max": 717,
-    "value": 438,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "V",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 0.1,
-    "adr": 79,
+    "page": 0,
+    "adr": 91,
     "name": "mainsUnderFrequencyAlarmLevel",
+    "value": 450,
+    "scale": -1,
     "min": 0,
     "max": 747,
-    "value": 450,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "Hz",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 0.1,
-    "adr": 80,
+    "page": 0,
+    "adr": 92,
     "name": "mainsOverFrequencyAlarmLevel",
+    "value": 520,
+    "scale": -1,
     "min": 2,
     "max": 749,
-    "value": 520,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "Hz",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 81,
+    "page": 0,
+    "adr": 93,
     "name": "engineSetup",
+    "value": 51,
+    "scale": 0,
     "min": 0,
     "max": 63,
-    "value": 51,
-    "bitMapSize": 3,
-    "len": 1,
     "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 3,
     "bit": [
         {
-            "shift": 0,
-            "max": 9,
-            "mask": 15,
             "name": "engineStartAttempts",
-            "min": 1
+            "mask": 15,
+            "min": 1,
+            "shift": 0,
+            "max": 9
         },
         {
-            "shift": 4,
-            "max": 1,
-            "mask": 16,
             "name": "enginePreHeatEnb",
-            "min": 0
+            "mask": 16,
+            "min": 0,
+            "shift": 4,
+            "max": 1
         },
         {
-            "shift": 5,
-            "max": 1,
-            "mask": 32,
             "name": "enginePostHeatEnb",
-            "min": 0
+            "mask": 32,
+            "min": 0,
+            "shift": 5,
+            "max": 1
         }
-    ],
-    "type": "U",
-    "page": 0
+    ]
 },{
-    "scale": 1.0,
-    "adr": 82,
-    "name": "enginePreHeatOn",
+    "page": 0,
+    "adr": 94,
+    "name": "enginePreHeatLevel",
+    "value": 50,
+    "scale": 0,
     "min": 0,
     "max": 100,
-    "value": 50,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "C",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 83,
-    "name": "enginePreHeatDuration",
+    "page": 0,
+    "adr": 95,
+    "name": "enginePreHeatDelay",
+    "value": 0,
+    "scale": 0,
     "min": 0,
     "max": 3600,
-    "value": 0,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 84,
-    "name": "enginePostHeatOn",
+    "page": 0,
+    "adr": 96,
+    "name": "enginePostHeatLevel",
+    "value": 50,
+    "scale": 0,
     "min": 0,
     "max": 100,
-    "value": 50,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "C",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 85,
-    "name": "enginePostHeatDuration",
+    "page": 0,
+    "adr": 97,
+    "name": "enginePostHeatDelay",
+    "value": 0,
+    "scale": 0,
     "min": 0,
     "max": 3600,
-    "value": 0,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 86,
+    "page": 0,
+    "adr": 98,
     "name": "crankSetup",
+    "value": 10,
+    "scale": 0,
     "min": 0,
     "max": 7,
-    "value": 10,
-    "bitMapSize": 4,
-    "len": 1,
     "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 4,
     "bit": [
         {
-            "shift": 0,
-            "max": 1,
-            "mask": 1,
-            "name": "crankDisconnectOilPressure",
-            "min": 0
-        },
-        {
-            "shift": 1,
-            "max": 1,
-            "mask": 2,
-            "name": "crankOilPressureCheckOnStart",
-            "min": 0
-        },
-        {
-            "shift": 2,
-            "max": 1,
-            "mask": 4,
             "name": "crankDisconnectOilPressureEnb",
-            "min": 0
+            "mask": 1,
+            "min": 0,
+            "shift": 0,
+            "max": 1
         },
         {
-            "shift": 3,
-            "max": 1,
-            "mask": 8,
+            "name": "crankOilPressureCheckOnStartEnb",
+            "mask": 2,
+            "min": 0,
+            "shift": 1,
+            "max": 1
+        },
+        {
+            "name": "crankDisconnectOilPressureEnb",
+            "mask": 4,
+            "min": 0,
+            "shift": 2,
+            "max": 1
+        },
+        {
             "name": "crankDisconnectChargeAlternatorEnb",
-            "min": 0
+            "mask": 8,
+            "min": 0,
+            "shift": 3,
+            "max": 1
         }
-    ],
-    "type": "U",
-    "page": 0
+    ]
 },{
-    "scale": 0.1,
-    "adr": 87,
+    "page": 0,
+    "adr": 99,
     "name": "crankDisconnectgenFreqLevel",
+    "value": 210,
+    "scale": -1,
     "min": 0,
     "max": 400,
-    "value": 210,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "Hz",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 0.1,
-    "adr": 88,
+    "page": 0,
+    "adr": 100,
     "name": "crankDisconnectOilPressureLevel",
+    "value": 20,
+    "scale": -1,
     "min": 5,
     "max": 40,
-    "value": 20,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "Bar",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 0.1,
-    "adr": 89,
+    "page": 0,
+    "adr": 101,
     "name": "crankDisconnectChargeAlternatorLevel",
+    "value": 60,
+    "scale": -1,
     "min": 0,
     "max": 400,
-    "value": 60,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "V",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 90,
+    "page": 0,
+    "adr": 102,
     "name": "batteryAlarms",
+    "value": 15,
+    "scale": 0,
     "min": 0,
     "max": 15,
-    "value": 15,
-    "bitMapSize": 4,
-    "len": 1,
     "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 4,
     "bit": [
         {
-            "shift": 0,
-            "max": 1,
-            "mask": 1,
             "name": "batteryUnderVoltageEnb",
-            "min": 0
+            "mask": 1,
+            "min": 0,
+            "shift": 0,
+            "max": 1
         },
         {
-            "shift": 1,
-            "max": 1,
-            "mask": 2,
             "name": "batteryOverVoltageEnb",
-            "min": 0
+            "mask": 2,
+            "min": 0,
+            "shift": 1,
+            "max": 1
         },
         {
-            "shift": 2,
-            "max": 1,
-            "mask": 4,
             "name": "batteryChargeShutdownEnb",
-            "min": 0
+            "mask": 4,
+            "min": 0,
+            "shift": 2,
+            "max": 1
         },
         {
-            "shift": 3,
-            "max": 1,
-            "mask": 8,
             "name": "batteryChargeWarningEnb",
-            "min": 0
+            "mask": 8,
+            "min": 0,
+            "shift": 3,
+            "max": 1
         }
-    ],
-    "type": "U",
-    "page": 0
+    ]
 },{
-    "scale": 0.1,
-    "adr": 91,
+    "page": 0,
+    "adr": 103,
     "name": "batteryUnderVoltageLevel",
+    "value": 100,
+    "scale": -1,
     "min": 0,
     "max": 397,
-    "value": 100,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 92,
+    "page": 0,
+    "adr": 104,
     "name": "batteryUnderVoltageDelay",
+    "value": 60,
+    "scale": 0,
     "min": 0,
     "max": 86400,
-    "value": 60,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 0.1,
-    "adr": 93,
+    "page": 0,
+    "adr": 105,
     "name": "batteryOverVoltageLevel",
+    "value": 300,
+    "scale": -1,
     "min": 2,
     "max": 400,
-    "value": 300,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 94,
+    "page": 0,
+    "adr": 106,
     "name": "batteryOverVoltageDelay",
+    "value": 60,
+    "scale": 0,
     "min": 0,
     "max": 86400,
-    "value": 60,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 0.1,
-    "adr": 95,
+    "page": 0,
+    "adr": 107,
     "name": "batteryChargeShutdownLevel",
+    "value": 40,
+    "scale": -1,
     "min": 0,
     "max": 388,
-    "value": 40,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 96,
+    "page": 0,
+    "adr": 108,
     "name": "batteryChargeShutdownDelay",
+    "value": 5,
+    "scale": 0,
     "min": 0,
     "max": 3600,
-    "value": 5,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 0.1,
-    "adr": 97,
+    "page": 0,
+    "adr": 109,
     "name": "batteryChargeWarningLevel",
+    "value": 60,
+    "scale": -1,
     "min": 1,
     "max": 390,
-    "value": 60,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 98,
+    "page": 0,
+    "adr": 110,
     "name": "batteryChargeWarningDelay",
+    "value": 5,
+    "scale": 0,
     "min": 0,
     "max": 3600,
-    "value": 5,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "s",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 99,
+    "page": 0,
+    "adr": 111,
     "name": "maintenanceAlarms",
+    "value": 42,
+    "scale": 0,
     "min": 0,
     "max": 63,
-    "value": 42,
-    "bitMapSize": 6,
-    "len": 1,
     "units": "",
+    "type": "U",
+    "len": 1,
+    "bitMapSize": 6,
     "bit": [
         {
-            "shift": 0,
-            "max": 1,
-            "mask": 1,
             "name": "maintenanceAlarmOilEnb",
-            "min": 0
+            "mask": 1,
+            "min": 0,
+            "shift": 0,
+            "max": 1
         },
         {
-            "shift": 1,
-            "max": 1,
-            "mask": 2,
             "name": "maintenanceAlarmOilAction",
-            "min": 0
+            "mask": 2,
+            "min": 0,
+            "shift": 1,
+            "max": 1
         },
         {
-            "shift": 2,
-            "max": 1,
-            "mask": 4,
             "name": "maintenanceAlarmAirEnb",
-            "min": 0
+            "mask": 4,
+            "min": 0,
+            "shift": 2,
+            "max": 1
         },
         {
-            "shift": 3,
-            "max": 1,
-            "mask": 8,
             "name": "maintenanceAlarmAirAction",
-            "min": 0
+            "mask": 8,
+            "min": 0,
+            "shift": 3,
+            "max": 1
         },
         {
-            "shift": 4,
-            "max": 1,
-            "mask": 16,
             "name": "maintenanceAlarmFuelEnb",
-            "min": 0
+            "mask": 16,
+            "min": 0,
+            "shift": 4,
+            "max": 1
         },
         {
-            "shift": 5,
-            "max": 1,
-            "mask": 32,
             "name": "maintenanceAlarmFuelAction",
-            "min": 0
+            "mask": 32,
+            "min": 0,
+            "shift": 5,
+            "max": 1
         }
-    ],
-    "type": "U",
-    "page": 0
+    ]
 },{
-    "scale": 1.0,
-    "adr": 100,
-    "name": "maintenanceAlarmOilEngineRunTime",
+    "page": 0,
+    "adr": 112,
+    "name": "maintenanceAlarmDelay",
+    "value": 10,
+    "scale": 0,
     "min": 10,
     "max": 5000,
-    "value": 10,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "h",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 101,
-    "name": "maintenanceAlarmAirEngineRunTime",
+    "page": 0,
+    "adr": 113,
+    "name": "maintenanceAlarmAirDelay",
+    "value": 10,
+    "scale": 0,
     "min": 10,
     "max": 5000,
-    "value": 10,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "h",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 },{
-    "scale": 1.0,
-    "adr": 102,
-    "name": "maintenanceAlarmFuelEngineRunTime",
+    "page": 0,
+    "adr": 114,
+    "name": "maintenanceAlarmFuelDelay",
+    "value": 10,
+    "scale": 0,
     "min": 10,
     "max": 5000,
-    "value": 10,
-    "bitMapSize": 0,
-    "len": 1,
     "units": "h",
-    "bit": [],
     "type": "U",
-    "page": 0
+    "len": 1,
+    "bitMapSize": 0,
+    "bit": []
 }];

@@ -8425,8 +8425,18 @@ a[data-toggle="collapse"] {
   display: block;
 }
 .pos-name{
-  vertical-align:-6px;
+  text-align: left!important;}
+  .pos-name label{
+    vertical-align:-6px;
 }
+
+.pos-info{
+
+  }
+  .pos-info label{
+    color: #28a745;
+}
+
 .pos-unit{
   vertical-align:-6px;
 }
