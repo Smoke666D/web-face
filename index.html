@@ -457,14 +457,13 @@
           </div>
         </div>
 
-        <h6>Управление нагревателем охлаждающей жидкости</h6>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
               <input type="checkbox" class="check-input" id="coolantTempHeaterEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Активировать</label>
+            <label class="form-check-label">Управление нагревателем охлаждающей жидкости</label>
           </div>
         </div>
 
@@ -498,14 +497,13 @@
           </div>
         </div>
 
-        <h6>Управление охлаждателем охлаждающей жидкости</h6>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
               <input type="checkbox" class="check-input" id="coolantTempCoolerEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Активировать</label>
+            <label class="form-check-label">Управление охлаждателем охлаждающей жидкости</label>
           </div>
         </div>
 
@@ -572,8 +570,8 @@
         </div>
 
         <div class="row">
-          <div class="col-sm-2">
-            <label class="pos-select">Действие</label>
+          <div class="col-sm-2 pos-name">
+            <label>Действие</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="fuelLevelLowAlarmAction" disabled>
@@ -666,8 +664,8 @@
         </div>
 
         <div class="row">
-          <div class="col-sm-2">
-            <label class="pos-select">Действие</label>
+          <div class="col-sm-2 pos-name">
+            <label>Действие</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="fuelLevelHightAlarmAction" disabled>
@@ -1823,13 +1821,13 @@
             <label>Номинальная полная мощность</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genRatedApparentPower" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-genRatedApparentPowerLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit">кВА</label>
           </div>
           <div class="col-sm">
-            <div class="s-slider" id="s-slider-genRatedApparentPower"></div>
+            <div class="s-slider" id="s-slider-genRatedApparentPowerLevel"></div>
           </div>
         </div>
 
@@ -1838,13 +1836,13 @@
             <label>Номинальная активная мощность</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genRatedActivePower" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-genRatedActivePowerLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit">кВт</label>
           </div>
           <div class="col-sm">
-            <div class="s-slider" id="s-slider-genRatedActivePower"></div>
+            <div class="s-slider" id="s-slider-genRatedActivePowerLevel"></div>
           </div>
         </div>
 
@@ -1853,13 +1851,13 @@
             <label>Номинальная реактивная мощность</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genRatedReactivePower" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-genRatedReactivePowerLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit">кВар</label>
           </div>
           <div class="col-sm">
-            <div class="s-slider" id="s-slider-genRatedReactivePower"></div>
+            <div class="s-slider" id="s-slider-genRatedReactivePowerLevel"></div>
           </div>
         </div>
 
@@ -1883,13 +1881,13 @@
             <label>Номинальная частота</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genRatedFrequency" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-genRatedFrequencyLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit">Гц</label>
           </div>
           <div class="col-sm">
-            <div class="s-slider" id="s-slider-genRatedFrequency"></div>
+            <div class="s-slider" id="s-slider-genRatedFrequencyLevel"></div>
           </div>
         </div>
 
@@ -1900,13 +1898,13 @@
             <label>Первичный ток трансформатора</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genCurrentPrimary" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-genCurrentPrimaryLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit">А</label>
           </div>
           <div class="col-sm">
-            <div class="s-slider" id="s-slider-genCurrentPrimary"></div>
+            <div class="s-slider" id="s-slider-genCurrentPrimaryLevel"></div>
           </div>
         </div>
 
@@ -1915,13 +1913,13 @@
             <label>Полная номинальная нагрузка</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genCurrentFullLoadRating" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-genCurrentFullLoadRatingLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit">А</label>
           </div>
           <div class="col-sm">
-            <div class="s-slider" id="s-slider-genCurrentFullLoadRating"></div>
+            <div class="s-slider" id="s-slider-genCurrentFullLoadRatingLevel"></div>
           </div>
         </div>
 
@@ -1930,7 +1928,7 @@
             <label class="pos-select">Расположение трансформатора тока</label>
           </div>
           <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="genLocationCurrentTransformer">
+            <select class="custom-select sensor-select" id="genLocationCurrentTransformerLevel">
               <option value="0">Генератор</option>
               <option value="1">Нагрузка</option>
             </select>
@@ -2066,7 +2064,7 @@
             <label>Отключение</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genUnderFrequencyAlrmLevel" step="1">
+              <input type="number" class="form-control s-sinput" id="sinput-genUnderFrequencyAlrmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit">Гц</label>

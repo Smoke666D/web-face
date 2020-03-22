@@ -1145,7 +1145,7 @@ var dataReg = [{
 },{
     "page": 0,
     "adr": 64,
-    "name": "genRatedActivePower",
+    "name": "genRatedActivePowerLevel",
     "value": 40000,
     "scale": 0,
     "min": 0,
@@ -1158,7 +1158,7 @@ var dataReg = [{
 },{
     "page": 0,
     "adr": 65,
-    "name": "genRatedReactivePower",
+    "name": "genRatedReactivePowerLevel",
     "value": 0,
     "scale": 0,
     "min": 0,
@@ -1171,7 +1171,7 @@ var dataReg = [{
 },{
     "page": 0,
     "adr": 66,
-    "name": "genRatedApparentPower",
+    "name": "genRatedApparentPowerLevel",
     "value": 200,
     "scale": 0,
     "min": 0,
@@ -1184,7 +1184,7 @@ var dataReg = [{
 },{
     "page": 0,
     "adr": 67,
-    "name": "genRatedFrequency",
+    "name": "genRatedFrequencyLevel",
     "value": 500,
     "scale": -1,
     "min": 2,
@@ -1197,7 +1197,7 @@ var dataReg = [{
 },{
     "page": 0,
     "adr": 68,
-    "name": "genCurrentPrimary",
+    "name": "genCurrentPrimaryLevel",
     "value": 600,
     "scale": 0,
     "min": 5,
@@ -1210,7 +1210,7 @@ var dataReg = [{
 },{
     "page": 0,
     "adr": 69,
-    "name": "genCurrentFullLoadRating",
+    "name": "genCurrentFullLoadRatingLevel",
     "value": 500,
     "scale": 0,
     "min": 5,

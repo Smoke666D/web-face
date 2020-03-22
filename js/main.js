@@ -144,78 +144,12 @@ function sliderInit() {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function updateTimeSlider(id,reg){
-	slider = document.getElementById("s-slider-"+id);
-	input  = document.getElementById("sinput-"+id);
-	label  = document.getElementById("label-"+id);
-	switch(label.textContent) {
-		case 'сек':
-			if (input.value >= 3602){
-				label.textContent = 'ч';
-				slider.noUiSlider.updateOptions({
-					start: [input.value/3600],
-					range: {
-						'min': 0,
-						'max': reg.max/3600
-					}
-				})
-			} else	if (input.value >= 61){
-				label.textContent = 'мин';
-				slider.noUiSlider.updateOptions({
-					start: [input.value/60],
-					range: {
-						'min': 0,
-						'max': reg.max/60
-					}
-				})
-			}
-			break;
-		case 'мин':
-			if (input.value >= 62){
-				label.textContent = 'ч';
-				slider.noUiSlider.updateOptions({
-					start: [input.value/60],
-					range: {
-						'min': 0,
-						'max': reg.max/3600
-					}
-				})
-			} else if (input.value <= 1) {
-				label.textContent = 'сек';
-				slider.noUiSlider.updateOptions({
-					start: [input.value*60],
-					range: {
-						'min': 0,
-						'max': reg.max
-					}
-				})
-			}
-			break;
-		case 'ч':
-			if (input.value <= 1){
-				label.textContent = 'мин';
-				slider.noUiSlider.updateOptions({
-					start: [input.value*60],
-					range: {
-						'min': 0,
-						'max': reg.max/60
-					}
-				})
-			}
-			break;
-		default:
-			break;
+function powerSliderInit(idActive, idReactive, idApparent, idCosFi, regName){
+	for(var i=0;i<dataReg.length;i++){
+		if(dataReg[i].name == regName){
+			reg = dataReg[i];
+		}
 	}
-}
-function timerSliderTransform(id,reg){
-	document.getElementById("s-slider-"+id).noUiSlider.on('change',function(){
-		updateTimeSlider(id,reg);
-	});
-}
-
-
-
-function powerSliderInit(idActive, idReactive, idApparent, idCosFi, reg){
 	sliderActive   = document.getElementById("s-slider-"+idActive);		// P кВт
 	inputActive    = document.getElementById("sinput-"+idActive);			// P кВт
 	sliderReactive = document.getElementById("s-slider-"+idReactive);	// Q кВар
@@ -224,6 +158,17 @@ function powerSliderInit(idActive, idReactive, idApparent, idCosFi, reg){
 	inputApparent  = document.getElementById("sinput-"+idApparent);		// S кВА
 	sliderCosFi    = document.getElementById("s-slider-"+idCosFi);
 	inputCosFi     = document.getElementById("sinput-"+idCosFi);
+
+	inputCosFi.disabled = false;
+	sliderCosFi.removeAttribute('disabled');
+	inputCosFi.step  = 0.01;
+	sliderCosFi.noUiSlider.updateOptions({
+		step: 	0.01,
+		range: {
+			'min': 0,
+			'max': 1,
+		},
+	})
 
 	function powerApparentCalc(p,q){
 		return Math.sqrt(p*p+q*q);
@@ -459,364 +404,19 @@ function slider4InitLimits(id1,id2,id3,id4) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function toggleSelector(selectorID) {
-	selector  = document.getElementById(selectorID);
-	if (this.checked) {
-		selector.disabled = false;
-	} else {
-		selector.disabled = true;
-	}
-	return;
-}
-
-function enableSslider(sliderID,inputID) {
-	document.getElementById(sliderID).removeAttribute('disabled')
-	document.getElementById(inputID).disabled = false;
-	return;
-}
-
-function toggleSslider(sliderID,inputID) {
-	slider  = document.getElementById(sliderID);
-	input = document.getElementById(inputID);
-	if (this.checked) {
-		input.disabled = false;
-		slider.removeAttribute('disabled');
-	} else {
-		input.disabled = true;
-		slider.setAttribute('disabled', false);
-	}
-	return;
-}
-
-function toggleDslider(sliderID,inputlID,inputrID) {
-	slider = document.getElementById(sliderID);
-	inputl = document.getElementById(inputlID);
-	inputr = document.getElementById(inputrID);
-	if (this.checked) {
-		inputl.disabled = false;
-		inputr.disabled = false;
-		slider.removeAttribute('disabled');
-	} else {
-		inputl.disabled = true;
-		inputr.disabled = true;
-		slider.setAttribute('disabled', false);
-	}
-	return;
-}
-
-function checkboxInit() {
-	//#1
-	document.getElementById('oilPressureAlarmEnb').addEventListener('click', function() {
-    toggleSslider.call(this, 's-slider-oilPressureAlarmLevel','sinput-oilPressureAlarmLevel');
-	});
-	document.getElementById('oilPressurePreAlarmEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-oilPressurePreAlarmLevel','sinput-oilPressurePreAlarmLevel');
-	});
-	//#2
-	document.getElementById('coolantHightTempAlarmEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-coolantHightTempAlarmLevel','sinput-coolantHightTempAlarmLevel');
-	});
-	document.getElementById('coolantHightTempPreAlarmEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-coolantHightTempPreAlarmLevel','sinput-coolantHightTempPreAlarmLevel');
-	});
-	document.getElementById('coolantTempHeaterEnb').addEventListener('change', function() {
-		toggleDslider.call(this, 'd-slider-coolantTempHeaterLevel','dinput-coolantTempHeaterOffLevel','dinput-coolantTempHeaterOnLevel');
-	});
-	document.getElementById('coolantTempCoolerEnb').addEventListener('change', function() {
-		toggleDslider.call(this, 'd-slider-coolantTempCoolerLevel','dinput-coolantTempCoolerOffLevel','dinput-coolantTempCoolerOnLevel');
-	});
-	//#3
-	document.getElementById('fuelLevelLowAlarmEnb').addEventListener('change', function() {
-		toggleSelector.call(this, 'fuelLevelLowAlarmAction');
-		toggleSslider.call(this, 's-slider-fuelLevelLowAlarmLevel','sinput-fuelLevelLowAlarmLevel');
-		toggleSslider.call(this, 's-slider-fuelLevelLowAlarmDelay','sinput-fuelLevelLowAlarmDelay');
-	});
-	document.getElementById('fuelLevelLowPreAlarmEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-fuelLevelLowPreAlarmLevel','sinput-fuelLevelLowPreAlarmLevel');
-		toggleSslider.call(this, 's-slider-fuelLevelLowPreAlarmDelay','sinput-fuelLevelLowPreAlarmDelay');
-	});
-	document.getElementById('fuelLevelHightAlarmEnb').addEventListener('change', function() {
-		toggleSelector.call(this, 'fuelLevelHightAlarmAction');
-		toggleSslider.call(this, 's-slider-fuelLevelHightAlarmLevel','sinput-fuelLevelHightAlarmLevel');
-		toggleSslider.call(this, 's-slider-fuelLevelHightAlarmDelay','sinput-fuelLevelHightAlarmDelay');
-	});
-	document.getElementById('fuelLevelHightPreAlarmLevelEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-fuelLevelHightPreAlarmLevel','sinput-fuelLevelHightPreAlarmLevel');
-		toggleSslider.call(this, 's-slider-fuelLevelHightPreAlarmDelay','sinput-fuelLevelHightPreAlarmDelay');
-	});
-	document.getElementById('fuelPumpEnb').addEventListener('change', function() {
-		toggleDslider.call(this, 'd-slider-fuelPumpOnOffLevel','dinput-fuelPumpOffLevel','dinput-fuelPumpOnLevel');
-	});
-	//#4
-	enableSslider('s-slider-diaDelay','sinput-diaDelay');
-	//#5
-	enableSslider('s-slider-dibDelay','sinput-dibDelay');
-	//#6
-	enableSslider('s-slider-dicDelay','sinput-dicDelay');
-	//#7
-	enableSslider('s-slider-didDelay','sinput-didDelay');
-	//#8 DO
-	//#9 Timers
-	enableSslider('s-slider-timerMainsTransientDelay','sinput-timerMainsTransientDelay');
-	enableSslider('s-slider-timerStartDelay','sinput-timerStartDelay');
-	enableSslider('s-slider-timerCranking','sinput-timerCranking');
-	enableSslider('s-slider-timerCrankDelay','sinput-timerCrankDelay');
-	enableSslider('s-slider-timerStartupIdleTime','sinput-timerStartupIdleTime');
-	enableSslider('s-slider-timerNominalRPMDelay','sinput-timerNominalRPMDelay');
-	enableSslider('s-slider-timerSafetyOnDelay','sinput-timerSafetyOnDelay');
-	enableSslider('s-slider-timerWarming','sinput-timerWarming');
-	enableSslider('s-slider-timerTransferDelay','sinput-timerTransferDelay');
-	enableSslider('s-slider-timerBreakerTripPulse','sinput-timerBreakerTripPulse');
-	enableSslider('s-slider-timerBreakerClosePulse','sinput-timerBreakerClosePulse');
-	enableSslider('s-slider-timerReturnDelay','sinput-timerReturnDelay');
-	enableSslider('s-slider-timerCooling','sinput-timerCooling');
-	enableSslider('s-slider-timerCoolingIdle','sinput-timerCoolingIdle');
-	enableSslider('s-slider-timerSolenoidHold','sinput-timerSolenoidHold');
-	enableSslider('s-slider-timerFailStopDelay','sinput-timerFailStopDelay');
-	enableSslider('s-slider-timerGenTransientDelay','sinput-timerGenTransientDelay');
-	//#10
-	enableSslider('s-slider-genRatedActivePower','sinput-genRatedActivePower');
-	enableSslider('s-slider-genRatedReactivePower','sinput-genRatedReactivePower');
-	enableSslider('s-slider-genRatedApparentPower','sinput-genRatedApparentPower');
-	enableSslider('s-slider-genRatedFrequency','sinput-genRatedFrequency');
-	enableSslider('s-slider-genCurrentPrimary','sinput-genCurrentPrimary');
-	enableSslider('s-slider-genCurrentFullLoadRating','sinput-genCurrentFullLoadRating');
-	document.getElementById('genPowerGeneratorControlEnb').addEventListener('change', function() {
-		toggleSelector.call(this, 'genPoles');
-		toggleSelector.call(this, 'genAcSys');
-	});
-	//#11
-	document.getElementById('genUnderVoltageAlarmEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-genUnderVoltageAlarmLevel','sinput-genUnderVoltageAlarmLevel');
-	});
-	document.getElementById('genUnderVoltagePreAlarmEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-genUnderVoltagePreAlarmLevel','sinput-genUnderVoltagePreAlarmLevel');
-	});
-	document.getElementById('genOverVoltagePreAlarmEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-genOverVoltagePreAlarmLevel','sinput-genOverVoltagePreAlarmLevel');
-	});
-	enableSslider('s-slider-genOverVoltageAlarmLevel','sinput-genOverVoltageAlarmLevel');
-	//#12
-	document.getElementById('genUnderFrequencyAlrmEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-genUnderFrequencyAlrmLevel','sinput-genUnderFrequencyAlrmLevel');
-	});
-	document.getElementById('genUnderFrequencyPreAlrmEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-genUnderFrequencyPreAlrmLevel','sinput-genUnderFrequencyPreAlrmLevel');
-	});
-	document.getElementById('genOverFrequencyPreAlrmEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-genOverFrequencyPreAlrmLevel','sinput-genOverFrequencyPreAlrmLevel');
-	});
-	document.getElementById('genOverFrequencyAlarmEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-genOverFrequencyAlrmLevel','sinput-genOverFrequencyAlrmLevel');
-	});
-	//#13
-	enableSslider('s-slider-genOverCurrentThermalProtectionLevel','sinput-genOverCurrentThermalProtectionLevel');
-	enableSslider('s-slider-genOverCurrentCutoffLevel','sinput-genOverCurrentCutoffLevel');
-	enableSslider('s-slider-genOverCurrentAlarmLevel','sinput-genOverCurrentAlarmLevel');
-	enableSslider('s-slider-genOverCurrentAlarmDelay','sinput-genOverCurrentAlarmDelay');
-	document.getElementById('genCurrentOverloadProtectionEnb').addEventListener('change', function() {
-		toggleSelector.call(this, 'genCurrentOverloadProtectionAction');
-		toggleSslider.call(this, 's-slider-genCurrentOverloadProtectionLevel','sinput-genCurrentOverloadProtectionLevel');
-		toggleSslider.call(this, 's-slider-genCurrentOverloadProtectionDelay','sinput-genCurrentOverloadProtectionDelay');
-	});
-	document.getElementById('genCurrentOverPhaseImbalanceEnb').addEventListener('change', function() {
-		toggleSelector.call(this, 'genCurrentOverPhaseImbalanceAction');
-		toggleSslider.call(this, 's-slider-genCurrentOverPhaseImbalanceLevel','sinput-genCurrentOverPhaseImbalanceLevel');
-		toggleSslider.call(this, 's-slider-genCurrentOverPhaseImbalanceDelay','sinput-genCurrentOverPhaseImbalanceDelay');
-	});
-	//#14
-	//#15
-	document.getElementById('mainsUnderVoltageAlarm').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-mainsUnderVoltageAlarmLevel','sinput-mainsUnderVoltageAlarmLevel');
-	});
-	document.getElementById('mainsOverVoltageAlarm').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-mainsOverVoltageAlarmLevel','sinput-mainsOverVoltageAlarmLevel');
-	});
-	document.getElementById('mainsUnderFrequencyAlarm').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-mainsUnderFrequencyAlarmLevel','sinput-mainsUnderFrequencyAlarmLevel');
-	});
-	document.getElementById('mainsOverFrequencyAlarm').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-mainsOverFrequencyAlarmLevel','sinput-mainsOverFrequencyAlarmLevel');
-	});
-	//#16
-	document.getElementById('enginePreHeatEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-enginePreHeatOn','sinput-enginePreHeatOn');
-		toggleSslider.call(this, 's-slider-enginePreHeatDuration','sinput-enginePreHeatDuration');
-	});
-	document.getElementById('enginePostHeatEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-enginePostHeatOn','sinput-enginePostHeatOn');
-		toggleSslider.call(this, 's-slider-enginePostHeatDuration','sinput-enginePostHeatDuration');
-	});
-	//#17
-	document.getElementById('crankDisconnectOilPressureEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-crankDisconnectOilPressureLevel','sinput-crankDisconnectOilPressureLevel');
-	});
-	document.getElementById('crankDisconnectChargeAlternatorEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-crankDisconnectChargeAlternatorLevel','sinput-crankDisconnectChargeAlternatorLevel');
-	});
-	//#18
-	document.getElementById('batteryUnderVoltageEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-batteryUnderVoltageLevel','sinput-batteryUnderVoltageLevel');
-		toggleSslider.call(this, 's-slider-batteryUnderVoltageDelay','sinput-batteryUnderVoltageDelay');
-	});
-	document.getElementById('batteryOverVoltageEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-batteryOverVoltageLevel','sinput-batteryOverVoltageLevel');
-		toggleSslider.call(this, 's-slider-batteryOverVoltageDelay','sinput-batteryOverVoltageDelay');
-	});
-	document.getElementById('batteryChargeShutdownEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-batteryChargeShutdownLevel','sinput-batteryChargeShutdownLevel');
-		toggleSslider.call(this, 's-slider-batteryChargeShutdownDelay','sinput-batteryChargeShutdownDelay');
-	});
-	document.getElementById('batteryChargeWarningEnb').addEventListener('change', function() {
-		toggleSslider.call(this, 's-slider-batteryChargeWarningLevel','sinput-batteryChargeWarningLevel');
-		toggleSslider.call(this, 's-slider-batteryChargeWarningDelay','sinput-batteryChargeWarningDelay');
-	});
-	//#19
-	document.getElementById('maintenanceAlarmOilEnb').addEventListener('change', function() {
-		toggleSelector.call(this, 'maintenanceAlarmOilAction');
-		toggleSslider.call(this, 's-slider-maintenanceAlarmOilEngineRunTime','sinput-maintenanceAlarmOilEngineRunTime');
-	});
-	document.getElementById('maintenanceAlarmAirEnb').addEventListener('change', function() {
-		toggleSelector.call(this, 'maintenanceAlarmAirAction');
-		toggleSslider.call(this, 's-slider-maintenanceAlarmAirEngineRunTime','sinput-maintenanceAlarmAirEngineRunTime');
-	});
-	document.getElementById('maintenanceAlarmFuelEnb').addEventListener('change', function() {
-		toggleSelector.call(this, 'maintenanceAlarmFuelAction');
-		toggleSslider.call(this, 's-slider-maintenanceAlarmFuelEngineRunTime','sinput-maintenanceAlarmFuelEngineRunTime');
-	});
-	return;
-}
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-function updateAllTimeSliders(){
-	updateTimeSlider("fuelLevelLowAlarmDelay",fuelLevelLowAlarmDelay);
-	updateTimeSlider("fuelLevelLowPreAlarmDelay",fuelLevelLowPreAlarmDelay);
-	updateTimeSlider("fuelLevelHightAlarmDelay",fuelLevelHightAlarmDelay);
-	updateTimeSlider("fuelLevelHightPreAlarmDelay",fuelLevelHightPreAlarmDelay);
-	updateTimeSlider("diaDelay",diaDelay);
-	updateTimeSlider("dibDelay",dibDelay);
-	updateTimeSlider("dicDelay",dicDelay);
-	updateTimeSlider("didDelay",didDelay);
-	updateTimeSlider("timerMainsTransientDelay",timerMainsTransientDelay);
-	updateTimeSlider("timerStartDelay",timerStartDelay);
-	updateTimeSlider("timerCranking",timerCranking);
-	updateTimeSlider("timerCrankDelay",timerCrankDelay);
-	updateTimeSlider("timerStartupIdleTime",timerStartupIdleTime);
-	updateTimeSlider("timerSafetyOnDelay",timerSafetyOnDelay);
-	updateTimeSlider("timerTransferDelay",timerTransferDelay);
-	updateTimeSlider("timerBreakerClosePulse",timerBreakerClosePulse);
-	updateTimeSlider("timerReturnDelay",timerReturnDelay);
-	updateTimeSlider("timerCooling",timerCooling);
-	updateTimeSlider("timerCoolingIdle",timerCoolingIdle);
-	updateTimeSlider("timerSolenoidHold",timerSolenoidHold);
-	updateTimeSlider("timerFailStopDelay",timerFailStopDelay);
-	updateTimeSlider("timerGenTransientDelay",timerGenTransientDelay);
-	updateTimeSlider("genCurrentOverloadProtectionDelay",genCurrentOverloadProtectionDelay);
-	updateTimeSlider("genCurrentOverPhaseImbalanceDelay",genCurrentOverPhaseImbalanceDelay);
-	updateTimeSlider("enginePreHeatDuration",enginePreHeatDuration);
-	updateTimeSlider("enginePostHeatDuration",enginePostHeatDuration);
-	updateTimeSlider("batteryChargeShutdownDelay",batteryChargeShutdownDelay);
-	updateTimeSlider("timerNominalRPMDelay",timerNominalRPMDelay);
-	updateTimeSlider("timerWarming",timerWarming);
-	updateTimeSlider("timerBreakerTripPulse",timerBreakerTripPulse);
-	return;
-}
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
 document.addEventListener("DOMContentLoaded", function(event) {
 	document.getElementById("versionSowtware").innerHTML = softwareVersion;
 	loadContent("devicePage");
 	sliderInit();
-
-
 	declareInterface();
-
+	powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
 	//dataUpdate();
-	sensorModalInit();
-	powerSliderInit("genRatedActivePower","genRatedReactivePower","genRatedApparentPower","cosFi",genRatedApparentPower);
-	timerSliderTransform("fuelLevelLowAlarmDelay",fuelLevelLowAlarmDelay);
-	timerSliderTransform("fuelLevelLowPreAlarmDelay",fuelLevelLowPreAlarmDelay);
-	timerSliderTransform("fuelLevelHightAlarmDelay",fuelLevelHightAlarmDelay);
-	timerSliderTransform("fuelLevelHightPreAlarmDelay",fuelLevelHightPreAlarmDelay);
-	timerSliderTransform("diaDelay",diaDelay);
-	timerSliderTransform("dibDelay",dibDelay);
-	timerSliderTransform("dicDelay",dicDelay);
-	timerSliderTransform("didDelay",didDelay);
-	timerSliderTransform("timerMainsTransientDelay",timerMainsTransientDelay);
-	timerSliderTransform("timerStartDelay",timerStartDelay);
-	timerSliderTransform("timerCranking",timerCranking);
-	timerSliderTransform("timerCrankDelay",timerCrankDelay);
-	timerSliderTransform("timerStartupIdleTime",timerStartupIdleTime);
-	timerSliderTransform("timerSafetyOnDelay",timerSafetyOnDelay);
-	timerSliderTransform("timerTransferDelay",timerTransferDelay);
-	timerSliderTransform("timerBreakerClosePulse",timerBreakerClosePulse);
-	timerSliderTransform("timerReturnDelay",timerReturnDelay);
-	timerSliderTransform("timerCooling",timerCooling);
-	timerSliderTransform("timerCoolingIdle",timerCoolingIdle);
-	timerSliderTransform("timerSolenoidHold",timerSolenoidHold);
-	timerSliderTransform("timerFailStopDelay",timerFailStopDelay);
-	timerSliderTransform("timerGenTransientDelay",timerGenTransientDelay);
-	timerSliderTransform("genCurrentOverloadProtectionDelay",genCurrentOverloadProtectionDelay);
-	timerSliderTransform("genCurrentOverPhaseImbalanceDelay",genCurrentOverPhaseImbalanceDelay);
-	timerSliderTransform("enginePreHeatDuration",enginePreHeatDuration);
-	timerSliderTransform("enginePostHeatDuration",enginePostHeatDuration);
-	timerSliderTransform("batteryChargeShutdownDelay",batteryChargeShutdownDelay);
-	timerSliderTransform("timerNominalRPMDelay",timerNominalRPMDelay);
-	timerSliderTransform("timerWarming",timerWarming);
-	timerSliderTransform("timerBreakerTripPulse",timerBreakerTripPulse);
 	slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
 	slider4InitLimits("genUnderFrequencyAlrmLevel","genUnderFrequencyPreAlrmLevel","genOverFrequencyPreAlrmLevel","genOverFrequencyAlrmLevel");
 	slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
 	slider2InitLimits("mainsUnderFrequencyAlarmLevel","mainsOverFrequencyAlarmLevel");
-	checkboxInit();
+	sensorModalInit();
 });
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-function downloadSensorData(chrtData){
-
-	function SaveAsFile(t,f,m) {
-  	try {
-    	var b = new Blob([t],{type:m});
-      saveAs(b, f);
-    } catch(e) {
-    	window.open("data:"+m+"," + encodeURIComponent(t), '_blank','');
-    }
-  }
-
-	saveChartData(chrtData);
-	SaveAsFile(JSON.stringify(chrtData),"sensorData.JSON","text/plain;charset=utf-8");
-}
-
-function uploadSensorData(chrtData) {
-	var newCart;
-	if (window.File && window.FileReader && window.FileList && window.Blob) {
-		var input = document.createElement("input");
-    input.setAttribute("type","file");
-		input.addEventListener("change",function() {
-			file = input.files[0];
-			if (file.type != "application/json") {
-				showAlert("alert-warning","Выбран файл с неправильным расширением. Выберете JSON файл");
-			} else {
-				let reader = new FileReader();				reader.readAsText(file);
-				reader.onload = function() {
-					try {
-						newCart = JSON.parse(reader.result);
-						makeChart(newCart);
-					} catch(e) {
-						showAlert("alert-warning","Неправильный формат файла");
-					}
-  			};
-			}
-		});
-		input.click();
-    return false; // avoiding navigation
-	} else {
-		showAlert("alert-warning","Браузер не поддерживает загрузку файлов");
-	}
-}
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************

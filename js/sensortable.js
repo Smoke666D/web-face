@@ -132,3 +132,48 @@ function saveChartData(chrtData){
   }
   return;
 }
+function downloadSensorData(chrtData){
+
+	function SaveAsFile(t,f,m) {
+  	try {
+    	var b = new Blob([t],{type:m});
+      saveAs(b, f);
+    } catch(e) {
+    	window.open("data:"+m+"," + encodeURIComponent(t), '_blank','');
+    }
+  }
+
+	saveChartData(chrtData);
+	SaveAsFile(JSON.stringify(chrtData),"sensorData.JSON","text/plain;charset=utf-8");
+}
+//******************************************************************************
+function uploadSensorData(chrtData) {
+	var newCart;
+	if (window.File && window.FileReader && window.FileList && window.Blob) {
+		var input = document.createElement("input");
+    input.setAttribute("type","file");
+		input.addEventListener("change",function() {
+			file = input.files[0];
+			if (file.type != "application/json") {
+				showAlert("alert-warning","Выбран файл с неправильным расширением. Выберете JSON файл");
+			} else {
+				let reader = new FileReader();				reader.readAsText(file);
+				reader.onload = function() {
+					try {
+						newCart = JSON.parse(reader.result);
+						makeChart(newCart);
+					} catch(e) {
+						showAlert("alert-warning","Неправильный формат файла");
+					}
+  			};
+			}
+		});
+		input.click();
+    return false; // avoiding navigation
+	} else {
+		showAlert("alert-warning","Браузер не поддерживает загрузку файлов");
+	}
+}
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
