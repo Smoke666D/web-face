@@ -1255,21 +1255,21 @@ var dataReg = [{
             "max": 1
         },
         {
-            "name": "genUnderFrequencyAlrmEnb",
+            "name": "genUnderFrequencyAlarmEnb",
             "mask": 8,
             "min": 0,
             "shift": 3,
             "max": 1
         },
         {
-            "name": "genUnderFrequencyPreAlrmEnb",
+            "name": "genUnderFrequencyPreAlarmEnb",
             "mask": 16,
             "min": 0,
             "shift": 4,
             "max": 1
         },
         {
-            "name": "genOverFrequencyPreAlrmEnb",
+            "name": "genOverFrequencyPreAlarmEnb",
             "mask": 32,
             "min": 0,
             "shift": 5,
@@ -1373,7 +1373,7 @@ var dataReg = [{
 },{
     "page": 0,
     "adr": 75,
-    "name": "genUnderFrequencyAlrmLevel",
+    "name": "genUnderFrequencyAlarmLevel",
     "value": 400,
     "scale": -1,
     "min": 0,
@@ -1386,7 +1386,7 @@ var dataReg = [{
 },{
     "page": 0,
     "adr": 76,
-    "name": "genUnderFrequencyPreAlrmLevel",
+    "name": "genUnderFrequencyPreAlarmLevel",
     "value": 420,
     "scale": -1,
     "min": 1,
@@ -1399,7 +1399,7 @@ var dataReg = [{
 },{
     "page": 0,
     "adr": 77,
-    "name": "genOverFrequencyPreAlrmLevel",
+    "name": "genOverFrequencyPreAlarmLevel",
     "value": 540,
     "scale": -1,
     "min": 4,
@@ -1412,7 +1412,7 @@ var dataReg = [{
 },{
     "page": 0,
     "adr": 78,
-    "name": "genOverFrequencyAlrmLevel",
+    "name": "genOverFrequencyAlarmLevel",
     "value": 550,
     "scale": -1,
     "min": 5,
@@ -2028,7 +2028,7 @@ var dataReg = [{
 },{
     "page": 0,
     "adr": 112,
-    "name": "maintenanceAlarmDelay",
+    "name": "maintenanceAlarmOilTime",
     "value": 10,
     "scale": 0,
     "min": 10,
@@ -2041,7 +2041,7 @@ var dataReg = [{
 },{
     "page": 0,
     "adr": 113,
-    "name": "maintenanceAlarmAirDelay",
+    "name": "maintenanceAlarmAirTime",
     "value": 10,
     "scale": 0,
     "min": 10,
@@ -2054,7 +2054,7 @@ var dataReg = [{
 },{
     "page": 0,
     "adr": 114,
-    "name": "maintenanceAlarmFuelDelay",
+    "name": "maintenanceAlarmFuelTime",
     "value": 10,
     "scale": 0,
     "min": 10,

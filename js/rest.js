@@ -78,9 +78,9 @@ function Select(name) {
 	this.init = function() {
 		this.getData();
 		this.object = document.getElementById(this.name);
-		swName = this.name.replace("Action", "")
-		this.sw = new Switch(swName + "Enb")
-		if (this.sw.switch){
+		swName = this.name.replace("Action", "") + "Enb";
+		this.sw = new Switch(swName);
+		if (this.sw.object){
 			this.enable = this.sw.getVal();
 			this.sw.object.addEventListener('click', function() {
 				if (this.checked) {
@@ -92,6 +92,15 @@ function Select(name) {
 		} else {
 			this.enable = 1;
 		}
+		if (name.endsWith("SensorType")) {
+			this.object.addEventListener('change', function() {
+				if (self.object.value > 2) {
+					self.button.disabled = false;
+				} else {
+					self.button.disabled = true;
+				}
+			})
+		}
 		return;
 	}
 
@@ -102,6 +111,16 @@ function Select(name) {
 		} else {
 			this.object.disabled = true;
 		}
+		if(name.endsWith("SensorType")){
+			this.button = document.getElementById(this.name.replace("Type","")+"Setup");
+			if (this.object.value > 2) {
+				this.button.disabled = false;
+			} else {
+				this.button.disabled = true;
+			}
+		}
+
+
 		return;
 	}
 
@@ -185,6 +204,7 @@ function Slider(name) {
 		this.slider = document.getElementById("s-slider-" + this.name);
 		this.input  = document.getElementById("sinput-" + this.name);
 		swName = this.name.replace("Level", "")
+		swName = this.name.replace("Time", "")
 		swName = swName.replace("Delay", "")
 		swName = swName.replace("On","");
 		swName = swName.replace("Off","");
@@ -209,17 +229,23 @@ function Slider(name) {
 				switch(self.label.textContent) {
 					case 'сек':
 						if (self.input.value >= 3602){
+							this.scale = 0.1;
+							self.input.step  = 0.1;
 							self.label.textContent = 'ч';
 							self.slider.noUiSlider.updateOptions({
-								start: [input.value/3600],
+								step: 	0.1,
+								start: [self.input.value/3600],
 								range: {
 									'min': 0,
 									'max': dataReg[self.regNum].max/3600
 								}
 							})
 						} else	if (self.input.value >= 61){
+							this.scale = 0.1;
+							self.input.step  = 0.1;
 							self.label.textContent = 'мин';
 							self.slider.noUiSlider.updateOptions({
+								step: 	0.1,
 								start: [self.input.value/60],
 								range: {
 									'min': 0,
@@ -230,8 +256,11 @@ function Slider(name) {
 						break;
 					case 'мин':
 						if (self.input.value >= 62){
+							this.scale = 0.1;
+							self.input.step  = 0.1;
 							self.label.textContent = 'ч';
 							self.slider.noUiSlider.updateOptions({
+								step: 	0.1,
 								start: [self.input.value/60],
 								range: {
 									'min': 0,
@@ -239,8 +268,11 @@ function Slider(name) {
 								}
 							})
 						} else if (self.input.value <= 1) {
+							self.calcScale();
+							self.input.step  = self.scale;
 							self.label.textContent = 'сек';
 							self.slider.noUiSlider.updateOptions({
+								step: 	this.scale,
 								start: [self.input.value*60],
 								range: {
 									'min': 0,
@@ -251,8 +283,11 @@ function Slider(name) {
 						break;
 					case 'ч':
 						if (self.input.value <= 1){
+							this.scale = 0.1;
+							self.input.step  = 0.1;
 							self.label.textContent = 'мин';
 							self.slider.noUiSlider.updateOptions({
+								step: 	0.1,
 								start: [self.input.value*60],
 								range: {
 									'min': 0,
@@ -269,6 +304,11 @@ function Slider(name) {
 		return;
 	}
 
+	this.calcScale = function() {
+		this.scl = Math.pow(10,dataReg[this.regNum].scale);
+		return;
+	}
+
 	this.update = function() {
 		reg = dataReg[this.regNum];
 		if (this.enable == 1){
@@ -278,24 +318,25 @@ function Slider(name) {
 			this.input.disabled = true;
 			this.slider.setAttribute('disabled', false);
 		}
-		scl = Math.pow(10,reg.scale);
-		this.input.value = reg.value * scl;
-		this.input.step  = scl;
+		this.calcScale();
+		this.input.value = reg.value * this.scl;
+		this.input.step  = this.scl;
 		this.input.addEventListener('change', function() {
-			this.value = parseFloat(this.value).toFixed(calcFracLength(scl));
+			this.value = parseFloat(this.value).toFixed(calcFracLength(this.scl));
 		});
 		this.slider.noUiSlider.updateOptions({
-			step: 	scl,
-			start: [reg.value * scl],
+			step: 	this.scl,
+			start: [reg.value * this.scl],
 			range: {
-				'min': (reg.min * scl),
-				'max': (reg.max * scl)
+				'min': (reg.min * this.scl),
+				'max': (reg.max * this.scl)
 			}
 		})
 		return;
 	}
 
 	this.grab = function() {
+		this.calcScale();
 		val = parseFloat(this.input.value) / Math.pow(10,dataReg[this.regNum].scale)
 		dataReg[this.regNum].value = parseFloat(val.toFixed(0));
 		return;
@@ -335,8 +376,7 @@ var radioArray = [];
 function declareSliders() {
 	for(var i=0; i<dataReg.length; i++) {
 		str = dataReg[i].name
-		if (str.endsWith("Level") || str.endsWith("Delay") || str.startsWith("timer")) {
-			console.log(dataReg[i].name);
+		if (str.endsWith("Level") || str.endsWith("Delay") || str.startsWith("timer") || str.endsWith("Time")) {
 			slidersArray.push(new Slider(dataReg[i].name));
 		}
 	}

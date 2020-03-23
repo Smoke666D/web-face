@@ -308,7 +308,7 @@
               </select>
             </div>
             <div class="col-sm-auto">
-              <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" id="oilSetupSensor">
+              <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" id="oilPressureSensorSetup">
                 <i class="fa fa-chart-line"></i>
               </button>
             </div>
@@ -389,7 +389,7 @@
               </select>
             </div>
             <div class="col-sm-auto">
-              <button type="button" aria-label="Sensor data" class="btn btn-primary">
+              <button type="button" aria-label="Sensor data" class="btn btn-primary" id="coolantTempSensorSetup">
                 <i class="fa fa-gear"></i>
               </button>
             </div>
@@ -551,7 +551,7 @@
             </select>
           </div>
           <div class="col-sm-auto">
-            <button type="button" aria-label="Sensor data" class="btn btn-primary">
+            <button type="button" aria-label="Sensor data" class="btn btn-primary" id="fuelLevelSensorSetup">
               <i class="fa fa-gear"></i>
             </button>
           </div>
@@ -2052,7 +2052,7 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="genUnderFrequencyAlrmEnb">
+              <input type="checkbox" class="check-input" id="genUnderFrequencyAlarmEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Сигнал тревоги</label>
@@ -2064,20 +2064,20 @@
             <label>Отключение</label>
           </div>
           <div class="col-sm-auto">
-              <input type="number" class="form-control s-sinput" id="sinput-genUnderFrequencyAlrmLevel" step="1">
+              <input type="number" class="form-control s-sinput" id="sinput-genUnderFrequencyAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit">Гц</label>
           </div>
           <div class="col-sm">
-            <div class="s-slider" id="s-slider-genUnderFrequencyAlrmLevel"></div>
+            <div class="s-slider" id="s-slider-genUnderFrequencyAlarmLevel"></div>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="genUnderFrequencyPreAlrmEnb">
+              <input type="checkbox" class="check-input" id="genUnderFrequencyPreAlarmEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Предварительный сигнал тревоги</label>
@@ -2089,13 +2089,13 @@
             <label>Отключение</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genUnderFrequencyPreAlrmLevel" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-genUnderFrequencyPreAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit">Гц</label>
           </div>
           <div class="col-sm">
-            <div class="s-slider" id="s-slider-genUnderFrequencyPreAlrmLevel"></div>
+            <div class="s-slider" id="s-slider-genUnderFrequencyPreAlarmLevel"></div>
           </div>
         </div>
 
@@ -2104,7 +2104,7 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="genOverFrequencyPreAlrmEnb">
+              <input type="checkbox" class="check-input" id="genOverFrequencyPreAlarmEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Предварительный сигнал тревоги</label>
@@ -2116,13 +2116,13 @@
             <label>Отключение</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genOverFrequencyPreAlrmLevel" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-genOverFrequencyPreAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit">Гц</label>
           </div>
           <div class="col-sm">
-            <div class="s-slider" id="s-slider-genOverFrequencyPreAlrmLevel"></div>
+            <div class="s-slider" id="s-slider-genOverFrequencyPreAlarmLevel"></div>
           </div>
         </div>
 
@@ -2141,13 +2141,13 @@
             <label>Отключение</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genOverFrequencyAlrmLevel" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-genOverFrequencyAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit">Гц</label>
           </div>
           <div class="col-sm">
-            <div class="s-slider" id="s-slider-genOverFrequencyAlrmLevel"></div>
+            <div class="s-slider" id="s-slider-genOverFrequencyAlarmLevel"></div>
           </div>
         </div>
       </div>
@@ -2188,7 +2188,7 @@
         </div>
 
         <div class="row">
-          <div class="col-sm-2">
+          <div class="col-sm-2 pos-name">
             <label class="pos-select">Действие</label>
           </div>
           <div class="col-sm-auto">
@@ -2223,7 +2223,7 @@
             <input type="number" class="form-control s-sinput" id="sinput-genOverCurrentAlarmDelay" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit">мин</label>
+            <label id="label-genOverCurrentAlarmDelay" class="pos-unit">мин</label>
           </div>
           <div class="col-sm">
             <div class="s-slider" id="s-slider-genOverCurrentAlarmDelay"></div>
@@ -2243,8 +2243,8 @@
         </div>
 
         <div class="row">
-          <div class="col-sm-2">
-            <label class="pos-select">Действие</label>
+          <div class="col-sm-2 pos-name">
+            <label>Действие</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="genCurrentOverloadProtectionAction">
@@ -2570,15 +2570,6 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="crankDisconnectOilPressureEnb">
-              <span class="slider"></span>
-            </label>
-            <label class="form-check-label">Отключение коленчатого вала при давлении масла</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-auto">
-            <label class="switch">
               <input type="checkbox" class="check-input" id="crankOilPressureCheckOnStartEnb">
               <span class="slider"></span>
             </label>
@@ -2682,7 +2673,7 @@
             <input type="number" class="form-control s-sinput" id="sinput-batteryUnderVoltageDelay" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit">мин</label>
+            <label id="label-batteryUnderVoltageDelay" class="pos-unit">мин</label>
           </div>
           <div class="col-sm">
             <div class="s-slider" id="s-slider-batteryUnderVoltageDelay"></div>
@@ -2719,7 +2710,7 @@
             <input type="number" class="form-control s-sinput" id="sinput-batteryOverVoltageDelay" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit">мин</label>
+            <label id="label-batteryOverVoltageDelay" class="pos-unit">мин</label>
           </div>
           <div class="col-sm">
             <div class="s-slider" id="s-slider-batteryOverVoltageDelay"></div>
@@ -2794,7 +2785,7 @@
             <input type="number" class="form-control s-sinput" id="sinput-batteryChargeWarningDelay" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit">мин</label>
+            <label class="pos-unit" id="label-batteryChargeWarningDelay">мин</label>
           </div>
           <div class="col-sm">
             <div class="s-slider" id="s-slider-batteryChargeWarningDelay"></div>
@@ -2830,13 +2821,13 @@
             <label>Часы работы двигателя</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-maintenanceAlarmDelay" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-maintenanceAlarmOilTime" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit">час</label>
+            <label class="pos-unit" id="label-maintenanceAlarmOilTime">ч</label>
           </div>
           <div class="col-sm">
-            <div class="s-slider" id="s-slider-maintenanceAlarmDelay"></div>
+            <div class="s-slider" id="s-slider-maintenanceAlarmOilTime"></div>
           </div>
         </div>
         <h6>Воздух</h6>
@@ -2865,13 +2856,13 @@
             <label>Часы работы двигателя</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-maintenanceAlarmAirDelay" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-maintenanceAlarmAirTime" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit">час</label>
+            <label class="pos-unit" id="label-maintenanceAlarmAirTime">час</label>
           </div>
           <div class="col-sm">
-            <div class="s-slider" id="s-slider-maintenanceAlarmAirDelay"></div>
+            <div class="s-slider" id="s-slider-maintenanceAlarmAirTime"></div>
           </div>
         </div>
         <h6>Топливо</h6>
@@ -2900,13 +2891,13 @@
             <label>Часы работы двигателя</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-maintenanceAlarmFuelDelay" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-maintenanceAlarmFuelTime" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit">час</label>
+            <label class="pos-unit" id="label-maintenanceAlarmFuelTime">час</label>
           </div>
           <div class="col-sm">
-            <div class="s-slider" id="s-slider-maintenanceAlarmFuelDelay"></div>
+            <div class="s-slider" id="s-slider-maintenanceAlarmFuelTime"></div>
           </div>
         </div>
       </div>
