@@ -54,13 +54,15 @@ var chartOptions = {
     }]
   },
   onDrag: function(evt, datasetIndex, index, value) {
-    if (index > 0) {
-      if(value.x < sensorData.datasets[0].data[index-1].x+0.01){
+    if (index > 0) { 
+      if (value.x < sensorData.datasets[0].data[index-1].x+0.01){
+        sensorData.datasets[0].data[index].x = sensorData.datasets[0].data[index-1].x+0.01
         return false;
       }
     }
     if (index < (sensorData.datasets[0].data.length - 1)) {
       if (value.x > sensorData.datasets[0].data[index+1].x-0.01){
+        sensorData.datasets[0].data[index].x = sensorData.datasets[0].data[index+1].x-0.01
         return false;
       }
     }
@@ -220,7 +222,6 @@ function makeChart(chrtData){
   lineChart.options.scales.xAxes[0].ticks.min = chrtData.xmin;
   lineChart.options.scales.xAxes[0].scaleLabel.labelString = chrtData.xunit;
   for(i=0;i<chrtData.size;i++){
-    //sensorData.labels.push(chrtData.dots[i].x.toString());
     sensorData.datasets[0].data.push({
       x: chrtData.dots[i].x,
       y: chrtData.dots[i].y,
@@ -236,10 +237,10 @@ function addChartPoint(){
   var dataLen  = sensorData.datasets[0].data.length;
   var xLstVal  = sensorData.datasets[0].data[dataLen-1].x;
   var xpreVal  = sensorData.datasets[0].data[dataLen-2].x;
-  var xNewVal  = xpreVal + (xLstVal-xpreVal)/2;
+  var xNewVal  = parseFloat((xpreVal + (xLstVal-xpreVal)/2).toFixed(2));
   var yLstVal  = sensorData.datasets[0].data[dataLen-1].y;
   var yPreVal  = sensorData.datasets[0].data[dataLen-2].y;
-  var yNewVal  = yPreVal + (yLstVal-yPreVal)/2;
+  var yNewVal  = parseFloat((yPreVal + (yLstVal-yPreVal)/2).toFixed(2));
   sensorData.datasets[0].data.push({
     x: xLstVal,
     y: yLstVal

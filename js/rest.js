@@ -199,10 +199,21 @@ function Slider(name) {
 		return;
 	}
 
+	this.setUnits = function(units) {
+		dataReg[this.regNum].units = units;
+		return;
+	}
+
+	this.setScale = function(scale) {
+		dataReg[this.regNum].scale = scale;
+		return;
+	}
+
 	this.init = function() {
 		this.getData();
 		this.slider = document.getElementById("s-slider-" + this.name);
 		this.input  = document.getElementById("sinput-" + this.name);
+		this.label  = document.getElementById("label-" + this.name);
 		swName = this.name.replace("Level", "")
 		swName = this.name.replace("Time", "")
 		swName = swName.replace("Delay", "")
@@ -224,7 +235,6 @@ function Slider(name) {
 			this.enable = 1;
 		}
 		if ((this.name.endsWith("Delay")) || (this.name.startsWith("timer"))) {
-			this.label  = document.getElementById("label-" + this.name);
 			this.slider.noUiSlider.on('change',function(){
 				switch(self.label.textContent) {
 					case 'сек':
@@ -311,6 +321,7 @@ function Slider(name) {
 
 	this.update = function() {
 		reg = dataReg[this.regNum];
+		this.label.textContent = reg.units;
 		if (this.enable == 1){
 			this.input.disabled = false;
 			this.slider.removeAttribute('disabled');

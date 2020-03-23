@@ -8427,7 +8427,9 @@ a[data-toggle="collapse"] {
   display: block;
 }
 .pos-name{
-  text-align: left!important;}
+  text-align: left!important;
+  padding-left: 82px;}
+
   .pos-name label{
     vertical-align:-6px;
 }

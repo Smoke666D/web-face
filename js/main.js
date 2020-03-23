@@ -288,6 +288,50 @@ function powerSliderInit(idActive, idReactive, idApparent, idCosFi, regName){
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+function oilScaleInit() {
+	var self = this;
+	this.object = document.getElementById("oilScale");
+	this.label  = document.getElementById("oilScaleString");
+	self.slider0 = new Slider("oilPressurePreAlarmLevel");
+	self.slider1 = new Slider("oilPressureAlarmLevel");
+	self.slider2 = new Slider("crankDisconnectOilPressureLevel");
+
+	function calcOilScale() {
+		self.slider0.grab();
+		self.slider1.grab();
+		self.slider2.grab();
+		if(self.object.checked) {
+			self.label.textContent = "КПа"
+			self.slider0.setUnits("КПа");
+			self.slider1.setUnits("КПа");
+			self.slider2.setUnits("КПа");
+			self.slider0.setScale(1);
+			self.slider1.setScale(1);
+			self.slider2.setScale(1);
+		} else {
+			self.label.textContent = "Бар"
+			self.slider0.setUnits("Бар");
+			self.slider1.setUnits("Бар");
+			self.slider2.setUnits("Бар");
+
+			self.slider0.setScale(-1);
+			self.slider1.setScale(-1);
+			self.slider2.setScale(-1);
+		}
+		self.slider0.update();
+		self.slider1.update();
+		self.slider2.update();
+	}
+
+
+	this.object.addEventListener('change', function(){
+		calcOilScale()
+	})
+	calcOilScale();
+}
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
 function slider2InitLimits(id1,id2) {
 	var self = this;
 	this.slider1 = document.getElementById("s-slider-"+id1);
@@ -417,6 +461,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	loadContent("devicePage");
 	sliderInit();
 	declareInterface();
+	oilScaleInit();
 	powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
 	//dataUpdate();
 	const genVoltageLims = new slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
