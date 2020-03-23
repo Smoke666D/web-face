@@ -26,6 +26,10 @@ function toogleNav() {
 
 function hideConteny() {
 	var contentPages = document.getElementsByClassName("content-data");
+	var navItems     = document.getElementsByClassName("navItem");
+	for(var i=0;i<navItems.length;i++){
+		navItems[i].classList.remove("checked");
+	}
 	for(var i=0;i<contentPages.length;i++){
 		contentPages[i].classList.add("hidden");
 	}
@@ -35,6 +39,7 @@ function hideConteny() {
 function loadContent(id) {
 	hideConteny();
 	document.getElementById(id).classList.remove("hidden");
+	test = document.getElementById("nav-" + id).classList.add("checked");
 	return;
 }
 

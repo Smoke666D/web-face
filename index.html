@@ -24,7 +24,7 @@
       <img src="img/light_logo_energan_spb.png" class="logo">
 	    <ul class="list-unstyled components mb-5">
         <li>
-          <a onclick="loadContent('devicePage')" href="#">
+          <a class="navItem" id="nav-devicePage" onclick="loadContent('devicePage')" href="#">
             <div class="fas">
               <i class="fas fa-microchip"></i>
             </div>
@@ -38,43 +38,43 @@
           </a>
           <ul class="collapse list-unstyled" id="outputSubmenu">
             <li>
-              <a id="nav_oilPress" onclick="loadContent('oilPressPage')" href="#">
+              <a class="navItem" id="nav-oilPressPage" onclick="loadContent('oilPressPage')" href="#">
                 <i class="fas fa-oil-can"></i>
                 <span>Давление масла</span>
               </a>
             </li>
             <li>
-              <a id="nav_coolantTemp" onclick="loadContent('coolTempPage')" href="#">
+              <a class="navItem" id="nav-coolTempPage" onclick="loadContent('coolTempPage')" href="#">
                 <i class="fas fa-thermometer-full"></i>
                 <span>Температура охлаждающей жидкости</span>
               </a>
             </li>
             <li>
-              <a id="nav_fuelLevel" onclick="loadContent('fuelLevelPage')" href="#">
+              <a class="navItem" id="nav-fuelLevelPage" onclick="loadContent('fuelLevelPage')" href="#">
                 <i class="fas fa-gas-pump"></i>
                 <span>Уровень топлива</span>
               </a>
             </li>
             <li>
-              <a onclick="loadContent('digitalInputAPage')" href="#">
+              <a class="navItem" id="nav-digitalInputAPage" onclick="loadContent('digitalInputAPage')" href="#">
                 <i class="fas fa-chevron-right"></i>
                 <span>Цифровой вход A</span>
               </a>
             </li>
             <li>
-              <a onclick="loadContent('digitalInputBPage')" href="#">
+              <a class="navItem" id="nav-digitalInputBPage" onclick="loadContent('digitalInputBPage')" href="#">
                 <i class="fas fa-chevron-right"></i>
                 <span>Цифровой вход B</span>
               </a>
             </li>
             <li>
-              <a onclick="loadContent('digitalInputCPage')" href="#">
+              <a class="navItem" id="nav-digitalInputCPage" onclick="loadContent('digitalInputCPage')" href="#">
                 <i class="fas fa-chevron-right"></i>
                 <span>Цифровой вход C</span>
               </a>
             </li>
             <li>
-              <a onclick="loadContent('digitalInputDPage')" href="#">
+              <a class="navItem" id="nav-digitalInputDPage" onclick="loadContent('digitalInputDPage')" href="#">
                 <i class="fas fa-chevron-right"></i>
                 <span>Цифровой вход D</span>
               </a>
@@ -82,13 +82,13 @@
           </ul>
         </li>
         <li>
-          <a onclick="loadContent('digitalOutputPage')" href="#">
+          <a class="navItem" id="nav-digitalOutputPage" onclick="loadContent('digitalOutputPage')" href="#">
             <i class="fas fa-angle-double-left"></i>
             <span>Цифровые выходы</span>
           </a>
         </li>
         <li>
-          <a onclick="loadContent('timerPage')" href="#">
+          <a class="navItem" id="nav-timerPage" onclick="loadContent('timerPage')" href="#">
             <i class="fas fa-clock"></i>
             <span>Таймеры</span>
           </a>
@@ -102,25 +102,25 @@
           </a>
           <ul class="collapse list-unstyled" id="generatorSubmenu">
             <li>
-              <a onclick="loadContent('generatorOptionPage')" href="#">
+              <a class="navItem" id="nav-generatorOptionPage" onclick="loadContent('generatorOptionPage')" href="#">
                 <i class="fas fa-cog"></i>
                 <span>Опции генератора</span>
               </a>
             </li>
             <li>
-              <a onclick="loadContent('generatorVoltagePage')" href="#">
+              <a class="navItem" id="nav-generatorVoltagePage" onclick="loadContent('generatorVoltagePage')" href="#">
                 <div class="fas">U</div>
                 <span>Напряжение генератора</span>
               </a>
             </li>
             <li>
-              <a onclick="loadContent('generatorFreqPage')" href="#">
+              <a class="navItem" id="nav-generatorFreqPage" onclick="loadContent('generatorFreqPage')" href="#">
                 <div class="fas">F</div>
                 <span>Частота генератора</span>
               </a>
             </li>
             <li>
-              <a onclick="loadContent('generatorCurrentPage')" href="#">
+              <a class="navItem" id="nav-generatorCurrentPage" onclick="loadContent('generatorCurrentPage')" href="#">
                 <div class="fas">I</div>
                 <span>Сила тока генератора</span>
               </a>
@@ -136,13 +136,13 @@
           </a>
           <ul class="collapse list-unstyled" id="netSubmenu">
             <li>
-              <a onclick="loadContent('networkOptionPage')" href="#">
+              <a class="navItem" id="nav-networkOptionPage" onclick="loadContent('networkOptionPage')" href="#">
                 <i class="fas fa-cog"></i>
                 <span>Опции сети</span>
               </a>
             </li>
             <li>
-              <a onclick="loadContent('networkAlarmPage')" href="#">
+              <a class="navItem" id="nav-networkAlarmPage" onclick="loadContent('networkAlarmPage')" href="#">
                 <i class="fas fa-exclamation-triangle"></i>
                 <span>Сигналы тревоги сети</span>
               </a>
@@ -158,13 +158,13 @@
           </a>
           <ul class="collapse list-unstyled" id="engineSubmenu">
             <li>
-              <a onclick="loadContent('engineOptionPage')" href="#">
+              <a class="navItem" id="nav-engineOptionPage" onclick="loadContent('engineOptionPage')" href="#">
                 <i class="fas fa-cog"></i>
                 <span>Опции двигателя</span>
               </a>
             </li>
             <li>
-              <a onclick="loadContent('crankshaftPage')" href="#">
+              <a class="navItem" id="nav-crankshaftPage" onclick="loadContent('crankshaftPage')" href="#">
                 <div class="fas">
                   <svg class="svg-icon" viewBox="0 -76 512 512"><path d="M15 210h46v15c0 8 7 15 15 15h15V90H76c-8 0-15 7-15 15v15H15c-8 0-15 7-15 15v60c0 8 7 15 15 15zm0 0M211 315V15c0-8-7-15-15-15-41 0-75 34-75 75v240a45 45 0 0090 0zm0 0M316 0c-20 0-36 13-42 30h-33v120h30v165a45 45 0 0090 0V45c0-25-20-45-45-45zm0 0M512 45c0-25-21-45-46-45s-45 20-45 45v195h-30v90h30v15c0 8 7 15 15 15 41 0 76-34 76-75zm0 0"/></svg>
                 </div>
@@ -172,7 +172,7 @@
               </a>
             </li>
             <li>
-              <a onclick="loadContent('battaryPage')" href="#">
+              <a class="navItem" id="nav-battaryPage" onclick="loadContent('battaryPage')" href="#">
                 <div class="fas">
                   <svg class="svg-icon" viewBox="0 0 512 512"><path d="M469 107V85c0-11-9-21-21-21h-64c-12 0-21 10-21 21v22h-7l-8-9c-8-8-19-13-31-13H195c-12 0-23 5-31 13l-8 9h-7V85c0-11-9-21-21-21H64c-12 0-21 10-21 21v22c-24 0-43 19-43 42v256c0 24 19 43 43 43h426c24 0 43-19 43-43V149c0-23-19-42-43-42zM117 213H75a11 11 0 110-21h42a11 11 0 110 21zm320 0h-10v11a11 11 0 11-22 0v-11h-10a11 11 0 110-21h10v-11a11 11 0 1122 0v11h10a11 11 0 110 21z"/></svg>
                 </div>
@@ -182,13 +182,13 @@
           </ul>
         </li>
         <li>
-          <a onclick="loadContent('servicePage')" href="#">
+          <a class="navItem" id="nav-servicePage" onclick="loadContent('servicePage')" href="#">
             <i class="fas fa-tools"></i>
             <span>Сигналы техобслуживания</span>
           </a>
         </li>
         <li>
-          <a onclick="loadContent('logPage')" href="#">
+          <a class="navItem" id="nav-logPage" onclick="loadContent('logPage')" href="#">
             <i class="fas fa-book"></i>
             <span>Журнал</span>
           </a>
