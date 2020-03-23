@@ -8432,9 +8432,14 @@ a[data-toggle="collapse"] {
     vertical-align:-6px;
 }
 
-.pos-info{
+.axis-input
+{
+  display: inline-block;
+  margin: 2px;
+  width: 100px!important;
+}
 
-  }
+.pos-info{}
   .pos-info label{
     color: #28a745;
 }

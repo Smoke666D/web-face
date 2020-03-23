@@ -423,7 +423,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	const genFreqLims = new slider4InitLimits("genUnderFrequencyAlarmLevel","genUnderFrequencyPreAlarmLevel","genOverFrequencyPreAlarmLevel","genOverFrequencyAlarmLevel");
 	const mainsVoltageLims = new slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
 	const mainsFreqLims = new slider2InitLimits("mainsUnderFrequencyAlarmLevel","mainsOverFrequencyAlarmLevel");
-	sensorModalInit();
 });
 //******************************************************************************
 //******************************************************************************

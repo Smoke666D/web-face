@@ -308,7 +308,7 @@
               </select>
             </div>
             <div class="col-sm-auto">
-              <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" id="oilPressureSensorSetup">
+              <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('oil')" id="oilPressureSensorSetup">
                 <i class="fa fa-chart-line"></i>
               </button>
             </div>
@@ -389,7 +389,7 @@
               </select>
             </div>
             <div class="col-sm-auto">
-              <button type="button" aria-label="Sensor data" class="btn btn-primary" id="coolantTempSensorSetup">
+              <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('coolant')" id="coolantTempSensorSetup">
                 <i class="fa fa-gear"></i>
               </button>
             </div>
@@ -551,7 +551,7 @@
             </select>
           </div>
           <div class="col-sm-auto">
-            <button type="button" aria-label="Sensor data" class="btn btn-primary" id="fuelLevelSensorSetup">
+            <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('fuel')" id="fuelLevelSensorSetup">
               <i class="fa fa-gear"></i>
             </button>
           </div>
@@ -2990,6 +2990,14 @@
                 <button type="button" aria-label="Remove point" onclick="removeChartPoint()" class="btn btn-primary">
                   <i class="fa fa-minus"></i>
                   <span class="sr-only">Remove point</span>
+                </button>
+                <label>X:</label>
+                <input type="number" class="form-control axis-input" id="chartXedit" disabled="false" step="0.01">
+                <label>Y:</label>
+                <input type="number" class="form-control axis-input" id="chartYedit" disabled="false" step="0.01">
+                <button type="button" id="chartApplay" aria-label="Remove point" disabled="false" onclick="" class="btn btn-primary">
+                  <i class="fas fa-check-circle"></i>
+                  <span class="sr-only">Edit point</span>
                 </button>
               </div>
             </div>
