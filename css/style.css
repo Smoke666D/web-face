@@ -4331,7 +4331,6 @@ input[type="button"].btn-block {
     color: #040505; }
 
 .alert-message{
-  position: absolute;
   width: 400px;
   right: 20px;
   bottom: 20px;
@@ -8270,6 +8269,13 @@ h1, h2, h3, h4, h5,
   display: flex;
   width: 100%;
   align-items: stretch }
+
+#alerts {
+  display: inline-block;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
 
 #sidebar {
   height: auto;

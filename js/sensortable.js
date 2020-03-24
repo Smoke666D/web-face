@@ -54,7 +54,7 @@ var chartOptions = {
     }]
   },
   onDrag: function(evt, datasetIndex, index, value) {
-    if (index > 0) { 
+    if (index > 0) {
       if (value.x < sensorData.datasets[0].data[index-1].x+0.01){
         sensorData.datasets[0].data[index].x = sensorData.datasets[0].data[index-1].x+0.01
         return false;
@@ -304,7 +304,7 @@ function uploadSensorData(chrtData) {
 		input.addEventListener("change",function() {
 			file = input.files[0];
 			if (file.type != "application/json") {
-				showAlert("alert-warning","Выбран файл с неправильным расширением. Выберете JSON файл");
+        let alert = new Alert("alert-warning",triIco,"Выбран файл с неправильным расширением. Выберете JSON файл");
 			} else {
 				let reader = new FileReader();
         reader.readAsText(file);
@@ -313,7 +313,7 @@ function uploadSensorData(chrtData) {
 						newCart = JSON.parse(reader.result);
 						makeChart(newCart);
 					} catch(e) {
-						showAlert("alert-warning","Неправильный формат файла");
+            let alert = new Alert("alert-warning",triIco,"Неправильный формат файла");
 					}
   			};
 			}
@@ -321,7 +321,7 @@ function uploadSensorData(chrtData) {
 		input.click();
     return false; // avoiding navigation
 	} else {
-		showAlert("alert-warning","Браузер не поддерживает загрузку файлов");
+    let alert = new Alert("alert-warning",triIco,"Браузер не поддерживает загрузку файлов");
 	}
 }
 //------------------------------------------------------------------------------

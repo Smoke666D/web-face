@@ -505,7 +505,7 @@ function dataUpdate() {
 	      	if (failback) {
 	          document.getElementById("i-loading").classList.remove("loading");
 	        	failback('Something went wrong.');
-						showAlert("alert-danger","Нет связи с сервером");
+						let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
 	        }
 	      });
 	      xhr.open(requests[0].method, requests[0].url);
@@ -524,7 +524,7 @@ function dataUpdate() {
 		restSeq.push({method: 'get', url: '/configs/'})
 		const results = reqs(restSeq, [],	function(error) { console.log(error)	});
 	} catch(e) {
-		showAlert("alert-danger","Нет связи с сервером");
+		let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
 	}
 	return;
 }
@@ -545,14 +545,14 @@ function dataGrab(){
 				};
 				xhr.addEventListener('error', function(error) {
 					if (failback) {
-						showAlert("alert-danger","Ошибка передачи данных");
+						let alert = new Alert("alert-danger",triIco,"Ошибка передачи данных");
 					}
 				});
 	  		xhr.open(requests[0].method, requests[0].url, true);
 	  		xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
 	  		xhr.send(requests[0].content);
 			} else {
-				showAlert("alert-success","Прибор успешно сконфигурирован");
+				let alert = new Alert("alert-success",triIco,"Прибор успешно сконфигурирован");
 			}
 		};
 		restSeq = []
@@ -564,7 +564,7 @@ function dataGrab(){
 		})}
 		const results = reqs(restSeq, function(error) { console.log(error) });
 	} catch(e) {
-		showAlert("alert-danger","Нет связи с сервером");
+		let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
 	}
 	return;
 }

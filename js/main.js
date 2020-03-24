@@ -42,28 +42,6 @@ function loadContent(id) {
 	test = document.getElementById("nav-" + id).classList.add("checked");
 	return;
 }
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-function showAlert(type,text) {
-	document.getElementById('alert-message').classList.remove("alert-danger");
-	document.getElementById('alert-message').classList.remove("alert-warning");
-	document.getElementById('alert-message').classList.remove("alert-info");
-	document.getElementById('alert-message').classList.remove("alert-success");
-	document.getElementById('alert-message').classList.remove("alert-secondary");
-	document.getElementById('alert-message').classList.remove("alert-primary");
-	document.getElementById('alert-message').classList.add(type);
-	document.getElementById('alert-text').innerHTML = text;
-	document.getElementById('alert-message').classList.add("show");
-	return;
-}
-
-function closeAlert() {
-	document.getElementById('alert-message').classList.remove("show");
-	document.getElementById('alert-message').classList.add("fade");
-	return;
-}
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -463,7 +441,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	declareInterface();
 	oilScaleInit();
 	powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
-	//dataUpdate();
+	dataUpdate();
 	const genVoltageLims = new slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
 	const genFreqLims = new slider4InitLimits("genUnderFrequencyAlarmLevel","genUnderFrequencyPreAlarmLevel","genOverFrequencyPreAlarmLevel","genOverFrequencyAlarmLevel");
 	const mainsVoltageLims = new slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
