@@ -165,36 +165,38 @@ let coolantSensorResistance = newSensorData("coolantSensorResistance",1500,15,"�
 let coolantSensorCurrent = newSensorData("coolantSensorCurrent",20,15,"мА");
 let fuelSensorResistance = newSensorData("fuelSensorResistance",1500,15,"Ом");
 let fuelSensorCurrent = newSensorData("fuelSensorCurrent",20,15,"мА");
+
+var currentChart;
 //******************************************************************************
 function sensorModalInit(target) {
   switch(target) {
     case 'oil':
       type = document.getElementById("oilPressureSensorType").value - 3;
       if (type == 0) {
-        chrtData = oilSensorResistance;
+        currentChart = oilSensorResistance;
       } else {
-        chrtData = oilSensorCurrent;
+        currentChart = oilSensorCurrent;
       }
       break;
     case 'coolant':
       type = document.getElementById("coolantTempSensorType").value - 3;
       if (type == 0) {
-        chrtData = coolantSensorResistance;
+        currentChart = coolantSensorResistance;
       } else {
-        chrtData = coolantSensorCurrent;
+        currentChart = coolantSensorCurrent;
       }
       break;
     case 'fuel':
       type = document.getElementById("fuelLevelSensorType").value - 3;
       if (type == 0) {
-        chrtData = fuelSensorResistance;
+        currentChart = fuelSensorResistance;
       } else {
-        chrtData = fuelSensorCurrent;
+        currentChart = fuelSensorCurrent;
       }
       break;
   }
   document.getElementById("sensorModal").addEventListener("animationstart", function(){
-    makeChart(chrtData);
+    makeChart(currentChart);
   });
 }
 
@@ -267,21 +269,23 @@ function removeChartPoint(){
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 function saveChartData(chrtData){
-  var i = 0;
-
-  chrtData.size = sensorData.labels.length;
-  chrtData.ymax = chartOptions.scales.yAxes[0].ticks.max;
-  chrtData.ymin = chartOptions.scales.yAxes[0].ticks.min;
+  chrtData.size = sensorData.datasets[0].data.length;
+  chrtData.ymax = lineChart.options.scales.yAxes[0].ticks.max;
+  chrtData.ymin = lineChart.options.scales.yAxes[0].ticks.min;
+  chrtData.xmax = lineChart.options.scales.xAxes[0].ticks.max;
+  chrtData.xmin =  lineChart.options.scales.xAxes[0].ticks.min;
+  chrtData.xunit = lineChart.options.scales.xAxes[0].scaleLabel.labelString;
   chrtData.dots.length = 0;
-  for(i=0;i<chrtData.size;i++){
+  for(var i=0;i<chrtData.size;i++){
     chrtData.dots.push({
-      x: parseFloat(sensorData.labels[i]),
-      y: sensorData.datasets[0].data[i],
+      x: sensorData.datasets[0].data[i].x,
+      y: sensorData.datasets[0].data[i].y,
     })
   }
   return;
 }
-function downloadSensorData(chrtData){
+
+function downloadSensorData(){
 
 	function SaveAsFile(t,f,m) {
   	try {
@@ -291,12 +295,12 @@ function downloadSensorData(chrtData){
     	window.open("data:"+m+"," + encodeURIComponent(t), '_blank','');
     }
   }
-
+  let chrtData = currentChart;
 	saveChartData(chrtData);
 	SaveAsFile(JSON.stringify(chrtData),chrtData.name+".JSON","text/plain;charset=utf-8");
 }
 //------------------------------------------------------------------------------
-function uploadSensorData(chrtData) {
+function uploadSensorData() {
 	var newCart;
 	if (window.File && window.FileReader && window.FileList && window.Blob) {
 		var input = document.createElement("input");
@@ -310,8 +314,8 @@ function uploadSensorData(chrtData) {
         reader.readAsText(file);
 				reader.onload = function() {
 					try {
-						newCart = JSON.parse(reader.result);
-						makeChart(newCart);
+						currentChart = JSON.parse(reader.result);
+						makeChart(currentChart);
 					} catch(e) {
             let alert = new Alert("alert-warning",triIco,"Неправильный формат файла");
 					}

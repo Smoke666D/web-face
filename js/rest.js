@@ -214,12 +214,21 @@ function Slider(name) {
 		this.slider = document.getElementById("s-slider-" + this.name);
 		this.input  = document.getElementById("sinput-" + this.name);
 		this.label  = document.getElementById("label-" + this.name);
-		swName = this.name.replace("Level", "")
-		swName = this.name.replace("Time", "")
-		swName = swName.replace("Delay", "")
+		var swName = this.name;
+
+		if(this.name.endsWith("Level")) {
+			swName = swName.substring(0, swName.length - 5);
+		}
+		if(this.name.endsWith("Time")) {
+			swName = swName.substring(0, swName.length - 4);
+		}
+		if(this.name.endsWith("Delay")) {
+			swName = swName.substring(0, swName.length - 5);
+		}
 		swName = swName.replace("On","");
 		swName = swName.replace("Off","");
 		this.sw = new Switch(swName + "Enb")
+
 		if (this.sw.object){
 			this.enable = this.sw.getVal();
 			this.sw.object.addEventListener('click', function() {

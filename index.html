@@ -720,10 +720,10 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="fuelLevelHightPreAlarmLevelEnb">
+              <input type="checkbox" class="check-input" id="fuelLevelHightPreAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Активировать Предупредительный сигнализатор верхнего предела</label>
+            <label class="form-check-label">Предупредительный сигнализатор верхнего предела</label>
           </div>
         </div>
 
@@ -2977,15 +2977,15 @@
             </div>
             <div class="modal-footer">
               <div class="modal-footer-left">
-                <button type="button" aria-label="Save" class="btn btn-primary" onclick="saveChartData(sensorChartData)">
+                <button type="button" aria-label="Save" class="btn btn-primary" onclick="saveChartData()">
                   <i class="fas fa-save"></i>
                   <span class="sr-only">Сохранить</span>
                 </button>
-                <button type="button" aria-label="Save to PC" class="btn btn-primary" onclick="downloadSensorData(sensorChartData)">
+                <button type="button" aria-label="Save to PC" class="btn btn-primary" onclick="downloadSensorData()">
                   <i class="fas fa-download"></i>
                   <span class="sr-only">Сохранить на ПК</span>
                 </button>
-                <button  type="button" aria-label="Load from PC" class="btn btn-primary" onclick="uploadSensorData(sensorChartData)">
+                <button  type="button" aria-label="Load from PC" class="btn btn-primary" onclick="uploadSensorData()">
                   <i class="fas fa-upload"></i>
                   <span  class="sr-only">Загрузить с ПК</span>
                 </button>

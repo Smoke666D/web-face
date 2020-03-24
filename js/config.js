@@ -348,7 +348,7 @@ var dataReg = [{
             "max": 1
         },
         {
-            "name": "fuelLevelHightPreAlarmLevelEnb",
+            "name": "fuelLevelHightPreAlarmEnb",
             "mask": 64,
             "min": 0,
             "shift": 6,
