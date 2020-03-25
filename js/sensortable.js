@@ -268,16 +268,83 @@ function removeChartPoint(){
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
+function getVal(name) {
+  for(var i=0; i<dataReg.length; i++ ){
+    if (dataReg[i].bitMapSize > 0) {
+      for (var j=0; j<dataReg[i].bitMapSize; j++) {
+        if (dataReg[i].bit[j].name == name) {
+          return bitVal(j,dataReg[i]);
+        }
+      }
+    }
+  }
+}
+
+function loadCharts(data) {
+
+
+  function fix16Tofloat(fix) {
+    return fix/0x00010000;
+  }
+
+  function chartFixToFloat(input,name) {
+    let output = newSensorData(
+      name,
+      fix16Tofloat(input.xmax),
+      fix16Tofloat(input.ymax),
+      input.xunit);
+    output.xmin  = fix16Tofloat(input.xmin);
+    output.ymin  = fix16Tofloat(input.ymin);
+    output.yunit = input.yunit;
+    output.size = input.size;
+    output.dots.length = 0;
+    for(var i=0;i<output.size;i++) {
+      output.dots.push({
+        x: fix16Tofloat(input.dots[i].x),
+        y: fix16Tofloat(input.dots[i].y),
+      })
+    }
+    console.log(output);
+    return output;
+  }
+  //---------------- Oil resetence ----------------
+  var sel = 0;
+  sel = getVal("oilPressureSensorType");
+  if (sel == 3) {
+    oilSensorResistance = chartFixToFloat(data[0],"oilSensorResistance");
+  //----------------- Oil current -----------------
+  } else if (sel == 4) {
+    oilSensorCurrent = chartFixToFloat(data[0],"oilSensorCurrent");
+  }
+  //-------------- Coolant resetence --------------
+  sel = getVal("coolantTempSensorType");
+  if (sel == 3) {
+    coolantSensorResistance = chartFixToFloat(data[1],"coolantSensorResistance");
+  //--------------- Coolant current ---------------
+  } else if (sel == 4) {
+    coolantSensorCurrent = chartFixToFloat(data[1],"coolantSensorCurrent");
+  }
+  //---------------- Fuel resetence ---------------
+  sel = getVal("fuelLevelSensorType");
+  if (sel == 3) {
+    fuelSensorResistance = chartFixToFloat(data[2],"fuelSensorResistance");
+  //----------------- Fuel current ----------------
+  } else if (sel == 4) {
+    fuelSensorCurrent = chartFixToFloat(data[2],"fuelSensorCurrent");
+  }
+  //-----------------------------------------------
+  return;
+}
 function saveChartData(chrtData){
-  chrtData.size = sensorData.datasets[0].data.length;
-  chrtData.ymax = lineChart.options.scales.yAxes[0].ticks.max;
-  chrtData.ymin = lineChart.options.scales.yAxes[0].ticks.min;
-  chrtData.xmax = lineChart.options.scales.xAxes[0].ticks.max;
-  chrtData.xmin =  lineChart.options.scales.xAxes[0].ticks.min;
-  chrtData.xunit = lineChart.options.scales.xAxes[0].scaleLabel.labelString;
-  chrtData.dots.length = 0;
-  for(var i=0;i<chrtData.size;i++){
-    chrtData.dots.push({
+  currentChart.size  = sensorData.datasets[0].data.length;
+  currentChart.ymax  = lineChart.options.scales.yAxes[0].ticks.max;
+  currentChart.ymin  = lineChart.options.scales.yAxes[0].ticks.min;
+  currentChart.xmax  = lineChart.options.scales.xAxes[0].ticks.max;
+  currentChart.xmin  = lineChart.options.scales.xAxes[0].ticks.min;
+  currentChart.xunit = lineChart.options.scales.xAxes[0].scaleLabel.labelString;
+  currentChart.dots.length = 0;
+  for(var i=0;i<currentChart.size;i++){
+    currentChart.dots.push({
       x: sensorData.datasets[0].data[i].x,
       y: sensorData.datasets[0].data[i].y,
     })
@@ -295,9 +362,8 @@ function downloadSensorData(){
     	window.open("data:"+m+"," + encodeURIComponent(t), '_blank','');
     }
   }
-  let chrtData = currentChart;
-	saveChartData(chrtData);
-	SaveAsFile(JSON.stringify(chrtData),chrtData.name+".JSON","text/plain;charset=utf-8");
+	saveChartData();
+	SaveAsFile(JSON.stringify(currentChart),currentChart.name+".JSON","text/plain;charset=utf-8");
 }
 //------------------------------------------------------------------------------
 function uploadSensorData() {

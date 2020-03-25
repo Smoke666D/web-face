@@ -75,6 +75,10 @@ function Select(name) {
 		return;
 	}
 
+	this.getVal = function() {
+		return this.object.value;
+	}
+
 	this.init = function() {
 		this.getData();
 		this.object = document.getElementById(this.name);
@@ -105,22 +109,23 @@ function Select(name) {
 	}
 
 	this.update = function() {
-		this.object.value = bitVal(this.bitNum,dataReg[this.regNum]);
-		if (this.enable == 1){
-			this.object.disabled = false;
-		} else {
-			this.object.disabled = true;
-		}
-		if(name.endsWith("SensorType")){
-			this.button = document.getElementById(this.name.replace("Type","")+"Setup");
-			if (this.object.value > 2) {
-				this.button.disabled = false;
+		if (this.object != null)
+		{
+			this.object.value = bitVal(this.bitNum,dataReg[this.regNum]);
+			if (this.enable == 1){
+				this.object.disabled = false;
 			} else {
-				this.button.disabled = true;
+				this.object.disabled = true;
+			}
+			if(name.endsWith("SensorType")){
+				this.button = document.getElementById(this.name.replace("Type","")+"Setup");
+				if (this.object.value > 2) {
+					this.button.disabled = false;
+				} else {
+					this.button.disabled = true;
+				}
 			}
 		}
-
-
 		return;
 	}
 
@@ -472,7 +477,7 @@ function updateInterface() {
 		radioArray[i].update();
 	}
 	cosFiUpdate();
-	updateAllTimeSliders();
+	//updateAllTimeSliders();
 	return;
 }
 
@@ -522,20 +527,39 @@ function dataUpdate() {
 	      xhr.send();
 	  	} else {
 				//***********************
-				dataReg = store[0];
+				copyDataReg(store[0]);
 				updateInterface();
+				loadCharts(store[1]);
 				//**********************
 				document.getElementById("i-loading").classList.remove("loading");
 	      return store;
 	  	}
 		};
 		restSeq = []
-		restSeq.push({method: 'get', url: '/configs/'})
+		restSeq.push({method: 'get', url: '/configs/'});														// Request for configs
+		restSeq.push({method: 'get', url: '/charts/'});															// Request for charts
 		const results = reqs(restSeq, [],	function(error) { console.log(error)	});
 	} catch(e) {
 		let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
 	}
 	return;
+}
+//******************************************************************************
+function copyDataReg(data) {
+	for(var i=0;i<data.length;i++) {
+		for( var j=0;j<dataReg.length;j++) {
+			if( (data[i].adr == dataReg[j].adr) && (data[i].page == dataReg[j].page)) {
+				dataReg[j].value = data[i].value;
+				dataReg[j].scale = data[i].scale;
+				//dataReg[j].min   = data[i].min;
+				//dataReg[j].max   = data[i].max;
+				dataReg[j].units = data[i].units;
+				//dataReg[j].type  = data[i].type;
+				//dataReg[j].len   = data[i].len;
+				//dataReg[j].bitMapSize
+			}
+		}
+	}
 }
 //******************************************************************************
 //******************************************************************************
