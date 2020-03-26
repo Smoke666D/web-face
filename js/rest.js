@@ -599,17 +599,51 @@ function dataGrab(){
 			}
 		};
 		restSeq = []
-		for ( i=1; i<103; i++ ) {
+		for ( i=0; i<103; i++ ) {
 			restSeq.push({
 				method:  'PUT',
 				url:     '/configs/' + i,
-				content: JSON.stringify(dataReg[i])
+				content: JSON.stringify(pasteDataReg(dataReg[i]))
+		})}
+		var chartContent = uploadCharts();
+		for ( i=0; i<3; i++) {
+			restSeq.push({
+			method:  'PUT',
+			url:     '/charts/' + i,
+			content: JSON.stringify(chartContent[i])
 		})}
 		const results = reqs(restSeq, function(error) { console.log(error) });
 	} catch(e) {
 		let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
 	}
 	return;
+}
+//******************************************************************************
+function pasteDataReg(data) {
+	var bitArr = [];
+	if (data.bitMapSize > 0) {
+		for (var i=0;i<data.bitMapSize;i++) {
+			bitArr.push({
+				mask  : data.bit[i].mask,
+				min   : data.bit[i].min,
+				max   : data.bit[i].max,
+				shift : data.bit[i].shift,
+			})
+		}
+	}
+	return {
+		page  : data.page,
+		adr   : data.adr,
+		value : data.value,
+		scale : data.scale,
+		min   : data.min,
+		max   : data.max,
+		units : encodeURI(data.units),
+		type  : encodeURI(data.type),
+		len   : data.len,
+		bitMapSize : data.bitMapSize,
+		bit   : bitArr,
+	};
 }
 //******************************************************************************
 //******************************************************************************

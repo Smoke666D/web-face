@@ -279,13 +279,73 @@ function getVal(name) {
     }
   }
 }
-
-function loadCharts(data) {
-
-  function fix16Tofloat(fix) {
-    return fix/0x00010000;
+//------------------------------------------------------------------------------
+function fix16Tofloat(fix) {
+  return fix/0x00010000;
+}
+function floatToFix16(float) {
+  return parseInt(float*0x00010000);
+}
+//------------------------------------------------------------------------------
+function uploadCharts() {
+  function prepareCharts(chart) {
+    var dotArr = [];
+    if (chart.size>0) {
+      for(var i=0;i<chart.size;i++) {
+        dotArr.push({
+          x: floatToFix16(chart.dots[i].x),
+          y: floatToFix16(chart.dots[i].y)
+        })
+      }
+    }
+    return {
+      "xmin" : floatToFix16(chart.xmin),
+      "xmax" : floatToFix16(chart.xmax),
+      "ymin" : floatToFix16(chart.ymin),
+      "ymax" : floatToFix16(chart.ymax),
+      "xunit": encodeURI(chart.xunit),
+      "yunit": encodeURI(chart.yunit),
+      "size" : chart.size,
+      "dots" : dotArr,
+    }
   }
-
+  var sel = 0;
+  var content = [];
+  //---------------- Oil resetence ----------------
+  sel = getVal("oilPressureSensorType");
+  if (sel == 3) {
+    content.push(prepareCharts(oilSensorResistance));
+  //----------------- Oil current -----------------
+  } else if (sel == 4) {
+    content.push(prepareCharts(oilSensorCurrent));
+  } else {
+    content.push({"data" : 0});
+  }
+  //-------------- Coolant resetence --------------
+  sel = getVal("coolantTempSensorType");
+  if (sel == 3) {
+    content.push(prepareCharts(coolantSensorResistance));
+  //--------------- Coolant current ---------------
+  } else if (sel == 4) {
+    content.push(prepareCharts(coolantSensorCurrent));
+  } else {
+    content.push({"data" : 0});
+  }
+  //---------------- Fuel resetence ---------------
+  sel = getVal("fuelLevelSensorType");
+  if (sel == 3) {
+    content.push(prepareCharts(fuelSensorResistance));
+  //----------------- Fuel current ----------------
+  } else if (sel == 4) {
+    content.push(prepareCharts(fuelSensorCurrent));
+  } else {
+    content.push({"data" : 0});
+  }
+  //-----------------------------------------------
+  return content;
+}
+//------------------------------------------------------------------------------
+function loadCharts(data) {
   function chartFixToFloat(input,name) {
     let output = newSensorData(
       name,
@@ -333,6 +393,7 @@ function loadCharts(data) {
   //-----------------------------------------------
   return;
 }
+//------------------------------------------------------------------------------
 function saveChartData(chrtData){
   currentChart.size  = sensorData.datasets[0].data.length;
   currentChart.ymax  = lineChart.options.scales.yAxes[0].ticks.max;
@@ -351,7 +412,6 @@ function saveChartData(chrtData){
 }
 
 function downloadSensorData(){
-
 	function SaveAsFile(t,f,m) {
   	try {
     	var b = new Blob([t],{type:m});
