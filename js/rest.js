@@ -500,6 +500,16 @@ function grabInterface() {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+function ascii_to_hexa(str) {
+	var arr1 = [];
+	for (var n = 0, l = str.length; n < l; n ++)
+     {
+		var hex = Number(str.charCodeAt(n)).toString(16);
+		arr1.push(hex);
+	 }
+	return arr1.join('');
+}
+
 function dataUpdate() {
 	document.getElementById("i-loading").classList.add("loading");
 	try{
@@ -510,7 +520,7 @@ function dataUpdate() {
 	      	const status = data.currentTarget.status;
 	        const response = data.currentTarget.response;
 	        if (status === 200) {
-	          store.push(JSON.parse(response));
+						store.push(JSON.parse(response));
 	          requests.shift();
 	          return reqs(requests, store, failback);
 	        }
@@ -553,8 +563,8 @@ function copyDataReg(data) {
 				dataReg[j].scale = data[i].scale;
 				//dataReg[j].min   = data[i].min;
 				//dataReg[j].max   = data[i].max;
-				dataReg[j].units = data[i].units;
-				//dataReg[j].type  = data[i].type;
+				dataReg[j].units = decodeURI(data[i].units);
+				//dataReg[j].type  = decodeURI(data[i].type);
 				//dataReg[j].len   = data[i].len;
 				//dataReg[j].bitMapSize
 			}

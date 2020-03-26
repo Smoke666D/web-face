@@ -282,7 +282,6 @@ function getVal(name) {
 
 function loadCharts(data) {
 
-
   function fix16Tofloat(fix) {
     return fix/0x00010000;
   }
@@ -292,11 +291,11 @@ function loadCharts(data) {
       name,
       fix16Tofloat(input.xmax),
       fix16Tofloat(input.ymax),
-      input.xunit);
+      decodeURI(input.xunit));
     output.xmin  = fix16Tofloat(input.xmin);
     output.ymin  = fix16Tofloat(input.ymin);
-    output.yunit = input.yunit;
-    output.size = input.size;
+    output.yunit = decodeURI(input.yunit);
+    output.size  = input.size;
     output.dots.length = 0;
     for(var i=0;i<output.size;i++) {
       output.dots.push({
@@ -304,7 +303,6 @@ function loadCharts(data) {
         y: fix16Tofloat(input.dots[i].y),
       })
     }
-    console.log(output);
     return output;
   }
   //---------------- Oil resetence ----------------
