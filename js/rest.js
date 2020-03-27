@@ -130,7 +130,9 @@ function Select(name) {
 	}
 
 	this.grab = function() {
-		bitWrite(this.bitNum,dataReg[this.regNum],this.object.value);
+		if (this.object != null) {
+			bitWrite(this.bitNum,dataReg[this.regNum],this.object.value);
+		}
 		return;
 	}
 
@@ -494,7 +496,12 @@ function grabInterface() {
 	for(var i=0; i<radioArray.length; i++) {
 		radioArray[i].grab();
 	}
-	bitWrite(0,engineSetup,document.getElementById('engineStartAttempts').value);
+	for(var i=0;i<dataReg.length;i++){
+		if (dataReg[i].name == "engineSetup")
+		{
+		  bitWrite(0,dataReg[i],document.getElementById('engineStartAttempts').value);
+		}
+	}
 	return;
 }
 //******************************************************************************
@@ -575,7 +582,10 @@ function copyDataReg(data) {
 //******************************************************************************
 //******************************************************************************
 function dataGrab(){
+	grabInterface();
   try {
+
+		//--------------------------------------------------------------------------
 		const reqs = function(requests = [], failback) {
 			if (requests instanceof Array && requests.length > 0) {
 	  		var xhr = new XMLHttpRequest();
@@ -598,13 +608,16 @@ function dataGrab(){
 				let alert = new Alert("alert-success",triIco,"Прибор успешно сконфигурирован");
 			}
 		};
+		//--------------------------------------------------------------------------
 		restSeq = []
+		
 		for ( i=0; i<103; i++ ) {
 			restSeq.push({
 				method:  'PUT',
 				url:     '/configs/' + i,
 				content: JSON.stringify(pasteDataReg(dataReg[i]))
 		})}
+
 		var chartContent = uploadCharts();
 		for ( i=0; i<3; i++) {
 			restSeq.push({

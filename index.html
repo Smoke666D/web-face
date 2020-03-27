@@ -299,6 +299,9 @@
         <div id="oilPressPage" class="content-data hidden">
           <h5>Давление масла</h5>
           <div class="row">
+            <div class="col-sm-2 pos-name">
+              <label>Тип датчика</label>
+            </div>
             <div class="col-sm-auto">
               <select class="custom-select sensor-select" id="oilPressureSensorType">
                 <option value="0">Не использовать</option>
@@ -391,6 +394,9 @@
         <div id="coolTempPage" class="content-data hidden">
           <h5>Температура охдаждающей жидкости</h5>
           <div class="row">
+            <div class="col-sm-2 pos-name">
+              <label>Тип датчика</label>
+            </div>
             <div class="col-sm-auto">
               <select class="custom-select sensor-select" name="sensor-type" id="coolantTempSensorType">
                 <option value="0">Не использовать</option>
@@ -402,7 +408,7 @@
             </div>
             <div class="col-sm-auto">
               <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('coolant')" id="coolantTempSensorSetup">
-                <i class="fa fa-gear"></i>
+                <i class="fa fa-chart-line"></i>
               </button>
             </div>
           </div>
@@ -553,6 +559,9 @@
       <div id="fuelLevelPage" class="content-data hidden">
         <h5>Уровень топлива</h5>
         <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Тип датчика</label>
+          </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="fuelLevelSensorType">
               <option value="0">Не использовать</option>
@@ -564,7 +573,7 @@
           </div>
           <div class="col-sm-auto">
             <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('fuel')" id="fuelLevelSensorSetup">
-              <i class="fa fa-gear"></i>
+              <i class="fa fa-chart-line"></i>
             </button>
           </div>
         </div>

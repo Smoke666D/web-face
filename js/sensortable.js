@@ -394,7 +394,7 @@ function loadCharts(data) {
   return;
 }
 //------------------------------------------------------------------------------
-function saveChartData(chrtData){
+function saveToCurChart() {
   currentChart.size  = sensorData.datasets[0].data.length;
   currentChart.ymax  = lineChart.options.scales.yAxes[0].ticks.max;
   currentChart.ymin  = lineChart.options.scales.yAxes[0].ticks.min;
@@ -411,6 +411,12 @@ function saveChartData(chrtData){
   return;
 }
 
+function saveChartData(){
+  saveToCurChart();
+  let alert = new Alert("alert-success",triIco,"График успешно сохранен.");
+  return;
+}
+
 function downloadSensorData(){
 	function SaveAsFile(t,f,m) {
   	try {
@@ -420,7 +426,7 @@ function downloadSensorData(){
     	window.open("data:"+m+"," + encodeURIComponent(t), '_blank','');
     }
   }
-	saveChartData();
+	saveToCurChart();
 	SaveAsFile(JSON.stringify(currentChart),currentChart.name+".JSON","text/plain;charset=utf-8");
 }
 //------------------------------------------------------------------------------
