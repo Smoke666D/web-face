@@ -10518,7 +10518,7 @@ h1, h2, h3, h4, h5,
   position: absolute;
   right: 0px;
   bottom: 0px;
-  z-index: 1;
+  z-index: 10;
 }
 
 #sidebar {
@@ -11578,6 +11578,9 @@ QmCC
         <div id="oilPressPage" class="content-data hidden">
           <h5>Давление масла</h5>
           <div class="row">
+            <div class="col-sm-2 pos-name">
+              <label>Тип датчика</label>
+            </div>
             <div class="col-sm-auto">
               <select class="custom-select sensor-select" id="oilPressureSensorType">
                 <option value="0">Не использовать</option>
@@ -11670,6 +11673,9 @@ QmCC
         <div id="coolTempPage" class="content-data hidden">
           <h5>Температура охдаждающей жидкости</h5>
           <div class="row">
+            <div class="col-sm-2 pos-name">
+              <label>Тип датчика</label>
+            </div>
             <div class="col-sm-auto">
               <select class="custom-select sensor-select" name="sensor-type" id="coolantTempSensorType">
                 <option value="0">Не использовать</option>
@@ -11681,7 +11687,7 @@ QmCC
             </div>
             <div class="col-sm-auto">
               <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('coolant')" id="coolantTempSensorSetup">
-                <i class="fa fa-gear"></i>
+                <i class="fa fa-chart-line"></i>
               </button>
             </div>
           </div>
@@ -11832,6 +11838,9 @@ QmCC
       <div id="fuelLevelPage" class="content-data hidden">
         <h5>Уровень топлива</h5>
         <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Тип датчика</label>
+          </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="fuelLevelSensorType">
               <option value="0">Не использовать</option>
@@ -11843,7 +11852,7 @@ QmCC
           </div>
           <div class="col-sm-auto">
             <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('fuel')" id="fuelLevelSensorSetup">
-              <i class="fa fa-gear"></i>
+              <i class="fa fa-chart-line"></i>
             </button>
           </div>
         </div>
@@ -17860,7 +17869,7 @@ function loadCharts(data) {
   return;
 }
 //------------------------------------------------------------------------------
-function saveChartData(chrtData){
+function saveToCurChart() {
   currentChart.size  = sensorData.datasets[0].data.length;
   currentChart.ymax  = lineChart.options.scales.yAxes[0].ticks.max;
   currentChart.ymin  = lineChart.options.scales.yAxes[0].ticks.min;
@@ -17877,6 +17886,12 @@ function saveChartData(chrtData){
   return;
 }
 
+function saveChartData(){
+  saveToCurChart();
+  let alert = new Alert("alert-success",triIco,"График успешно сохранен.");
+  return;
+}
+
 function downloadSensorData(){
 	function SaveAsFile(t,f,m) {
   	try {
@@ -17886,7 +17901,7 @@ function downloadSensorData(){
     	window.open("data:"+m+"," + encodeURIComponent(t), '_blank','');
     }
   }
-	saveChartData();
+	saveToCurChart();
 	SaveAsFile(JSON.stringify(currentChart),currentChart.name+".JSON","text/plain;charset=utf-8");
 }
 //------------------------------------------------------------------------------

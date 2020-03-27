@@ -18,185 +18,192 @@
   </head>
   <body>
 		<div class="wrapper d-flex align-items-stretch">
-    <!------------------------------------------------------------------------------------------------------------->
-		<nav id="sidebar" class="shadow pt-5">
+      <!------------------------------------------------------------------------------------------------------------->
+		  <nav id="sidebar" class="shadow">
 		 	<!--IMG-->
-      <img src="img/light_logo_energan_spb.png" class="logo">
-	    <ul class="list-unstyled components mb-5">
-        <li>
-          <a class="navItem" id="nav-devicePage" onclick="loadContent('devicePage')" href="#">
-            <div class="fas">
-              <i class="fas fa-microchip"></i>
-            </div>
-            <span>Контроллер</span>
+        <div class="sidebar-button">
+          <a href="#" class="close d-flex ml-auto justify-content-center align-items-center px-3" onclick="toogleNav()">
+            <i class="fas fa-times"></i>
           </a>
-        </li>
-        <li class="active">
-          <a for="outputSubmenu" href="#outputSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-            <i class="fas fa-angle-double-right"></i>
-            <span>Входы</span>
-          </a>
-          <ul class="collapse list-unstyled" id="outputSubmenu">
-            <li>
-              <a class="navItem" id="nav-oilPressPage" onclick="loadContent('oilPressPage')" href="#">
-                <i class="fas fa-oil-can"></i>
-                <span>Давление масла</span>
-              </a>
-            </li>
-            <li>
-              <a class="navItem" id="nav-coolTempPage" onclick="loadContent('coolTempPage')" href="#">
-                <i class="fas fa-thermometer-full"></i>
-                <span>Температура охлаждающей жидкости</span>
-              </a>
-            </li>
-            <li>
-              <a class="navItem" id="nav-fuelLevelPage" onclick="loadContent('fuelLevelPage')" href="#">
-                <i class="fas fa-gas-pump"></i>
-                <span>Уровень топлива</span>
-              </a>
-            </li>
-            <li>
-              <a class="navItem" id="nav-digitalInputAPage" onclick="loadContent('digitalInputAPage')" href="#">
-                <i class="fas fa-chevron-right"></i>
-                <span>Цифровой вход A</span>
-              </a>
-            </li>
-            <li>
-              <a class="navItem" id="nav-digitalInputBPage" onclick="loadContent('digitalInputBPage')" href="#">
-                <i class="fas fa-chevron-right"></i>
-                <span>Цифровой вход B</span>
-              </a>
-            </li>
-            <li>
-              <a class="navItem" id="nav-digitalInputCPage" onclick="loadContent('digitalInputCPage')" href="#">
-                <i class="fas fa-chevron-right"></i>
-                <span>Цифровой вход C</span>
-              </a>
-            </li>
-            <li>
-              <a class="navItem" id="nav-digitalInputDPage" onclick="loadContent('digitalInputDPage')" href="#">
-                <i class="fas fa-chevron-right"></i>
-                <span>Цифровой вход D</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a class="navItem" id="nav-digitalOutputPage" onclick="loadContent('digitalOutputPage')" href="#">
-            <i class="fas fa-angle-double-left"></i>
-            <span>Цифровые выходы</span>
-          </a>
-        </li>
-        <li>
-          <a class="navItem" id="nav-timerPage" onclick="loadContent('timerPage')" href="#">
-            <i class="fas fa-clock"></i>
-            <span>Таймеры</span>
-          </a>
-        </li>
-        <li class="active">
-          <a href="#generatorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-            <div class="fas">
-              <svg height="511pt" viewBox="0 -16 511.99994 511" width="511pt" class="svg-icon"><path d="m.148438 480.359375h112.269531l29.992187-29.992187h227.332032l29.988281 29.992187h112.269531v-89.972656h-511.851562zm0 0"/><path d="m256.074219 150.457031c-41.386719 0-74.976563 33.589844-74.976563 74.976563 0 41.386718 33.589844 74.976562 74.976563 74.976562s74.980469-33.589844 74.980469-74.976562c0-41.386719-33.59375-74.976563-74.980469-74.976563zm14.09375 124.761719-28.1875-9.597656 8.394531-25.191406h-29.988281l21.59375-64.78125 28.1875 9.597656-8.394531 25.191406h29.992187zm0 0"/><path d="m.148438 90.472656v269.921875h511.851562v-269.921875zm255.925781 239.929688c-57.882813 0-104.96875-47.085938-104.96875-104.96875 0-57.882813 47.085937-104.96875 104.96875-104.96875 57.882812 0 104.96875 47.085937 104.96875 104.96875 0 57.882812-47.085938 104.96875-104.96875 104.96875zm0 0"/><path d="m31.140625 60.480469h119.964844v-29.988281h29.992187v-29.992188c-4.359375 0-187.058594 0-180.949218 0v29.992188h30.992187zm0 0"/></svg>
-            </div>
-            <span>Генератор</span>
-          </a>
-          <ul class="collapse list-unstyled" id="generatorSubmenu">
-            <li>
-              <a class="navItem" id="nav-generatorOptionPage" onclick="loadContent('generatorOptionPage')" href="#">
-                <i class="fas fa-cog"></i>
-                <span>Опции генератора</span>
-              </a>
-            </li>
-            <li>
-              <a class="navItem" id="nav-generatorVoltagePage" onclick="loadContent('generatorVoltagePage')" href="#">
-                <div class="fas">U</div>
-                <span>Напряжение генератора</span>
-              </a>
-            </li>
-            <li>
-              <a class="navItem" id="nav-generatorFreqPage" onclick="loadContent('generatorFreqPage')" href="#">
-                <div class="fas">F</div>
-                <span>Частота генератора</span>
-              </a>
-            </li>
-            <li>
-              <a class="navItem" id="nav-generatorCurrentPage" onclick="loadContent('generatorCurrentPage')" href="#">
-                <div class="fas">I</div>
-                <span>Сила тока генератора</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="active">
-          <a href="#netSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-            <div class="fas">
-              <svg class="svg-icon" viewBox="0 0 512 512"><path d="M472 243l-141-56v-35h60v15a15 15 0 0030 0v-15h15c16 0 21-21 7-28L325 65 267 5c-6-7-16-7-22 0l-58 60-118 59c-14 7-9 28 7 28h15v15a15 15 0 0030 0v-15h60v35L40 243c-15 6-10 29 6 29h15v15a15 15 0 0030 0v-15h90v44l-28 166h-47a15 15 0 000 30h300a15 15 0 000-30h-47l-28-166v-44h90v15a15 15 0 0030 0v-15h15c16 0 21-23 6-29zM256 380l-41-61 41-41 41 41zm-45-267l24 24-24 24zm90 48l-24-24 24-24zm-6 36l-39 39-39-39 39-39zm-84 36l24 24-24 24zm-6 124l32 48-49 48zm102 0l17 96-49-48zm-6-76l-24-24 24-24zm30-159v-21l41 21zm-75-85l39 40-39 39-39-39zm-116 85l41-21v21h-41zm-16 120l57-23v23zm78 240l54-54 54 54zm129-240v-23l57 23z"/></svg>
-            </div>
-            <span>Сеть</span>
-          </a>
-          <ul class="collapse list-unstyled" id="netSubmenu">
-            <li>
-              <a class="navItem" id="nav-networkOptionPage" onclick="loadContent('networkOptionPage')" href="#">
-                <i class="fas fa-cog"></i>
-                <span>Опции сети</span>
-              </a>
-            </li>
-            <li>
-              <a class="navItem" id="nav-networkAlarmPage" onclick="loadContent('networkAlarmPage')" href="#">
-                <i class="fas fa-exclamation-triangle"></i>
-                <span>Сигналы тревоги сети</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="active">
-          <a href="#engineSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-            <div class="fas">
-              <svg class="svg-icon" viewBox="0 0 512 512"><path d="M480 213.333c-17.646 0-32 14.354-32 32v32h-21.333V237.25c0-11.229-4.552-22.229-12.5-30.167l-23.917-23.917c-7.938-7.948-18.938-12.5-30.167-12.5h-61.417V128h32c17.646 0 32-14.354 32-32s-14.354-32-32-32h-128c-17.646 0-32 14.354-32 32s14.354 32 32 32h32v42.667h-40.083c-11.229 0-22.229 4.552-30.167 12.5l-30.167 30.167h-16.917c-17.646 0-32 14.354-32 32v32H64v-32c0-17.646-14.354-32-32-32s-32 14.354-32 32v128c0 17.646 14.354 32 32 32s32-14.354 32-32v-32h21.333v32c0 17.646 14.354 32 32 32h16.917l30.167 30.167c7.938 7.948 18.938 12.5 30.167 12.5H338.75c11.229 0 22.229-4.552 30.167-12.5l45.25-45.25c7.948-7.938 12.5-18.938 12.5-30.167v-18.75H448v32c0 17.646 14.354 32 32 32s32-14.354 32-32v-128c0-17.646-14.354-32.001-32-32.001z"/></svg>
-            </div>
-            <span>Двигатель</span>
-          </a>
-          <ul class="collapse list-unstyled" id="engineSubmenu">
-            <li>
-              <a class="navItem" id="nav-engineOptionPage" onclick="loadContent('engineOptionPage')" href="#">
-                <i class="fas fa-cog"></i>
-                <span>Опции двигателя</span>
-              </a>
-            </li>
-            <li>
-              <a class="navItem" id="nav-crankshaftPage" onclick="loadContent('crankshaftPage')" href="#">
-                <div class="fas">
-                  <svg class="svg-icon" viewBox="0 -76 512 512"><path d="M15 210h46v15c0 8 7 15 15 15h15V90H76c-8 0-15 7-15 15v15H15c-8 0-15 7-15 15v60c0 8 7 15 15 15zm0 0M211 315V15c0-8-7-15-15-15-41 0-75 34-75 75v240a45 45 0 0090 0zm0 0M316 0c-20 0-36 13-42 30h-33v120h30v165a45 45 0 0090 0V45c0-25-20-45-45-45zm0 0M512 45c0-25-21-45-46-45s-45 20-45 45v195h-30v90h30v15c0 8 7 15 15 15 41 0 76-34 76-75zm0 0"/></svg>
-                </div>
-                <span>Отключение коленчатого вала</span>
-              </a>
-            </li>
-            <li>
-              <a class="navItem" id="nav-battaryPage" onclick="loadContent('battaryPage')" href="#">
-                <div class="fas">
-                  <svg class="svg-icon" viewBox="0 0 512 512"><path d="M469 107V85c0-11-9-21-21-21h-64c-12 0-21 10-21 21v22h-7l-8-9c-8-8-19-13-31-13H195c-12 0-23 5-31 13l-8 9h-7V85c0-11-9-21-21-21H64c-12 0-21 10-21 21v22c-24 0-43 19-43 42v256c0 24 19 43 43 43h426c24 0 43-19 43-43V149c0-23-19-42-43-42zM117 213H75a11 11 0 110-21h42a11 11 0 110 21zm320 0h-10v11a11 11 0 11-22 0v-11h-10a11 11 0 110-21h10v-11a11 11 0 1122 0v11h10a11 11 0 110 21z"/></svg>
-                </div>
-                <span>Аккумулятор агрегата</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a class="navItem" id="nav-servicePage" onclick="loadContent('servicePage')" href="#">
-            <i class="fas fa-tools"></i>
-            <span>Сигналы техобслуживания</span>
-          </a>
-        </li>
-        <li>
-          <a class="navItem" id="nav-logPage" onclick="loadContent('logPage')" href="#">
-            <i class="fas fa-book"></i>
-            <span>Журнал</span>
-          </a>
-        </li>
-      </ul>
-      <div class="footer">
-      </div>
-    </nav>
+        </div>
+        <img src="img/light_logo_energan_spb.png" class="logo">
+	      <ul class="list-unstyled components">
+          <li>
+            <a class="navItem" id="nav-devicePage" onclick="loadContent('devicePage')" href="#">
+              <div class="fas">
+                <i class="fas fa-microchip"></i>
+              </div>
+              <span>Контроллер</span>
+            </a>
+          </li>
+          <li class="active">
+            <a for="outputSubmenu" href="#outputSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <i class="fas fa-angle-double-right"></i>
+              <span>Входы</span>
+            </a>
+            <ul class="collapse list-unstyled" id="outputSubmenu">
+              <li>
+                <a class="navItem" id="nav-oilPressPage" onclick="loadContent('oilPressPage')" href="#">
+                  <i class="fas fa-oil-can"></i>
+                  <span>Давление масла</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-coolTempPage" onclick="loadContent('coolTempPage')" href="#">
+                  <i class="fas fa-thermometer-full"></i>
+                  <span>Температура охлаждающей жидкости</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-fuelLevelPage" onclick="loadContent('fuelLevelPage')" href="#">
+                  <i class="fas fa-gas-pump"></i>
+                  <span>Уровень топлива</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-digitalInputAPage" onclick="loadContent('digitalInputAPage')" href="#">
+                  <i class="fas fa-chevron-right"></i>
+                  <span>Цифровой вход A</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-digitalInputBPage" onclick="loadContent('digitalInputBPage')" href="#">
+                  <i class="fas fa-chevron-right"></i>
+                  <span>Цифровой вход B</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-digitalInputCPage" onclick="loadContent('digitalInputCPage')" href="#">
+                  <i class="fas fa-chevron-right"></i>
+                  <span>Цифровой вход C</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-digitalInputDPage" onclick="loadContent('digitalInputDPage')" href="#">
+                  <i class="fas fa-chevron-right"></i>
+                  <span>Цифровой вход D</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a class="navItem" id="nav-digitalOutputPage" onclick="loadContent('digitalOutputPage')" href="#">
+              <i class="fas fa-angle-double-left"></i>
+              <span>Цифровые выходы</span>
+            </a>
+          </li>
+          <li>
+            <a class="navItem" id="nav-timerPage" onclick="loadContent('timerPage')" href="#">
+              <i class="fas fa-clock"></i>
+              <span>Таймеры</span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="#generatorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <div class="fas">
+                <svg height="511pt" viewBox="0 -16 511.99994 511" width="511pt" class="svg-icon"><path d="m.148438 480.359375h112.269531l29.992187-29.992187h227.332032l29.988281 29.992187h112.269531v-89.972656h-511.851562zm0 0"/><path d="m256.074219 150.457031c-41.386719 0-74.976563 33.589844-74.976563 74.976563 0 41.386718 33.589844 74.976562 74.976563 74.976562s74.980469-33.589844 74.980469-74.976562c0-41.386719-33.59375-74.976563-74.980469-74.976563zm14.09375 124.761719-28.1875-9.597656 8.394531-25.191406h-29.988281l21.59375-64.78125 28.1875 9.597656-8.394531 25.191406h29.992187zm0 0"/><path d="m.148438 90.472656v269.921875h511.851562v-269.921875zm255.925781 239.929688c-57.882813 0-104.96875-47.085938-104.96875-104.96875 0-57.882813 47.085937-104.96875 104.96875-104.96875 57.882812 0 104.96875 47.085937 104.96875 104.96875 0 57.882812-47.085938 104.96875-104.96875 104.96875zm0 0"/><path d="m31.140625 60.480469h119.964844v-29.988281h29.992187v-29.992188c-4.359375 0-187.058594 0-180.949218 0v29.992188h30.992187zm0 0"/></svg>
+              </div>
+              <span>Генератор</span>
+            </a>
+            <ul class="collapse list-unstyled" id="generatorSubmenu">
+              <li>
+                <a class="navItem" id="nav-generatorOptionPage" onclick="loadContent('generatorOptionPage')" href="#">
+                  <i class="fas fa-cog"></i>
+                  <span>Опции генератора</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-generatorVoltagePage" onclick="loadContent('generatorVoltagePage')" href="#">
+                  <div class="fas">U</div>
+                  <span>Напряжение генератора</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-generatorFreqPage" onclick="loadContent('generatorFreqPage')" href="#">
+                  <div class="fas">F</div>
+                  <span>Частота генератора</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-generatorCurrentPage" onclick="loadContent('generatorCurrentPage')" href="#">
+                  <div class="fas">I</div>
+                  <span>Сила тока генератора</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="active">
+            <a href="#netSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <div class="fas">
+                <svg class="svg-icon" viewBox="0 0 512 512"><path d="M472 243l-141-56v-35h60v15a15 15 0 0030 0v-15h15c16 0 21-21 7-28L325 65 267 5c-6-7-16-7-22 0l-58 60-118 59c-14 7-9 28 7 28h15v15a15 15 0 0030 0v-15h60v35L40 243c-15 6-10 29 6 29h15v15a15 15 0 0030 0v-15h90v44l-28 166h-47a15 15 0 000 30h300a15 15 0 000-30h-47l-28-166v-44h90v15a15 15 0 0030 0v-15h15c16 0 21-23 6-29zM256 380l-41-61 41-41 41 41zm-45-267l24 24-24 24zm90 48l-24-24 24-24zm-6 36l-39 39-39-39 39-39zm-84 36l24 24-24 24zm-6 124l32 48-49 48zm102 0l17 96-49-48zm-6-76l-24-24 24-24zm30-159v-21l41 21zm-75-85l39 40-39 39-39-39zm-116 85l41-21v21h-41zm-16 120l57-23v23zm78 240l54-54 54 54zm129-240v-23l57 23z"/></svg>
+              </div>
+              <span>Сеть</span>
+            </a>
+            <ul class="collapse list-unstyled" id="netSubmenu">
+              <li>
+                <a class="navItem" id="nav-networkOptionPage" onclick="loadContent('networkOptionPage')" href="#">
+                  <i class="fas fa-cog"></i>
+                  <span>Опции сети</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-networkAlarmPage" onclick="loadContent('networkAlarmPage')" href="#">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <span>Сигналы тревоги сети</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="active">
+            <a href="#engineSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <div class="fas">
+                <svg class="svg-icon" viewBox="0 0 512 512"><path d="M480 213.333c-17.646 0-32 14.354-32 32v32h-21.333V237.25c0-11.229-4.552-22.229-12.5-30.167l-23.917-23.917c-7.938-7.948-18.938-12.5-30.167-12.5h-61.417V128h32c17.646 0 32-14.354 32-32s-14.354-32-32-32h-128c-17.646 0-32 14.354-32 32s14.354 32 32 32h32v42.667h-40.083c-11.229 0-22.229 4.552-30.167 12.5l-30.167 30.167h-16.917c-17.646 0-32 14.354-32 32v32H64v-32c0-17.646-14.354-32-32-32s-32 14.354-32 32v128c0 17.646 14.354 32 32 32s32-14.354 32-32v-32h21.333v32c0 17.646 14.354 32 32 32h16.917l30.167 30.167c7.938 7.948 18.938 12.5 30.167 12.5H338.75c11.229 0 22.229-4.552 30.167-12.5l45.25-45.25c7.948-7.938 12.5-18.938 12.5-30.167v-18.75H448v32c0 17.646 14.354 32 32 32s32-14.354 32-32v-128c0-17.646-14.354-32.001-32-32.001z"/></svg>
+              </div>
+              <span>Двигатель</span>
+            </a>
+            <ul class="collapse list-unstyled" id="engineSubmenu">
+              <li>
+                <a class="navItem" id="nav-engineOptionPage" onclick="loadContent('engineOptionPage')" href="#">
+                  <i class="fas fa-cog"></i>
+                  <span>Опции двигателя</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-crankshaftPage" onclick="loadContent('crankshaftPage')" href="#">
+                  <div class="fas">
+                    <svg class="svg-icon" viewBox="0 -76 512 512"><path d="M15 210h46v15c0 8 7 15 15 15h15V90H76c-8 0-15 7-15 15v15H15c-8 0-15 7-15 15v60c0 8 7 15 15 15zm0 0M211 315V15c0-8-7-15-15-15-41 0-75 34-75 75v240a45 45 0 0090 0zm0 0M316 0c-20 0-36 13-42 30h-33v120h30v165a45 45 0 0090 0V45c0-25-20-45-45-45zm0 0M512 45c0-25-21-45-46-45s-45 20-45 45v195h-30v90h30v15c0 8 7 15 15 15 41 0 76-34 76-75zm0 0"/></svg>
+                  </div>
+                  <span>Отключение коленчатого вала</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-battaryPage" onclick="loadContent('battaryPage')" href="#">
+                  <div class="fas">
+                    <svg class="svg-icon" viewBox="0 0 512 512"><path d="M469 107V85c0-11-9-21-21-21h-64c-12 0-21 10-21 21v22h-7l-8-9c-8-8-19-13-31-13H195c-12 0-23 5-31 13l-8 9h-7V85c0-11-9-21-21-21H64c-12 0-21 10-21 21v22c-24 0-43 19-43 42v256c0 24 19 43 43 43h426c24 0 43-19 43-43V149c0-23-19-42-43-42zM117 213H75a11 11 0 110-21h42a11 11 0 110 21zm320 0h-10v11a11 11 0 11-22 0v-11h-10a11 11 0 110-21h10v-11a11 11 0 1122 0v11h10a11 11 0 110 21z"/></svg>
+                  </div>
+                  <span>Аккумулятор агрегата</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a class="navItem" id="nav-servicePage" onclick="loadContent('servicePage')" href="#">
+              <i class="fas fa-tools"></i>
+              <span>Сигналы техобслуживания</span>
+            </a>
+          </li>
+          <li>
+            <a class="navItem" id="nav-logPage" onclick="loadContent('logPage')" href="#">
+              <i class="fas fa-book"></i>
+              <span>Журнал</span>
+            </a>
+          </li>
+        </ul>
+        <!--
+        <div class="footer">
+        </div>
+        -->
+      </nav>
     <!------------------------------------------------------------------------------------------------------------->
     <div id="content" class="p-4 p-md-5">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -222,6 +229,8 @@
           <div class="col-sm-1 pos-info">
             <label id="versionController">0.0.0</label>
           </div>
+        </div>
+        <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Версия прошивки:</label>
           </div>
@@ -237,6 +246,8 @@
           <div class="col-sm-1 pos-info">
             <label id="SerialNumber">0.0.0</label>
           </div>
+        </div>
+        <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Версия интерфейса:</label>
           </div>
@@ -258,7 +269,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-displayBrightnesLevel">%</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-displayBrightnesLevel"></div>
           </div>
         </div>
@@ -273,7 +284,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-displayContarstLevel">%</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-displayContarstLevel"></div>
           </div>
         </div>
@@ -288,9 +299,11 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-displaySleepDelay">сек</label>
           </div>
-          <div class="col-sm">
+
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-displaySleepDelay"></div>
           </div>
+
         </div>
 
       </div>
@@ -361,7 +374,7 @@
             <div class="col-dimension">
               <label class="pos-unit" id="label-oilPressureAlarmLevel">Бар</label>
             </div>
-            <div class="col-sm">
+            <div class="col-sm col-slider">
               <div class="s-slider" id="s-slider-oilPressureAlarmLevel"></div>
             </div>
           </div>
@@ -385,7 +398,7 @@
             <div class="col-dimension">
               <label class="pos-unit" id="label-oilPressurePreAlarmLevel">Бар</label>
             </div>
-            <div class="col-sm">
+            <div class="col-sm col-slider">
               <div class="s-slider" id="s-slider-oilPressurePreAlarmLevel"></div>
             </div>
           </div>
@@ -445,7 +458,7 @@
           <div class="ccol-dimension">
             <label class="pos-unit" id="label-coolantHightTempAlarmLevel">'C</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-coolantHightTempAlarmLevel"></div>
           </div>
         </div>
@@ -470,7 +483,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-coolantHightTempPreAlarmLevel">'C</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-coolantHightTempPreAlarmLevel"></div>
           </div>
         </div>
@@ -495,7 +508,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-coolantTempHeaterOnLevel">'C</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-coolantTempHeaterOnLevel"></div>
           </div>
         </div>
@@ -510,7 +523,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-coolantTempHeaterOffLevel">'C</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-coolantTempHeaterOffLevel"></div>
           </div>
         </div>
@@ -535,7 +548,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-coolantTempCoolerOffLevel">'C</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-coolantTempCoolerOffLevel"></div>
           </div>
         </div>
@@ -550,7 +563,7 @@
           <div class="col-dimension">
             <label id="label-coolantTempCoolerOnLevel">'C</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-coolantTempCoolerOnLevel"></div>
           </div>
         </div>
@@ -612,7 +625,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelLowAlarmLevel">%</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelLevelLowAlarmLevel"></div>
           </div>
         </div>
@@ -627,7 +640,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelLowAlarmDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelLevelLowAlarmDelay"></div>
           </div>
         </div>
@@ -652,7 +665,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelLowPreAlarmLevel">%</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelLevelLowPreAlarmLevel"></div>
           </div>
         </div>
@@ -667,7 +680,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelLowPreAlarmDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelLevelLowPreAlarmDelay"></div>
           </div>
         </div>
@@ -706,7 +719,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelHightAlarmLevel">%</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelLevelHightAlarmLevel"></div>
           </div>
         </div>
@@ -721,7 +734,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelHightAlarmDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelLevelHightAlarmDelay"></div>
           </div>
         </div>
@@ -746,7 +759,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelHightPreAlarmLevel">%</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelLevelHightPreAlarmLevel"></div>
           </div>
         </div>
@@ -761,7 +774,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelHightPreAlarmDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelLevelHightPreAlarmDelay"></div>
           </div>
         </div>
@@ -788,7 +801,7 @@
           <div class="col-dimension">
             <label id="label-fuelPumpOffLevel">%</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelPumpOffLevel"></div>
           </div>
         </div>
@@ -802,7 +815,7 @@
           <div class="col-dimension">
             <label id="label-fuelPumpOnLevel">%</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelPumpOnLevel"></div>
           </div>
         </div>
@@ -872,7 +885,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-diaDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-diaDelay"></div>
           </div>
         </div>
@@ -942,7 +955,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-dibDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-dibDelay"></div>
           </div>
         </div>
@@ -1012,7 +1025,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-dicDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-dicDelay"></div>
           </div>
         </div>
@@ -1082,7 +1095,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-didDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-didDelay"></div>
           </div>
         </div>
@@ -1525,7 +1538,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerMainsTransientDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerMainsTransientDelay"></div>
           </div>
         </div>
@@ -1540,7 +1553,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerStartDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerStartDelay"></div>
           </div>
         </div>
@@ -1555,7 +1568,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerPreheating">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerPreheating"></div>
           </div>
         </div>
@@ -1570,7 +1583,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerCranking">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerCranking"></div>
           </div>
         </div>
@@ -1585,7 +1598,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerCrankDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerCrankDelay"></div>
           </div>
         </div>
@@ -1600,7 +1613,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerStartupIdleTime">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerStartupIdleTime"></div>
           </div>
         </div>
@@ -1615,7 +1628,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerNominalRPMDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerNominalRPMDelay"></div>
           </div>
         </div>
@@ -1629,7 +1642,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerSafetyOnDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerSafetyOnDelay"></div>
           </div>
         </div>
@@ -1643,7 +1656,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerWarming">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerWarming"></div>
           </div>
         </div>
@@ -1660,7 +1673,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerTransferDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerTransferDelay"></div>
           </div>
         </div>
@@ -1675,7 +1688,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerBreakerTripPulse">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerBreakerTripPulse"></div>
           </div>
         </div>
@@ -1690,7 +1703,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerBreakerClosePulse">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerBreakerClosePulse"></div>
           </div>
         </div>
@@ -1707,7 +1720,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerReturnDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerReturnDelay"></div>
           </div>
         </div>
@@ -1722,7 +1735,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerCooling">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerCooling"></div>
           </div>
         </div>
@@ -1737,7 +1750,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerCoolingIdle">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerCoolingIdle"></div>
           </div>
         </div>
@@ -1752,7 +1765,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerSolenoidHold">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerSolenoidHold"></div>
           </div>
         </div>
@@ -1767,7 +1780,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerFailStopDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerFailStopDelay"></div>
           </div>
         </div>
@@ -1782,7 +1795,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerGenTransientDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerGenTransientDelay"></div>
           </div>
         </div>
@@ -1802,7 +1815,7 @@
         </div>
 
         <div class="row">
-          <div class="col-sm-2">
+          <div class="col-sm-2 pos-name">
             <label class="pos-select">Пар полюсов</label>
           </div>
           <div class="col-sm-auto">
@@ -1847,7 +1860,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genRatedApparentPowerLevel">кВА</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genRatedApparentPowerLevel"></div>
           </div>
         </div>
@@ -1862,7 +1875,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genRatedActivePowerLevel">кВт</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genRatedActivePowerLevel"></div>
           </div>
         </div>
@@ -1877,7 +1890,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genRatedReactivePowerLevel">кВар</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genRatedReactivePowerLevel"></div>
           </div>
         </div>
@@ -1892,7 +1905,7 @@
           <div class="col-dimension">
             <label class="pos-unit"></label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-cosFi"></div>
           </div>
         </div>
@@ -1907,7 +1920,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genRatedFrequencyLevel">Гц</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genRatedFrequencyLevel"></div>
           </div>
         </div>
@@ -1924,7 +1937,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genCurrentPrimaryLevel">А</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genCurrentPrimaryLevel"></div>
           </div>
         </div>
@@ -1939,7 +1952,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genCurrentFullLoadRatingLevel">А</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genCurrentFullLoadRatingLevel"></div>
           </div>
         </div>
@@ -1948,7 +1961,7 @@
           <div class="col-sm-2 pos-name">
             <label>Расположение трансформатора тока</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-sm">
             <select class="custom-select sensor-select" id="genLocationCurrentTransformerLevel">
               <option value="0">Генератор</option>
               <option value="1">Нагрузка</option>
@@ -1982,7 +1995,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genUnderVoltageAlarmLevel">В</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genUnderVoltageAlarmLevel"></div>
           </div>
         </div>
@@ -2008,7 +2021,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genUnderVoltagePreAlarmLevel">В</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genUnderVoltagePreAlarmLevel"></div>
           </div>
         </div>
@@ -2035,7 +2048,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverVoltagePreAlarmLevel">В</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genOverVoltagePreAlarmLevel"></div>
           </div>
         </div>
@@ -2058,7 +2071,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverVoltageAlarmLevel">В</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genOverVoltageAlarmLevel"></div>
           </div>
         </div>
@@ -2090,7 +2103,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genUnderFrequencyAlarmLevel">Гц</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genUnderFrequencyAlarmLevel"></div>
           </div>
         </div>
@@ -2115,7 +2128,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genUnderFrequencyPreAlarmLevel">Гц</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genUnderFrequencyPreAlarmLevel"></div>
           </div>
         </div>
@@ -2142,7 +2155,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverFrequencyPreAlarmLevel">Гц</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genOverFrequencyPreAlarmLevel"></div>
           </div>
         </div>
@@ -2167,7 +2180,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverFrequencyAlarmLevel">Гц</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genOverFrequencyAlarmLevel"></div>
           </div>
         </div>
@@ -2188,7 +2201,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverCurrentThermalProtectionLevel">%</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genOverCurrentThermalProtectionLevel"></div>
           </div>
         </div>
@@ -2203,7 +2216,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverCurrentCutoffLevel">%</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genOverCurrentCutoffLevel"></div>
           </div>
         </div>
@@ -2231,7 +2244,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverCurrentAlarmLevel">%</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genOverCurrentAlarmLevel"></div>
           </div>
         </div>
@@ -2246,7 +2259,7 @@
           <div class="col-dimension">
             <label id="label-genOverCurrentAlarmDelay" class="pos-unit">мин</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genOverCurrentAlarmDelay"></div>
           </div>
         </div>
@@ -2285,7 +2298,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genCurrentOverloadProtectionLevel">%</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genCurrentOverloadProtectionLevel"></div>
           </div>
         </div>
@@ -2300,7 +2313,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genCurrentOverloadProtectionDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genCurrentOverloadProtectionDelay"></div>
           </div>
         </div>
@@ -2339,7 +2352,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genCurrentOverPhaseImbalanceLevel">%</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genCurrentOverPhaseImbalanceLevel"></div>
           </div>
         </div>
@@ -2353,7 +2366,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-genCurrentOverPhaseImbalanceDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-genCurrentOverPhaseImbalanceDelay"></div>
           </div>
         </div>
@@ -2419,7 +2432,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-mainsUnderVoltageAlarmLevel">В</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-mainsUnderVoltageAlarmLevel"></div>
           </div>
         </div>
@@ -2444,7 +2457,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-mainsOverVoltageAlarmLevel">В</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-mainsOverVoltageAlarmLevel"></div>
           </div>
         </div>
@@ -2468,7 +2481,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-mainsUnderFrequencyAlarmLevel">Гц</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-mainsUnderFrequencyAlarmLevel"></div>
           </div>
         </div>
@@ -2491,7 +2504,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-mainsOverFrequencyAlarmLevel">Гц</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-mainsOverFrequencyAlarmLevel"></div>
           </div>
         </div>
@@ -2528,7 +2541,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-enginePreHeatLevel">'C</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-enginePreHeatLevel"></div>
           </div>
         </div>
@@ -2542,7 +2555,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-enginePreHeatDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-enginePreHeatDelay"></div>
           </div>
         </div>
@@ -2566,7 +2579,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-enginePostHeatLevel">'C</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-enginePostHeatLevel"></div>
           </div>
         </div>
@@ -2580,7 +2593,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-enginePostHeatDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-enginePostHeatDelay"></div>
           </div>
         </div>
@@ -2608,7 +2621,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-crankDisconnectgenFreqLevel">Гц</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-crankDisconnectgenFreqLevel"></div>
           </div>
         </div>
@@ -2631,7 +2644,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-crankDisconnectOilPressureLevel">Bar</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-crankDisconnectOilPressureLevel"></div>
           </div>
         </div>
@@ -2654,7 +2667,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-crankDisconnectChargeAlternatorLevel">B</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-crankDisconnectChargeAlternatorLevel"></div>
           </div>
         </div>
@@ -2682,7 +2695,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-batteryUnderVoltageLevel">B</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-batteryUnderVoltageLevel"></div>
           </div>
         </div>
@@ -2696,7 +2709,7 @@
           <div class="col-dimension">
             <label id="label-batteryUnderVoltageDelay" class="pos-unit">мин</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-batteryUnderVoltageDelay"></div>
           </div>
         </div>
@@ -2719,7 +2732,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-batteryOverVoltageLevel">B</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-batteryOverVoltageLevel"></div>
           </div>
         </div>
@@ -2733,7 +2746,7 @@
           <div class="col-dimension">
             <label id="label-batteryOverVoltageDelay" class="pos-unit">мин</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-batteryOverVoltageDelay"></div>
           </div>
         </div>
@@ -2757,7 +2770,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-batteryChargeShutdownLevel">B</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-batteryChargeShutdownLevel"></div>
           </div>
         </div>
@@ -2771,7 +2784,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-batteryChargeShutdownDelay">сек</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-batteryChargeShutdownDelay"></div>
           </div>
         </div>
@@ -2794,7 +2807,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-batteryChargeWarningLevel">B</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-batteryChargeWarningLevel"></div>
           </div>
         </div>
@@ -2808,7 +2821,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-batteryChargeWarningDelay">мин</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-batteryChargeWarningDelay"></div>
           </div>
         </div>
@@ -2847,7 +2860,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-maintenanceAlarmOilTime">час</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-maintenanceAlarmOilTime"></div>
           </div>
         </div>
@@ -2882,7 +2895,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-maintenanceAlarmAirTime">час</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-maintenanceAlarmAirTime"></div>
           </div>
         </div>
@@ -2917,7 +2930,7 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-maintenanceAlarmFuelTime">час</label>
           </div>
-          <div class="col-sm">
+          <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-maintenanceAlarmFuelTime"></div>
           </div>
         </div>
