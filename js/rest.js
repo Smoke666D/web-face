@@ -610,13 +610,14 @@ function dataGrab(){
 		};
 		//--------------------------------------------------------------------------
 		restSeq = []
-		
+
 		for ( i=0; i<103; i++ ) {
-			restSeq.push({
-				method:  'PUT',
-				url:     '/configs/' + i,
-				content: JSON.stringify(pasteDataReg(dataReg[i]))
-		})}
+			if (dataReg[i].rw == "rw"){
+				restSeq.push({
+					method:  'PUT',
+					url:     '/configs/' + i,
+					content: JSON.stringify(pasteDataReg(dataReg[i]))
+		})}}
 
 		var chartContent = uploadCharts();
 		for ( i=0; i<3; i++) {

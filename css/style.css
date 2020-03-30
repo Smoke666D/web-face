@@ -8327,8 +8327,9 @@ h1, h2, h3, h4, h5,
     margin: 0 auto; }
     #sidebar .logo span {
       display: block; }
+  #sidebar .nav-major{
+    background: #373a40; }
   #sidebar ul.components {
-    height: 100%;
     background: #373a40;
     padding: 0; }
   #sidebar ul li {
@@ -8415,6 +8416,8 @@ a[data-toggle="collapse"] {
   .content-data .pos-name{
     padding-left: 0px;}
 }
+
+
 /* Экстрамалые девайсы («телефоны», < 576px) */
 @media (max-width: 575.98px) {
   .content-data .pos-name{
@@ -8435,11 +8438,9 @@ a[data-toggle="collapse"] {
     max-width: 100%;
     padding-top: 0;
     left: -575px;
-    z-index: 20;
-    height: auto;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    transition: all 0.5s; }
+    z-index: 20; }
+    #sidebar ul.components {
+      height: 100%; }
     #sidebar.active {
       left: 0; }
     #sidebar .sidebar-button{
@@ -8454,13 +8455,12 @@ a[data-toggle="collapse"] {
     padding-top: 0;
     margin-left: -300px;
     z-index: 20;
-    height: 100%;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    transition: all 0.5s;}
+    height: auto;}
     #sidebar .sidebar-button{
       height: auto;
       overflow: visible;}
+    #sidebar ul.components {
+      height: auto; }
     #sidebar.active {
       margin-left: 0; }
 }

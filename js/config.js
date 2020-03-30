@@ -9,6 +9,7 @@ var dataReg = [
    "max": 0,
    "units": "",
    "type": "U",
+   "rw": "r",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -22,6 +23,7 @@ var dataReg = [
    "max": 0,
    "units": "",
    "type": "U",
+   "rw": "r",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -35,6 +37,7 @@ var dataReg = [
    "max": 0,
    "units": "",
    "type": "U",
+   "rw": "r",
    "len": 6,
    "bitMapSize": 0,
    "bit": []
@@ -48,6 +51,7 @@ var dataReg = [
    "max": 100,
    "units": "%",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -61,6 +65,7 @@ var dataReg = [
    "max": 100,
    "units": "%",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -74,6 +79,7 @@ var dataReg = [
    "max": 600,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -87,6 +93,7 @@ var dataReg = [
    "max": 3,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 2,
    "bit": [
@@ -114,6 +121,7 @@ var dataReg = [
    "max": 63,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 4,
    "bit": [
@@ -153,6 +161,7 @@ var dataReg = [
    "max": 103,
    "units": "Бар",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -166,6 +175,7 @@ var dataReg = [
    "max": 103,
    "units": "Бар",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -179,6 +189,7 @@ var dataReg = [
    "max": 63,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 6,
    "bit": [
@@ -230,6 +241,7 @@ var dataReg = [
    "max": 250,
    "units": "C",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -243,6 +255,7 @@ var dataReg = [
    "max": 250,
    "units": "C",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -256,6 +269,7 @@ var dataReg = [
    "max": 250,
    "units": "C",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -269,6 +283,7 @@ var dataReg = [
    "max": 250,
    "units": "C",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -282,6 +297,7 @@ var dataReg = [
    "max": 250,
    "units": "C",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -295,6 +311,7 @@ var dataReg = [
    "max": 250,
    "units": "C",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -308,6 +325,7 @@ var dataReg = [
    "max": 1023,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 8,
    "bit": [
@@ -371,6 +389,7 @@ var dataReg = [
    "max": 95,
    "units": "%",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -384,6 +403,7 @@ var dataReg = [
    "max": 3600,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -397,6 +417,7 @@ var dataReg = [
    "max": 96,
    "units": "%",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -410,6 +431,7 @@ var dataReg = [
    "max": 3600,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -423,6 +445,7 @@ var dataReg = [
    "max": 98,
    "units": "%",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -436,6 +459,7 @@ var dataReg = [
    "max": 3600,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -449,6 +473,7 @@ var dataReg = [
    "max": 100,
    "units": "%",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -462,6 +487,7 @@ var dataReg = [
    "max": 3600,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -475,6 +501,7 @@ var dataReg = [
    "max": 100,
    "units": "%",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -488,6 +515,7 @@ var dataReg = [
    "max": 100,
    "units": "%",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -501,6 +529,7 @@ var dataReg = [
    "max": 1023,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 4,
    "bit": [
@@ -540,6 +569,7 @@ var dataReg = [
    "max": 60,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -553,6 +583,7 @@ var dataReg = [
    "max": 1023,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 4,
    "bit": [
@@ -592,6 +623,7 @@ var dataReg = [
    "max": 60,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -605,6 +637,7 @@ var dataReg = [
    "max": 1023,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 4,
    "bit": [
@@ -644,6 +677,7 @@ var dataReg = [
    "max": 60,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -657,6 +691,7 @@ var dataReg = [
    "max": 1023,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 4,
    "bit": [
@@ -696,6 +731,7 @@ var dataReg = [
    "max": 60,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -709,6 +745,7 @@ var dataReg = [
    "max": 1023,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 6,
    "bit": [
@@ -760,6 +797,7 @@ var dataReg = [
    "max": 1023,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 2,
    "bit": [
@@ -787,6 +825,7 @@ var dataReg = [
    "max": 1023,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 2,
    "bit": [
@@ -814,6 +853,7 @@ var dataReg = [
    "max": 1023,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 2,
    "bit": [
@@ -841,6 +881,7 @@ var dataReg = [
    "max": 100,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -854,6 +895,7 @@ var dataReg = [
    "max": 300,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -867,6 +909,7 @@ var dataReg = [
    "max": 300,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -880,6 +923,7 @@ var dataReg = [
    "max": 30,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -893,6 +937,7 @@ var dataReg = [
    "max": 30,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -906,6 +951,7 @@ var dataReg = [
    "max": 300,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -919,6 +965,7 @@ var dataReg = [
    "max": 30,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -932,6 +979,7 @@ var dataReg = [
    "max": 60,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -945,6 +993,7 @@ var dataReg = [
    "max": 300,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -958,6 +1007,7 @@ var dataReg = [
    "max": 300,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -971,6 +1021,7 @@ var dataReg = [
    "max": 50,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -984,6 +1035,7 @@ var dataReg = [
    "max": 50,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -997,6 +1049,7 @@ var dataReg = [
    "max": 300,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1010,6 +1063,7 @@ var dataReg = [
    "max": 300,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1023,6 +1077,7 @@ var dataReg = [
    "max": 300,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1036,6 +1091,7 @@ var dataReg = [
    "max": 60,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1049,6 +1105,7 @@ var dataReg = [
    "max": 60,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1062,6 +1119,7 @@ var dataReg = [
    "max": 100,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1075,6 +1133,7 @@ var dataReg = [
    "max": 255,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 4,
    "bit": [
@@ -1114,6 +1173,7 @@ var dataReg = [
    "max": 10000,
    "units": "кВт",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1127,6 +1187,7 @@ var dataReg = [
    "max": 10000,
    "units": "кВАР",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1140,6 +1201,7 @@ var dataReg = [
    "max": 10000,
    "units": "кВА",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1153,6 +1215,7 @@ var dataReg = [
    "max": 747,
    "units": "Гц",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1166,6 +1229,7 @@ var dataReg = [
    "max": 8000,
    "units": "А",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1179,6 +1243,7 @@ var dataReg = [
    "max": 8000,
    "units": "А",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1192,6 +1257,7 @@ var dataReg = [
    "max": 65535,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 12,
    "bit": [
@@ -1279,6 +1345,7 @@ var dataReg = [
    "max": 708,
    "units": "В",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1292,6 +1359,7 @@ var dataReg = [
    "max": 710,
    "units": "В",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1305,6 +1373,7 @@ var dataReg = [
    "max": 715,
    "units": "В",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1318,6 +1387,7 @@ var dataReg = [
    "max": 717,
    "units": "В",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1331,6 +1401,7 @@ var dataReg = [
    "max": 744,
    "units": "Гц",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1344,6 +1415,7 @@ var dataReg = [
    "max": 745,
    "units": "Гц",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1357,6 +1429,7 @@ var dataReg = [
    "max": 747,
    "units": "Гц",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1370,6 +1443,7 @@ var dataReg = [
    "max": 749,
    "units": "Гц",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1383,6 +1457,7 @@ var dataReg = [
    "max": 120,
    "units": "%",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1396,6 +1471,7 @@ var dataReg = [
    "max": 120,
    "units": "%",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1409,6 +1485,7 @@ var dataReg = [
    "max": 120,
    "units": "%",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1422,6 +1499,7 @@ var dataReg = [
    "max": 3600,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1435,6 +1513,7 @@ var dataReg = [
    "max": 125,
    "units": "%",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1448,6 +1527,7 @@ var dataReg = [
    "max": 3600,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1461,6 +1541,7 @@ var dataReg = [
    "max": 125,
    "units": "%",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1474,6 +1555,7 @@ var dataReg = [
    "max": 3600,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1487,6 +1569,7 @@ var dataReg = [
    "max": 31,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 3,
    "bit": [
@@ -1520,6 +1603,7 @@ var dataReg = [
    "max": 15,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 4,
    "bit": [
@@ -1559,6 +1643,7 @@ var dataReg = [
    "max": 713,
    "units": "В",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1572,6 +1657,7 @@ var dataReg = [
    "max": 717,
    "units": "В",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1585,6 +1671,7 @@ var dataReg = [
    "max": 747,
    "units": "Гц",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1598,6 +1685,7 @@ var dataReg = [
    "max": 749,
    "units": "Гц",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1611,6 +1699,7 @@ var dataReg = [
    "max": 63,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 3,
    "bit": [
@@ -1644,6 +1733,7 @@ var dataReg = [
    "max": 100,
    "units": "C",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1657,6 +1747,7 @@ var dataReg = [
    "max": 3600,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1670,6 +1761,7 @@ var dataReg = [
    "max": 100,
    "units": "C",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1683,6 +1775,7 @@ var dataReg = [
    "max": 3600,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1696,6 +1789,7 @@ var dataReg = [
    "max": 7,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 4,
    "bit": [
@@ -1735,6 +1829,7 @@ var dataReg = [
    "max": 400,
    "units": "Гц",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1748,6 +1843,7 @@ var dataReg = [
    "max": 40,
    "units": "Бар",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1761,6 +1857,7 @@ var dataReg = [
    "max": 400,
    "units": "В",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1774,6 +1871,7 @@ var dataReg = [
    "max": 15,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 4,
    "bit": [
@@ -1813,6 +1911,7 @@ var dataReg = [
    "max": 397,
    "units": "В",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1826,6 +1925,7 @@ var dataReg = [
    "max": 86400,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1839,6 +1939,7 @@ var dataReg = [
    "max": 400,
    "units": "В",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1852,6 +1953,7 @@ var dataReg = [
    "max": 86400,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1865,6 +1967,7 @@ var dataReg = [
    "max": 388,
    "units": "В",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1878,6 +1981,7 @@ var dataReg = [
    "max": 3600,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1891,6 +1995,7 @@ var dataReg = [
    "max": 390,
    "units": "В",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1904,6 +2009,7 @@ var dataReg = [
    "max": 3600,
    "units": "сек",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1917,6 +2023,7 @@ var dataReg = [
    "max": 63,
    "units": "",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 6,
    "bit": [
@@ -1968,6 +2075,7 @@ var dataReg = [
    "max": 5000,
    "units": "час",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1981,6 +2089,7 @@ var dataReg = [
    "max": 5000,
    "units": "час",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -1994,6 +2103,7 @@ var dataReg = [
    "max": 5000,
    "units": "час",
    "type": "U",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
