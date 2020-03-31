@@ -20,8 +20,6 @@ document.addEventListener("touchmove", function(e) { e.preventDefault() });
 //******************************************************************************
 function toogleNav() {
 	var sb   = document.getElementById("sidebar");
-	var cont = document.getElementsByClassName("content-data");
-	var i = 0;
 	if (sb.classList.contains("active")){
 		sb.classList.remove("active");
 	} else {
@@ -45,9 +43,30 @@ function hideConteny() {
 function loadContent(id) {
 	hideConteny();
 	document.getElementById(id).classList.remove("hidden");
-	test = document.getElementById("nav-" + id).classList.add("checked");
+	document.getElementById("nav-" + id).classList.add("checked");
+	var sb = document.getElementById("sidebar");
+	if (window.matchMedia("(max-width: 991.98px)").matches) {
+		sb.classList.remove("active");
+		sidebarDone = 0;
+	}
 	return;
 }
+
+var sidebarDone = 0;
+document.getElementById("content").addEventListener('click', function() {
+	var sb = document.getElementById("sidebar");
+	if (!sb.classList.contains("active")) {
+		sidebarDone = 0;
+	}
+	if ((window.matchMedia("(max-width: 991.98px)").matches) && (sb.classList.contains("active")) && (sidebarDone == 1) )  {
+ 		sb.classList.remove("active");
+		sidebarDone = 0;
+}});
+document.getElementById("sidebar").addEventListener('transitionend', function() {
+	var sb = document.getElementById("sidebar");
+	if ((window.matchMedia("(max-width: 991.98px)").matches) && (sb.classList.contains("active"))) {
+		sidebarDone = 1;
+}});
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -448,6 +467,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	oilScaleInit();
 	powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
 	dataUpdate();
+
+	updateVersions();
+
 	const genVoltageLims = new slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
 	const genFreqLims = new slider4InitLimits("genUnderFrequencyAlarmLevel","genUnderFrequencyPreAlarmLevel","genOverFrequencyPreAlarmLevel","genOverFrequencyAlarmLevel");
 	const mainsVoltageLims = new slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");

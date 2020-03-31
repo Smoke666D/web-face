@@ -39,6 +39,7 @@
   box-sizing: border-box; }
 
 html {
+  height: 100%;
   font-family: sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
@@ -51,6 +52,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
+  height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1rem;
   font-weight: 400;
@@ -1743,6 +1745,13 @@ textarea.form-control {
   display: block;
   padding-left: 1.25rem; }
 
+.col-select{
+  text-align: center;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 16.66667%;
+  flex: 0 0 16.66667%;
+  max-width: 16.66667%;
+}
 .sensor-select{
     width: 220px!important;
   }
@@ -3017,6 +3026,7 @@ input[type="button"].btn-block {
   border-bottom-left-radius: 0; }
 
 .custom-control {
+  padding: 15px;
   position: relative;
   display: block;
   min-height: 1.5rem;
@@ -3090,6 +3100,10 @@ input[type="button"].btn-block {
 
 .custom-checkbox .custom-control-input:disabled:indeterminate ~ .custom-control-label::before {
   background-color: rgba(0, 123, 255, 0.5); }
+
+.radio-line{
+  display:inline-flex;
+}
 
 .custom-radio .custom-control-label::before {
   border-radius: 50%; }
@@ -4332,8 +4346,8 @@ input[type="button"].btn-block {
 
 .alert-message{
   width: auto;
-  min-width: 300px;
-  max-width: 400px;
+  min-width: 330px;
+  max-width: 330px;
   right: 20px;
   bottom: 20px;
   }
@@ -8290,7 +8304,9 @@ h1, h2, h3, h4, h5,
 
 .wrapper {
   display: flex;
+  position: relative;
   width: 100%;
+  height: 100%;
   align-items: stretch }
 
 #alerts {
@@ -8303,7 +8319,8 @@ h1, h2, h3, h4, h5,
 
 #sidebar {
   padding-top: 3rem;
-  height: auto;
+  height: 100%;
+  overflow: auto;
   min-width: 300px;
   max-width: 300px;
   background: #373a40;
@@ -8389,6 +8406,7 @@ a[data-toggle="collapse"] {
 
 #content {
   width: 100%;
+  overflow: auto;
   padding: 0;
   min-height: 100vh;
   -webkit-transition: all 0.3s;
@@ -8435,7 +8453,6 @@ a[data-toggle="collapse"] {
   #sidebar {
     position: absolute;
     width: 100%;
-    max-width: 100%;
     padding-top: 0;
     left: -575px;
     z-index: 20; }
@@ -8446,6 +8463,14 @@ a[data-toggle="collapse"] {
     #sidebar .sidebar-button{
       height: auto;
       overflow: visible;}
+  .col-select{
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+  }
 }
 
 /* Средние девайсы («таблетки», < 992px) */
@@ -8454,8 +8479,7 @@ a[data-toggle="collapse"] {
     position: absolute;
     padding-top: 0;
     margin-left: -300px;
-    z-index: 20;
-    height: auto;}
+    z-index: 20;}
     #sidebar .sidebar-button{
       height: auto;
       overflow: visible;}
@@ -8523,7 +8547,7 @@ a[data-toggle="collapse"] {
 
 .pos-info{}
   .pos-info label{
-    color: #28a745;
+    /*color: #28a745;*/
 }
 
 .pos-unit{

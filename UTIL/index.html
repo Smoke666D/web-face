@@ -2902,6 +2902,7 @@ eQAyMDE3LTA4LTIxVDEwOjMxOjI2KzAzOjAwxWe0AAAAAABJRU5ErkJggg==
   box-sizing: border-box; }
 
 html {
+  height: 100%;
   font-family: sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
@@ -2914,6 +2915,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
+  height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1rem;
   font-weight: 400;
@@ -4606,6 +4608,13 @@ textarea.form-control {
   display: block;
   padding-left: 1.25rem; }
 
+.col-select{
+  text-align: center;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 16.66667%;
+  flex: 0 0 16.66667%;
+  max-width: 16.66667%;
+}
 .sensor-select{
     width: 220px!important;
   }
@@ -5880,6 +5889,7 @@ input[type="button"].btn-block {
   border-bottom-left-radius: 0; }
 
 .custom-control {
+  padding: 15px;
   position: relative;
   display: block;
   min-height: 1.5rem;
@@ -5953,6 +5963,10 @@ input[type="button"].btn-block {
 
 .custom-checkbox .custom-control-input:disabled:indeterminate ~ .custom-control-label::before {
   background-color: rgba(0, 123, 255, 0.5); }
+
+.radio-line{
+  display:inline-flex;
+}
 
 .custom-radio .custom-control-label::before {
   border-radius: 50%; }
@@ -7195,8 +7209,8 @@ input[type="button"].btn-block {
 
 .alert-message{
   width: auto;
-  min-width: 300px;
-  max-width: 400px;
+  min-width: 330px;
+  max-width: 330px;
   right: 20px;
   bottom: 20px;
   }
@@ -11153,7 +11167,9 @@ h1, h2, h3, h4, h5,
 
 .wrapper {
   display: flex;
+  position: relative;
   width: 100%;
+  height: 100%;
   align-items: stretch }
 
 #alerts {
@@ -11166,7 +11182,8 @@ h1, h2, h3, h4, h5,
 
 #sidebar {
   padding-top: 3rem;
-  height: auto;
+  height: 100%;
+  overflow: auto;
   min-width: 300px;
   max-width: 300px;
   background: #373a40;
@@ -11252,6 +11269,7 @@ a[data-toggle="collapse"] {
 
 #content {
   width: 100%;
+  overflow: auto;
   padding: 0;
   min-height: 100vh;
   -webkit-transition: all 0.3s;
@@ -11298,7 +11316,6 @@ a[data-toggle="collapse"] {
   #sidebar {
     position: absolute;
     width: 100%;
-    max-width: 100%;
     padding-top: 0;
     left: -575px;
     z-index: 20; }
@@ -11309,6 +11326,14 @@ a[data-toggle="collapse"] {
     #sidebar .sidebar-button{
       height: auto;
       overflow: visible;}
+  .col-select{
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+  }
 }
 
 /* Средние девайсы («таблетки», < 992px) */
@@ -11317,8 +11342,7 @@ a[data-toggle="collapse"] {
     position: absolute;
     padding-top: 0;
     margin-left: -300px;
-    z-index: 20;
-    height: auto;}
+    z-index: 20;}
     #sidebar .sidebar-button{
       height: auto;
       overflow: visible;}
@@ -11386,7 +11410,7 @@ a[data-toggle="collapse"] {
 
 .pos-info{}
   .pos-info label{
-    color: #28a745;
+    /*color: #28a745;*/
 }
 
 .pos-unit{
@@ -11461,9 +11485,9 @@ input:checked + .slider:before {
 	   -webkit-transform: rotate(359deg);}
 }
 </style></head>
-  <body>
-		<div class="wrapper d-flex align-items-stretch">
-      <!------------------------------------------------------------------------------------------------------------->
+  <body scroll="no">
+		<div class="wrapper">
+    <!------------------------------------------------------------------------------------------------------------->
 		  <nav id="sidebar" class="shadow">
 		 	<!--IMG-->
         <div class="sidebar-button">
@@ -12282,7 +12306,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="alerts"></div>
-        <div id="oilPressPage" class="content-data hidden">
+      <div id="oilPressPage" class="content-data hidden">
           <h5>Давление масла</h5>
           <div class="row">
             <div class="col-sm-2 pos-name">
@@ -13081,18 +13105,16 @@ QmCC
           <div class="col-sm-2 pos-name">
             <label>Выход A</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-select">
             <select class="custom-select sensor-select" id="doaType">
               <option value="0">Топливное реле</option>
             </select>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm radio-line">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="doaNO" name="groupDOA" checked>
               <label class="custom-control-label" for="doaNO">НО</label>
             </div>
-          </div>
-          <div class="col-sm-1">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="doaNC" name="groupDOA">
               <label class="custom-control-label" for="doaNC">НЗ</label>
@@ -13104,18 +13126,16 @@ QmCC
           <div class="col-sm-2 pos-name">
             <label>Выход B</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-select">
             <select class="custom-select sensor-select" id="dobType">
               <option value="0">Реле запуска</option>
             </select>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm radio-line">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="dobNO" name="groupDOB" checked>
               <label class="custom-control-label" for="dobNO">НО</label>
             </div>
-          </div>
-          <div class="col-sm-1">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="dobNC" name="groupDOB">
               <label class="custom-control-label" for="dobNC">НЗ</label>
@@ -13127,7 +13147,7 @@ QmCC
           <div class="col-sm-2 pos-name">
             <label>Выход С</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-select">
             <select class="custom-select sensor-select" id="docType">
               <option value="0">Не использовать</option>
               <option value="1">Аварийная остановка</option>
@@ -13202,13 +13222,11 @@ QmCC
               <option value="70">Цифровой вход D</option>
             </select>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm radio-line">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="docNO" name="groupDOC" checked>
               <label class="custom-control-label" for="docNO">НО</label>
             </div>
-          </div>
-          <div class="col-sm-1">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="docNC" name="groupDOC">
               <label class="custom-control-label" for="docNC">НЗ</label>
@@ -13220,7 +13238,7 @@ QmCC
           <div class="col-sm-2 pos-name">
             <label>Выход D</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-select">
             <select class="custom-select sensor-select" id="dodType">
               <option value="0">Не использовать</option>
               <option value="1">Аварийная остановка</option>
@@ -13295,13 +13313,11 @@ QmCC
               <option value="70">Цифровой вход D</option>
             </select>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm radio-line">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="dodNO" name="groupDOD" checked>
               <label class="custom-control-label" for="dodNO">НО</label>
             </div>
-          </div>
-          <div class="col-sm-1">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="dodNC" name="groupDOD">
               <label class="custom-control-label" for="dodNC">НЗ</label>
@@ -13313,7 +13329,7 @@ QmCC
           <div class="col-sm-2 pos-name">
             <label>Выход E</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-select">
             <select class="custom-select sensor-select" id="doeType">
               <option value="0">Не использовать</option>
               <option value="1">Аварийная остановка</option>
@@ -13388,13 +13404,11 @@ QmCC
               <option value="70">Цифровой вход D</option>
             </select>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm radio-line">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="doeNO" name="groupDOE" checked>
               <label class="custom-control-label" for="doeNO">НО</label>
             </div>
-          </div>
-          <div class="col-sm-1">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="doeNC" name="groupDOE">
               <label class="custom-control-label" for="doeNC">НЗ</label>
@@ -13406,7 +13420,7 @@ QmCC
           <div class="col-sm-2 pos-name">
             <label>Выход F</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-select">
             <select class="custom-select sensor-select" id="dofType">
               <option value="0">Не использовать</option>
               <option value="1">Аварийная остановка</option>
@@ -13481,13 +13495,11 @@ QmCC
               <option value="70">Цифровой вход D</option>
             </select>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm radio-line">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="dofNO" name="groupDOF" checked>
               <label class="custom-control-label" for="dofNO">НО</label>
             </div>
-          </div>
-          <div class="col-sm-1">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="dofNC" name="groupDOF">
               <label class="custom-control-label" for="dofNC">НЗ</label>
@@ -15099,7 +15111,7 @@ function Alert(type,ico,text) {
    "page": 0,
    "adr": 2,
    "name": "serialNumber",
-   "value": 0,
+   "value": [0, 0, 0, 0, 0, 0],
    "scale": 0,
    "min": 0,
    "max": 0,
@@ -17197,8 +17209,6 @@ document.addEventListener("touchmove", function(e) { e.preventDefault() });
 //******************************************************************************
 function toogleNav() {
 	var sb   = document.getElementById("sidebar");
-	var cont = document.getElementsByClassName("content-data");
-	var i = 0;
 	if (sb.classList.contains("active")){
 		sb.classList.remove("active");
 	} else {
@@ -17222,9 +17232,30 @@ function hideConteny() {
 function loadContent(id) {
 	hideConteny();
 	document.getElementById(id).classList.remove("hidden");
-	test = document.getElementById("nav-" + id).classList.add("checked");
+	document.getElementById("nav-" + id).classList.add("checked");
+	var sb = document.getElementById("sidebar");
+	if (window.matchMedia("(max-width: 991.98px)").matches) {
+		sb.classList.remove("active");
+		sidebarDone = 0;
+	}
 	return;
 }
+
+var sidebarDone = 0;
+document.getElementById("content").addEventListener('click', function() {
+	var sb = document.getElementById("sidebar");
+	if (!sb.classList.contains("active")) {
+		sidebarDone = 0;
+	}
+	if ((window.matchMedia("(max-width: 991.98px)").matches) && (sb.classList.contains("active")) && (sidebarDone == 1) )  {
+ 		sb.classList.remove("active");
+		sidebarDone = 0;
+}});
+document.getElementById("sidebar").addEventListener('transitionend', function() {
+	var sb = document.getElementById("sidebar");
+	if ((window.matchMedia("(max-width: 991.98px)").matches) && (sb.classList.contains("active"))) {
+		sidebarDone = 1;
+}});
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -17625,6 +17656,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	oilScaleInit();
 	powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
 	dataUpdate();
+
+	updateVersions();
+
 	const genVoltageLims = new slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
 	const genFreqLims = new slider4InitLimits("genUnderFrequencyAlarmLevel","genUnderFrequencyPreAlarmLevel","genOverFrequencyPreAlarmLevel","genOverFrequencyAlarmLevel");
 	const mainsVoltageLims = new slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
@@ -17798,25 +17832,29 @@ function Radio(name) {
 		this.getData();
 		this.objectNO = document.getElementById(this.name.replace("NOC","") + "NO");
 		this.objectNC = document.getElementById(this.name.replace("NOC","") + "NC");
-		this.sw = 0;
+		this.sw = null;
 		this.enable = 1;
 		return;
 	}
 
 	this.update = function() {
-		if(bitVal(this.bitNum,dataReg[this.regNum]) == 0) {
-			this.objectNO.checked = true;
-		} else {
-			this.objectNC.checked = true;
+		if((this.objectNO)&&(this.objectNC)){
+			if(bitVal(this.bitNum,dataReg[this.regNum]) == 0) {
+				this.objectNO.checked = true;
+			} else {
+				this.objectNC.checked = true;
+			}
 		}
 		return;
 	}
 
 	this.grab = function() {
-		if(this.objectNC.checked = true) {
-			bitWrite(this.bitNum,dataReg[this.regNum],1);
-		} else {
-			bitWrite(this.bitNum,dataReg[this.regNum],0);
+		if((this.objectNO)&&(this.objectNC)){
+			if(this.objectNC.checked == true) {
+				bitWrite(this.bitNum,dataReg[this.regNum],1);
+			} else {
+				bitWrite(this.bitNum,dataReg[this.regNum],0);
+			}
 		}
 		return;
 	}
@@ -18030,6 +18068,41 @@ function cosFiUpdate(){
 	return;
 }
 //******************************************************************************
+function updateVersions() {
+	var counter = 0;
+	var major = 0;
+	var minor = 0;
+	for(var i=0;i<dataReg.length;i++) {
+		if ( dataReg[i].name == "versionController" ) {
+			major = Math.trunc(dataReg[i].value/1000);
+			minor = dataReg[i].value -  major*1000;
+			document.getElementById("versionController").textContent = major + '.' + minor;
+			counter++;
+		}
+		if ( dataReg[i].name == "versionFirmware" ) {
+			major = Math.trunc(dataReg[i].value/1000);
+			minor = dataReg[i].value -  major*1000;
+			document.getElementById("versionFirmware").textContent = major + '.' + minor;
+			counter++;
+		}
+		if ( dataReg[i].name == "serialNumber" ) {
+			document.getElementById("SerialNumber").textContent = "";
+			for(var j=0;j<dataReg[i].len;j++) {
+				document.getElementById("SerialNumber").textContent += (((dataReg[i].value[j]) >> 8) & 0xFF) + ':' + ((dataReg[i].value[j]) & 0xFF);
+				if (j < (dataReg[i].len - 1)) {
+					document.getElementById("SerialNumber").textContent += ':';
+				}
+			}
+			counter++;
+		}
+		if (counter == 3) {
+			break;
+		}
+	}
+
+	return;
+}
+//******************************************************************************
 var slidersArray = [];
 var switcherArray = [];
 var selectorArray = [];
@@ -18114,7 +18187,7 @@ function updateInterface() {
 		radioArray[i].update();
 	}
 	cosFiUpdate();
-	//updateAllTimeSliders();
+	updateVersions();
 	return;
 }
 
@@ -18182,6 +18255,7 @@ function dataUpdate() {
 				copyDataReg(store[0]);
 				updateInterface();
 				loadCharts(store[1]);
+				let alert = new Alert("alert-success",triIco,"Данные успешно обновленны");
 				//**********************
 				document.getElementById("i-loading").classList.remove("loading");
 	      return store;
@@ -18193,8 +18267,9 @@ function dataUpdate() {
 		const results = reqs(restSeq, [],	function(error) { console.log(error)	});
 	} catch(e) {
 		let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
+		return 0;
 	}
-	return;
+	return 0;
 }
 //******************************************************************************
 function copyDataReg(data) {

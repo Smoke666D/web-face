@@ -27,9 +27,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.css">
 		<link rel="stylesheet" href="css/style.css">
   </head>
-  <body>
-		<div class="wrapper d-flex align-items-stretch">
-      <!------------------------------------------------------------------------------------------------------------->
+  <body scroll="no">
+		<div class="wrapper">
+    <!------------------------------------------------------------------------------------------------------------->
 		  <nav id="sidebar" class="shadow">
 		 	<!--IMG-->
         <div class="sidebar-button">
@@ -321,7 +321,7 @@
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="alerts"></div>
-        <div id="oilPressPage" class="content-data hidden">
+      <div id="oilPressPage" class="content-data hidden">
           <h5>Давление масла</h5>
           <div class="row">
             <div class="col-sm-2 pos-name">
@@ -1120,18 +1120,16 @@
           <div class="col-sm-2 pos-name">
             <label>Выход A</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-select">
             <select class="custom-select sensor-select" id="doaType">
               <option value="0">Топливное реле</option>
             </select>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm radio-line">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="doaNO" name="groupDOA" checked>
               <label class="custom-control-label" for="doaNO">НО</label>
             </div>
-          </div>
-          <div class="col-sm-1">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="doaNC" name="groupDOA">
               <label class="custom-control-label" for="doaNC">НЗ</label>
@@ -1143,18 +1141,16 @@
           <div class="col-sm-2 pos-name">
             <label>Выход B</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-select">
             <select class="custom-select sensor-select" id="dobType">
               <option value="0">Реле запуска</option>
             </select>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm radio-line">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="dobNO" name="groupDOB" checked>
               <label class="custom-control-label" for="dobNO">НО</label>
             </div>
-          </div>
-          <div class="col-sm-1">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="dobNC" name="groupDOB">
               <label class="custom-control-label" for="dobNC">НЗ</label>
@@ -1166,7 +1162,7 @@
           <div class="col-sm-2 pos-name">
             <label>Выход С</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-select">
             <select class="custom-select sensor-select" id="docType">
               <option value="0">Не использовать</option>
               <option value="1">Аварийная остановка</option>
@@ -1241,13 +1237,11 @@
               <option value="70">Цифровой вход D</option>
             </select>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm radio-line">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="docNO" name="groupDOC" checked>
               <label class="custom-control-label" for="docNO">НО</label>
             </div>
-          </div>
-          <div class="col-sm-1">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="docNC" name="groupDOC">
               <label class="custom-control-label" for="docNC">НЗ</label>
@@ -1259,7 +1253,7 @@
           <div class="col-sm-2 pos-name">
             <label>Выход D</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-select">
             <select class="custom-select sensor-select" id="dodType">
               <option value="0">Не использовать</option>
               <option value="1">Аварийная остановка</option>
@@ -1334,13 +1328,11 @@
               <option value="70">Цифровой вход D</option>
             </select>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm radio-line">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="dodNO" name="groupDOD" checked>
               <label class="custom-control-label" for="dodNO">НО</label>
             </div>
-          </div>
-          <div class="col-sm-1">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="dodNC" name="groupDOD">
               <label class="custom-control-label" for="dodNC">НЗ</label>
@@ -1352,7 +1344,7 @@
           <div class="col-sm-2 pos-name">
             <label>Выход E</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-select">
             <select class="custom-select sensor-select" id="doeType">
               <option value="0">Не использовать</option>
               <option value="1">Аварийная остановка</option>
@@ -1427,13 +1419,11 @@
               <option value="70">Цифровой вход D</option>
             </select>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm radio-line">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="doeNO" name="groupDOE" checked>
               <label class="custom-control-label" for="doeNO">НО</label>
             </div>
-          </div>
-          <div class="col-sm-1">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="doeNC" name="groupDOE">
               <label class="custom-control-label" for="doeNC">НЗ</label>
@@ -1445,7 +1435,7 @@
           <div class="col-sm-2 pos-name">
             <label>Выход F</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-select">
             <select class="custom-select sensor-select" id="dofType">
               <option value="0">Не использовать</option>
               <option value="1">Аварийная остановка</option>
@@ -1520,13 +1510,11 @@
               <option value="70">Цифровой вход D</option>
             </select>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm radio-line">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="dofNO" name="groupDOF" checked>
               <label class="custom-control-label" for="dofNO">НО</label>
             </div>
-          </div>
-          <div class="col-sm-1">
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="dofNC" name="groupDOF">
               <label class="custom-control-label" for="dofNC">НЗ</label>

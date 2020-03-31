@@ -31,7 +31,7 @@ var dataReg = [
    "page": 0,
    "adr": 2,
    "name": "serialNumber",
-   "value": 0,
+   "value": [0, 0, 0, 0, 0, 0],
    "scale": 0,
    "min": 0,
    "max": 0,

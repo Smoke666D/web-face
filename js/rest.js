@@ -163,25 +163,29 @@ function Radio(name) {
 		this.getData();
 		this.objectNO = document.getElementById(this.name.replace("NOC","") + "NO");
 		this.objectNC = document.getElementById(this.name.replace("NOC","") + "NC");
-		this.sw = 0;
+		this.sw = null;
 		this.enable = 1;
 		return;
 	}
 
 	this.update = function() {
-		if(bitVal(this.bitNum,dataReg[this.regNum]) == 0) {
-			this.objectNO.checked = true;
-		} else {
-			this.objectNC.checked = true;
+		if((this.objectNO)&&(this.objectNC)){
+			if(bitVal(this.bitNum,dataReg[this.regNum]) == 0) {
+				this.objectNO.checked = true;
+			} else {
+				this.objectNC.checked = true;
+			}
 		}
 		return;
 	}
 
 	this.grab = function() {
-		if(this.objectNC.checked = true) {
-			bitWrite(this.bitNum,dataReg[this.regNum],1);
-		} else {
-			bitWrite(this.bitNum,dataReg[this.regNum],0);
+		if((this.objectNO)&&(this.objectNC)){
+			if(this.objectNC.checked == true) {
+				bitWrite(this.bitNum,dataReg[this.regNum],1);
+			} else {
+				bitWrite(this.bitNum,dataReg[this.regNum],0);
+			}
 		}
 		return;
 	}
@@ -395,6 +399,41 @@ function cosFiUpdate(){
 	return;
 }
 //******************************************************************************
+function updateVersions() {
+	var counter = 0;
+	var major = 0;
+	var minor = 0;
+	for(var i=0;i<dataReg.length;i++) {
+		if ( dataReg[i].name == "versionController" ) {
+			major = Math.trunc(dataReg[i].value/1000);
+			minor = dataReg[i].value -  major*1000;
+			document.getElementById("versionController").textContent = major + '.' + minor;
+			counter++;
+		}
+		if ( dataReg[i].name == "versionFirmware" ) {
+			major = Math.trunc(dataReg[i].value/1000);
+			minor = dataReg[i].value -  major*1000;
+			document.getElementById("versionFirmware").textContent = major + '.' + minor;
+			counter++;
+		}
+		if ( dataReg[i].name == "serialNumber" ) {
+			document.getElementById("SerialNumber").textContent = "";
+			for(var j=0;j<dataReg[i].len;j++) {
+				document.getElementById("SerialNumber").textContent += (((dataReg[i].value[j]) >> 8) & 0xFF) + ':' + ((dataReg[i].value[j]) & 0xFF);
+				if (j < (dataReg[i].len - 1)) {
+					document.getElementById("SerialNumber").textContent += ':';
+				}
+			}
+			counter++;
+		}
+		if (counter == 3) {
+			break;
+		}
+	}
+
+	return;
+}
+//******************************************************************************
 var slidersArray = [];
 var switcherArray = [];
 var selectorArray = [];
@@ -479,7 +518,7 @@ function updateInterface() {
 		radioArray[i].update();
 	}
 	cosFiUpdate();
-	//updateAllTimeSliders();
+	updateVersions();
 	return;
 }
 
@@ -547,6 +586,7 @@ function dataUpdate() {
 				copyDataReg(store[0]);
 				updateInterface();
 				loadCharts(store[1]);
+				let alert = new Alert("alert-success",triIco,"Данные успешно обновленны");
 				//**********************
 				document.getElementById("i-loading").classList.remove("loading");
 	      return store;
@@ -558,8 +598,9 @@ function dataUpdate() {
 		const results = reqs(restSeq, [],	function(error) { console.log(error)	});
 	} catch(e) {
 		let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
+		return 0;
 	}
-	return;
+	return 0;
 }
 //******************************************************************************
 function copyDataReg(data) {
