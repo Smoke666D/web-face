@@ -28,16 +28,18 @@
 		<link rel="stylesheet" href="css/style.css">
   </head>
   <body scroll="no">
+    <!------------------------------------------------------------------------------------------------------------->
     <div class="ui-titlebar electron">
-      <div class="ui-titletext">Window title</div>
+      <img src="img\favicon-32x32.png" class="ui-titleicon">
+      <div class="ui-titletext">Энерган</div>
       <div class="ui-titlecontrols">
-        <button class="ui-btn minimize">
+        <button id="min-btn" class="ui-btn minimize">
           <i class="fas fa-window-minimize"></i>
         </button>
-        <button class="ui-btn maximize">
+        <button id="max-btn" class="ui-btn maximize">
           <i class="far fa-window-maximize"></i>
         </button>
-        <button class="ui-btn exit">
+        <button id="close-btn" class="ui-btn exit">
           <i class="fas fa-times"></i>
         </button>
       </div>
@@ -3053,8 +3055,15 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-        </div>
       </div>
+    </div>
+    <script>
+      require('./render')
+      let $ = require('jquery');
+      require('popper.js');
+      require('bootstrap');
+    </script>
+    <!--------------------------------------------------------------------------------------------------------------->
     <script type="text/javascript" src="js/alerts.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.js"></script>
     <script type="text/javascript" src="js/config.js"></script>
@@ -3062,7 +3071,7 @@
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/rest.js"></script>
     <script type="text/javascript" src="js/sensortable.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://cdn.jsdelivr.net/g/filesaver.js"></script>

@@ -85,6 +85,13 @@ def removeElectron(html):
                     divCounter = divCounter + 1
                 endIndex = endDiv + 6
             out = out[:startIndex] + out[endIndex:]
+    index = out.find("require",0)
+    startIndex = 0
+    endIndex = 0
+    if (index > 0):
+        startIndex = out.rfind("<script>",0,index)
+        endIndex = out.find("</script>",index) + 9
+        out = out[:startIndex] + out[endIndex:]
     return out
 #-------------------------------------------------------------------------------
 def minifyHtml(html):
