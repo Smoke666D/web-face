@@ -1,0 +1,43 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
+
+PATH: 
+  C:\Python35\Lib\site-packages\PyQt5;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;P:\SYSTEM\AOMEI Backupper;C:\Program Files (x86)\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility;C:\Program Files\PuTTY\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;P:\CAD\MATLab_2017\runtime\win64;P:\CAD\MATLab_2017\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Yarn\bin\;C:\Users\photo_Mickey\AppData\Local\Programs\Python\Python36-32\Scripts\;C:\Users\photo_Mickey\AppData\Local\Programs\Python\Python36-32\;C:\Users\photo_Mickey\AppData\Local\Microsoft\WindowsApps;C:\Users\photo_Mickey\AppData\Roaming\npm;C:\Users\photo_Mickey\AppData\Local\atom\bin;C:\Users\photo_Mickey\AppData\Local\Microsoft\WindowsApps;C:\Users\photo_Mickey\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  10.1.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: D:\PROJECTS\ENERGAN\web-face\package.json: Unexpected string in JSON at position 89
+      at JSON.parse (<anonymous>)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:310:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:321:13
+      at run (C:\Program Files (x86)\Yarn\lib\cli.js:101627:22)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:101644:30
+      at flush (C:\Program Files (x86)\Yarn\lib\cli.js:101128:9)
+      at process._tickCallback (internal/process/next_tick.js:61:11)
+
+npm manifest: 
+  {
+    "name": "web-face",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT"
+    "scripts": {
+      "start": "electron ."
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

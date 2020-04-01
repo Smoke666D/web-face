@@ -66,6 +66,27 @@ def compressString(string):
         string = out.getvalue()
     return len(string)
 #-------------------------------------------------------------------------------
+def removeElectron(html):
+    index = 1
+    out = html
+    while (index > 0):
+        index = out.find("electron", index+1)
+        if (index > 0):
+            startIndex = out.rfind("<",0,index)
+            strDiv = out.find("<div", index)
+            endDiv = out.find("</div", index)
+            if ( strDiv > endDiv ):             # There isn't any div inside electron div
+                endIndex = endDiv + 6
+            else:
+                divCounter = 1
+                while (strDiv < endDiv):
+                    strDiv = out.find("<div", strDiv + 1)
+                    endDiv = out.find("</div", endDiv + 1)
+                    divCounter = divCounter + 1
+                endIndex = endDiv + 6
+            out = out[:startIndex] + out[endIndex:]
+    return out
+#-------------------------------------------------------------------------------
 def minifyHtml(html):
     index = 1
     out = html
@@ -169,6 +190,7 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
         htmlText = minifyHtml(htmlFile.read())
     else:
         htmlText = htmlFile.read()
+    htmlText = removeElectron(htmlText)
     #----------- Remove links to the css files from html file --------
     valid=[]
     for cssFile in cssFiles:
