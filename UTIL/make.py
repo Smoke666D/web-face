@@ -32,6 +32,7 @@ def removeLink(string, name, type):
         elif (type == 'js'):
             enIndex = string.find('</script>',index) + 8
         out = string[:stIndex] + string[enIndex+1:]
+        print(out[stIndex:enIndex+1])
     else:
         result = 0
     return  [out, result]
@@ -66,7 +67,7 @@ def compressString(string):
         string = out.getvalue()
     return len(string)
 #-------------------------------------------------------------------------------
-def removeElectron(html):
+def removeElectronFromHTML(html):
     index = 1
     out = html
     while (index > 0):
@@ -93,6 +94,18 @@ def removeElectron(html):
         endIndex = out.find("</script>",index) + 9
         out = out[:startIndex] + out[endIndex:]
     return out
+#-------------------------------------------------------------------------------
+def removeElectronFromJS(js):
+    index = 1;
+    out   = js;
+    while index > 0:
+        index = out.find("module.exports.", index + 1);
+        if index > 0:
+            startIndex = index;
+            endIndex   = out.find(";", startIndex) + 1;
+            out = out[:startIndex] + out[endIndex:];
+            done = 1;
+    return out;
 #-------------------------------------------------------------------------------
 def minifyHtml(html):
     index = 1
@@ -197,7 +210,7 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
         htmlText = minifyHtml(htmlFile.read())
     else:
         htmlText = htmlFile.read()
-    htmlText = removeElectron(htmlText)
+    htmlText = removeElectronFromHTML(htmlText)
     #----------- Remove links to the css files from html file --------
     valid=[]
     for cssFile in cssFiles:
@@ -247,14 +260,14 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
     for img in imgFiles:
         index = htmlText.find(img)
         if (index > 0):
-            nameSt = htmlText.rfind('"',0,index)+1
-            nameEn = htmlText.find('"',index)
-            imgStr = encodeImg(os.path.join(imgPath,img))
-            htmlText = htmlText[:nameSt] + imgStr + htmlText[nameEn:]
-            sizeA = len(imgStr)/1024
-            sizeB = compressString(imgStr)/1024
-            delta = (sizeA - sizeB) * 100 / sizeA
-            print("Image {}       : from {} Kb to {} Kb ({}%)".format(counter,sizeA,sizeB,delta))
+            nameSt = htmlText.rfind('"',0,index) + 1;
+            nameEn = htmlText.find('"',index);
+            imgStr = encodeImg(os.path.join(imgPath,img));
+            htmlText = htmlText[:nameSt] + imgStr + htmlText[nameEn:];
+            sizeA = len(imgStr)/1024;
+            sizeB = compressString(imgStr)/1024;
+            delta = (sizeA - sizeB) * 100 / sizeA;
+            print("Image {}       : from {} Kb to {} Kb ({}%)".format(counter,sizeA,sizeB,delta));
             counter = counter + 1;
     #------------------------ Add css section ------------------------
     index = htmlText.find("</head>")
@@ -303,6 +316,7 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
     for jsFile in jsFiles:
         jsLink = os.path.join(jsPath,jsFile)
         jsText = open(jsLink,"r").read()
+        jsText = removeElectronFromJS(jsText);
         smallFile = 0;
         if (minifyJS == True):
             if (len(jsText) < 1024):
@@ -320,8 +334,6 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
                 print("JS mimnfy     : {} - from {} Kb to {} Kb ({}%)".format(jsFile,startSize,finishSize,delta))
             else:
                 print("JS mimnfy     : {} - from {} byte to {} byte ({}%)".format(jsFile,startSize,finishSize,delta))
-        else:
-            jsText = open(jsLink,"r").read()
         htmlText = htmlText[:index] + " " + jsText + htmlText[index:]
         index = index + len(jsText) + 1  #
     htmlText = htmlText[:index] + "</script>" + htmlText[index:]

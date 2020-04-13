@@ -30,7 +30,6 @@
   <body scroll="no">
     <!------------------------------------------------------------------------------------------------------------->
     <div class="ui-titlebar electron">
-      <img src="img\favicon-32x32.png" class="ui-titleicon">
       <div class="ui-titletext">Энерган</div>
       <div class="ui-titlecontrols">
         <button id="min-btn" class="ui-btn minimize">
@@ -236,15 +235,21 @@
     <div id="content" class="p-4 p-md-5">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary">
-              <i class="fa fa-bars"></i>
-            </button>
-            <button aria-label="Refresh data" onclick="dataUpdate()" class="btn btn-primary">
-              <i class="fa fa-refresh" id="i-loading"></i>
-            </button>
-            <button aria-label="Upload data" onclick="dataGrab()" class="btn btn-primary">
-              <i class="fa fa-upload" id="i-upload"></i>
-            </button>
+          <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+          </button>
+          <button aria-label="Refresh data" onclick="dataUpdate()" class="btn btn-primary">
+            <i class="fa fa-refresh" id="i-loading"></i>
+          </button>
+          <button aria-label="Upload data" onclick="dataGrab()" class="btn btn-primary">
+            <i class="fa fa-upload" id="i-upload"></i>
+          </button>
+        </div>
+
+        <div class="connect-container electron">
+          <button aria-label="Connection" data-toggle="modal" data-target="#connectionModal" onclick="" class="btn btn-primary">
+            <i class="fas fa-plug"></i>
+          </button>
         </div>
       </nav>
       <!------------------------------------------------------------------------------------------------------------->
@@ -3055,6 +3060,52 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
+      <div class="modal" id="connectionModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Подключение к прибору</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm">
+                  <button type="button" id="usb-button" onclick="setConnect('usb')" class="btn btn-success">
+                    <i class="fab fa-usb"></i>
+                  </button>
+                  <button type="button" id="eth-button" onclick="setConnect('eth')" class="btn btn-secondary">
+                    <i class="fas fa-network-wired"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  <label>IP адрес устройства</label>
+                  <input class="form-control in-num" id="input-ipadress" type="text" size="16" pattern="^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$">
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="modal-footer-left">
+                <button type="button" aria-label="Close" onclick="" class="btn btn-secondary" data-dismiss="modal">
+                  <i class="fas fa-times"></i>
+                  <span class="sr-only">Закрыть</span>
+                </button>
+                <button type="button" onclick="" class="btn btn-primary">
+                  <i class="fas fa-plug"></i>
+                  <span class="sr-only">Подключить</span>
+                </button>
+              </div>
+              <div class="modal-footer-right">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!------------------------------------------------------------------------------------------------------------->
       </div>
     </div>
     <script>
@@ -3073,7 +3124,8 @@
     <script type="text/javascript" src="js/sensortable.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <!--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>-->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
   </body>
 </html>

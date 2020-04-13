@@ -51,3 +51,5 @@ function Alert(type,ico,text) {
   }, 3*1000);
 }
 //------------------------------------------------------------------------------
+module.exports.Alert = Alert;
+module.exports.triIco = triIco;

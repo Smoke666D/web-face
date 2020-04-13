@@ -67,6 +67,23 @@ document.getElementById("sidebar").addEventListener('transitionend', function() 
 	if ((window.matchMedia("(max-width: 991.98px)").matches) && (sb.classList.contains("active"))) {
 		sidebarDone = 1;
 }});
+
+function setConnect(input) {
+  var usbButton = document.getElementById("usb-button");
+  var ethButton = document.getElementById("eth-button");
+	console.log(usbButton);
+  if (input == 'eth') {
+    usbButton.classList.remove("btn-success");
+    ethButton.classList.remove("btn-secondary");
+    usbButton.classList.add("btn-secondary");
+    ethButton.classList.add("btn-success");
+  } else if (input == 'usb') {
+    ethButton.classList.remove("btn-success");
+    usbButton.classList.remove("btn-secondary");
+    ethButton.classList.add("btn-secondary");
+    usbButton.classList.add("btn-success");
+  }
+}
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
