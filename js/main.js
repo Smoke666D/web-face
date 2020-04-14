@@ -8,13 +8,14 @@ var d_sinputs_right;
 
 function calcFracLength(x) {
 	return (x.toString().indexOf ('.') >= 0) ? (x.toString().split('.').pop().length) : (0);
-
 }
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 window.addEventListener("load", function() { window. scrollTo(0, 0); });
 document.addEventListener("touchmove", function(e) { e.preventDefault() });
+var connectionType = 'usb';
+var electronApp = 1;
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -71,17 +72,21 @@ document.getElementById("sidebar").addEventListener('transitionend', function() 
 function setConnect(input) {
   var usbButton = document.getElementById("usb-button");
   var ethButton = document.getElementById("eth-button");
-	console.log(usbButton);
+	var ipInput   = document.getElementById("input-ipaddress");
   if (input == 'eth') {
+		connectionType = 'eth';
     usbButton.classList.remove("btn-success");
     ethButton.classList.remove("btn-secondary");
     usbButton.classList.add("btn-secondary");
     ethButton.classList.add("btn-success");
+		ipInput.disabled = false;
   } else if (input == 'usb') {
+		connectionType = 'usb';
     ethButton.classList.remove("btn-success");
     usbButton.classList.remove("btn-secondary");
     ethButton.classList.add("btn-secondary");
     usbButton.classList.add("btn-success");
+		ipInput.disabled = true;
   }
 }
 //******************************************************************************
@@ -483,10 +488,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	declareInterface();
 	oilScaleInit();
 	powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
-	dataUpdate();
-
+	if (electronApp == 0) {
+		dataUpdate();
+	}
 	updateVersions();
-
 	const genVoltageLims = new slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
 	const genFreqLims = new slider4InitLimits("genUnderFrequencyAlarmLevel","genUnderFrequencyPreAlarmLevel","genOverFrequencyPreAlarmLevel","genOverFrequencyAlarmLevel");
 	const mainsVoltageLims = new slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
@@ -495,3 +500,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+module.exports.electronApp    = electronApp;
+module.exports.connectionType = connectionType;

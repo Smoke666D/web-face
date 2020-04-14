@@ -55,6 +55,7 @@ function Switch(name) {
 	}
 
 	this.init();
+	return;
 }
 //******************************************************************************
 function Select(name) {
@@ -140,6 +141,7 @@ function Select(name) {
 	if(this.object){
 		this.update();
 	}
+	return;
 }
 //******************************************************************************
 function Radio(name) {
@@ -194,6 +196,7 @@ function Radio(name) {
 	if((this.objectNO)&&(this.objectNC)){
 		this.update();
 	}
+	return;
 }
 //******************************************************************************
 function Slider(name) {
@@ -377,6 +380,7 @@ function Slider(name) {
 	if ((this.slider)&&(this.input)) {
 		this.update();
 	}
+	return;
 }
 //******************************************************************************
 function cosFiUpdate(){
@@ -430,7 +434,6 @@ function updateVersions() {
 			break;
 		}
 	}
-
 	return;
 }
 //******************************************************************************
@@ -582,12 +585,10 @@ function dataUpdate() {
 	      xhr.timeout = 2000;
 	      xhr.send();
 	  	} else {
-				//***********************
 				copyDataReg(store[0]);
 				updateInterface();
 				loadCharts(store[1]);
 				let alert = new Alert("alert-success",triIco,"Данные успешно обновленны");
-				//**********************
 				document.getElementById("i-loading").classList.remove("loading");
 	      return store;
 	  	}
@@ -609,15 +610,11 @@ function copyDataReg(data) {
 			if( (data[i].adr == dataReg[j].adr) && (data[i].page == dataReg[j].page)) {
 				dataReg[j].value = data[i].value;
 				dataReg[j].scale = data[i].scale;
-				//dataReg[j].min   = data[i].min;
-				//dataReg[j].max   = data[i].max;
 				dataReg[j].units = decodeURI(data[i].units);
-				//dataReg[j].type  = decodeURI(data[i].type);
-				//dataReg[j].len   = data[i].len;
-				//dataReg[j].bitMapSize
 			}
 		}
 	}
+	return;
 }
 //******************************************************************************
 //******************************************************************************
@@ -625,8 +622,6 @@ function copyDataReg(data) {
 function dataGrab(){
 	grabInterface();
   try {
-
-		//--------------------------------------------------------------------------
 		const reqs = function(requests = [], failback) {
 			if (requests instanceof Array && requests.length > 0) {
 	  		var xhr = new XMLHttpRequest();
