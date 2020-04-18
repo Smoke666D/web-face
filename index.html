@@ -236,16 +236,16 @@
           <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary">
             <i class="fa fa-bars"></i>
           </button>
-          <button aria-label="Refresh data" onclick="dataUpdate()" class="btn btn-primary">
+          <button aria-label="Refresh data" onclick="dataUpdate(function(){resetSuccessConnection();})" class="btn btn-primary">
             <i class="fa fa-refresh" id="i-loading"></i>
           </button>
-          <button aria-label="Upload data" onclick="dataGrab()" class="btn btn-primary">
+          <button aria-label="Upload data" onclick="dataGrab(function(){resetSuccessConnection();})" class="btn btn-primary">
             <i class="fa fa-upload" id="i-upload"></i>
           </button>
         </div>
 
         <div class="connect-container electron">
-          <button aria-label="Connection" data-toggle="modal" data-target="#connectionModal" onclick="" class="btn btn-primary">
+          <button aria-label="Connection" id="modalConnect-button" data-toggle="modal" data-target="#connectionModal" onclick="" class="btn btn-primary">
             <i class="fas fa-plug"></i>
           </button>
         </div>
@@ -3087,11 +3087,11 @@
             </div>
             <div class="modal-footer">
               <div class="modal-footer-left">
-                <button type="button" aria-label="Close" onclick="" class="btn btn-secondary" data-dismiss="modal">
+                <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal">
                   <i class="fas fa-times"></i>
                   <span class="sr-only">Закрыть</span>
                 </button>
-                <button type="button" onclick="" class="btn btn-primary">
+                <button id="connect-button" type="button" class="btn btn-primary" data-dismiss="modal">
                   <i class="fas fa-plug"></i>
                   <span class="sr-only">Подключить</span>
                 </button>

@@ -559,7 +559,7 @@ function ascii_to_hexa(str) {
 	return arr1.join('');
 }
 
-function dataUpdate() {
+function dataUpdate( callback ) {
 	document.getElementById("i-loading").classList.add("loading");
 	try{
 		const reqs = function(requests, store, failback) {
@@ -581,6 +581,12 @@ function dataUpdate() {
 						let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
 	        }
 	      });
+				xhr.ontimeout = function() {
+					xhr.abort();
+					let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
+					document.getElementById("i-loading").classList.remove("loading");
+					callback();
+				}
 	      xhr.open(requests[0].method, requests[0].url);
 	      xhr.timeout = 2000;
 	      xhr.send();
@@ -588,14 +594,20 @@ function dataUpdate() {
 				copyDataReg(store[0]);
 				updateInterface();
 				loadCharts(store[1]);
+				setSuccessConnection();
 				let alert = new Alert("alert-success",triIco,"Данные успешно обновленны");
 				document.getElementById("i-loading").classList.remove("loading");
 	      return store;
 	  	}
 		};
 		restSeq = []
-		restSeq.push({method: 'get', url: '/configs/'});														// Request for configs
-		restSeq.push({method: 'get', url: '/charts/'});															// Request for charts
+		ipAdr  = document.getElementById("input-ipaddress").value;
+		extUrl = "";
+		if (ipAdr.length > 0) {
+			extUrl = "http://" + ipAdr;
+		}
+		restSeq.push({method: 'get', url: (extUrl+'/configs/')});
+		restSeq.push({method: 'get', url: (extUrl+'/charts/')});
 		const results = reqs(restSeq, [],	function(error) { console.log(error)	});
 	} catch(e) {
 		let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
@@ -619,7 +631,7 @@ function copyDataReg(data) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function dataGrab(){
+function dataGrab(callback){
 	grabInterface();
   try {
 		const reqs = function(requests = [], failback) {
@@ -637,21 +649,32 @@ function dataGrab(){
 						let alert = new Alert("alert-danger",triIco,"Ошибка передачи данных");
 					}
 				});
+				xhr.ontimeout = function() {
+					xhr.abort();
+					let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
+					callback();
+				}
 	  		xhr.open(requests[0].method, requests[0].url, true);
+				xhr.timeout = 2000;
 	  		xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
 	  		xhr.send(requests[0].content);
 			} else {
+				setSuccessConnection();
 				let alert = new Alert("alert-success",triIco,"Прибор успешно сконфигурирован");
 			}
 		};
 		//--------------------------------------------------------------------------
 		restSeq = []
-
+		ipAdr  = document.getElementById("input-ipaddress").value;
+		extUrl = "";
+		if (ipAdr.length > 0) {
+			extUrl = "http://" + ipAdr;
+		}
 		for ( i=0; i<103; i++ ) {
 			if (dataReg[i].rw == "rw"){
 				restSeq.push({
 					method:  'PUT',
-					url:     '/configs/' + i,
+					url:     extUrl + '/configs/' + i,
 					content: JSON.stringify(pasteDataReg(dataReg[i]))
 		})}}
 
@@ -659,7 +682,7 @@ function dataGrab(){
 		for ( i=0; i<3; i++) {
 			restSeq.push({
 			method:  'PUT',
-			url:     '/charts/' + i,
+			url:     extUrl + '/charts/' + i,
 			content: JSON.stringify(chartContent[i])
 		})}
 		const results = reqs(restSeq, function(error) { console.log(error) });
