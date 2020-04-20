@@ -1,3 +1,4 @@
+const remote = require('electron').remote;
 //******************************************************************************
 function bitVal(n,reg) {
 	return (reg.value&reg.bit[n].mask)>>reg.bit[n].shift;
@@ -559,46 +560,46 @@ function ascii_to_hexa(str) {
 	return arr1.join('');
 }
 
-function dataUpdate( callback ) {
+function ethDataUpdate( callback ) {
 	document.getElementById("i-loading").classList.add("loading");
 	try{
 		const reqs = function(requests, store, failback) {
-	  	if (requests instanceof Array && requests.length > 0) {
-	    	const xhr = new XMLHttpRequest();
-	      xhr.addEventListener('load', function(data) {
-	      	const status = data.currentTarget.status;
-	        const response = data.currentTarget.response;
-	        if (status === 200) {
+			if (requests instanceof Array && requests.length > 0) {
+				const xhr = new XMLHttpRequest();
+				xhr.addEventListener('load', function(data) {
+					const status = data.currentTarget.status;
+					const response = data.currentTarget.response;
+					if (status === 200) {
 						store.push(JSON.parse(response));
-	          requests.shift();
-	          return reqs(requests, store, failback);
-	        }
-	      });
-	      xhr.addEventListener('error', function(error) {
-	      	if (failback) {
-	          document.getElementById("i-loading").classList.remove("loading");
-	        	failback('Something went wrong.');
+						requests.shift();
+						return reqs(requests, store, failback);
+					}
+				});
+				xhr.addEventListener('error', function(error) {
+					if (failback) {
+						document.getElementById("i-loading").classList.remove("loading");
+						failback('Something went wrong.');
 						let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
-	        }
-	      });
+					}
+				});
 				xhr.ontimeout = function() {
 					xhr.abort();
 					let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
 					document.getElementById("i-loading").classList.remove("loading");
 					callback();
 				}
-	      xhr.open(requests[0].method, requests[0].url);
-	      xhr.timeout = 2000;
-	      xhr.send();
-	  	} else {
+				xhr.open(requests[0].method, requests[0].url);
+				xhr.timeout = 2000;
+				xhr.send();
+			} else {
 				copyDataReg(store[0]);
 				updateInterface();
 				loadCharts(store[1]);
 				setSuccessConnection();
 				let alert = new Alert("alert-success",triIco,"Данные успешно обновленны");
 				document.getElementById("i-loading").classList.remove("loading");
-	      return store;
-	  	}
+				return store;
+			}
 		};
 		restSeq = []
 		ipAdr  = document.getElementById("input-ipaddress").value;

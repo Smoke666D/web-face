@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------*/
 const remote = require('electron').remote;
 var HID      = require('node-hid');
-var alerts   = require('./alerts.js');
+const alerts = require('./alerts.js');
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
@@ -50,6 +50,68 @@ function USBMessage( buffer ) {
     return;
   }
   /*---------------------------------------------*/
+  this.clean = function() {
+    this.buffer = [];
+    for( var i=0; i<6; i++ ){
+      this.buffer.push( 0 );
+    }
+    return;
+  }
+  /*---------------------------------------------*/
+  this.setup = function( cmd, stat, callback ) {
+    this.buffer[0] = 0x01;  /* 1st channel for sending via USB */
+    this.buffer[1] = cmd;
+    this.buffer[2] = stat;
+    this.data      = [];
+    callback();
+    return;
+  }
+  /*---------------------------------------------*/
+  this.setupAdr = function( adr ) {
+    this.buffer[3] = ( adr & 0xFF00 ) >> 8;
+    this.buffer[4] = adr & 0x00FF;
+    return;
+  }
+  /*---------------------------------------------*/
+  this.setupLength = function( ) {
+    this.buffer[5] = this.length;
+    return;
+  }
+  /*---------------------------------------------*/
+  this.codeConfig = function( n ) {
+    this.clean();
+    this.setup( msgCMD.USB_PUT_CMD, msgSTAT.USB_OK_STAT, function () {
+      self.length = 0;
+      self.setupAdr( n );
+      /*----------- Configuration value -----------*/
+      if ( dataReg[n].len == 1 ) {
+        self.buffer.push( ( dataReg[n].value & 0xFF00 ) >> 8 );
+        self.buffer.push( dataReg[n].value & 0x00FF );
+        self.length += 2;
+      } else {
+        for ( var i=0; i<dataReg[n].len; i++ ) {
+          self.buffer.push( ( dataReg[n].value[i] & 0xFF00 ) >> 8 );
+          self.buffer.push( dataReg[n].value[i] & 0x00FF );
+          self.length += 2;
+        }
+      }
+      /*----------- Configuration scale -----------*/
+      self.buffer.push( dataReg[n].scale );
+      self.length += 1;
+      /*----------- Configuration units -----------*/
+      strBuffer = encodeURI( dataReg[n].units );
+      for ( var i=0; i<strBuffer.length; i++ ) {
+        self.buffer.push( strBuffer.charAt( i ).charCodeAt() );
+        self.length += 1;
+      }
+      /*-------------------------------------------*/
+      self.setupLength();
+      /*-------------------------------------------*/
+      return;
+    });
+    return;
+  }
+  /*---------------------------------------------*/
   this.parseConfig = function( n ) {
     counter = 0;
     /*----------- Configuration value -----------*/
@@ -81,13 +143,15 @@ function USBMessage( buffer ) {
 const usbStat = { "wait" : 1, "sending" : 2, "receiving" : 3 };
 /*----------------------------------------------------------------------------*/
 function EnrrganController() {
-  var self          = this;
-  this.input        = [];
-  this.inputCounter = 0;
-  this.error        = [];
-  this.errorCounter = 0;
-  this.stat         = usbStat.wait;
-  this.targetLength = 0;
+  var self           = this;
+  this.input         = [];
+  this.output        = [];
+  this.inputCounter  = 0;
+  this.outputCounter = 0;
+  this.error         = [];
+  this.errorCounter  = 0;
+  this.stat          = usbStat.wait;
+  this.targetLength  = 0;
 
   /*----------------------------------------*/
   /*
@@ -120,7 +184,6 @@ function EnrrganController() {
         self.errorCounter++;
       });
     } else {
-      console.log("her");
       let alert = new alerts.Alert("alert-warning",alerts.triIco,"Контроллер не подключен по USB");
     }
     return res;
@@ -144,6 +207,10 @@ function EnrrganController() {
     return this.inputCounter;
   }
   /*----------------------------------------*/
+  this.getOutputCounter = function() {
+    return this.outputCounter;
+  }
+  /*----------------------------------------*/
   this.getInputBuffer = function( ) {
     return this.input;
   }
@@ -153,7 +220,16 @@ function EnrrganController() {
   /*----------------------------------------*/
   this.cleanInput = function() {
     this.inputCounter = 0;
-    this.input = [];
+    this.input        = [];
+    return;
+  }
+  /*----------------------------------------*/
+  this.cleanOutput = function() {
+    this.outputCounter = 0;
+    this.output        = [];
+    for ( var i = 0; i<6; i++) {
+      this.output.push( 0 );
+    }
     return;
   }
   /*----------------------------------------*/
@@ -173,7 +249,34 @@ function EnrrganController() {
     return;
   }
   /*----------------------------------------*/
+  this.sendConfig = function( adr, callback ) {
+    console.log("USB start sending");
+    let conf = new USBMessage( this.output  );
+    if (adr == 0xFFFF) {
+      this.targetLength = dataReg.length;
+      trg = 0;
+    } else {
+      this.targetLength = 1
+      trg = adr;
+    }
+
+    while ( this.outputCounter < this.targetLength ) {
+      conf.codeConfig( trg );
+      console.log( conf.buffer );
+      this.write( conf.buffer );
+      trg++;
+      this.outputCounter++;
+    }
+
+
+    callback();
+    return;
+  }
+  /*----------------------------------------*/
   return;
 }
 //------------------------------------------------------------------------------
+let controller = new EnrrganController();
+//------------------------------------------------------------------------------
 module.exports.EnrrganController = EnrrganController;
+module.exports.controller        = controller;

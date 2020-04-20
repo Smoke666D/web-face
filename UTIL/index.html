@@ -10071,10 +10071,10 @@ QmCC
           <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary">
             <i class="fa fa-bars"></i>
           </button>
-          <button aria-label="Refresh data" onclick="dataUpdate()" class="btn btn-primary">
+          <button aria-label="Refresh data" onclick="dataUpdate(function(){resetSuccessConnection();})" class="btn btn-primary">
             <i class="fa fa-refresh" id="i-loading"></i>
           </button>
-          <button aria-label="Upload data" onclick="dataGrab()" class="btn btn-primary">
+          <button aria-label="Upload data" onclick="dataGrab(function(){resetSuccessConnection();})" class="btn btn-primary">
             <i class="fa fa-upload" id="i-upload"></i>
           </button>
         </div>
@@ -12918,11 +12918,11 @@ QmCC
             </div>
             <div class="modal-footer">
               <div class="modal-footer-left">
-                <button type="button" aria-label="Close" onclick="" class="btn btn-secondary" data-dismiss="modal">
+                <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal">
                   <i class="fas fa-times"></i>
                   <span class="sr-only">Закрыть</span>
                 </button>
-                <button type="button" onclick="" class="btn btn-primary">
+                <button id="connect-button" type="button" class="btn btn-primary" data-dismiss="modal">
                   <i class="fas fa-plug"></i>
                   <span class="sr-only">Подключить</span>
                 </button>
@@ -15200,6 +15200,25 @@ function setConnect(input) {
     usbButton.classList.add("btn-success");
 		ipInput.disabled = true;
   }
+	return;
+}
+
+function setSuccessConnection() {
+	var obj = document.getElementById("modalConnect-button");
+	if ( !(obj.classList.contains("btn-success")) ) {
+		obj.classList.remove("btn-primary");
+		obj.classList.add("btn-success");
+	}
+	return;
+}
+
+function resetSuccessConnection() {
+	var obj = document.getElementById("modalConnect-button");
+	if ( obj.classList.contains("btn-success") ) {
+		obj.classList.remove("btn-success");
+		obj.classList.add("btn-primary");
+	}
+	return;
 }
 //******************************************************************************
 //******************************************************************************
@@ -15601,7 +15620,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	oilScaleInit();
 	powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
 	if (electronApp == 0) {
-		dataUpdate();
+		dataUpdate(function(){return;});
 	}
 	updateVersions();
 	const genVoltageLims = new slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
@@ -15612,9 +15631,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+
+
+
+
 </script>
 
-    <script>//******************************************************************************
+    <script>
+//******************************************************************************
 function bitVal(n,reg) {
 	return (reg.value&reg.bit[n].mask)>>reg.bit[n].shift;
 }
@@ -16175,7 +16199,7 @@ function ascii_to_hexa(str) {
 	return arr1.join('');
 }
 
-function dataUpdate() {
+function dataUpdate( callback ) {
 	document.getElementById("i-loading").classList.add("loading");
 	try{
 		const reqs = function(requests, store, failback) {
@@ -16197,6 +16221,12 @@ function dataUpdate() {
 						let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
 	        }
 	      });
+				xhr.ontimeout = function() {
+					xhr.abort();
+					let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
+					document.getElementById("i-loading").classList.remove("loading");
+					callback();
+				}
 	      xhr.open(requests[0].method, requests[0].url);
 	      xhr.timeout = 2000;
 	      xhr.send();
@@ -16204,14 +16234,20 @@ function dataUpdate() {
 				copyDataReg(store[0]);
 				updateInterface();
 				loadCharts(store[1]);
+				setSuccessConnection();
 				let alert = new Alert("alert-success",triIco,"Данные успешно обновленны");
 				document.getElementById("i-loading").classList.remove("loading");
 	      return store;
 	  	}
 		};
 		restSeq = []
-		restSeq.push({method: 'get', url: '/configs/'});														// Request for configs
-		restSeq.push({method: 'get', url: '/charts/'});															// Request for charts
+		ipAdr  = document.getElementById("input-ipaddress").value;
+		extUrl = "";
+		if (ipAdr.length > 0) {
+			extUrl = "http://" + ipAdr;
+		}
+		restSeq.push({method: 'get', url: (extUrl+'/configs/')});
+		restSeq.push({method: 'get', url: (extUrl+'/charts/')});
 		const results = reqs(restSeq, [],	function(error) { console.log(error)	});
 	} catch(e) {
 		let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
@@ -16235,7 +16271,7 @@ function copyDataReg(data) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function dataGrab(){
+function dataGrab(callback){
 	grabInterface();
   try {
 		const reqs = function(requests = [], failback) {
@@ -16253,21 +16289,32 @@ function dataGrab(){
 						let alert = new Alert("alert-danger",triIco,"Ошибка передачи данных");
 					}
 				});
+				xhr.ontimeout = function() {
+					xhr.abort();
+					let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
+					callback();
+				}
 	  		xhr.open(requests[0].method, requests[0].url, true);
+				xhr.timeout = 2000;
 	  		xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
 	  		xhr.send(requests[0].content);
 			} else {
+				setSuccessConnection();
 				let alert = new Alert("alert-success",triIco,"Прибор успешно сконфигурирован");
 			}
 		};
 		//--------------------------------------------------------------------------
 		restSeq = []
-
+		ipAdr  = document.getElementById("input-ipaddress").value;
+		extUrl = "";
+		if (ipAdr.length > 0) {
+			extUrl = "http://" + ipAdr;
+		}
 		for ( i=0; i<103; i++ ) {
 			if (dataReg[i].rw == "rw"){
 				restSeq.push({
 					method:  'PUT',
-					url:     '/configs/' + i,
+					url:     extUrl + '/configs/' + i,
 					content: JSON.stringify(pasteDataReg(dataReg[i]))
 		})}}
 
@@ -16275,7 +16322,7 @@ function dataGrab(){
 		for ( i=0; i<3; i++) {
 			restSeq.push({
 			method:  'PUT',
-			url:     '/charts/' + i,
+			url:     extUrl + '/charts/' + i,
 			content: JSON.stringify(chartContent[i])
 		})}
 		const results = reqs(restSeq, function(error) { console.log(error) });

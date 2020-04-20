@@ -25,7 +25,7 @@ document.getElementById("close-btn").addEventListener("click", function (e) {
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
-let controller = new usb.EnrrganController();
+//slet controller = new usb.EnrrganController();
 
 function parseConfigFromMsg( msg ){
   console.log( msg );
@@ -72,12 +72,12 @@ document.getElementById("connect-button").addEventListener('click', function() {
     /*---------------------------- USB -----------------------------*/
     /*--------------------------------------------------------------*/
     if ( connectionType == 'usb' ) {
-      controller.close();
-      res = controller.scan( function() {
+      usb.controller.close();
+      res = usb.controller.scan( function() {
         /* After getting full message */
         var buffer = [];
         console.log("USB get");
-        buffer = controller.getInputBuffer();
+        buffer = usb.controller.getInputBuffer();
         for ( var i=0; i<buffer.length; i++) {
           buffer[i].init( function( msg ) {
             buffer[i].parseConfig( i );
@@ -86,7 +86,7 @@ document.getElementById("connect-button").addEventListener('click', function() {
       });
       if ( res == 1 ) {
         setSuccessConnection();
-        controller.getConfig( 0xFFFF, function() {
+        usb.controller.getConfig( 0xFFFF, function() {
           console.log("USB send");
         });
       }
@@ -94,13 +94,13 @@ document.getElementById("connect-button").addEventListener('click', function() {
     /*-------------------------- ETHERNET --------------------------*/
     /*--------------------------------------------------------------*/
     } else if ( connectionType == 'eth' ) {
-      controller.close();
+      usb.controller.close();
       ipInput = document.getElementById("input-ipaddress");
       ipAdr   = ipInput.value;
       res     = verifyIP( ipAdr.toString() );
       if ( res == "" ) {
         setSuccessConnection();
-        dataUpdate( function() {
+        ethDataUpdate( function() {
           resetSuccessConnection();
         });
       } else {

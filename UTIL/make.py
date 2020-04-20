@@ -146,14 +146,25 @@ def removeElectronFromHTML( html ):
     return out;
 #-------------------------------------------------------------------------------
 def removeElectronFromJS( js ):
-    index = 1;
+    index = 0;
     out   = js;
+    #------------------ Module exports ------------------
     while index > -1:
         index = out.find( "module.exports.", index + 1 );
         if index > -1:
             startIndex = index;
             endIndex   = out.find(";", startIndex) + 1;
             out        = out[:startIndex] + out[endIndex:];
+    #--------------------- require ----------------------
+    index = 0;
+    while index > -1:
+        index = out.find( 'require(', index + 1 );
+        if index > -1:
+            startIndex = out.rfind( 'const', 0, index );
+            endIndex   = out.find( ';', index ) + 1;
+            if startIndex > -1 and endIndex > -1:
+                out = out[:startIndex] + out[endIndex:];
+    #----------------------------------------------------
     return out;
 #-------------------------------------------------------------------------------
 def minifyHtml( html ):

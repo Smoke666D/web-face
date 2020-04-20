@@ -97,6 +97,8 @@ function setSuccessConnection() {
 		obj.classList.remove("btn-primary");
 		obj.classList.add("btn-success");
 	}
+	document.getElementById("refreshData-button").disabled = false;
+	document.getElementById("uploadData-button").disabled = false;
 	return;
 }
 
@@ -106,6 +108,8 @@ function resetSuccessConnection() {
 		obj.classList.remove("btn-success");
 		obj.classList.add("btn-primary");
 	}
+	document.getElementById("refreshData-button").disabled = true;
+	document.getElementById("uploadData-button").disabled = true;
 	return;
 }
 //******************************************************************************
@@ -501,20 +505,29 @@ function slider4InitLimits(id1,id2,id3,id4) {
 //******************************************************************************
 //******************************************************************************
 document.addEventListener("DOMContentLoaded", function(event) {
-	document.getElementById("versionSowtware").innerHTML = softwareVersion;
-	loadContent("devicePage");
-	sliderInit();
-	declareInterface();
-	oilScaleInit();
-	powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
-	if (electronApp == 0) {
-		dataUpdate(function(){return;});
+	try {
+		if ( electronApp == 1 ){
+			document.getElementById("refreshData-button").disabled = true;
+			document.getElementById("uploadData-button").disabled = true;
+		}
+		document.getElementById("versionSowtware").innerHTML = softwareVersion;
+		loadContent("devicePage");
+		sliderInit();
+		declareInterface();
+		oilScaleInit();
+		powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
+		if (electronApp == 0) {
+			ethDataUpdate(function(){return;});
+		}
+		updateVersions();
+		const genVoltageLims = new slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
+		const genFreqLims = new slider4InitLimits("genUnderFrequencyAlarmLevel","genUnderFrequencyPreAlarmLevel","genOverFrequencyPreAlarmLevel","genOverFrequencyAlarmLevel");
+		const mainsVoltageLims = new slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
+		const mainsFreqLims = new slider2InitLimits("mainsUnderFrequencyAlarmLevel","mainsOverFrequencyAlarmLevel");
+		return;
+	} catch {
+		return;
 	}
-	updateVersions();
-	const genVoltageLims = new slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
-	const genFreqLims = new slider4InitLimits("genUnderFrequencyAlarmLevel","genUnderFrequencyPreAlarmLevel","genOverFrequencyPreAlarmLevel","genOverFrequencyAlarmLevel");
-	const mainsVoltageLims = new slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
-	const mainsFreqLims = new slider2InitLimits("mainsUnderFrequencyAlarmLevel","mainsOverFrequencyAlarmLevel");
 });
 //******************************************************************************
 //******************************************************************************
