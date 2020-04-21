@@ -76,18 +76,23 @@ document.getElementById("connect-button").addEventListener('click', function() {
       res = usb.controller.scan( function() {
         /* After getting full message */
         var buffer = [];
-        console.log("USB get");
         buffer = usb.controller.getInputBuffer();
         for ( var i=0; i<buffer.length; i++) {
           buffer[i].init( function( msg ) {
             buffer[i].parseConfig( i );
           });
         }
+        let alert = new alerts.Alert( "alert-success", triIco, "Данные успешно обновленны" );
+        updateInterface();
+      }, function() {
+        let alert = new alerts.Alert( "alert-success", alerts.triIco, "Прибор успешно сконфигурирован" );
+      }, function() {
+        let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );
       });
       if ( res == 1 ) {
         setSuccessConnection();
         usb.controller.getConfig( 0xFFFF, function() {
-          console.log("USB send");
+          return;
         });
       }
     /*--------------------------------------------------------------*/

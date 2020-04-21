@@ -10,7 +10,9 @@ const msgCMD  = { "USB_GET_CMD":1, "USB_PUT_CMD":2 };
 const msgSTAT = { "USB_OK_STAT":1, "USB_BAD_REQ_STAT":2, "USB_NON_CON_STAT":3 };
 /*----------------------------------------------------------------------------*/
 function USBMessage( buffer ) {
+  /*------------------ Private ------------------*/
   var self     = this;
+  /*------------------- Public ------------------*/
   this.command = 0;
   this.status  = 0;
   this.adr     = 0;
@@ -18,7 +20,24 @@ function USBMessage( buffer ) {
   this.length  = 0;
   this.buffer  = buffer;
   /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   this.init = function( callback ) {
+    switch ( this.buffer[2] ) {
+      case msgSTAT.USB_OK_STAT:
+        this.status = msgSTAT.USB_OK_STAT;
+        break;
+      case msgSTAT.USB_BAD_REQ_STAT:
+        this.status = msgSTAT.USB_BAD_REQ_STAT;
+        break;
+      case msgSTAT.USB_NON_CON_STAT:
+        this.status = msgSTAT.USB_NON_CON_STAT;
+        break;
+      default:
+        this.status = msgSTAT.USB_BAD_REQ_STAT;
+        break;
+    }
+
     switch ( this.buffer[1] ) {
       case msgCMD.USB_GET_CMD:
         this.command = msgCMD.USB_GET_CMD;
@@ -32,6 +51,7 @@ function USBMessage( buffer ) {
         console.log("CMD error");
         break;
     }
+
     if ( this.status != msgSTAT.USB_BAD_REQ_STAT ) {
       temp = ( this.buffer[3] << 8 ) | ( this.buffer[4] );
       if ( temp < dataReg.length) {
@@ -41,14 +61,16 @@ function USBMessage( buffer ) {
         for( var i=0; i<this.length; i++ ) {
           this.data.push(this.buffer[6 + i]);
         }
-        callback();
       } else {
         this.status = msgSTAT.USB_BAD_REQ_STAT;
         console.log("ADR error");
       }
     }
+    callback();
     return;
   }
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   /*---------------------------------------------*/
   this.clean = function() {
     this.buffer = [];
@@ -57,6 +79,8 @@ function USBMessage( buffer ) {
     }
     return;
   }
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   /*---------------------------------------------*/
   this.setup = function( cmd, stat, callback ) {
     this.buffer[0] = 0x01;  /* 1st channel for sending via USB */
@@ -67,16 +91,31 @@ function USBMessage( buffer ) {
     return;
   }
   /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   this.setupAdr = function( adr ) {
     this.buffer[3] = ( adr & 0xFF00 ) >> 8;
     this.buffer[4] = adr & 0x00FF;
     return;
   }
   /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   this.setupLength = function( ) {
     this.buffer[5] = this.length;
     return;
   }
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  this.finishMesageWithZero = function () {
+    size = msgSIZE - this.buffer.length
+    for ( var i=0; i<size; i++ ) {
+      this.buffer.push( 0 );
+    }
+  }
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   /*---------------------------------------------*/
   this.codeConfig = function( n ) {
     this.clean();
@@ -106,11 +145,14 @@ function USBMessage( buffer ) {
       }
       /*-------------------------------------------*/
       self.setupLength();
+      self.finishMesageWithZero();
       /*-------------------------------------------*/
       return;
     });
     return;
   }
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   /*---------------------------------------------*/
   this.parseConfig = function( n ) {
     counter = 0;
@@ -140,26 +182,32 @@ function USBMessage( buffer ) {
   return;
 }
 /*----------------------------------------------------------------------------*/
-const usbStat = { "wait" : 1, "sending" : 2, "receiving" : 3 };
+const usbStat = { "wait" : 1, "write" : 2, "read" : 3 };
+const usbHandler = { "finish" : 1, "error" : 2, "cont" : 3 };
 /*----------------------------------------------------------------------------*/
 function EnrrganController() {
+  /*------------------ Private ------------------*/
   var self           = this;
+  var stat           = usbStat.wait;
+  var currentAdr     = 0;
+  /*------------------- Public ------------------*/
   this.input         = [];
   this.output        = [];
   this.inputCounter  = 0;
   this.outputCounter = 0;
   this.error         = [];
   this.errorCounter  = 0;
-  this.stat          = usbStat.wait;
   this.targetLength  = 0;
-
-  /*----------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   /*
    * Callback - function after getting message
    */
-  this.scan = function( callback ) {
+  this.scan = function( inCallback, outCallback, errorCalback ) {
     var self    = this;
     var res     = 0;
+    var handle  = usbHandler.finish;
     var devices = HID.devices();
     this.device = null;
     for ( var i=0; i<devices.length; i++ ) {
@@ -172,15 +220,23 @@ function EnrrganController() {
     }
     if ( this.device != null ) {
       this.device.on( "data", function( data ) {
-        let msg = new USBMessage( data );
-        self.input.push( msg );
-        self.inputCounter++;
-        if (self.inputCounter == self.targetLength) {
-          callback();
+        handle = inputHandler( data );
+        if ( handle == usbHandler.finish ) {
+          if ( stat == usbStat.write ) {
+            stat = usbStat.wait;
+            outCallback();
+          } else if ( stat == usbStat.read ) {
+            stat = usbStat.wait;
+            inCallback();
+          }
+        } else if ( handle == usbHandler.error ) {
+          stat = usbStat.wait;
+          errorCalback();
         }
       });
       this.device.on("error", function(err) {
-        self.error.push(err);
+        stat = usbStat.wait;
+        errorCalback();
         self.errorCounter++;
       });
     } else {
@@ -188,42 +244,103 @@ function EnrrganController() {
     }
     return res;
   }
-  /*----------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  function inputHandler( data ) {
+    var result = usbHandler.finish;
+    switch ( stat ) {
+      /*---------- Asynchronous request ---------*/
+      case usbStat.wait:
+        break;
+      /*---------- Response for output ----------*/
+      case usbStat.write:
+        let response = new USBMessage( data );
+        response.init( function () {
+          if ( ( response.status == msgSTAT.USB_OK_STAT ) && ( response.command == msgCMD.USB_PUT_CMD ) && ( response.adr == ( currentAdr - 1 ) ) ) {
+            if ( self.outputCounter < self.targetLength ) {
+              let conf = new USBMessage( this.output  );
+              conf.codeConfig( currentAdr );
+              self.write( conf.buffer );
+              currentAdr++;
+              self.outputCounter++;
+              result = usbHandler.cont;
+            } else {
+              self.outputCounter = 0;
+              result = usbHandler.finish;
+            }
+          } else {
+            result = usbHandler.error;
+          }
+        });
+        break;
+      /*-------------- Input data ---------------*/
+      case usbStat.read:
+        let input = new USBMessage( data );
+        self.input.push( input );
+        self.inputCounter++;
+        if ( self.inputCounter >= self.targetLength ) {
+          result = usbHandler.finish;
+          self.inputCounter = 0;
+        } else {
+          result = usbHandler.cont;
+        }
+        break;
+      default:
+        break;
+    }
+    return result;
+  }
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   this.close = function() {
     if (this.device != null) {
       this.device.close();
     }
     return;
   }
-  /*----------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   this.write = function(data) {
     if (this.device != null) {
       this.device.write(data);
     }
     return;
   }
-  /*----------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   this.getInputCounter = function() {
     return this.inputCounter;
   }
-  /*----------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   this.getOutputCounter = function() {
     return this.outputCounter;
   }
-  /*----------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   this.getInputBuffer = function( ) {
     return this.input;
   }
   this.getInputLength = function() {
     return self.input.length;
   }
-  /*----------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   this.cleanInput = function() {
     this.inputCounter = 0;
     this.input        = [];
     return;
   }
-  /*----------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   this.cleanOutput = function() {
     this.outputCounter = 0;
     this.output        = [];
@@ -232,9 +349,11 @@ function EnrrganController() {
     }
     return;
   }
-  /*----------------------------------------*/
-  /*----------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   this.getConfig = function( adr, callback ) {
+    stat = usbStat.read;
     this.cleanInput();
     if (adr == 0xFFFF) {
       this.write([0x01,0x01,0x01,0xFF,0xFF]);
@@ -248,27 +367,23 @@ function EnrrganController() {
     callback();
     return;
   }
-  /*----------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
   this.sendConfig = function( adr, callback ) {
-    console.log("USB start sending");
+    stat = usbStat.write;
     let conf = new USBMessage( this.output  );
     if (adr == 0xFFFF) {
       this.targetLength = dataReg.length;
-      trg = 0;
+      currentAdr = 0;
     } else {
       this.targetLength = 1
-      trg = adr;
+      currentAdr = adr;
     }
-
-    while ( this.outputCounter < this.targetLength ) {
-      conf.codeConfig( trg );
-      console.log( conf.buffer );
-      this.write( conf.buffer );
-      trg++;
-      this.outputCounter++;
-    }
-
-
+    conf.codeConfig( currentAdr );
+    this.write( conf.buffer );
+    currentAdr++;
+    this.outputCounter++;
     callback();
     return;
   }

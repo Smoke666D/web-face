@@ -9,7 +9,6 @@ function connectUpdate() {
     });
   } else if ( connectionType == 'usb' ) {
     usb.controller.getConfig( 0xFFFF, function() {
-      console.log("USB send");
       return;
     });
   }
@@ -24,7 +23,6 @@ function connectGrab() {
     });
   } else if ( connectionType == 'usb' ) {
     usb.controller.sendConfig( 0xFFFF, function () {
-      console.log("USB finish sending");
       return;
     });
   }
