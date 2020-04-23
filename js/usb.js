@@ -1,376 +1,229 @@
 /*----------------------------------------------------------------------------*/
-const remote = require('electron').remote;
-var HID      = require('node-hid');
-const alerts = require('./alerts.js');
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
+const remote     = require('electron').remote;
+var HID          = require('node-hid');
+const alerts     = require('./alerts.js');
+const USBMessage = require('./usb-message.js').USBMessage;
+const msgCMD     = require('./usb-message.js').msgCMD;
+const msgSTAT    = require('./usb-message.js').msgSTAT;
 /*----------------------------------------------------------------------------*/
-const msgSIZE = 65;
-const msgCMD  = { "USB_GET_CMD":1, "USB_PUT_CMD":2 };
-const msgSTAT = { "USB_OK_STAT":1, "USB_BAD_REQ_STAT":2, "USB_NON_CON_STAT":3 };
+var charts = [];
 /*----------------------------------------------------------------------------*/
-function USBMessage( buffer ) {
-  /*------------------ Private ------------------*/
-  var self     = this;
-  /*------------------- Public ------------------*/
-  this.command = 0;
-  this.status  = 0;
-  this.adr     = 0;
-  this.data    = [];
-  this.length  = 0;
-  this.buffer  = buffer;
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.init = function( callback ) {
-    switch ( this.buffer[2] ) {
-      case msgSTAT.USB_OK_STAT:
-        this.status = msgSTAT.USB_OK_STAT;
-        break;
-      case msgSTAT.USB_BAD_REQ_STAT:
-        this.status = msgSTAT.USB_BAD_REQ_STAT;
-        break;
-      case msgSTAT.USB_NON_CON_STAT:
-        this.status = msgSTAT.USB_NON_CON_STAT;
-        break;
-      default:
-        this.status = msgSTAT.USB_BAD_REQ_STAT;
-        break;
-    }
-
-    switch ( this.buffer[1] ) {
-      case msgCMD.USB_GET_CMD:
-        this.command = msgCMD.USB_GET_CMD;
-        break;
-      case msgCMD.USB_PUT_CMD:
-        this.command = msgCMD.USB_PUT_CMD;
-        break;
-      default:
-        this.command = 0;
-        this.status  = msgSTAT.USB_BAD_REQ_STAT;
-        console.log("CMD error");
-        break;
-    }
-
-    if ( this.status != msgSTAT.USB_BAD_REQ_STAT ) {
-      temp = ( this.buffer[3] << 8 ) | ( this.buffer[4] );
-      if ( temp < dataReg.length) {
-        this.adr    = temp;
-        this.length = this.buffer[5];
-        this.data   = [];
-        for( var i=0; i<this.length; i++ ) {
-          this.data.push(this.buffer[6 + i]);
-        }
-      } else {
-        this.status = msgSTAT.USB_BAD_REQ_STAT;
-        console.log("ADR error");
-      }
-    }
-    callback();
-    return;
-  }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.clean = function() {
-    this.buffer = [];
-    for( var i=0; i<6; i++ ){
-      this.buffer.push( 0 );
-    }
-    return;
-  }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.setup = function( cmd, stat, callback ) {
-    this.buffer[0] = 0x01;  /* 1st channel for sending via USB */
-    this.buffer[1] = cmd;
-    this.buffer[2] = stat;
-    this.data      = [];
-    callback();
-    return;
-  }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.setupAdr = function( adr ) {
-    this.buffer[3] = ( adr & 0xFF00 ) >> 8;
-    this.buffer[4] = adr & 0x00FF;
-    return;
-  }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.setupLength = function( ) {
-    this.buffer[5] = this.length;
-    return;
-  }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.finishMesageWithZero = function () {
-    size = msgSIZE - this.buffer.length
-    for ( var i=0; i<size; i++ ) {
-      this.buffer.push( 0 );
-    }
-  }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.codeConfig = function( n ) {
-    this.clean();
-    this.setup( msgCMD.USB_PUT_CMD, msgSTAT.USB_OK_STAT, function () {
-      self.length = 0;
-      self.setupAdr( n );
-      /*----------- Configuration value -----------*/
-      if ( dataReg[n].len == 1 ) {
-        self.buffer.push( ( dataReg[n].value & 0xFF00 ) >> 8 );
-        self.buffer.push( dataReg[n].value & 0x00FF );
-        self.length += 2;
-      } else {
-        for ( var i=0; i<dataReg[n].len; i++ ) {
-          self.buffer.push( ( dataReg[n].value[i] & 0xFF00 ) >> 8 );
-          self.buffer.push( dataReg[n].value[i] & 0x00FF );
-          self.length += 2;
-        }
-      }
-      /*----------- Configuration scale -----------*/
-      self.buffer.push( dataReg[n].scale );
-      self.length += 1;
-      /*----------- Configuration units -----------*/
-      strBuffer = encodeURI( dataReg[n].units );
-      for ( var i=0; i<strBuffer.length; i++ ) {
-        self.buffer.push( strBuffer.charAt( i ).charCodeAt() );
-        self.length += 1;
-      }
-      /*-------------------------------------------*/
-      self.setupLength();
-      self.finishMesageWithZero();
-      /*-------------------------------------------*/
-      return;
-    });
-    return;
-  }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.parseConfig = function( n ) {
-    counter = 0;
-    /*----------- Configuration value -----------*/
-    if ( dataReg[n].len == 1 ) {
-      dataReg[n].value = ( ( this.data[counter] << 8 ) & 0xFF00 ) | ( this.data[counter + 1] & 0x00FF );
-      counter += 2;
-    } else {
-      dataReg[n].value = [];
-      for ( var i=0; i<dataReg[n].len; i++ ) {
-        dataReg[n].value.push( ( ( this.data[counter + i * 2] << 8 ) & 0xFF00 ) | ( this.data[counter + i * 2 + 1] & 0x00FF ) )
-      }
-      counter += dataReg[n].len * 2;
-    }
-    /*----------- Configuration scale -----------*/
-    dataReg[n].scale = this.data[counter++]
-    /*----------- Configuration units -----------*/
-    strBuffer = "";
-    for ( var i=counter; i<this.length; i++ ) {
-      strBuffer += String.fromCharCode( this.data[i] );
-    }
-    dataReg[n].units = decodeURI( strBuffer );
-    /*-------------------------------------------*/
-    return;
-  }
-  /*---------------------------------------------*/
-  return;
+const usbStat = {
+  "wait"  : 1,
+  "write" : 2,
+  "read"  : 3 };
+const usbHandler = {
+  "finish" : 1,
+  "error"  : 2,
+  "cont"   : 3 };
+const usbInit = {
+  "fail" : 0,
+  "done" : 1
 }
-/*----------------------------------------------------------------------------*/
-const usbStat = { "wait" : 1, "write" : 2, "read" : 3 };
-const usbHandler = { "finish" : 1, "error" : 2, "cont" : 3 };
 /*----------------------------------------------------------------------------*/
 function EnrrganController() {
   /*------------------ Private ------------------*/
-  var self           = this;
-  var stat           = usbStat.wait;
-  var currentAdr     = 0;
+  var self       = this;
+  var stat       = usbStat.wait;
+  var device     = null;
+  var seqData    = [];
+  var seqLen     = 0;
+  var seqCount   = 0;
   /*------------------- Public ------------------*/
   this.input         = [];
-  this.output        = [];
-  this.inputCounter  = 0;
-  this.outputCounter = 0;
   this.error         = [];
   this.errorCounter  = 0;
   this.targetLength  = 0;
   /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*
-   * Callback - function after getting message
-   */
-  this.scan = function( inCallback, outCallback, errorCalback ) {
-    var self    = this;
-    var res     = 0;
-    var handle  = usbHandler.finish;
+  function scan ( success, fail ) {
     var devices = HID.devices();
-    this.device = null;
+    device      = null;
     for ( var i=0; i<devices.length; i++ ) {
       if ( devices[i].manufacturer == "Energan" ) {
-        res         = 1;
-        this.device = new HID.HID( devices[i].path );
-        let alert   = new alerts.Alert( "alert-success", alerts.triIco, "Контроллер подключен по USB" );
+        res       = 1;
+        device    = new HID.HID( devices[i].path );
+        success();
         break;
       }
     }
-    if ( this.device != null ) {
-      this.device.on( "data", function( data ) {
-        handle = inputHandler( data );
-        if ( handle == usbHandler.finish ) {
-          if ( stat == usbStat.write ) {
-            stat = usbStat.wait;
-            outCallback();
-          } else if ( stat == usbStat.read ) {
-            stat = usbStat.wait;
-            inCallback();
-          }
-        } else if ( handle == usbHandler.error ) {
+    if ( device == null ) {
+      fail();
+    }
+    return;
+  }
+  function initEvents ( inCallback, outCallback, errorCalback, callback ) {
+    device.on( "data", function( data ) {
+      handle = handler( data );
+      if ( handle == usbHandler.finish ) {
+        if ( stat == usbStat.write ) {
           stat = usbStat.wait;
-          errorCalback();
+          outCallback();
+        } else if ( stat == usbStat.read ) {
+          stat = usbStat.wait;
+          inCallback();
         }
-      });
-      this.device.on("error", function(err) {
+      } else if ( handle == usbHandler.error ) {
         stat = usbStat.wait;
         errorCalback();
-        self.errorCounter++;
-      });
-    } else {
-      let alert = new alerts.Alert("alert-warning",alerts.triIco,"Контроллер не подключен по USB");
-    }
-    return res;
+      }
+    });
+    device.on("error", function( err ) {
+      error.push( err );
+      self.errorCounter++;
+      stat = usbStat.wait;
+      errorCalback();
+    });
+    callback();
+    return;
   }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  function inputHandler( data ) {
+  function writeHandler( response ) {
+    var result = usbHandler.cont;
+    response.init( function () {
+      if ( ( response.status == msgSTAT.USB_OK_STAT ) &&
+           ( ( response.command == msgCMD.USB_PUT_CONFIG_CMD ) ||
+             ( response.command == msgCMD.USB_PUT_CHART_CMD ) ) &&
+           ( response.adr     == ( seqCount - 1 ) ) ) {
+        if ( seqCount < seqLen ) {
+          write( seqData[seqCount++].buffer );
+          result = usbHandler.cont;
+        } else {
+          result = usbHandler.finish;
+        }
+      } else {
+        if ( response.status != msgSTAT.USB_OK_STAT ) {
+          console.log("Error with status: " + response.status + " expected: " + msgSTAT.USB_OK_STAT);
+        }
+        if ( ( response.command != msgCMD.USB_PUT_CONFIG_CMD ) &&
+          ( response.command != msgCMD.USB_PUT_CHART_CMD ) ) {
+          console.log("Error with command: " + response.command + " expected: " + msgCMD.USB_PUT_CONFIG_CMD + " or " + msgCMD.USB_PUT_CHART_CMD);
+        }
+        if ( response.adr != ( seqCount - 1 ) ) {
+          console.log("Error with status: " + response.adr + " expected: " + ( seqCount - 1 ) );
+        }
+        result = usbHandler.error;
+      }
+    });
+    return result;
+  }
+  function readHandler ( message ) {
+    seqCount++;
+    self.input.push( message )
+    if ( seqCount >= seqLen ) {
+      result = usbHandler.finish;
+      seqCount = 0;
+    } else {
+      result = usbHandler.cont;
+    }
+    return result;
+  }
+  function handler ( data ) {
     var result = usbHandler.finish;
+    let input  = new USBMessage( data );
     switch ( stat ) {
-      /*---------- Asynchronous request ---------*/
       case usbStat.wait:
         break;
-      /*---------- Response for output ----------*/
       case usbStat.write:
-        let response = new USBMessage( data );
-        response.init( function () {
-          if ( ( response.status == msgSTAT.USB_OK_STAT ) && ( response.command == msgCMD.USB_PUT_CMD ) && ( response.adr == ( currentAdr - 1 ) ) ) {
-            if ( self.outputCounter < self.targetLength ) {
-              let conf = new USBMessage( this.output  );
-              conf.codeConfig( currentAdr );
-              self.write( conf.buffer );
-              currentAdr++;
-              self.outputCounter++;
-              result = usbHandler.cont;
-            } else {
-              self.outputCounter = 0;
-              result = usbHandler.finish;
-            }
-          } else {
-            result = usbHandler.error;
-          }
-        });
+        result = writeHandler( input );
         break;
-      /*-------------- Input data ---------------*/
       case usbStat.read:
-        let input = new USBMessage( data );
-        self.input.push( input );
-        self.inputCounter++;
-        if ( self.inputCounter >= self.targetLength ) {
-          result = usbHandler.finish;
-          self.inputCounter = 0;
-        } else {
-          result = usbHandler.cont;
-        }
+        result = readHandler( input );
         break;
       default:
         break;
     }
     return result;
   }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.close = function() {
-    if (this.device != null) {
-      this.device.close();
+  function write ( data ) {
+    if (device != null) {
+      device.write(data);
     }
     return;
   }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.write = function(data) {
-    if (this.device != null) {
-      this.device.write(data);
+  function makeDataSeq ( callback ) {
+    seqLen  = 0;
+    seqData = [];
+    /*--------------- Configurations ---------------*/
+    grabInterface();
+    for ( var i=0; i<dataReg.length; i++ ) {
+      seqData.push( new USBMessage( [] ) )
+      seqData[seqLen + i].codeConfig( i );
     }
+    seqLen += dataReg.length;
+    /*------------------- Charts -------------------*/
+    /*
+    charts = uploadCharts();
+    for ( var i=0; i<dataReg.length; i++ ) {
+      seqData.push( new USBMessage( [] ) )
+      seqData[seqLen + i].codeChart( i );
+    }
+    */
+    /*----------------------------------------------*/
+    callback();
     return;
   }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.getInputCounter = function() {
-    return this.inputCounter;
-  }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.getOutputCounter = function() {
-    return this.outputCounter;
-  }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.getInputBuffer = function( ) {
-    return this.input;
-  }
-  this.getInputLength = function() {
-    return self.input.length;
-  }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.cleanInput = function() {
+  function cleanInput () {
     this.inputCounter = 0;
     this.input        = [];
     return;
   }
   /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.cleanOutput = function() {
-    this.outputCounter = 0;
-    this.output        = [];
-    for ( var i = 0; i<6; i++) {
-      this.output.push( 0 );
+  this.init     = function ( inCallback, outCallback, errorCalback ) {
+    var self    = this;
+    var res     = usbInit.fail;
+    var handle  = usbHandler.finish;
+    var devices = HID.devices();
+
+    scan( function () {
+      initEvents( inCallback, outCallback, errorCalback, function() {
+        res         = usbInit.done;
+        let alert   = new alerts.Alert( "alert-success", alerts.triIco, "Контроллер подключен по USB" );
+      });
+    }, function() {
+      let alert = new alerts.Alert("alert-warning",alerts.triIco,"Контроллер не подключен по USB");
+    });
+    return res;
+  }
+  this.close    = function () {
+    if (device != null) {
+      device.close();
     }
     return;
   }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  this.getConfig = function( adr, callback ) {
-    stat = usbStat.read;
-    this.cleanInput();
-    if (adr == 0xFFFF) {
-      this.write([0x01,0x01,0x01,0xFF,0xFF]);
-      this.targetLength = dataReg.length;
-    } else if (adr < dataReg.length) {
-      ard0 = adr & 0x00FF;
-      adr1 = ( adr & 0xFF00 ) >> 8;
-      this.write([0x01,0x01,0x01,adr1,ard0]);
-      this.targetLength = 1;
+  this.getInput = function () {
+    return this.input;
+  }
+  this.send     = function () {
+    if ( stat == usbStat.wait) {
+      stat = usbStat.write;
+      makeDataSeq( function() {
+        write( seqData[0].buffer );
+        seqCount = 1;
+      });
     }
+    return;
+  }
+  this.receive  = function () {
+    if ( stat == usbStat.wait) {
+      this.input = [];
+      stat = usbStat.read;
+      seqData  = [];
+      seqCount = 0;
+      seqLen   = dataReg.length;
+      write( [0x01, msgCMD.USB_GET_CONFIG_CMD, msgSTAT.USB_OK_STAT, 0xFF, 0xFF] );
+    }
+  }
+  /*---------------------------------------------*/
+  this.getChart   = function( callback ) {
+    stat = usbStat.read;
+    cleanInput();
+    write([0x01, msgCMD.USB_GET_CHART_CMD, msgSTAT.USB_OK_STAT, 0xFF, 0xFF]);
     callback();
     return;
   }
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
   this.sendConfig = function( adr, callback ) {
+    grabInterface();
     stat = usbStat.write;
     let conf = new USBMessage( this.output  );
     if (adr == 0xFFFF) {
@@ -381,7 +234,7 @@ function EnrrganController() {
       currentAdr = adr;
     }
     conf.codeConfig( currentAdr );
-    this.write( conf.buffer );
+    write( conf.buffer );
     currentAdr++;
     this.outputCounter++;
     callback();
@@ -395,3 +248,6 @@ let controller = new EnrrganController();
 //------------------------------------------------------------------------------
 module.exports.EnrrganController = EnrrganController;
 module.exports.controller        = controller;
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/

@@ -678,7 +678,6 @@ function dataGrab(callback){
 					url:     extUrl + '/configs/' + i,
 					content: JSON.stringify(pasteDataReg(dataReg[i]))
 		})}}
-
 		var chartContent = uploadCharts();
 		for ( i=0; i<3; i++) {
 			restSeq.push({

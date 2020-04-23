@@ -73,13 +73,13 @@ document.getElementById("connect-button").addEventListener('click', function() {
     /*--------------------------------------------------------------*/
     if ( connectionType == 'usb' ) {
       usb.controller.close();
-      res = usb.controller.scan( function() {
+      res = usb.controller.init( function() {
         /* After getting full message */
         var buffer = [];
-        buffer = usb.controller.getInputBuffer();
+        buffer = usb.controller.getInput();
         for ( var i=0; i<buffer.length; i++) {
           buffer[i].init( function( msg ) {
-            buffer[i].parseConfig( i );
+            buffer[i].parse( i );
           });
         }
         let alert = new alerts.Alert( "alert-success", triIco, "Данные успешно обновленны" );
@@ -91,9 +91,7 @@ document.getElementById("connect-button").addEventListener('click', function() {
       });
       if ( res == 1 ) {
         setSuccessConnection();
-        usb.controller.getConfig( 0xFFFF, function() {
-          return;
-        });
+        usb.controller.receive();
       }
     /*--------------------------------------------------------------*/
     /*-------------------------- ETHERNET --------------------------*/
