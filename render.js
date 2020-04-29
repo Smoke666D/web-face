@@ -73,15 +73,23 @@ document.getElementById("connect-button").addEventListener('click', function() {
     /*--------------------------------------------------------------*/
     if ( connectionType == 'usb' ) {
       usb.controller.close();
+      out = [];
+      charts = [];
       res = usb.controller.init( function() {
         /* After getting full message */
         var buffer = [];
         buffer = usb.controller.getInput();
         for ( var i=0; i<buffer.length; i++) {
-          buffer[i].init( function( msg ) {
-            buffer[i].parse( i );
+          buffer[i].init( function() {
+            out = buffer[i].parse( i );
+            if ( out[0] == 2 ){
+              charts.push( out[1] );
+              out = [];
+            }
           });
         }
+        loadCharts( charts );
+        charts = [];
         let alert = new alerts.Alert( "alert-success", triIco, "Данные успешно обновленны" );
         updateInterface();
       }, function() {
