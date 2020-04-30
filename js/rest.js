@@ -147,7 +147,6 @@ function Select(name) {
 //******************************************************************************
 function Radio(name) {
 	this.name = name;
-
 	this.getData = function() {
 		for(var i=0; i<dataReg.length; i++ ){
 			if (dataReg[i].bitMapSize > 0) {
@@ -161,7 +160,6 @@ function Radio(name) {
 		}
 		return;
 	}
-
 	this.init = function() {
 		this.getData();
 		this.objectNO = document.getElementById(this.name.replace("NOC","") + "NO");
@@ -170,7 +168,6 @@ function Radio(name) {
 		this.enable = 1;
 		return;
 	}
-
 	this.update = function() {
 		if((this.objectNO)&&(this.objectNC)){
 			if(bitVal(this.bitNum,dataReg[this.regNum]) == 0) {
@@ -181,7 +178,6 @@ function Radio(name) {
 		}
 		return;
 	}
-
 	this.grab = function() {
 		if((this.objectNO)&&(this.objectNC)){
 			if(this.objectNC.checked == true) {
@@ -192,7 +188,6 @@ function Radio(name) {
 		}
 		return;
 	}
-
 	this.init();
 	if((this.objectNO)&&(this.objectNC)){
 		this.update();
@@ -200,11 +195,11 @@ function Radio(name) {
 	return;
 }
 //******************************************************************************
-function Slider(name) {
+function Slider(name,preInit) {
 	var self = this;
-	this.name = name;
-
-	this.getData = function() {
+	this.name      = name;
+	/*--------------------------------------------------------------------------*/
+	this.getData   = function() {
 		for (var i=0; i<dataReg.length; i++ ){
 			if (dataReg[i].name == name)
 			{
@@ -213,24 +208,20 @@ function Slider(name) {
 		}
 		return;
 	}
-
-	this.setUnits = function(units) {
+	this.setUnits  = function(units) {
 		dataReg[this.regNum].units = units;
 		return;
 	}
-
-	this.setScale = function(scale) {
+	this.setScale  = function(scale) {
 		dataReg[this.regNum].scale = scale;
 		return;
 	}
-
-	this.init = function() {
+	this.init      = function() {
 		this.getData();
 		this.slider = document.getElementById("s-slider-" + this.name);
 		this.input  = document.getElementById("sinput-" + this.name);
 		this.label  = document.getElementById("label-" + this.name);
 		var swName = this.name;
-
 		if(this.name.endsWith("Level")) {
 			swName = swName.substring(0, swName.length - 5);
 		}
@@ -243,14 +234,15 @@ function Slider(name) {
 		swName = swName.replace("On","");
 		swName = swName.replace("Off","");
 		this.sw = new Switch(swName + "Enb")
-
 		if (this.sw.object){
-			this.enable = this.sw.getVal();
+			self.enable = this.sw.getVal();
 			this.sw.object.addEventListener('click', function() {
 				if(this.checked) {
+					self.enable = 1
 					self.input.disabled = false;
 					self.slider.removeAttribute('disabled');
 				} else {
+					self.enable = 0
 					self.input.disabled = true;
 					self.slider.setAttribute('disabled', false);
 				}
@@ -337,15 +329,14 @@ function Slider(name) {
 		}
 		return;
 	}
-
 	this.calcScale = function() {
 		this.scl = Math.pow(10,dataReg[this.regNum].scale);
 		return;
 	}
-
-	this.update = function() {
+	this.update    = function() {
 		reg = dataReg[this.regNum];
 		this.label.textContent = reg.units;
+
 		if (this.enable == 1){
 			this.input.disabled = false;
 			this.slider.removeAttribute('disabled');
@@ -369,18 +360,18 @@ function Slider(name) {
 		})
 		return;
 	}
-
-	this.grab = function() {
+	this.grab      = function() {
 		this.calcScale();
 		val = parseFloat(this.input.value) / Math.pow(10,dataReg[this.regNum].scale)
 		dataReg[this.regNum].value = parseFloat(val.toFixed(0));
 		return;
 	}
-
+	/*--------------------------------------------------------------------------*/
 	this.init();
 	if ((this.slider)&&(this.input)) {
 		this.update();
 	}
+	/*--------------------------------------------------------------------------*/
 	return;
 }
 //******************************************************************************
@@ -444,10 +435,10 @@ var selectorArray = [];
 var radioArray = [];
 
 function declareSliders() {
-	for(var i=0; i<dataReg.length; i++) {
+	for ( var i=0; i<dataReg.length; i++ ) {
 		str = dataReg[i].name
 		if (str.endsWith("Level") || str.endsWith("Delay") || str.startsWith("timer") || str.endsWith("Time")) {
-			slidersArray.push(new Slider(dataReg[i].name));
+			slidersArray.push(new Slider(dataReg[i].name,1));
 		}
 	}
 	return;

@@ -855,14 +855,85 @@
       <div id="digitalInputAPage" class="content-data hidden">
         <h5>Цифровой вход A</h5>
 
+
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Функция</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="diaFunction">
-              <option value="0">Конфигурируемый</option>
-              <option value="1">Предел дымности отработанных газов</option>
+              <option value="0">
+                Пользовательская
+              </option>
+              <option value="1">
+                Сброс аварийного сигнала
+              </option>
+              <option value="2">
+                Запрет автоматического останова при восстановлении параметров сети
+              </option>
+              <option value="3">
+                Запрет автоматического запуска
+              </option>
+              <option value="4">
+                Нарушение сети, вспомогательный вход
+              </option>
+              <option value="5">
+                Замкнуть генератор на нагрузку
+              </option>
+              <option value="6">
+                Высокая температура двигателя
+              </option>
+              <option value="7">
+                Запрет нагрузки генератора
+              </option>
+              <option value="8">
+                Запрет переключения на сеть
+              </option>
+              <option value="9">
+                Сигнал низкого уровня топлива
+              </option>
+              <option value="10">
+                Выключатель давления масла
+              </option>
+              <option value="11">
+                Разомкнуть генератор
+              </option>
+              <option value="12">
+                Дистанционный запуск без нагрузки
+              </option>
+              <option value="13">
+                Дистанционный запуск под нагрузкой
+              </option>
+              <option value="14">
+                Сброс сигналов для техобслуживания 1-3
+              </option>
+              <option value="15">
+                Имитация кнопки автозапуска
+              </option>
+              <option value="16">
+                Имитация наличия сети
+              </option>
+              <option value="17">
+                Имитация кнопки ручного управления
+              </option>
+              <option value="18">
+                Имитация кнопки запуска
+              </option>
+              <option value="19">
+                Имитация кнопки останова
+              </option>
+              <option value="20">
+                Работа на холостом ходу
+              </option>
+              <option value="21">
+                Выключатель уровня охлаждающей жидкости
+              </option>
+              <option value="22">
+                Переключение на сеть/разомкнуть генератор
+              </option>
+              <option value="23">
+                Переключение на генератор/Разомкнуть сеть
+              </option>
             </select>
           </div>
         </div>
@@ -888,27 +959,28 @@
               <option value="0">Включение</option>
               <option value="1">Отключение</option>
               <option value="2">Предупреждение</option>
+              <option value="3">Индикация</option>
             </select>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Подготовка</label>
+            <label>Вход активен с момента</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="diaArming">
               <option value="0">Всегда</option>
-              <option value="1">Никогда</option>
-              <option value="2">От безопастности</option>
-              <option value="3">От запуска</option>
+              <option value="1">Оканчания таймера блокировки контроля ДГУ</option>
+              <option value="2">Окончания прокрутки стартера</option>
+              <option value="3">Никогда</option>
             </select>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Промежуток времени между действиями</label>
+            <label>Задержка срабатывания</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-diaDelay" step="1">
@@ -920,6 +992,16 @@
             <div class="s-slider" id="s-slider-diaDelay"></div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Надпись на экране</label>
+          </div>
+          <div class="col-sm-auto">
+            <input class="form-control sensor-select" id="message-dia">
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalInputBPage" class="content-data hidden">
@@ -931,8 +1013,78 @@
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="dibFunction">
-              <option value="0">Конфигурируемый</option>
-              <option value="1">Предел дымности отработанных газов</option>
+              <option value="0">
+                Пользовательская
+              </option>
+              <option value="1">
+                Сброс аварийного сигнала
+              </option>
+              <option value="2">
+                Запрет автоматического останова при восстановлении параметров сети
+              </option>
+              <option value="3">
+                Запрет автоматического запуска
+              </option>
+              <option value="4">
+                Нарушение сети, вспомогательный вход
+              </option>
+              <option value="5">
+                Замкнуть генератор на нагрузку
+              </option>
+              <option value="6">
+                Высокая температура двигателя
+              </option>
+              <option value="7">
+                Запрет нагрузки генератора
+              </option>
+              <option value="8">
+                Запрет переключения на сеть
+              </option>
+              <option value="9">
+                Сигнал низкого уровня топлива
+              </option>
+              <option value="10">
+                Выключатель давления масла
+              </option>
+              <option value="11">
+                Разомкнуть генератор
+              </option>
+              <option value="12">
+                Дистанционный запуск без нагрузки
+              </option>
+              <option value="13">
+                Дистанционный запуск под нагрузкой
+              </option>
+              <option value="14">
+                Сброс сигналов для техобслуживания 1-3
+              </option>
+              <option value="15">
+                Имитация кнопки автозапуска
+              </option>
+              <option value="16">
+                Имитация наличия сети
+              </option>
+              <option value="17">
+                Имитация кнопки ручного управления
+              </option>
+              <option value="18">
+                Имитация кнопки запуска
+              </option>
+              <option value="19">
+                Имитация кнопки останова
+              </option>
+              <option value="20">
+                Работа на холостом ходу
+              </option>
+              <option value="21">
+                Выключатель уровня охлаждающей жидкости
+              </option>
+              <option value="22">
+                Переключение на сеть/разомкнуть генератор
+              </option>
+              <option value="23">
+                Переключение на генератор/Разомкнуть сеть
+              </option>
             </select>
           </div>
         </div>
@@ -964,21 +1116,21 @@
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Подготовка</label>
+            <label>Вход активен с момента</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="dibArming">
               <option value="0">Всегда</option>
-              <option value="1">Никогда</option>
-              <option value="2">От безопастности</option>
-              <option value="3">От запуска</option>
+              <option value="1">Оканчания таймера блокировки контроля ДГУ</option>
+              <option value="2">Окончания прокрутки стартера</option>
+              <option value="3">Никогда</option>
             </select>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Промежуток времени между действиями</label>
+            <label>Задержка срабатывания</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-dibDelay" step="1">
@@ -990,6 +1142,16 @@
             <div class="s-slider" id="s-slider-dibDelay"></div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Надпись на экране</label>
+          </div>
+          <div class="col-sm-auto">
+            <input class="form-control sensor-select" id="message-dib">
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalInputCPage" class="content-data hidden">
@@ -1001,8 +1163,78 @@
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="dicFunction">
-              <option value="0">Конфигурируемый</option>
-              <option value="1">Предел дымности отработанных газов</option>
+              <option value="0">
+                Пользовательская
+              </option>
+              <option value="1">
+                Сброс аварийного сигнала
+              </option>
+              <option value="2">
+                Запрет автоматического останова при восстановлении параметров сети
+              </option>
+              <option value="3">
+                Запрет автоматического запуска
+              </option>
+              <option value="4">
+                Нарушение сети, вспомогательный вход
+              </option>
+              <option value="5">
+                Замкнуть генератор на нагрузку
+              </option>
+              <option value="6">
+                Высокая температура двигателя
+              </option>
+              <option value="7">
+                Запрет нагрузки генератора
+              </option>
+              <option value="8">
+                Запрет переключения на сеть
+              </option>
+              <option value="9">
+                Сигнал низкого уровня топлива
+              </option>
+              <option value="10">
+                Выключатель давления масла
+              </option>
+              <option value="11">
+                Разомкнуть генератор
+              </option>
+              <option value="12">
+                Дистанционный запуск без нагрузки
+              </option>
+              <option value="13">
+                Дистанционный запуск под нагрузкой
+              </option>
+              <option value="14">
+                Сброс сигналов для техобслуживания 1-3
+              </option>
+              <option value="15">
+                Имитация кнопки автозапуска
+              </option>
+              <option value="16">
+                Имитация наличия сети
+              </option>
+              <option value="17">
+                Имитация кнопки ручного управления
+              </option>
+              <option value="18">
+                Имитация кнопки запуска
+              </option>
+              <option value="19">
+                Имитация кнопки останова
+              </option>
+              <option value="20">
+                Работа на холостом ходу
+              </option>
+              <option value="21">
+                Выключатель уровня охлаждающей жидкости
+              </option>
+              <option value="22">
+                Переключение на сеть/разомкнуть генератор
+              </option>
+              <option value="23">
+                Переключение на генератор/Разомкнуть сеть
+              </option>
             </select>
           </div>
         </div>
@@ -1034,21 +1266,21 @@
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Подготовка</label>
+            <label>Вход активен с момента</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="dicArming">
               <option value="0">Всегда</option>
-              <option value="1">Никогда</option>
-              <option value="2">От безопастности</option>
-              <option value="3">От запуска</option>
+              <option value="1">Оканчания таймера блокировки контроля ДГУ</option>
+              <option value="2">Окончания прокрутки стартера</option>
+              <option value="3">Никогда</option>
             </select>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Промежуток времени между действиями</label>
+            <label>Задержка срабатывания</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-dicDelay" step="1">
@@ -1060,6 +1292,16 @@
             <div class="s-slider" id="s-slider-dicDelay"></div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Надпись на экране</label>
+          </div>
+          <div class="col-sm-auto">
+            <input class="form-control sensor-select" id="message-dic">
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalInputDPage" class="content-data hidden">
@@ -1071,8 +1313,78 @@
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="didFunction">
-              <option value="0">Конфигурируемый</option>
-              <option value="1">Предел дымности отработанных газов</option>
+              <option value="0">
+                Пользовательская
+              </option>
+              <option value="1">
+                Сброс аварийного сигнала
+              </option>
+              <option value="2">
+                Запрет автоматического останова при восстановлении параметров сети
+              </option>
+              <option value="3">
+                Запрет автоматического запуска
+              </option>
+              <option value="4">
+                Нарушение сети, вспомогательный вход
+              </option>
+              <option value="5">
+                Замкнуть генератор на нагрузку
+              </option>
+              <option value="6">
+                Высокая температура двигателя
+              </option>
+              <option value="7">
+                Запрет нагрузки генератора
+              </option>
+              <option value="8">
+                Запрет переключения на сеть
+              </option>
+              <option value="9">
+                Сигнал низкого уровня топлива
+              </option>
+              <option value="10">
+                Выключатель давления масла
+              </option>
+              <option value="11">
+                Разомкнуть генератор
+              </option>
+              <option value="12">
+                Дистанционный запуск без нагрузки
+              </option>
+              <option value="13">
+                Дистанционный запуск под нагрузкой
+              </option>
+              <option value="14">
+                Сброс сигналов для техобслуживания 1-3
+              </option>
+              <option value="15">
+                Имитация кнопки автозапуска
+              </option>
+              <option value="16">
+                Имитация наличия сети
+              </option>
+              <option value="17">
+                Имитация кнопки ручного управления
+              </option>
+              <option value="18">
+                Имитация кнопки запуска
+              </option>
+              <option value="19">
+                Имитация кнопки останова
+              </option>
+              <option value="20">
+                Работа на холостом ходу
+              </option>
+              <option value="21">
+                Выключатель уровня охлаждающей жидкости
+              </option>
+              <option value="22">
+                Переключение на сеть/разомкнуть генератор
+              </option>
+              <option value="23">
+                Переключение на генератор/Разомкнуть сеть
+              </option>
             </select>
           </div>
         </div>
@@ -1104,21 +1416,21 @@
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Подготовка</label>
+            <label>Вход активен с момента</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="didArming">
               <option value="0">Всегда</option>
-              <option value="1">Никогда</option>
-              <option value="2">От безопастности</option>
-              <option value="3">От запуска</option>
+              <option value="1">Оканчания таймера блокировки контроля ДГУ</option>
+              <option value="2">Окончания прокрутки стартера</option>
+              <option value="3">Никогда</option>
             </select>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Промежуток времени между действиями</label>
+            <label>Задержка срабатывания</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-didDelay" step="1">
@@ -1130,6 +1442,16 @@
             <div class="s-slider" id="s-slider-didDelay"></div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Надпись на экране</label>
+          </div>
+          <div class="col-sm-auto">
+            <input class="form-control sensor-select" id="message-did">
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalOutputPage" class="content-data hidden">

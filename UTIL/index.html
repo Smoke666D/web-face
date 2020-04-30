@@ -2289,10 +2289,10 @@ pre {
   .form-control:focus {
     color: #495057;
     background-color: #fff;
-    border-color: #80bdff;
+    border-color: #f8b739;
     outline: 0;
-    -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(248, 183, 57, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(248, 183, 57, 0.25); }
   .form-control::-webkit-input-placeholder {
     color: #6c757d;
     opacity: 1; }
@@ -2408,7 +2408,7 @@ textarea.form-control {
   max-width: 35%;
 }
 .sensor-select{
-    width: 220px!important;
+    width: 420px!important;
   }
 
 .form-check-input {
@@ -3819,10 +3819,10 @@ input[type="button"].btn-block {
   -moz-appearance: none;
   appearance: none; }
   .custom-select:focus {
-    border-color: #80bdff;
+    border-color: #f8b739;
     outline: 0;
-    -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(248, 183, 57, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(248, 183, 57, 0.25); }
     .custom-select:focus::-ms-value {
       color: #495057;
       background-color: #fff; }
@@ -10071,10 +10071,10 @@ QmCC
           <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary">
             <i class="fa fa-bars"></i>
           </button>
-          <button aria-label="Refresh data" onclick="dataUpdate(function(){resetSuccessConnection();})" class="btn btn-primary">
+          <button aria-label="Refresh data" id="refreshData-button" onclick="connectUpdate()" class="btn btn-primary">
             <i class="fa fa-refresh" id="i-loading"></i>
           </button>
-          <button aria-label="Upload data" onclick="dataGrab(function(){resetSuccessConnection();})" class="btn btn-primary">
+          <button aria-label="Upload data" id="uploadData-button" onclick="connectGrab()" class="btn btn-primary">
             <i class="fa fa-upload" id="i-upload"></i>
           </button>
         </div>
@@ -10686,14 +10686,85 @@ QmCC
       <div id="digitalInputAPage" class="content-data hidden">
         <h5>Цифровой вход A</h5>
 
+
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Функция</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="diaFunction">
-              <option value="0">Конфигурируемый</option>
-              <option value="1">Предел дымности отработанных газов</option>
+              <option value="0">
+                Пользовательская
+              </option>
+              <option value="1">
+                Сброс аварийного сигнала
+              </option>
+              <option value="2">
+                Запрет автоматического останова при восстановлении параметров сети
+              </option>
+              <option value="3">
+                Запрет автоматического запуска
+              </option>
+              <option value="4">
+                Нарушение сети, вспомогательный вход
+              </option>
+              <option value="5">
+                Замкнуть генератор на нагрузку
+              </option>
+              <option value="6">
+                Высокая температура двигателя
+              </option>
+              <option value="7">
+                Запрет нагрузки генератора
+              </option>
+              <option value="8">
+                Запрет переключения на сеть
+              </option>
+              <option value="9">
+                Сигнал низкого уровня топлива
+              </option>
+              <option value="10">
+                Выключатель давления масла
+              </option>
+              <option value="11">
+                Разомкнуть генератор
+              </option>
+              <option value="12">
+                Дистанционный запуск без нагрузки
+              </option>
+              <option value="13">
+                Дистанционный запуск под нагрузкой
+              </option>
+              <option value="14">
+                Сброс сигналов для техобслуживания 1-3
+              </option>
+              <option value="15">
+                Имитация кнопки автозапуска
+              </option>
+              <option value="16">
+                Имитация наличия сети
+              </option>
+              <option value="17">
+                Имитация кнопки ручного управления
+              </option>
+              <option value="18">
+                Имитация кнопки запуска
+              </option>
+              <option value="19">
+                Имитация кнопки останова
+              </option>
+              <option value="20">
+                Работа на холостом ходу
+              </option>
+              <option value="21">
+                Выключатель уровня охлаждающей жидкости
+              </option>
+              <option value="22">
+                Переключение на сеть/разомкнуть генератор
+              </option>
+              <option value="23">
+                Переключение на генератор/Разомкнуть сеть
+              </option>
             </select>
           </div>
         </div>
@@ -10719,27 +10790,28 @@ QmCC
               <option value="0">Включение</option>
               <option value="1">Отключение</option>
               <option value="2">Предупреждение</option>
+              <option value="3">Индикация</option>
             </select>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Подготовка</label>
+            <label>Вход активен с момента</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="diaArming">
               <option value="0">Всегда</option>
-              <option value="1">Никогда</option>
-              <option value="2">От безопастности</option>
-              <option value="3">От запуска</option>
+              <option value="1">Оканчания таймера блокировки контроля ДГУ</option>
+              <option value="2">Окончания прокрутки стартера</option>
+              <option value="3">Никогда</option>
             </select>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Промежуток времени между действиями</label>
+            <label>Задержка срабатывания</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-diaDelay" step="1">
@@ -10751,6 +10823,16 @@ QmCC
             <div class="s-slider" id="s-slider-diaDelay"></div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Надпись на экране</label>
+          </div>
+          <div class="col-sm-auto">
+            <input class="form-control sensor-select" id="message-dia">
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalInputBPage" class="content-data hidden">
@@ -10762,8 +10844,78 @@ QmCC
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="dibFunction">
-              <option value="0">Конфигурируемый</option>
-              <option value="1">Предел дымности отработанных газов</option>
+              <option value="0">
+                Пользовательская
+              </option>
+              <option value="1">
+                Сброс аварийного сигнала
+              </option>
+              <option value="2">
+                Запрет автоматического останова при восстановлении параметров сети
+              </option>
+              <option value="3">
+                Запрет автоматического запуска
+              </option>
+              <option value="4">
+                Нарушение сети, вспомогательный вход
+              </option>
+              <option value="5">
+                Замкнуть генератор на нагрузку
+              </option>
+              <option value="6">
+                Высокая температура двигателя
+              </option>
+              <option value="7">
+                Запрет нагрузки генератора
+              </option>
+              <option value="8">
+                Запрет переключения на сеть
+              </option>
+              <option value="9">
+                Сигнал низкого уровня топлива
+              </option>
+              <option value="10">
+                Выключатель давления масла
+              </option>
+              <option value="11">
+                Разомкнуть генератор
+              </option>
+              <option value="12">
+                Дистанционный запуск без нагрузки
+              </option>
+              <option value="13">
+                Дистанционный запуск под нагрузкой
+              </option>
+              <option value="14">
+                Сброс сигналов для техобслуживания 1-3
+              </option>
+              <option value="15">
+                Имитация кнопки автозапуска
+              </option>
+              <option value="16">
+                Имитация наличия сети
+              </option>
+              <option value="17">
+                Имитация кнопки ручного управления
+              </option>
+              <option value="18">
+                Имитация кнопки запуска
+              </option>
+              <option value="19">
+                Имитация кнопки останова
+              </option>
+              <option value="20">
+                Работа на холостом ходу
+              </option>
+              <option value="21">
+                Выключатель уровня охлаждающей жидкости
+              </option>
+              <option value="22">
+                Переключение на сеть/разомкнуть генератор
+              </option>
+              <option value="23">
+                Переключение на генератор/Разомкнуть сеть
+              </option>
             </select>
           </div>
         </div>
@@ -10795,21 +10947,21 @@ QmCC
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Подготовка</label>
+            <label>Вход активен с момента</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="dibArming">
               <option value="0">Всегда</option>
-              <option value="1">Никогда</option>
-              <option value="2">От безопастности</option>
-              <option value="3">От запуска</option>
+              <option value="1">Оканчания таймера блокировки контроля ДГУ</option>
+              <option value="2">Окончания прокрутки стартера</option>
+              <option value="3">Никогда</option>
             </select>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Промежуток времени между действиями</label>
+            <label>Задержка срабатывания</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-dibDelay" step="1">
@@ -10821,6 +10973,16 @@ QmCC
             <div class="s-slider" id="s-slider-dibDelay"></div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Надпись на экране</label>
+          </div>
+          <div class="col-sm-auto">
+            <input class="form-control sensor-select" id="message-dib">
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalInputCPage" class="content-data hidden">
@@ -10832,8 +10994,78 @@ QmCC
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="dicFunction">
-              <option value="0">Конфигурируемый</option>
-              <option value="1">Предел дымности отработанных газов</option>
+              <option value="0">
+                Пользовательская
+              </option>
+              <option value="1">
+                Сброс аварийного сигнала
+              </option>
+              <option value="2">
+                Запрет автоматического останова при восстановлении параметров сети
+              </option>
+              <option value="3">
+                Запрет автоматического запуска
+              </option>
+              <option value="4">
+                Нарушение сети, вспомогательный вход
+              </option>
+              <option value="5">
+                Замкнуть генератор на нагрузку
+              </option>
+              <option value="6">
+                Высокая температура двигателя
+              </option>
+              <option value="7">
+                Запрет нагрузки генератора
+              </option>
+              <option value="8">
+                Запрет переключения на сеть
+              </option>
+              <option value="9">
+                Сигнал низкого уровня топлива
+              </option>
+              <option value="10">
+                Выключатель давления масла
+              </option>
+              <option value="11">
+                Разомкнуть генератор
+              </option>
+              <option value="12">
+                Дистанционный запуск без нагрузки
+              </option>
+              <option value="13">
+                Дистанционный запуск под нагрузкой
+              </option>
+              <option value="14">
+                Сброс сигналов для техобслуживания 1-3
+              </option>
+              <option value="15">
+                Имитация кнопки автозапуска
+              </option>
+              <option value="16">
+                Имитация наличия сети
+              </option>
+              <option value="17">
+                Имитация кнопки ручного управления
+              </option>
+              <option value="18">
+                Имитация кнопки запуска
+              </option>
+              <option value="19">
+                Имитация кнопки останова
+              </option>
+              <option value="20">
+                Работа на холостом ходу
+              </option>
+              <option value="21">
+                Выключатель уровня охлаждающей жидкости
+              </option>
+              <option value="22">
+                Переключение на сеть/разомкнуть генератор
+              </option>
+              <option value="23">
+                Переключение на генератор/Разомкнуть сеть
+              </option>
             </select>
           </div>
         </div>
@@ -10865,21 +11097,21 @@ QmCC
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Подготовка</label>
+            <label>Вход активен с момента</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="dicArming">
               <option value="0">Всегда</option>
-              <option value="1">Никогда</option>
-              <option value="2">От безопастности</option>
-              <option value="3">От запуска</option>
+              <option value="1">Оканчания таймера блокировки контроля ДГУ</option>
+              <option value="2">Окончания прокрутки стартера</option>
+              <option value="3">Никогда</option>
             </select>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Промежуток времени между действиями</label>
+            <label>Задержка срабатывания</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-dicDelay" step="1">
@@ -10891,6 +11123,16 @@ QmCC
             <div class="s-slider" id="s-slider-dicDelay"></div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Надпись на экране</label>
+          </div>
+          <div class="col-sm-auto">
+            <input class="form-control sensor-select" id="message-dic">
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalInputDPage" class="content-data hidden">
@@ -10902,8 +11144,78 @@ QmCC
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="didFunction">
-              <option value="0">Конфигурируемый</option>
-              <option value="1">Предел дымности отработанных газов</option>
+              <option value="0">
+                Пользовательская
+              </option>
+              <option value="1">
+                Сброс аварийного сигнала
+              </option>
+              <option value="2">
+                Запрет автоматического останова при восстановлении параметров сети
+              </option>
+              <option value="3">
+                Запрет автоматического запуска
+              </option>
+              <option value="4">
+                Нарушение сети, вспомогательный вход
+              </option>
+              <option value="5">
+                Замкнуть генератор на нагрузку
+              </option>
+              <option value="6">
+                Высокая температура двигателя
+              </option>
+              <option value="7">
+                Запрет нагрузки генератора
+              </option>
+              <option value="8">
+                Запрет переключения на сеть
+              </option>
+              <option value="9">
+                Сигнал низкого уровня топлива
+              </option>
+              <option value="10">
+                Выключатель давления масла
+              </option>
+              <option value="11">
+                Разомкнуть генератор
+              </option>
+              <option value="12">
+                Дистанционный запуск без нагрузки
+              </option>
+              <option value="13">
+                Дистанционный запуск под нагрузкой
+              </option>
+              <option value="14">
+                Сброс сигналов для техобслуживания 1-3
+              </option>
+              <option value="15">
+                Имитация кнопки автозапуска
+              </option>
+              <option value="16">
+                Имитация наличия сети
+              </option>
+              <option value="17">
+                Имитация кнопки ручного управления
+              </option>
+              <option value="18">
+                Имитация кнопки запуска
+              </option>
+              <option value="19">
+                Имитация кнопки останова
+              </option>
+              <option value="20">
+                Работа на холостом ходу
+              </option>
+              <option value="21">
+                Выключатель уровня охлаждающей жидкости
+              </option>
+              <option value="22">
+                Переключение на сеть/разомкнуть генератор
+              </option>
+              <option value="23">
+                Переключение на генератор/Разомкнуть сеть
+              </option>
             </select>
           </div>
         </div>
@@ -10935,21 +11247,21 @@ QmCC
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Подготовка</label>
+            <label>Вход активен с момента</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="didArming">
               <option value="0">Всегда</option>
-              <option value="1">Никогда</option>
-              <option value="2">От безопастности</option>
-              <option value="3">От запуска</option>
+              <option value="1">Оканчания таймера блокировки контроля ДГУ</option>
+              <option value="2">Окончания прокрутки стартера</option>
+              <option value="3">Никогда</option>
             </select>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Промежуток времени между действиями</label>
+            <label>Задержка срабатывания</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-didDelay" step="1">
@@ -10961,6 +11273,16 @@ QmCC
             <div class="s-slider" id="s-slider-didDelay"></div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Надпись на экране</label>
+          </div>
+          <div class="col-sm-auto">
+            <input class="form-control sensor-select" id="message-did">
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalOutputPage" class="content-data hidden">
@@ -12936,7 +13258,6 @@ QmCC
       <!------------------------------------------------------------------------------------------------------------->
       </div>
     </div>
-    
     <!--------------------------------------------------------------------------------------------------------------->
     <script>const triIco = '<i class="fas fa-exclamation-triangle"></i>'
 //------------------------------------------------------------------------------
@@ -13889,7 +14210,7 @@ function Alert(type,ico,text) {
    "name": "timerStartDelay",
    "value": 5,
    "scale": 0,
-   "min": 1,
+   "min": 0,
    "max": 300,
    "units": "сек",
    "type": "U",
@@ -13903,7 +14224,7 @@ function Alert(type,ico,text) {
    "name": "timerPreheating",
    "value": 5,
    "scale": 0,
-   "min": 1,
+   "min": 0,
    "max": 300,
    "units": "сек",
    "type": "U",
@@ -13945,7 +14266,7 @@ function Alert(type,ico,text) {
    "name": "timerStartupIdleTime",
    "value": 10,
    "scale": 0,
-   "min": 1,
+   "min": 0,
    "max": 300,
    "units": "сек",
    "type": "U",
@@ -13987,7 +14308,7 @@ function Alert(type,ico,text) {
    "name": "timerWarming",
    "value": 1,
    "scale": 0,
-   "min": 1,
+   "min": 0,
    "max": 300,
    "units": "сек",
    "type": "U",
@@ -14043,7 +14364,7 @@ function Alert(type,ico,text) {
    "name": "timerReturnDelay",
    "value": 30,
    "scale": 0,
-   "min": 1,
+   "min": 0,
    "max": 300,
    "units": "сек",
    "type": "U",
@@ -14057,7 +14378,7 @@ function Alert(type,ico,text) {
    "name": "timerCooling",
    "value": 60,
    "scale": 0,
-   "min": 1,
+   "min": 0,
    "max": 300,
    "units": "сек",
    "type": "U",
@@ -14071,7 +14392,7 @@ function Alert(type,ico,text) {
    "name": "timerCoolingIdle",
    "value": 20,
    "scale": 0,
-   "min": 1,
+   "min": 0,
    "max": 300,
    "units": "сек",
    "type": "U",
@@ -14085,7 +14406,7 @@ function Alert(type,ico,text) {
    "name": "timerSolenoidHold",
    "value": 20,
    "scale": 0,
-   "min": 1,
+   "min": 0,
    "max": 60,
    "units": "сек",
    "type": "U",
@@ -15209,6 +15530,8 @@ function setSuccessConnection() {
 		obj.classList.remove("btn-primary");
 		obj.classList.add("btn-success");
 	}
+	document.getElementById("refreshData-button").disabled = false;
+	document.getElementById("uploadData-button").disabled = false;
 	return;
 }
 
@@ -15218,6 +15541,8 @@ function resetSuccessConnection() {
 		obj.classList.remove("btn-success");
 		obj.classList.add("btn-primary");
 	}
+	document.getElementById("refreshData-button").disabled = true;
+	document.getElementById("uploadData-button").disabled = true;
 	return;
 }
 //******************************************************************************
@@ -15448,9 +15773,9 @@ function oilScaleInit() {
 	var self = this;
 	this.object = document.getElementById("oilScale");
 	this.label  = document.getElementById("oilScaleString");
-	self.slider0 = new Slider("oilPressurePreAlarmLevel");
-	self.slider1 = new Slider("oilPressureAlarmLevel");
-	self.slider2 = new Slider("crankDisconnectOilPressureLevel");
+	self.slider0 = new Slider("oilPressurePreAlarmLevel",0);
+	self.slider1 = new Slider("oilPressureAlarmLevel",0);
+	self.slider2 = new Slider("crankDisconnectOilPressureLevel",0);
 
 	function calcOilScale() {
 		self.slider0.grab();
@@ -15469,7 +15794,6 @@ function oilScaleInit() {
 			self.slider0.setUnits("Бар");
 			self.slider1.setUnits("Бар");
 			self.slider2.setUnits("Бар");
-
 			self.slider0.setScale(-1);
 			self.slider1.setScale(-1);
 			self.slider2.setScale(-1);
@@ -15484,6 +15808,64 @@ function oilScaleInit() {
 		calcOilScale()
 	})
 	calcOilScale();
+}
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+function diInit(letter) {
+	function setDisabled() {
+		var funct    = document.getElementById("di"+letter+"Function")
+		var polarity = document.getElementById("di"+letter+"Polarity");
+		var action   = document.getElementById("di"+letter+"Action");
+		var arming   = document.getElementById("di"+letter+"Arming");
+		var input    = document.getElementById("sinput-di"+letter+"Delay");
+		var slider   = document.getElementById("s-slider-di"+letter+"Delay");
+		var message  = document.getElementById("message-di"+letter);
+		if ( funct.value == 0 ) {
+			action.disabled = false;
+			arming.disabled = false;
+			message.disabled = false;
+		} else {
+			action.disabled = true;
+			arming.disabled = true;
+			message.disabled = true;
+		}
+	}
+
+	setDisabled();
+	document.getElementById("di"+letter+"Function").addEventListener('change', function() {
+		setDisabled();
+	});
+}
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+function ainInit(master,checkers,slaves) {
+	function setDisabled() {
+		if ( document.getElementById(master).value == 0 ) {
+			for ( var i=0; i<checkers.length; i++ ) {
+				document.getElementById(checkers[i]).disabled = true;
+				document.getElementById(checkers[i]).checked = false;
+			}
+			for ( var i=0; i<slaves.length; i++ ) {
+				var slave = document.getElementById(slaves[i]);
+				if ( slaves[i].search('slider') != -1 ) {
+					slave.setAttribute('disabled', false);
+				} else {
+					slave.disabled = true;
+				}
+			}
+		} else {
+			for ( var i=0; i<checkers.length; i++ ) {
+				document.getElementById(checkers[i]).disabled = false;
+			}
+		}
+	}
+
+	setDisabled();
+	document.getElementById(master).addEventListener('change',function(){
+		setDisabled();
+	});
 }
 //******************************************************************************
 //******************************************************************************
@@ -15613,20 +15995,37 @@ function slider4InitLimits(id1,id2,id3,id4) {
 //******************************************************************************
 //******************************************************************************
 document.addEventListener("DOMContentLoaded", function(event) {
-	document.getElementById("versionSowtware").innerHTML = softwareVersion;
-	loadContent("devicePage");
-	sliderInit();
-	declareInterface();
-	oilScaleInit();
-	powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
-	if (electronApp == 0) {
-		dataUpdate(function(){return;});
+	try {
+		if ( electronApp == 1 ){
+			document.getElementById("refreshData-button").disabled = true;
+			document.getElementById("uploadData-button").disabled = true;
+		}
+		document.getElementById("versionSowtware").innerHTML = softwareVersion;
+		loadContent("devicePage");
+		sliderInit();
+		declareInterface();
+		oilScaleInit();
+		diInit('a');
+		diInit('b');
+		diInit('c');
+		diInit('d');
+		ainInit('oilPressureSensorType',['oilPressureOpenCircuitAlarmEnb','oilPressureAlarmEnb','oilPressurePreAlarmEnb'],['sinput-oilPressureAlarmLevel','s-slider-oilPressureAlarmLevel','sinput-oilPressurePreAlarmLevel','s-slider-oilPressurePreAlarmLevel']);
+		ainInit('coolantTempSensorType',['coolantTempOpenCircuitAlarmEnb','coolantHightTempAlarmEnb','coolantHightTempPreAlarmEnb','coolantTempHeaterEnb','coolantTempCoolerEnb'],['sinput-coolantHightTempAlarmLevel','s-slider-coolantHightTempAlarmLevel','sinput-coolantHightTempPreAlarmLevel','s-slider-coolantHightTempPreAlarmLevel','sinput-coolantTempHeaterOnLevel','s-slider-coolantTempHeaterOnLevel','sinput-coolantTempHeaterOffLevel','s-slider-coolantTempHeaterOffLevel','sinput-coolantTempCoolerOffLevel','s-slider-coolantTempCoolerOffLevel','sinput-coolantTempCoolerOnLevel','s-slider-coolantTempCoolerOnLevel']);
+		ainInit('fuelLevelSensorType',['fuelLevelLowAlarmEnb','fuelLevelLowPreAlarmEnb','fuelLevelHightAlarmEnb','fuelLevelHightPreAlarmEnb','fuelPumpEnb'],['fuelLevelLowAlarmAction','sinput-fuelLevelLowAlarmLevel','s-slider-fuelLevelLowAlarmLevel','sinput-fuelLevelLowAlarmDelay','s-slider-fuelLevelLowAlarmDelay','sinput-fuelLevelLowPreAlarmLevel','s-slider-fuelLevelLowPreAlarmLevel','sinput-fuelLevelLowPreAlarmDelay','s-slider-fuelLevelLowPreAlarmDelay','fuelLevelHightAlarmAction','sinput-fuelLevelHightAlarmLevel','s-slider-fuelLevelHightAlarmLevel','sinput-fuelLevelHightAlarmDelay','s-slider-fuelLevelHightAlarmDelay','sinput-fuelLevelHightPreAlarmLevel','s-slider-fuelLevelHightPreAlarmLevel','sinput-fuelLevelHightPreAlarmDelay','s-slider-fuelLevelHightPreAlarmDelay','sinput-fuelPumpOffLevel','s-slider-fuelPumpOffLevel','sinput-fuelPumpOnLevel','s-slider-fuelPumpOnLevel']);
+		powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
+		if (electronApp == 0) {
+			ethDataUpdate(function(){return;});
+		}
+		updateVersions();
+		const genVoltageLims = new slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
+		const genFreqLims = new slider4InitLimits("genUnderFrequencyAlarmLevel","genUnderFrequencyPreAlarmLevel","genOverFrequencyPreAlarmLevel","genOverFrequencyAlarmLevel");
+		const mainsVoltageLims = new slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
+		const mainsFreqLims = new slider2InitLimits("mainsUnderFrequencyAlarmLevel","mainsOverFrequencyAlarmLevel");
+
+		return;
+	} catch {
+		return;
 	}
-	updateVersions();
-	const genVoltageLims = new slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
-	const genFreqLims = new slider4InitLimits("genUnderFrequencyAlarmLevel","genUnderFrequencyPreAlarmLevel","genOverFrequencyPreAlarmLevel","genOverFrequencyAlarmLevel");
-	const mainsVoltageLims = new slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
-	const mainsFreqLims = new slider2InitLimits("mainsUnderFrequencyAlarmLevel","mainsOverFrequencyAlarmLevel");
 });
 //******************************************************************************
 //******************************************************************************
@@ -15786,7 +16185,6 @@ function Select(name) {
 //******************************************************************************
 function Radio(name) {
 	this.name = name;
-
 	this.getData = function() {
 		for(var i=0; i<dataReg.length; i++ ){
 			if (dataReg[i].bitMapSize > 0) {
@@ -15800,7 +16198,6 @@ function Radio(name) {
 		}
 		return;
 	}
-
 	this.init = function() {
 		this.getData();
 		this.objectNO = document.getElementById(this.name.replace("NOC","") + "NO");
@@ -15809,7 +16206,6 @@ function Radio(name) {
 		this.enable = 1;
 		return;
 	}
-
 	this.update = function() {
 		if((this.objectNO)&&(this.objectNC)){
 			if(bitVal(this.bitNum,dataReg[this.regNum]) == 0) {
@@ -15820,7 +16216,6 @@ function Radio(name) {
 		}
 		return;
 	}
-
 	this.grab = function() {
 		if((this.objectNO)&&(this.objectNC)){
 			if(this.objectNC.checked == true) {
@@ -15831,7 +16226,6 @@ function Radio(name) {
 		}
 		return;
 	}
-
 	this.init();
 	if((this.objectNO)&&(this.objectNC)){
 		this.update();
@@ -15839,11 +16233,11 @@ function Radio(name) {
 	return;
 }
 //******************************************************************************
-function Slider(name) {
+function Slider(name,preInit) {
 	var self = this;
-	this.name = name;
-
-	this.getData = function() {
+	this.name      = name;
+	/*--------------------------------------------------------------------------*/
+	this.getData   = function() {
 		for (var i=0; i<dataReg.length; i++ ){
 			if (dataReg[i].name == name)
 			{
@@ -15852,24 +16246,20 @@ function Slider(name) {
 		}
 		return;
 	}
-
-	this.setUnits = function(units) {
+	this.setUnits  = function(units) {
 		dataReg[this.regNum].units = units;
 		return;
 	}
-
-	this.setScale = function(scale) {
+	this.setScale  = function(scale) {
 		dataReg[this.regNum].scale = scale;
 		return;
 	}
-
-	this.init = function() {
+	this.init      = function() {
 		this.getData();
 		this.slider = document.getElementById("s-slider-" + this.name);
 		this.input  = document.getElementById("sinput-" + this.name);
 		this.label  = document.getElementById("label-" + this.name);
 		var swName = this.name;
-
 		if(this.name.endsWith("Level")) {
 			swName = swName.substring(0, swName.length - 5);
 		}
@@ -15882,14 +16272,15 @@ function Slider(name) {
 		swName = swName.replace("On","");
 		swName = swName.replace("Off","");
 		this.sw = new Switch(swName + "Enb")
-
 		if (this.sw.object){
-			this.enable = this.sw.getVal();
+			self.enable = this.sw.getVal();
 			this.sw.object.addEventListener('click', function() {
 				if(this.checked) {
+					self.enable = 1
 					self.input.disabled = false;
 					self.slider.removeAttribute('disabled');
 				} else {
+					self.enable = 0
 					self.input.disabled = true;
 					self.slider.setAttribute('disabled', false);
 				}
@@ -15976,15 +16367,14 @@ function Slider(name) {
 		}
 		return;
 	}
-
 	this.calcScale = function() {
 		this.scl = Math.pow(10,dataReg[this.regNum].scale);
 		return;
 	}
-
-	this.update = function() {
+	this.update    = function() {
 		reg = dataReg[this.regNum];
 		this.label.textContent = reg.units;
+
 		if (this.enable == 1){
 			this.input.disabled = false;
 			this.slider.removeAttribute('disabled');
@@ -16008,18 +16398,18 @@ function Slider(name) {
 		})
 		return;
 	}
-
-	this.grab = function() {
+	this.grab      = function() {
 		this.calcScale();
 		val = parseFloat(this.input.value) / Math.pow(10,dataReg[this.regNum].scale)
 		dataReg[this.regNum].value = parseFloat(val.toFixed(0));
 		return;
 	}
-
+	/*--------------------------------------------------------------------------*/
 	this.init();
 	if ((this.slider)&&(this.input)) {
 		this.update();
 	}
+	/*--------------------------------------------------------------------------*/
 	return;
 }
 //******************************************************************************
@@ -16083,10 +16473,10 @@ var selectorArray = [];
 var radioArray = [];
 
 function declareSliders() {
-	for(var i=0; i<dataReg.length; i++) {
+	for ( var i=0; i<dataReg.length; i++ ) {
 		str = dataReg[i].name
 		if (str.endsWith("Level") || str.endsWith("Delay") || str.startsWith("timer") || str.endsWith("Time")) {
-			slidersArray.push(new Slider(dataReg[i].name));
+			slidersArray.push(new Slider(dataReg[i].name,1));
 		}
 	}
 	return;
@@ -16199,46 +16589,46 @@ function ascii_to_hexa(str) {
 	return arr1.join('');
 }
 
-function dataUpdate( callback ) {
+function ethDataUpdate( callback ) {
 	document.getElementById("i-loading").classList.add("loading");
 	try{
 		const reqs = function(requests, store, failback) {
-	  	if (requests instanceof Array && requests.length > 0) {
-	    	const xhr = new XMLHttpRequest();
-	      xhr.addEventListener('load', function(data) {
-	      	const status = data.currentTarget.status;
-	        const response = data.currentTarget.response;
-	        if (status === 200) {
+			if (requests instanceof Array && requests.length > 0) {
+				const xhr = new XMLHttpRequest();
+				xhr.addEventListener('load', function(data) {
+					const status = data.currentTarget.status;
+					const response = data.currentTarget.response;
+					if (status === 200) {
 						store.push(JSON.parse(response));
-	          requests.shift();
-	          return reqs(requests, store, failback);
-	        }
-	      });
-	      xhr.addEventListener('error', function(error) {
-	      	if (failback) {
-	          document.getElementById("i-loading").classList.remove("loading");
-	        	failback('Something went wrong.');
+						requests.shift();
+						return reqs(requests, store, failback);
+					}
+				});
+				xhr.addEventListener('error', function(error) {
+					if (failback) {
+						document.getElementById("i-loading").classList.remove("loading");
+						failback('Something went wrong.');
 						let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
-	        }
-	      });
+					}
+				});
 				xhr.ontimeout = function() {
 					xhr.abort();
 					let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
 					document.getElementById("i-loading").classList.remove("loading");
 					callback();
 				}
-	      xhr.open(requests[0].method, requests[0].url);
-	      xhr.timeout = 2000;
-	      xhr.send();
-	  	} else {
+				xhr.open(requests[0].method, requests[0].url);
+				xhr.timeout = 2000;
+				xhr.send();
+			} else {
 				copyDataReg(store[0]);
 				updateInterface();
 				loadCharts(store[1]);
 				setSuccessConnection();
 				let alert = new Alert("alert-success",triIco,"Данные успешно обновленны");
 				document.getElementById("i-loading").classList.remove("loading");
-	      return store;
-	  	}
+				return store;
+			}
 		};
 		restSeq = []
 		ipAdr  = document.getElementById("input-ipaddress").value;
@@ -16317,7 +16707,6 @@ function dataGrab(callback){
 					url:     extUrl + '/configs/' + i,
 					content: JSON.stringify(pasteDataReg(dataReg[i]))
 		})}}
-
 		var chartContent = uploadCharts();
 		for ( i=0; i<3; i++) {
 			restSeq.push({
@@ -16360,6 +16749,35 @@ function pasteDataReg(data) {
 }
 //******************************************************************************
 //******************************************************************************
+//******************************************************************************
+</script>
+\
+    <script>
+
+
+//******************************************************************************
+function connectUpdate() {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    ethDataUpdate(function() {
+      resetSuccessConnection();
+    });
+  } else if ( connectionType == 'usb' ) {
+    usb.controller.receive();
+  }
+  return;
+}
+//******************************************************************************
+function connectGrab() {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    dataGrab( function() {
+      resetSuccessConnection();
+      return;
+    });
+  } else if ( connectionType == 'usb' ) {
+      usb.controller.send();
+  }
+  return;
+}
 //******************************************************************************
 </script>
 
@@ -16711,6 +17129,7 @@ function uploadCharts() {
 }
 //------------------------------------------------------------------------------
 function loadCharts(data) {
+  console.log(data);
   function chartFixToFloat(input,name) {
     let output = newSensorData(
       name,
@@ -16834,5 +17253,8 @@ function uploadSensorData() {
 </script>
 
     <script type="text/javascript" src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+    <!--------------------------------------------------------------------------------------------------------------->
+    
+    <!--------------------------------------------------------------------------------------------------------------->
   </body>
 </html>

@@ -340,9 +340,9 @@ function oilScaleInit() {
 	var self = this;
 	this.object = document.getElementById("oilScale");
 	this.label  = document.getElementById("oilScaleString");
-	self.slider0 = new Slider("oilPressurePreAlarmLevel");
-	self.slider1 = new Slider("oilPressureAlarmLevel");
-	self.slider2 = new Slider("crankDisconnectOilPressureLevel");
+	self.slider0 = new Slider("oilPressurePreAlarmLevel",0);
+	self.slider1 = new Slider("oilPressureAlarmLevel",0);
+	self.slider2 = new Slider("crankDisconnectOilPressureLevel",0);
 
 	function calcOilScale() {
 		self.slider0.grab();
@@ -361,7 +361,6 @@ function oilScaleInit() {
 			self.slider0.setUnits("Бар");
 			self.slider1.setUnits("Бар");
 			self.slider2.setUnits("Бар");
-
 			self.slider0.setScale(-1);
 			self.slider1.setScale(-1);
 			self.slider2.setScale(-1);
@@ -376,6 +375,64 @@ function oilScaleInit() {
 		calcOilScale()
 	})
 	calcOilScale();
+}
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+function diInit(letter) {
+	function setDisabled() {
+		var funct    = document.getElementById("di"+letter+"Function")
+		var polarity = document.getElementById("di"+letter+"Polarity");
+		var action   = document.getElementById("di"+letter+"Action");
+		var arming   = document.getElementById("di"+letter+"Arming");
+		var input    = document.getElementById("sinput-di"+letter+"Delay");
+		var slider   = document.getElementById("s-slider-di"+letter+"Delay");
+		var message  = document.getElementById("message-di"+letter);
+		if ( funct.value == 0 ) {
+			action.disabled = false;
+			arming.disabled = false;
+			message.disabled = false;
+		} else {
+			action.disabled = true;
+			arming.disabled = true;
+			message.disabled = true;
+		}
+	}
+
+	setDisabled();
+	document.getElementById("di"+letter+"Function").addEventListener('change', function() {
+		setDisabled();
+	});
+}
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+function ainInit(master,checkers,slaves) {
+	function setDisabled() {
+		if ( document.getElementById(master).value == 0 ) {
+			for ( var i=0; i<checkers.length; i++ ) {
+				document.getElementById(checkers[i]).disabled = true;
+				document.getElementById(checkers[i]).checked = false;
+			}
+			for ( var i=0; i<slaves.length; i++ ) {
+				var slave = document.getElementById(slaves[i]);
+				if ( slaves[i].search('slider') != -1 ) {
+					slave.setAttribute('disabled', false);
+				} else {
+					slave.disabled = true;
+				}
+			}
+		} else {
+			for ( var i=0; i<checkers.length; i++ ) {
+				document.getElementById(checkers[i]).disabled = false;
+			}
+		}
+	}
+
+	setDisabled();
+	document.getElementById(master).addEventListener('change',function(){
+		setDisabled();
+	});
 }
 //******************************************************************************
 //******************************************************************************
@@ -515,6 +572,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		sliderInit();
 		declareInterface();
 		oilScaleInit();
+		diInit('a');
+		diInit('b');
+		diInit('c');
+		diInit('d');
+		ainInit('oilPressureSensorType',['oilPressureOpenCircuitAlarmEnb','oilPressureAlarmEnb','oilPressurePreAlarmEnb'],['sinput-oilPressureAlarmLevel','s-slider-oilPressureAlarmLevel','sinput-oilPressurePreAlarmLevel','s-slider-oilPressurePreAlarmLevel']);
+		ainInit('coolantTempSensorType',['coolantTempOpenCircuitAlarmEnb','coolantHightTempAlarmEnb','coolantHightTempPreAlarmEnb','coolantTempHeaterEnb','coolantTempCoolerEnb'],['sinput-coolantHightTempAlarmLevel','s-slider-coolantHightTempAlarmLevel','sinput-coolantHightTempPreAlarmLevel','s-slider-coolantHightTempPreAlarmLevel','sinput-coolantTempHeaterOnLevel','s-slider-coolantTempHeaterOnLevel','sinput-coolantTempHeaterOffLevel','s-slider-coolantTempHeaterOffLevel','sinput-coolantTempCoolerOffLevel','s-slider-coolantTempCoolerOffLevel','sinput-coolantTempCoolerOnLevel','s-slider-coolantTempCoolerOnLevel']);
+		ainInit('fuelLevelSensorType',['fuelLevelLowAlarmEnb','fuelLevelLowPreAlarmEnb','fuelLevelHightAlarmEnb','fuelLevelHightPreAlarmEnb','fuelPumpEnb'],['fuelLevelLowAlarmAction','sinput-fuelLevelLowAlarmLevel','s-slider-fuelLevelLowAlarmLevel','sinput-fuelLevelLowAlarmDelay','s-slider-fuelLevelLowAlarmDelay','sinput-fuelLevelLowPreAlarmLevel','s-slider-fuelLevelLowPreAlarmLevel','sinput-fuelLevelLowPreAlarmDelay','s-slider-fuelLevelLowPreAlarmDelay','fuelLevelHightAlarmAction','sinput-fuelLevelHightAlarmLevel','s-slider-fuelLevelHightAlarmLevel','sinput-fuelLevelHightAlarmDelay','s-slider-fuelLevelHightAlarmDelay','sinput-fuelLevelHightPreAlarmLevel','s-slider-fuelLevelHightPreAlarmLevel','sinput-fuelLevelHightPreAlarmDelay','s-slider-fuelLevelHightPreAlarmDelay','sinput-fuelPumpOffLevel','s-slider-fuelPumpOffLevel','sinput-fuelPumpOnLevel','s-slider-fuelPumpOnLevel']);
 		powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
 		if (electronApp == 0) {
 			ethDataUpdate(function(){return;});
@@ -524,6 +588,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		const genFreqLims = new slider4InitLimits("genUnderFrequencyAlarmLevel","genUnderFrequencyPreAlarmLevel","genOverFrequencyPreAlarmLevel","genOverFrequencyAlarmLevel");
 		const mainsVoltageLims = new slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
 		const mainsFreqLims = new slider2InitLimits("mainsUnderFrequencyAlarmLevel","mainsOverFrequencyAlarmLevel");
+
 		return;
 	} catch {
 		return;
