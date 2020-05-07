@@ -92,24 +92,28 @@ function setConnect(input) {
 }
 
 function setSuccessConnection() {
-	var obj = document.getElementById("modalConnect-button");
-	if ( !(obj.classList.contains("btn-success")) ) {
-		obj.classList.remove("btn-primary");
-		obj.classList.add("btn-success");
+	if (electronApp == 1){
+		var obj = document.getElementById("modalConnect-button");
+		if ( !(obj.classList.contains("btn-success")) ) {
+			obj.classList.remove("btn-primary");
+			obj.classList.add("btn-success");
+		}
+		document.getElementById("refreshData-button").disabled = false;
+		document.getElementById("uploadData-button").disabled = false;
 	}
-	document.getElementById("refreshData-button").disabled = false;
-	document.getElementById("uploadData-button").disabled = false;
 	return;
 }
 
 function resetSuccessConnection() {
-	var obj = document.getElementById("modalConnect-button");
-	if ( obj.classList.contains("btn-success") ) {
-		obj.classList.remove("btn-success");
-		obj.classList.add("btn-primary");
+	if (electronApp == 1) {
+		var obj = document.getElementById("modalConnect-button");
+		if ( obj.classList.contains("btn-success") ) {
+			obj.classList.remove("btn-success");
+			obj.classList.add("btn-primary");
+		}
+		document.getElementById("refreshData-button").disabled = true;
+		document.getElementById("uploadData-button").disabled = true;
 	}
-	document.getElementById("refreshData-button").disabled = true;
-	document.getElementById("uploadData-button").disabled = true;
 	return;
 }
 //******************************************************************************
@@ -387,7 +391,7 @@ function diInit(letter) {
 		var arming   = document.getElementById("di"+letter+"Arming");
 		var input    = document.getElementById("sinput-di"+letter+"Delay");
 		var slider   = document.getElementById("s-slider-di"+letter+"Delay");
-		var message  = document.getElementById("message-di"+letter);
+		var message  = document.getElementById("di" + letter + "Message");
 		if ( funct.value == 0 ) {
 			action.disabled = false;
 			arming.disabled = false;

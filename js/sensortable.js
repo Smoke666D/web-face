@@ -346,7 +346,6 @@ function uploadCharts() {
 }
 //------------------------------------------------------------------------------
 function loadCharts(data) {
-  console.log(data);
   function chartFixToFloat(input,name) {
     let output = newSensorData(
       name,

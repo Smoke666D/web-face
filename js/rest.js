@@ -9,6 +9,45 @@ function bitWrite(n,reg,val){
 	return;
 }
 //******************************************************************************
+function StrLine(name) {
+	var self  = this;
+	this.name = name;
+
+	this.getData = function() {
+		for (var i=0; i<dataReg.length; i++ ) {
+			if (dataReg[i].name == name)
+			{
+				this.regNum = i;
+			}
+		}
+		return;
+	}
+	this.init    = function() {
+		this.object = document.getElementById(name);
+		this.getData();
+		return;
+	}
+	this.update  = function() {
+		var text = "";
+		reg = dataReg[this.regNum];
+		for (var i=0; i<reg.len; i++) {
+			text += reg.value[i];
+		}
+		this.object.value = text;
+		return;
+	}
+	this.grab    = function() {
+		var text = this.object.value;
+		for (var i=0; i<dataReg[this.regNum].len; i++) {
+			dataReg[this.regNum].value[i] = text.charAt(i);
+		}
+		return;
+	}
+
+	this.init();
+	this.update();
+}
+//******************************************************************************
 function Switch(name) {
 	this.name = name;
 
@@ -429,14 +468,25 @@ function updateVersions() {
 	return;
 }
 //******************************************************************************
+var stringLineArray = [];
 var slidersArray = [];
 var switcherArray = [];
 var selectorArray = [];
 var radioArray = [];
 
+function declareStrings() {
+	for ( var i=0; i<dataReg.length; i++ ) {
+		str = dataReg[i].name;
+		if ( str.endsWith("Message") ) {
+			stringLineArray.push(new StrLine(dataReg[i].name));
+		}
+	}
+	return;
+}
+
 function declareSliders() {
 	for ( var i=0; i<dataReg.length; i++ ) {
-		str = dataReg[i].name
+		str = dataReg[i].name;
 		if (str.endsWith("Level") || str.endsWith("Delay") || str.startsWith("timer") || str.endsWith("Time")) {
 			slidersArray.push(new Slider(dataReg[i].name,1));
 		}
@@ -493,6 +543,7 @@ function declareRadio() {
 
 function declareInterface() {
 	declareSliders();
+	declareStrings();
 	declareSwitches();
 	declareSelects();
 	declareRadio();
@@ -500,6 +551,9 @@ function declareInterface() {
 }
 
 function updateInterface() {
+	for(var i=0; i<stringLineArray.length; i++) {
+		stringLineArray[i].update();
+	}
 	for(var i=0; i<slidersArray.length; i++) {
 		slidersArray[i].update();
 	}
@@ -518,6 +572,9 @@ function updateInterface() {
 }
 
 function grabInterface() {
+	for(var i=0; i<stringLineArray.length; i++) {
+		stringLineArray[i].grab();
+	}
 	for(var i=0; i<slidersArray.length; i++) {
 		slidersArray[i].grab();
 	}
@@ -609,10 +666,17 @@ function ethDataUpdate( callback ) {
 }
 //******************************************************************************
 function copyDataReg(data) {
-	for(var i=0;i<data.length;i++) {
-		for( var j=0;j<dataReg.length;j++) {
+	for (var i=0; i<data.length; i++ ) {
+		for (var j=0; j<dataReg.length; j++ ) {
 			if( (data[i].adr == dataReg[j].adr) && (data[i].page == dataReg[j].page)) {
-				dataReg[j].value = data[i].value;
+				if (dataReg[j].type == 'S') {
+					dataReg[j].value = [];
+					for (var k=0; k<dataReg[j].len; k++) {
+						dataReg[j].value.push( decodeURI(data[i].value[k]) );
+					}
+				} else {
+					dataReg[j].value = data[i].value;
+				}
 				dataReg[j].scale = data[i].scale;
 				dataReg[j].units = decodeURI(data[i].units);
 			}
@@ -663,6 +727,9 @@ function dataGrab(callback){
 			extUrl = "http://" + ipAdr;
 		}
 		for ( i=0; i<103; i++ ) {
+			if (dataReg[i].adr == 30) {
+				console.log(JSON.stringify(pasteDataReg(dataReg[i])));
+			}
 			if (dataReg[i].rw == "rw"){
 				restSeq.push({
 					method:  'PUT',
@@ -672,9 +739,9 @@ function dataGrab(callback){
 		var chartContent = uploadCharts();
 		for ( i=0; i<3; i++) {
 			restSeq.push({
-			method:  'PUT',
-			url:     extUrl + '/charts/' + i,
-			content: JSON.stringify(chartContent[i])
+				method:  'PUT',
+				url:     extUrl + '/charts/' + i,
+				content: JSON.stringify(chartContent[i])
 		})}
 		const results = reqs(restSeq, function(error) { console.log(error) });
 	} catch(e) {
@@ -685,6 +752,7 @@ function dataGrab(callback){
 //******************************************************************************
 function pasteDataReg(data) {
 	var bitArr = [];
+	var value  = 0;
 	if (data.bitMapSize > 0) {
 		for (var i=0;i<data.bitMapSize;i++) {
 			bitArr.push({
@@ -695,10 +763,22 @@ function pasteDataReg(data) {
 			})
 		}
 	}
+	if (data.type == 'S') {
+		value = [];
+		for (var i=0; i<data.len; i++) {
+			if (data.value[i] == "") {
+				value.push("%20");
+			} else {
+				value.push(encodeURI(data.value[i]));
+			}
+		}
+	} else {
+		value = data.value;
+	}
 	return {
 		page  : data.page,
 		adr   : data.adr,
-		value : data.value,
+		value : value,
 		scale : data.scale,
 		min   : data.min,
 		max   : data.max,

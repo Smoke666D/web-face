@@ -10686,7 +10686,6 @@ QmCC
       <div id="digitalInputAPage" class="content-data hidden">
         <h5>Цифровой вход A</h5>
 
-
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Функция</label>
@@ -10829,7 +10828,7 @@ QmCC
             <label>Надпись на экране</label>
           </div>
           <div class="col-sm-auto">
-            <input class="form-control sensor-select" id="message-dia">
+            <input class="form-control sensor-select" type="text" maxlength="16" id="diaMessage">
           </div>
         </div>
 
@@ -10979,7 +10978,7 @@ QmCC
             <label>Надпись на экране</label>
           </div>
           <div class="col-sm-auto">
-            <input class="form-control sensor-select" id="message-dib">
+            <input class="form-control sensor-select" type="text" maxlength="16" id="dibMessage">
           </div>
         </div>
 
@@ -11129,7 +11128,7 @@ QmCC
             <label>Надпись на экране</label>
           </div>
           <div class="col-sm-auto">
-            <input class="form-control sensor-select" id="message-dic">
+            <input class="form-control sensor-select" type="text" maxlength="16" id="dicMessage">
           </div>
         </div>
 
@@ -11279,7 +11278,7 @@ QmCC
             <label>Надпись на экране</label>
           </div>
           <div class="col-sm-auto">
-            <input class="form-control sensor-select" id="message-did">
+            <input class="form-control sensor-select" type="text" maxlength="16" id="didMessage">
           </div>
         </div>
 
@@ -13895,6 +13894,20 @@ function Alert(type,ico,text) {
 },{
    "page": 0,
    "adr": 30,
+   "name": "diaMessage",
+   "value": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "",
+   "type": "S",
+   "rw": "rw",
+   "len": 16,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "page": 0,
+   "adr": 31,
    "name": "dibSetup",
    "value": 0,
    "scale": 0,
@@ -13934,7 +13947,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 31,
+   "adr": 32,
    "name": "dibDelay",
    "value": 15,
    "scale": 0,
@@ -13948,7 +13961,21 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 32,
+   "adr": 33,
+   "name": "dibMessage",
+   "value": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "",
+   "type": "S",
+   "rw": "rw",
+   "len": 16,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "page": 0,
+   "adr": 34,
    "name": "dicSetup",
    "value": 0,
    "scale": 0,
@@ -13988,7 +14015,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 33,
+   "adr": 35,
    "name": "dicDelay",
    "value": 15,
    "scale": 0,
@@ -14002,7 +14029,21 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 34,
+   "adr": 36,
+   "name": "dicMessage",
+   "value": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "",
+   "type": "S",
+   "rw": "rw",
+   "len": 16,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "page": 0,
+   "adr": 37,
    "name": "didSetup",
    "value": 64,
    "scale": 0,
@@ -14042,7 +14083,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 35,
+   "adr": 38,
    "name": "didDelay",
    "value": 15,
    "scale": 0,
@@ -14056,7 +14097,21 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 36,
+   "adr": 39,
+   "name": "didMessage",
+   "value": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "",
+   "type": "S",
+   "rw": "rw",
+   "len": 16,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "page": 0,
+   "adr": 40,
    "name": "doSetup",
    "value": 21,
    "scale": 0,
@@ -14108,7 +14163,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 37,
+   "adr": 41,
    "name": "doabType",
    "value": 0,
    "scale": 0,
@@ -14136,7 +14191,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 38,
+   "adr": 42,
    "name": "dodType",
    "value": 0,
    "scale": 0,
@@ -14164,7 +14219,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 39,
+   "adr": 43,
    "name": "doefType",
    "value": 0,
    "scale": 0,
@@ -14192,7 +14247,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 40,
+   "adr": 44,
    "name": "timerMainsTransientDelay",
    "value": 1,
    "scale": -1,
@@ -14206,7 +14261,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 41,
+   "adr": 45,
    "name": "timerStartDelay",
    "value": 5,
    "scale": 0,
@@ -14220,7 +14275,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 42,
+   "adr": 46,
    "name": "timerPreheating",
    "value": 5,
    "scale": 0,
@@ -14234,7 +14289,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 43,
+   "adr": 47,
    "name": "timerCranking",
    "value": 10,
    "scale": 0,
@@ -14248,7 +14303,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 44,
+   "adr": 48,
    "name": "timerCrankDelay",
    "value": 10,
    "scale": 0,
@@ -14262,7 +14317,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 45,
+   "adr": 49,
    "name": "timerStartupIdleTime",
    "value": 10,
    "scale": 0,
@@ -14276,7 +14331,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 46,
+   "adr": 50,
    "name": "timerNominalRPMDelay",
    "value": 10,
    "scale": 0,
@@ -14290,7 +14345,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 47,
+   "adr": 51,
    "name": "timerSafetyOnDelay",
    "value": 10,
    "scale": 0,
@@ -14304,7 +14359,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 48,
+   "adr": 52,
    "name": "timerWarming",
    "value": 1,
    "scale": 0,
@@ -14318,7 +14373,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 49,
+   "adr": 53,
    "name": "timerTransferDelay",
    "value": 6,
    "scale": -1,
@@ -14332,7 +14387,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 50,
+   "adr": 54,
    "name": "timerBreakerTripPulse",
    "value": 5,
    "scale": -1,
@@ -14346,7 +14401,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 51,
+   "adr": 55,
    "name": "timerBreakerClosePulse",
    "value": 5,
    "scale": -1,
@@ -14360,7 +14415,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 52,
+   "adr": 56,
    "name": "timerReturnDelay",
    "value": 30,
    "scale": 0,
@@ -14374,7 +14429,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 53,
+   "adr": 57,
    "name": "timerCooling",
    "value": 60,
    "scale": 0,
@@ -14388,7 +14443,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 54,
+   "adr": 58,
    "name": "timerCoolingIdle",
    "value": 20,
    "scale": 0,
@@ -14402,7 +14457,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 55,
+   "adr": 59,
    "name": "timerSolenoidHold",
    "value": 20,
    "scale": 0,
@@ -14416,7 +14471,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 56,
+   "adr": 60,
    "name": "timerFailStopDelay",
    "value": 30,
    "scale": 0,
@@ -14430,7 +14485,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 57,
+   "adr": 61,
    "name": "timerGenTransientDelay",
    "value": 10,
    "scale": -1,
@@ -14444,7 +14499,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 58,
+   "adr": 62,
    "name": "genSetup",
    "value": 104,
    "scale": 0,
@@ -14484,7 +14539,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 59,
+   "adr": 63,
    "name": "genRatedActivePowerLevel",
    "value": 40000,
    "scale": 0,
@@ -14498,7 +14553,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 60,
+   "adr": 64,
    "name": "genRatedReactivePowerLevel",
    "value": 0,
    "scale": 0,
@@ -14512,7 +14567,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 61,
+   "adr": 65,
    "name": "genRatedApparentPowerLevel",
    "value": 200,
    "scale": 0,
@@ -14526,7 +14581,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 62,
+   "adr": 66,
    "name": "genRatedFrequencyLevel",
    "value": 500,
    "scale": -1,
@@ -14540,7 +14595,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 63,
+   "adr": 67,
    "name": "genCurrentPrimaryLevel",
    "value": 600,
    "scale": 0,
@@ -14554,7 +14609,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 64,
+   "adr": 68,
    "name": "genCurrentFullLoadRatingLevel",
    "value": 500,
    "scale": 0,
@@ -14568,7 +14623,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 65,
+   "adr": 69,
    "name": "genAlarms",
    "value": 7167,
    "scale": 0,
@@ -14656,7 +14711,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 66,
+   "adr": 70,
    "name": "genUnderVoltageAlarmLevel",
    "value": 318,
    "scale": 0,
@@ -14670,7 +14725,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 67,
+   "adr": 71,
    "name": "genUnderVoltagePreAlarmLevel",
    "value": 339,
    "scale": 0,
@@ -14684,7 +14739,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 68,
+   "adr": 72,
    "name": "genOverVoltagePreAlarmLevel",
    "value": 439,
    "scale": 0,
@@ -14698,7 +14753,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 69,
+   "adr": 73,
    "name": "genOverVoltageAlarmLevel",
    "value": 458,
    "scale": 0,
@@ -14712,7 +14767,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 70,
+   "adr": 74,
    "name": "genUnderFrequencyAlarmLevel",
    "value": 400,
    "scale": -1,
@@ -14726,7 +14781,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 71,
+   "adr": 75,
    "name": "genUnderFrequencyPreAlarmLevel",
    "value": 420,
    "scale": -1,
@@ -14740,7 +14795,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 72,
+   "adr": 76,
    "name": "genOverFrequencyPreAlarmLevel",
    "value": 540,
    "scale": -1,
@@ -14754,7 +14809,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 73,
+   "adr": 77,
    "name": "genOverFrequencyAlarmLevel",
    "value": 550,
    "scale": -1,
@@ -14768,7 +14823,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 74,
+   "adr": 78,
    "name": "genOverCurrentThermalProtectionLevel",
    "value": 20,
    "scale": 0,
@@ -14782,7 +14837,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 75,
+   "adr": 79,
    "name": "genOverCurrentCutoffLevel",
    "value": 40,
    "scale": 0,
@@ -14796,7 +14851,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 76,
+   "adr": 80,
    "name": "genOverCurrentAlarmLevel",
    "value": 100,
    "scale": 0,
@@ -14810,7 +14865,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 77,
+   "adr": 81,
    "name": "genOverCurrentAlarmDelay",
    "value": 60,
    "scale": 0,
@@ -14824,7 +14879,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 78,
+   "adr": 82,
    "name": "genCurrentOverloadProtectionLevel",
    "value": 100,
    "scale": 0,
@@ -14838,7 +14893,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 79,
+   "adr": 83,
    "name": "genCurrentOverloadProtectionDelay",
    "value": 5,
    "scale": 0,
@@ -14852,7 +14907,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 80,
+   "adr": 84,
    "name": "genCurrentOverPhaseImbalanceLevel",
    "value": 100,
    "scale": 0,
@@ -14866,7 +14921,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 81,
+   "adr": 85,
    "name": "genCurrentOverPhaseImbalanceDelay",
    "value": 60,
    "scale": 0,
@@ -14880,7 +14935,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 82,
+   "adr": 86,
    "name": "mainsSetup",
    "value": 13,
    "scale": 0,
@@ -14914,7 +14969,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 83,
+   "adr": 87,
    "name": "mainsAlarms",
    "value": 15,
    "scale": 0,
@@ -14954,7 +15009,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 84,
+   "adr": 88,
    "name": "mainsUnderVoltageAlarmLevel",
    "value": 318,
    "scale": 0,
@@ -14968,7 +15023,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 85,
+   "adr": 89,
    "name": "mainsOverVoltageAlarmLevel",
    "value": 438,
    "scale": 0,
@@ -14982,7 +15037,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 86,
+   "adr": 90,
    "name": "mainsUnderFrequencyAlarmLevel",
    "value": 450,
    "scale": -1,
@@ -14996,7 +15051,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 87,
+   "adr": 91,
    "name": "mainsOverFrequencyAlarmLevel",
    "value": 520,
    "scale": -1,
@@ -15010,7 +15065,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 88,
+   "adr": 92,
    "name": "engineSetup",
    "value": 51,
    "scale": 0,
@@ -15044,7 +15099,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 89,
+   "adr": 93,
    "name": "enginePreHeatLevel",
    "value": 50,
    "scale": 0,
@@ -15058,7 +15113,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 90,
+   "adr": 94,
    "name": "enginePreHeatDelay",
    "value": 0,
    "scale": 0,
@@ -15072,7 +15127,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 91,
+   "adr": 95,
    "name": "enginePostHeatLevel",
    "value": 50,
    "scale": 0,
@@ -15086,7 +15141,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 92,
+   "adr": 96,
    "name": "enginePostHeatDelay",
    "value": 0,
    "scale": 0,
@@ -15100,7 +15155,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 93,
+   "adr": 97,
    "name": "crankSetup",
    "value": 10,
    "scale": 0,
@@ -15140,7 +15195,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 94,
+   "adr": 98,
    "name": "crankDisconnectgenFreqLevel",
    "value": 210,
    "scale": -1,
@@ -15154,7 +15209,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 95,
+   "adr": 99,
    "name": "crankDisconnectOilPressureLevel",
    "value": 20,
    "scale": -1,
@@ -15168,7 +15223,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 96,
+   "adr": 100,
    "name": "crankDisconnectChargeAlternatorLevel",
    "value": 60,
    "scale": -1,
@@ -15182,7 +15237,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 97,
+   "adr": 101,
    "name": "batteryAlarms",
    "value": 15,
    "scale": 0,
@@ -15222,7 +15277,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 98,
+   "adr": 102,
    "name": "batteryUnderVoltageLevel",
    "value": 100,
    "scale": -1,
@@ -15236,7 +15291,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 99,
+   "adr": 103,
    "name": "batteryUnderVoltageDelay",
    "value": 60,
    "scale": 0,
@@ -15250,7 +15305,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 100,
+   "adr": 104,
    "name": "batteryOverVoltageLevel",
    "value": 300,
    "scale": -1,
@@ -15264,7 +15319,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 101,
+   "adr": 105,
    "name": "batteryOverVoltageDelay",
    "value": 60,
    "scale": 0,
@@ -15278,7 +15333,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 102,
+   "adr": 106,
    "name": "batteryChargeShutdownLevel",
    "value": 40,
    "scale": -1,
@@ -15292,7 +15347,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 103,
+   "adr": 107,
    "name": "batteryChargeShutdownDelay",
    "value": 5,
    "scale": 0,
@@ -15306,7 +15361,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 104,
+   "adr": 108,
    "name": "batteryChargeWarningLevel",
    "value": 60,
    "scale": -1,
@@ -15320,7 +15375,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 105,
+   "adr": 109,
    "name": "batteryChargeWarningDelay",
    "value": 5,
    "scale": 0,
@@ -15334,7 +15389,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 106,
+   "adr": 110,
    "name": "maintenanceAlarms",
    "value": 42,
    "scale": 0,
@@ -15386,7 +15441,7 @@ function Alert(type,ico,text) {
    ]
 },{
    "page": 0,
-   "adr": 107,
+   "adr": 111,
    "name": "maintenanceAlarmOilTime",
    "value": 10,
    "scale": 0,
@@ -15400,7 +15455,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 108,
+   "adr": 112,
    "name": "maintenanceAlarmAirTime",
    "value": 10,
    "scale": 0,
@@ -15414,7 +15469,7 @@ function Alert(type,ico,text) {
    "bit": []
 },{
    "page": 0,
-   "adr": 109,
+   "adr": 113,
    "name": "maintenanceAlarmFuelTime",
    "value": 10,
    "scale": 0,
@@ -15525,24 +15580,28 @@ function setConnect(input) {
 }
 
 function setSuccessConnection() {
-	var obj = document.getElementById("modalConnect-button");
-	if ( !(obj.classList.contains("btn-success")) ) {
-		obj.classList.remove("btn-primary");
-		obj.classList.add("btn-success");
+	if (electronApp == 1){
+		var obj = document.getElementById("modalConnect-button");
+		if ( !(obj.classList.contains("btn-success")) ) {
+			obj.classList.remove("btn-primary");
+			obj.classList.add("btn-success");
+		}
+		document.getElementById("refreshData-button").disabled = false;
+		document.getElementById("uploadData-button").disabled = false;
 	}
-	document.getElementById("refreshData-button").disabled = false;
-	document.getElementById("uploadData-button").disabled = false;
 	return;
 }
 
 function resetSuccessConnection() {
-	var obj = document.getElementById("modalConnect-button");
-	if ( obj.classList.contains("btn-success") ) {
-		obj.classList.remove("btn-success");
-		obj.classList.add("btn-primary");
+	if (electronApp == 1) {
+		var obj = document.getElementById("modalConnect-button");
+		if ( obj.classList.contains("btn-success") ) {
+			obj.classList.remove("btn-success");
+			obj.classList.add("btn-primary");
+		}
+		document.getElementById("refreshData-button").disabled = true;
+		document.getElementById("uploadData-button").disabled = true;
 	}
-	document.getElementById("refreshData-button").disabled = true;
-	document.getElementById("uploadData-button").disabled = true;
 	return;
 }
 //******************************************************************************
@@ -15820,7 +15879,7 @@ function diInit(letter) {
 		var arming   = document.getElementById("di"+letter+"Arming");
 		var input    = document.getElementById("sinput-di"+letter+"Delay");
 		var slider   = document.getElementById("s-slider-di"+letter+"Delay");
-		var message  = document.getElementById("message-di"+letter);
+		var message  = document.getElementById("di" + letter + "Message");
 		if ( funct.value == 0 ) {
 			action.disabled = false;
 			arming.disabled = false;
@@ -16045,6 +16104,45 @@ function bitVal(n,reg) {
 function bitWrite(n,reg,val){
 	reg.value = (reg.value & (~reg.bit[n].mask)) | (val<<reg.bit[n].shift);
 	return;
+}
+//******************************************************************************
+function StrLine(name) {
+	var self  = this;
+	this.name = name;
+
+	this.getData = function() {
+		for (var i=0; i<dataReg.length; i++ ) {
+			if (dataReg[i].name == name)
+			{
+				this.regNum = i;
+			}
+		}
+		return;
+	}
+	this.init    = function() {
+		this.object = document.getElementById(name);
+		this.getData();
+		return;
+	}
+	this.update  = function() {
+		var text = "";
+		reg = dataReg[this.regNum];
+		for (var i=0; i<reg.len; i++) {
+			text += reg.value[i];
+		}
+		this.object.value = text;
+		return;
+	}
+	this.grab    = function() {
+		var text = this.object.value;
+		for (var i=0; i<dataReg[this.regNum].len; i++) {
+			dataReg[this.regNum].value[i] = text.charAt(i);
+		}
+		return;
+	}
+
+	this.init();
+	this.update();
 }
 //******************************************************************************
 function Switch(name) {
@@ -16467,14 +16565,25 @@ function updateVersions() {
 	return;
 }
 //******************************************************************************
+var stringLineArray = [];
 var slidersArray = [];
 var switcherArray = [];
 var selectorArray = [];
 var radioArray = [];
 
+function declareStrings() {
+	for ( var i=0; i<dataReg.length; i++ ) {
+		str = dataReg[i].name;
+		if ( str.endsWith("Message") ) {
+			stringLineArray.push(new StrLine(dataReg[i].name));
+		}
+	}
+	return;
+}
+
 function declareSliders() {
 	for ( var i=0; i<dataReg.length; i++ ) {
-		str = dataReg[i].name
+		str = dataReg[i].name;
 		if (str.endsWith("Level") || str.endsWith("Delay") || str.startsWith("timer") || str.endsWith("Time")) {
 			slidersArray.push(new Slider(dataReg[i].name,1));
 		}
@@ -16531,6 +16640,7 @@ function declareRadio() {
 
 function declareInterface() {
 	declareSliders();
+	declareStrings();
 	declareSwitches();
 	declareSelects();
 	declareRadio();
@@ -16538,6 +16648,9 @@ function declareInterface() {
 }
 
 function updateInterface() {
+	for(var i=0; i<stringLineArray.length; i++) {
+		stringLineArray[i].update();
+	}
 	for(var i=0; i<slidersArray.length; i++) {
 		slidersArray[i].update();
 	}
@@ -16556,6 +16669,9 @@ function updateInterface() {
 }
 
 function grabInterface() {
+	for(var i=0; i<stringLineArray.length; i++) {
+		stringLineArray[i].grab();
+	}
 	for(var i=0; i<slidersArray.length; i++) {
 		slidersArray[i].grab();
 	}
@@ -16647,10 +16763,17 @@ function ethDataUpdate( callback ) {
 }
 //******************************************************************************
 function copyDataReg(data) {
-	for(var i=0;i<data.length;i++) {
-		for( var j=0;j<dataReg.length;j++) {
+	for (var i=0; i<data.length; i++ ) {
+		for (var j=0; j<dataReg.length; j++ ) {
 			if( (data[i].adr == dataReg[j].adr) && (data[i].page == dataReg[j].page)) {
-				dataReg[j].value = data[i].value;
+				if (dataReg[j].type == 'S') {
+					dataReg[j].value = [];
+					for (var k=0; k<dataReg[j].len; k++) {
+						dataReg[j].value.push( decodeURI(data[i].value[k]) );
+					}
+				} else {
+					dataReg[j].value = data[i].value;
+				}
 				dataReg[j].scale = data[i].scale;
 				dataReg[j].units = decodeURI(data[i].units);
 			}
@@ -16701,6 +16824,9 @@ function dataGrab(callback){
 			extUrl = "http://" + ipAdr;
 		}
 		for ( i=0; i<103; i++ ) {
+			if (dataReg[i].adr == 30) {
+				console.log(JSON.stringify(pasteDataReg(dataReg[i])));
+			}
 			if (dataReg[i].rw == "rw"){
 				restSeq.push({
 					method:  'PUT',
@@ -16710,9 +16836,9 @@ function dataGrab(callback){
 		var chartContent = uploadCharts();
 		for ( i=0; i<3; i++) {
 			restSeq.push({
-			method:  'PUT',
-			url:     extUrl + '/charts/' + i,
-			content: JSON.stringify(chartContent[i])
+				method:  'PUT',
+				url:     extUrl + '/charts/' + i,
+				content: JSON.stringify(chartContent[i])
 		})}
 		const results = reqs(restSeq, function(error) { console.log(error) });
 	} catch(e) {
@@ -16723,6 +16849,7 @@ function dataGrab(callback){
 //******************************************************************************
 function pasteDataReg(data) {
 	var bitArr = [];
+	var value  = 0;
 	if (data.bitMapSize > 0) {
 		for (var i=0;i<data.bitMapSize;i++) {
 			bitArr.push({
@@ -16733,10 +16860,22 @@ function pasteDataReg(data) {
 			})
 		}
 	}
+	if (data.type == 'S') {
+		value = [];
+		for (var i=0; i<data.len; i++) {
+			if (data.value[i] == "") {
+				value.push("%20");
+			} else {
+				value.push(encodeURI(data.value[i]));
+			}
+		}
+	} else {
+		value = data.value;
+	}
 	return {
 		page  : data.page,
 		adr   : data.adr,
-		value : data.value,
+		value : value,
 		scale : data.scale,
 		min   : data.min,
 		max   : data.max,
@@ -17129,7 +17268,6 @@ function uploadCharts() {
 }
 //------------------------------------------------------------------------------
 function loadCharts(data) {
-  console.log(data);
   function chartFixToFloat(input,name) {
     let output = newSensorData(
       name,
