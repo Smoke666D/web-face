@@ -1,3 +1,5 @@
 *.h
 UTIL\index_make.html
 release-builds
+
+*.rar

@@ -644,7 +644,7 @@ function ethDataUpdate( callback ) {
 				updateInterface();
 				loadCharts(store[1]);
 				setSuccessConnection();
-				let alert = new Alert("alert-success",triIco,"Данные успешно обновленны");
+				let alert = new Alert("alert-success",okIco,"Данные успешно обновленны");
 				document.getElementById("i-loading").classList.remove("loading");
 				return store;
 			}

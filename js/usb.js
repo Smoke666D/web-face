@@ -237,7 +237,7 @@ function EnrrganController() {
     scan( function () {
       initEvents( inCallback, outCallback, errorCalback, function() {
         res         = usbInit.done;
-        let alert   = new alerts.Alert( "alert-success", alerts.triIco, "Контроллер подключен по USB" );
+        let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Контроллер подключен по USB" );
       });
     }, function() {
       let alert = new alerts.Alert("alert-warning",alerts.triIco,"Контроллер не подключен по USB");

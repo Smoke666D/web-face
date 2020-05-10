@@ -1,4 +1,3 @@
-
 const remote = require('electron').remote;
 var HID      = require('node-hid');
 var usb      = require('./js/usb.js');
@@ -65,6 +64,14 @@ function verifyIP( input ) {
   return errorString
 }
 
+
+document.getElementById("disconnect-button").addEventListener('click', function() {
+  if ( main.electronApp == 1) {
+    resetSuccessConnection();
+    usb.controller.close();
+  }
+});
+
 document.getElementById("connect-button").addEventListener('click', function() {
   if ( main.electronApp == 1) {
     resetSuccessConnection();
@@ -90,10 +97,10 @@ document.getElementById("connect-button").addEventListener('click', function() {
         }
         loadCharts( charts );
         charts = [];
-        let alert = new alerts.Alert( "alert-success", triIco, "Данные успешно обновленны" );
+        let alert = new alerts.Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
         updateInterface();
       }, function() {
-        let alert = new alerts.Alert( "alert-success", alerts.triIco, "Прибор успешно сконфигурирован" );
+        let alert = new alerts.Alert( "alert-success", alerts.okIco, "Прибор успешно сконфигурирован" );
       }, function() {
         let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );
       });

@@ -16,6 +16,31 @@ window.addEventListener("load", function() { window. scrollTo(0, 0); });
 document.addEventListener("touchmove", function(e) { e.preventDefault() });
 var connectionType = 'usb';
 var electronApp = 1;
+/*----------------------------------------------------------------------------*/
+function connectClick() {
+	var btn     = document.getElementById("modalConnect-button");
+	var modal   = document.getElementById("connectionModal");
+	var body    = document.getElementsByTagName("body")[0];
+	var wrapper = document.getElementById("wrapper");
+
+	modal.classList.add("show");
+	modal.style.display = "block";
+	body.classList.add("modal-open");
+	wrapper.innerHTML = wrapper.innerHTML + '<div id="backdrop" class="modal-backdrop show"></div>';
+	return;
+}
+/*----------------------------------------------------------------------------*/
+function connectModalClose() {
+	var modal    = document.getElementById("connectionModal");
+	var body     = document.getElementsByTagName("body")[0];
+	var backdrop = document.getElementById("backdrop");
+	modal.classList.remove("show");
+	modal.style.display = "none";
+	body.classList.remove("modal-open");
+	backdrop.remove();
+	return;
+}
+
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************

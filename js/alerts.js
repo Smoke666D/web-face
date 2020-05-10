@@ -1,4 +1,6 @@
-const triIco = '<i class="fas fa-exclamation-triangle"></i>'
+const triIco  = '<i class="fas fa-exclamation-triangle"></i>';
+const bellIco = '<i class="fas fa-bell"></i>';
+const okIco   = '<i class="fas fa-check-circle"></i>';
 //------------------------------------------------------------------------------
 var alerIndex = 0;
 
@@ -53,3 +55,5 @@ function Alert(type,ico,text) {
 //------------------------------------------------------------------------------
 module.exports.Alert = Alert;
 module.exports.triIco = triIco;
+module.exports.bellIco = bellIco;
+module.exports.okIco = okIco;

@@ -91,7 +91,8 @@ function USBMessage ( buffer ) {
     }
   }
   function parseConfig ( n ) {
-    counter = 0;
+    var counter = 0;
+    var value   = 0;
     /*----------- Configuration value -----------*/
     if ( dataReg[n].len == 1 ) {
       dataReg[n].value = ( ( self.data[counter] << 8 ) & 0xFF00 ) | ( self.data[counter + 1] & 0x00FF );
@@ -99,7 +100,12 @@ function USBMessage ( buffer ) {
     } else {
       dataReg[n].value = [];
       for ( var i=0; i<dataReg[n].len; i++ ) {
-        dataReg[n].value.push( ( ( self.data[counter + i * 2] << 8 ) & 0xFF00 ) | ( self.data[counter + i * 2 + 1] & 0x00FF ) )
+        if ( dataReg[n].type == 'S' ) {
+          value = ( ( self.data[counter + i * 2] << 24 ) & 0xFF000000 ) | ( ( self.data[counter + i * 2 + 1] << 16 ) & 0xFF0000 ) | ( ( self.data[counter + i * 2 + 2] << 8 ) & 0xFF00 ) | ( self.data[counter + i * 2 + 3] & 0xFF )
+          dataReg[n].value.push( decodeURI( value ) );
+        } else {
+          dataReg[n].value.push( ( ( self.data[counter + i * 2] << 8 ) & 0xFF00 ) | ( self.data[counter + i * 2 + 1] & 0xFF ) );
+        }
       }
       counter += dataReg[n].len * 2;
     }
