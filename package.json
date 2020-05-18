@@ -12,7 +12,8 @@
     "bootstrap": "^4.4.1",
     "jquery": "3.3.1",
     "node-hid": "^1.2.0",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "usb": "^1.6.3"
   },
   "devDependencies": {
     "electron": "^8.2.2",
