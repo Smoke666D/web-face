@@ -4443,8 +4443,8 @@ input[type="button"].btn-block {
   background-size: 1rem 1rem; }
 
 .progress-bar-animated {
-  -webkit-animation: progress-bar-stripes 1s linear infinite;
-  animation: progress-bar-stripes 1s linear infinite; }
+  -webkit-animation: progress-bar-stripes 0.5s linear infinite;
+  animation: progress-bar-stripes 0.5s linear infinite; }
   @media (prefers-reduced-motion: reduce) {
     .progress-bar-animated {
       -webkit-animation: none;
@@ -8687,4 +8687,13 @@ input:checked + .slider:before {
   .ui-btn .fas,
   .ui-btn .far {
 	  color: #fff;
+}
+
+.controll-panel {
+  width: 100%;
+  padding-bottom: 0.75rem;}
+  .controll-panel .btn {
+    width: 150px !important;}
+    .controll-panel .btn span {}
+    .controll-panel .btn i {
 }

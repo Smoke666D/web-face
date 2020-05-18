@@ -56,7 +56,7 @@
           <li class="nav-major">
             <a class="navItem" id="nav-devicePage" onclick="loadContent('devicePage')" href="#">
               <div class="fas">
-                <i class="fas fa-microchip"></i>
+                <i class="fas fa-home"></i>
               </div>
               <span>Контроллер</span>
             </a>
@@ -221,6 +221,18 @@
             <a class="navItem" id="nav-logPage" onclick="loadContent('logPage')" href="#">
               <i class="fas fa-book"></i>
               <span>Журнал</span>
+            </a>
+          </li>
+          <li class="nav-major electron">
+            <a class="navItem" id="nav-firmwarePage" onclick="loadContent('firmwarePage')" href="#">
+              <i class="fas fa-microchip"></i>
+              <span>Обновить прошивку</span>
+            </a>
+          </li>
+          <li class="nav-major electron">
+            <a class="navItem" id="nav-flashPage" onclick="loadContent('flashPage')" href="#">
+              <i class="fas fa-memory"></i>
+              <span>Внешняя память</span>
             </a>
           </li>
         </ul>
@@ -3275,6 +3287,7 @@
           </div>
         </div>
       </div>
+      <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
         <h1>Журнал</h1>
         <table class="table table-hover">
@@ -3319,6 +3332,82 @@
             </tr>
           </tbody>
         </table>
+      </div>
+      <!------------------------------------------------------------------------------------------------------------->
+      <div id="firmwarePage" class="content-data hidden electron">
+        <h1>Обновление прошивки</h1>
+        <div class="controll-panel">
+          <button aria-label="Connect" id="boot-connect" onclick="" class="btn btn-primary">
+            <i class="fab fa-usb"></i>
+            <span>Подключить</span>
+          </button>
+          <button aria-label="Connect" id="boot-file" onclick="" class="btn btn-primary">
+            <i class="far fa-folder-open"></i>
+            <span>Файл...</span>
+          </button>
+          <button aria-label="Connect" id="boot-load" onclick="" class="btn btn-primary">
+            <i class="fas fa-file-upload"></i>
+            <span>Загрузить</span>
+          </button>
+        </div>
+
+        <div class="controll-panel">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              25%
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-warning">
+          <h4 class="alert-heading">Инструкция</h4>
+          <hr>
+          <ol>
+            <li>Отключите питание устройства</li>
+            <li>Подключите USB к устройству</li>
+            <li>Зажмите кнопку "BOOT" на задней стороне устройства</li>
+            <li>Включите устройство</li>
+            <li>Отпустите кнопку "BOOT"</li>
+            <li>Нажмите кнопку "Подключить"</li>
+            <li>Если устройство не опозналось как DFU устройство, повторите действия с первого пункта</li>
+            <li>Выберите файл новой прошивки</li>
+            <li>Нажмите кнопку "Загрузить"</li>
+            <li>Дождитесь окончания загрузки прошивки</li>
+            <li>Перезагрузите устройство</li>
+          </ol>
+        </div>
+        <div class="alert alert-danger">
+          <h4 class="alert-heading">Внимание</h4>
+          <hr>
+          <ol>
+            <li>Не пытайтесь загрузить в устройство стороннюю прошивку</li>
+            <li>Не выключайте питание и не отключайте USB во время загрузки прошивки</li>
+            <li>Нарушение данных правил может привести к неисправности устройства! В случие неисправности обращайтесь в сервисный центр.</li>
+          </ol>
+        </div>
+
+      </div>
+      <!------------------------------------------------------------------------------------------------------------->
+      <div id="flashPage" class="content-data hidden electron">
+        <h1>Внешняя память</h1>
+        <p align="center">Всего использованно:</p>
+        <div class="controll-panel">
+          <div class="progress">
+            <div class="progress-bar bg-info" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              25%
+            </div>
+          </div>
+        </div>
+        <div class="controll-panel">
+          <button aria-label="Connect" id="flash-file" onclick="" class="btn btn-primary">
+            <i class="far fa-folder-open"></i>
+            <span>Файл...</span>
+          </button>
+          <button aria-label="Connect" id="flash-load" onclick="" class="btn btn-primary">
+            <i class="fas fa-file-upload"></i>
+            <span>Загрузить</span>
+          </button>
+        </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="noDataPage" class="content-data hidden">
