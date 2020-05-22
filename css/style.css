@@ -1752,9 +1752,6 @@ textarea.form-control {
   flex: 0 0 16.66667%;
   max-width: 35%;
 }
-.sensor-select{
-    width: 420px!important;
-  }
 
 .form-check-input {
   position: absolute;
@@ -8433,6 +8430,8 @@ a[data-toggle="collapse"] {
     -ms-user-select: none; /* IE 10+ and Edge */
     user-select: none; /* Standard syntax */
     padding: 10px}
+  .sensor-select{
+    width: 420px!important;}
   .content-data .pos-name{
     text-align: left!important;
     -webkit-user-select: none; /* Safari */
@@ -8442,12 +8441,6 @@ a[data-toggle="collapse"] {
     .content-data.pos-name label{
       vertical-align:-6px;}
 
-
-
-@media (max-width: 1900px) {
-  .content-data .pos-name{
-    padding-left: 0px;}
-}
 
 
 /* Экстрамалые девайсы («телефоны», < 576px) */
@@ -8462,7 +8455,9 @@ a[data-toggle="collapse"] {
     top: -100px;
     left: -100px;
     opacity: 0;
-    overflow: hidden;
+    overflow: hidden;}
+  .content-data .sensor-select{
+    width: 300px!important;
   }
   #sidebar {
     position: absolute;
@@ -8501,6 +8496,11 @@ a[data-toggle="collapse"] {
       height: auto; }
     #sidebar.active {
       margin-left: 0; }
+}
+
+@media (max-width: 1900px) {
+  .content-data .pos-name{
+    padding-left: 0px;}
 }
 
 
@@ -8553,8 +8553,6 @@ a[data-toggle="collapse"] {
   width: 100px;
   display: block;
 }
-
-
 .axis-input
 {
   display: inline-block;
