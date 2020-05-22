@@ -2,6 +2,7 @@
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 import os;
+import time;
 import codecs;
 import sys;
 from rjsmin import jsmin;
@@ -124,17 +125,20 @@ def removeElectronFromHTML( html ):
         index = out.find( "electron", index + 1 );
         if index > -1:
             startIndex = out.rfind( "<", 0, index );
-            strDiv     = out.find( "<div", index );
-            endDiv     = out.find( "</div", index);
-            if strDiv > endDiv:             # There isn't any div inside electron div
-                endIndex = endDiv + 6;
-            else:
-                divCounter = 1;
-                while strDiv < endDiv:
-                    strDiv     = out.find( "<div", strDiv + 1 );
-                    endDiv     = out.find( "</div", endDiv + 1 );
-                    divCounter = divCounter + 1;
-                endIndex = endDiv + 6;
+            endIndex   = out.find( ">", index ) + 1;
+            divCounter = 1;
+            i = endIndex;
+            while True:
+                i = out.find( "<", i );
+                if (out[i+1] != '!'):
+                    if (out[i + 1] != '/'):
+                        divCounter += 1;
+                    else:
+                        divCounter -= 1;
+                i += 1;
+                if divCounter == 0:
+                    break;
+            endIndex = out.find( ">", i ) + 1;
             out = out[:startIndex] + out[endIndex:];
     index      = out.find( "require", 0 );
     startIndex = 0;
@@ -279,9 +283,11 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
         else:
             valid.append( 1 );
             htmlText = addCssSection( os.path.join( cssPath, cssFile ), htmlText, index, minifyCSS );
+    buffer = [];
     for i in range( 0, len( valid ) ):
-        if valid[i] == 0:
-            del cssFiles[i];
+        if valid[i] == 1:
+            buffer.append( cssFiles[i] );
+    cssFiles = buffer;
     #----------- Remove links and add js files and to html file --------
     valid = [];
     for i in range( 0, len( jsFiles ) ):
@@ -291,9 +297,11 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
         else:
             valid.append( 1 );
             htmlText = addJsSection( os.path.join( jsPath, jsFiles[i] ), htmlText, index, minifyJS );   # Add js section
+    buffer = []
     for i in range( 0, len( valid ) ):
-        if valid[i] == 0:
-            del jsFiles[i];
+        if valid[i] == 1:
+            buffer.append( jsFiles[i] );
+    jsFiles = buffer;
     #------------------ Reset ElectronApp flag ----------------------
     startIndex = htmlText.find( "var electronApp = " );
     endIndex   = htmlText.find( ';', startIndex );

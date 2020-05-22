@@ -5098,8 +5098,8 @@ input[type="button"].btn-block {
   background-size: 1rem 1rem; }
 
 .progress-bar-animated {
-  -webkit-animation: progress-bar-stripes 1s linear infinite;
-  animation: progress-bar-stripes 1s linear infinite; }
+  -webkit-animation: progress-bar-stripes 0.5s linear infinite;
+  animation: progress-bar-stripes 0.5s linear infinite; }
   @media (prefers-reduced-motion: reduce) {
     .progress-bar-animated {
       -webkit-animation: none;
@@ -9343,6 +9343,15 @@ input:checked + .slider:before {
   .ui-btn .far {
 	  color: #fff;
 }
+
+.controll-panel {
+  width: 100%;
+  padding-bottom: 0.75rem;}
+  .controll-panel .btn {
+    width: 150px !important;}
+    .controll-panel .btn span {}
+    .controll-panel .btn i {
+}
 </style>
 
   </head>
@@ -9891,7 +9900,7 @@ QmCC
           <li class="nav-major">
             <a class="navItem" id="nav-devicePage" onclick="loadContent('devicePage')" href="#">
               <div class="fas">
-                <i class="fas fa-microchip"></i>
+                <i class="fas fa-home"></i>
               </div>
               <span>Контроллер</span>
             </a>
@@ -10058,11 +10067,9 @@ QmCC
               <span>Журнал</span>
             </a>
           </li>
+          
+          
         </ul>
-        <!--
-        <div class="footer">
-        </div>
-        -->
       </nav>
     <!------------------------------------------------------------------------------------------------------------->
     <div id="content" class="p-4 p-md-5">
@@ -13106,6 +13113,7 @@ QmCC
           </div>
         </div>
       </div>
+      <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
         <h1>Журнал</h1>
         <table class="table table-hover">
@@ -13151,6 +13159,10 @@ QmCC
           </tbody>
         </table>
       </div>
+      <!------------------------------------------------------------------------------------------------------------->
+      
+      <!------------------------------------------------------------------------------------------------------------->
+      
       <!------------------------------------------------------------------------------------------------------------->
       <div id="noDataPage" class="content-data hidden">
         <h1>Страница находиться в разработке</h1>
@@ -13226,7 +13238,7 @@ QmCC
                     <i class="fab fa-usb"></i>
                   </button>
                   <button type="button" id="eth-button" onclick="setConnect('eth')" class="btn btn-secondary">
-                    <i class="fas fa-network-wired"></i>
+                    <i class="fas fa-ethernet"></i>
                   </button>
                 </div>
               </div>
@@ -13247,6 +13259,12 @@ QmCC
                   <i class="fas fa-plug"></i>
                   <span class="sr-only">Подключить</span>
                 </button>
+
+                <button id="disconnect-button" type="button" class="btn btn-primary" data-dismiss="modal">
+                  <i class="fas fa-ban"></i>
+                  <span class="sr-only">Отключить</span>
+                </button>
+
               </div>
               <div class="modal-footer-right">
               </div>
@@ -13258,7 +13276,9 @@ QmCC
       </div>
     </div>
     <!--------------------------------------------------------------------------------------------------------------->
-    <script>const triIco = '<i class="fas fa-exclamation-triangle"></i>'
+    <script>const triIco  = '<i class="fas fa-exclamation-triangle"></i>';
+const bellIco = '<i class="fas fa-bell"></i>';
+const okIco   = '<i class="fas fa-check-circle"></i>';
 //------------------------------------------------------------------------------
 var alerIndex = 0;
 
@@ -13311,6 +13331,8 @@ function Alert(type,ico,text) {
   }, 3*1000);
 }
 //------------------------------------------------------------------------------
+
+
 
 
 </script>
@@ -15504,6 +15526,30 @@ window.addEventListener("load", function() { window. scrollTo(0, 0); });
 document.addEventListener("touchmove", function(e) { e.preventDefault() });
 var connectionType = 'usb';
 var electronApp = 0;
+/*----------------------------------------------------------------------------*/
+function connectClick() {
+	var btn     = document.getElementById("modalConnect-button");
+	var modal   = document.getElementById("connectionModal");
+	var body    = document.getElementsByTagName("body")[0];
+	var wrapper = document.getElementById("wrapper");
+
+	modal.classList.add("show");
+	modal.style.display = "block";
+	body.classList.add("modal-open");
+	wrapper.innerHTML = wrapper.innerHTML + '<div id="backdrop" class="modal-backdrop show"></div>';
+	return;
+}
+/*----------------------------------------------------------------------------*/
+function connectModalClose() {
+	var modal    = document.getElementById("connectionModal");
+	var body     = document.getElementsByTagName("body")[0];
+	var backdrop = document.getElementById("backdrop");
+	modal.classList.remove("show");
+	modal.style.display = "none";
+	body.classList.remove("modal-open");
+	backdrop.remove();
+	return;
+}
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -16741,7 +16787,7 @@ function ethDataUpdate( callback ) {
 				updateInterface();
 				loadCharts(store[1]);
 				setSuccessConnection();
-				let alert = new Alert("alert-success",triIco,"Данные успешно обновленны");
+				let alert = new Alert("alert-success",okIco,"Данные успешно обновленны");
 				document.getElementById("i-loading").classList.remove("loading");
 				return store;
 			}
