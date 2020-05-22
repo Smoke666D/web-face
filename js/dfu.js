@@ -431,35 +431,32 @@ function dfuDevice() {
   }
   this.downloadSector = async function ( transferSize, data, sector ) {
     let bytesSent    = 0;
-    let bytesWritten = 0;
     let size         = data.length;
     let chunkSize    = 0;
     let status       = 0;
     let adr          = sector.adr;
-
+    let result       = 0;
 
     if ( ( sector.writable ) && ( sector.erasable ) && ( size <= sector.size ) ) {
-      let result = await this.sectorErase( sector );
-      console.log( result );
-      transferSize = checkTransferSize( transferSize );
-      while ( bytesSent < size ) {
-        chunkSize    = Math.min( transferSize, ( size - bytesSent ) );
-        result = await this.setAdr( adr );
-        console.log( result );
-        bytesWritten = await this.download( data.slice( bytesSent, bytesSent + chunkSize ), 2 );
-        status       = await this.pullUntil( dfu.state.dfuDNLOAD_IDLE );
-        console.log( "Sent " + bytesWritten + " bytes" );
-        console.log( status );
-        bytesSent += bytesWritten;
-        adr += chunkSize;
+      result = await this.sectorErase( sector );
+      if ( result > 0 ) {
+        transferSize = checkTransferSize( transferSize );
+        while ( bytesSent < size ) {
+          chunkSize    = Math.min( transferSize, ( size - bytesSent ) );
+          result = await this.setAdr( adr );
+          if ( result < 0 ) {
+            break;
+          }
+          await this.download( data.slice( bytesSent, bytesSent + chunkSize ), 2 );
+          status     = await this.pullUntil( dfu.state.dfuDNLOAD_IDLE );
+          bytesSent += chunkSize;
+          adr += chunkSize;
+        }
       }
+      console.log("Wrote 0x" + bytesSent.toString( 16 ) + " bytes to 0x0" + sector.adr.toString( 16 ) );
+      status = await this.getStatus();
     }
-    //await this.reset( );
-    console.log("Wrote " + bytesSent + " bytes");
-    status = await this.getStatus();
-    console.log( status );
-
-    return;
+    return result;
   }
   /*---------------------------------------------*/
   this.uploadBlod     = async function ( transferSize, size, startBlock = 0 ) {
