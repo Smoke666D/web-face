@@ -283,6 +283,7 @@ function dfuDevice() {
   }
   /*---------------------------------------------*/
   this.init             = async function ( callback ) {
+    var result = 0;
     device = usb.findByIds( 0x0483, 0xDF11 );
     if ( device != null ) {
       try {
@@ -299,6 +300,7 @@ function dfuDevice() {
                 self.memory = new Memory( flashDescriptor );
                 opened      = true;
                 let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Устройство подключено по USB в DFU режиме" );
+                result      = 1;
                 callback();
               });
             });
@@ -311,7 +313,7 @@ function dfuDevice() {
     } else {
       let alert = new alerts.Alert("alert-warning",alerts.triIco,"Устройство не подключенно");
     }
-    return;
+    return result;
   }
   this.searchSector     = async function ( adr ) {
     let result = 0xFFFF;
@@ -344,7 +346,7 @@ function dfuDevice() {
     return result;
   }
   this.request          = async function ( bRequest, wLength, wValue = 0, read_not_write = 1 ) {
-    return await new Promise( function (resolve, reject) {
+    return await new Promise( function ( resolve, reject ) {
       device.controlTransfer( getRequestType( read_not_write ), bRequest, wValue, ifaceN, wLength, async function( error, data ) {
         resolve( data );
       });
@@ -474,13 +476,12 @@ function dfuDevice() {
     }
     return result;
   }
-  this.downloadFirmware = async function( firmware, adr, progCallback, errorCallback, verify = 1 ) {
+  this.downloadFirmware = async function ( firmware, adr, progCallback, errorCallback, verify = 1, fullErase = 1 ) {
     let result   = 0;
     let size     = firmware.length;                        /* Firmware size in bytes */
     let startAdr = adr;                                    /* Start sector number for firmware */
     let endAdr   = await this.checkSectors( adr, size );   /* Last sector number for firmware */
     await this.abortToIdle();
-    /*---------------- DOWNLAD FIRMWARE ----------------*/
     if ( endAdr > 0 ) {
       let progSize = endAdr - startAdr + 1;
       if ( verify > 0 ) {
@@ -488,6 +489,18 @@ function dfuDevice() {
       }
       let prog     = 0;
       let count    = 0;
+      /*------------------- FULL ERASE -------------------*/
+      if ( fullErase > 0 ) {
+        console.log( "Start chip erasing" );
+        progSize += this.memory.sectors.length;
+        for ( var i=0; i<this.memory.sectors.length; i++ ) {
+          this.sectorErase( this.memory.sectors[i] );
+          prog++;
+          progCallback( progSize, prog );
+        }
+      }
+      /*---------------- DOWNLAD FIRMWARE ----------------*/
+      console.log( "Start firmware downloading" );
       let buffer   = new Buffer.from( firmware );
       for ( var i=startAdr; i<=endAdr; i++ ) {
         let sector = this.memory.sectors[i];
@@ -502,6 +515,7 @@ function dfuDevice() {
       }
     /*------------- FIRMWARE VERIFICATION --------------*/
       if ( result > 0 ) {
+        console.log( "Start firmware verification" );
         for ( var i=startAdr; i<=endAdr; i++ ) {
           let sector = this.memory.sectors[i];
           let block = await this.uploadBlod( defTransfSize, sector.size, sector.shift );
@@ -566,54 +580,8 @@ function dfuDevice() {
     }
     return;
   }
-  /*---------------------------------------------*/
-  this.init( async function () {
-    //console.log(self.manufacturer);
-    //console.log(self.product);
-    //console.log(self.serial);
-
-    //await self.uploadFirmware();
-
-    console.log( self.memory );
-    let status = await self.getStatus();
-    console.log( status );
-
-/*
-    let res = await self.sectorErase( self.memory.sectors[self.memory.sectors.length - 1] );
-    console.log( res );
-*/
-
-    let raw = [];
-    for ( var i=0; i<0x80000; i++ ) {
-      raw.push( 0 );
-    }
-    let data = new Buffer.from( raw );
-    let adr = self.memory.sectors[self.memory.sectors.length - 1].adr;
-    console.log("-------------------------------");
-    let result = await self.downloadFirmware( raw, ( self.memory.sectors.length - 4 ), function( max, n ) {
-      let mes = '[';
-      for ( var i=0; i<max; i++ ) {
-        if ( i < n ) {
-          mes += '*'
-        } else {
-          mes += ' '
-        }
-      }
-      mes += ']';
-      console.log( mes );
-    }, function( mes ) {
-      console.log( mes );
-    });
-    console.log("-------------------------------");
-    status = await self.getStatus();
-    console.log( status );
-
-
-    console.log( "---" );
-  });
-  //this.close();
   return;
 }
 /*----------------------------------------------------------------------------*/
-var dfuDevice = new dfuDevice();
+module.exports.dfuDevice = dfuDevice;
 /*----------------------------------------------------------------------------*/

@@ -3176,11 +3176,11 @@
             <i class="fab fa-usb"></i>
             <span>Подключить</span>
           </button>
-          <button aria-label="Connect" id="boot-file" onclick="" class="btn btn-primary">
+          <button aria-label="Connect" id="boot-file" onclick="" class="btn btn-primary" disabled="true">
             <i class="far fa-folder-open"></i>
             <span>Файл...</span>
           </button>
-          <button aria-label="Connect" id="boot-load" onclick="" class="btn btn-primary">
+          <button aria-label="Connect" id="boot-load" onclick="" class="btn btn-primary" disabled="true">
             <i class="fas fa-file-upload"></i>
             <span>Загрузить</span>
           </button>
@@ -3188,8 +3188,8 @@
 
         <div class="controll-panel">
           <div class="progress">
-            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-              25%
+            <div id="boot-progress" class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: 0%;">
+
             </div>
           </div>
         </div>
@@ -3372,6 +3372,7 @@
       require('./render')
       require('./js/usb.js')
       require('./js/dfu.js')
+      require('./js/bootloader.js')
       let $ = require('jquery');
       require('popper.js');
       require('bootstrap');
