@@ -417,20 +417,56 @@ function diInit(letter) {
 		var slider   = document.getElementById("s-slider-di"+letter+"Delay");
 		var message  = document.getElementById("di" + letter + "Message");
 		if ( funct.value == 0 ) {
-			action.disabled = false;
-			arming.disabled = false;
-			message.disabled = false;
-		} else {
+			polarity.disabled = true;
 			action.disabled = true;
 			arming.disabled = true;
 			message.disabled = true;
+			input.disabled = true;
+			slider.setAttribute('disabled', true);
+		} else if ( funct.value == 1 ) {
+			polarity.disabled = false;
+			action.disabled = false;
+			arming.disabled = false;
+			message.disabled = false;
+			input.disabled = false;
+			slider.removeAttribute('disabled');
+	  } else {
+			polarity.disabled = false;
+			action.disabled = true;
+			arming.disabled = true;
+			message.disabled = true;
+			input.disabled = false;
+			slider.removeAttribute('disabled');
 		}
+		return;
 	}
 
 	setDisabled();
 	document.getElementById("di"+letter+"Function").addEventListener('change', function() {
 		setDisabled();
 	});
+	return;
+}
+
+function doInit(letter) {
+	function setDisabled() {
+		var no = document.getElementById("do"+letter+"NO");
+		var nc = document.getElementById("do"+letter+"NC");
+		var type = document.getElementById("do"+letter+"Type");
+		if ( type.value == 0 ) {
+			no.disabled = true;
+			nc.disabled = true;
+		} else {
+			no.disabled = false;
+			nc.disabled = false;
+		}
+		return;
+	}
+	setDisabled();
+	document.getElementById("do"+letter+"Type").addEventListener('change', function() {
+		setDisabled();
+	});
+	return;
 }
 //******************************************************************************
 //******************************************************************************
@@ -604,6 +640,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		diInit('b');
 		diInit('c');
 		diInit('d');
+		doInit('c');
+		doInit('d');
+		doInit('e');
+		doInit('f');
 		ainInit('oilPressureSensorType',['oilPressureOpenCircuitAlarmEnb','oilPressureAlarmEnb','oilPressurePreAlarmEnb'],['sinput-oilPressureAlarmLevel','s-slider-oilPressureAlarmLevel','sinput-oilPressurePreAlarmLevel','s-slider-oilPressurePreAlarmLevel']);
 		ainInit('coolantTempSensorType',['coolantTempOpenCircuitAlarmEnb','coolantHightTempAlarmEnb','coolantHightTempPreAlarmEnb','coolantTempHeaterEnb','coolantTempCoolerEnb'],['sinput-coolantHightTempAlarmLevel','s-slider-coolantHightTempAlarmLevel','sinput-coolantHightTempPreAlarmLevel','s-slider-coolantHightTempPreAlarmLevel','sinput-coolantTempHeaterOnLevel','s-slider-coolantTempHeaterOnLevel','sinput-coolantTempHeaterOffLevel','s-slider-coolantTempHeaterOffLevel','sinput-coolantTempCoolerOffLevel','s-slider-coolantTempCoolerOffLevel','sinput-coolantTempCoolerOnLevel','s-slider-coolantTempCoolerOnLevel']);
 		ainInit('fuelLevelSensorType',['fuelLevelLowAlarmEnb','fuelLevelLowPreAlarmEnb','fuelLevelHightAlarmEnb','fuelLevelHightPreAlarmEnb','fuelPumpEnb'],['fuelLevelLowAlarmAction','sinput-fuelLevelLowAlarmLevel','s-slider-fuelLevelLowAlarmLevel','sinput-fuelLevelLowAlarmDelay','s-slider-fuelLevelLowAlarmDelay','sinput-fuelLevelLowPreAlarmLevel','s-slider-fuelLevelLowPreAlarmLevel','sinput-fuelLevelLowPreAlarmDelay','s-slider-fuelLevelLowPreAlarmDelay','fuelLevelHightAlarmAction','sinput-fuelLevelHightAlarmLevel','s-slider-fuelLevelHightAlarmLevel','sinput-fuelLevelHightAlarmDelay','s-slider-fuelLevelHightAlarmDelay','sinput-fuelLevelHightPreAlarmLevel','s-slider-fuelLevelHightPreAlarmLevel','sinput-fuelLevelHightPreAlarmDelay','s-slider-fuelLevelHightPreAlarmDelay','sinput-fuelPumpOffLevel','s-slider-fuelPumpOffLevel','sinput-fuelPumpOnLevel','s-slider-fuelPumpOnLevel']);

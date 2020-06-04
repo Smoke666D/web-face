@@ -264,6 +264,10 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
         cssFiles = files;
     for root, dirs, files in os.walk( imgPath ):
         imgFiles = files;
+    #------------------------- Remove key.js -------------------------
+    for i in range( 0, ( len( jsFiles ) - 1 ) ):
+        if jsFiles[i] == 'key.js':
+            del jsFiles[i];
     #------------------------- Read html file ------------------------
     try:
         htmlFile = open( htmlPath, encoding="utf-8" );

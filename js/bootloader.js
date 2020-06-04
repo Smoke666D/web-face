@@ -74,12 +74,6 @@ function Firmware ( ) {
             }
           } else {
             let shift = line.adr - prevAdr - prevLen;
-            console.log(shift);
-            console.log(line.adr.toString(16));
-            console.log(prevAdr.toString(16));
-            console.log(line.len);
-            console.log(prevLen);
-            console.log("---");
             for ( var i=0; i<shift; i++ ) {
               this.data.push( 0xFF );
             }
@@ -111,7 +105,6 @@ function Firmware ( ) {
     return;
   }
   /*---------------------------------------------*/
-
   return;
 }
 /*----------------------------------------------------------------------------*/
@@ -133,18 +126,12 @@ function bootInit () {
     dialog.showOpenDialog({
       filters    : [
         { name : "Intel HEX",   extensions : ['hex'] }
-        //{ name : "Binary file", extensions : ['bin'] }
       ],
       properties : ['openFile', 'multiSelections']
     }).then( function ( files ) {
       if (files !== undefined) {
         fs.readFile( files.filePaths[0], 'utf8', function ( err, data ) {
-          if ( files.filePaths[0].search( '.bin' ) > -1 ) {
-            firmware.fromBIN( data, dfuDevice.memory.start );
-          }
-          if ( files.filePaths[0].search( '.hex' ) > -1 ) {
-            firmware.fromHEX( data );
-          }
+          firmware.fromHEX( data );
           if ( firmware.valid > 0 ) {
             let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Файл готов к записи." );
             swBootLoad.disabled = false;
@@ -155,25 +142,19 @@ function bootInit () {
   /*------------------------------------------------------*/
   swBootLoad.addEventListener( 'click', async function () {
     bootProgress.style.width = "0%"
-
     if ( ( firmware.valid > 0 ) && ( dfuDevice != null ) ) {
       let adr    = await dfuDevice.searchSector( firmware.start );
-
       let result = await dfuDevice.downloadFirmware( firmware.data, adr, function( max, n ) {
         bootProgress.style.width = ( n / max * 100 ) + "%";
         console.log( n + "/" + max );
       }, function( mes ) {
         console.log( mes );
       });
-
       let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Прошивка успешно загружена" );
     }
-
-
   });
   /*------------------------------------------------------*/
   return;
 }
-
 
 bootInit();
