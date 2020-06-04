@@ -481,8 +481,12 @@ function dfuDevice() {
     let size     = firmware.length;                        /* Firmware size in bytes */
     let startAdr = adr;                                    /* Start sector number for firmware */
     let endAdr   = await this.checkSectors( adr, size );   /* Last sector number for firmware */
-    await this.abortToIdle();
+
+    console.log( adr );
+    console.log( size );
+
     if ( endAdr > 0 ) {
+      await this.abortToIdle();
       let progSize = endAdr - startAdr + 1;
       if ( verify > 0 ) {
         progSize *= 2;

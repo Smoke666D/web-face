@@ -14,16 +14,26 @@ function Line     ( str, shift ) {
   /*------------------ Private ------------------*/
   var count = 9;
   /*------------------- Public ------------------*/
-  this.len  = parseInt( str.slice( 1, 3 ), 16 );
-  this.adr  = shift + parseInt( str.slice( 3, 7 ), 16 );
-  this.type = parseInt( str.slice( 7, 9 ), 16 );
-  this.data = [];
+  this.raw     = str;
+  this.calcCrc = 0;
+  this.valid   = 1;
+  this.len     = parseInt( str.slice( 1, 3 ), 16 );
+  this.adr     = shift + parseInt( str.slice( 3, 7 ), 16 );
+  this.type    = parseInt( str.slice( 7, 9 ), 16 );
+  this.data    = [];
   for( var i=0; i<this.len; i++ ) {
     let byte = parseInt( str.slice( count, ( count + 2 ) ), 16 );
     this.data.push( byte );
+    this.calcCrc += byte;
     count += 2;
   }
+  this.calcCrc += this.len + ( this.adr & 0xFF ) + ( ( this.adr & 0xFF00 ) >> 8 ) + this.type;
+  this.calcCrc = ( ( ~( this.calcCrc & 0xFF) & 0xFF ) + 0x01 ) & 0xFF;
   this.crc = parseInt( str.slice( count, ( count + 2 ) ), 16 );
+
+  if ( this.calcCrc != this.crc ) {
+    this.valid = 0;
+  }
   return;
 }
 function Firmware ( ) {
@@ -48,48 +58,57 @@ function Firmware ( ) {
       index   = buffer.search( ':' );
       endLine = buffer.search( '\r' );
       line    = new Line( buffer.substr( index, endLine ), adrShift );
-      buffer  = buffer.slice( ( endLine + 1), buffer.length );
-      switch ( line.type ) {
-        case 0x04:
-          for( var i=0; i<line.len; i++ ) {
-            adrShift |= line.data[i] << ( 8 * ( line.len - i - 1 ) )
-          }
-          adrShift = adrShift << 16;
-          break;
-        case 0x05:
-          break;
-        case 0x01:
-          this.size  = this.data.length;
-          this.valid = 1;
-          index      = -1;
-          break;
-        case 0x00:
-          if ( firstData == 0 ) {
-            firstData   = 1;
-            this.start  = line.adr;
-            prevAdr     = line.adr;
-            prevLen     = line.len;
-            for ( var i=0; i<line.len; i++ ) {
-              this.data.push( line.data[i] );
+      if ( line.valid > 0 )
+      {
+        buffer  = buffer.slice( ( endLine + 1), buffer.length );
+        switch ( line.type ) {
+          case 0x04:
+            for( var i=0; i<line.len; i++ ) {
+              adrShift |= line.data[i] << ( 8 * ( line.len - i - 1 ) )
             }
-          } else {
-            let shift = line.adr - prevAdr - prevLen;
-            for ( var i=0; i<shift; i++ ) {
-              this.data.push( 0xFF );
+            adrShift = adrShift << 16;
+            break;
+          case 0x05:
+            break;
+          case 0x01:
+            this.size  = this.data.length;
+            this.valid = 1;
+            index      = -1;
+            break;
+          case 0x00:
+            if ( firstData == 0 ) {
+              firstData   = 1;
+              this.start  = line.adr;
+              prevAdr     = line.adr;
+              prevLen     = line.len;
+              for ( var i=0; i<line.len; i++ ) {
+                this.data.push( line.data[i] );
+              }
+            } else {
+              let shift = line.adr - prevAdr - prevLen;
+              for ( var i=0; i<shift; i++ ) {
+                this.data.push( 0xFF );
+              }
+              for ( var i=0; i<line.len; i++ ) {
+                this.data.push( line.data[i] );
+              }
+              prevAdr = line.adr;
+              prevLen = line.len;
             }
-            for ( var i=0; i<line.len; i++ ) {
-              this.data.push( line.data[i] );
-            }
-            prevAdr = line.adr;
-            prevLen = line.len;
-          }
-          this.end = line.adr + line.len;
-          break;
-        default:
-          break;
+            this.end = line.adr + line.len;
+            break;
+          default:
+            break;
+        }
+      } else {
+        console.log( line );
+        this.valid = 0;
+        index      = -1;
       }
     }
-    this.data = new Buffer.from( this.data );
+    if ( this.valid > 0 ) {
+      this.data = new Buffer.from( this.data );
+    }
     return;
   }
   this.fromBIN = function( file, adr ) {
@@ -115,7 +134,6 @@ function bootInit () {
   bootProgress  = document.getElementById( "boot-progress" );
   /*------------------------------------------------------*/
   swBootConnect.addEventListener( 'click', function () {
-    //dfuDevice = new dfu.dfuDevice();
     dfuDevice.init( async function () {
       console.log( dfuDevice );
       swBootFile.disabled = false;
@@ -133,8 +151,10 @@ function bootInit () {
         fs.readFile( files.filePaths[0], 'utf8', function ( err, data ) {
           firmware.fromHEX( data );
           if ( firmware.valid > 0 ) {
-            let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Файл готов к записи." );
+            let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Файл готов к записи" );
             swBootLoad.disabled = false;
+          } else {
+            let alert   = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка при проверке файла" );
           }
         });
     }});
