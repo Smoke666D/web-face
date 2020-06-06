@@ -123,6 +123,18 @@ function Firmware ( ) {
     this.end   = this.start + this.size;
     return;
   }
+  this.free    = function( ) {
+    this.start = 0;
+    this.end   = 0;
+    this.size  = 0;
+    this.valid = 0;
+    this.data  = [];
+    firstData  = 0;
+    prevAdr    = 0;
+    prevLen    = 0;
+    adrShift   = 0;
+    return;
+  }
   /*---------------------------------------------*/
   return;
 }
@@ -134,13 +146,19 @@ function bootInit () {
   bootProgress  = document.getElementById( "boot-progress" );
   /*------------------------------------------------------*/
   swBootConnect.addEventListener( 'click', function () {
-    dfuDevice.init( async function () {
-      console.log( dfuDevice );
-      swBootFile.disabled = false;
-    });
+    try {
+      dfuDevice.init( async function () {
+        console.log( dfuDevice );
+        swBootFile.disabled = false;
+      });
+    } catch {
+      let alert   = new alerts.Alert( "alert-warning", alerts.triIco, "Прибор не найден" );
+    }
   });
   /*------------------------------------------------------*/
   swBootFile.addEventListener( 'click', function () {
+    bootProgress.style.width = "0%"
+    firmware.free();
     dialog.showOpenDialog({
       filters    : [
         { name : "Intel HEX",   extensions : ['hex'] }
@@ -161,16 +179,19 @@ function bootInit () {
   });
   /*------------------------------------------------------*/
   swBootLoad.addEventListener( 'click', async function () {
-    bootProgress.style.width = "0%"
-    if ( ( firmware.valid > 0 ) && ( dfuDevice != null ) ) {
-      let adr    = await dfuDevice.searchSector( firmware.start );
-      let result = await dfuDevice.downloadFirmware( firmware.data, adr, function( max, n ) {
-        bootProgress.style.width = ( n / max * 100 ) + "%";
-        console.log( n + "/" + max );
-      }, function( mes ) {
-        console.log( mes );
-      });
-      let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Прошивка успешно загружена" );
+    try {
+      if ( ( firmware.valid > 0 ) && ( dfuDevice != null ) ) {
+        let adr    = await dfuDevice.searchSector( firmware.start );
+        let result = await dfuDevice.downloadFirmware( firmware.data, adr, function( max, n ) {
+          bootProgress.style.width = ( n / max * 100 ) + "%";
+          console.log( n + "/" + max );
+        }, function( mes ) {
+          console.log( mes );
+        });
+        let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Прошивка успешно загружена" );
+      }
+    } catch {
+      let alert   = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка во время записи" );
     }
   });
   /*------------------------------------------------------*/
