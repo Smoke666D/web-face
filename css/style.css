@@ -8361,6 +8361,10 @@ h1, h2, h3, h4, h5,
         font-size: 16px; }
     #sidebar .checked{
       color: #f8b739;}
+      #sidebar .checked path,
+      #sidebar .checked polygon,
+      #sidebar .checked rect {
+          fill: #f8b739;}
     #sidebar ul li a {
       padding: 12px;
       display: block;
@@ -8378,9 +8382,9 @@ h1, h2, h3, h4, h5,
       display:inline-block;
       vertical-align:middle;
       width:200px;}
-    #sidebar ul li a .svg-icon path,
-    #sidebar ul li a .svg-icon polygon,
-    #sidebar ul li a .svg-icon rect {
+    #sidebar path,
+    #sidebar polygon,
+    #sidebar rect {
       fill: #d2d3d4;}
     #sidebar ul li.active > a {
 }

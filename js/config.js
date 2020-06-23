@@ -874,7 +874,7 @@ var dataReg = [
 },{
    "page": 0,
    "adr": 42,
-   "name": "dodType",
+   "name": "docdType",
    "value": 0,
    "scale": 0,
    "min": 0,
@@ -892,7 +892,7 @@ var dataReg = [
            "max": 255,
            "shift": 0,
        },{
-           "name": "doType",
+           "name": "dodType",
            "mask": 65280,
            "min": 0,
            "max": 255,
