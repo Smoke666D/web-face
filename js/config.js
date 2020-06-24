@@ -373,7 +373,7 @@ var dataReg = [
            "shift": 8,
        },{
            "name": "fuelPumpEnb",
-           "mask": 512,
+           "mask": 0,
            "min": 0,
            "max": 1,
            "shift": 9,
@@ -1253,7 +1253,7 @@ var dataReg = [
    "page": 0,
    "adr": 66,
    "name": "genSetup",
-   "value": 104,
+   "value": 105,
    "scale": 0,
    "min": 0,
    "max": 255,

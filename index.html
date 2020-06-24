@@ -230,12 +230,34 @@
               <span>Сигналы техобслуживания</span>
             </a>
           </li>
-          <li class="nav-major">
-            <a class="navItem" id="nav-logPage" onclick="loadContent('logPage')" href="#">
+
+          <li class="active nav-major">
+            <a href="#logSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
               <i class="fas fa-book"></i>
-              <span>Журнал</span>
+              <span>Журналы</span>
             </a>
+            <ul class="collapse list-unstyled" id="logSubmenu">
+              <li>
+                <a class="navItem" id="nav-logPage" onclick="loadContent('logPage')" href="#">
+                  <i class="fas fa-bell"></i>
+                  <span>События</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-measuregPage" onclick="loadContent('measurePage')" href="#">
+                  <i class="fas fa-ruler"></i>
+                  <span>Измерения</span>
+                </a>
+              </li>
+            </ul>
           </li>
+
+
+
+
+
+
+
           <li class="nav-major electron">
             <a class="navItem" id="nav-firmwarePage" onclick="loadContent('firmwarePage')" href="#">
               <i class="fas fa-microchip"></i>
@@ -3249,7 +3271,7 @@
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
-        <h5>Журнал</h5>
+        <h5>Журнал событий</h5>
         <table class="table table-hover">
           <thead class="thead-dark">
             <tr>
@@ -3257,9 +3279,8 @@
               <th>Дата</th>
               <th>Время</th>
               <th>Тип</th>
-              <th>Источник</th>
               <th>Сообшение</th>
-              <th>Значение</th>
+              <th>Действие</th>
             </tr>
           </thead>
           <tbody id="log-body">
@@ -3268,16 +3289,14 @@
               <td>19.03.2020</td>
               <td>21:45:05</td>
               <td>Предупреждение</td>
-              <td>Двигатель</td>
               <td>Высокий уровень тока</td>
-              <td>30 А</td>
+              <td>Останов</td>
             </tr>
             <tr>
               <td>2</td>
               <td>19.03.2020</td>
               <td>21:55:25</td>
               <td>Сообшение</td>
-              <td>Двигатель</td>
               <td>Произведена остановка двигателя</td>
               <td></td>
             </tr>
@@ -3286,12 +3305,15 @@
               <td>19.03.2020</td>
               <td>22:25:25</td>
               <td>Сообшение</td>
-              <td>Двигатель</td>
               <td>Произведен запуск двигателя</td>
               <td></td>
             </tr>
           </tbody>
         </table>
+      </div>
+      <!------------------------------------------------------------------------------------------------------------->
+      <div id="measurePage" class="content-data hidden">
+        <h5>Журнал измерений</h5>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="firmwarePage" class="content-data hidden electron">

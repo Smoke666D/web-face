@@ -10090,12 +10090,34 @@ QmCC
               <span>Сигналы техобслуживания</span>
             </a>
           </li>
-          <li class="nav-major">
-            <a class="navItem" id="nav-logPage" onclick="loadContent('logPage')" href="#">
+
+          <li class="active nav-major">
+            <a href="#logSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
               <i class="fas fa-book"></i>
-              <span>Журнал</span>
+              <span>Журналы</span>
             </a>
+            <ul class="collapse list-unstyled" id="logSubmenu">
+              <li>
+                <a class="navItem" id="nav-logPage" onclick="loadContent('logPage')" href="#">
+                  <i class="fas fa-bell"></i>
+                  <span>События</span>
+                </a>
+              </li>
+              <li>
+                <a class="navItem" id="nav-measuregPage" onclick="loadContent('measurePage')" href="#">
+                  <i class="fas fa-ruler"></i>
+                  <span>Измерения</span>
+                </a>
+              </li>
+            </ul>
           </li>
+
+
+
+
+
+
+
           
           
         </ul>
@@ -13095,7 +13117,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
-        <h5>Журнал</h5>
+        <h5>Журнал событий</h5>
         <table class="table table-hover">
           <thead class="thead-dark">
             <tr>
@@ -13103,9 +13125,8 @@ QmCC
               <th>Дата</th>
               <th>Время</th>
               <th>Тип</th>
-              <th>Источник</th>
               <th>Сообшение</th>
-              <th>Значение</th>
+              <th>Действие</th>
             </tr>
           </thead>
           <tbody id="log-body">
@@ -13114,16 +13135,14 @@ QmCC
               <td>19.03.2020</td>
               <td>21:45:05</td>
               <td>Предупреждение</td>
-              <td>Двигатель</td>
               <td>Высокий уровень тока</td>
-              <td>30 А</td>
+              <td>Останов</td>
             </tr>
             <tr>
               <td>2</td>
               <td>19.03.2020</td>
               <td>21:55:25</td>
               <td>Сообшение</td>
-              <td>Двигатель</td>
               <td>Произведена остановка двигателя</td>
               <td></td>
             </tr>
@@ -13132,12 +13151,15 @@ QmCC
               <td>19.03.2020</td>
               <td>22:25:25</td>
               <td>Сообшение</td>
-              <td>Двигатель</td>
               <td>Произведен запуск двигателя</td>
               <td></td>
             </tr>
           </tbody>
         </table>
+      </div>
+      <!------------------------------------------------------------------------------------------------------------->
+      <div id="measurePage" class="content-data hidden">
+        <h5>Журнал измерений</h5>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       
@@ -13343,7 +13365,6 @@ function checkSettings() {
     obj = document.getElementById( names[i] );
     obj.addEventListener("change",function(){
       if ( this.checked == true ) {
-        console.log(this.checked);
         checkDO( targets[i] );
       }
     });
@@ -13727,7 +13748,7 @@ function checkSettings() {
            "shift": 8,
        },{
            "name": "fuelPumpEnb",
-           "mask": 512,
+           "mask": 0,
            "min": 0,
            "max": 1,
            "shift": 9,
@@ -14607,7 +14628,7 @@ function checkSettings() {
    "page": 0,
    "adr": 66,
    "name": "genSetup",
-   "value": 104,
+   "value": 105,
    "scale": 0,
    "min": 0,
    "max": 255,
@@ -16273,6 +16294,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		doInit('d');
 		doInit('e');
 		doInit('f');
+
 		ainInit('oilPressureSensorType',['oilPressureOpenCircuitAlarmEnb','oilPressureAlarmEnb','oilPressurePreAlarmEnb'],['sinput-oilPressureAlarmLevel','s-slider-oilPressureAlarmLevel','sinput-oilPressurePreAlarmLevel','s-slider-oilPressurePreAlarmLevel']);
 		ainInit('coolantTempSensorType',['coolantTempOpenCircuitAlarmEnb','coolantHightTempAlarmEnb','coolantHightTempPreAlarmEnb','coolantTempHeaterEnb','coolantTempCoolerEnb'],['sinput-coolantHightTempAlarmLevel','s-slider-coolantHightTempAlarmLevel','sinput-coolantHightTempPreAlarmLevel','s-slider-coolantHightTempPreAlarmLevel','sinput-coolantTempHeaterOnLevel','s-slider-coolantTempHeaterOnLevel','sinput-coolantTempHeaterOffLevel','s-slider-coolantTempHeaterOffLevel','sinput-coolantTempCoolerOffLevel','s-slider-coolantTempCoolerOffLevel','sinput-coolantTempCoolerOnLevel','s-slider-coolantTempCoolerOnLevel']);
 		ainInit('fuelLevelSensorType',['fuelLevelLowAlarmEnb','fuelLevelLowPreAlarmEnb','fuelLevelHightAlarmEnb','fuelLevelHightPreAlarmEnb','fuelPumpEnb'],['fuelLevelLowAlarmAction','sinput-fuelLevelLowAlarmLevel','s-slider-fuelLevelLowAlarmLevel','sinput-fuelLevelLowAlarmDelay','s-slider-fuelLevelLowAlarmDelay','sinput-fuelLevelLowPreAlarmLevel','s-slider-fuelLevelLowPreAlarmLevel','sinput-fuelLevelLowPreAlarmDelay','s-slider-fuelLevelLowPreAlarmDelay','fuelLevelHightAlarmAction','sinput-fuelLevelHightAlarmLevel','s-slider-fuelLevelHightAlarmLevel','sinput-fuelLevelHightAlarmDelay','s-slider-fuelLevelHightAlarmDelay','sinput-fuelLevelHightPreAlarmLevel','s-slider-fuelLevelHightPreAlarmLevel','sinput-fuelLevelHightPreAlarmDelay','s-slider-fuelLevelHightPreAlarmDelay','sinput-fuelPumpOffLevel','s-slider-fuelPumpOffLevel','sinput-fuelPumpOnLevel','s-slider-fuelPumpOnLevel']);
@@ -16280,9 +16302,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		if (electronApp == 0) {
 			ethDataUpdate(function(){return;});
 		}
-
 		checkSettings();
-
 		navbarToogling();
 		updateVersions();
 		const genVoltageLims = new slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");

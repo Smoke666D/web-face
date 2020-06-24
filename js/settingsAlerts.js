@@ -24,7 +24,6 @@ function checkSettings() {
     obj = document.getElementById( names[i] );
     obj.addEventListener("change",function(){
       if ( this.checked == true ) {
-        console.log(this.checked);
         checkDO( targets[i] );
       }
     });
