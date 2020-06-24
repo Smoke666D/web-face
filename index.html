@@ -86,6 +86,12 @@
                 </a>
               </li>
               <li>
+                <a class="navItem" id="nav-speedPage" onclick="loadContent('speedPage')" href="#">
+                  <i class="fas fa-tachometer-alt"></i>
+                  <span>Обороты двигателя</span>
+                </a>
+              </li>
+              <li>
                 <a class="navItem" id="nav-digitalInputAPage" onclick="loadContent('digitalInputAPage')" href="#">
                   <i class="fas fa-chevron-right"></i>
                   <span>Цифровой вход A</span>
@@ -123,6 +129,8 @@
               <span>Таймеры</span>
             </a>
           </li>
+
+
           <li class="active nav-major">
             <a href="#generatorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
               <div class="fas">
@@ -137,24 +145,27 @@
                   <span>Опции генератора</span>
                 </a>
               </li>
-              <li>
-                <a class="navItem" id="nav-generatorVoltagePage" onclick="loadContent('generatorVoltagePage')" href="#">
-                  <div class="fas">U</div>
-                  <span>Напряжение генератора</span>
-                </a>
-              </li>
-              <li>
-                <a class="navItem" id="nav-generatorFreqPage" onclick="loadContent('generatorFreqPage')" href="#">
-                  <div class="fas">F</div>
-                  <span>Частота генератора</span>
-                </a>
-              </li>
-              <li>
-                <a class="navItem" id="nav-generatorCurrentPage" onclick="loadContent('generatorCurrentPage')" href="#">
-                  <div class="fas">I</div>
-                  <span>Сила тока генератора</span>
-                </a>
-              </li>
+
+              <div id="genCollapse" class="collapse-item gen">
+                <li>
+                  <a class="navItem" id="nav-generatorVoltagePage" onclick="loadContent('generatorVoltagePage')" href="#">
+                    <div class="fas">U</div>
+                    <span>Напряжение генератора</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="navItem" id="nav-generatorFreqPage" onclick="loadContent('generatorFreqPage')" href="#">
+                    <div class="fas">F</div>
+                    <span>Частота генератора</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="navItem" id="nav-generatorCurrentPage" onclick="loadContent('generatorCurrentPage')" href="#">
+                    <div class="fas">I</div>
+                    <span>Сила тока генератора</span>
+                  </a>
+                </li>
+              </div>
             </ul>
           </li>
           <li class="active nav-major">
@@ -171,12 +182,14 @@
                   <span>Опции сети</span>
                 </a>
               </li>
-              <li>
-                <a class="navItem" id="nav-networkAlarmPage" onclick="loadContent('networkAlarmPage')" href="#">
-                  <i class="fas fa-exclamation-triangle"></i>
-                  <span>Сигналы тревоги сети</span>
-                </a>
-              </li>
+              <div id="netCollapse" class="collapse-item net">
+                <li>
+                  <a class="navItem" id="nav-networkAlarmPage" onclick="loadContent('networkAlarmPage')" href="#">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Сигналы тревоги сети</span>
+                  </a>
+                </li>
+              </div>
             </ul>
           </li>
           <li class="active nav-major">
@@ -858,6 +871,70 @@
             <div class="s-slider" id="s-slider-fuelPumpOnLevel"></div>
           </div>
         </div>
+      </div>
+      <!------------------------------------------------------------------------------------------------------------->
+      <div id="speedPage" class="content-data hidden">
+        <h5>Обороты двигателя</h5>
+
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="speedEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Активировать</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Количество зубьев маховика</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" min="10" value="180" class="form-control in-num" id="speedToothNumber">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="speedLowAlarmEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Активировать сигнализатор нижнего предела</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label for="sinput-speedLowAlarmLevel">Нижний предел</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-speedLowAlarmLevel" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-speedLowAlarmLevel">RPM</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-speedLowAlarmLevel"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label for="sinput-speedHightAlarmLevel">Верхний предел</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-speedHightAlarmLevel" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-speedHightAlarmLevel">RPM</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-speedHightAlarmLevel"></div>
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalInputAPage" class="content-data hidden">
@@ -2753,7 +2830,7 @@
             <label>Попытки запуска</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control in-num" id="engineStartAttempts">
+            <input type="number" min="1" class="form-control in-num" id="engineStartAttempts">
           </div>
         </div>
         <h6>Включение свечи накаливания</h6>

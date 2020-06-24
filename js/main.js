@@ -43,6 +43,41 @@ function connectModalClose() {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+function navbarToogling() {
+	genSw = document.getElementById("genPowerGeneratorControlEnb");
+	netSw = document.getElementById("mainsControlEnb");
+
+  function generatorToogle() {
+		genPages = document.getElementById("genCollapse");
+		if ( genSw.checked == false ) {
+  		genPages.classList.add("hide");
+		} else {
+			genPages.classList.remove("hide");
+		}
+	}
+	function networkToogle() {
+		netPages = document.getElementById("netCollapse");
+		if ( netSw.checked == false ) {
+			netPages.classList.add("hide");
+		} else {
+			netPages.classList.remove("hide");
+		}
+	}
+
+	genSw.addEventListener("change", function() {
+		generatorToogle();
+	});
+	netSw.addEventListener("change", function() {
+		networkToogle();
+	});
+
+	networkToogle();
+	generatorToogle();
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
 function toogleNav() {
 	var sb   = document.getElementById("sidebar");
 	if (sb.classList.contains("active")){
@@ -651,6 +686,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		if (electronApp == 0) {
 			ethDataUpdate(function(){return;});
 		}
+		navbarToogling();
 		updateVersions();
 		const genVoltageLims = new slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
 		const genFreqLims = new slider4InitLimits("genUnderFrequencyAlarmLevel","genUnderFrequencyPreAlarmLevel","genOverFrequencyPreAlarmLevel","genOverFrequencyAlarmLevel");
