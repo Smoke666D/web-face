@@ -1369,7 +1369,7 @@
             <label>Выход A</label>
           </div>
           <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="doaType">
+            <select class="custom-select sensor-select doType" id="doaType">
               <option value="0">Топливное реле</option>
             </select>
           </div>
@@ -1390,7 +1390,7 @@
             <label>Выход B</label>
           </div>
           <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="dobType">
+            <select class="custom-select sensor-select doType" id="dobType">
               <option value="0">Реле стартера</option>
             </select>
           </div>
@@ -1411,7 +1411,7 @@
             <label>Выход С</label>
           </div>
           <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="docType">
+            <select class="custom-select sensor-select doType" id="docType">
               <option value="0">Не использовать</option>
               <option value="1">Звуковой аварийный сигнал</option>
               <option value="2">Автоматический режим </option>
@@ -1430,8 +1430,8 @@
               <option value="15">Отключение нагрузки</option>
               <option value="16">Аварийное отключение</option>
               <option value="17">Общее предупреждение</option>
-              <option value="18">Управление охладителем охлаждающей  жидкости</option>
-              <option value="19">Управление подогревателем охлаждающей  жидкости</option>
+              <option value="18">Управление охладителем охлаждающей жидкости</option>
+              <option value="19">Управление подогревателем охлаждающей жидкости</option>
               <option value="20">Охлаждение</option>
               <option value="21">Цифровой вход С - А</option>
               <option value="22">Аварийный сигнал на размыкание при нарушении заземления</option>
@@ -1518,7 +1518,7 @@
             <label>Выход D</label>
           </div>
           <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="dodType">
+            <select class="custom-select sensor-select doType" id="dodType">
               <option value="0">Не использовать</option>
               <option value="1">Звуковой аварийный сигнал</option>
               <option value="2">Автоматический режим </option>
@@ -1537,8 +1537,8 @@
               <option value="15">Отключение нагрузки</option>
               <option value="16">Аварийное отключение</option>
               <option value="17">Общее предупреждение</option>
-              <option value="18">Управление охладителем охлаждающей  жидкости</option>
-              <option value="19">Управление подогревателем охлаждающей  жидкости</option>
+              <option value="18">Управление охладителем охлаждающей жидкости</option>
+              <option value="19">Управление подогревателем охлаждающей жидкости</option>
               <option value="20">Охлаждение</option>
               <option value="21">Цифровой вход С - А</option>
               <option value="22">Аварийный сигнал на размыкание при нарушении заземления</option>
@@ -1625,7 +1625,7 @@
             <label>Выход E</label>
           </div>
           <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="doeType">
+            <select class="custom-select sensor-select doType" id="doeType">
               <option value="0">Не использовать</option>
               <option value="1">Звуковой аварийный сигнал</option>
               <option value="2">Автоматический режим </option>
@@ -1644,8 +1644,8 @@
               <option value="15">Отключение нагрузки</option>
               <option value="16">Аварийное отключение</option>
               <option value="17">Общее предупреждение</option>
-              <option value="18">Управление охладителем охлаждающей  жидкости</option>
-              <option value="19">Управление подогревателем охлаждающей  жидкости</option>
+              <option value="18">Управление охладителем охлаждающей жидкости</option>
+              <option value="19">Управление подогревателем охлаждающей жидкости</option>
               <option value="20">Охлаждение</option>
               <option value="21">Цифровой вход С - А</option>
               <option value="22">Аварийный сигнал на размыкание при нарушении заземления</option>
@@ -1732,7 +1732,7 @@
             <label>Выход F</label>
           </div>
           <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="dofType">
+            <select class="custom-select sensor-select doType" id="dofType">
               <option value="0">Не использовать</option>
               <option value="1">Звуковой аварийный сигнал</option>
               <option value="2">Автоматический режим </option>
@@ -1751,8 +1751,8 @@
               <option value="15">Отключение нагрузки</option>
               <option value="16">Аварийное отключение</option>
               <option value="17">Общее предупреждение</option>
-              <option value="18">Управление охладителем охлаждающей  жидкости</option>
-              <option value="19">Управление подогревателем охлаждающей  жидкости</option>
+              <option value="18">Управление охладителем охлаждающей жидкости</option>
+              <option value="19">Управление подогревателем охлаждающей жидкости</option>
               <option value="20">Охлаждение</option>
               <option value="21">Цифровой вход С - А</option>
               <option value="22">Аварийный сигнал на размыкание при нарушении заземления</option>
@@ -3249,7 +3249,7 @@
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
-        <h1>Журнал</h1>
+        <h5>Журнал</h5>
         <table class="table table-hover">
           <thead class="thead-dark">
             <tr>
@@ -3481,6 +3481,7 @@
     </div>
     <!--------------------------------------------------------------------------------------------------------------->
     <script type="text/javascript" src="js/alerts.js"></script>
+    <script type="text/javascript" src="js/settingsAlerts.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.js"></script>
     <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/version.js"></script>

@@ -686,6 +686,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		if (electronApp == 0) {
 			ethDataUpdate(function(){return;});
 		}
+
+		checkSettings();
+
 		navbarToogling();
 		updateVersions();
 		const genVoltageLims = new slider4InitLimits("genUnderVoltageAlarmLevel","genUnderVoltagePreAlarmLevel","genOverVoltagePreAlarmLevel","genOverVoltageAlarmLevel");
