@@ -870,20 +870,6 @@
             <label>Вкл</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelPumpOffLevel" step="1">
-          </div>
-          <div class="col-dimension">
-            <label id="label-fuelPumpOffLevel">%</label>
-          </div>
-          <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-fuelPumpOffLevel"></div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Выкл</label>
-          </div>
-          <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-fuelPumpOnLevel" step="1">
           </div>
           <div class="col-dimension">
@@ -891,6 +877,21 @@
           </div>
           <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelPumpOnLevel"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Выкл</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-fuelPumpOffLevel" step="1">
+          </div>
+          <div class="col-dimension">
+            <label id="label-fuelPumpOffLevel">%</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-fuelPumpOffLevel"></div>
           </div>
         </div>
       </div>
@@ -3448,7 +3449,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div class="modal" id="connectionModal" tabindex="-1" role="dialog">
+      <div class="modal fade" id="connectionModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
           <div class="modal-content">
             <div class="modal-header">

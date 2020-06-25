@@ -5523,11 +5523,16 @@ a.close.disabled {
   border-radius: 0.3rem;
   outline: 0;
   animation-name: animatetop;
-  animation-duration: 0.4s }
+  animation-timing-function: ease;
+  animation-duration: 0.5s }
 
   @keyframes animatetop {
     from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
+  }
+  @keyframes animatebackdrop {
+    from {opacity: 0}
+    to {opacity: 0.5}
   }
 
 .modal-backdrop {
@@ -5537,12 +5542,14 @@ a.close.disabled {
   z-index: 1040;
   width: 100vw;
   height: 100vh;
-  background-color: #000; }
+  background-color: #000;}
   .modal-backdrop.fade {
-    opacity: 0; }
+    opacity: 0;}
   .modal-backdrop.show {
-    opacity: 0.5; }
-
+    opacity: 0.5;
+    animation-name: animatebackdrop;
+    animation-timing-function: ease;
+    animation-duration: 0.5s;}
 .modal-header {
   background-color: #fafafa;
   display: -webkit-box;
@@ -9210,9 +9217,6 @@ a[data-toggle="collapse"] {
 .s-slider {
   display: block;
 }
-.d-slider {
-  display: block;
-}
 .s-sinput{
   width: 90px;
   display: block;
@@ -9221,10 +9225,6 @@ a[data-toggle="collapse"] {
   user-select: none; /* Standard syntax */
 }
 .d-sinput-left{
-  width: 100px;
-  display: block;
-}
-.d-sinput-right{
   width: 100px;
   display: block;
 }
@@ -10716,20 +10716,6 @@ QmCC
             <label>Вкл</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelPumpOffLevel" step="1">
-          </div>
-          <div class="col-dimension">
-            <label id="label-fuelPumpOffLevel">%</label>
-          </div>
-          <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-fuelPumpOffLevel"></div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Выкл</label>
-          </div>
-          <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-fuelPumpOnLevel" step="1">
           </div>
           <div class="col-dimension">
@@ -10737,6 +10723,21 @@ QmCC
           </div>
           <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelPumpOnLevel"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Выкл</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-fuelPumpOffLevel" step="1">
+          </div>
+          <div class="col-dimension">
+            <label id="label-fuelPumpOffLevel">%</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-fuelPumpOffLevel"></div>
           </div>
         </div>
       </div>
@@ -13224,7 +13225,7 @@ QmCC
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div class="modal" id="connectionModal" tabindex="-1" role="dialog">
+      <div class="modal fade" id="connectionModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -16309,6 +16310,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		const genFreqLims = new slider4InitLimits("genUnderFrequencyAlarmLevel","genUnderFrequencyPreAlarmLevel","genOverFrequencyPreAlarmLevel","genOverFrequencyAlarmLevel");
 		const mainsVoltageLims = new slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
 		const mainsFreqLims = new slider2InitLimits("mainsUnderFrequencyAlarmLevel","mainsOverFrequencyAlarmLevel");
+		const coolantHeaterLims = new slider2InitLimits("coolantTempHeaterOnLevel","coolantTempHeaterOffLevel");
+		const coolantCoolerLims = new slider2InitLimits("coolantTempCoolerOnLevel","coolantTempCoolerOffLevel");
+		const fuelPumpLims = new slider2InitLimits("fuelPumpOnLevel","fuelPumpOffLevel");
 
 		return;
 	} catch {

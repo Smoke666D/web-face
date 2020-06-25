@@ -694,6 +694,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		const genFreqLims = new slider4InitLimits("genUnderFrequencyAlarmLevel","genUnderFrequencyPreAlarmLevel","genOverFrequencyPreAlarmLevel","genOverFrequencyAlarmLevel");
 		const mainsVoltageLims = new slider2InitLimits("mainsUnderVoltageAlarmLevel","mainsOverVoltageAlarmLevel");
 		const mainsFreqLims = new slider2InitLimits("mainsUnderFrequencyAlarmLevel","mainsOverFrequencyAlarmLevel");
+		const coolantHeaterLims = new slider2InitLimits("coolantTempHeaterOnLevel","coolantTempHeaterOffLevel");
+		const coolantCoolerLims = new slider2InitLimits("coolantTempCoolerOnLevel","coolantTempCoolerOffLevel");
+		const fuelPumpLims = new slider2InitLimits("fuelPumpOnLevel","fuelPumpOffLevel");
 
 		return;
 	} catch {
