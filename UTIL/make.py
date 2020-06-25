@@ -5,7 +5,6 @@ import os;
 import time;
 import codecs;
 import sys;
-from rjsmin import jsmin;
 import gzip;
 try:
     from StringIO import StringIO;   ## for Python 2
@@ -14,6 +13,8 @@ except ImportError:
 import base64;
 sys.path.append( 'rcssmin-1.0.6' );
 from rcssmin import cssmin;
+sys.path.append( 'rjsmin-1.1.0' );
+from rjsmin import jsmin;
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
@@ -228,7 +229,7 @@ def compilHex( path, text, compressed ):
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True, compress = True, outPath = "D:/PROJECTS/ENERGAN/energan_enb/eth/site/index.h"):
+def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True, compress = True, outPath = "C:/PROJECTS/ENERGAN/energan_enb/eth/site/index.h"):
     print( "****************************************************" )
     if minifyHTML == True:
         print( "HTML mimnfy   : On" );
