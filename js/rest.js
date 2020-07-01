@@ -685,6 +685,15 @@ function copyDataReg(data) {
 	return;
 }
 //******************************************************************************
+function resetSettings () {
+	for ( var i=0; i<dataReg.length; i++ ) {
+		dataReg[i].value = dataReg[i].default;
+	}
+	updateInterface();
+	let alert = new Alert("alert-success",okIco,"Настройки сброшены до заводских");
+	return;
+}
+//******************************************************************************
 //******************************************************************************
 //******************************************************************************
 function dataGrab(callback){
@@ -776,17 +785,17 @@ function pasteDataReg(data) {
 		value = data.value;
 	}
 	return {
-		page  : data.page,
-		adr   : data.adr,
-		value : value,
-		scale : data.scale,
-		min   : data.min,
-		max   : data.max,
-		units : encodeURI(data.units),
-		type  : encodeURI(data.type),
-		len   : data.len,
+		page       : data.page,
+		adr        : data.adr,
+		value      : value,
+		scale      : data.scale,
+		min        : data.min,
+		max        : data.max,
+		units      : encodeURI(data.units),
+		type       : encodeURI(data.type),
+		len        : data.len,
 		bitMapSize : data.bitMapSize,
-		bit   : bitArr,
+		bit        : bitArr,
 	};
 }
 //******************************************************************************
