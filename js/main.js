@@ -63,14 +63,12 @@ function navbarToogling() {
 			netPages.classList.remove("hide");
 		}
 	}
-
 	genSw.addEventListener("change", function() {
 		generatorToogle();
 	});
 	netSw.addEventListener("change", function() {
 		networkToogle();
 	});
-
 	networkToogle();
 	generatorToogle();
 }
@@ -80,7 +78,7 @@ function navbarToogling() {
 //******************************************************************************
 function toogleNav() {
 	var sb   = document.getElementById("sidebar");
-	if (sb.classList.contains("active")){
+	if (sb.classList.contains("active")) {
 		sb.classList.remove("active");
 	} else {
 		sb.classList.add("active");
@@ -91,10 +89,10 @@ function toogleNav() {
 function hideConteny() {
 	var contentPages = document.getElementsByClassName("content-data");
 	var navItems     = document.getElementsByClassName("navItem");
-	for(var i=0;i<navItems.length;i++){
+	for(var i=0;i<navItems.length;i++) {
 		navItems[i].classList.remove("checked");
 	}
-	for(var i=0;i<contentPages.length;i++){
+	for(var i=0;i<contentPages.length;i++) {
 		contentPages[i].classList.add("hidden");
 	}
 	return;
@@ -185,9 +183,7 @@ function sliderInit() {
 	s_sinputs  = document.getElementsByClassName("s-sinput");
 	s_sliders  = document.getElementsByClassName("s-slider");
 	d_sliders       = document.getElementsByClassName("d-slider");
-	d_sinputs_left  = document.getElementsByClassName("d-sinput-left");
-	d_sinputs_right = document.getElementsByClassName("d-sinput-right");
-	for(i=0; i<s_sliders.length; i++){
+	for(i=0; i<s_sliders.length; i++) {
 		s_sinputs[i].disabled = true;
 		noUiSlider.create(s_sliders[i],{
 			start: [20],
@@ -195,10 +191,7 @@ function sliderInit() {
 			tooltips: true,
 			connect: [true, false],
 			padding: 0,
-			range: {
-				'min': 0,
-				'max': 100
-			}
+			range: { 'min': 0, 'max': 100	},
 		})
 		s_sliders[i].noUiSlider.on('update', (function() {
 			var j=i;
@@ -207,62 +200,21 @@ function sliderInit() {
 			}
 		})() );
 		s_sinputs[i].addEventListener('change', (function() {
-			var j=i;
-			return function(){
+			var j = i;
+			return function() {
 	    	s_sliders[j].noUiSlider.set([s_sinputs[j].value]);
 			}
 		})());
 		s_sliders[i].setAttribute('disabled', false);
-	}
-	//******************
-	for (var i=0; i<d_sliders.length; i++){
-		noUiSlider.create(d_sliders[i],{
-			start: [20, 80],
-			keyboardSupport: false,
-			tooltips: true,
-		  connect: true,
-			padding: 0,
-		  range: {
-		  	'min': 0,
-		    'max': 100
-			}
-		})
-		d_sliders[i].noUiSlider.on('update',(function(){
-			var j=i;
-			return function(){
-				d_sinputs_left[j].value = parseFloat(d_sliders[j].noUiSlider.get()[0]).toFixed(calcFracLength(d_sinputs_left[j].step));
-			}
-		})());
-		d_sinputs_left[i].addEventListener('change',(function(){
-			var j=i;
-			return function(){
-	    	d_sliders[j].noUiSlider.set([d_sinputs_left[j].value,null]);
-			}
-		})());
-		d_sliders[i].noUiSlider.on('update',(function(){
-			var j=i;
-			return function(){
-				d_sinputs_right[j].value = parseFloat(d_sliders[j].noUiSlider.get()[1]).toFixed(calcFracLength(d_sinputs_right[j].step));
-			}
-		})());
-		d_sinputs_right[i].addEventListener('change',(function(){
-			var j=i;
-			return function(){
-	    	d_sliders[j].noUiSlider.set([null,d_sinputs_right[j].value]);
-			}
-		})());
-		d_sliders[i].setAttribute('disabled', false);
-		d_sinputs_right[i].disabled = true;
-		d_sinputs_left[i].disabled = true;
 	}
 	return;
 }
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function powerSliderInit(idActive, idReactive, idApparent, idCosFi, regName){
-	for(var i=0;i<dataReg.length;i++){
-		if(dataReg[i].name == regName){
+function powerSliderInit(idActive, idReactive, idApparent, idCosFi, regName) {
+	for(var i=0;i<dataReg.length;i++) {
+		if(dataReg[i].name == regName) {
 			reg = dataReg[i];
 		}
 	}
@@ -280,39 +232,35 @@ function powerSliderInit(idActive, idReactive, idApparent, idCosFi, regName){
 	inputCosFi.step  = 0.01;
 	sliderCosFi.noUiSlider.updateOptions({
 		step: 	0.01,
-		range: {
-			'min': 0,
-			'max': 1,
-		},
+		range: { 'min': 0, 'max': 1 },
 	})
 
-	function powerApparentCalc(p,q){
+	function powerApparentCalc(p,q) {
 		return Math.sqrt(p*p+q*q);
 	}
 
-	function powerReaCalc(s,e){
+	function powerReaCalc(s,e) {
 		return Math.sqrt(s*s-e*e);
 	}
 
-	function coeffPCalc(s,cosfi){
+	function coeffPCalc(s,cosfi) {
 		return s*cosfi;
 	}
 
-	function coeffCalc(s,p){
+	function coeffCalc(s,p) {
 		return p/s;
 	}
 
-	function activeUpdate(){
+	function activeUpdate() {
 		powActive   = parseInt(sliderActive.noUiSlider.get());
 		powApparent = parseInt(sliderApparent.noUiSlider.get());
-
-		if (powActive<=powApparent){
+		if (powActive <= powApparent) {
 			powReactive = powerReaCalc(powApparent,powActive);
 			sliderReactive.noUiSlider.set(powReactive);
 			sliderCosFi.noUiSlider.set(powActive/powApparent);
 		} else {
 			powReactive = 0;
-			powActive = powerReaCalc(powApparent,powReactive);
+			powActive   = powerReaCalc(powApparent,powReactive);
 			sliderActive.noUiSlider.set(powActive);
 			sliderReactive.noUiSlider.set(0);
 			sliderCosFi.noUiSlider.set(powActive/powApparent);
@@ -320,10 +268,10 @@ function powerSliderInit(idActive, idReactive, idApparent, idCosFi, regName){
 		return;
 	}
 
-	function apparentUpdate(){
+	function apparentUpdate() {
 		powActive   = parseInt(sliderActive.noUiSlider.get());
 		powApparent = parseInt(sliderApparent.noUiSlider.get());
-		if (powApparent>=powActive){
+		if (powApparent >= powActive) {
 			powReactive = powerReaCalc(powApparent,powActive);
 			sliderReactive.noUiSlider.set(powReactive);
 			sliderCosFi.noUiSlider.set(powActive/powApparent);
@@ -335,12 +283,11 @@ function powerSliderInit(idActive, idReactive, idApparent, idCosFi, regName){
 		return;
 	}
 
-	function reactiveUpdate(){
+	function reactiveUpdate() {
 		powApparent = parseInt(sliderApparent.noUiSlider.get());
 		powReactive = parseInt(sliderReactive.noUiSlider.get());
 		powActive   = powerReaCalc(powApparent,powReactive);
-
-		if (powActive<=powApparent){
+		if (powActive <= powApparent) {
 			sliderActive.noUiSlider.set(powActive);
 			sliderCosFi.noUiSlider.set(powActive/powApparent);
 		} else {
@@ -352,12 +299,12 @@ function powerSliderInit(idActive, idReactive, idApparent, idCosFi, regName){
 		return;
 	}
 
-	function cosFiUpdate(){
+	function cosFiUpdate() {
 		powApparent = parseInt(sliderApparent.noUiSlider.get());
 		cosFi       = parseFloat(sliderCosFi.noUiSlider.get());
 		powReactive = powApparent*Math.sin(Math.acos(cosFi));
 		powActive   = powerReaCalc(powApparent,powReactive);
-		if (powActive<=powApparent){
+		if (powActive <= powApparent) {
 			sliderActive.noUiSlider.set(powActive);
 			sliderReactive.noUiSlider.set(powReactive);
 		} else {
@@ -369,29 +316,27 @@ function powerSliderInit(idActive, idReactive, idApparent, idCosFi, regName){
 		}
 		return;
 	}
-
 	activeUpdate();
 	reactiveUpdate();
-
-	sliderActive.noUiSlider.on("change",function(){
+	sliderActive.noUiSlider.on("change",function() {
 		activeUpdate();
 	});
-	inputActive.addEventListener("change",function(){
+	inputActive.addEventListener("change",function() {
 		activeUpdate();
 	});
-	sliderReactive.noUiSlider.on("change",function(){
+	sliderReactive.noUiSlider.on("change",function() {
 		reactiveUpdate();
 	});
-	inputReactive.addEventListener("change",function(){
+	inputReactive.addEventListener("change",function() {
 		reactiveUpdate();
 	});
-	sliderApparent.noUiSlider.on("change",function(){
+	sliderApparent.noUiSlider.on("change",function() {
 		apparentUpdate();
 	});
-	inputApparent.addEventListener("change",function(){
+	inputApparent.addEventListener("change",function() {
 		apparentUpdate();
 	})
-	sliderCosFi.noUiSlider.on("change",function(){
+	sliderCosFi.noUiSlider.on("change",function() {
 		cosFiUpdate();
 	})
 	return;
@@ -453,24 +398,24 @@ function diInit(letter) {
 		var message  = document.getElementById("di" + letter + "Message");
 		if ( funct.value == 0 ) {
 			polarity.disabled = true;
-			action.disabled = true;
-			arming.disabled = true;
-			message.disabled = true;
-			input.disabled = true;
+			action.disabled   = true;
+			arming.disabled   = true;
+			message.disabled  = true;
+			input.disabled    = true;
 			slider.setAttribute('disabled', true);
 		} else if ( funct.value == 1 ) {
 			polarity.disabled = false;
-			action.disabled = false;
-			arming.disabled = false;
-			message.disabled = false;
-			input.disabled = false;
+			action.disabled   = false;
+			arming.disabled   = false;
+			message.disabled  = false;
+			input.disabled    = false;
 			slider.removeAttribute('disabled');
 	  } else {
 			polarity.disabled = false;
-			action.disabled = true;
-			arming.disabled = true;
-			message.disabled = true;
-			input.disabled = false;
+			action.disabled   = true;
+			arming.disabled   = true;
+			message.disabled  = true;
+			input.disabled    = false;
 			slider.removeAttribute('disabled');
 		}
 		return;
@@ -527,7 +472,6 @@ function ainInit(master,checkers,slaves) {
 			}
 		}
 	}
-
 	setDisabled();
 	document.getElementById(master).addEventListener('change',function(){
 		setDisabled();
@@ -540,10 +484,8 @@ function slider2InitLimits(id1,id2) {
 	var self = this;
 	this.slider1 = document.getElementById("s-slider-"+id1);
 	this.slider2 = document.getElementById("s-slider-"+id2);
-
 	this.input1  = document.getElementById("sinput-"+id1);
 	this.input2  = document.getElementById("sinput-"+id2);
-
 	this.slider1.noUiSlider.on('change', function(){
 		val = parseFloat(self.slider2.noUiSlider.get())
 		if (parseFloat(self.slider1.noUiSlider.get()) >= val){
@@ -579,12 +521,10 @@ function slider4InitLimits(id1,id2,id3,id4) {
 	this.slider2 = document.getElementById("s-slider-"+id2);
 	this.slider3 = document.getElementById("s-slider-"+id3);
 	this.slider4 = document.getElementById("s-slider-"+id4);
-
 	this.input1  = document.getElementById("sinput-"+id1);
 	this.input2  = document.getElementById("sinput-"+id2);
 	this.input3  = document.getElementById("sinput-"+id3);
 	this.input4  = document.getElementById("sinput-"+id4);
-
 	this.slider1.noUiSlider.on('change', function(){
 		val = parseFloat(self.slider2.noUiSlider.get())
 		if (parseFloat(self.slider1.noUiSlider.get()) >= val){
@@ -597,7 +537,6 @@ function slider4InitLimits(id1,id2,id3,id4) {
 			self.slider1.noUiSlider.set(self.input2.value);
 		}
 	});
-
 	this.slider2.noUiSlider.on('change', function(){
 		val = parseFloat(self.slider2.noUiSlider.get());
 		min = parseFloat(self.slider1.noUiSlider.get());
@@ -619,7 +558,6 @@ function slider4InitLimits(id1,id2,id3,id4) {
 			self.slider2.noUiSlider.set(input3.value);
 		}
 	});
-
 	this.slider3.noUiSlider.on('change', function(){
 		val = parseFloat(self.slider3.noUiSlider.get());
 		min = parseFloat(self.slider2.noUiSlider.get());
@@ -641,7 +579,6 @@ function slider4InitLimits(id1,id2,id3,id4) {
 			self.slider3.noUiSlider.set(self.input4.value);
 		}
 	});
-
 	this.slider4.noUiSlider.on('change', function(){
 		val = parseFloat(self.slider4.noUiSlider.get());
 		min = parseFloat(self.slider3.noUiSlider.get());
@@ -662,22 +599,20 @@ function slider4InitLimits(id1,id2,id3,id4) {
 //******************************************************************************
 document.addEventListener("DOMContentLoaded", function(event) {
 	try {
-
-		$(function () {
+		$( function () {
   		$('[data-toggle="tooltip"]').tooltip({
-				delay: { "show": 500, "hide": 0 },
-				trigger: "hover",
+				delay: { 'show': 500, 'hide': 0 },
+				trigger:   'hover',
 				placement: 'auto',
 				animation: true,
 			})
 		})
-
-		if ( electronApp == 1 ){
+		if ( electronApp > 0 ) {
 			document.getElementById("refreshData-button").disabled = true;
 			document.getElementById("uploadData-button").disabled = true;
 		}
 		document.getElementById("versionSowtware").innerHTML = softwareVersion;
-		loadContent("devicePage");
+
 		sliderInit();
 		declareInterface();
 		oilScaleInit();
@@ -689,7 +624,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		doInit('d');
 		doInit('e');
 		doInit('f');
-
 		ainInit('oilPressureSensorType',['oilPressureOpenCircuitAlarmEnb','oilPressureAlarmEnb','oilPressurePreAlarmEnb'],['sinput-oilPressureAlarmLevel','s-slider-oilPressureAlarmLevel','sinput-oilPressurePreAlarmLevel','s-slider-oilPressurePreAlarmLevel']);
 		ainInit('coolantTempSensorType',['coolantTempOpenCircuitAlarmEnb','coolantHightTempAlarmEnb','coolantHightTempPreAlarmEnb','coolantTempHeaterEnb','coolantTempCoolerEnb'],['sinput-coolantHightTempAlarmLevel','s-slider-coolantHightTempAlarmLevel','sinput-coolantHightTempPreAlarmLevel','s-slider-coolantHightTempPreAlarmLevel','sinput-coolantTempHeaterOnLevel','s-slider-coolantTempHeaterOnLevel','sinput-coolantTempHeaterOffLevel','s-slider-coolantTempHeaterOffLevel','sinput-coolantTempCoolerOffLevel','s-slider-coolantTempCoolerOffLevel','sinput-coolantTempCoolerOnLevel','s-slider-coolantTempCoolerOnLevel']);
 		ainInit('fuelLevelSensorType',['fuelLevelLowAlarmEnb','fuelLevelLowPreAlarmEnb','fuelLevelHightAlarmEnb','fuelLevelHightPreAlarmEnb','fuelPumpEnb'],['fuelLevelLowAlarmAction','sinput-fuelLevelLowAlarmLevel','s-slider-fuelLevelLowAlarmLevel','sinput-fuelLevelLowAlarmDelay','s-slider-fuelLevelLowAlarmDelay','sinput-fuelLevelLowPreAlarmLevel','s-slider-fuelLevelLowPreAlarmLevel','sinput-fuelLevelLowPreAlarmDelay','s-slider-fuelLevelLowPreAlarmDelay','fuelLevelHightAlarmAction','sinput-fuelLevelHightAlarmLevel','s-slider-fuelLevelHightAlarmLevel','sinput-fuelLevelHightAlarmDelay','s-slider-fuelLevelHightAlarmDelay','sinput-fuelLevelHightPreAlarmLevel','s-slider-fuelLevelHightPreAlarmLevel','sinput-fuelLevelHightPreAlarmDelay','s-slider-fuelLevelHightPreAlarmDelay','sinput-fuelPumpOffLevel','s-slider-fuelPumpOffLevel','sinput-fuelPumpOnLevel','s-slider-fuelPumpOnLevel']);
@@ -707,11 +641,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		const coolantHeaterLims = new slider2InitLimits("coolantTempHeaterOnLevel","coolantTempHeaterOffLevel");
 		const coolantCoolerLims = new slider2InitLimits("coolantTempCoolerOnLevel","coolantTempCoolerOffLevel");
 		const fuelPumpLims = new slider2InitLimits("fuelPumpOnLevel","fuelPumpOffLevel");
-
-		return;
+		let d = setTimeout(function(){
+			updateInterface();
+		}, 1);
+		loadContent("devicePage");
 	} catch {
 		return;
 	}
+	return;
 });
 //******************************************************************************
 //******************************************************************************

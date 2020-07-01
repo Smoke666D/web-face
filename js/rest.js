@@ -424,20 +424,17 @@ function cosFiUpdate(){
 		this.value = parseFloat(this.value).toFixed(2);
 	});
 	slider.noUiSlider.updateOptions({
-		step: 	0.01,
+		step:  0.01,
 		start: [0],
-		range: {
-			'min': 0,
-			'max': 1
-		}
+		range: { 'min': 0, 'max': 1 },
 	})
 	return;
 }
 //******************************************************************************
 function updateVersions() {
 	var counter = 0;
-	var major = 0;
-	var minor = 0;
+	var major   = 0;
+	var minor   = 0;
 	for(var i=0;i<dataReg.length;i++) {
 		if ( dataReg[i].name == "versionController" ) {
 			major = Math.trunc(dataReg[i].value/1000);
@@ -469,10 +466,10 @@ function updateVersions() {
 }
 //******************************************************************************
 var stringLineArray = [];
-var slidersArray = [];
-var switcherArray = [];
-var selectorArray = [];
-var radioArray = [];
+var slidersArray    = [];
+var switcherArray   = [];
+var selectorArray   = [];
+var radioArray      = [];
 
 function declareStrings() {
 	for ( var i=0; i<dataReg.length; i++ ) {
@@ -736,9 +733,6 @@ function dataGrab(callback){
 			extUrl = "http://" + ipAdr;
 		}
 		for ( i=0; i<103; i++ ) {
-			if (dataReg[i].adr == 30) {
-				console.log(JSON.stringify(pasteDataReg(dataReg[i])));
-			}
 			if (dataReg[i].rw == "rw"){
 				restSeq.push({
 					method:  'PUT',
