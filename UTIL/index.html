@@ -3180,9 +3180,9 @@ input[type="button"].btn-block {
   width: 100%; }
 
 .fade {
-  -webkit-transition: opacity 0.5s linear;
-  -o-transition: opacity 0.5s linear;
-  transition: opacity 0.5s linear; }
+  -webkit-transition: opacity 0.4s linear;
+  -o-transition: opacity 0.4s linear;
+  transition: opacity 0.4s linear; }
   @media (prefers-reduced-motion: reduce) {
     .fade {
       -webkit-transition: none;
@@ -5447,14 +5447,14 @@ a.close.disabled {
   margin: 0.5rem;
   pointer-events: none; }
   .modal.fade .modal-dialog {
-    -webkit-transition: -webkit-transform 0.3s ease-out;
+    /*-webkit-transition: -webkit-transform 0.3s ease-out;
     transition: -webkit-transform 0.3s ease-out;
     -o-transition: transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
     transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
     -webkit-transform: translate(0, -50px);
     -ms-transform: translate(0, -50px);
-    transform: translate(0, -50px); }
+    transform: translate(0, -50px);*/ }
     @media (prefers-reduced-motion: reduce) {
       .modal.fade .modal-dialog {
         -webkit-transition: none;
@@ -5659,7 +5659,11 @@ a.close.disabled {
   line-break: auto;
   font-size: 0.875rem;
   word-wrap: break-word;
-  opacity: 0; }
+  opacity: 0;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+  }
   .tooltip.show {
     opacity: 0.9; }
   .tooltip .arrow {
@@ -5716,9 +5720,9 @@ a.close.disabled {
 .tooltip-inner {
   max-width: 200px;
   padding: 0.25rem 0.5rem;
-  color: #fff;
+  color: #d2d3d4 ;
   text-align: center;
-  background-color: #000;
+  background-color: #21252B;
   border-radius: 0.25rem; }
 
 .popover {
@@ -10111,13 +10115,6 @@ QmCC
               </li>
             </ul>
           </li>
-
-
-
-
-
-
-
           
           
         </ul>
@@ -10126,13 +10123,13 @@ QmCC
     <div id="content" class="p-4 p-md-5">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary">
+          <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary" data-toggle="tooltip" title="Скрыть/показать меню">
             <i class="fa fa-bars"></i>
           </button>
-          <button aria-label="Refresh data" id="refreshData-button" onclick="connectUpdate()" class="btn btn-primary">
+          <button aria-label="Refresh data" id="refreshData-button" onclick="connectUpdate()" class="btn btn-primary" data-toggle="tooltip" title="Обновить данные из контроллера">
             <i class="fa fa-refresh" id="i-loading"></i>
           </button>
-          <button aria-label="Upload data" id="uploadData-button" onclick="connectGrab()" class="btn btn-primary">
+          <button aria-label="Upload data" id="uploadData-button" onclick="connectGrab()" class="btn btn-primary" data-toggle="tooltip" title="Загрузить данные в контроллер">
             <i class="fa fa-upload" id="i-upload"></i>
           </button>
         </div>
@@ -10245,9 +10242,11 @@ QmCC
               </select>
             </div>
             <div class="col-sm-auto">
-              <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('oil')" id="oilPressureSensorSetup">
-                <i class="fa fa-chart-line"></i>
-              </button>
+              <div data-toggle="tooltip" title="Редактировать датчик">
+                <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('oil')" id="oilPressureSensorSetup">
+                  <i class="fa fa-chart-line"></i>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -10340,9 +10339,11 @@ QmCC
               </select>
             </div>
             <div class="col-sm-auto">
-              <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('coolant')" id="coolantTempSensorSetup">
-                <i class="fa fa-chart-line"></i>
-              </button>
+              <div data-toggle="tooltip" title="Редактировать датчик">
+                <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('coolant')" id="coolantTempSensorSetup">
+                  <i class="fa fa-chart-line"></i>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -10505,9 +10506,11 @@ QmCC
             </select>
           </div>
           <div class="col-sm-auto">
-            <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('fuel')" id="fuelLevelSensorSetup">
-              <i class="fa fa-chart-line"></i>
-            </button>
+            <div data-toggle="tooltip" title="Редактировать датчик">
+              <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('fuel')" id="fuelLevelSensorSetup">
+                <i class="fa fa-chart-line"></i>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -13171,7 +13174,7 @@ QmCC
         <h1>Страница находиться в разработке</h1>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div class="modal" id="sensorModal" tabindex="-1" role="dialog">
+      <div class="modal fade" id="sensorModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -13185,29 +13188,29 @@ QmCC
             </div>
             <div class="modal-footer">
               <div class="modal-footer-left">
-                <button type="button" aria-label="Save" class="btn btn-primary" onclick="saveChartData()">
+                <button type="button" aria-label="Save" class="btn btn-primary" onclick="saveChartData()" data-toggle="tooltip" title="Сохранить">
                   <i class="fas fa-save"></i>
                   <span class="sr-only">Сохранить</span>
                 </button>
-                <button type="button" aria-label="Save to PC" class="btn btn-primary" onclick="downloadSensorData()">
+                <button type="button" aria-label="Save to PC" class="btn btn-primary" onclick="downloadSensorData()" data-toggle="tooltip" title="Скачать">
                   <i class="fas fa-download"></i>
                   <span class="sr-only">Сохранить на ПК</span>
                 </button>
-                <button  type="button" aria-label="Load from PC" class="btn btn-primary" onclick="uploadSensorData()">
+                <button  type="button" aria-label="Load from PC" class="btn btn-primary" onclick="uploadSensorData()" data-toggle="tooltip" title="Загрузить">
                   <i class="fas fa-upload"></i>
                   <span  class="sr-only">Загрузить с ПК</span>
                 </button>
-                <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal">
+                <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Закрыть">
                   <i class="fas fa-times"></i>
                   <span class="sr-only">Закрыть</span>
                 </button>
               </div>
               <div class="modal-footer-right">
-                <button type="button" aria-label="Add point" onclick="addChartPoint()" class="btn btn-primary">
+                <button type="button" aria-label="Add point" onclick="addChartPoint()" class="btn btn-primary" data-toggle="tooltip" title="Добавить точку">
                   <i class="fa fa-plus"></i>
                   <span class="sr-only">Add point</span>
                 </button>
-                <button type="button" aria-label="Remove point" onclick="removeChartPoint()" class="btn btn-primary">
+                <button type="button" aria-label="Remove point" onclick="removeChartPoint()" class="btn btn-primary" data-toggle="tooltip" title="Удалить точку">
                   <i class="fa fa-minus"></i>
                   <span class="sr-only">Remove point</span>
                 </button>
@@ -13215,7 +13218,7 @@ QmCC
                 <input type="number" class="form-control axis-input" id="chartXedit" disabled="false" step="0.01">
                 <label>Y:</label>
                 <input type="number" class="form-control axis-input" id="chartYedit" disabled="false" step="0.01">
-                <button type="button" id="chartApplay" aria-label="Remove point" disabled="false" onclick="" class="btn btn-primary">
+                <button type="button" id="chartApplay" aria-label="Remove point" disabled="false" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Изменить координаты">
                   <i class="fas fa-check-circle"></i>
                   <span class="sr-only">Edit point</span>
                 </button>
@@ -13237,10 +13240,10 @@ QmCC
             <div class="modal-body">
               <div class="row">
                 <div class="col-sm">
-                  <button type="button" id="usb-button" onclick="setConnect('usb')" class="btn btn-success">
+                  <button type="button" id="usb-button" onclick="setConnect('usb')" class="btn btn-success" data-toggle="tooltip" title="Подключение по USB">
                     <i class="fab fa-usb"></i>
                   </button>
-                  <button type="button" id="eth-button" onclick="setConnect('eth')" class="btn btn-secondary">
+                  <button type="button" id="eth-button" onclick="setConnect('eth')" class="btn btn-secondary" data-toggle="tooltip" title="Подключение ао Ethernet">
                     <i class="fas fa-ethernet"></i>
                   </button>
                 </div>
@@ -13254,16 +13257,16 @@ QmCC
             </div>
             <div class="modal-footer">
               <div class="modal-footer-left">
-                <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal">
+                <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Закрыть">
                   <i class="fas fa-times"></i>
                   <span class="sr-only">Закрыть</span>
                 </button>
-                <button id="connect-button" type="button" class="btn btn-primary" data-dismiss="modal">
+                <button id="connect-button" type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="tooltip" title="Подключить">
                   <i class="fas fa-plug"></i>
                   <span class="sr-only">Подключить</span>
                 </button>
 
-                <button id="disconnect-button" type="button" class="btn btn-primary" data-dismiss="modal">
+                <button id="disconnect-button" type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="tooltip" title="Отключить">
                   <i class="fas fa-ban"></i>
                   <span class="sr-only">Отключить</span>
                 </button>
@@ -16278,6 +16281,16 @@ function slider4InitLimits(id1,id2,id3,id4) {
 //******************************************************************************
 document.addEventListener("DOMContentLoaded", function(event) {
 	try {
+
+		$(function () {
+  		$('[data-toggle="tooltip"]').tooltip({
+				delay: { "show": 500, "hide": 0 },
+				trigger: "hover",
+				placement: 'auto',
+				animation: true,
+			})
+		})
+
 		if ( electronApp == 1 ){
 			document.getElementById("refreshData-button").disabled = true;
 			document.getElementById("uploadData-button").disabled = true;
@@ -17624,6 +17637,7 @@ function uploadSensorData() {
 </script>
 
     <script type="text/javascript" src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+
     <!--------------------------------------------------------------------------------------------------------------->
     
     <!--------------------------------------------------------------------------------------------------------------->

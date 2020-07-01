@@ -662,6 +662,16 @@ function slider4InitLimits(id1,id2,id3,id4) {
 //******************************************************************************
 document.addEventListener("DOMContentLoaded", function(event) {
 	try {
+
+		$(function () {
+  		$('[data-toggle="tooltip"]').tooltip({
+				delay: { "show": 500, "hide": 0 },
+				trigger: "hover",
+				placement: 'auto',
+				animation: true,
+			})
+		})
+
 		if ( electronApp == 1 ){
 			document.getElementById("refreshData-button").disabled = true;
 			document.getElementById("uploadData-button").disabled = true;

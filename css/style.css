@@ -2525,9 +2525,9 @@ input[type="button"].btn-block {
   width: 100%; }
 
 .fade {
-  -webkit-transition: opacity 0.5s linear;
-  -o-transition: opacity 0.5s linear;
-  transition: opacity 0.5s linear; }
+  -webkit-transition: opacity 0.4s linear;
+  -o-transition: opacity 0.4s linear;
+  transition: opacity 0.4s linear; }
   @media (prefers-reduced-motion: reduce) {
     .fade {
       -webkit-transition: none;
@@ -4792,14 +4792,14 @@ a.close.disabled {
   margin: 0.5rem;
   pointer-events: none; }
   .modal.fade .modal-dialog {
-    -webkit-transition: -webkit-transform 0.3s ease-out;
+    /*-webkit-transition: -webkit-transform 0.3s ease-out;
     transition: -webkit-transform 0.3s ease-out;
     -o-transition: transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
     transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
     -webkit-transform: translate(0, -50px);
     -ms-transform: translate(0, -50px);
-    transform: translate(0, -50px); }
+    transform: translate(0, -50px);*/ }
     @media (prefers-reduced-motion: reduce) {
       .modal.fade .modal-dialog {
         -webkit-transition: none;
@@ -5004,7 +5004,11 @@ a.close.disabled {
   line-break: auto;
   font-size: 0.875rem;
   word-wrap: break-word;
-  opacity: 0; }
+  opacity: 0;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+  }
   .tooltip.show {
     opacity: 0.9; }
   .tooltip .arrow {
@@ -5061,9 +5065,9 @@ a.close.disabled {
 .tooltip-inner {
   max-width: 200px;
   padding: 0.25rem 0.5rem;
-  color: #fff;
+  color: #d2d3d4 ;
   text-align: center;
-  background-color: #000;
+  background-color: #21252B;
   border-radius: 0.25rem; }
 
 .popover {

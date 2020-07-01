@@ -251,13 +251,6 @@
               </li>
             </ul>
           </li>
-
-
-
-
-
-
-
           <li class="nav-major electron">
             <a class="navItem" id="nav-firmwarePage" onclick="loadContent('firmwarePage')" href="#">
               <i class="fas fa-microchip"></i>
@@ -276,21 +269,23 @@
     <div id="content" class="p-4 p-md-5">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary">
+          <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary" data-toggle="tooltip" title="Скрыть/показать меню">
             <i class="fa fa-bars"></i>
           </button>
-          <button aria-label="Refresh data" id="refreshData-button" onclick="connectUpdate()" class="btn btn-primary">
+          <button aria-label="Refresh data" id="refreshData-button" onclick="connectUpdate()" class="btn btn-primary" data-toggle="tooltip" title="Обновить данные из контроллера">
             <i class="fa fa-refresh" id="i-loading"></i>
           </button>
-          <button aria-label="Upload data" id="uploadData-button" onclick="connectGrab()" class="btn btn-primary">
+          <button aria-label="Upload data" id="uploadData-button" onclick="connectGrab()" class="btn btn-primary" data-toggle="tooltip" title="Загрузить данные в контроллер">
             <i class="fa fa-upload" id="i-upload"></i>
           </button>
         </div>
 
         <div class="connect-container electron">
-          <button aria-label="Connection" id="modalConnect-button" data-toggle="modal" data-target="#connectionModal" onclick="" class="btn btn-primary">
-            <i class="fas fa-plug"></i>
-          </button>
+          <div data-toggle="tooltip" title="Параметры подключения">
+            <button aria-label="Connection" id="modalConnect-button" data-toggle="modal" data-target="#connectionModal" onclick="" class="btn btn-primary">
+              <i class="fas fa-plug"></i>
+            </button>
+          </div>
         </div>
       </nav>
       <!------------------------------------------------------------------------------------------------------------->
@@ -399,9 +394,11 @@
               </select>
             </div>
             <div class="col-sm-auto">
-              <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('oil')" id="oilPressureSensorSetup">
-                <i class="fa fa-chart-line"></i>
-              </button>
+              <div data-toggle="tooltip" title="Редактировать датчик">
+                <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('oil')" id="oilPressureSensorSetup">
+                  <i class="fa fa-chart-line"></i>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -494,9 +491,11 @@
               </select>
             </div>
             <div class="col-sm-auto">
-              <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('coolant')" id="coolantTempSensorSetup">
-                <i class="fa fa-chart-line"></i>
-              </button>
+              <div data-toggle="tooltip" title="Редактировать датчик">
+                <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('coolant')" id="coolantTempSensorSetup">
+                  <i class="fa fa-chart-line"></i>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -659,9 +658,11 @@
             </select>
           </div>
           <div class="col-sm-auto">
-            <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('fuel')" id="fuelLevelSensorSetup">
-              <i class="fa fa-chart-line"></i>
-            </button>
+            <div data-toggle="tooltip" title="Редактировать датчик">
+              <button type="button" aria-label="Sensor data" class="btn btn-primary" data-toggle="modal" data-target="#sensorModal" onclick="sensorModalInit('fuel')" id="fuelLevelSensorSetup">
+                <i class="fa fa-chart-line"></i>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -3395,7 +3396,7 @@
         <h1>Страница находиться в разработке</h1>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div class="modal" id="sensorModal" tabindex="-1" role="dialog">
+      <div class="modal fade" id="sensorModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -3409,29 +3410,29 @@
             </div>
             <div class="modal-footer">
               <div class="modal-footer-left">
-                <button type="button" aria-label="Save" class="btn btn-primary" onclick="saveChartData()">
+                <button type="button" aria-label="Save" class="btn btn-primary" onclick="saveChartData()" data-toggle="tooltip" title="Сохранить">
                   <i class="fas fa-save"></i>
                   <span class="sr-only">Сохранить</span>
                 </button>
-                <button type="button" aria-label="Save to PC" class="btn btn-primary" onclick="downloadSensorData()">
+                <button type="button" aria-label="Save to PC" class="btn btn-primary" onclick="downloadSensorData()" data-toggle="tooltip" title="Скачать">
                   <i class="fas fa-download"></i>
                   <span class="sr-only">Сохранить на ПК</span>
                 </button>
-                <button  type="button" aria-label="Load from PC" class="btn btn-primary" onclick="uploadSensorData()">
+                <button  type="button" aria-label="Load from PC" class="btn btn-primary" onclick="uploadSensorData()" data-toggle="tooltip" title="Загрузить">
                   <i class="fas fa-upload"></i>
                   <span  class="sr-only">Загрузить с ПК</span>
                 </button>
-                <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal">
+                <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Закрыть">
                   <i class="fas fa-times"></i>
                   <span class="sr-only">Закрыть</span>
                 </button>
               </div>
               <div class="modal-footer-right">
-                <button type="button" aria-label="Add point" onclick="addChartPoint()" class="btn btn-primary">
+                <button type="button" aria-label="Add point" onclick="addChartPoint()" class="btn btn-primary" data-toggle="tooltip" title="Добавить точку">
                   <i class="fa fa-plus"></i>
                   <span class="sr-only">Add point</span>
                 </button>
-                <button type="button" aria-label="Remove point" onclick="removeChartPoint()" class="btn btn-primary">
+                <button type="button" aria-label="Remove point" onclick="removeChartPoint()" class="btn btn-primary" data-toggle="tooltip" title="Удалить точку">
                   <i class="fa fa-minus"></i>
                   <span class="sr-only">Remove point</span>
                 </button>
@@ -3439,7 +3440,7 @@
                 <input type="number" class="form-control axis-input" id="chartXedit" disabled="false" step="0.01">
                 <label>Y:</label>
                 <input type="number" class="form-control axis-input" id="chartYedit" disabled="false" step="0.01">
-                <button type="button" id="chartApplay" aria-label="Remove point" disabled="false" onclick="" class="btn btn-primary">
+                <button type="button" id="chartApplay" aria-label="Remove point" disabled="false" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Изменить координаты">
                   <i class="fas fa-check-circle"></i>
                   <span class="sr-only">Edit point</span>
                 </button>
@@ -3461,10 +3462,10 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-sm">
-                  <button type="button" id="usb-button" onclick="setConnect('usb')" class="btn btn-success">
+                  <button type="button" id="usb-button" onclick="setConnect('usb')" class="btn btn-success" data-toggle="tooltip" title="Подключение по USB">
                     <i class="fab fa-usb"></i>
                   </button>
-                  <button type="button" id="eth-button" onclick="setConnect('eth')" class="btn btn-secondary">
+                  <button type="button" id="eth-button" onclick="setConnect('eth')" class="btn btn-secondary" data-toggle="tooltip" title="Подключение ао Ethernet">
                     <i class="fas fa-ethernet"></i>
                   </button>
                 </div>
@@ -3478,16 +3479,16 @@
             </div>
             <div class="modal-footer">
               <div class="modal-footer-left">
-                <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal">
+                <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Закрыть">
                   <i class="fas fa-times"></i>
                   <span class="sr-only">Закрыть</span>
                 </button>
-                <button id="connect-button" type="button" class="btn btn-primary" data-dismiss="modal">
+                <button id="connect-button" type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="tooltip" title="Подключить">
                   <i class="fas fa-plug"></i>
                   <span class="sr-only">Подключить</span>
                 </button>
 
-                <button id="disconnect-button" type="button" class="btn btn-primary" data-dismiss="modal">
+                <button id="disconnect-button" type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="tooltip" title="Отключить">
                   <i class="fas fa-ban"></i>
                   <span class="sr-only">Отключить</span>
                 </button>
@@ -3516,6 +3517,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+
     <!--------------------------------------------------------------------------------------------------------------->
     <script>
       require('./render')
