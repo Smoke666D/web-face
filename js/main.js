@@ -610,6 +610,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		if ( electronApp > 0 ) {
 			document.getElementById("refreshData-button").disabled = true;
 			document.getElementById("uploadData-button").disabled = true;
+			ipv4AdrMask();
 		}
 		document.getElementById("versionSowtware").innerHTML = softwareVersion;
 
