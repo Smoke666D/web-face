@@ -1077,21 +1077,6 @@ var dataReg = [
    "bit": []
 },{
    "page": 0,
-   "adr": 50,
-   "name": "timerPreheating",
-   "value": 5,
-   "default": 5,
-   "scale": 0,
-   "min": 0,
-   "max": 300,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "page": 0,
    "adr": 51,
    "name": "timerCranking",
    "value": 10,
@@ -1924,7 +1909,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 3,
+   "bitMapSize": 2,
    "bit": [
        {
            "name": "engineStartAttempts",
@@ -1938,12 +1923,6 @@ var dataReg = [
            "min": 0,
            "max": 1,
            "shift": 4,
-       },{
-           "name": "enginePostHeatEnb",
-           "mask": 32,
-           "min": 0,
-           "max": 1,
-           "shift": 5,
        },
    ]
 },{
@@ -1965,36 +1944,6 @@ var dataReg = [
    "page": 0,
    "adr": 98,
    "name": "enginePreHeatDelay",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 3600,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "page": 0,
-   "adr": 99,
-   "name": "enginePostHeatLevel",
-   "value": 50,
-   "default": 50,
-   "scale": 0,
-   "min": 0,
-   "max": 100,
-   "units": "C",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "page": 0,
-   "adr": 100,
-   "name": "enginePostHeatDelay",
    "value": 0,
    "default": 0,
    "scale": 0,

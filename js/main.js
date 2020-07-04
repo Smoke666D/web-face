@@ -598,7 +598,6 @@ function slider4InitLimits(id1,id2,id3,id4) {
 //******************************************************************************
 //******************************************************************************
 document.addEventListener("DOMContentLoaded", function(event) {
-	try {
 		$( function () {
   		$('[data-toggle="tooltip"]').tooltip({
 				delay: { 'show': 500, 'hide': 0 },
@@ -646,9 +645,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			updateInterface();
 		}, 1);
 		loadContent("devicePage");
-	} catch {
-		return;
-	}
+
 	return;
 });
 //******************************************************************************

@@ -209,9 +209,9 @@
               <li>
                 <a class="navItem" id="nav-crankshaftPage" onclick="loadContent('crankshaftPage')" href="#">
                   <div class="fas">
-                    <svg class="svg-icon" viewBox="0 -76 512 512"><path d="M15 210h46v15c0 8 7 15 15 15h15V90H76c-8 0-15 7-15 15v15H15c-8 0-15 7-15 15v60c0 8 7 15 15 15zm0 0M211 315V15c0-8-7-15-15-15-41 0-75 34-75 75v240a45 45 0 0090 0zm0 0M316 0c-20 0-36 13-42 30h-33v120h30v165a45 45 0 0090 0V45c0-25-20-45-45-45zm0 0M512 45c0-25-21-45-46-45s-45 20-45 45v195h-30v90h30v15c0 8 7 15 15 15 41 0 76-34 76-75zm0 0"/></svg>
+                    <svg class="svg-icon"  viewBox="0 -80 512 512"><path d="m0 16h48v32h-48zm0 0"/><path d="m0 251.550781v36.449219h32v-36.449219c-4.726562 2.753907-10.144531 4.449219-16 4.449219s-11.273438-1.6875-16-4.449219zm0 0"/><path d="m32 224c0 8.835938-7.164062 16-16 16s-16-7.164062-16-16 7.164062-16 16-16 16 7.164062 16 16zm0 0"/><path d="m80 0h-8c-4.414062 0-8 3.585938-8 8v72h16zm0 0"/><path d="m272 16h32v-8c0-4.414062-3.585938-8-8-8h-200v80h176zm0 0"/><path d="m448 184h16v48h-16zm0 0"/><path d="m416 168h16v80h-16zm0 0"/><path d="m352 144v128h21.335938l26.664062-20v-88l-26.664062-20zm0 0"/><path d="m0 196.457031c4.726562-2.753906 10.144531-4.449219 16-4.449219s11.273438 1.695313 16 4.449219v-36.449219h-32zm0 0"/><path d="m296 96h-24v192h-16v-192h-200c-4.414062 0-8 3.585938-8 8v192c0 4.414062 3.585938 8 8 8h24v-184h16v184h200c4.414062 0 8-3.585938 8-8v-192c0-4.40625-3.585938-8-8-8zm0 0"/><path d="m328 32h-40v48h8c13.230469 0 24 10.769531 24 24v184h8c4.414062 0 8-3.585938 8-8v-240c0-4.40625-3.585938-8-8-8zm0 0"/></svg>
                   </div>
-                  <span>Отключение коленчатого вала</span>
+                  <span>Отключение стартера</span>
                 </a>
               </li>
               <li>
@@ -1899,21 +1899,6 @@
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Предпрогрев</label>
-          </div>
-          <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerPreheating" step="1">
-          </div>
-          <div class="col-dimension">
-            <label class="pos-unit" id="label-timerPreheating">сек</label>
-          </div>
-          <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-timerPreheating"></div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-2 pos-name">
             <label>Прокрутка стартера</label>
           </div>
           <div class="col-sm-auto">
@@ -2898,48 +2883,35 @@
             <div class="s-slider" id="s-slider-enginePreHeatDelay"></div>
           </div>
         </div>
-        <h6>Остывание стартера</h6>
+
+
+        <h6>Моточасы</h6>
         <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Моточасы</label>
+          </div>
           <div class="col-sm-auto">
-            <label class="switch">
-              <input type="checkbox" class="check-input" id="enginePostHeatEnb">
-              <span class="slider"></span>
-            </label>
-            <label class="form-check-label">Активирован</label>
+            <input type="number" min="1" class="form-control in-num" id="engineWorkTime">
+          </div>
+          <div class="col-sm-2 pos-name">
+            <label>часов</label>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Включен</label>
+            <label>Количество пусков</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-enginePostHeatLevel" step="1">
+            <input type="number" min="1" class="form-control in-num" id="engineStartsNumber">
           </div>
-          <div class="col-dimension">
-            <label class="pos-unit" id="label-enginePostHeatLevel">'C</label>
-          </div>
-          <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-enginePostHeatLevel"></div>
-          </div>
-        </div>
-        <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Длительность</label>
-          </div>
-          <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-enginePostHeatDelay" step="1">
-          </div>
-          <div class="col-dimension">
-            <label class="pos-unit" id="label-enginePostHeatDelay">сек</label>
-          </div>
-          <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-enginePostHeatDelay"></div>
+            <label>раз</label>
           </div>
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="crankshaftPage" class="content-data hidden">
-        <h5>Отключение коленчатого вала</h5>
+        <h5>Отключение стартера</h5>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -2949,10 +2921,10 @@
             <label class="form-check-label">Перед запуском проверить давление масла</label>
           </div>
         </div>
-        <h6>Отключение коленчатого вала</h6>
+        <h6>Отключение стартера по</h6>
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Частота генератора</label>
+            <label>Частоте генератора</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-crankDisconnectgenFreqLevel" step="1">
@@ -2970,7 +2942,7 @@
               <input type="checkbox" class="check-input" id="crankDisconnectOilPressureEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Активировать по давлению масла</label>
+            <label class="form-check-label">Давлению масла</label>
           </div>
         </div>
         <div class="row">
@@ -2993,12 +2965,12 @@
               <input type="checkbox" class="check-input" id="crankDisconnectChargeAlternatorEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Зарядный генератор</label>
+            <label class="form-check-label">Напряжению зарядного генератор</label>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label></label>
+            <label>Напряжение</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-crankDisconnectChargeAlternatorLevel" step="1">
@@ -3010,6 +2982,31 @@
             <div class="s-slider" id="s-slider-crankDisconnectChargeAlternatorLevel"></div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="crankDisconnectSpeedEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Оборотам двигателя</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Обороты</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-crankDisconnectSpeedLevel" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-crankDisconnectSpeedLevel">RPM</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-crankDisconnectSpeedLevel"></div>
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="battaryPage" class="content-data hidden">
@@ -3203,6 +3200,13 @@
             <div class="s-slider" id="s-slider-maintenanceAlarmOilTime"></div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <button aria-label="Connect" id="boot-connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Сбросить счетчик">
+              <i class="fas fa-broom"></i>
+            </button>
+          </div>
+        </div>
         <h6>Воздух</h6>
         <div class="row">
           <div class="col-sm-auto">
@@ -3284,7 +3288,7 @@
               <th>Дата</th>
               <th>Время</th>
               <th>Тип</th>
-              <th>Сообшение</th>
+              <th>Сообщение</th>
               <th>Действие</th>
             </tr>
           </thead>
