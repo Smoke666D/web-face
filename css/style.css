@@ -8723,3 +8723,10 @@ input:checked + .slider:before {
     .controll-panel .btn span {}
     .controll-panel .btn i {
 }
+
+::selection {
+  background: #f8b739;
+}
+::-moz-selection {
+  background: #f8b739;
+}
