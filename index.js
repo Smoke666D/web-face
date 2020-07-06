@@ -4,9 +4,9 @@ function createWindow () {
   let win = new BrowserWindow({
     backgroundColor: '#373a40',
     minWidth:  1200,
-    minHeight: 800,
+    minHeight: 700,
     width:     1200,
-    height:    800,
+    height:    700,
     frame:     false,
     hasShadow: true,
     icon:      __dirname + "/img/favicon-32x32.png",

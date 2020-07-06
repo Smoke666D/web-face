@@ -51,8 +51,13 @@ function navbarToogling() {
 		genPages = document.getElementById("genCollapse");
 		if ( genSw.checked == false ) {
   		genPages.classList.add("hide");
+			document.getElementById('sinput-starterStopgenFreqLevel').disabled = true;
+			document.getElementById('s-slider-starterStopgenFreqLevel').setAttribute('disabled', false);
+
 		} else {
 			genPages.classList.remove("hide");
+			document.getElementById('sinput-starterStopgenFreqLevel').disabled = false;
+			document.getElementById('s-slider-starterStopgenFreqLevel').removeAttribute('disabled');
 		}
 	}
 	function networkToogle() {
@@ -350,7 +355,7 @@ function oilScaleInit() {
 	this.label  = document.getElementById("oilScaleString");
 	self.slider0 = new Slider("oilPressurePreAlarmLevel",0);
 	self.slider1 = new Slider("oilPressureAlarmLevel",0);
-	self.slider2 = new Slider("crankDisconnectOilPressureLevel",0);
+	self.slider2 = new Slider("starterStopOilPressureLevel",0);
 
 	function calcOilScale() {
 		self.slider0.grab();
@@ -451,7 +456,7 @@ function doInit(letter) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function ainInit(master,checkers,slaves) {
+function ainInit(master,checkers,slaves,callback) {
 	function setDisabled() {
 		if ( document.getElementById(master).value == 0 ) {
 			for ( var i=0; i<checkers.length; i++ ) {
@@ -471,6 +476,7 @@ function ainInit(master,checkers,slaves) {
 				document.getElementById(checkers[i]).disabled = false;
 			}
 		}
+		callback();
 	}
 	setDisabled();
 	document.getElementById(master).addEventListener('change',function(){
@@ -593,7 +599,7 @@ function slider4InitLimits(id1,id2,id3,id4) {
 		}
 	});
 	return;
-}
+ }
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -624,9 +630,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		doInit('d');
 		doInit('e');
 		doInit('f');
-		ainInit('oilPressureSensorType',['oilPressureOpenCircuitAlarmEnb','oilPressureAlarmEnb','oilPressurePreAlarmEnb'],['sinput-oilPressureAlarmLevel','s-slider-oilPressureAlarmLevel','sinput-oilPressurePreAlarmLevel','s-slider-oilPressurePreAlarmLevel']);
-		ainInit('coolantTempSensorType',['coolantTempOpenCircuitAlarmEnb','coolantHightTempAlarmEnb','coolantHightTempPreAlarmEnb','coolantTempHeaterEnb','coolantTempCoolerEnb'],['sinput-coolantHightTempAlarmLevel','s-slider-coolantHightTempAlarmLevel','sinput-coolantHightTempPreAlarmLevel','s-slider-coolantHightTempPreAlarmLevel','sinput-coolantTempHeaterOnLevel','s-slider-coolantTempHeaterOnLevel','sinput-coolantTempHeaterOffLevel','s-slider-coolantTempHeaterOffLevel','sinput-coolantTempCoolerOffLevel','s-slider-coolantTempCoolerOffLevel','sinput-coolantTempCoolerOnLevel','s-slider-coolantTempCoolerOnLevel']);
-		ainInit('fuelLevelSensorType',['fuelLevelLowAlarmEnb','fuelLevelLowPreAlarmEnb','fuelLevelHightAlarmEnb','fuelLevelHightPreAlarmEnb','fuelPumpEnb'],['fuelLevelLowAlarmAction','sinput-fuelLevelLowAlarmLevel','s-slider-fuelLevelLowAlarmLevel','sinput-fuelLevelLowAlarmDelay','s-slider-fuelLevelLowAlarmDelay','sinput-fuelLevelLowPreAlarmLevel','s-slider-fuelLevelLowPreAlarmLevel','sinput-fuelLevelLowPreAlarmDelay','s-slider-fuelLevelLowPreAlarmDelay','fuelLevelHightAlarmAction','sinput-fuelLevelHightAlarmLevel','s-slider-fuelLevelHightAlarmLevel','sinput-fuelLevelHightAlarmDelay','s-slider-fuelLevelHightAlarmDelay','sinput-fuelLevelHightPreAlarmLevel','s-slider-fuelLevelHightPreAlarmLevel','sinput-fuelLevelHightPreAlarmDelay','s-slider-fuelLevelHightPreAlarmDelay','sinput-fuelPumpOffLevel','s-slider-fuelPumpOffLevel','sinput-fuelPumpOnLevel','s-slider-fuelPumpOnLevel']);
+		ainInit('oilPressureSensorType',['oilPressureOpenCircuitAlarmEnb','oilPressureAlarmEnb','oilPressurePreAlarmEnb'],['sinput-oilPressureAlarmLevel','s-slider-oilPressureAlarmLevel','sinput-oilPressurePreAlarmLevel','s-slider-oilPressurePreAlarmLevel'], function() {
+			document.getElementById('starterStopOilPressureEnb').checked = false;
+			document.getElementById('sinput-starterStopOilPressureLevel').disabled = true;
+			document.getElementById('s-slider-starterStopOilPressureLevel').setAttribute('disabled', false);
+			return;
+		});
+		ainInit('coolantTempSensorType',['coolantTempOpenCircuitAlarmEnb','coolantHightTempAlarmEnb','coolantHightTempPreAlarmEnb','coolantTempHeaterEnb','coolantTempCoolerEnb'],['sinput-coolantHightTempAlarmLevel','s-slider-coolantHightTempAlarmLevel','sinput-coolantHightTempPreAlarmLevel','s-slider-coolantHightTempPreAlarmLevel','sinput-coolantTempHeaterOnLevel','s-slider-coolantTempHeaterOnLevel','sinput-coolantTempHeaterOffLevel','s-slider-coolantTempHeaterOffLevel','sinput-coolantTempCoolerOffLevel','s-slider-coolantTempCoolerOffLevel','sinput-coolantTempCoolerOnLevel','s-slider-coolantTempCoolerOnLevel'], function(){return;});
+		ainInit('fuelLevelSensorType',['fuelLevelLowAlarmEnb','fuelLevelLowPreAlarmEnb','fuelLevelHightAlarmEnb','fuelLevelHightPreAlarmEnb','fuelPumpEnb'],['fuelLevelLowAlarmAction','sinput-fuelLevelLowAlarmLevel','s-slider-fuelLevelLowAlarmLevel','sinput-fuelLevelLowAlarmDelay','s-slider-fuelLevelLowAlarmDelay','sinput-fuelLevelLowPreAlarmLevel','s-slider-fuelLevelLowPreAlarmLevel','sinput-fuelLevelLowPreAlarmDelay','s-slider-fuelLevelLowPreAlarmDelay','fuelLevelHightAlarmAction','sinput-fuelLevelHightAlarmLevel','s-slider-fuelLevelHightAlarmLevel','sinput-fuelLevelHightAlarmDelay','s-slider-fuelLevelHightAlarmDelay','sinput-fuelLevelHightPreAlarmLevel','s-slider-fuelLevelHightPreAlarmLevel','sinput-fuelLevelHightPreAlarmDelay','s-slider-fuelLevelHightPreAlarmDelay','sinput-fuelPumpOffLevel','s-slider-fuelPumpOffLevel','sinput-fuelPumpOnLevel','s-slider-fuelPumpOnLevel'], function(){return;});
 		powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
 		if (electronApp == 0) {
 			ethDataUpdate(function(){return;});

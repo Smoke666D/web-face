@@ -50,7 +50,7 @@ function Alert(type,ico,text) {
         document.getElementById('alert'+self.index).remove();
 
     }, 1*1000);
-  }, 3*1000);
+  }, 6*1000);
 }
 //------------------------------------------------------------------------------
 module.exports.Alert = Alert;

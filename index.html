@@ -328,7 +328,6 @@
           </div>
         </div>
 
-
         <h6>Дисплей</h6>
 
         <div class="row">
@@ -371,12 +370,12 @@
           <div class="col-dimension">
             <label class="pos-unit" id="label-displaySleepDelay">сек</label>
           </div>
-
           <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-displaySleepDelay"></div>
           </div>
-
         </div>
+
+        
 
       </div>
       <!------------------------------------------------------------------------------------------------------------->
@@ -2891,7 +2890,7 @@
             <label>Моточасы</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="1" class="form-control in-num" id="engineWorkTime">
+            <input type="number" min="0" max="65535" class="form-control in-num" id="engineWorkTimeInput">
           </div>
           <div class="col-sm-2 pos-name">
             <label>часов</label>
@@ -2902,7 +2901,7 @@
             <label>Количество пусков</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="1" class="form-control in-num" id="engineStartsNumber">
+            <input type="number" min="0" max="65535" class="form-control in-num" id="engineStartsNumberInput">
           </div>
           <div class="col-sm-2 pos-name">
             <label>раз</label>
@@ -2927,19 +2926,19 @@
             <label>Частоте генератора</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-crankDisconnectgenFreqLevel" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-starterStopgenFreqLevel" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit" id="label-crankDisconnectgenFreqLevel">Гц</label>
+            <label class="pos-unit" id="label-starterStopgenFreqLevel">Гц</label>
           </div>
           <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-crankDisconnectgenFreqLevel"></div>
+            <div class="s-slider" id="s-slider-starterStopgenFreqLevel"></div>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="crankDisconnectOilPressureEnb">
+              <input type="checkbox" class="check-input" id="starterStopOilPressureEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Давлению масла</label>
@@ -2950,19 +2949,19 @@
             <label>Давление масла</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-crankDisconnectOilPressureLevel" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-starterStopOilPressureLevel" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit" id="label-crankDisconnectOilPressureLevel">Bar</label>
+            <label class="pos-unit" id="label-starterStopOilPressureLevel">Bar</label>
           </div>
           <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-crankDisconnectOilPressureLevel"></div>
+            <div class="s-slider" id="s-slider-starterStopOilPressureLevel"></div>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="crankDisconnectChargeAlternatorEnb">
+              <input type="checkbox" class="check-input" id="starterStopChargeAlternatorEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Напряжению зарядного генератор</label>
@@ -2973,20 +2972,20 @@
             <label>Напряжение</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-crankDisconnectChargeAlternatorLevel" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-starterStopChargeAlternatorLevel" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit" id="label-crankDisconnectChargeAlternatorLevel">B</label>
+            <label class="pos-unit" id="label-starterStopChargeAlternatorLevel">B</label>
           </div>
           <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-crankDisconnectChargeAlternatorLevel"></div>
+            <div class="s-slider" id="s-slider-starterStopChargeAlternatorLevel"></div>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="crankDisconnectSpeedEnb">
+              <input type="checkbox" class="check-input" id="starterStopSpeedEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Оборотам двигателя</label>
@@ -2997,13 +2996,13 @@
             <label>Обороты</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-crankDisconnectSpeedLevel" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-starterStopSpeedLevel" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit" id="label-crankDisconnectSpeedLevel">RPM</label>
+            <label class="pos-unit" id="label-starterStopSpeedLevel">RPM</label>
           </div>
           <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-crankDisconnectSpeedLevel"></div>
+            <div class="s-slider" id="s-slider-starterStopSpeedLevel"></div>
           </div>
         </div>
 
@@ -3179,7 +3178,7 @@
           <div class="col-sm-2 pos-name">
             <label>Действие</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-sm-2">
             <select class="custom-select sensor-select" id="maintenanceAlarmOilAction">
               <option value="0">Отключение</option>
               <option value="1">Предупреждение</option>
@@ -3202,11 +3201,22 @@
         </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <button aria-label="Connect" id="boot-connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Сбросить счетчик">
-              <i class="fas fa-broom"></i>
+            <label>Таймер</label>
+          </div>
+          <div class="col-sm-auto">
+            <button aria-label="Connect" id="reset-maintenanceAlarmOilTimeLeft" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Сбросить счетчик">
+              <i class="fas fa-eraser"></i>
             </button>
           </div>
+          <div class="col-sm col-slider">
+            <div class="progress offset-0">
+              <div id="progress-maintenanceAlarmOilTimeLeft" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%;">
+              </div>
+            </div>
+          </div>
         </div>
+
+
         <h6>Воздух</h6>
         <div class="row">
           <div class="col-sm-auto">
@@ -3221,7 +3231,7 @@
           <div class="col-sm-2 pos-name">
             <label>Действие</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-sm-2">
             <select class="custom-select sensor-select" id="maintenanceAlarmAirAction">
               <option value="0">Отключение</option>
               <option value="1">Предупреждение</option>
@@ -3242,6 +3252,23 @@
             <div class="s-slider" id="s-slider-maintenanceAlarmAirTime"></div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Таймер</label>
+          </div>
+          <div class="col-sm-auto">
+            <button aria-label="Connect" id="reset-maintenanceAlarmAirTimeLeft" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Сбросить счетчик">
+              <i class="fas fa-eraser"></i>
+            </button>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="progress offset-0">
+              <div id="progress-maintenanceAlarmAirTimeLeft" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%;">
+              </div>
+            </div>
+          </div>
+        </div>
+
         <h6>Топливо</h6>
         <div class="row">
           <div class="col-sm-auto">
@@ -3256,7 +3283,7 @@
           <div class="col-sm-2 pos-name">
             <label>Действие</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-sm-2">
             <select class="custom-select sensor-select" id="maintenanceAlarmFuelAction">
               <option value="0">Отключение</option>
               <option value="1">Предупреждение</option>
@@ -3277,6 +3304,23 @@
             <div class="s-slider" id="s-slider-maintenanceAlarmFuelTime"></div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Таймер</label>
+          </div>
+          <div class="col-sm-auto">
+            <button aria-label="Connect" id="reset-maintenanceAlarmFuelTimeLeft" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Сбросить счетчик">
+              <i class="fas fa-eraser"></i>
+            </button>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="progress offset-0">
+              <div id="progress-maintenanceAlarmFuelTimeLeft" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%;">
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
@@ -3345,7 +3389,6 @@
         <div class="controll-panel">
           <div class="progress">
             <div id="boot-progress" class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: 0%;">
-
             </div>
           </div>
         </div>

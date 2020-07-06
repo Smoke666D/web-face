@@ -1328,6 +1328,9 @@ pre {
   -ms-flex-order: 12;
   order: 12; }
 
+.offset-0 {
+  margin-left: 73px;}
+
 .offset-1 {
   margin-left: 8.33333%; }
 
@@ -6147,7 +6150,7 @@ button.bg-info:focus {
   background-color: #117a8b !important; }
 
 .bg-warning {
-  background-color: #ffc107 !important; }
+  background-color: #f8b739 !important; }
 
 a.bg-warning:hover, a.bg-warning:focus,
 button.bg-warning:hover,
@@ -12742,7 +12745,7 @@ QmCC
             <label>Моточасы</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="1" class="form-control in-num" id="engineWorkTime">
+            <input type="number" min="0" max="65535" class="form-control in-num" id="engineWorkTimeInput">
           </div>
           <div class="col-sm-2 pos-name">
             <label>часов</label>
@@ -12753,7 +12756,7 @@ QmCC
             <label>Количество пусков</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="1" class="form-control in-num" id="engineStartsNumber">
+            <input type="number" min="0" max="65535" class="form-control in-num" id="engineStartsNumberInput">
           </div>
           <div class="col-sm-2 pos-name">
             <label>раз</label>
@@ -12778,19 +12781,19 @@ QmCC
             <label>Частоте генератора</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-crankDisconnectgenFreqLevel" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-starterStopgenFreqLevel" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit" id="label-crankDisconnectgenFreqLevel">Гц</label>
+            <label class="pos-unit" id="label-starterStopgenFreqLevel">Гц</label>
           </div>
           <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-crankDisconnectgenFreqLevel"></div>
+            <div class="s-slider" id="s-slider-starterStopgenFreqLevel"></div>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="crankDisconnectOilPressureEnb">
+              <input type="checkbox" class="check-input" id="starterStopOilPressureEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Давлению масла</label>
@@ -12801,19 +12804,19 @@ QmCC
             <label>Давление масла</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-crankDisconnectOilPressureLevel" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-starterStopOilPressureLevel" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit" id="label-crankDisconnectOilPressureLevel">Bar</label>
+            <label class="pos-unit" id="label-starterStopOilPressureLevel">Bar</label>
           </div>
           <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-crankDisconnectOilPressureLevel"></div>
+            <div class="s-slider" id="s-slider-starterStopOilPressureLevel"></div>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="crankDisconnectChargeAlternatorEnb">
+              <input type="checkbox" class="check-input" id="starterStopChargeAlternatorEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Напряжению зарядного генератор</label>
@@ -12824,20 +12827,20 @@ QmCC
             <label>Напряжение</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-crankDisconnectChargeAlternatorLevel" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-starterStopChargeAlternatorLevel" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit" id="label-crankDisconnectChargeAlternatorLevel">B</label>
+            <label class="pos-unit" id="label-starterStopChargeAlternatorLevel">B</label>
           </div>
           <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-crankDisconnectChargeAlternatorLevel"></div>
+            <div class="s-slider" id="s-slider-starterStopChargeAlternatorLevel"></div>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="crankDisconnectSpeedEnb">
+              <input type="checkbox" class="check-input" id="starterStopSpeedEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Оборотам двигателя</label>
@@ -12848,13 +12851,13 @@ QmCC
             <label>Обороты</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-crankDisconnectSpeedLevel" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-starterStopSpeedLevel" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit" id="label-crankDisconnectSpeedLevel">RPM</label>
+            <label class="pos-unit" id="label-starterStopSpeedLevel">RPM</label>
           </div>
           <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-crankDisconnectSpeedLevel"></div>
+            <div class="s-slider" id="s-slider-starterStopSpeedLevel"></div>
           </div>
         </div>
 
@@ -13030,7 +13033,7 @@ QmCC
           <div class="col-sm-2 pos-name">
             <label>Действие</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-sm-2">
             <select class="custom-select sensor-select" id="maintenanceAlarmOilAction">
               <option value="0">Отключение</option>
               <option value="1">Предупреждение</option>
@@ -13053,11 +13056,22 @@ QmCC
         </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <button aria-label="Connect" id="boot-connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Сбросить счетчик">
-              <i class="fas fa-broom"></i>
+            <label>Таймер</label>
+          </div>
+          <div class="col-sm-auto">
+            <button aria-label="Connect" id="reset-maintenanceAlarmOilTimeLeft" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Сбросить счетчик">
+              <i class="fas fa-eraser"></i>
             </button>
           </div>
+          <div class="col-sm col-slider">
+            <div class="progress offset-0">
+              <div id="progress-maintenanceAlarmOilTimeLeft" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%;">
+              </div>
+            </div>
+          </div>
         </div>
+
+
         <h6>Воздух</h6>
         <div class="row">
           <div class="col-sm-auto">
@@ -13072,7 +13086,7 @@ QmCC
           <div class="col-sm-2 pos-name">
             <label>Действие</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-sm-2">
             <select class="custom-select sensor-select" id="maintenanceAlarmAirAction">
               <option value="0">Отключение</option>
               <option value="1">Предупреждение</option>
@@ -13093,6 +13107,23 @@ QmCC
             <div class="s-slider" id="s-slider-maintenanceAlarmAirTime"></div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Таймер</label>
+          </div>
+          <div class="col-sm-auto">
+            <button aria-label="Connect" id="reset-maintenanceAlarmAirTimeLeft" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Сбросить счетчик">
+              <i class="fas fa-eraser"></i>
+            </button>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="progress offset-0">
+              <div id="progress-maintenanceAlarmAirTimeLeft" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%;">
+              </div>
+            </div>
+          </div>
+        </div>
+
         <h6>Топливо</h6>
         <div class="row">
           <div class="col-sm-auto">
@@ -13107,7 +13138,7 @@ QmCC
           <div class="col-sm-2 pos-name">
             <label>Действие</label>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-sm-2">
             <select class="custom-select sensor-select" id="maintenanceAlarmFuelAction">
               <option value="0">Отключение</option>
               <option value="1">Предупреждение</option>
@@ -13128,6 +13159,23 @@ QmCC
             <div class="s-slider" id="s-slider-maintenanceAlarmFuelTime"></div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Таймер</label>
+          </div>
+          <div class="col-sm-auto">
+            <button aria-label="Connect" id="reset-maintenanceAlarmFuelTimeLeft" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Сбросить счетчик">
+              <i class="fas fa-eraser"></i>
+            </button>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="progress offset-0">
+              <div id="progress-maintenanceAlarmFuelTimeLeft" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%;">
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
@@ -13344,7 +13392,7 @@ function Alert(type,ico,text) {
         document.getElementById('alert'+self.index).remove();
 
     }, 1*1000);
-  }, 3*1000);
+  }, 6*1000);
 }
 //------------------------------------------------------------------------------
 
@@ -13383,6 +13431,33 @@ function checkSettings() {
       }
     });
   }
+
+  document.getElementById('starterStopSpeedEnb').addEventListener( 'change', function() {
+    if ( ( document.getElementById('speedEnb').checked == false ) && (this.checked == true) ) {
+      this.checked = false;
+      document.getElementById('sinput-starterStopSpeedLevel').disabled = true;
+      document.getElementById('s-slider-starterStopSpeedLevel').setAttribute('disabled', false);
+      let alert = new Alert("alert-warning",'<i class="fas fa-tachometer-alt"></i>',"Вход датчика скорости оборотов не сконфигурирован.")
+    }
+  });
+
+  document.getElementById('starterStopOilPressureEnb').addEventListener( 'change', function() {
+    var type = document.getElementById( 'oilPressureSensorType' );
+    if ( this.disabled == true ) {
+      let alert = new Alert("alert-warning",'<i class="fas fa-oil-can"></i>',"Вход датчика давления масла не сконфигурирован.")
+    }
+    if ( this.checked == true ) {
+      if ( type.value == 0 ) {
+        this.checked = false;
+        document.getElementById('sinput-starterStopOilPressureLevel').disabled = true;
+        document.getElementById('s-slider-starterStopOilPressureLevel').setAttribute('disabled', false);
+        let alert = new Alert("alert-warning",'<i class="fas fa-oil-can"></i>',"Вход датчика давления масла не сконфигурирован.")
+      } else if ( ( type.value == 1 ) || ( type.value == 2 ) ) {
+        let alert = new Alert("alert-warning",'<i class="fas fa-oil-can"></i>',"Дискретный датчик давления масла недостаточно точен для критерия остановки стартера.")
+      }
+    }
+  });
+
 }
 </script>
 
@@ -14466,7 +14541,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 51,
+   "adr": 50,
    "name": "timerCranking",
    "value": 10,
    "default": 10,
@@ -14481,7 +14556,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 52,
+   "adr": 51,
    "name": "timerCrankDelay",
    "value": 10,
    "default": 10,
@@ -14496,7 +14571,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 53,
+   "adr": 52,
    "name": "timerStartupIdleTime",
    "value": 10,
    "default": 10,
@@ -14511,7 +14586,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 54,
+   "adr": 53,
    "name": "timerNominalRPMDelay",
    "value": 10,
    "default": 10,
@@ -14526,7 +14601,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 55,
+   "adr": 54,
    "name": "timerSafetyOnDelay",
    "value": 10,
    "default": 10,
@@ -14541,7 +14616,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 56,
+   "adr": 55,
    "name": "timerWarming",
    "value": 1,
    "default": 1,
@@ -14556,7 +14631,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 57,
+   "adr": 56,
    "name": "timerTransferDelay",
    "value": 6,
    "default": 6,
@@ -14571,7 +14646,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 58,
+   "adr": 57,
    "name": "timerBreakerTripPulse",
    "value": 5,
    "default": 5,
@@ -14586,7 +14661,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 59,
+   "adr": 58,
    "name": "timerBreakerClosePulse",
    "value": 5,
    "default": 5,
@@ -14601,7 +14676,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 60,
+   "adr": 59,
    "name": "timerReturnDelay",
    "value": 30,
    "default": 30,
@@ -14616,7 +14691,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 61,
+   "adr": 60,
    "name": "timerCooling",
    "value": 60,
    "default": 60,
@@ -14631,7 +14706,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 62,
+   "adr": 61,
    "name": "timerCoolingIdle",
    "value": 20,
    "default": 20,
@@ -14646,7 +14721,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 63,
+   "adr": 62,
    "name": "timerSolenoidHold",
    "value": 20,
    "default": 20,
@@ -14661,7 +14736,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 64,
+   "adr": 63,
    "name": "timerFailStopDelay",
    "value": 30,
    "default": 30,
@@ -14676,7 +14751,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 65,
+   "adr": 64,
    "name": "timerGenTransientDelay",
    "value": 10,
    "default": 10,
@@ -14691,7 +14766,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 66,
+   "adr": 65,
    "name": "genSetup",
    "value": 105,
    "default": 105,
@@ -14732,7 +14807,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 67,
+   "adr": 66,
    "name": "genRatedActivePowerLevel",
    "value": 40000,
    "default": 40000,
@@ -14747,7 +14822,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 68,
+   "adr": 67,
    "name": "genRatedReactivePowerLevel",
    "value": 0,
    "default": 0,
@@ -14762,7 +14837,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 69,
+   "adr": 68,
    "name": "genRatedApparentPowerLevel",
    "value": 200,
    "default": 200,
@@ -14777,7 +14852,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 70,
+   "adr": 69,
    "name": "genRatedFrequencyLevel",
    "value": 500,
    "default": 500,
@@ -14792,7 +14867,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 71,
+   "adr": 70,
    "name": "genCurrentPrimaryLevel",
    "value": 600,
    "default": 600,
@@ -14807,7 +14882,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 72,
+   "adr": 71,
    "name": "genCurrentFullLoadRatingLevel",
    "value": 500,
    "default": 500,
@@ -14822,7 +14897,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 73,
+   "adr": 72,
    "name": "genAlarms",
    "value": 7167,
    "default": 7167,
@@ -14911,7 +14986,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 74,
+   "adr": 73,
    "name": "genUnderVoltageAlarmLevel",
    "value": 318,
    "default": 318,
@@ -14926,7 +15001,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 75,
+   "adr": 74,
    "name": "genUnderVoltagePreAlarmLevel",
    "value": 339,
    "default": 339,
@@ -14941,7 +15016,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 76,
+   "adr": 75,
    "name": "genOverVoltagePreAlarmLevel",
    "value": 439,
    "default": 439,
@@ -14956,7 +15031,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 77,
+   "adr": 76,
    "name": "genOverVoltageAlarmLevel",
    "value": 458,
    "default": 458,
@@ -14971,7 +15046,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 78,
+   "adr": 77,
    "name": "genUnderFrequencyAlarmLevel",
    "value": 400,
    "default": 400,
@@ -14986,7 +15061,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 79,
+   "adr": 78,
    "name": "genUnderFrequencyPreAlarmLevel",
    "value": 420,
    "default": 420,
@@ -15001,7 +15076,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 80,
+   "adr": 79,
    "name": "genOverFrequencyPreAlarmLevel",
    "value": 540,
    "default": 540,
@@ -15016,7 +15091,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 81,
+   "adr": 80,
    "name": "genOverFrequencyAlarmLevel",
    "value": 550,
    "default": 550,
@@ -15031,7 +15106,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 82,
+   "adr": 81,
    "name": "genOverCurrentThermalProtectionLevel",
    "value": 20,
    "default": 20,
@@ -15046,7 +15121,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 83,
+   "adr": 82,
    "name": "genOverCurrentCutoffLevel",
    "value": 40,
    "default": 40,
@@ -15061,7 +15136,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 84,
+   "adr": 83,
    "name": "genOverCurrentAlarmLevel",
    "value": 100,
    "default": 100,
@@ -15076,7 +15151,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 85,
+   "adr": 84,
    "name": "genOverCurrentAlarmDelay",
    "value": 60,
    "default": 60,
@@ -15091,7 +15166,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 86,
+   "adr": 85,
    "name": "genCurrentOverloadProtectionLevel",
    "value": 100,
    "default": 100,
@@ -15106,7 +15181,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 87,
+   "adr": 86,
    "name": "genCurrentOverloadProtectionDelay",
    "value": 5,
    "default": 5,
@@ -15121,7 +15196,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 88,
+   "adr": 87,
    "name": "genCurrentOverPhaseImbalanceLevel",
    "value": 100,
    "default": 100,
@@ -15136,7 +15211,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 89,
+   "adr": 88,
    "name": "genCurrentOverPhaseImbalanceDelay",
    "value": 60,
    "default": 60,
@@ -15151,7 +15226,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 90,
+   "adr": 89,
    "name": "mainsSetup",
    "value": 13,
    "default": 13,
@@ -15186,7 +15261,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 91,
+   "adr": 90,
    "name": "mainsAlarms",
    "value": 15,
    "default": 15,
@@ -15227,7 +15302,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 92,
+   "adr": 91,
    "name": "mainsUnderVoltageAlarmLevel",
    "value": 318,
    "default": 318,
@@ -15242,7 +15317,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 93,
+   "adr": 92,
    "name": "mainsOverVoltageAlarmLevel",
    "value": 438,
    "default": 438,
@@ -15257,7 +15332,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 94,
+   "adr": 93,
    "name": "mainsUnderFrequencyAlarmLevel",
    "value": 450,
    "default": 450,
@@ -15272,7 +15347,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 95,
+   "adr": 94,
    "name": "mainsOverFrequencyAlarmLevel",
    "value": 520,
    "default": 520,
@@ -15287,10 +15362,10 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 96,
+   "adr": 95,
    "name": "engineSetup",
-   "value": 51,
-   "default": 51,
+   "value": 19,
+   "default": 19,
    "scale": 0,
    "min": 0,
    "max": 63,
@@ -15316,7 +15391,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 97,
+   "adr": 96,
    "name": "enginePreHeatLevel",
    "value": 50,
    "default": 50,
@@ -15331,7 +15406,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 98,
+   "adr": 97,
    "name": "enginePreHeatDelay",
    "value": 0,
    "default": 0,
@@ -15346,7 +15421,37 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 101,
+   "adr": 98,
+   "name": "engineWorkTimeInput",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 65535,
+   "units": "час",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "page": 0,
+   "adr": 99,
+   "name": "engineStartsNumberInput",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 65535,
+   "units": "",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "page": 0,
+   "adr": 100,
    "name": "crankSetup",
    "value": 10,
    "default": 10,
@@ -15357,10 +15462,10 @@ function checkSettings() {
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 4,
+   "bitMapSize": 5,
    "bit": [
        {
-           "name": "crankDisconnectOilPressureEnb",
+           "name": "starterStopOilPressureEnb",
            "mask": 1,
            "min": 0,
            "max": 1,
@@ -15372,23 +15477,29 @@ function checkSettings() {
            "max": 1,
            "shift": 1,
        },{
-           "name": "crankDisconnectOilPressureEnb",
+           "name": "starterStopOilPressureEnb",
            "mask": 4,
            "min": 0,
            "max": 1,
            "shift": 2,
        },{
-           "name": "crankDisconnectChargeAlternatorEnb",
+           "name": "starterStopChargeAlternatorEnb",
            "mask": 8,
            "min": 0,
            "max": 1,
            "shift": 3,
+       },{
+           "name": "starterStopSpeedEnb",
+           "mask": 16,
+           "min": 0,
+           "max": 1,
+           "shift": 4,
        },
    ]
 },{
    "page": 0,
-   "adr": 102,
-   "name": "crankDisconnectgenFreqLevel",
+   "adr": 101,
+   "name": "starterStopgenFreqLevel",
    "value": 210,
    "default": 210,
    "scale": -1,
@@ -15402,8 +15513,8 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 103,
-   "name": "crankDisconnectOilPressureLevel",
+   "adr": 102,
+   "name": "starterStopOilPressureLevel",
    "value": 20,
    "default": 20,
    "scale": -1,
@@ -15417,14 +15528,29 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 104,
-   "name": "crankDisconnectChargeAlternatorLevel",
+   "adr": 103,
+   "name": "starterStopChargeAlternatorLevel",
    "value": 60,
    "default": 60,
    "scale": -1,
    "min": 0,
    "max": 400,
    "units": "В",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "page": 0,
+   "adr": 104,
+   "name": "starterStopSpeedLevel",
+   "value": 15000,
+   "default": 15000,
+   "scale": -1,
+   "min": 0,
+   "max": 60000,
+   "units": "RPM",
    "type": "U",
    "rw": "rw",
    "len": 1,
@@ -15689,6 +15815,51 @@ function checkSettings() {
    "len": 1,
    "bitMapSize": 0,
    "bit": []
+},{
+   "page": 0,
+   "adr": 118,
+   "name": "maintenanceAlarmOilTimeLeft",
+   "value": 2500,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 5000,
+   "units": "час",
+   "type": "U",
+   "rw": "r",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "page": 0,
+   "adr": 119,
+   "name": "maintenanceAlarmAirTimeLeft",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 5000,
+   "units": "час",
+   "type": "U",
+   "rw": "r",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "page": 0,
+   "adr": 120,
+   "name": "maintenanceAlarmFuelTimeLeft",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 5000,
+   "units": "час",
+   "type": "U",
+   "rw": "r",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
 },];
 </script>
 
@@ -15748,8 +15919,13 @@ function navbarToogling() {
 		genPages = document.getElementById("genCollapse");
 		if ( genSw.checked == false ) {
   		genPages.classList.add("hide");
+			document.getElementById('sinput-starterStopgenFreqLevel').disabled = true;
+			document.getElementById('s-slider-starterStopgenFreqLevel').setAttribute('disabled', false);
+
 		} else {
 			genPages.classList.remove("hide");
+			document.getElementById('sinput-starterStopgenFreqLevel').disabled = false;
+			document.getElementById('s-slider-starterStopgenFreqLevel').removeAttribute('disabled');
 		}
 	}
 	function networkToogle() {
@@ -16047,7 +16223,7 @@ function oilScaleInit() {
 	this.label  = document.getElementById("oilScaleString");
 	self.slider0 = new Slider("oilPressurePreAlarmLevel",0);
 	self.slider1 = new Slider("oilPressureAlarmLevel",0);
-	self.slider2 = new Slider("crankDisconnectOilPressureLevel",0);
+	self.slider2 = new Slider("starterStopOilPressureLevel",0);
 
 	function calcOilScale() {
 		self.slider0.grab();
@@ -16148,7 +16324,7 @@ function doInit(letter) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function ainInit(master,checkers,slaves) {
+function ainInit(master,checkers,slaves,callback) {
 	function setDisabled() {
 		if ( document.getElementById(master).value == 0 ) {
 			for ( var i=0; i<checkers.length; i++ ) {
@@ -16168,6 +16344,7 @@ function ainInit(master,checkers,slaves) {
 				document.getElementById(checkers[i]).disabled = false;
 			}
 		}
+		callback();
 	}
 	setDisabled();
 	document.getElementById(master).addEventListener('change',function(){
@@ -16290,7 +16467,7 @@ function slider4InitLimits(id1,id2,id3,id4) {
 		}
 	});
 	return;
-}
+ }
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -16321,9 +16498,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		doInit('d');
 		doInit('e');
 		doInit('f');
-		ainInit('oilPressureSensorType',['oilPressureOpenCircuitAlarmEnb','oilPressureAlarmEnb','oilPressurePreAlarmEnb'],['sinput-oilPressureAlarmLevel','s-slider-oilPressureAlarmLevel','sinput-oilPressurePreAlarmLevel','s-slider-oilPressurePreAlarmLevel']);
-		ainInit('coolantTempSensorType',['coolantTempOpenCircuitAlarmEnb','coolantHightTempAlarmEnb','coolantHightTempPreAlarmEnb','coolantTempHeaterEnb','coolantTempCoolerEnb'],['sinput-coolantHightTempAlarmLevel','s-slider-coolantHightTempAlarmLevel','sinput-coolantHightTempPreAlarmLevel','s-slider-coolantHightTempPreAlarmLevel','sinput-coolantTempHeaterOnLevel','s-slider-coolantTempHeaterOnLevel','sinput-coolantTempHeaterOffLevel','s-slider-coolantTempHeaterOffLevel','sinput-coolantTempCoolerOffLevel','s-slider-coolantTempCoolerOffLevel','sinput-coolantTempCoolerOnLevel','s-slider-coolantTempCoolerOnLevel']);
-		ainInit('fuelLevelSensorType',['fuelLevelLowAlarmEnb','fuelLevelLowPreAlarmEnb','fuelLevelHightAlarmEnb','fuelLevelHightPreAlarmEnb','fuelPumpEnb'],['fuelLevelLowAlarmAction','sinput-fuelLevelLowAlarmLevel','s-slider-fuelLevelLowAlarmLevel','sinput-fuelLevelLowAlarmDelay','s-slider-fuelLevelLowAlarmDelay','sinput-fuelLevelLowPreAlarmLevel','s-slider-fuelLevelLowPreAlarmLevel','sinput-fuelLevelLowPreAlarmDelay','s-slider-fuelLevelLowPreAlarmDelay','fuelLevelHightAlarmAction','sinput-fuelLevelHightAlarmLevel','s-slider-fuelLevelHightAlarmLevel','sinput-fuelLevelHightAlarmDelay','s-slider-fuelLevelHightAlarmDelay','sinput-fuelLevelHightPreAlarmLevel','s-slider-fuelLevelHightPreAlarmLevel','sinput-fuelLevelHightPreAlarmDelay','s-slider-fuelLevelHightPreAlarmDelay','sinput-fuelPumpOffLevel','s-slider-fuelPumpOffLevel','sinput-fuelPumpOnLevel','s-slider-fuelPumpOnLevel']);
+		ainInit('oilPressureSensorType',['oilPressureOpenCircuitAlarmEnb','oilPressureAlarmEnb','oilPressurePreAlarmEnb'],['sinput-oilPressureAlarmLevel','s-slider-oilPressureAlarmLevel','sinput-oilPressurePreAlarmLevel','s-slider-oilPressurePreAlarmLevel'], function() {
+			document.getElementById('starterStopOilPressureEnb').checked = false;
+			document.getElementById('sinput-starterStopOilPressureLevel').disabled = true;
+			document.getElementById('s-slider-starterStopOilPressureLevel').setAttribute('disabled', false);
+			return;
+		});
+		ainInit('coolantTempSensorType',['coolantTempOpenCircuitAlarmEnb','coolantHightTempAlarmEnb','coolantHightTempPreAlarmEnb','coolantTempHeaterEnb','coolantTempCoolerEnb'],['sinput-coolantHightTempAlarmLevel','s-slider-coolantHightTempAlarmLevel','sinput-coolantHightTempPreAlarmLevel','s-slider-coolantHightTempPreAlarmLevel','sinput-coolantTempHeaterOnLevel','s-slider-coolantTempHeaterOnLevel','sinput-coolantTempHeaterOffLevel','s-slider-coolantTempHeaterOffLevel','sinput-coolantTempCoolerOffLevel','s-slider-coolantTempCoolerOffLevel','sinput-coolantTempCoolerOnLevel','s-slider-coolantTempCoolerOnLevel'], function(){return;});
+		ainInit('fuelLevelSensorType',['fuelLevelLowAlarmEnb','fuelLevelLowPreAlarmEnb','fuelLevelHightAlarmEnb','fuelLevelHightPreAlarmEnb','fuelPumpEnb'],['fuelLevelLowAlarmAction','sinput-fuelLevelLowAlarmLevel','s-slider-fuelLevelLowAlarmLevel','sinput-fuelLevelLowAlarmDelay','s-slider-fuelLevelLowAlarmDelay','sinput-fuelLevelLowPreAlarmLevel','s-slider-fuelLevelLowPreAlarmLevel','sinput-fuelLevelLowPreAlarmDelay','s-slider-fuelLevelLowPreAlarmDelay','fuelLevelHightAlarmAction','sinput-fuelLevelHightAlarmLevel','s-slider-fuelLevelHightAlarmLevel','sinput-fuelLevelHightAlarmDelay','s-slider-fuelLevelHightAlarmDelay','sinput-fuelLevelHightPreAlarmLevel','s-slider-fuelLevelHightPreAlarmLevel','sinput-fuelLevelHightPreAlarmDelay','s-slider-fuelLevelHightPreAlarmDelay','sinput-fuelPumpOffLevel','s-slider-fuelPumpOffLevel','sinput-fuelPumpOnLevel','s-slider-fuelPumpOnLevel'], function(){return;});
 		powerSliderInit("genRatedActivePowerLevel","genRatedReactivePowerLevel","genRatedApparentPowerLevel","cosFi","genRatedApparentPower");
 		if (electronApp == 0) {
 			ethDataUpdate(function(){return;});
@@ -16356,37 +16538,36 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     <script>
 //******************************************************************************
-function bitVal(n,reg) {
-	return (reg.value&reg.bit[n].mask)>>reg.bit[n].shift;
+function bitVal( n, reg ) {
+	return ( reg.value & reg.bit[n].mask ) >> reg.bit[n].shift;
 }
 
-function bitWrite(n,reg,val){
-	reg.value = (reg.value & (~reg.bit[n].mask)) | (val<<reg.bit[n].shift);
+function bitWrite( n, reg, val ) {
+	reg.value = ( reg.value & ( ~reg.bit[n].mask ) ) | ( val << reg.bit[n].shift );
 	return;
 }
 //******************************************************************************
-function StrLine(name) {
+function StrLine( name ) {
 	var self  = this;
 	this.name = name;
 
 	this.getData = function() {
-		for (var i=0; i<dataReg.length; i++ ) {
-			if (dataReg[i].name == name)
-			{
+		for ( var i=0; i<dataReg.length; i++ ) {
+			if ( dataReg[i].name == name ) {
 				this.regNum = i;
 			}
 		}
 		return;
 	}
 	this.init    = function() {
-		this.object = document.getElementById(name);
+		this.object = document.getElementById( name );
 		this.getData();
 		return;
 	}
 	this.update  = function() {
 		var text = "";
 		reg = dataReg[this.regNum];
-		for (var i=0; i<reg.len; i++) {
+		for ( var i=0; i<reg.len; i++ ) {
 			text += reg.value[i];
 		}
 		this.object.value = text;
@@ -16394,26 +16575,29 @@ function StrLine(name) {
 	}
 	this.grab    = function() {
 		var text = this.object.value;
-		for (var i=0; i<dataReg[this.regNum].len; i++) {
-			dataReg[this.regNum].value[i] = text.charAt(i);
+		for ( var i=0; i<dataReg[this.regNum].len; i++ ) {
+			dataReg[this.regNum].value[i] = text.charAt( i );
 		}
 		return;
 	}
 
 	this.init();
-	this.update();
+	if ( this.object ) {
+		this.update();
+	}
+	return;
 }
 //******************************************************************************
 function Switch(name) {
 	this.name = name;
 
 	this.getData = function() {
-		for(var i=0; i<dataReg.length; i++ ){
-			if (dataReg[i].bitMapSize > 0) {
-				for (var j=0; j<dataReg[i].bitMapSize; j++) {
-					if (dataReg[i].bit[j].name == this.name) {
+		for ( var i=0; i<dataReg.length; i++ ){
+			if ( dataReg[i].bitMapSize > 0 ) {
+				for ( var j=0; j<dataReg[i].bitMapSize; j++ ) {
+					if ( dataReg[i].bit[j].name == this.name ) {
 						this.regNum = i;
-						this.bitNum = j
+						this.bitNum = j;
 					}
 				}
 			}
@@ -16422,16 +16606,16 @@ function Switch(name) {
 	}
 
 	this.getVal = function() {
-		return bitVal(this.bitNum, dataReg[this.regNum]);
+		return bitVal( this.bitNum, dataReg[this.regNum] );
 	}
 
-	this.setVal = function(input) {
-		bitWrite(this.bitNum, dataReg[this.regNum],input)
+	this.setVal = function( input ) {
+		bitWrite( this.bitNum, dataReg[this.regNum], input );
 		return;
 	}
 
 	this.init = function() {
-		this.object = document.getElementById(name);
+		this.object = document.getElementById( name );
 		this.getData();
 		return;
 	}
@@ -16442,10 +16626,10 @@ function Switch(name) {
 	}
 
 	this.grab = function() {
-		if(this.object.checked > 0){
-			this.setVal(1);
+		if ( this.object.checked > 0 ) {
+			this.setVal( 1 );
 		} else {
-			this.setVal(0);
+			this.setVal( 0 );
 		}
 		return;
 	}
@@ -16454,15 +16638,82 @@ function Switch(name) {
 	return;
 }
 //******************************************************************************
-function Select(name) {
+function Progress( name ) {
 	var self = this;
 	this.name = name;
 
 	this.getData = function() {
-		for(var i=0; i<dataReg.length; i++ ){
-			if (dataReg[i].bitMapSize > 0) {
-				for (var j=0; j<dataReg[i].bitMapSize; j++) {
-					if (dataReg[i].bit[j].name == this.name) {
+		for ( var i=0; i<dataReg.length; i++ ){
+			if ( dataReg[i].name == name ) {
+				this.regNum = i;
+			}
+		}
+		return;
+	}
+
+	this.init = function() {
+		this.getData();
+		this.object = document.getElementById( "progress-" + this.name );
+		this.object.style.width = "0%";
+		swName = this.name.replace( "TimeLeft", "" ) + "Enb";
+		this.resetSw = document.getElementById( "reset-" + this.name );
+		this.sw      = new Switch( swName );
+		if ( this.sw.object ) {
+			this.enable = this.sw.getVal();
+			if ( this.checked ) {
+				self.object.disabled = false;
+				if ( self.resetSw != null )	{
+					self.resetSw.disabled = false;
+				}
+			} else {
+				self.object.disabled = true;
+				if ( self.resetSw != null )	{
+					self.resetSw.disabled = true;
+				}
+			}
+			this.sw.object.addEventListener( 'click', function() {
+				if ( this.checked ) {
+					self.object.disabled = false;
+					if ( self.resetSw != null )	{
+					  self.resetSw.disabled = false;
+					}
+				} else {
+					self.object.disabled = true;
+					if ( self.resetSw != null )	{
+					  self.resetSw.disabled = true;
+					}
+				}
+			});
+		} else {
+			this.enable = 1;
+			if ( this.resetSw != null )	{
+			  this.resetSw.disabled = false;
+			}
+		}
+	}
+
+	this.update = function() {
+		if ( this.object != null ) {
+			var val = dataReg[this.regNum].value / dataReg[this.regNum].max * 100;
+			this.object.style.width = val.toString() + '%';
+		}
+	}
+
+	this.init();
+	if ( this.object ) {
+		this.update();
+	}
+}
+//******************************************************************************
+function Select( name ) {
+	var self = this;
+	this.name    = name;
+
+	this.getData = function() {
+		for ( var i=0; i<dataReg.length; i++ ){
+			if ( dataReg[i].bitMapSize > 0 ) {
+				for ( var j=0; j<dataReg[i].bitMapSize; j++ ) {
+					if ( dataReg[i].bit[j].name == this.name ) {
 						this.regNum = i;
 						this.bitNum = j
 					}
@@ -16472,19 +16723,19 @@ function Select(name) {
 		return;
 	}
 
-	this.getVal = function() {
+	this.getVal  = function() {
 		return this.object.value;
 	}
 
-	this.init = function() {
+	this.init    = function() {
 		this.getData();
-		this.object = document.getElementById(this.name);
-		swName = this.name.replace("Action", "") + "Enb";
-		this.sw = new Switch(swName);
-		if (this.sw.object){
+		this.object = document.getElementById( this.name );
+		swName = this.name.replace( "Action", "" ) + "Enb";
+		this.sw = new Switch( swName );
+		if ( this.sw.object ) {
 			this.enable = this.sw.getVal();
-			this.sw.object.addEventListener('click', function() {
-				if (this.checked) {
+			this.sw.object.addEventListener( 'click', function() {
+				if ( this.checked ) {
 					self.object.disabled = false;
 				} else {
 					self.object.disabled = true;
@@ -16493,9 +16744,9 @@ function Select(name) {
 		} else {
 			this.enable = 1;
 		}
-		if (name.endsWith("SensorType")) {
-			this.object.addEventListener('change', function() {
-				if (self.object.value > 2) {
+		if ( name.endsWith( "SensorType" ) ) {
+			this.object.addEventListener( 'change', function() {
+				if ( self.object.value > 2 ) {
 					self.button.disabled = false;
 				} else {
 					self.button.disabled = true;
@@ -16506,17 +16757,16 @@ function Select(name) {
 	}
 
 	this.update = function() {
-		if (this.object != null)
-		{
-			this.object.value = bitVal(this.bitNum,dataReg[this.regNum]);
-			if (this.enable == 1){
+		if ( this.object != null ) {
+			this.object.value = bitVal( this.bitNum, dataReg[this.regNum] );
+			if ( this.enable == 1 ) {
 				this.object.disabled = false;
 			} else {
 				this.object.disabled = true;
 			}
-			if(name.endsWith("SensorType")){
-				this.button = document.getElementById(this.name.replace("Type","")+"Setup");
-				if (this.object.value > 2) {
+			if ( name.endsWith( "SensorType" ) ) {
+				this.button = document.getElementById( this.name.replace( "Type", "" ) + "Setup" );
+				if ( this.object.value > 2 ) {
 					this.button.disabled = false;
 				} else {
 					this.button.disabled = true;
@@ -16527,26 +16777,26 @@ function Select(name) {
 	}
 
 	this.grab = function() {
-		if (this.object != null) {
-			bitWrite(this.bitNum,dataReg[this.regNum],this.object.value);
+		if ( this.object != null ) {
+			bitWrite( this.bitNum, dataReg[this.regNum], this.object.value );
 		}
 		return;
 	}
 
 	this.init();
-	if(this.object){
+	if ( this.object ) {
 		this.update();
 	}
 	return;
 }
 //******************************************************************************
-function Radio(name) {
-	this.name = name;
+function Radio( name ) {
+	this.name    = name;
 	this.getData = function() {
-		for(var i=0; i<dataReg.length; i++ ){
-			if (dataReg[i].bitMapSize > 0) {
-				for (var j=0; j<dataReg[i].bitMapSize; j++) {
-					if (dataReg[i].bit[j].name == (this.name)) {
+		for ( var i=0; i<dataReg.length; i++ ) {
+			if ( dataReg[i].bitMapSize > 0 ) {
+				for ( var j=0; j<dataReg[i].bitMapSize; j++ ) {
+					if ( dataReg[i].bit[j].name == ( this.name ) ) {
 						this.regNum = i;
 						this.bitNum = j
 					}
@@ -16555,17 +16805,17 @@ function Radio(name) {
 		}
 		return;
 	}
-	this.init = function() {
+	this.init    = function() {
 		this.getData();
-		this.objectNO = document.getElementById(this.name.replace("NOC","") + "NO");
-		this.objectNC = document.getElementById(this.name.replace("NOC","") + "NC");
-		this.sw = null;
-		this.enable = 1;
+		this.objectNO = document.getElementById( this.name.replace( "NOC", "" ) + "NO" );
+		this.objectNC = document.getElementById( this.name.replace( "NOC", "" ) + "NC" );
+		this.sw       = null;
+		this.enable   = 1;
 		return;
 	}
-	this.update = function() {
-		if((this.objectNO)&&(this.objectNC)){
-			if(bitVal(this.bitNum,dataReg[this.regNum]) == 0) {
+	this.update  = function() {
+		if ( ( this.objectNO ) && ( this.objectNC ) ) {
+			if ( bitVal( this.bitNum, dataReg[this.regNum] ) == 0 ) {
 				this.objectNO.checked = true;
 			} else {
 				this.objectNC.checked = true;
@@ -16573,128 +16823,128 @@ function Radio(name) {
 		}
 		return;
 	}
-	this.grab = function() {
-		if((this.objectNO)&&(this.objectNC)){
-			if(this.objectNC.checked == true) {
-				bitWrite(this.bitNum,dataReg[this.regNum],1);
+	this.grab    = function() {
+		if ( ( this.objectNO ) && ( this.objectNC ) ) {
+			if ( this.objectNC.checked == true ) {
+				bitWrite( this.bitNum, dataReg[this.regNum], 1 );
 			} else {
-				bitWrite(this.bitNum,dataReg[this.regNum],0);
+				bitWrite( this.bitNum, dataReg[this.regNum], 0 );
 			}
 		}
 		return;
 	}
 	this.init();
-	if((this.objectNO)&&(this.objectNC)){
+	if ( ( this.objectNO ) && ( this.objectNC ) ) {
 		this.update();
 	}
 	return;
 }
 //******************************************************************************
-function Slider(name,preInit) {
+function Slider( name, preInit ) {
 	var self = this;
 	this.name      = name;
 	/*--------------------------------------------------------------------------*/
 	this.getData   = function() {
-		for (var i=0; i<dataReg.length; i++ ){
-			if (dataReg[i].name == name)
+		for ( var i=0; i<dataReg.length; i++ ) {
+			if ( dataReg[i].name == name )
 			{
 				this.regNum = i;
 			}
 		}
 		return;
 	}
-	this.setUnits  = function(units) {
+	this.setUnits  = function( units ) {
 		dataReg[this.regNum].units = units;
 		return;
 	}
-	this.setScale  = function(scale) {
+	this.setScale  = function( scale ) {
 		dataReg[this.regNum].scale = scale;
 		return;
 	}
 	this.init      = function() {
 		this.getData();
-		this.slider = document.getElementById("s-slider-" + this.name);
-		this.input  = document.getElementById("sinput-" + this.name);
-		this.label  = document.getElementById("label-" + this.name);
+		this.slider = document.getElementById( "s-slider-" + this.name );
+		this.input  = document.getElementById( "sinput-" + this.name );
+		this.label  = document.getElementById( "label-" + this.name );
 		var swName = this.name;
-		if(this.name.endsWith("Level")) {
-			swName = swName.substring(0, swName.length - 5);
+		if ( this.name.endsWith( "Level" ) ) {
+			swName = swName.substring( 0, ( swName.length - 5 ) );
 		}
-		if(this.name.endsWith("Time")) {
-			swName = swName.substring(0, swName.length - 4);
+		if ( this.name.endsWith( "Time" ) ) {
+			swName = swName.substring( 0, ( swName.length - 4 ) );
 		}
-		if(this.name.endsWith("Delay")) {
-			swName = swName.substring(0, swName.length - 5);
+		if ( this.name.endsWith( "Delay" ) ) {
+			swName = swName.substring( 0, ( swName.length - 5 ) );
 		}
-		swName = swName.replace("On","");
-		swName = swName.replace("Off","");
-		this.sw = new Switch(swName + "Enb")
-		if (this.sw.object){
+		swName = swName.replace( "On", "" );
+		swName = swName.replace( "Off", "" );
+		this.sw = new Switch( swName + "Enb" )
+		if ( this.sw.object ) {
 			self.enable = this.sw.getVal();
-			this.sw.object.addEventListener('click', function() {
-				if(this.checked) {
+			this.sw.object.addEventListener( 'click', function() {
+				if ( this.checked ) {
 					self.enable = 1
 					self.input.disabled = false;
-					self.slider.removeAttribute('disabled');
+					self.slider.removeAttribute( 'disabled' );
 				} else {
 					self.enable = 0
 					self.input.disabled = true;
-					self.slider.setAttribute('disabled', false);
+					self.slider.setAttribute( 'disabled', false );
 				}
 			});
 		} else {
 			this.enable = 1;
 		}
-		if ((this.name.endsWith("Delay")) || (this.name.startsWith("timer"))) {
-			this.slider.noUiSlider.on('change',function(){
-				switch(self.label.textContent) {
+		if ( ( this.name.endsWith( "Delay" ) ) || ( this.name.startsWith( "timer" ) ) ) {
+			this.slider.noUiSlider.on( 'change', function() {
+				switch( self.label.textContent ) {
 					case 'сек':
-						if (self.input.value >= 3602){
+						if ( self.input.value >= 3602 ){
 							this.scale = 0.1;
 							self.input.step  = 0.1;
 							self.label.textContent = 'ч';
 							self.slider.noUiSlider.updateOptions({
 								step: 	0.1,
-								start: [self.input.value/3600],
+								start: [self.input.value / 3600],
 								range: {
 									'min': 0,
-									'max': dataReg[self.regNum].max/3600
+									'max': dataReg[self.regNum].max / 3600
 								}
 							})
-						} else	if (self.input.value >= 61){
+						} else	if ( self.input.value >= 61 ) {
 							this.scale = 0.1;
 							self.input.step  = 0.1;
 							self.label.textContent = 'мин';
 							self.slider.noUiSlider.updateOptions({
 								step: 	0.1,
-								start: [self.input.value/60],
+								start: [self.input.value / 60],
 								range: {
 									'min': 0,
-									'max': dataReg[self.regNum].max/60
+									'max': dataReg[self.regNum].max / 60
 								}
 							})
 						}
 						break;
 					case 'мин':
-						if (self.input.value >= 62){
+						if ( self.input.value >= 62 ) {
 							this.scale = 0.1;
 							self.input.step  = 0.1;
 							self.label.textContent = 'ч';
 							self.slider.noUiSlider.updateOptions({
 								step: 	0.1,
-								start: [self.input.value/60],
+								start: [self.input.value / 60],
 								range: {
 									'min': 0,
-									'max': dataReg[self.regNum].max/3600
+									'max': dataReg[self.regNum].max / 3600
 								}
 							})
-						} else if (self.input.value <= 1) {
+						} else if ( self.input.value <= 1 ) {
 							self.calcScale();
 							self.input.step  = self.scale;
 							self.label.textContent = 'сек';
 							self.slider.noUiSlider.updateOptions({
 								step: 	this.scale,
-								start: [self.input.value*60],
+								start: [self.input.value * 60],
 								range: {
 									'min': 0,
 									'max': dataReg[self.regNum].max
@@ -16703,16 +16953,16 @@ function Slider(name,preInit) {
 						}
 						break;
 					case 'ч':
-						if (self.input.value <= 1){
+						if ( self.input.value <= 1 ) {
 							this.scale = 0.1;
 							self.input.step  = 0.1;
 							self.label.textContent = 'мин';
 							self.slider.noUiSlider.updateOptions({
 								step: 	0.1,
-								start: [self.input.value*60],
+								start: [self.input.value * 60],
 								range: {
 									'min': 0,
-									'max': dataReg[self.regNum].max/60
+									'max': dataReg[self.regNum].max / 60
 								}
 							})
 						}
@@ -16725,25 +16975,24 @@ function Slider(name,preInit) {
 		return;
 	}
 	this.calcScale = function() {
-		this.scl = Math.pow(10,dataReg[this.regNum].scale);
+		this.scl = Math.pow( 10, dataReg[this.regNum].scale );
 		return;
 	}
 	this.update    = function() {
 		reg = dataReg[this.regNum];
 		this.label.textContent = reg.units;
-
-		if (this.enable == 1){
+		if ( this.enable == 1 ) {
 			this.input.disabled = false;
-			this.slider.removeAttribute('disabled');
+			this.slider.removeAttribute( 'disabled' );
 		} else {
 			this.input.disabled = true;
-			this.slider.setAttribute('disabled', false);
+			this.slider.setAttribute( 'disabled', false );
 		}
 		this.calcScale();
 		this.input.value = reg.value * this.scl;
 		this.input.step  = this.scl;
-		this.input.addEventListener('change', function() {
-			this.value = parseFloat(this.value).toFixed(calcFracLength(this.scl));
+		this.input.addEventListener( 'change', function() {
+			this.value = parseFloat( this.value ).toFixed( calcFracLength( this.scl ) );
 		});
 		this.slider.noUiSlider.updateOptions({
 			step: 	this.scl,
@@ -16757,13 +17006,13 @@ function Slider(name,preInit) {
 	}
 	this.grab      = function() {
 		this.calcScale();
-		val = parseFloat(this.input.value) / Math.pow(10,dataReg[this.regNum].scale)
-		dataReg[this.regNum].value = parseFloat(val.toFixed(0));
+		val = parseFloat( this.input.value ) / Math.pow( 10, dataReg[this.regNum].scale )
+		dataReg[this.regNum].value = parseFloat( val.toFixed( 0 ) );
 		return;
 	}
 	/*--------------------------------------------------------------------------*/
 	this.init();
-	if ((this.slider)&&(this.input)) {
+	if ( ( this.slider ) && ( this.input ) ) {
 		this.update();
 	}
 	/*--------------------------------------------------------------------------*/
@@ -16771,13 +17020,13 @@ function Slider(name,preInit) {
 }
 //******************************************************************************
 function cosFiUpdate(){
-	slider = document.getElementById("s-slider-cosFi");
-	input = document.getElementById("sinput-cosFi");
+	slider = document.getElementById( "s-slider-cosFi" );
+	input = document.getElementById( "sinput-cosFi" );
 	input.disabled = false;
-	slider.removeAttribute('disabled');
+	slider.removeAttribute( 'disabled' );
 	input.step = 0.01;
-	input.addEventListener('change', function() {
-		this.value = parseFloat(this.value).toFixed(2);
+	input.addEventListener( 'change', function() {
+		this.value = parseFloat( this.value ).toFixed( 2 );
 	});
 	slider.noUiSlider.updateOptions({
 		step:  0.01,
@@ -16791,30 +17040,30 @@ function updateVersions() {
 	var counter = 0;
 	var major   = 0;
 	var minor   = 0;
-	for(var i=0;i<dataReg.length;i++) {
+	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].name == "versionController" ) {
-			major = Math.trunc(dataReg[i].value/1000);
-			minor = dataReg[i].value -  major*1000;
-			document.getElementById("versionController").textContent = major + '.' + minor;
+			major = Math.trunc( dataReg[i].value / 1000 );
+			minor = dataReg[i].value - major * 1000;
+			document.getElementById( "versionController" ).textContent = major + '.' + minor;
 			counter++;
 		}
 		if ( dataReg[i].name == "versionFirmware" ) {
-			major = Math.trunc(dataReg[i].value/1000);
-			minor = dataReg[i].value -  major*1000;
-			document.getElementById("versionFirmware").textContent = major + '.' + minor;
+			major = Math.trunc( dataReg[i].value / 1000 );
+			minor = dataReg[i].value - major * 1000;
+			document.getElementById( "versionFirmware" ).textContent = major + '.' + minor;
 			counter++;
 		}
 		if ( dataReg[i].name == "serialNumber" ) {
-			document.getElementById("SerialNumber").textContent = "";
-			for(var j=0;j<dataReg[i].len;j++) {
-				document.getElementById("SerialNumber").textContent += (((dataReg[i].value[j]) >> 8) & 0xFF) + ':' + ((dataReg[i].value[j]) & 0xFF);
-				if (j < (dataReg[i].len - 1)) {
-					document.getElementById("SerialNumber").textContent += ':';
+			document.getElementById( "SerialNumber" ).textContent = "";
+			for ( var j=0; j<dataReg[i].len; j++ ) {
+				document.getElementById( "SerialNumber" ).textContent += ( ( ( dataReg[i].value[j] ) >> 8 ) & 0xFF ) + ':' + ( ( dataReg[i].value[j] ) & 0xFF );
+				if ( j < ( dataReg[i].len - 1 ) ) {
+					document.getElementById( "SerialNumber" ).textContent += ':';
 				}
 			}
 			counter++;
 		}
-		if (counter == 3) {
+		if ( counter == 3 ) {
 			break;
 		}
 	}
@@ -16829,19 +17078,29 @@ var radioArray      = [];
 
 function declareStrings() {
 	for ( var i=0; i<dataReg.length; i++ ) {
-		str = dataReg[i].name;
-		if ( str.endsWith("Message") ) {
-			stringLineArray.push(new StrLine(dataReg[i].name));
+		if ( dataReg[i].name.endsWith( "Message" ) ) {
+			stringLineArray.push( new StrLine( dataReg[i].name ) );
 		}
 	}
 	return;
 }
 
+function declareProgress() {
+	for ( var i=0; i<dataReg.length; i++ ) {
+		if ( dataReg[i].name.endsWith( "TimeLeft" ) ) {
+			stringLineArray.push( new Progress( dataReg[i].name ) );
+		}
+	}
+}
+
 function declareSliders() {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		str = dataReg[i].name;
-		if (str.endsWith("Level") || str.endsWith("Delay") || str.startsWith("timer") || str.endsWith("Time")) {
-			slidersArray.push(new Slider(dataReg[i].name,1));
+		if ( dataReg[i].name.endsWith( "Level" )   ||
+		     dataReg[i].name.endsWith( "Delay" )   ||
+				 dataReg[i].name.startsWith( "timer" ) ||
+				 dataReg[i].name.endsWith( "Time" ) ) {
+			slidersArray.push( new Slider( dataReg[i].name, 1 ) );
 		}
 	}
 	return;
@@ -16849,11 +17108,11 @@ function declareSliders() {
 
 function declareSwitches() {
 	var l = 0;
-	for(var i=0; i<dataReg.length; i++) {
-		if (dataReg[i].bitMapSize > 0) {
-			for(var j=0; j<dataReg[i].bitMapSize; j++) {
-				if (dataReg[i].bit[j].name.endsWith("Enb") ) {
-					switcherArray.push(new Switch(dataReg[i].bit[j].name));
+	for ( var i=0; i<dataReg.length; i++ ) {
+		if ( dataReg[i].bitMapSize > 0 ) {
+			for ( var j=0; j<dataReg[i].bitMapSize; j++ ) {
+				if ( dataReg[i].bit[j].name.endsWith( "Enb" ) ) {
+					switcherArray.push( new Switch( dataReg[i].bit[j].name ) );
 					switcherArray[l].update();
 					l++;
 				}
@@ -16864,16 +17123,16 @@ function declareSwitches() {
 }
 
 function declareSelects() {
-	for(var i=0; i<dataReg.length; i++) {
-		if (dataReg[i].bitMapSize > 0) {
-			for(var j=0; j<dataReg[i].bitMapSize; j++) {
-				if((dataReg[i].bit[j].max > 1) ||
-					 (dataReg[i].bit[j].name.endsWith("Action")) ||
-					 (dataReg[i].bit[j].name.endsWith("Type")) ||
-					 (dataReg[i].bit[j].name.endsWith("Function")) ||
-					 (dataReg[i].bit[j].name.endsWith("Polarity")) ||
-					 (dataReg[i].bit[j].name.endsWith("Arming")) ) {
-					selectorArray.push(new Select(dataReg[i].bit[j].name));
+	for ( var i=0; i<dataReg.length; i++ ) {
+		if ( dataReg[i].bitMapSize > 0 ) {
+			for ( var j=0; j<dataReg[i].bitMapSize; j++ ) {
+				if ( ( dataReg[i].bit[j].max > 1 ) ||
+					   ( dataReg[i].bit[j].name.endsWith( "Action" ) )   ||
+					   ( dataReg[i].bit[j].name.endsWith( "Type" ) )     ||
+					   ( dataReg[i].bit[j].name.endsWith( "Function" ) ) ||
+					   ( dataReg[i].bit[j].name.endsWith( "Polarity" ) ) ||
+					   ( dataReg[i].bit[j].name.endsWith( "Arming" ) ) ) {
+					selectorArray.push( new Select( dataReg[i].bit[j].name ) );
 				}
 			}
 		}
@@ -16882,11 +17141,11 @@ function declareSelects() {
 }
 
 function declareRadio() {
-	for(var i=0; i<dataReg.length; i++) {
-		if (dataReg[i].bitMapSize > 0) {
-			for(var j=0; j<dataReg[i].bitMapSize; j++) {
-				if(dataReg[i].bit[j].name.endsWith("NOC")){
-					radioArray.push(new Radio(dataReg[i].bit[j].name));
+	for ( var i=0; i<dataReg.length; i++ ) {
+		if ( dataReg[i].bitMapSize > 0 ) {
+			for ( var j=0; j<dataReg[i].bitMapSize; j++ ) {
+				if ( dataReg[i].bit[j].name.endsWith( "NOC" ) ) {
+					radioArray.push( new Radio( dataReg[i].bit[j].name ) );
 				}
 			}
 		}
@@ -16897,6 +17156,7 @@ function declareRadio() {
 function declareInterface() {
 	declareSliders();
 	declareStrings();
+	declareProgress();
 	declareSwitches();
 	declareSelects();
 	declareRadio();
@@ -16904,46 +17164,65 @@ function declareInterface() {
 }
 
 function updateInterface() {
-	for(var i=0; i<stringLineArray.length; i++) {
+	for ( var i=0; i<stringLineArray.length; i++ ) {
 		stringLineArray[i].update();
 	}
-	for(var i=0; i<slidersArray.length; i++) {
+	for ( var i=0; i<slidersArray.length; i++ ) {
 		slidersArray[i].update();
 	}
-	for(var i=0; i<switcherArray.length; i++) {
+	for ( var i=0; i<switcherArray.length; i++ ) {
 		switcherArray[i].update();
 	}
-	for(var i=0; i<selectorArray.length; i++) {
+	for ( var i=0; i<selectorArray.length; i++ ) {
 		selectorArray[i].update();
 	}
-	for(var i=0; i<radioArray.length; i++) {
+	for ( var i=0; i<radioArray.length; i++ ) {
 		radioArray[i].update();
 	}
 	cosFiUpdate();
 	updateVersions();
+	for( var i=0; i<dataReg.length; i++ ) {
+		/*
+		if ( dataReg[i].name == "engineSetup" )
+		{
+		  bitWrite(0,dataReg[i],document.getElementById('engineStartAttempts').value);
+		}*/
+		if ( dataReg[i].name == 'engineWorkTimeInput' ) {
+			document.getElementById( 'engineWorkTimeInput' ).value = dataReg[i].value;
+		}
+		if ( dataReg[i].name == 'engineStartsNumberInput' ) {
+			document.getElementById( 'engineStartsNumberInput' ).value = dataReg[i].value;
+		}
+	}
 	return;
 }
 
 function grabInterface() {
-	for(var i=0; i<stringLineArray.length; i++) {
+	for ( var i=0; i<stringLineArray.length; i++ ) {
 		stringLineArray[i].grab();
 	}
-	for(var i=0; i<slidersArray.length; i++) {
+	for ( var i=0; i<slidersArray.length; i++ ) {
 		slidersArray[i].grab();
 	}
-	for(var i=0; i<switcherArray.length; i++) {
+	for ( var i=0; i<switcherArray.length; i++ ) {
 		switcherArray[i].grab();
 	}
-	for(var i=0; i<selectorArray.length; i++) {
+	for ( var i=0; i<selectorArray.length; i++ ) {
 		selectorArray[i].grab();
 	}
-	for(var i=0; i<radioArray.length; i++) {
+	for ( var i=0; i<radioArray.length; i++ ) {
 		radioArray[i].grab();
 	}
-	for(var i=0;i<dataReg.length;i++){
-		if (dataReg[i].name == "engineSetup")
+	for ( var i=0;i<dataReg.length;i++ ) {
+		if ( dataReg[i].name == "engineSetup" )
 		{
-		  bitWrite(0,dataReg[i],document.getElementById('engineStartAttempts').value);
+		  bitWrite( 0, dataReg[i], document.getElementById( 'engineStartAttempts' ).value );
+		}
+		if ( dataReg[i].name == 'engineWorkTimeInput' ) {
+			dataReg[i].value = document.getElementById( 'engineWorkTimeInput' ).value;
+		}
+		if ( dataReg[i].name == 'engineStartsNumberInput' ) {
+			dataReg[i].value = document.getElementById( 'engineStartsNumberInput' ).value;
 		}
 	}
 	return;
@@ -16953,85 +17232,85 @@ function grabInterface() {
 //******************************************************************************
 function ascii_to_hexa(str) {
 	var arr1 = [];
-	for (var n = 0, l = str.length; n < l; n ++)
+	for ( var n=0, l=str.length; n<l; n++)
      {
-		var hex = Number(str.charCodeAt(n)).toString(16);
-		arr1.push(hex);
+		var hex = Number( str.charCodeAt( n ) ).toString( 16 );
+		arr1.push( hex );
 	 }
-	return arr1.join('');
+	return arr1.join( '' );
 }
 
 function ethDataUpdate( callback ) {
-	document.getElementById("i-loading").classList.add("loading");
+	document.getElementById( "i-loading" ).classList.add( "loading" );
 	try{
-		const reqs = function(requests, store, failback) {
-			if (requests instanceof Array && requests.length > 0) {
+		const reqs = function( requests, store, failback ) {
+			if ( requests instanceof Array && requests.length > 0 ) {
 				const xhr = new XMLHttpRequest();
-				xhr.addEventListener('load', function(data) {
+				xhr.addEventListener( 'load', function( data ) {
 					const status = data.currentTarget.status;
 					const response = data.currentTarget.response;
-					if (status === 200) {
-						store.push(JSON.parse(response));
+					if ( status === 200 ) {
+						store.push( JSON.parse( response ) );
 						requests.shift();
-						return reqs(requests, store, failback);
+						return reqs( requests, store, failback );
 					}
 				});
-				xhr.addEventListener('error', function(error) {
-					if (failback) {
-						document.getElementById("i-loading").classList.remove("loading");
+				xhr.addEventListener( 'error', function( error ) {
+					if ( failback ) {
+						document.getElementById( "i-loading" ).classList.remove( "loading" );
 						failback('Something went wrong.');
-						let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
+						let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
 					}
 				});
 				xhr.ontimeout = function() {
 					xhr.abort();
-					let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
-					document.getElementById("i-loading").classList.remove("loading");
+					let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
+					document.getElementById( "i-loading" ).classList.remove( "loading" );
 					callback();
 				}
-				xhr.open(requests[0].method, requests[0].url);
+				xhr.open( requests[0].method, requests[0].url );
 				xhr.timeout = 2000;
 				xhr.send();
 			} else {
-				copyDataReg(store[0]);
+				copyDataReg( store[0] );
 				updateInterface();
-				loadCharts(store[1]);
+				loadCharts( store[1] );
 				setSuccessConnection();
-				let alert = new Alert("alert-success",okIco,"Данные успешно обновленны");
-				document.getElementById("i-loading").classList.remove("loading");
+				let alert = new Alert( "alert-success", okIco, "Данные успешно обновленны" );
+				document.getElementById( "i-loading" ).classList.remove( "loading" );
 				return store;
 			}
 		};
 		restSeq = []
-		ipAdr  = document.getElementById("input-ipaddress").value;
+		ipAdr  = document.getElementById( "input-ipaddress" ).value;
 		extUrl = "";
-		if (ipAdr.length > 0) {
+		if ( ipAdr.length > 0 ) {
 			extUrl = "http://" + ipAdr;
 		}
-		restSeq.push({method: 'get', url: (extUrl+'/configs/')});
-		restSeq.push({method: 'get', url: (extUrl+'/charts/')});
-		const results = reqs(restSeq, [],	function(error) { console.log(error)	});
-	} catch(e) {
-		let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
+		restSeq.push( {method: 'get', url: ( extUrl + '/configs/' )} );
+		restSeq.push( {method: 'get', url: ( extUrl + '/charts/' )} );
+		const results = reqs(restSeq, [],	function(error) { console.log( error )	});
+	} catch( e ) {
+		let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
 		return 0;
 	}
 	return 0;
 }
 //******************************************************************************
-function copyDataReg(data) {
-	for (var i=0; i<data.length; i++ ) {
-		for (var j=0; j<dataReg.length; j++ ) {
-			if( (data[i].adr == dataReg[j].adr) && (data[i].page == dataReg[j].page)) {
-				if (dataReg[j].type == 'S') {
+function copyDataReg( data ) {
+	for ( var i=0; i<data.length; i++ ) {
+		for ( var j=0; j<dataReg.length; j++ ) {
+			if ( ( data[i].adr == dataReg[j].adr ) && ( data[i].page == dataReg[j].page ) ) {
+				if ( dataReg[j].type == 'S' ) {
 					dataReg[j].value = [];
-					for (var k=0; k<dataReg[j].len; k++) {
-						dataReg[j].value.push( decodeURI(data[i].value[k]) );
+					for ( var k=0; k<dataReg[j].len; k++ ) {
+						dataReg[j].value.push( decodeURI( data[i].value[k] ) );
 					}
 				} else {
 					dataReg[j].value = data[i].value;
 				}
 				dataReg[j].scale = data[i].scale;
-				dataReg[j].units = decodeURI(data[i].units);
+				dataReg[j].units = decodeURI( data[i].units );
 			}
 		}
 	}
@@ -17043,78 +17322,78 @@ function resetSettings () {
 		dataReg[i].value = dataReg[i].default;
 	}
 	updateInterface();
-	let alert = new Alert("alert-success",okIco,"Настройки сброшены до заводских");
+	let alert = new Alert( "alert-success", okIco, "Настройки сброшены до заводских" );
 	return;
 }
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function dataGrab(callback){
+function dataGrab( callback ) {
 	grabInterface();
   try {
-		const reqs = function(requests = [], failback) {
-			if (requests instanceof Array && requests.length > 0) {
+		const reqs = function( requests = [], failback ) {
+			if ( requests instanceof Array && requests.length > 0 ) {
 	  		var xhr = new XMLHttpRequest();
 				xhr.onload = function() {
 					const status = xhr.status;
-					if (xhr.readyState == 4 && status == "200") {
+					if ( xhr.readyState == 4 && status == "200" ) {
 						requests.shift();
-						return reqs(requests, content, failback);
+						return reqs( requests, content, failback );
 		  		}
 				};
-				xhr.addEventListener('error', function(error) {
-					if (failback) {
-						let alert = new Alert("alert-danger",triIco,"Ошибка передачи данных");
+				xhr.addEventListener( 'error', function( error ) {
+					if ( failback ) {
+						let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
 					}
 				});
 				xhr.ontimeout = function() {
 					xhr.abort();
-					let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
+					let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
 					callback();
 				}
-	  		xhr.open(requests[0].method, requests[0].url, true);
+	  		xhr.open( requests[0].method, requests[0].url, true );
 				xhr.timeout = 2000;
-	  		xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
-	  		xhr.send(requests[0].content);
+	  		xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
+	  		xhr.send( requests[0].content );
 			} else {
 				setSuccessConnection();
-				let alert = new Alert("alert-success",triIco,"Прибор успешно сконфигурирован");
+				let alert = new Alert( "alert-success", triIco, "Прибор успешно сконфигурирован" );
 			}
 		};
 		//--------------------------------------------------------------------------
 		restSeq = []
-		ipAdr  = document.getElementById("input-ipaddress").value;
+		ipAdr  = document.getElementById( "input-ipaddress" ).value;
 		extUrl = "";
-		if (ipAdr.length > 0) {
+		if ( ipAdr.length > 0 ) {
 			extUrl = "http://" + ipAdr;
 		}
 		for ( i=0; i<103; i++ ) {
-			if (dataReg[i].rw == "rw"){
-				restSeq.push({
+			if ( dataReg[i].rw == "rw" ) {
+				restSeq.push( {
 					method:  'PUT',
 					url:     extUrl + '/configs/' + i,
-					content: JSON.stringify(pasteDataReg(dataReg[i]))
+					content: JSON.stringify( pasteDataReg( dataReg[i] ) )
 		})}}
 		var chartContent = uploadCharts();
-		for ( i=0; i<3; i++) {
+		for ( i=0; i<3; i++ ) {
 			restSeq.push({
 				method:  'PUT',
 				url:     extUrl + '/charts/' + i,
-				content: JSON.stringify(chartContent[i])
+				content: JSON.stringify( chartContent[i] )
 		})}
-		const results = reqs(restSeq, function(error) { console.log(error) });
-	} catch(e) {
-		let alert = new Alert("alert-danger",triIco,"Нет связи с сервером");
+		const results = reqs( restSeq, function( error ) { console.log( error) });
+	} catch( e ) {
+		let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
 	}
 	return;
 }
 //******************************************************************************
-function pasteDataReg(data) {
+function pasteDataReg( data ) {
 	var bitArr = [];
 	var value  = 0;
-	if (data.bitMapSize > 0) {
-		for (var i=0;i<data.bitMapSize;i++) {
-			bitArr.push({
+	if ( data.bitMapSize > 0 ) {
+		for ( var i=0; i<data.bitMapSize; i++ ) {
+			bitArr.push( {
 				mask  : data.bit[i].mask,
 				min   : data.bit[i].min,
 				max   : data.bit[i].max,
@@ -17122,13 +17401,13 @@ function pasteDataReg(data) {
 			})
 		}
 	}
-	if (data.type == 'S') {
+	if ( data.type == 'S' ) {
 		value = [];
-		for (var i=0; i<data.len; i++) {
-			if (data.value[i] == "") {
-				value.push("%20");
+		for ( var i=0; i<data.len; i++ ) {
+			if ( data.value[i] == "" ) {
+				value.push( "%20" );
 			} else {
-				value.push(encodeURI(data.value[i]));
+				value.push( encodeURI( data.value[i] ) );
 			}
 		}
 	} else {
@@ -17141,8 +17420,8 @@ function pasteDataReg(data) {
 		scale      : data.scale,
 		min        : data.min,
 		max        : data.max,
-		units      : encodeURI(data.units),
-		type       : encodeURI(data.type),
+		units      : encodeURI( data.units ),
+		type       : encodeURI( data.type ),
 		len        : data.len,
 		bitMapSize : data.bitMapSize,
 		bit        : bitArr,
