@@ -387,7 +387,11 @@
           <div class="col-sm-auto">
             <input type="time" class="form-control">
           </div>
-          
+          <div class="col-sm-auto">
+            <button aria-label="Connect" id="controllerTimeSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить время контроллера">
+              <span>Записать</span>
+            </button>
+          </div>
         </div>
 
       </div>
@@ -2854,7 +2858,7 @@
             <label>Попытки запуска</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="1" class="form-control in-num" id="engineStartAttempts">
+            <input type="number" min="1" class="form-control small-input" id="engineStartAttempts">
           </div>
         </div>
         <h6>Включение свечи накаливания</h6>
@@ -2903,9 +2907,9 @@
             <label>Моточасы</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="0" max="65535" class="form-control in-num" id="engineWorkTimeInput">
+            <input type="number" min="0" max="65535" class="form-control small-input" id="engineWorkTimeInput">
           </div>
-          <div class="col-sm-2 pos-name">
+          <div class="col-dimension">
             <label>часов</label>
           </div>
         </div>
@@ -2914,9 +2918,9 @@
             <label>Количество пусков</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="0" max="65535" class="form-control in-num" id="engineStartsNumberInput">
+            <input type="number" min="0" max="65535" class="form-control small-input" id="engineStartsNumberInput">
           </div>
-          <div class="col-sm-2 pos-name">
+          <div class="col-dimension">
             <label>раз</label>
           </div>
         </div>
@@ -3576,6 +3580,7 @@
     <script type="text/javascript" src="js/rest.js"></script>\
     <script type="text/javascript" src="js/connect.js"></script>
     <script type="text/javascript" src="js/sensortable.js"></script>
+    <script type="text/javascript" src="js/datepicker.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>

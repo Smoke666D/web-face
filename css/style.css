@@ -1637,6 +1637,8 @@ pre {
   .form-control::-ms-expand {
     background-color: transparent;
     border: 0; }
+  .form-control:hover {
+    border-color: #f8b739;}
   .form-control:focus {
     color: #495057;
     background-color: #fff;
@@ -8595,6 +8597,14 @@ a[data-toggle="collapse"] {
     /*color: #28a745;*/
 }
 
+.small-input{
+  width: 90px;
+  display: block;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+}
+
 .pos-unit{
   vertical-align:-6px;
   -webkit-user-select: none; /* Safari */
@@ -8729,4 +8739,19 @@ input:checked + .slider:before {
 }
 ::-moz-selection {
   background: #f8b739;
+}
+
+
+::-webkit-datetime-edit{}
+::-webkit-datetime-edit-fields-wrapper{}
+::-webkit-datetime-edit-text{
+
+}
+::-webkit-datetime-edit-month-field{}
+::-webkit-datetime-edit-day-field{}
+::-webkit-datetime-edit-year-field{}
+::-webkit-inner-spin-button{
+}
+::-webkit-calendar-picker-indicator{
+
 }
