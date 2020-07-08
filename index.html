@@ -16,7 +16,7 @@
     <meta name="msapplication-TileColor" content="#00aba9">
     <meta name="theme-color" content="#f8b739">
 
-    <link rel="manifest" href="json/manifest.json">
+    <!--<link rel="manifest" href="json/manifest.json">-->
     <!------------------------------------------------------------------------------------------------------------->
 		<script src="https://kit.fontawesome.com/710b4ac03c.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
@@ -3397,7 +3397,25 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="maintenanceAlarmFuelEnb">
+              <input type="checkbox" class="check-input" id="switch-recordTimeEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Время</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordDateEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Дата</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordOilPressureEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Давление масла</label>
@@ -3406,7 +3424,7 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="maintenanceAlarmFuelEnb">
+              <input type="checkbox" class="check-input" id="switch-recordCoolantTempEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Температура охлаждающей жидкости</label>
@@ -3415,7 +3433,7 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="maintenanceAlarmFuelEnb">
+              <input type="checkbox" class="check-input" id="switch-recordFuelLevelEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Уровень топлива</label>
@@ -3424,7 +3442,7 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="maintenanceAlarmFuelEnb">
+              <input type="checkbox" class="check-input" id="switch-recordSpeedEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Обороты двигателя</label>
@@ -3433,7 +3451,7 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="maintenanceAlarmFuelEnb">
+              <input type="checkbox" class="check-input" id="switch-recordInputAEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Цифровой вход А</label>
@@ -3442,7 +3460,7 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="maintenanceAlarmFuelEnb">
+              <input type="checkbox" class="check-input" id="switch-recordInputBEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Цифровой вход B</label>
@@ -3451,7 +3469,7 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="maintenanceAlarmFuelEnb">
+              <input type="checkbox" class="check-input" id="switch-recordInputCEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Цифровой вход C</label>
@@ -3460,7 +3478,7 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="maintenanceAlarmFuelEnb">
+              <input type="checkbox" class="check-input" id="switch-recordInputDEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Цифровой вход D</label>
@@ -3469,7 +3487,7 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="maintenanceAlarmFuelEnb">
+              <input type="checkbox" class="check-input" id="switch-recordVoltageGenEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Напряжение генератора</label>
@@ -3478,7 +3496,16 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="maintenanceAlarmFuelEnb">
+              <input type="checkbox" class="check-input" id="switch-recordFreqGenEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Частота генератора</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-VoltageNetEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Напряжение сети</label>
@@ -3487,7 +3514,16 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="maintenanceAlarmFuelEnb">
+              <input type="checkbox" class="check-input" id="switch-FreqNetEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Частота сети</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordVoltageAccEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Напряжение аккумулятора</label>
