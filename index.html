@@ -387,7 +387,7 @@
           <div class="col-sm-auto">
             <input type="time" class="form-control">
           </div>
-          
+
         </div>
 
       </div>
@@ -1923,7 +1923,6 @@
             <div class="s-slider" id="s-slider-timerCranking"></div>
           </div>
         </div>
-
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Пауза между прокрутками</label>
@@ -1938,7 +1937,20 @@
             <div class="s-slider" id="s-slider-timerCrankDelay"></div>
           </div>
         </div>
-
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Блокировка контроля параметров при старте</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-timerSafetyOnDelay" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-timerSafetyOnDelay">сек</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-timerSafetyOnDelay"></div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Работа на холостых оборотах</label>
@@ -1966,20 +1978,6 @@
           </div>
           <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-timerNominalRPMDelay"></div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Блокировка контроля параметров при старте</label>
-          </div>
-          <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerSafetyOnDelay" step="1">
-          </div>
-          <div class="col-dimension">
-            <label class="pos-unit" id="label-timerSafetyOnDelay">сек</label>
-          </div>
-          <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-timerSafetyOnDelay"></div>
           </div>
         </div>
         <div class="row">
@@ -2927,7 +2925,7 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="crankOilPressureCheckOnStartEnb">
+              <input type="checkbox" class="check-input" id="starterOilPressureCheckOnStartEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Перед запуском проверить давление масла</label>
