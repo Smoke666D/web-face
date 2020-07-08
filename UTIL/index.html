@@ -646,7 +646,7 @@ RU5ErkJggg==
     <meta name="msapplication-TileColor" content="#00aba9">
     <meta name="theme-color" content="#f8b739">
 
-    <link rel="manifest" href="json/manifest.json">
+    <!--<link rel="manifest" href="json/manifest.json">-->
     <!------------------------------------------------------------------------------------------------------------->
 		<script src="https://kit.fontawesome.com/710b4ac03c.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
@@ -2292,6 +2292,8 @@ pre {
   .form-control::-ms-expand {
     background-color: transparent;
     border: 0; }
+  .form-control:hover {
+    border-color: #f8b739;}
   .form-control:focus {
     color: #495057;
     background-color: #fff;
@@ -9250,6 +9252,14 @@ a[data-toggle="collapse"] {
     /*color: #28a745;*/
 }
 
+.small-input {
+  width: 90px;
+  display: block;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+}
+
 .pos-unit{
   vertical-align:-6px;
   -webkit-user-select: none; /* Safari */
@@ -9384,6 +9394,21 @@ input:checked + .slider:before {
 }
 ::-moz-selection {
   background: #f8b739;
+}
+
+
+::-webkit-datetime-edit{}
+::-webkit-datetime-edit-fields-wrapper{}
+::-webkit-datetime-edit-text{
+
+}
+::-webkit-datetime-edit-month-field{}
+::-webkit-datetime-edit-day-field{}
+::-webkit-datetime-edit-year-field{}
+::-webkit-inner-spin-button{
+}
+::-webkit-calendar-picker-indicator{
+
 }
 </style>
 
@@ -10121,7 +10146,7 @@ QmCC
                 </a>
               </li>
               <li>
-                <a class="navItem" id="nav-measuregPage" onclick="loadContent('measurePage')" href="#">
+                <a class="navItem" id="nav-measurePage" onclick="loadContent('measurePage')" href="#">
                   <i class="fas fa-ruler"></i>
                   <span>Измерения</span>
                 </a>
@@ -10248,7 +10273,11 @@ QmCC
           <div class="col-sm-auto">
             <input type="time" class="form-control">
           </div>
-          <input data-provide="datepicker">
+          <div class="col-sm-auto">
+            <button aria-label="Connect" id="controllerTimeSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить время контроллера">
+              <span>Записать</span>
+            </button>
+          </div>
         </div>
 
       </div>
@@ -12715,7 +12744,7 @@ QmCC
             <label>Попытки запуска</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="1" class="form-control in-num" id="engineStartAttempts">
+            <input type="number" min="1" class="form-control small-input" id="engineStartAttempts">
           </div>
         </div>
         <h6>Включение свечи накаливания</h6>
@@ -12764,9 +12793,9 @@ QmCC
             <label>Моточасы</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="0" max="65535" class="form-control in-num" id="engineWorkTimeInput">
+            <input type="number" min="0" max="65535" class="form-control small-input" id="engineWorkTimeInput">
           </div>
-          <div class="col-sm-2 pos-name">
+          <div class="col-dimension">
             <label>часов</label>
           </div>
         </div>
@@ -12775,9 +12804,9 @@ QmCC
             <label>Количество пусков</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="0" max="65535" class="form-control in-num" id="engineStartsNumberInput">
+            <input type="number" min="0" max="65535" class="form-control small-input" id="engineStartsNumberInput">
           </div>
-          <div class="col-sm-2 pos-name">
+          <div class="col-dimension">
             <label>раз</label>
           </div>
         </div>
@@ -13199,6 +13228,15 @@ QmCC
       <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
         <h5>Журнал событий</h5>
+        <div calss="row">
+          <button aria-label="Connect" id="reset-log" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Очистить журнал">
+            <i class="fas fa-eraser"></i>
+          </button>
+          <button aria-label="Connect" id="reset-log" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Скачать журнал на ПК">
+            <i class="fas fa-download"></i>
+          </button>
+        </div>
+        <h6></h6>
         <table class="table table-hover">
           <thead class="thead-dark">
             <tr>
@@ -13241,6 +13279,171 @@ QmCC
       <!------------------------------------------------------------------------------------------------------------->
       <div id="measurePage" class="content-data hidden">
         <h5>Журнал измерений</h5>
+        <h6>Выбор параметров для записи</h6>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordTimeEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Время</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordDateEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Дата</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordOilPressureEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Давление масла</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordCoolantTempEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Температура охлаждающей жидкости</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordFuelLevelEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Уровень топлива</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordSpeedEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Обороты двигателя</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordInputAEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Цифровой вход А</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordInputBEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Цифровой вход B</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordInputCEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Цифровой вход C</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordInputDEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Цифровой вход D</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordVoltageGenEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Напряжение генератора</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordFreqGenEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Частота генератора</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-VoltageNetEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Напряжение сети</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-FreqNetEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Частота сети</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="switch-recordVoltageAccEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Напряжение аккумулятора</label>
+          </div>
+        </div>
+        <h6>Выбор интервала и количества записей</h6>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Интервал записи</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-recordInterval" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-recordInterval">сек</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-recordInterval"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Количества записей</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-recordNumber" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-recordNumber">шт</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-recordNumber"></div>
+          </div>
+        </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       
