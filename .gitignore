@@ -5,3 +5,4 @@ release-builds
 *.rar
 
 *.pyc
+/node_modules

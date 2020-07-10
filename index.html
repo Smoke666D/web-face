@@ -450,13 +450,13 @@
                 <input type="checkbox" class="check-input" id="oilPressureAlarmEnb">
                 <span class="slider"></span>
               </label>
-              <label for="oilPressureAlarmEnb" class="form-check-label">Аварийный сигнал тревоги</label>
+              <label for="oilPressureAlarmEnb" class="form-check-label">Аварийный останов</label>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-2 pos-name">
-              <label for="sinput-oilPressureAlarmLevel">Сигнализация</label>
+              <label for="sinput-oilPressureAlarmLevel">Давление</label>
             </div>
             <div class="col-sm-auto">
               <input type="number" class="form-control s-sinput" id="sinput-oilPressureAlarmLevel" step="1">
@@ -475,12 +475,12 @@
                 <input type="checkbox" class="check-input" id="oilPressurePreAlarmEnb">
                 <span class="slider"></span>
               </label>
-              <label for="oilPressurePreAlarmEnb" class="form-check-label">Предупредительный сигнал тревоги</label>
+              <label for="oilPressurePreAlarmEnb" class="form-check-label">Предупредительный сигнал</label>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-2 pos-name">
-              <label for="sinput-oilPressurePreAlarmLevel">Сигнализация</label>
+              <label for="sinput-oilPressurePreAlarmLevel">Давление</label>
             </div>
             <div class="col-sm-auto">
               <input type="number" class="form-control s-sinput" id="sinput-oilPressurePreAlarmLevel" step="1">
@@ -524,7 +524,7 @@
                 <input type="checkbox" class="check-input" id="coolantTempOpenCircuitAlarmEnb">
                 <span class="slider"></span>
               </label>
-              <label class="form-check-label">Активировать сигнал размыкания цепи</label>
+              <label class="form-check-label">Контроль целостности цепи датчика</label>
             </div>
           </div>
 
@@ -682,6 +682,16 @@
                 <i class="fa fa-chart-line"></i>
               </button>
             </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="fuelLevelOpenCircuitAlarmEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Контроль целостности цепи датчика</label>
           </div>
         </div>
 

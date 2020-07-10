@@ -36,11 +36,12 @@ def removeLink( string, name, type ):
     return  [out, result, stIndex];
 #-------------------------------------------------------------------------------
 def addJsSection( jsLink, htmlText, index, minifyJS ):
+    jsFile = jsLink[(jsLink.rfind("\\", 0) + 1 ) : len(jsLink) ]
     out    = htmlText;
     jsText = open( jsLink, "r" ).read();
     jsText = removeElectronFromJS( jsText );
     smallFile = 0;
-    if minifyJS == True:
+    if ( minifyJS == True ) and ( jsFile.find(".min.") == -1 ):
         if len( jsText ) < 1024:
             startSize = len( jsText );
             smallFile = 1;
@@ -56,18 +57,35 @@ def addJsSection( jsLink, htmlText, index, minifyJS ):
             print( "JS mimnfy     : {} - from {} Kb to {} Kb ({}%)".format( jsFile, startSize, finishSize, delta ) );
         else:
             print("JS mimnfy     : {} - from {} byte to {} byte ({}%)".format( jsFile, startSize, finishSize, delta ) );
-    out   = out[:index] + "<script>" + jsText + "</script>\n" + out[index:];
+    out   = out[:index] + "<script>" + jsText + "</script>" + out[index:];
     return out;
 #-------------------------------------------------------------------------------
-def addCssSection( cssLink, htmlText, index, minifyCSS ):
+def addCssSection( cssLink, htmlText, index, minifyCSS, optimCSS ):
     out     = htmlText;
     cssText = open( cssLink, "r" ).read();
-    #if (optimCSS == True):
-        #
-        #
-        #cssText = cleanCss(cssText, htmlText)
-        #
-        #
+    cssFile = cssLink[( cssLink.rfind("\\") + 1 ):len(cssLink)];
+    smallFile = 0;
+
+
+
+    if ( optimCSS == True ):
+        if len( cssText ) < 1024:
+            startSize = len( cssText );
+            smallFile = 1;
+        else:
+            startSize = len( cssText ) / 1024;
+        cssText = cleanCss( cssText, htmlText )
+        if smallFile == 1:
+            finishSize = len( cssText );
+        else:
+            finishSize = len( cssText ) / 1024;
+        delta = ( startSize - finishSize ) * 100 / startSize;
+        if smallFile == 0:
+            print( "CSS clean     : {} - from {} Kb to {} Kb ({}%)".format( cssFile, startSize, finishSize, delta ) );
+        else:
+            print( "CSS clean     : {} - from {} byte to {} byte ({}%)".format( cssFile, startSize, finishSize, delta ) );
+
+
     smallFile = 0;
     if minifyCSS == True:
         if len( cssText ) < 1024:
@@ -75,7 +93,7 @@ def addCssSection( cssLink, htmlText, index, minifyCSS ):
             smallFile = 1;
         else:
             startSize = len( cssText ) / 1024;
-        if not cssFile.find( ".min." ):
+        if ( cssFile.find( ".min." ) == -1 ):
             cssText = minifyCss( cssText );
         if smallFile == 1:
             finishSize = len( cssText );
@@ -90,14 +108,74 @@ def addCssSection( cssLink, htmlText, index, minifyCSS ):
     return out
 #-------------------------------------------------------------------------------
 def minifyCss( css ):
-    return cssmin( css, keep_bang_comments=True );
+    delList = ["  ", "\n", "\r"];
+    spacesPlace =  ["; }", ": "," {", "} }", ", ", " !", "' ", " > ", " - ", " + ", " ~ ", "{ }"];
+    replacePlace = [";}" , ":" ,"{" , "}}" , "," , "!" , "'" , ">"  , "-"  , "+"  , "~"  , "{}" ];
+    indexStr = 0;
+    indexEnd = 0;
+
+    index    = 1;
+    subindex = 1;
+    while index > -1:
+        index = css.find( "/*", index + 1 );
+        if index > -1:
+            subindex = css.find( "*/", index ) + 2;
+            css      = css[:index] + css[subindex:];
+
+    for delItem in delList:
+        css = css.replace( delItem, "" );
+    for i in range( 0, len( spacesPlace ) ):
+        css = css.replace( spacesPlace[i], replacePlace[i] );
+
+    return css;
 #-------------------------------------------------------------------------------
 def cleanCss( css, html ):
-    cssOut = css;
-    cssCleaner( cssOut, html );
+    cssOut    = css;
+    htmlBuf   = html;
+    classList = [];
+    indexStr  = 0;
+    indexEnd  = 0;
+    #---------------------------------------------------------------------------
+    while( indexStr > -1 ):
+        indexStr = htmlBuf.find( 'class="', ( indexStr + 1 ) );
+        if ( indexStr > -1 ):
+            indexEnd = htmlBuf.find( '"', ( indexStr + 7 ) ) + 1;
+            classes = htmlBuf[ ( indexStr + 7 ) : ( indexEnd - 1 ) ];
+            classes = classes.split();
+            for cl in classes:
+                classList.append( cl );
+            htmlBuf = htmlBuf[:indexStr] + htmlBuf[indexEnd:]
+    classList = list( dict.fromkeys( classList ) );
+    #---------------------------------------------------------------------------
+    indexStr = 0;
+    indexEnd = 0;
+    indexCut = 0;
+    while ( indexStr > -1 ):
+        indexStr = cssOut.find(".", ( indexStr + 1 ) );
+        if ( indexStr > -1 ):
+            indexEnd = cssOut.find( "{",indexStr );
+            indexCut = cssOut.find("}",indexStr);
+            if ( indexCut > indexEnd ):
+                used    = 0;
+                subStr  = cssOut[ indexStr : indexEnd ];
+                for item in classList:
+                    subList = subStr.split();
+                    for subItem in subList:
+                        if ( subItem[0] == '.' ):
+                            subItem = subItem[1:];
+                            if ( subItem == item ):
+                                used = 1;
+                if ( used == 0 ):
+                    cssOut = cssOut[:indexStr] + cssOut[indexCut+1:];
+                else:
+                    indexStr = indexCut + 1;
+    cssOut = cssOut.replace("\n\n","")
+    cssOut = cssOut.replace("\n  \n","")
+    #---------------------------------------------------------------------------
     return cssOut;
 #-------------------------------------------------------------------------------
 def  minifyJs( js ):
+    js = js.replace( "return;", "" );
     out = jsmin( js, keep_bang_comments = False );
     return out;
 #-------------------------------------------------------------------------------
@@ -225,11 +303,11 @@ def compilHex( path, text, compressed ):
     f.write( "};\n" );
     f.write( "#endif /* INC_INDEX_H_ */" );
     f.close();
-    return len( text ) / 1024;
+    return len( text );
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True, compress = True, outPath = "D:/PROJECTS/ENERGAN/energan_enb/eth/site/index.h"):
+def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = False, compress = True, outPath = "C:/PROJECTS/ENERGAN/energan_enb/eth/site/index.h"):
     print( "****************************************************" )
     if minifyHTML == True:
         print( "HTML mimnfy   : On" );
@@ -274,11 +352,10 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
         htmlFile = open( htmlPath, encoding="utf-8" );
     except:
         htmlFile = open( htmlPath, "r" );
-    if minifyHTML == True:
-        htmlText = minifyHtml( htmlFile.read() );
-    else:
-        htmlText = htmlFile.read();
+    htmlText = htmlFile.read();
     htmlText = removeElectronFromHTML( htmlText );
+    if minifyHTML == True:
+        htmlText = minifyHtml( htmlText );
     #----------- Remove links and add css files from html file --------
     valid = [];
     for cssFile in cssFiles:
@@ -287,7 +364,7 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
             valid.append( 0 );
         else:
             valid.append( 1 );
-            htmlText = addCssSection( os.path.join( cssPath, cssFile ), htmlText, index, minifyCSS );
+            htmlText = addCssSection( os.path.join( cssPath, cssFile ), htmlText, index, minifyCSS, optimCSS );
     buffer = [];
     for i in range( 0, len( valid ) ):
         if valid[i] == 1:
@@ -310,7 +387,10 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
     #------------------ Reset ElectronApp flag ----------------------
     startIndex = htmlText.find( "var electronApp = " );
     endIndex   = htmlText.find( ';', startIndex );
-    htmlText   = htmlText[:startIndex] + "var electronApp = 0" + htmlText[endIndex:];
+    htmlText   = htmlText[:startIndex] + "var electronApp=0" + htmlText[endIndex:];
+    startIndex = htmlText.find( "var electronApp=" );
+    endIndex   = htmlText.find( ';', startIndex );
+    htmlText   = htmlText[:startIndex] + "var electronApp=0" + htmlText[endIndex:];
     #----------------- Print all included files ---------------------
     for file in jsFiles:
         print( "include       : " + file );
@@ -352,10 +432,10 @@ def make(  minifyHTML = True, optimCSS = True, minifyCSS = True, minifyJS = True
     else:
         size = compilHex( outPath, htmlText, 0 );
     print( "Outut HEX     : " + outPath );
-    print( "HEX file      : " + str(size) + " Kb" );
+    print( "HEX file      : " + ( str(size / 1024) ) + " Kb (" + str(size) + " byte)"  );
     print( "Done!" );
     print( "****************************************************" );
 #*******************************************************************************
 if __name__ == "__main__":
-    make( minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = False, compress = True );
+    make( minifyHTML = True, optimCSS = False, minifyCSS = False, minifyJS = True, compress = True );
 #*******************************************************************************
