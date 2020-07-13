@@ -437,5 +437,5 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     print( "****************************************************" );
 #*******************************************************************************
 if __name__ == "__main__":
-    make( minifyHTML = True, optimCSS = False, minifyCSS = False, minifyJS = True, compress = True );
+    make( minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = False, compress = True );
 #*******************************************************************************

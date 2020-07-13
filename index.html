@@ -670,8 +670,6 @@
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="fuelLevelSensorType">
               <option value="0">Не использовать</option>
-              <option value="1">Нормально открытый</option>
-              <option value="2">Нормально закрытый</option>
               <option value="3">Резистивный</option>
               <option value="4">Токовый</option>
             </select>
@@ -2758,8 +2756,8 @@
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="networkAlarmPage" class="content-data hidden">
-        <h5>Сигналы тревоги сети</h5>
-        <h6>Сигналы низкого напряжения</h6>
+        <h5>Неисправность сети</h5>
+        <h6>Контроль напряжения</h6>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -2772,7 +2770,7 @@
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+            <label></label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-mainsUnderVoltageAlarmLevel" step="1">
@@ -2791,13 +2789,13 @@
               <input type="checkbox" class="check-input" id="mainsOverVoltageAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Перенапряжение</label>
+            <label class="form-check-label">Высокое напряжение</label>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+            <label></label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-mainsOverVoltageAlarmLevel" step="1">
@@ -2809,7 +2807,7 @@
             <div class="s-slider" id="s-slider-mainsOverVoltageAlarmLevel"></div>
           </div>
         </div>
-        <h6>Аварийный сигнал тревоги частоты</h6>
+        <h6>Контроль частоты</h6>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -2821,7 +2819,7 @@
         </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+            <label></label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-mainsUnderFrequencyAlarmLevel" step="1">
@@ -2839,12 +2837,12 @@
               <input type="checkbox" class="check-input" id="mainsOverFrequencyAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Сверх частота</label>
+            <label class="form-check-label">Повышенная частота</label>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+            <label></label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-mainsOverFrequencyAlarmLevel" step="1">

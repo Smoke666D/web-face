@@ -563,6 +563,9 @@ function declareSliders() {
 				 dataReg[i].name.startsWith( "timer" ) ||
 				 dataReg[i].name.endsWith( "Time" ) ) {
 			slidersArray.push( new Slider( dataReg[i].name, 1 ) );
+			//if ( str == 'oilPressureAlarmLevel' ) {
+			//	console.log( slidersArray[slidersArray.length - 1] );
+			//}
 		}
 	}
 	return;
