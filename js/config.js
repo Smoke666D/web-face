@@ -2396,4 +2396,27 @@ var dataReg = [
    "len": 1,
    "bitMapSize": 0,
    "bit": []
+},{
+   "page": 0,
+   "adr": 121,
+   "name": "logSetup",
+   "value": 1,
+   "default": 1,
+   "scale": 0,
+   "min": 0,
+   "max": 65535,
+   "units": "",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 1,
+   "bit": [
+       {
+           "name": "logSaveWarningEventsEnb",
+           "mask": 1,
+           "min": 0,
+           "max": 1,
+           "shift": 0,
+       },
+   ]
 },];

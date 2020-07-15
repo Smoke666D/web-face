@@ -1,6 +1,6 @@
-const triIco  = '<i class="fas fa-exclamation-triangle"></i>';
-const bellIco = '<i class="fas fa-bell"></i>';
-const okIco   = '<i class="fas fa-check-circle"></i>';
+const triIco     = '<i class="fas fa-exclamation-triangle"></i>';
+const bellIco    = '<i class="fas fa-bell"></i>';
+const okIco      = '<i class="fas fa-check-circle"></i>';
 //------------------------------------------------------------------------------
 var alerIndex = 0;
 

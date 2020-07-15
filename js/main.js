@@ -342,15 +342,79 @@ function powerSliderInit( idActive, idReactive, idApparent, idCosFi, regName ) {
 	inputReactive.addEventListener( 'change',function() {
 		reactiveUpdate();
 	});
-	sliderApparent.noUiSlider.on( 'change',function() {
+	sliderApparent.noUiSlider.on( 'change', function() {
 		apparentUpdate();
 	});
-	inputApparent.addEventListener( 'change',function() {
+	inputApparent.addEventListener( 'change', function() {
 		apparentUpdate();
 	})
-	sliderCosFi.noUiSlider.on( 'change',function() {
+	sliderCosFi.noUiSlider.on( 'change', function() {
 		cosFiUpdate();
 	})
+	return;
+}
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+function starterStopProcessing() {
+	var self = this;
+	this.genEnb     = document.getElementById( 'genPowerGeneratorControlEnb' );
+	this.oilEnb     = document.getElementById( 'starterStopOilPressureEnb' );
+	this.chargerEnb = document.getElementById( 'starterStopChargeAlternatorEnb' );
+	this.speedEnb   = document.getElementById( 'starterStopSpeedEnb' );
+
+	this.checkFull = function() {
+		if ( ( this.genEnb.checked     == false ) &&
+		     ( this.oilEnb.checked     == false ) &&
+				 ( this.chargerEnb.checked == false ) &&
+				 ( this.speedEnb.checked   == false ) ) {
+		  return 0;
+	  }
+		return 1;
+	}
+
+	this.oilEnb.addEventListener( 'change', function() {
+		if ( self.checkFull() == 0 ) {
+			self.chargerEnb.checked = true;
+			let alert = new Alert( "alert-warning", triIco ,"Стартер должен иметь хотя бы одино условие отключения" )
+		}
+		return;
+	});
+
+	this.chargerEnb.addEventListener( 'change', function() {
+		if ( self.checkFull() == 0 ) {
+
+			if ( document.getElementById( 'oilPressureSensorType' ).value > 0 )
+			{
+			  self.oilEnb.checked = true;
+				document.getElementById('sinput-starterStopOilPressureLevel').disabled = false;
+				document.getElementById('s-slider-starterStopOilPressureLevel').removeAttribute( 'disabled' );
+				let alert = new Alert( "alert-warning", triIco ,"Стартер должен иметь хотя бы одино условие отключения" )
+			} else if ( document.getElementById('speedEnb').checked == true ) {
+				self.speedEnb.checked = true;
+				document.getElementById('sinput-starterStopSpeedLevel').disabled = false;
+				document.getElementById('s-slider-starterStopSpeedLevel').removeAttribute( 'disabled' );
+				let alert = new Alert( "alert-warning", triIco ,"Стартер должен иметь хотя бы одино условие отключения" )
+			} else {
+				self.chargerEnb.checked = true;
+				document.getElementById('sinput-starterStopChargeAlternatorLevel').disabled = false;
+				document.getElementById('s-slider-starterStopChargeAlternatorLevel').removeAttribute( 'disabled' );
+				let alert = new Alert( "alert-warning", triIco ,"Другие условия отключения не доступны. Активируйте соответствующие устройство." )
+			}
+			return;
+		}
+	});
+
+	this.speedEnb.addEventListener( 'change', function() {
+		if ( self.checkFull() == 0 ) {
+			self.chargerEnb.checked = true;
+			document.getElementById('sinput-starterStopChargeAlternatorLevel').disabled = false;
+			document.getElementById('s-slider-starterStopChargeAlternatorLevel').removeAttribute( 'disabled' );
+			let alert = new Alert( "alert-warning", triIco ,"Стартер должен иметь хотя бы одино условие отключения" )
+		}
+		return;
+	});
+
 	return;
 }
 //******************************************************************************
@@ -724,6 +788,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	checkSettings();
 	navbarToogling();
 	updateVersions();
+	starterStopProcessing();
 	const genVoltageLims = new slider4InitLimits( 'genUnderVoltageAlarmLevel',
 	                                              'genUnderVoltagePreAlarmLevel',
 																								'genOverVoltagePreAlarmLevel',

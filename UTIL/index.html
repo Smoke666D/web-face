@@ -13234,6 +13234,17 @@ QmCC
       <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
         <h5>Журнал событий</h5>
+
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="logSaveWarningEventsEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Фиксировать сигналы предупреждения</label>
+          </div>
+        </div>
+
         <div calss="row">
           <button aria-label="Connect" id="reset-log" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Очистить журнал">
             <i class="fas fa-eraser"></i>
@@ -13285,11 +13296,20 @@ QmCC
       <!------------------------------------------------------------------------------------------------------------->
       <div id="measurePage" class="content-data hidden">
         <h5>Журнал измерений</h5>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="recordEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Активировать запись измерений</label>
+          </div>
+        </div>
         <h6>Выбор параметров для записи</h6>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-recordTimeEnb">
+              <input type="checkbox" class="check-input" id="recordTimeEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Время</label>
@@ -13298,7 +13318,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-recordDateEnb">
+              <input type="checkbox" class="check-input" id="recordDateEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Дата</label>
@@ -13307,7 +13327,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-recordOilPressureEnb">
+              <input type="checkbox" class="check-input" id="recordOilPressureEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Давление масла</label>
@@ -13316,7 +13336,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-recordCoolantTempEnb">
+              <input type="checkbox" class="check-input" id="recordCoolantTempEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Температура охлаждающей жидкости</label>
@@ -13325,7 +13345,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-recordFuelLevelEnb">
+              <input type="checkbox" class="check-input" id="recordFuelLevelEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Уровень топлива</label>
@@ -13334,7 +13354,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-recordSpeedEnb">
+              <input type="checkbox" class="check-input" id="recordSpeedEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Обороты двигателя</label>
@@ -13343,7 +13363,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-recordInputAEnb">
+              <input type="checkbox" class="check-input" id="recordInputAEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Цифровой вход А</label>
@@ -13352,7 +13372,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-recordInputBEnb">
+              <input type="checkbox" class="check-input" id="recordInputBEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Цифровой вход B</label>
@@ -13361,7 +13381,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-recordInputCEnb">
+              <input type="checkbox" class="check-input" id="recordInputCEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Цифровой вход C</label>
@@ -13370,7 +13390,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-recordInputDEnb">
+              <input type="checkbox" class="check-input" id="recordInputDEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Цифровой вход D</label>
@@ -13379,7 +13399,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-recordVoltageGenEnb">
+              <input type="checkbox" class="check-input" id="recordVoltageGenEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Напряжение генератора</label>
@@ -13388,7 +13408,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-recordFreqGenEnb">
+              <input type="checkbox" class="check-input" id="recordFreqGenEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Частота генератора</label>
@@ -13397,7 +13417,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-VoltageNetEnb">
+              <input type="checkbox" class="check-input" id="VoltageNetEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Напряжение сети</label>
@@ -13406,7 +13426,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-FreqNetEnb">
+              <input type="checkbox" class="check-input" id="FreqNetEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Частота сети</label>
@@ -13415,7 +13435,7 @@ QmCC
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="switch-recordVoltageAccEnb">
+              <input type="checkbox" class="check-input" id="recordVoltageAccEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Напряжение аккумулятора</label>
@@ -13568,9 +13588,9 @@ QmCC
       </div>
     </div>
     <!--------------------------------------------------------------------------------------------------------------->
-    <script>const triIco  = '<i class="fas fa-exclamation-triangle"></i>';
-const bellIco = '<i class="fas fa-bell"></i>';
-const okIco   = '<i class="fas fa-check-circle"></i>';
+    <script>const triIco     = '<i class="fas fa-exclamation-triangle"></i>';
+const bellIco    = '<i class="fas fa-bell"></i>';
+const okIco      = '<i class="fas fa-check-circle"></i>';
 //------------------------------------------------------------------------------
 var alerIndex = 0;
 
@@ -16086,6 +16106,29 @@ function checkSettings() {
    "len": 1,
    "bitMapSize": 0,
    "bit": []
+},{
+   "page": 0,
+   "adr": 121,
+   "name": "logSetup",
+   "value": 1,
+   "default": 1,
+   "scale": 0,
+   "min": 0,
+   "max": 65535,
+   "units": "",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 1,
+   "bit": [
+       {
+           "name": "logSaveWarningEventsEnb",
+           "mask": 1,
+           "min": 0,
+           "max": 1,
+           "shift": 0,
+       },
+   ]
 },];</script>
     <script>softwareVersion = "0.1"
 </script>
@@ -16433,15 +16476,79 @@ function powerSliderInit( idActive, idReactive, idApparent, idCosFi, regName ) {
 	inputReactive.addEventListener( 'change',function() {
 		reactiveUpdate();
 	});
-	sliderApparent.noUiSlider.on( 'change',function() {
+	sliderApparent.noUiSlider.on( 'change', function() {
 		apparentUpdate();
 	});
-	inputApparent.addEventListener( 'change',function() {
+	inputApparent.addEventListener( 'change', function() {
 		apparentUpdate();
 	})
-	sliderCosFi.noUiSlider.on( 'change',function() {
+	sliderCosFi.noUiSlider.on( 'change', function() {
 		cosFiUpdate();
 	})
+	return;
+}
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+function starterStopProcessing() {
+	var self = this;
+	this.genEnb     = document.getElementById( 'genPowerGeneratorControlEnb' );
+	this.oilEnb     = document.getElementById( 'starterStopOilPressureEnb' );
+	this.chargerEnb = document.getElementById( 'starterStopChargeAlternatorEnb' );
+	this.speedEnb   = document.getElementById( 'starterStopSpeedEnb' );
+
+	this.checkFull = function() {
+		if ( ( this.genEnb.checked     == false ) &&
+		     ( this.oilEnb.checked     == false ) &&
+				 ( this.chargerEnb.checked == false ) &&
+				 ( this.speedEnb.checked   == false ) ) {
+		  return 0;
+	  }
+		return 1;
+	}
+
+	this.oilEnb.addEventListener( 'change', function() {
+		if ( self.checkFull() == 0 ) {
+			self.chargerEnb.checked = true;
+			let alert = new Alert( "alert-warning", triIco ,"Стартер должен иметь хотя бы одино условие отключения" )
+		}
+		return;
+	});
+
+	this.chargerEnb.addEventListener( 'change', function() {
+		if ( self.checkFull() == 0 ) {
+
+			if ( document.getElementById( 'oilPressureSensorType' ).value > 0 )
+			{
+			  self.oilEnb.checked = true;
+				document.getElementById('sinput-starterStopOilPressureLevel').disabled = false;
+				document.getElementById('s-slider-starterStopOilPressureLevel').removeAttribute( 'disabled' );
+				let alert = new Alert( "alert-warning", triIco ,"Стартер должен иметь хотя бы одино условие отключения" )
+			} else if ( document.getElementById('speedEnb').checked == true ) {
+				self.speedEnb.checked = true;
+				document.getElementById('sinput-starterStopSpeedLevel').disabled = false;
+				document.getElementById('s-slider-starterStopSpeedLevel').removeAttribute( 'disabled' );
+				let alert = new Alert( "alert-warning", triIco ,"Стартер должен иметь хотя бы одино условие отключения" )
+			} else {
+				self.chargerEnb.checked = true;
+				document.getElementById('sinput-starterStopChargeAlternatorLevel').disabled = false;
+				document.getElementById('s-slider-starterStopChargeAlternatorLevel').removeAttribute( 'disabled' );
+				let alert = new Alert( "alert-warning", triIco ,"Другие условия отключения не доступны. Активируйте соответствующие устройство." )
+			}
+			return;
+		}
+	});
+
+	this.speedEnb.addEventListener( 'change', function() {
+		if ( self.checkFull() == 0 ) {
+			self.chargerEnb.checked = true;
+			document.getElementById('sinput-starterStopChargeAlternatorLevel').disabled = false;
+			document.getElementById('s-slider-starterStopChargeAlternatorLevel').removeAttribute( 'disabled' );
+			let alert = new Alert( "alert-warning", triIco ,"Стартер должен иметь хотя бы одино условие отключения" )
+		}
+		return;
+	});
+
 	return;
 }
 //******************************************************************************
@@ -16815,6 +16922,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	checkSettings();
 	navbarToogling();
 	updateVersions();
+	starterStopProcessing();
 	const genVoltageLims = new slider4InitLimits( 'genUnderVoltageAlarmLevel',
 	                                              'genUnderVoltagePreAlarmLevel',
 																								'genOverVoltagePreAlarmLevel',
