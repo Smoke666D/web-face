@@ -10280,6 +10280,22 @@ QmCC
           </div>
         </div>
 
+        <h6>Гизтерезис</h6>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Велечина</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-hysteresisLevel" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-hysteresisLevel">%</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-hysteresisLevel"></div>
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="alerts"></div>
@@ -10885,31 +10901,17 @@ QmCC
             <select class="custom-select sensor-select" id="diaFunction">
               <option value="0">Не использовать</option>
               <option value="1">Пользовательская</option>
-              <option value="2">Сброс аварийного сигнала</option>
-              <option value="3">Запрет автоматического останова при восстановлении параметров сети</option>
-              <option value="4">Запрет автоматического запуска</option>
-              <option value="5">Нарушение сети, вспомогательный вход</option>
-              <option value="6">Замкнуть генератор на нагрузку</option>
-              <option value="7">Высокая температура двигателя</option>
-              <option value="8">Запрет нагрузки генератора</option>
-              <option value="9">Запрет переключения на сеть</option>
-              <option value="10">Сигнал низкого уровня топлива</option>
-              <option value="11">Датчик давления масла</option>
-              <option value="12">Разомкнуть генератор</option>
-              <option value="13">Дистанционный запуск без нагрузки</option>
-              <option value="14">Дистанционный запуск под нагрузкой</option>
-              <option value="15">Сброс сигналов для техобслуживания 1-3</option>
-              <option value="16">Имитация кнопки автозапуска</option>
-              <option value="17">Имитация наличия сети</option>
-              <option value="18">Имитация кнопки ручного управления</option>
-              <option value="19">Имитация кнопки запуска</option>
-              <option value="20">Имитация кнопки останова</option>
-              <option value="21">Работа на холостом ходу</option>
-              <option value="22">Датчик уровня охлаждающей жидкости</option>
-              <option value="23">Переключение на сеть/разомкнуть генератор</option>
-              <option value="24">Переключение на генератор/Разомкнуть сеть</option>
-              <option value="25">Генератор включен</option>
-              <option value="26">Сеть включена</option>
+              <option value="2">Сброс аварийной  сигнализации</option>
+              <option value="3">Низкое давление масла</option>
+              <option value="4">Высокая температура двигателя</option>
+              <option value="5">Низкий уровень топлива</option>
+              <option value="6">Дистанционный запуск под нагрузкой</option>
+              <option value="7">Работа на холостом ходу</option>
+              <optgroup label="Запреты">
+                <option value="8">Запрет автоматического запуска</option>
+                <option value="9">Запрет нагрузки генератора</option>
+                <option value="10">Запрет автоматического останова</option>
+              </optgroup>
             </select>
           </div>
         </div>
@@ -10991,31 +10993,17 @@ QmCC
             <select class="custom-select sensor-select" id="dibFunction">
               <option value="0">Не использовать</option>
               <option value="1">Пользовательская</option>
-              <option value="2">Сброс аварийного сигнала</option>
-              <option value="3">Запрет автоматического останова при восстановлении параметров сети</option>
-              <option value="4">Запрет автоматического запуска</option>
-              <option value="5">Нарушение сети, вспомогательный вход</option>
-              <option value="6">Замкнуть генератор на нагрузку</option>
-              <option value="7">Высокая температура двигателя</option>
-              <option value="8">Запрет нагрузки генератора</option>
-              <option value="9">Запрет переключения на сеть</option>
-              <option value="10">Сигнал низкого уровня топлива</option>
-              <option value="11">Датчик давления масла</option>
-              <option value="12">Разомкнуть генератор</option>
-              <option value="13">Дистанционный запуск без нагрузки</option>
-              <option value="14">Дистанционный запуск под нагрузкой</option>
-              <option value="15">Сброс сигналов для техобслуживания 1-3</option>
-              <option value="16">Имитация кнопки автозапуска</option>
-              <option value="17">Имитация наличия сети</option>
-              <option value="18">Имитация кнопки ручного управления</option>
-              <option value="19">Имитация кнопки запуска</option>
-              <option value="20">Имитация кнопки останова</option>
-              <option value="21">Работа на холостом ходу</option>
-              <option value="22">Датчик уровня охлаждающей жидкости</option>
-              <option value="23">Переключение на сеть/разомкнуть генератор</option>
-              <option value="24">Переключение на генератор/Разомкнуть сеть</option>
-              <option value="25">Генератор включен</option>
-              <option value="26">Сеть включена</option>
+              <option value="2">Сброс аварийной  сигнализации</option>
+              <option value="3">Низкое давление масла</option>
+              <option value="4">Высокая температура двигателя</option>
+              <option value="5">Низкий уровень топлива</option>
+              <option value="6">Дистанционный запуск под нагрузкой</option>
+              <option value="7">Работа на холостом ходу</option>
+              <optgroup label="Запреты">
+                <option value="8">Запрет автоматического запуска</option>
+                <option value="9">Запрет нагрузки генератора</option>
+                <option value="10">Запрет автоматического останова</option>
+              </optgroup>
             </select>
           </div>
         </div>
@@ -11097,31 +11085,17 @@ QmCC
             <select class="custom-select sensor-select" id="dicFunction">
               <option value="0">Не использовать</option>
               <option value="1">Пользовательская</option>
-              <option value="2">Сброс аварийного сигнала</option>
-              <option value="3">Запрет автоматического останова при восстановлении параметров сети</option>
-              <option value="4">Запрет автоматического запуска</option>
-              <option value="5">Нарушение сети, вспомогательный вход</option>
-              <option value="6">Замкнуть генератор на нагрузку</option>
-              <option value="7">Высокая температура двигателя</option>
-              <option value="8">Запрет нагрузки генератора</option>
-              <option value="9">Запрет переключения на сеть</option>
-              <option value="10">Сигнал низкого уровня топлива</option>
-              <option value="11">Датчик давления масла</option>
-              <option value="12">Разомкнуть генератор</option>
-              <option value="13">Дистанционный запуск без нагрузки</option>
-              <option value="14">Дистанционный запуск под нагрузкой</option>
-              <option value="15">Сброс сигналов для техобслуживания 1-3</option>
-              <option value="16">Имитация кнопки автозапуска</option>
-              <option value="17">Имитация наличия сети</option>
-              <option value="18">Имитация кнопки ручного управления</option>
-              <option value="19">Имитация кнопки запуска</option>
-              <option value="20">Имитация кнопки останова</option>
-              <option value="21">Работа на холостом ходу</option>
-              <option value="22">Датчик уровня охлаждающей жидкости</option>
-              <option value="23">Переключение на сеть/разомкнуть генератор</option>
-              <option value="24">Переключение на генератор/Разомкнуть сеть</option>
-              <option value="25">Генератор включен</option>
-              <option value="26">Сеть включена</option>
+              <option value="2">Сброс аварийной  сигнализации</option>
+              <option value="3">Низкое давление масла</option>
+              <option value="4">Высокая температура двигателя</option>
+              <option value="5">Низкий уровень топлива</option>
+              <option value="6">Дистанционный запуск под нагрузкой</option>
+              <option value="7">Работа на холостом ходу</option>
+              <optgroup label="Запреты">
+                <option value="8">Запрет автоматического запуска</option>
+                <option value="9">Запрет нагрузки генератора</option>
+                <option value="10">Запрет автоматического останова</option>
+              </optgroup>
             </select>
           </div>
         </div>
@@ -11203,31 +11177,17 @@ QmCC
             <select class="custom-select sensor-select" id="didFunction">
               <option value="0">Не использовать</option>
               <option value="1">Пользовательская</option>
-              <option value="2">Сброс аварийного сигнала</option>
-              <option value="3">Запрет автоматического останова при восстановлении параметров сети</option>
-              <option value="4">Запрет автоматического запуска</option>
-              <option value="5">Нарушение сети, вспомогательный вход</option>
-              <option value="6">Замкнуть генератор на нагрузку</option>
-              <option value="7">Высокая температура двигателя</option>
-              <option value="8">Запрет нагрузки генератора</option>
-              <option value="9">Запрет переключения на сеть</option>
-              <option value="10">Сигнал низкого уровня топлива</option>
-              <option value="11">Датчик давления масла</option>
-              <option value="12">Разомкнуть генератор</option>
-              <option value="13">Дистанционный запуск без нагрузки</option>
-              <option value="14">Дистанционный запуск под нагрузкой</option>
-              <option value="15">Сброс сигналов для техобслуживания 1-3</option>
-              <option value="16">Имитация кнопки автозапуска</option>
-              <option value="17">Имитация наличия сети</option>
-              <option value="18">Имитация кнопки ручного управления</option>
-              <option value="19">Имитация кнопки запуска</option>
-              <option value="20">Имитация кнопки останова</option>
-              <option value="21">Работа на холостом ходу</option>
-              <option value="22">Датчик уровня охлаждающей жидкости</option>
-              <option value="23">Переключение на сеть/разомкнуть генератор</option>
-              <option value="24">Переключение на генератор/Разомкнуть сеть</option>
-              <option value="25">Генератор включен</option>
-              <option value="26">Сеть включена</option>
+              <option value="2">Сброс аварийной  сигнализации</option>
+              <option value="3">Низкое давление масла</option>
+              <option value="4">Высокая температура двигателя</option>
+              <option value="5">Низкий уровень топлива</option>
+              <option value="6">Дистанционный запуск под нагрузкой</option>
+              <option value="7">Работа на холостом ходу</option>
+              <optgroup label="Запреты">
+                <option value="8">Запрет автоматического запуска</option>
+                <option value="9">Запрет нагрузки генератора</option>
+                <option value="10">Запрет автоматического останова</option>
+              </optgroup>
             </select>
           </div>
         </div>
@@ -11307,7 +11267,34 @@ QmCC
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select doType" id="doaType">
-              <option value="0">Топливное реле</option>
+              <option value="0">Не использовать</option>
+              <optgroup label="Режимы">
+                <option value="1">Автоматический режим</option>
+                <option value="2">Общее нарушение сети</option>
+                <option value="3">Готов к запуску</option>
+                <option value="4">Готовность генератора</option>
+              </optgroup>
+              <optgroup label="Сигнализация">
+                <option value="5">Общий аварийный сигнал</option>
+                <option value="6">Неисправность ДЭС</option>
+                <option value="7">Общее предупреждение</option>
+              </optgroup>
+              <optgroup label="Управление">
+                <option value="8">Включить генератор</option>
+                <option value="9">Включить генератор импульсно</option>
+                <option value="10">Выключить генератор импульсно</option>
+                <option value="11">Включить сеть</option>
+                <option value="12">Включить сеть импульсно</option>
+                <option value="13">Выключить сеть импульсно</option>
+                <option value="14">Охладитель охлаждающей жидкости</option>
+                <option value="15">Подогреватель охлаждающей жидкости</option>
+                <option value="16">Стоповый соленоид</option>
+                <option value="17">Подкачка топлива</option>
+                <option value="18">Топливное реле</option>
+                <option value="19">Стартерное реле</option>
+                <option value="20">Включение свечи накаливания</option>
+                <option value="21">Работа на холостом ходу</option>
+              </optgroup>
             </select>
           </div>
           <div class="col-sm-auto radio-line">
@@ -11328,7 +11315,34 @@ QmCC
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select doType" id="dobType">
-              <option value="0">Реле стартера</option>
+              <option value="0">Не использовать</option>
+              <optgroup label="Режимы">
+                <option value="1">Автоматический режим</option>
+                <option value="2">Общее нарушение сети</option>
+                <option value="3">Готов к запуску</option>
+                <option value="4">Готовность генератора</option>
+              </optgroup>
+              <optgroup label="Сигнализация">
+                <option value="5">Общий аварийный сигнал</option>
+                <option value="6">Неисправность ДЭС</option>
+                <option value="7">Общее предупреждение</option>
+              </optgroup>
+              <optgroup label="Управление">
+                <option value="8">Включить генератор</option>
+                <option value="9">Включить генератор импульсно</option>
+                <option value="10">Выключить генератор импульсно</option>
+                <option value="11">Включить сеть</option>
+                <option value="12">Включить сеть импульсно</option>
+                <option value="13">Выключить сеть импульсно</option>
+                <option value="14">Охладитель охлаждающей жидкости</option>
+                <option value="15">Подогреватель охлаждающей жидкости</option>
+                <option value="16">Стоповый соленоид</option>
+                <option value="17">Подкачка топлива</option>
+                <option value="18">Топливное реле</option>
+                <option value="19">Стартерное реле</option>
+                <option value="20">Включение свечи накаливания</option>
+                <option value="21">Работа на холостом ходу</option>
+              </optgroup>
             </select>
           </div>
           <div class="col-sm-auto radio-line">
@@ -11350,92 +11364,33 @@ QmCC
           <div class="col-sm-auto">
             <select class="custom-select sensor-select doType" id="docType">
               <option value="0">Не использовать</option>
-              <option value="1">Звуковой аварийный сигнал</option>
-              <option value="2">Автоматический режим </option>
-              <option value="3">Запрет автоматического запуска</option>
-              <option value="4">Высокое напряжение аккумуляторной батареи</option>
-              <option value="5">Низкое  напряжение аккумуляторной батареи</option>
-              <option value="6">Отказ зарядного генератора</option>
-              <option value="7">Включить генератор</option>
-              <option value="8">Импульс включения генератора</option>
-              <option value="9">Включить сеть</option>
-              <option value="10">Импульс включения сети</option>
-              <option value="11">Общее нарушение сети</option>
-              <option value="12">Общий сигнал о техобслуживании</option>
-              <option value="13">Общий выход дистанционного запуска</option>
-              <option value="14">Общий аварийный сигнал</option>
-              <option value="15">Отключение нагрузки</option>
-              <option value="16">Аварийное отключение</option>
-              <option value="17">Общее предупреждение</option>
-              <option value="18">Управление охладителем охлаждающей жидкости</option>
-              <option value="19">Управление подогревателем охлаждающей жидкости</option>
-              <option value="20">Охлаждение</option>
-              <option value="21">Цифровой вход С - А</option>
-              <option value="22">Аварийный сигнал на размыкание при нарушении заземления</option>
-              <option value="23">Аварийный останов</option>
-              <option value="24">Стоповый соленоид</option>
-              <option value="25">Сбой останова</option>
-              <option value="26">Отказ при запуске</option>
-              <option value="27">Подкачка топлива</option>
-              <option value="28">Топливное реле</option>
-              <option value="29">Готов к запуску</option>
-              <option value="30">Готовность генератора </option>
-              <option value="31">Генератор включен</option>
-              <option value="32">Отказ замыкания генератора</option>
-              <option value="33">Отказ размыкания генератора</option>
-              <option value="34">Запрет нагрузки генератора</option>
-              <option value="35">Останов генератора при высоком напряжении</option>
-              <option value="36">Предупреждение при высоком напряжении генератора</option>
-              <option value="37">Останов генератора при низком напряжении</option>
-              <option value="38">Предупреждение при низком напряжении генератора</option>
-              <option value="39">Высокая температура охлаждающей жидкости – Аварийный останов</option>
-              <option value="40">Высокая температура  охлаждающей жидкости - предупреждение</option>
-              <option value="41">Останов при перегрузке (кВт) / Отключение нагрузки</option>
-              <option value="42">Предупреждение о перегрузке (кВт)</option>
-              <option value="43">Не достигнута номинальная частота</option>
-              <option value="44">Не достигнуто номинальное напряжение</option>
-              <option value="45">Потерян сигнал магнитного датчика</option>
-              <option value="46">Низкий уровень топлива</option>
-              <option value="47">Останов при низком давлении масла</option>
-              <option value="48">Предупреждение о низком давлении масла</option>
-              <option value="49">Разомкнута цепь магнитного датчика</option>
-              <option value="50">Сеть включена</option>
-              <option value="51">Нарушение сети</option>
-              <option value="52">Повышенная частота  сети</option>
-              <option value="53">Повышенное напряжение сети</option>
-              <option value="54">Пониженная частота сети</option>
-              <option value="55">Пониженное напряжение сети</option>
-              <option value="56">Время подачи аварийных сигналов техобслуживания 1,2,3</option>
-              <option value="57">Ручной режим</option>
-              <option value="58">Разомкнута цепь датчика давления масла</option>
-              <option value="59">Отключить генератор</option>
-              <option value="60">Импульс отключения генератора</option>
-              <option value="61">Сеть разомкнута</option>
-              <option value="62">Импульс отключения сети</option>
-              <option value="63">Перегрузка по току- Отключение нагрузки</option>
-              <option value="64">Предупреждение о перегрузке по току</option>
-              <option value="65">Предупреждение о высокой частоте генератора</option>
-              <option value="66">Отключение генератора по причине высокой частоты</option>
-              <option value="67">Останов при превышении скорости</option>
-              <option value="68">Предупреждение о превышении скорости</option>
-              <option value="69">Предпрогрев во время работы таймера Предпрогрева</option>
-              <option value="70">Предпрогрев до окончания прокрутки</option>
-              <option value="71">Режим Предпрогрева до окончания работы таймера блокировки контроля параметров</option>
-              <option value="72">Режим Предпрогрева до окончания работы таймера прогрева</option>
-              <option value="73">Дистанционный запуск  без нагрузки</option>
-              <option value="74">Дистанционный запуск  под нагрузкой</option>
-              <option value="75">Задержка возврата на сеть</option>
-              <option value="76">Короткое замыкание генератора</option>
-              <option value="77">Работа на холостом ходу</option>
-              <option value="78">Задержка пуска в действии</option>
-              <option value="79">Реле стартера</option>
-              <option value="80">Нажата кнопка стоп</option>
-              <option value="81">Режим останова</option>
-              <option value="82">Система в норме</option>
-              <option value="83">Предупреждение о пониженной частоте </option>
-              <option value="84">Останов при пониженной частоте</option>
-              <option value="85">Останов при пониженной скорости</option>
-              <option value="86">Предупреждение о пониженной скорости</option>
+              <optgroup label="Режимы">
+                <option value="1">Автоматический режим</option>
+                <option value="2">Общее нарушение сети</option>
+                <option value="3">Готов к запуску</option>
+                <option value="4">Готовность генератора</option>
+              </optgroup>
+              <optgroup label="Сигнализация">
+                <option value="5">Общий аварийный сигнал</option>
+                <option value="6">Неисправность ДЭС</option>
+                <option value="7">Общее предупреждение</option>
+              </optgroup>
+              <optgroup label="Управление">
+                <option value="8">Включить генератор</option>
+                <option value="9">Включить генератор импульсно</option>
+                <option value="10">Выключить генератор импульсно</option>
+                <option value="11">Включить сеть</option>
+                <option value="12">Включить сеть импульсно</option>
+                <option value="13">Выключить сеть импульсно</option>
+                <option value="14">Охладитель охлаждающей жидкости</option>
+                <option value="15">Подогреватель охлаждающей жидкости</option>
+                <option value="16">Стоповый соленоид</option>
+                <option value="17">Подкачка топлива</option>
+                <option value="18">Топливное реле</option>
+                <option value="19">Стартерное реле</option>
+                <option value="20">Включение свечи накаливания</option>
+                <option value="21">Работа на холостом ходу</option>
+              </optgroup>
             </select>
           </div>
           <div class="col-sm-auto radio-line">
@@ -11457,92 +11412,33 @@ QmCC
           <div class="col-sm-auto">
             <select class="custom-select sensor-select doType" id="dodType">
               <option value="0">Не использовать</option>
-              <option value="1">Звуковой аварийный сигнал</option>
-              <option value="2">Автоматический режим </option>
-              <option value="3">Запрет автоматического запуска</option>
-              <option value="4">Высокое напряжение аккумуляторной батареи</option>
-              <option value="5">Низкое  напряжение аккумуляторной батареи</option>
-              <option value="6">Отказ зарядного генератора</option>
-              <option value="7">Включить генератор</option>
-              <option value="8">Импульс включения генератора</option>
-              <option value="9">Включить сеть</option>
-              <option value="10">Импульс включения сети</option>
-              <option value="11">Общее нарушение сети</option>
-              <option value="12">Общий сигнал о техобслуживании</option>
-              <option value="13">Общий выход дистанционного запуска</option>
-              <option value="14">Общий аварийный сигнал</option>
-              <option value="15">Отключение нагрузки</option>
-              <option value="16">Аварийное отключение</option>
-              <option value="17">Общее предупреждение</option>
-              <option value="18">Управление охладителем охлаждающей жидкости</option>
-              <option value="19">Управление подогревателем охлаждающей жидкости</option>
-              <option value="20">Охлаждение</option>
-              <option value="21">Цифровой вход С - А</option>
-              <option value="22">Аварийный сигнал на размыкание при нарушении заземления</option>
-              <option value="23">Аварийный останов</option>
-              <option value="24">Стоповый соленоид</option>
-              <option value="25">Сбой останова</option>
-              <option value="26">Отказ при запуске</option>
-              <option value="27">Подкачка топлива</option>
-              <option value="28">Топливное реле</option>
-              <option value="29">Готов к запуску</option>
-              <option value="30">Готовность генератора </option>
-              <option value="31">Генератор включен</option>
-              <option value="32">Отказ замыкания генератора</option>
-              <option value="33">Отказ размыкания генератора</option>
-              <option value="34">Запрет нагрузки генератора</option>
-              <option value="35">Останов генератора при высоком напряжении</option>
-              <option value="36">Предупреждение при высоком напряжении генератора</option>
-              <option value="37">Останов генератора при низком напряжении</option>
-              <option value="38">Предупреждение при низком напряжении генератора</option>
-              <option value="39">Высокая температура охлаждающей жидкости – Аварийный останов</option>
-              <option value="40">Высокая температура  охлаждающей жидкости - предупреждение</option>
-              <option value="41">Останов при перегрузке (кВт) / Отключение нагрузки</option>
-              <option value="42">Предупреждение о перегрузке (кВт)</option>
-              <option value="43">Не достигнута номинальная частота</option>
-              <option value="44">Не достигнуто номинальное напряжение</option>
-              <option value="45">Потерян сигнал магнитного датчика</option>
-              <option value="46">Низкий уровень топлива</option>
-              <option value="47">Останов при низком давлении масла</option>
-              <option value="48">Предупреждение о низком давлении масла</option>
-              <option value="49">Разомкнута цепь магнитного датчика</option>
-              <option value="50">Сеть включена</option>
-              <option value="51">Нарушение сети</option>
-              <option value="52">Повышенная частота  сети</option>
-              <option value="53">Повышенное напряжение сети</option>
-              <option value="54">Пониженная частота сети</option>
-              <option value="55">Пониженное напряжение сети</option>
-              <option value="56">Время подачи аварийных сигналов техобслуживания 1,2,3</option>
-              <option value="57">Ручной режим</option>
-              <option value="58">Разомкнута цепь датчика давления масла</option>
-              <option value="59">Отключить генератор</option>
-              <option value="60">Импульс отключения генератора</option>
-              <option value="61">Сеть разомкнута</option>
-              <option value="62">Импульс отключения сети</option>
-              <option value="63">Перегрузка по току- Отключение нагрузки</option>
-              <option value="64">Предупреждение о перегрузке по току</option>
-              <option value="65">Предупреждение о высокой частоте генератора</option>
-              <option value="66">Отключение генератора по причине высокой частоты</option>
-              <option value="67">Останов при превышении скорости</option>
-              <option value="68">Предупреждение о превышении скорости</option>
-              <option value="69">Предпрогрев во время работы таймера Предпрогрева</option>
-              <option value="70">Предпрогрев до окончания прокрутки</option>
-              <option value="71">Режим Предпрогрева до окончания работы таймера блокировки контроля параметров</option>
-              <option value="72">Режим Предпрогрева до окончания работы таймера прогрева</option>
-              <option value="73">Дистанционный запуск  без нагрузки</option>
-              <option value="74">Дистанционный запуск  под нагрузкой</option>
-              <option value="75">Задержка возврата на сеть</option>
-              <option value="76">Короткое замыкание генератора</option>
-              <option value="77">Работа на холостом ходу</option>
-              <option value="78">Задержка пуска в действии</option>
-              <option value="79">Реле стартера</option>
-              <option value="80">Нажата кнопка стоп</option>
-              <option value="81">Режим останова</option>
-              <option value="82">Система в норме</option>
-              <option value="83">Предупреждение о пониженной частоте </option>
-              <option value="84">Останов при пониженной частоте</option>
-              <option value="85">Останов при пониженной скорости</option>
-              <option value="86">Предупреждение о пониженной скорости</option>
+              <optgroup label="Режимы">
+                <option value="1">Автоматический режим</option>
+                <option value="2">Общее нарушение сети</option>
+                <option value="3">Готов к запуску</option>
+                <option value="4">Готовность генератора</option>
+              </optgroup>
+              <optgroup label="Сигнализация">
+                <option value="5">Общий аварийный сигнал</option>
+                <option value="6">Неисправность ДЭС</option>
+                <option value="7">Общее предупреждение</option>
+              </optgroup>
+              <optgroup label="Управление">
+                <option value="8">Включить генератор</option>
+                <option value="9">Включить генератор импульсно</option>
+                <option value="10">Выключить генератор импульсно</option>
+                <option value="11">Включить сеть</option>
+                <option value="12">Включить сеть импульсно</option>
+                <option value="13">Выключить сеть импульсно</option>
+                <option value="14">Охладитель охлаждающей жидкости</option>
+                <option value="15">Подогреватель охлаждающей жидкости</option>
+                <option value="16">Стоповый соленоид</option>
+                <option value="17">Подкачка топлива</option>
+                <option value="18">Топливное реле</option>
+                <option value="19">Стартерное реле</option>
+                <option value="20">Включение свечи накаливания</option>
+                <option value="21">Работа на холостом ходу</option>
+              </optgroup>
             </select>
           </div>
           <div class="col-sm-auto radio-line">
@@ -11564,92 +11460,33 @@ QmCC
           <div class="col-sm-auto">
             <select class="custom-select sensor-select doType" id="doeType">
               <option value="0">Не использовать</option>
-              <option value="1">Звуковой аварийный сигнал</option>
-              <option value="2">Автоматический режим </option>
-              <option value="3">Запрет автоматического запуска</option>
-              <option value="4">Высокое напряжение аккумуляторной батареи</option>
-              <option value="5">Низкое  напряжение аккумуляторной батареи</option>
-              <option value="6">Отказ зарядного генератора</option>
-              <option value="7">Включить генератор</option>
-              <option value="8">Импульс включения генератора</option>
-              <option value="9">Включить сеть</option>
-              <option value="10">Импульс включения сети</option>
-              <option value="11">Общее нарушение сети</option>
-              <option value="12">Общий сигнал о техобслуживании</option>
-              <option value="13">Общий выход дистанционного запуска</option>
-              <option value="14">Общий аварийный сигнал</option>
-              <option value="15">Отключение нагрузки</option>
-              <option value="16">Аварийное отключение</option>
-              <option value="17">Общее предупреждение</option>
-              <option value="18">Управление охладителем охлаждающей жидкости</option>
-              <option value="19">Управление подогревателем охлаждающей жидкости</option>
-              <option value="20">Охлаждение</option>
-              <option value="21">Цифровой вход С - А</option>
-              <option value="22">Аварийный сигнал на размыкание при нарушении заземления</option>
-              <option value="23">Аварийный останов</option>
-              <option value="24">Стоповый соленоид</option>
-              <option value="25">Сбой останова</option>
-              <option value="26">Отказ при запуске</option>
-              <option value="27">Подкачка топлива</option>
-              <option value="28">Топливное реле</option>
-              <option value="29">Готов к запуску</option>
-              <option value="30">Готовность генератора </option>
-              <option value="31">Генератор включен</option>
-              <option value="32">Отказ замыкания генератора</option>
-              <option value="33">Отказ размыкания генератора</option>
-              <option value="34">Запрет нагрузки генератора</option>
-              <option value="35">Останов генератора при высоком напряжении</option>
-              <option value="36">Предупреждение при высоком напряжении генератора</option>
-              <option value="37">Останов генератора при низком напряжении</option>
-              <option value="38">Предупреждение при низком напряжении генератора</option>
-              <option value="39">Высокая температура охлаждающей жидкости – Аварийный останов</option>
-              <option value="40">Высокая температура  охлаждающей жидкости - предупреждение</option>
-              <option value="41">Останов при перегрузке (кВт) / Отключение нагрузки</option>
-              <option value="42">Предупреждение о перегрузке (кВт)</option>
-              <option value="43">Не достигнута номинальная частота</option>
-              <option value="44">Не достигнуто номинальное напряжение</option>
-              <option value="45">Потерян сигнал магнитного датчика</option>
-              <option value="46">Низкий уровень топлива</option>
-              <option value="47">Останов при низком давлении масла</option>
-              <option value="48">Предупреждение о низком давлении масла</option>
-              <option value="49">Разомкнута цепь магнитного датчика</option>
-              <option value="50">Сеть включена</option>
-              <option value="51">Нарушение сети</option>
-              <option value="52">Повышенная частота  сети</option>
-              <option value="53">Повышенное напряжение сети</option>
-              <option value="54">Пониженная частота сети</option>
-              <option value="55">Пониженное напряжение сети</option>
-              <option value="56">Время подачи аварийных сигналов техобслуживания 1,2,3</option>
-              <option value="57">Ручной режим</option>
-              <option value="58">Разомкнута цепь датчика давления масла</option>
-              <option value="59">Отключить генератор</option>
-              <option value="60">Импульс отключения генератора</option>
-              <option value="61">Сеть разомкнута</option>
-              <option value="62">Импульс отключения сети</option>
-              <option value="63">Перегрузка по току- Отключение нагрузки</option>
-              <option value="64">Предупреждение о перегрузке по току</option>
-              <option value="65">Предупреждение о высокой частоте генератора</option>
-              <option value="66">Отключение генератора по причине высокой частоты</option>
-              <option value="67">Останов при превышении скорости</option>
-              <option value="68">Предупреждение о превышении скорости</option>
-              <option value="69">Предпрогрев во время работы таймера Предпрогрева</option>
-              <option value="70">Предпрогрев до окончания прокрутки</option>
-              <option value="71">Режим Предпрогрева до окончания работы таймера блокировки контроля параметров</option>
-              <option value="72">Режим Предпрогрева до окончания работы таймера прогрева</option>
-              <option value="73">Дистанционный запуск  без нагрузки</option>
-              <option value="74">Дистанционный запуск  под нагрузкой</option>
-              <option value="75">Задержка возврата на сеть</option>
-              <option value="76">Короткое замыкание генератора</option>
-              <option value="77">Работа на холостом ходу</option>
-              <option value="78">Задержка пуска в действии</option>
-              <option value="79">Реле стартера</option>
-              <option value="80">Нажата кнопка стоп</option>
-              <option value="81">Режим останова</option>
-              <option value="82">Система в норме</option>
-              <option value="83">Предупреждение о пониженной частоте </option>
-              <option value="84">Останов при пониженной частоте</option>
-              <option value="85">Останов при пониженной скорости</option>
-              <option value="86">Предупреждение о пониженной скорости</option>
+              <optgroup label="Режимы">
+                <option value="1">Автоматический режим</option>
+                <option value="2">Общее нарушение сети</option>
+                <option value="3">Готов к запуску</option>
+                <option value="4">Готовность генератора</option>
+              </optgroup>
+              <optgroup label="Сигнализация">
+                <option value="5">Общий аварийный сигнал</option>
+                <option value="6">Неисправность ДЭС</option>
+                <option value="7">Общее предупреждение</option>
+              </optgroup>
+              <optgroup label="Управление">
+                <option value="8">Включить генератор</option>
+                <option value="9">Включить генератор импульсно</option>
+                <option value="10">Выключить генератор импульсно</option>
+                <option value="11">Включить сеть</option>
+                <option value="12">Включить сеть импульсно</option>
+                <option value="13">Выключить сеть импульсно</option>
+                <option value="14">Охладитель охлаждающей жидкости</option>
+                <option value="15">Подогреватель охлаждающей жидкости</option>
+                <option value="16">Стоповый соленоид</option>
+                <option value="17">Подкачка топлива</option>
+                <option value="18">Топливное реле</option>
+                <option value="19">Стартерное реле</option>
+                <option value="20">Включение свечи накаливания</option>
+                <option value="21">Работа на холостом ходу</option>
+              </optgroup>
             </select>
           </div>
           <div class="col-sm-auto radio-line">
@@ -11671,92 +11508,33 @@ QmCC
           <div class="col-sm-auto">
             <select class="custom-select sensor-select doType" id="dofType">
               <option value="0">Не использовать</option>
-              <option value="1">Звуковой аварийный сигнал</option>
-              <option value="2">Автоматический режим </option>
-              <option value="3">Запрет автоматического запуска</option>
-              <option value="4">Высокое напряжение аккумуляторной батареи</option>
-              <option value="5">Низкое  напряжение аккумуляторной батареи</option>
-              <option value="6">Отказ зарядного генератора</option>
-              <option value="7">Включить генератор</option>
-              <option value="8">Импульс включения генератора</option>
-              <option value="9">Включить сеть</option>
-              <option value="10">Импульс включения сети</option>
-              <option value="11">Общее нарушение сети</option>
-              <option value="12">Общий сигнал о техобслуживании</option>
-              <option value="13">Общий выход дистанционного запуска</option>
-              <option value="14">Общий аварийный сигнал</option>
-              <option value="15">Отключение нагрузки</option>
-              <option value="16">Аварийное отключение</option>
-              <option value="17">Общее предупреждение</option>
-              <option value="18">Управление охладителем охлаждающей жидкости</option>
-              <option value="19">Управление подогревателем охлаждающей жидкости</option>
-              <option value="20">Охлаждение</option>
-              <option value="21">Цифровой вход С - А</option>
-              <option value="22">Аварийный сигнал на размыкание при нарушении заземления</option>
-              <option value="23">Аварийный останов</option>
-              <option value="24">Стоповый соленоид</option>
-              <option value="25">Сбой останова</option>
-              <option value="26">Отказ при запуске</option>
-              <option value="27">Подкачка топлива</option>
-              <option value="28">Топливное реле</option>
-              <option value="29">Готов к запуску</option>
-              <option value="30">Готовность генератора </option>
-              <option value="31">Генератор включен</option>
-              <option value="32">Отказ замыкания генератора</option>
-              <option value="33">Отказ размыкания генератора</option>
-              <option value="34">Запрет нагрузки генератора</option>
-              <option value="35">Останов генератора при высоком напряжении</option>
-              <option value="36">Предупреждение при высоком напряжении генератора</option>
-              <option value="37">Останов генератора при низком напряжении</option>
-              <option value="38">Предупреждение при низком напряжении генератора</option>
-              <option value="39">Высокая температура охлаждающей жидкости – Аварийный останов</option>
-              <option value="40">Высокая температура  охлаждающей жидкости - предупреждение</option>
-              <option value="41">Останов при перегрузке (кВт) / Отключение нагрузки</option>
-              <option value="42">Предупреждение о перегрузке (кВт)</option>
-              <option value="43">Не достигнута номинальная частота</option>
-              <option value="44">Не достигнуто номинальное напряжение</option>
-              <option value="45">Потерян сигнал магнитного датчика</option>
-              <option value="46">Низкий уровень топлива</option>
-              <option value="47">Останов при низком давлении масла</option>
-              <option value="48">Предупреждение о низком давлении масла</option>
-              <option value="49">Разомкнута цепь магнитного датчика</option>
-              <option value="50">Сеть включена</option>
-              <option value="51">Нарушение сети</option>
-              <option value="52">Повышенная частота  сети</option>
-              <option value="53">Повышенное напряжение сети</option>
-              <option value="54">Пониженная частота сети</option>
-              <option value="55">Пониженное напряжение сети</option>
-              <option value="56">Время подачи аварийных сигналов техобслуживания 1,2,3</option>
-              <option value="57">Ручной режим</option>
-              <option value="58">Разомкнута цепь датчика давления масла</option>
-              <option value="59">Отключить генератор</option>
-              <option value="60">Импульс отключения генератора</option>
-              <option value="61">Сеть разомкнута</option>
-              <option value="62">Импульс отключения сети</option>
-              <option value="63">Перегрузка по току- Отключение нагрузки</option>
-              <option value="64">Предупреждение о перегрузке по току</option>
-              <option value="65">Предупреждение о высокой частоте генератора</option>
-              <option value="66">Отключение генератора по причине высокой частоты</option>
-              <option value="67">Останов при превышении скорости</option>
-              <option value="68">Предупреждение о превышении скорости</option>
-              <option value="69">Предпрогрев во время работы таймера Предпрогрева</option>
-              <option value="70">Предпрогрев до окончания прокрутки</option>
-              <option value="71">Режим Предпрогрева до окончания работы таймера блокировки контроля параметров</option>
-              <option value="72">Режим Предпрогрева до окончания работы таймера прогрева</option>
-              <option value="73">Дистанционный запуск  без нагрузки</option>
-              <option value="74">Дистанционный запуск  под нагрузкой</option>
-              <option value="75">Задержка возврата на сеть</option>
-              <option value="76">Короткое замыкание генератора</option>
-              <option value="77">Работа на холостом ходу</option>
-              <option value="78">Задержка пуска в действии</option>
-              <option value="79">Реле стартера</option>
-              <option value="80">Нажата кнопка стоп</option>
-              <option value="81">Режим останова</option>
-              <option value="82">Система в норме</option>
-              <option value="83">Предупреждение о пониженной частоте </option>
-              <option value="84">Останов при пониженной частоте</option>
-              <option value="85">Останов при пониженной скорости</option>
-              <option value="86">Предупреждение о пониженной скорости</option>
+              <optgroup label="Режимы">
+                <option value="1">Автоматический режим</option>
+                <option value="2">Общее нарушение сети</option>
+                <option value="3">Готов к запуску</option>
+                <option value="4">Готовность генератора</option>
+              </optgroup>
+              <optgroup label="Сигнализация">
+                <option value="5">Общий аварийный сигнал</option>
+                <option value="6">Неисправность ДЭС</option>
+                <option value="7">Общее предупреждение</option>
+              </optgroup>
+              <optgroup label="Управление">
+                <option value="8">Включить генератор</option>
+                <option value="9">Включить генератор импульсно</option>
+                <option value="10">Выключить генератор импульсно</option>
+                <option value="11">Включить сеть</option>
+                <option value="12">Включить сеть импульсно</option>
+                <option value="13">Выключить сеть импульсно</option>
+                <option value="14">Охладитель охлаждающей жидкости</option>
+                <option value="15">Подогреватель охлаждающей жидкости</option>
+                <option value="16">Стоповый соленоид</option>
+                <option value="17">Подкачка топлива</option>
+                <option value="18">Топливное реле</option>
+                <option value="19">Стартерное реле</option>
+                <option value="20">Включение свечи накаливания</option>
+                <option value="21">Работа на холостом ходу</option>
+              </optgroup>
             </select>
           </div>
           <div class="col-sm-auto radio-line">
@@ -12048,34 +11826,13 @@ QmCC
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label class="pos-select">Пар полюсов</label>
-          </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="genPoles">
-              <option value="0">2</option>
-              <option value="1">4</option>
-              <option value="2">6</option>
-              <option value="3">8</option>
-              <option value="4">10</option>
-              <option value="5">12</option>
-              <option value="6">14</option>
-              <option value="7">16</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-2 pos-name">
             <label>Система переменного тока</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="genAcSys">
-              <option value="0">2 фазы, 3 кабеля L1-L2</option>
-              <option value="1">2 фазы, 3 кабеля L1-L3</option>
-              <option value="2">3 фазы, 3 кабеля, треугольник</option>
-              <option value="3">3 фазы, 4 кабеля, звезда</option>
-              <option value="4">3 фазы, 4 кабеля, треугольник</option>
-              <option value="5">Однофазный, 2 кабеля</option>
+              <option value="0">Треугольник</option>
+              <option value="1">Звезда</option>
+              <option value="2">Одна фаза</option>
             </select>
           </div>
         </div>
@@ -12189,17 +11946,6 @@ QmCC
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Расположение трансформатора тока</label>
-          </div>
-          <div class="col-sm">
-            <select class="custom-select sensor-select" id="genLocationCurrentTransformerLevel">
-              <option value="0">Генератор</option>
-              <option value="1">Нагрузка</option>
-            </select>
-          </div>
-        </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="generatorVoltagePage" class="content-data hidden">
@@ -12622,21 +12368,6 @@ QmCC
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Немедленное отключение при потери сети</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Система переменного тока</label>
-          </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="mainAcSys">
-              <option value="0">2 фазы, 3 кабеля L1-L2</option>
-              <option value="1">2 фазы, 3 кабеля L1-L3</option>
-              <option value="2">3 фазы, 3 кабеля, треугольник</option>
-              <option value="3">3 фазы, 4 кабеля, звезда</option>
-              <option value="4">3 фазы, 4 кабеля, треугольник</option>
-              <option value="5">Однофазный, 2 кабеля</option>
-            </select>
           </div>
         </div>
       </div>
@@ -13802,6 +13533,21 @@ function checkSettings() {
 },{
    "page": 0,
    "adr": 6,
+   "name": "hysteresisLevel",
+   "value": 20,
+   "default": 20,
+   "scale": -1,
+   "min": 0,
+   "max": 1000,
+   "units": "%",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "page": 0,
+   "adr": 7,
    "name": "moduleSetup",
    "value": 3,
    "default": 3,
@@ -13830,7 +13576,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 7,
+   "adr": 8,
    "name": "oilPressureSetup",
    "value": 51,
    "default": 51,
@@ -13871,7 +13617,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 8,
+   "adr": 9,
    "name": "oilPressureAlarmLevel",
    "value": 103,
    "default": 103,
@@ -13886,7 +13632,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 9,
+   "adr": 10,
    "name": "oilPressurePreAlarmLevel",
    "value": 124,
    "default": 124,
@@ -13901,7 +13647,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 10,
+   "adr": 11,
    "name": "coolantTempSetup",
    "value": 51,
    "default": 51,
@@ -13954,7 +13700,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 11,
+   "adr": 12,
    "name": "coolantHightTempAlarmLevel",
    "value": 96,
    "default": 96,
@@ -13969,7 +13715,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 12,
+   "adr": 13,
    "name": "coolantHightTempPreAlarmLevel",
    "value": 90,
    "default": 90,
@@ -13984,7 +13730,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 13,
+   "adr": 14,
    "name": "coolantTempHeaterOffLevel",
    "value": 60,
    "default": 60,
@@ -13999,7 +13745,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 14,
+   "adr": 15,
    "name": "coolantTempHeaterOnLevel",
    "value": 10,
    "default": 10,
@@ -14014,7 +13760,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 15,
+   "adr": 16,
    "name": "coolantTempCoolerOffLevel",
    "value": 120,
    "default": 120,
@@ -14029,7 +13775,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 16,
+   "adr": 17,
    "name": "coolantTempCoolerOnLevel",
    "value": 80,
    "default": 80,
@@ -14044,7 +13790,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 17,
+   "adr": 18,
    "name": "fuelLevelSetup",
    "value": 1339,
    "default": 1339,
@@ -14115,7 +13861,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 18,
+   "adr": 19,
    "name": "fuelLevelLowAlarmLevel",
    "value": 10,
    "default": 10,
@@ -14130,7 +13876,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 19,
+   "adr": 20,
    "name": "fuelLevelLowAlarmDelay",
    "value": 100,
    "default": 100,
@@ -14145,7 +13891,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 20,
+   "adr": 21,
    "name": "fuelLevelLowPreAlarmLevel",
    "value": 25,
    "default": 25,
@@ -14160,7 +13906,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 21,
+   "adr": 22,
    "name": "fuelLevelLowPreAlarmDelay",
    "value": 100,
    "default": 100,
@@ -14175,7 +13921,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 22,
+   "adr": 23,
    "name": "fuelLevelHightPreAlarmLevel",
    "value": 65,
    "default": 65,
@@ -14190,7 +13936,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 23,
+   "adr": 24,
    "name": "fuelLevelHightPreAlarmDelay",
    "value": 0,
    "default": 0,
@@ -14205,7 +13951,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 24,
+   "adr": 25,
    "name": "fuelLevelHightAlarmLevel",
    "value": 90,
    "default": 90,
@@ -14220,7 +13966,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 25,
+   "adr": 26,
    "name": "fuelLevelHightAlarmDelay",
    "value": 0,
    "default": 0,
@@ -14235,7 +13981,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 26,
+   "adr": 27,
    "name": "fuelPumpOnLevel",
    "value": 30,
    "default": 30,
@@ -14250,7 +13996,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 27,
+   "adr": 28,
    "name": "fuelPumpOffLevel",
    "value": 70,
    "default": 70,
@@ -14265,7 +14011,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 28,
+   "adr": 29,
    "name": "speedSetup",
    "value": 0,
    "default": 0,
@@ -14294,7 +14040,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 29,
+   "adr": 30,
    "name": "speedToothNumber",
    "value": 190,
    "default": 190,
@@ -14309,7 +14055,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 30,
+   "adr": 31,
    "name": "speedLowAlarmLevel",
    "value": 1200,
    "default": 1200,
@@ -14324,7 +14070,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 31,
+   "adr": 32,
    "name": "speedHightAlarmLevel",
    "value": 1710,
    "default": 1710,
@@ -14339,7 +14085,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 32,
+   "adr": 33,
    "name": "diaSetup",
    "value": 14,
    "default": 14,
@@ -14380,7 +14126,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 33,
+   "adr": 34,
    "name": "diaDelay",
    "value": 15,
    "default": 15,
@@ -14395,7 +14141,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 34,
+   "adr": 35,
    "name": "diaMessage",
    "value": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -14410,7 +14156,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 35,
+   "adr": 36,
    "name": "dibSetup",
    "value": 0,
    "default": 0,
@@ -14451,7 +14197,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 36,
+   "adr": 37,
    "name": "dibDelay",
    "value": 15,
    "default": 15,
@@ -14466,7 +14212,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 37,
+   "adr": 38,
    "name": "dibMessage",
    "value": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -14481,7 +14227,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 38,
+   "adr": 39,
    "name": "dicSetup",
    "value": 0,
    "default": 0,
@@ -14522,7 +14268,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 39,
+   "adr": 40,
    "name": "dicDelay",
    "value": 15,
    "default": 15,
@@ -14537,7 +14283,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 40,
+   "adr": 41,
    "name": "dicMessage",
    "value": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -14552,7 +14298,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 41,
+   "adr": 42,
    "name": "didSetup",
    "value": 64,
    "default": 64,
@@ -14593,7 +14339,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 42,
+   "adr": 43,
    "name": "didDelay",
    "value": 15,
    "default": 15,
@@ -14608,7 +14354,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 43,
+   "adr": 44,
    "name": "didMessage",
    "value": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -14623,7 +14369,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 44,
+   "adr": 45,
    "name": "doSetup",
    "value": 0,
    "default": 0,
@@ -14676,7 +14422,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 45,
+   "adr": 46,
    "name": "doabType",
    "value": 0,
    "default": 0,
@@ -14705,7 +14451,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 46,
+   "adr": 47,
    "name": "docdType",
    "value": 0,
    "default": 0,
@@ -14734,7 +14480,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 47,
+   "adr": 48,
    "name": "doefType",
    "value": 0,
    "default": 0,
@@ -14763,7 +14509,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 48,
+   "adr": 49,
    "name": "timerMainsTransientDelay",
    "value": 1,
    "default": 1,
@@ -14778,7 +14524,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 49,
+   "adr": 50,
    "name": "timerStartDelay",
    "value": 5,
    "default": 5,
@@ -14793,7 +14539,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 50,
+   "adr": 51,
    "name": "timerCranking",
    "value": 10,
    "default": 10,
@@ -14808,7 +14554,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 51,
+   "adr": 52,
    "name": "timerCrankDelay",
    "value": 10,
    "default": 10,
@@ -14823,7 +14569,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 52,
+   "adr": 53,
    "name": "timerStartupIdleTime",
    "value": 10,
    "default": 10,
@@ -14838,7 +14584,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 53,
+   "adr": 54,
    "name": "timerNominalRPMDelay",
    "value": 10,
    "default": 10,
@@ -14853,7 +14599,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 54,
+   "adr": 55,
    "name": "timerSafetyOnDelay",
    "value": 10,
    "default": 10,
@@ -14868,7 +14614,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 55,
+   "adr": 56,
    "name": "timerWarming",
    "value": 1,
    "default": 1,
@@ -14883,7 +14629,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 56,
+   "adr": 57,
    "name": "timerTransferDelay",
    "value": 6,
    "default": 6,
@@ -14898,7 +14644,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 57,
+   "adr": 58,
    "name": "timerBreakerTripPulse",
    "value": 5,
    "default": 5,
@@ -14913,7 +14659,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 58,
+   "adr": 59,
    "name": "timerBreakerClosePulse",
    "value": 5,
    "default": 5,
@@ -14928,7 +14674,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 59,
+   "adr": 60,
    "name": "timerReturnDelay",
    "value": 30,
    "default": 30,
@@ -14943,7 +14689,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 60,
+   "adr": 61,
    "name": "timerCooling",
    "value": 60,
    "default": 60,
@@ -14958,7 +14704,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 61,
+   "adr": 62,
    "name": "timerCoolingIdle",
    "value": 20,
    "default": 20,
@@ -14973,7 +14719,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 62,
+   "adr": 63,
    "name": "timerSolenoidHold",
    "value": 20,
    "default": 20,
@@ -14988,7 +14734,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 63,
+   "adr": 64,
    "name": "timerFailStopDelay",
    "value": 30,
    "default": 30,
@@ -15003,7 +14749,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 64,
+   "adr": 65,
    "name": "timerGenTransientDelay",
    "value": 10,
    "default": 10,
@@ -15018,10 +14764,10 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 65,
+   "adr": 66,
    "name": "genSetup",
-   "value": 105,
-   "default": 105,
+   "value": 1,
+   "default": 1,
    "scale": 0,
    "min": 0,
    "max": 255,
@@ -15029,7 +14775,7 @@ function checkSettings() {
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 4,
+   "bitMapSize": 2,
    "bit": [
        {
            "name": "genPowerGeneratorControlEnb",
@@ -15038,28 +14784,16 @@ function checkSettings() {
            "max": 1,
            "shift": 0,
        },{
-           "name": "genPoles",
-           "mask": 30,
-           "min": 0,
-           "max": 16,
-           "shift": 1,
-       },{
            "name": "genAcSys",
-           "mask": 224,
+           "mask": 6,
            "min": 0,
-           "max": 5,
-           "shift": 5,
-       },{
-           "name": "genLocationCurrentTransformer",
-           "mask": 256,
-           "min": 0,
-           "max": 1,
-           "shift": 8,
+           "max": 3,
+           "shift": 1,
        },
    ]
 },{
    "page": 0,
-   "adr": 66,
+   "adr": 67,
    "name": "genRatedActivePowerLevel",
    "value": 40000,
    "default": 40000,
@@ -15074,7 +14808,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 67,
+   "adr": 68,
    "name": "genRatedReactivePowerLevel",
    "value": 0,
    "default": 0,
@@ -15089,7 +14823,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 68,
+   "adr": 69,
    "name": "genRatedApparentPowerLevel",
    "value": 200,
    "default": 200,
@@ -15104,7 +14838,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 69,
+   "adr": 70,
    "name": "genRatedFrequencyLevel",
    "value": 500,
    "default": 500,
@@ -15119,7 +14853,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 70,
+   "adr": 71,
    "name": "genCurrentPrimaryLevel",
    "value": 600,
    "default": 600,
@@ -15134,7 +14868,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 71,
+   "adr": 72,
    "name": "genCurrentFullLoadRatingLevel",
    "value": 500,
    "default": 500,
@@ -15149,7 +14883,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 72,
+   "adr": 73,
    "name": "genAlarms",
    "value": 7167,
    "default": 7167,
@@ -15238,7 +14972,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 73,
+   "adr": 74,
    "name": "genUnderVoltageAlarmLevel",
    "value": 318,
    "default": 318,
@@ -15253,7 +14987,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 74,
+   "adr": 75,
    "name": "genUnderVoltagePreAlarmLevel",
    "value": 339,
    "default": 339,
@@ -15268,7 +15002,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 75,
+   "adr": 76,
    "name": "genOverVoltagePreAlarmLevel",
    "value": 439,
    "default": 439,
@@ -15283,7 +15017,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 76,
+   "adr": 77,
    "name": "genOverVoltageAlarmLevel",
    "value": 458,
    "default": 458,
@@ -15298,7 +15032,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 77,
+   "adr": 78,
    "name": "genUnderFrequencyAlarmLevel",
    "value": 400,
    "default": 400,
@@ -15313,7 +15047,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 78,
+   "adr": 79,
    "name": "genUnderFrequencyPreAlarmLevel",
    "value": 420,
    "default": 420,
@@ -15328,7 +15062,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 79,
+   "adr": 80,
    "name": "genOverFrequencyPreAlarmLevel",
    "value": 540,
    "default": 540,
@@ -15343,7 +15077,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 80,
+   "adr": 81,
    "name": "genOverFrequencyAlarmLevel",
    "value": 550,
    "default": 550,
@@ -15358,7 +15092,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 81,
+   "adr": 82,
    "name": "genOverCurrentThermalProtectionLevel",
    "value": 20,
    "default": 20,
@@ -15373,7 +15107,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 82,
+   "adr": 83,
    "name": "genOverCurrentCutoffLevel",
    "value": 40,
    "default": 40,
@@ -15388,7 +15122,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 83,
+   "adr": 84,
    "name": "genOverCurrentAlarmLevel",
    "value": 100,
    "default": 100,
@@ -15403,7 +15137,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 84,
+   "adr": 85,
    "name": "genOverCurrentAlarmDelay",
    "value": 60,
    "default": 60,
@@ -15418,7 +15152,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 85,
+   "adr": 86,
    "name": "genCurrentOverloadProtectionLevel",
    "value": 100,
    "default": 100,
@@ -15433,7 +15167,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 86,
+   "adr": 87,
    "name": "genCurrentOverloadProtectionDelay",
    "value": 5,
    "default": 5,
@@ -15448,7 +15182,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 87,
+   "adr": 88,
    "name": "genCurrentOverPhaseImbalanceLevel",
    "value": 100,
    "default": 100,
@@ -15463,7 +15197,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 88,
+   "adr": 89,
    "name": "genCurrentOverPhaseImbalanceDelay",
    "value": 60,
    "default": 60,
@@ -15478,10 +15212,10 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 89,
+   "adr": 90,
    "name": "mainsSetup",
-   "value": 13,
-   "default": 13,
+   "value": 1,
+   "default": 1,
    "scale": 0,
    "min": 0,
    "max": 31,
@@ -15489,7 +15223,7 @@ function checkSettings() {
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 3,
+   "bitMapSize": 2,
    "bit": [
        {
            "name": "mainsControlEnb",
@@ -15503,17 +15237,11 @@ function checkSettings() {
            "min": 0,
            "max": 1,
            "shift": 1,
-       },{
-           "name": "mainAcSys",
-           "mask": 28,
-           "min": 0,
-           "max": 5,
-           "shift": 2,
        },
    ]
 },{
    "page": 0,
-   "adr": 90,
+   "adr": 91,
    "name": "mainsAlarms",
    "value": 15,
    "default": 15,
@@ -15554,7 +15282,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 91,
+   "adr": 92,
    "name": "mainsUnderVoltageAlarmLevel",
    "value": 318,
    "default": 318,
@@ -15569,7 +15297,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 92,
+   "adr": 93,
    "name": "mainsOverVoltageAlarmLevel",
    "value": 438,
    "default": 438,
@@ -15584,7 +15312,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 93,
+   "adr": 94,
    "name": "mainsUnderFrequencyAlarmLevel",
    "value": 450,
    "default": 450,
@@ -15599,7 +15327,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 94,
+   "adr": 95,
    "name": "mainsOverFrequencyAlarmLevel",
    "value": 520,
    "default": 520,
@@ -15614,7 +15342,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 95,
+   "adr": 96,
    "name": "engineSetup",
    "value": 19,
    "default": 19,
@@ -15643,7 +15371,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 96,
+   "adr": 97,
    "name": "enginePreHeatLevel",
    "value": 50,
    "default": 50,
@@ -15658,7 +15386,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 97,
+   "adr": 98,
    "name": "enginePreHeatDelay",
    "value": 0,
    "default": 0,
@@ -15673,7 +15401,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 98,
+   "adr": 99,
    "name": "engineWorkTimeInput",
    "value": 0,
    "default": 0,
@@ -15688,7 +15416,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 99,
+   "adr": 100,
    "name": "engineStartsNumberInput",
    "value": 0,
    "default": 0,
@@ -15703,7 +15431,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 100,
+   "adr": 101,
    "name": "starterStopSetup",
    "value": 5,
    "default": 5,
@@ -15744,7 +15472,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 101,
+   "adr": 102,
    "name": "starterStopGenFreqLevel",
    "value": 210,
    "default": 210,
@@ -15759,7 +15487,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 102,
+   "adr": 103,
    "name": "starterStopOilPressureLevel",
    "value": 20,
    "default": 20,
@@ -15774,7 +15502,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 103,
+   "adr": 104,
    "name": "starterStopChargeAlternatorLevel",
    "value": 60,
    "default": 60,
@@ -15789,7 +15517,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 104,
+   "adr": 105,
    "name": "starterStopSpeedLevel",
    "value": 15000,
    "default": 15000,
@@ -15804,7 +15532,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 105,
+   "adr": 106,
    "name": "batteryAlarms",
    "value": 15,
    "default": 15,
@@ -15845,7 +15573,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 106,
+   "adr": 107,
    "name": "batteryUnderVoltageLevel",
    "value": 100,
    "default": 100,
@@ -15860,7 +15588,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 107,
+   "adr": 108,
    "name": "batteryUnderVoltageDelay",
    "value": 60,
    "default": 60,
@@ -15875,7 +15603,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 108,
+   "adr": 109,
    "name": "batteryOverVoltageLevel",
    "value": 300,
    "default": 300,
@@ -15890,7 +15618,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 109,
+   "adr": 110,
    "name": "batteryOverVoltageDelay",
    "value": 60,
    "default": 60,
@@ -15905,7 +15633,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 110,
+   "adr": 111,
    "name": "batteryChargeShutdownLevel",
    "value": 40,
    "default": 40,
@@ -15920,7 +15648,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 111,
+   "adr": 112,
    "name": "batteryChargeShutdownDelay",
    "value": 5,
    "default": 5,
@@ -15935,7 +15663,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 112,
+   "adr": 113,
    "name": "batteryChargeWarningLevel",
    "value": 60,
    "default": 60,
@@ -15950,7 +15678,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 113,
+   "adr": 114,
    "name": "batteryChargeWarningDelay",
    "value": 5,
    "default": 5,
@@ -15965,7 +15693,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 114,
+   "adr": 115,
    "name": "maintenanceAlarms",
    "value": 42,
    "default": 42,
@@ -16018,7 +15746,7 @@ function checkSettings() {
    ]
 },{
    "page": 0,
-   "adr": 115,
+   "adr": 116,
    "name": "maintenanceAlarmOilTime",
    "value": 10,
    "default": 10,
@@ -16033,7 +15761,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 116,
+   "adr": 117,
    "name": "maintenanceAlarmAirTime",
    "value": 10,
    "default": 10,
@@ -16048,7 +15776,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 117,
+   "adr": 118,
    "name": "maintenanceAlarmFuelTime",
    "value": 10,
    "default": 10,
@@ -16063,7 +15791,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 118,
+   "adr": 119,
    "name": "maintenanceAlarmOilTimeLeft",
    "value": 0,
    "default": 0,
@@ -16078,7 +15806,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 119,
+   "adr": 120,
    "name": "maintenanceAlarmAirTimeLeft",
    "value": 0,
    "default": 0,
@@ -16093,7 +15821,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 120,
+   "adr": 121,
    "name": "maintenanceAlarmFuelTimeLeft",
    "value": 0,
    "default": 0,
@@ -16108,7 +15836,7 @@ function checkSettings() {
    "bit": []
 },{
    "page": 0,
-   "adr": 121,
+   "adr": 122,
    "name": "logSetup",
    "value": 1,
    "default": 1,

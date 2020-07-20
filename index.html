@@ -394,6 +394,22 @@
           </div>
         </div>
 
+        <h6>Гизтерезис</h6>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Велечина</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-hysteresisLevel" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-hysteresisLevel">%</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-hysteresisLevel"></div>
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="alerts"></div>
@@ -999,31 +1015,17 @@
             <select class="custom-select sensor-select" id="diaFunction">
               <option value="0">Не использовать</option>
               <option value="1">Пользовательская</option>
-              <option value="2">Сброс аварийного сигнала</option>
-              <option value="3">Запрет автоматического останова при восстановлении параметров сети</option>
-              <option value="4">Запрет автоматического запуска</option>
-              <option value="5">Нарушение сети, вспомогательный вход</option>
-              <option value="6">Замкнуть генератор на нагрузку</option>
-              <option value="7">Высокая температура двигателя</option>
-              <option value="8">Запрет нагрузки генератора</option>
-              <option value="9">Запрет переключения на сеть</option>
-              <option value="10">Сигнал низкого уровня топлива</option>
-              <option value="11">Датчик давления масла</option>
-              <option value="12">Разомкнуть генератор</option>
-              <option value="13">Дистанционный запуск без нагрузки</option>
-              <option value="14">Дистанционный запуск под нагрузкой</option>
-              <option value="15">Сброс сигналов для техобслуживания 1-3</option>
-              <option value="16">Имитация кнопки автозапуска</option>
-              <option value="17">Имитация наличия сети</option>
-              <option value="18">Имитация кнопки ручного управления</option>
-              <option value="19">Имитация кнопки запуска</option>
-              <option value="20">Имитация кнопки останова</option>
-              <option value="21">Работа на холостом ходу</option>
-              <option value="22">Датчик уровня охлаждающей жидкости</option>
-              <option value="23">Переключение на сеть/разомкнуть генератор</option>
-              <option value="24">Переключение на генератор/Разомкнуть сеть</option>
-              <option value="25">Генератор включен</option>
-              <option value="26">Сеть включена</option>
+              <option value="2">Сброс аварийной  сигнализации</option>
+              <option value="3">Низкое давление масла</option>
+              <option value="4">Высокая температура двигателя</option>
+              <option value="5">Низкий уровень топлива</option>
+              <option value="6">Дистанционный запуск под нагрузкой</option>
+              <option value="7">Работа на холостом ходу</option>
+              <optgroup label="Запреты">
+                <option value="8">Запрет автоматического запуска</option>
+                <option value="9">Запрет нагрузки генератора</option>
+                <option value="10">Запрет автоматического останова</option>
+              </optgroup>
             </select>
           </div>
         </div>
@@ -1105,31 +1107,17 @@
             <select class="custom-select sensor-select" id="dibFunction">
               <option value="0">Не использовать</option>
               <option value="1">Пользовательская</option>
-              <option value="2">Сброс аварийного сигнала</option>
-              <option value="3">Запрет автоматического останова при восстановлении параметров сети</option>
-              <option value="4">Запрет автоматического запуска</option>
-              <option value="5">Нарушение сети, вспомогательный вход</option>
-              <option value="6">Замкнуть генератор на нагрузку</option>
-              <option value="7">Высокая температура двигателя</option>
-              <option value="8">Запрет нагрузки генератора</option>
-              <option value="9">Запрет переключения на сеть</option>
-              <option value="10">Сигнал низкого уровня топлива</option>
-              <option value="11">Датчик давления масла</option>
-              <option value="12">Разомкнуть генератор</option>
-              <option value="13">Дистанционный запуск без нагрузки</option>
-              <option value="14">Дистанционный запуск под нагрузкой</option>
-              <option value="15">Сброс сигналов для техобслуживания 1-3</option>
-              <option value="16">Имитация кнопки автозапуска</option>
-              <option value="17">Имитация наличия сети</option>
-              <option value="18">Имитация кнопки ручного управления</option>
-              <option value="19">Имитация кнопки запуска</option>
-              <option value="20">Имитация кнопки останова</option>
-              <option value="21">Работа на холостом ходу</option>
-              <option value="22">Датчик уровня охлаждающей жидкости</option>
-              <option value="23">Переключение на сеть/разомкнуть генератор</option>
-              <option value="24">Переключение на генератор/Разомкнуть сеть</option>
-              <option value="25">Генератор включен</option>
-              <option value="26">Сеть включена</option>
+              <option value="2">Сброс аварийной  сигнализации</option>
+              <option value="3">Низкое давление масла</option>
+              <option value="4">Высокая температура двигателя</option>
+              <option value="5">Низкий уровень топлива</option>
+              <option value="6">Дистанционный запуск под нагрузкой</option>
+              <option value="7">Работа на холостом ходу</option>
+              <optgroup label="Запреты">
+                <option value="8">Запрет автоматического запуска</option>
+                <option value="9">Запрет нагрузки генератора</option>
+                <option value="10">Запрет автоматического останова</option>
+              </optgroup>
             </select>
           </div>
         </div>
@@ -1211,31 +1199,17 @@
             <select class="custom-select sensor-select" id="dicFunction">
               <option value="0">Не использовать</option>
               <option value="1">Пользовательская</option>
-              <option value="2">Сброс аварийного сигнала</option>
-              <option value="3">Запрет автоматического останова при восстановлении параметров сети</option>
-              <option value="4">Запрет автоматического запуска</option>
-              <option value="5">Нарушение сети, вспомогательный вход</option>
-              <option value="6">Замкнуть генератор на нагрузку</option>
-              <option value="7">Высокая температура двигателя</option>
-              <option value="8">Запрет нагрузки генератора</option>
-              <option value="9">Запрет переключения на сеть</option>
-              <option value="10">Сигнал низкого уровня топлива</option>
-              <option value="11">Датчик давления масла</option>
-              <option value="12">Разомкнуть генератор</option>
-              <option value="13">Дистанционный запуск без нагрузки</option>
-              <option value="14">Дистанционный запуск под нагрузкой</option>
-              <option value="15">Сброс сигналов для техобслуживания 1-3</option>
-              <option value="16">Имитация кнопки автозапуска</option>
-              <option value="17">Имитация наличия сети</option>
-              <option value="18">Имитация кнопки ручного управления</option>
-              <option value="19">Имитация кнопки запуска</option>
-              <option value="20">Имитация кнопки останова</option>
-              <option value="21">Работа на холостом ходу</option>
-              <option value="22">Датчик уровня охлаждающей жидкости</option>
-              <option value="23">Переключение на сеть/разомкнуть генератор</option>
-              <option value="24">Переключение на генератор/Разомкнуть сеть</option>
-              <option value="25">Генератор включен</option>
-              <option value="26">Сеть включена</option>
+              <option value="2">Сброс аварийной  сигнализации</option>
+              <option value="3">Низкое давление масла</option>
+              <option value="4">Высокая температура двигателя</option>
+              <option value="5">Низкий уровень топлива</option>
+              <option value="6">Дистанционный запуск под нагрузкой</option>
+              <option value="7">Работа на холостом ходу</option>
+              <optgroup label="Запреты">
+                <option value="8">Запрет автоматического запуска</option>
+                <option value="9">Запрет нагрузки генератора</option>
+                <option value="10">Запрет автоматического останова</option>
+              </optgroup>
             </select>
           </div>
         </div>
@@ -1317,31 +1291,17 @@
             <select class="custom-select sensor-select" id="didFunction">
               <option value="0">Не использовать</option>
               <option value="1">Пользовательская</option>
-              <option value="2">Сброс аварийного сигнала</option>
-              <option value="3">Запрет автоматического останова при восстановлении параметров сети</option>
-              <option value="4">Запрет автоматического запуска</option>
-              <option value="5">Нарушение сети, вспомогательный вход</option>
-              <option value="6">Замкнуть генератор на нагрузку</option>
-              <option value="7">Высокая температура двигателя</option>
-              <option value="8">Запрет нагрузки генератора</option>
-              <option value="9">Запрет переключения на сеть</option>
-              <option value="10">Сигнал низкого уровня топлива</option>
-              <option value="11">Датчик давления масла</option>
-              <option value="12">Разомкнуть генератор</option>
-              <option value="13">Дистанционный запуск без нагрузки</option>
-              <option value="14">Дистанционный запуск под нагрузкой</option>
-              <option value="15">Сброс сигналов для техобслуживания 1-3</option>
-              <option value="16">Имитация кнопки автозапуска</option>
-              <option value="17">Имитация наличия сети</option>
-              <option value="18">Имитация кнопки ручного управления</option>
-              <option value="19">Имитация кнопки запуска</option>
-              <option value="20">Имитация кнопки останова</option>
-              <option value="21">Работа на холостом ходу</option>
-              <option value="22">Датчик уровня охлаждающей жидкости</option>
-              <option value="23">Переключение на сеть/разомкнуть генератор</option>
-              <option value="24">Переключение на генератор/Разомкнуть сеть</option>
-              <option value="25">Генератор включен</option>
-              <option value="26">Сеть включена</option>
+              <option value="2">Сброс аварийной  сигнализации</option>
+              <option value="3">Низкое давление масла</option>
+              <option value="4">Высокая температура двигателя</option>
+              <option value="5">Низкий уровень топлива</option>
+              <option value="6">Дистанционный запуск под нагрузкой</option>
+              <option value="7">Работа на холостом ходу</option>
+              <optgroup label="Запреты">
+                <option value="8">Запрет автоматического запуска</option>
+                <option value="9">Запрет нагрузки генератора</option>
+                <option value="10">Запрет автоматического останова</option>
+              </optgroup>
             </select>
           </div>
         </div>
@@ -1421,7 +1381,34 @@
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select doType" id="doaType">
-              <option value="0">Топливное реле</option>
+              <option value="0">Не использовать</option>
+              <optgroup label="Режимы">
+                <option value="1">Автоматический режим</option>
+                <option value="2">Общее нарушение сети</option>
+                <option value="3">Готов к запуску</option>
+                <option value="4">Готовность генератора</option>
+              </optgroup>
+              <optgroup label="Сигнализация">
+                <option value="5">Общий аварийный сигнал</option>
+                <option value="6">Неисправность ДЭС</option>
+                <option value="7">Общее предупреждение</option>
+              </optgroup>
+              <optgroup label="Управление">
+                <option value="8">Включить генератор</option>
+                <option value="9">Включить генератор импульсно</option>
+                <option value="10">Выключить генератор импульсно</option>
+                <option value="11">Включить сеть</option>
+                <option value="12">Включить сеть импульсно</option>
+                <option value="13">Выключить сеть импульсно</option>
+                <option value="14">Охладитель охлаждающей жидкости</option>
+                <option value="15">Подогреватель охлаждающей жидкости</option>
+                <option value="16">Стоповый соленоид</option>
+                <option value="17">Подкачка топлива</option>
+                <option value="18">Топливное реле</option>
+                <option value="19">Стартерное реле</option>
+                <option value="20">Включение свечи накаливания</option>
+                <option value="21">Работа на холостом ходу</option>
+              </optgroup>
             </select>
           </div>
           <div class="col-sm-auto radio-line">
@@ -1442,7 +1429,34 @@
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select doType" id="dobType">
-              <option value="0">Реле стартера</option>
+              <option value="0">Не использовать</option>
+              <optgroup label="Режимы">
+                <option value="1">Автоматический режим</option>
+                <option value="2">Общее нарушение сети</option>
+                <option value="3">Готов к запуску</option>
+                <option value="4">Готовность генератора</option>
+              </optgroup>
+              <optgroup label="Сигнализация">
+                <option value="5">Общий аварийный сигнал</option>
+                <option value="6">Неисправность ДЭС</option>
+                <option value="7">Общее предупреждение</option>
+              </optgroup>
+              <optgroup label="Управление">
+                <option value="8">Включить генератор</option>
+                <option value="9">Включить генератор импульсно</option>
+                <option value="10">Выключить генератор импульсно</option>
+                <option value="11">Включить сеть</option>
+                <option value="12">Включить сеть импульсно</option>
+                <option value="13">Выключить сеть импульсно</option>
+                <option value="14">Охладитель охлаждающей жидкости</option>
+                <option value="15">Подогреватель охлаждающей жидкости</option>
+                <option value="16">Стоповый соленоид</option>
+                <option value="17">Подкачка топлива</option>
+                <option value="18">Топливное реле</option>
+                <option value="19">Стартерное реле</option>
+                <option value="20">Включение свечи накаливания</option>
+                <option value="21">Работа на холостом ходу</option>
+              </optgroup>
             </select>
           </div>
           <div class="col-sm-auto radio-line">
@@ -1464,92 +1478,33 @@
           <div class="col-sm-auto">
             <select class="custom-select sensor-select doType" id="docType">
               <option value="0">Не использовать</option>
-              <option value="1">Звуковой аварийный сигнал</option>
-              <option value="2">Автоматический режим </option>
-              <option value="3">Запрет автоматического запуска</option>
-              <option value="4">Высокое напряжение аккумуляторной батареи</option>
-              <option value="5">Низкое  напряжение аккумуляторной батареи</option>
-              <option value="6">Отказ зарядного генератора</option>
-              <option value="7">Включить генератор</option>
-              <option value="8">Импульс включения генератора</option>
-              <option value="9">Включить сеть</option>
-              <option value="10">Импульс включения сети</option>
-              <option value="11">Общее нарушение сети</option>
-              <option value="12">Общий сигнал о техобслуживании</option>
-              <option value="13">Общий выход дистанционного запуска</option>
-              <option value="14">Общий аварийный сигнал</option>
-              <option value="15">Отключение нагрузки</option>
-              <option value="16">Аварийное отключение</option>
-              <option value="17">Общее предупреждение</option>
-              <option value="18">Управление охладителем охлаждающей жидкости</option>
-              <option value="19">Управление подогревателем охлаждающей жидкости</option>
-              <option value="20">Охлаждение</option>
-              <option value="21">Цифровой вход С - А</option>
-              <option value="22">Аварийный сигнал на размыкание при нарушении заземления</option>
-              <option value="23">Аварийный останов</option>
-              <option value="24">Стоповый соленоид</option>
-              <option value="25">Сбой останова</option>
-              <option value="26">Отказ при запуске</option>
-              <option value="27">Подкачка топлива</option>
-              <option value="28">Топливное реле</option>
-              <option value="29">Готов к запуску</option>
-              <option value="30">Готовность генератора </option>
-              <option value="31">Генератор включен</option>
-              <option value="32">Отказ замыкания генератора</option>
-              <option value="33">Отказ размыкания генератора</option>
-              <option value="34">Запрет нагрузки генератора</option>
-              <option value="35">Останов генератора при высоком напряжении</option>
-              <option value="36">Предупреждение при высоком напряжении генератора</option>
-              <option value="37">Останов генератора при низком напряжении</option>
-              <option value="38">Предупреждение при низком напряжении генератора</option>
-              <option value="39">Высокая температура охлаждающей жидкости – Аварийный останов</option>
-              <option value="40">Высокая температура  охлаждающей жидкости - предупреждение</option>
-              <option value="41">Останов при перегрузке (кВт) / Отключение нагрузки</option>
-              <option value="42">Предупреждение о перегрузке (кВт)</option>
-              <option value="43">Не достигнута номинальная частота</option>
-              <option value="44">Не достигнуто номинальное напряжение</option>
-              <option value="45">Потерян сигнал магнитного датчика</option>
-              <option value="46">Низкий уровень топлива</option>
-              <option value="47">Останов при низком давлении масла</option>
-              <option value="48">Предупреждение о низком давлении масла</option>
-              <option value="49">Разомкнута цепь магнитного датчика</option>
-              <option value="50">Сеть включена</option>
-              <option value="51">Нарушение сети</option>
-              <option value="52">Повышенная частота  сети</option>
-              <option value="53">Повышенное напряжение сети</option>
-              <option value="54">Пониженная частота сети</option>
-              <option value="55">Пониженное напряжение сети</option>
-              <option value="56">Время подачи аварийных сигналов техобслуживания 1,2,3</option>
-              <option value="57">Ручной режим</option>
-              <option value="58">Разомкнута цепь датчика давления масла</option>
-              <option value="59">Отключить генератор</option>
-              <option value="60">Импульс отключения генератора</option>
-              <option value="61">Сеть разомкнута</option>
-              <option value="62">Импульс отключения сети</option>
-              <option value="63">Перегрузка по току- Отключение нагрузки</option>
-              <option value="64">Предупреждение о перегрузке по току</option>
-              <option value="65">Предупреждение о высокой частоте генератора</option>
-              <option value="66">Отключение генератора по причине высокой частоты</option>
-              <option value="67">Останов при превышении скорости</option>
-              <option value="68">Предупреждение о превышении скорости</option>
-              <option value="69">Предпрогрев во время работы таймера Предпрогрева</option>
-              <option value="70">Предпрогрев до окончания прокрутки</option>
-              <option value="71">Режим Предпрогрева до окончания работы таймера блокировки контроля параметров</option>
-              <option value="72">Режим Предпрогрева до окончания работы таймера прогрева</option>
-              <option value="73">Дистанционный запуск  без нагрузки</option>
-              <option value="74">Дистанционный запуск  под нагрузкой</option>
-              <option value="75">Задержка возврата на сеть</option>
-              <option value="76">Короткое замыкание генератора</option>
-              <option value="77">Работа на холостом ходу</option>
-              <option value="78">Задержка пуска в действии</option>
-              <option value="79">Реле стартера</option>
-              <option value="80">Нажата кнопка стоп</option>
-              <option value="81">Режим останова</option>
-              <option value="82">Система в норме</option>
-              <option value="83">Предупреждение о пониженной частоте </option>
-              <option value="84">Останов при пониженной частоте</option>
-              <option value="85">Останов при пониженной скорости</option>
-              <option value="86">Предупреждение о пониженной скорости</option>
+              <optgroup label="Режимы">
+                <option value="1">Автоматический режим</option>
+                <option value="2">Общее нарушение сети</option>
+                <option value="3">Готов к запуску</option>
+                <option value="4">Готовность генератора</option>
+              </optgroup>
+              <optgroup label="Сигнализация">
+                <option value="5">Общий аварийный сигнал</option>
+                <option value="6">Неисправность ДЭС</option>
+                <option value="7">Общее предупреждение</option>
+              </optgroup>
+              <optgroup label="Управление">
+                <option value="8">Включить генератор</option>
+                <option value="9">Включить генератор импульсно</option>
+                <option value="10">Выключить генератор импульсно</option>
+                <option value="11">Включить сеть</option>
+                <option value="12">Включить сеть импульсно</option>
+                <option value="13">Выключить сеть импульсно</option>
+                <option value="14">Охладитель охлаждающей жидкости</option>
+                <option value="15">Подогреватель охлаждающей жидкости</option>
+                <option value="16">Стоповый соленоид</option>
+                <option value="17">Подкачка топлива</option>
+                <option value="18">Топливное реле</option>
+                <option value="19">Стартерное реле</option>
+                <option value="20">Включение свечи накаливания</option>
+                <option value="21">Работа на холостом ходу</option>
+              </optgroup>
             </select>
           </div>
           <div class="col-sm-auto radio-line">
@@ -1571,92 +1526,33 @@
           <div class="col-sm-auto">
             <select class="custom-select sensor-select doType" id="dodType">
               <option value="0">Не использовать</option>
-              <option value="1">Звуковой аварийный сигнал</option>
-              <option value="2">Автоматический режим </option>
-              <option value="3">Запрет автоматического запуска</option>
-              <option value="4">Высокое напряжение аккумуляторной батареи</option>
-              <option value="5">Низкое  напряжение аккумуляторной батареи</option>
-              <option value="6">Отказ зарядного генератора</option>
-              <option value="7">Включить генератор</option>
-              <option value="8">Импульс включения генератора</option>
-              <option value="9">Включить сеть</option>
-              <option value="10">Импульс включения сети</option>
-              <option value="11">Общее нарушение сети</option>
-              <option value="12">Общий сигнал о техобслуживании</option>
-              <option value="13">Общий выход дистанционного запуска</option>
-              <option value="14">Общий аварийный сигнал</option>
-              <option value="15">Отключение нагрузки</option>
-              <option value="16">Аварийное отключение</option>
-              <option value="17">Общее предупреждение</option>
-              <option value="18">Управление охладителем охлаждающей жидкости</option>
-              <option value="19">Управление подогревателем охлаждающей жидкости</option>
-              <option value="20">Охлаждение</option>
-              <option value="21">Цифровой вход С - А</option>
-              <option value="22">Аварийный сигнал на размыкание при нарушении заземления</option>
-              <option value="23">Аварийный останов</option>
-              <option value="24">Стоповый соленоид</option>
-              <option value="25">Сбой останова</option>
-              <option value="26">Отказ при запуске</option>
-              <option value="27">Подкачка топлива</option>
-              <option value="28">Топливное реле</option>
-              <option value="29">Готов к запуску</option>
-              <option value="30">Готовность генератора </option>
-              <option value="31">Генератор включен</option>
-              <option value="32">Отказ замыкания генератора</option>
-              <option value="33">Отказ размыкания генератора</option>
-              <option value="34">Запрет нагрузки генератора</option>
-              <option value="35">Останов генератора при высоком напряжении</option>
-              <option value="36">Предупреждение при высоком напряжении генератора</option>
-              <option value="37">Останов генератора при низком напряжении</option>
-              <option value="38">Предупреждение при низком напряжении генератора</option>
-              <option value="39">Высокая температура охлаждающей жидкости – Аварийный останов</option>
-              <option value="40">Высокая температура  охлаждающей жидкости - предупреждение</option>
-              <option value="41">Останов при перегрузке (кВт) / Отключение нагрузки</option>
-              <option value="42">Предупреждение о перегрузке (кВт)</option>
-              <option value="43">Не достигнута номинальная частота</option>
-              <option value="44">Не достигнуто номинальное напряжение</option>
-              <option value="45">Потерян сигнал магнитного датчика</option>
-              <option value="46">Низкий уровень топлива</option>
-              <option value="47">Останов при низком давлении масла</option>
-              <option value="48">Предупреждение о низком давлении масла</option>
-              <option value="49">Разомкнута цепь магнитного датчика</option>
-              <option value="50">Сеть включена</option>
-              <option value="51">Нарушение сети</option>
-              <option value="52">Повышенная частота  сети</option>
-              <option value="53">Повышенное напряжение сети</option>
-              <option value="54">Пониженная частота сети</option>
-              <option value="55">Пониженное напряжение сети</option>
-              <option value="56">Время подачи аварийных сигналов техобслуживания 1,2,3</option>
-              <option value="57">Ручной режим</option>
-              <option value="58">Разомкнута цепь датчика давления масла</option>
-              <option value="59">Отключить генератор</option>
-              <option value="60">Импульс отключения генератора</option>
-              <option value="61">Сеть разомкнута</option>
-              <option value="62">Импульс отключения сети</option>
-              <option value="63">Перегрузка по току- Отключение нагрузки</option>
-              <option value="64">Предупреждение о перегрузке по току</option>
-              <option value="65">Предупреждение о высокой частоте генератора</option>
-              <option value="66">Отключение генератора по причине высокой частоты</option>
-              <option value="67">Останов при превышении скорости</option>
-              <option value="68">Предупреждение о превышении скорости</option>
-              <option value="69">Предпрогрев во время работы таймера Предпрогрева</option>
-              <option value="70">Предпрогрев до окончания прокрутки</option>
-              <option value="71">Режим Предпрогрева до окончания работы таймера блокировки контроля параметров</option>
-              <option value="72">Режим Предпрогрева до окончания работы таймера прогрева</option>
-              <option value="73">Дистанционный запуск  без нагрузки</option>
-              <option value="74">Дистанционный запуск  под нагрузкой</option>
-              <option value="75">Задержка возврата на сеть</option>
-              <option value="76">Короткое замыкание генератора</option>
-              <option value="77">Работа на холостом ходу</option>
-              <option value="78">Задержка пуска в действии</option>
-              <option value="79">Реле стартера</option>
-              <option value="80">Нажата кнопка стоп</option>
-              <option value="81">Режим останова</option>
-              <option value="82">Система в норме</option>
-              <option value="83">Предупреждение о пониженной частоте </option>
-              <option value="84">Останов при пониженной частоте</option>
-              <option value="85">Останов при пониженной скорости</option>
-              <option value="86">Предупреждение о пониженной скорости</option>
+              <optgroup label="Режимы">
+                <option value="1">Автоматический режим</option>
+                <option value="2">Общее нарушение сети</option>
+                <option value="3">Готов к запуску</option>
+                <option value="4">Готовность генератора</option>
+              </optgroup>
+              <optgroup label="Сигнализация">
+                <option value="5">Общий аварийный сигнал</option>
+                <option value="6">Неисправность ДЭС</option>
+                <option value="7">Общее предупреждение</option>
+              </optgroup>
+              <optgroup label="Управление">
+                <option value="8">Включить генератор</option>
+                <option value="9">Включить генератор импульсно</option>
+                <option value="10">Выключить генератор импульсно</option>
+                <option value="11">Включить сеть</option>
+                <option value="12">Включить сеть импульсно</option>
+                <option value="13">Выключить сеть импульсно</option>
+                <option value="14">Охладитель охлаждающей жидкости</option>
+                <option value="15">Подогреватель охлаждающей жидкости</option>
+                <option value="16">Стоповый соленоид</option>
+                <option value="17">Подкачка топлива</option>
+                <option value="18">Топливное реле</option>
+                <option value="19">Стартерное реле</option>
+                <option value="20">Включение свечи накаливания</option>
+                <option value="21">Работа на холостом ходу</option>
+              </optgroup>
             </select>
           </div>
           <div class="col-sm-auto radio-line">
@@ -1678,92 +1574,33 @@
           <div class="col-sm-auto">
             <select class="custom-select sensor-select doType" id="doeType">
               <option value="0">Не использовать</option>
-              <option value="1">Звуковой аварийный сигнал</option>
-              <option value="2">Автоматический режим </option>
-              <option value="3">Запрет автоматического запуска</option>
-              <option value="4">Высокое напряжение аккумуляторной батареи</option>
-              <option value="5">Низкое  напряжение аккумуляторной батареи</option>
-              <option value="6">Отказ зарядного генератора</option>
-              <option value="7">Включить генератор</option>
-              <option value="8">Импульс включения генератора</option>
-              <option value="9">Включить сеть</option>
-              <option value="10">Импульс включения сети</option>
-              <option value="11">Общее нарушение сети</option>
-              <option value="12">Общий сигнал о техобслуживании</option>
-              <option value="13">Общий выход дистанционного запуска</option>
-              <option value="14">Общий аварийный сигнал</option>
-              <option value="15">Отключение нагрузки</option>
-              <option value="16">Аварийное отключение</option>
-              <option value="17">Общее предупреждение</option>
-              <option value="18">Управление охладителем охлаждающей жидкости</option>
-              <option value="19">Управление подогревателем охлаждающей жидкости</option>
-              <option value="20">Охлаждение</option>
-              <option value="21">Цифровой вход С - А</option>
-              <option value="22">Аварийный сигнал на размыкание при нарушении заземления</option>
-              <option value="23">Аварийный останов</option>
-              <option value="24">Стоповый соленоид</option>
-              <option value="25">Сбой останова</option>
-              <option value="26">Отказ при запуске</option>
-              <option value="27">Подкачка топлива</option>
-              <option value="28">Топливное реле</option>
-              <option value="29">Готов к запуску</option>
-              <option value="30">Готовность генератора </option>
-              <option value="31">Генератор включен</option>
-              <option value="32">Отказ замыкания генератора</option>
-              <option value="33">Отказ размыкания генератора</option>
-              <option value="34">Запрет нагрузки генератора</option>
-              <option value="35">Останов генератора при высоком напряжении</option>
-              <option value="36">Предупреждение при высоком напряжении генератора</option>
-              <option value="37">Останов генератора при низком напряжении</option>
-              <option value="38">Предупреждение при низком напряжении генератора</option>
-              <option value="39">Высокая температура охлаждающей жидкости – Аварийный останов</option>
-              <option value="40">Высокая температура  охлаждающей жидкости - предупреждение</option>
-              <option value="41">Останов при перегрузке (кВт) / Отключение нагрузки</option>
-              <option value="42">Предупреждение о перегрузке (кВт)</option>
-              <option value="43">Не достигнута номинальная частота</option>
-              <option value="44">Не достигнуто номинальное напряжение</option>
-              <option value="45">Потерян сигнал магнитного датчика</option>
-              <option value="46">Низкий уровень топлива</option>
-              <option value="47">Останов при низком давлении масла</option>
-              <option value="48">Предупреждение о низком давлении масла</option>
-              <option value="49">Разомкнута цепь магнитного датчика</option>
-              <option value="50">Сеть включена</option>
-              <option value="51">Нарушение сети</option>
-              <option value="52">Повышенная частота  сети</option>
-              <option value="53">Повышенное напряжение сети</option>
-              <option value="54">Пониженная частота сети</option>
-              <option value="55">Пониженное напряжение сети</option>
-              <option value="56">Время подачи аварийных сигналов техобслуживания 1,2,3</option>
-              <option value="57">Ручной режим</option>
-              <option value="58">Разомкнута цепь датчика давления масла</option>
-              <option value="59">Отключить генератор</option>
-              <option value="60">Импульс отключения генератора</option>
-              <option value="61">Сеть разомкнута</option>
-              <option value="62">Импульс отключения сети</option>
-              <option value="63">Перегрузка по току- Отключение нагрузки</option>
-              <option value="64">Предупреждение о перегрузке по току</option>
-              <option value="65">Предупреждение о высокой частоте генератора</option>
-              <option value="66">Отключение генератора по причине высокой частоты</option>
-              <option value="67">Останов при превышении скорости</option>
-              <option value="68">Предупреждение о превышении скорости</option>
-              <option value="69">Предпрогрев во время работы таймера Предпрогрева</option>
-              <option value="70">Предпрогрев до окончания прокрутки</option>
-              <option value="71">Режим Предпрогрева до окончания работы таймера блокировки контроля параметров</option>
-              <option value="72">Режим Предпрогрева до окончания работы таймера прогрева</option>
-              <option value="73">Дистанционный запуск  без нагрузки</option>
-              <option value="74">Дистанционный запуск  под нагрузкой</option>
-              <option value="75">Задержка возврата на сеть</option>
-              <option value="76">Короткое замыкание генератора</option>
-              <option value="77">Работа на холостом ходу</option>
-              <option value="78">Задержка пуска в действии</option>
-              <option value="79">Реле стартера</option>
-              <option value="80">Нажата кнопка стоп</option>
-              <option value="81">Режим останова</option>
-              <option value="82">Система в норме</option>
-              <option value="83">Предупреждение о пониженной частоте </option>
-              <option value="84">Останов при пониженной частоте</option>
-              <option value="85">Останов при пониженной скорости</option>
-              <option value="86">Предупреждение о пониженной скорости</option>
+              <optgroup label="Режимы">
+                <option value="1">Автоматический режим</option>
+                <option value="2">Общее нарушение сети</option>
+                <option value="3">Готов к запуску</option>
+                <option value="4">Готовность генератора</option>
+              </optgroup>
+              <optgroup label="Сигнализация">
+                <option value="5">Общий аварийный сигнал</option>
+                <option value="6">Неисправность ДЭС</option>
+                <option value="7">Общее предупреждение</option>
+              </optgroup>
+              <optgroup label="Управление">
+                <option value="8">Включить генератор</option>
+                <option value="9">Включить генератор импульсно</option>
+                <option value="10">Выключить генератор импульсно</option>
+                <option value="11">Включить сеть</option>
+                <option value="12">Включить сеть импульсно</option>
+                <option value="13">Выключить сеть импульсно</option>
+                <option value="14">Охладитель охлаждающей жидкости</option>
+                <option value="15">Подогреватель охлаждающей жидкости</option>
+                <option value="16">Стоповый соленоид</option>
+                <option value="17">Подкачка топлива</option>
+                <option value="18">Топливное реле</option>
+                <option value="19">Стартерное реле</option>
+                <option value="20">Включение свечи накаливания</option>
+                <option value="21">Работа на холостом ходу</option>
+              </optgroup>
             </select>
           </div>
           <div class="col-sm-auto radio-line">
@@ -1785,92 +1622,33 @@
           <div class="col-sm-auto">
             <select class="custom-select sensor-select doType" id="dofType">
               <option value="0">Не использовать</option>
-              <option value="1">Звуковой аварийный сигнал</option>
-              <option value="2">Автоматический режим </option>
-              <option value="3">Запрет автоматического запуска</option>
-              <option value="4">Высокое напряжение аккумуляторной батареи</option>
-              <option value="5">Низкое  напряжение аккумуляторной батареи</option>
-              <option value="6">Отказ зарядного генератора</option>
-              <option value="7">Включить генератор</option>
-              <option value="8">Импульс включения генератора</option>
-              <option value="9">Включить сеть</option>
-              <option value="10">Импульс включения сети</option>
-              <option value="11">Общее нарушение сети</option>
-              <option value="12">Общий сигнал о техобслуживании</option>
-              <option value="13">Общий выход дистанционного запуска</option>
-              <option value="14">Общий аварийный сигнал</option>
-              <option value="15">Отключение нагрузки</option>
-              <option value="16">Аварийное отключение</option>
-              <option value="17">Общее предупреждение</option>
-              <option value="18">Управление охладителем охлаждающей жидкости</option>
-              <option value="19">Управление подогревателем охлаждающей жидкости</option>
-              <option value="20">Охлаждение</option>
-              <option value="21">Цифровой вход С - А</option>
-              <option value="22">Аварийный сигнал на размыкание при нарушении заземления</option>
-              <option value="23">Аварийный останов</option>
-              <option value="24">Стоповый соленоид</option>
-              <option value="25">Сбой останова</option>
-              <option value="26">Отказ при запуске</option>
-              <option value="27">Подкачка топлива</option>
-              <option value="28">Топливное реле</option>
-              <option value="29">Готов к запуску</option>
-              <option value="30">Готовность генератора </option>
-              <option value="31">Генератор включен</option>
-              <option value="32">Отказ замыкания генератора</option>
-              <option value="33">Отказ размыкания генератора</option>
-              <option value="34">Запрет нагрузки генератора</option>
-              <option value="35">Останов генератора при высоком напряжении</option>
-              <option value="36">Предупреждение при высоком напряжении генератора</option>
-              <option value="37">Останов генератора при низком напряжении</option>
-              <option value="38">Предупреждение при низком напряжении генератора</option>
-              <option value="39">Высокая температура охлаждающей жидкости – Аварийный останов</option>
-              <option value="40">Высокая температура  охлаждающей жидкости - предупреждение</option>
-              <option value="41">Останов при перегрузке (кВт) / Отключение нагрузки</option>
-              <option value="42">Предупреждение о перегрузке (кВт)</option>
-              <option value="43">Не достигнута номинальная частота</option>
-              <option value="44">Не достигнуто номинальное напряжение</option>
-              <option value="45">Потерян сигнал магнитного датчика</option>
-              <option value="46">Низкий уровень топлива</option>
-              <option value="47">Останов при низком давлении масла</option>
-              <option value="48">Предупреждение о низком давлении масла</option>
-              <option value="49">Разомкнута цепь магнитного датчика</option>
-              <option value="50">Сеть включена</option>
-              <option value="51">Нарушение сети</option>
-              <option value="52">Повышенная частота  сети</option>
-              <option value="53">Повышенное напряжение сети</option>
-              <option value="54">Пониженная частота сети</option>
-              <option value="55">Пониженное напряжение сети</option>
-              <option value="56">Время подачи аварийных сигналов техобслуживания 1,2,3</option>
-              <option value="57">Ручной режим</option>
-              <option value="58">Разомкнута цепь датчика давления масла</option>
-              <option value="59">Отключить генератор</option>
-              <option value="60">Импульс отключения генератора</option>
-              <option value="61">Сеть разомкнута</option>
-              <option value="62">Импульс отключения сети</option>
-              <option value="63">Перегрузка по току- Отключение нагрузки</option>
-              <option value="64">Предупреждение о перегрузке по току</option>
-              <option value="65">Предупреждение о высокой частоте генератора</option>
-              <option value="66">Отключение генератора по причине высокой частоты</option>
-              <option value="67">Останов при превышении скорости</option>
-              <option value="68">Предупреждение о превышении скорости</option>
-              <option value="69">Предпрогрев во время работы таймера Предпрогрева</option>
-              <option value="70">Предпрогрев до окончания прокрутки</option>
-              <option value="71">Режим Предпрогрева до окончания работы таймера блокировки контроля параметров</option>
-              <option value="72">Режим Предпрогрева до окончания работы таймера прогрева</option>
-              <option value="73">Дистанционный запуск  без нагрузки</option>
-              <option value="74">Дистанционный запуск  под нагрузкой</option>
-              <option value="75">Задержка возврата на сеть</option>
-              <option value="76">Короткое замыкание генератора</option>
-              <option value="77">Работа на холостом ходу</option>
-              <option value="78">Задержка пуска в действии</option>
-              <option value="79">Реле стартера</option>
-              <option value="80">Нажата кнопка стоп</option>
-              <option value="81">Режим останова</option>
-              <option value="82">Система в норме</option>
-              <option value="83">Предупреждение о пониженной частоте </option>
-              <option value="84">Останов при пониженной частоте</option>
-              <option value="85">Останов при пониженной скорости</option>
-              <option value="86">Предупреждение о пониженной скорости</option>
+              <optgroup label="Режимы">
+                <option value="1">Автоматический режим</option>
+                <option value="2">Общее нарушение сети</option>
+                <option value="3">Готов к запуску</option>
+                <option value="4">Готовность генератора</option>
+              </optgroup>
+              <optgroup label="Сигнализация">
+                <option value="5">Общий аварийный сигнал</option>
+                <option value="6">Неисправность ДЭС</option>
+                <option value="7">Общее предупреждение</option>
+              </optgroup>
+              <optgroup label="Управление">
+                <option value="8">Включить генератор</option>
+                <option value="9">Включить генератор импульсно</option>
+                <option value="10">Выключить генератор импульсно</option>
+                <option value="11">Включить сеть</option>
+                <option value="12">Включить сеть импульсно</option>
+                <option value="13">Выключить сеть импульсно</option>
+                <option value="14">Охладитель охлаждающей жидкости</option>
+                <option value="15">Подогреватель охлаждающей жидкости</option>
+                <option value="16">Стоповый соленоид</option>
+                <option value="17">Подкачка топлива</option>
+                <option value="18">Топливное реле</option>
+                <option value="19">Стартерное реле</option>
+                <option value="20">Включение свечи накаливания</option>
+                <option value="21">Работа на холостом ходу</option>
+              </optgroup>
             </select>
           </div>
           <div class="col-sm-auto radio-line">
@@ -2162,34 +1940,13 @@
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label class="pos-select">Пар полюсов</label>
-          </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="genPoles">
-              <option value="0">2</option>
-              <option value="1">4</option>
-              <option value="2">6</option>
-              <option value="3">8</option>
-              <option value="4">10</option>
-              <option value="5">12</option>
-              <option value="6">14</option>
-              <option value="7">16</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-2 pos-name">
             <label>Система переменного тока</label>
           </div>
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="genAcSys">
-              <option value="0">2 фазы, 3 кабеля L1-L2</option>
-              <option value="1">2 фазы, 3 кабеля L1-L3</option>
-              <option value="2">3 фазы, 3 кабеля, треугольник</option>
-              <option value="3">3 фазы, 4 кабеля, звезда</option>
-              <option value="4">3 фазы, 4 кабеля, треугольник</option>
-              <option value="5">Однофазный, 2 кабеля</option>
+              <option value="0">Треугольник</option>
+              <option value="1">Звезда</option>
+              <option value="2">Одна фаза</option>
             </select>
           </div>
         </div>
@@ -2303,17 +2060,6 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Расположение трансформатора тока</label>
-          </div>
-          <div class="col-sm">
-            <select class="custom-select sensor-select" id="genLocationCurrentTransformerLevel">
-              <option value="0">Генератор</option>
-              <option value="1">Нагрузка</option>
-            </select>
-          </div>
-        </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="generatorVoltagePage" class="content-data hidden">
@@ -2736,21 +2482,6 @@
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Немедленное отключение при потери сети</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Система переменного тока</label>
-          </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="mainAcSys">
-              <option value="0">2 фазы, 3 кабеля L1-L2</option>
-              <option value="1">2 фазы, 3 кабеля L1-L3</option>
-              <option value="2">3 фазы, 3 кабеля, треугольник</option>
-              <option value="3">3 фазы, 4 кабеля, звезда</option>
-              <option value="4">3 фазы, 4 кабеля, треугольник</option>
-              <option value="5">Однофазный, 2 кабеля</option>
-            </select>
           </div>
         </div>
       </div>
