@@ -2,9 +2,6 @@ var s_sliders;
 var s_sinputs;
 var checkboxes;
 var selectors;
-var d_sliders;
-var d_sinputs_left;
-var d_sinputs_right;
 
 function calcFracLength( x ) {
 	return ( x.toString().indexOf( '.' ) >= 0) ? ( x.toString().split( '.' ).pop().length ) : ( 0 );
@@ -376,6 +373,8 @@ function starterStopProcessing() {
 	this.oilEnb.addEventListener( 'change', function() {
 		if ( self.checkFull() == 0 ) {
 			self.chargerEnb.checked = true;
+			document.getElementById('sinput-starterStopChargeAlternatorLevel').disabled = false;
+			document.getElementById('s-slider-starterStopChargeAlternatorLevel').removeAttribute( 'disabled' );
 			let alert = new Alert( "alert-warning", triIco ,"Стартер должен иметь хотя бы одино условие отключения" )
 		}
 		return;
@@ -704,6 +703,8 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	diInit( 'b' );
 	diInit( 'c' );
 	diInit( 'd' );
+	doInit( 'a' );
+	doInit( 'b' );
 	doInit( 'c' );
 	doInit( 'd' );
 	doInit( 'e' );
@@ -797,16 +798,22 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	                                           'genUnderFrequencyPreAlarmLevel',
 																						 'genOverFrequencyPreAlarmLevel',
 																						 'genOverFrequencyAlarmLevel' );
+	const oilVoltageLims = new slider2InitLimits( 'oilPressureAlarmLevel',
+	                                              'oilPressurePreAlarmLevel');
+  const coolantLims = new slider2InitLimits( 'coolantHightTempPreAlarmLevel',
+                                                    'coolantHightTempAlarmLevel' );
+  const coolantHeaterLims = new slider2InitLimits('coolantTempHeaterOnLevel','coolantTempHeaterOffLevel');
+	const coolantCoolerLims = new slider2InitLimits('coolantTempCoolerOnLevel','coolantTempCoolerOffLevel');
+	const fuelLims = new slider4InitLimits('fuelLevelLowAlarmLevel',
+	                                       'fuelLevelLowPreAlarmLevel',
+																				 'fuelLevelHightPreAlarmLevel',
+																				 'fuelLevelHightAlarmLevel');
+	const fielPumpLims = new slider2InitLimits('fuelPumpOnLevel','fuelPumpOffLevel');
+	const speedLims = new slider2InitLimits('speedLowAlarmLevel','speedHightAlarmLevel');
 	const mainsVoltageLims = new slider2InitLimits( 'mainsUnderVoltageAlarmLevel',
 		                                              'mainsOverVoltageAlarmLevel' );
 	const mainsFreqLims = new slider2InitLimits( 'mainsUnderFrequencyAlarmLevel',
 		                                           'mainsOverFrequencyAlarmLevel' );
-	const coolantHeaterLims = new slider2InitLimits( 'coolantTempHeaterOnLevel',
-		                                               'coolantTempHeaterOffLevel' );
-	const coolantCoolerLims = new slider2InitLimits( 'coolantTempCoolerOnLevel',
-		                                               'coolantTempCoolerOffLevel' );
-	const fuelPumpLims = new slider2InitLimits( 'fuelPumpOnLevel',
-		                                          'fuelPumpOffLevel' );
   loadContent( 'devicePage' );
 	return;
 });

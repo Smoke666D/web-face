@@ -808,58 +808,6 @@
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
-              <input type="checkbox" class="check-input" id="fuelLevelHightAlarmEnb">
-              <span class="slider"></span>
-            </label>
-            <label class="form-check-label">Активировать сигнализатор верхнего предела</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Действие</label>
-          </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="fuelLevelHightAlarmAction" disabled>
-              <option value="0">Останов</option>
-              <option value="1">Отключение нагрузки</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Уровень срабатывания</label>
-          </div>
-          <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelLevelHightAlarmLevel" step="1">
-          </div>
-          <div class="col-dimension">
-            <label class="pos-unit" id="label-fuelLevelHightAlarmLevel">%</label>
-          </div>
-          <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-fuelLevelHightAlarmLevel"></div>
-          </div>
-        </div>
-<!---->
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Задержка</label>
-          </div>
-          <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelLevelHightAlarmDelay" step="1">
-          </div>
-          <div class="col-dimension">
-            <label class="pos-unit" id="label-fuelLevelHightAlarmDelay">сек</label>
-          </div>
-          <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-fuelLevelHightAlarmDelay"></div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-auto">
-            <label class="switch">
               <input type="checkbox" class="check-input" id="fuelLevelHightPreAlarmEnb">
               <span class="slider"></span>
             </label>
@@ -894,6 +842,59 @@
           </div>
           <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelLevelHightPreAlarmDelay"></div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="fuelLevelHightAlarmEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Активировать сигнализатор верхнего предела</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Действие</label>
+          </div>
+          <div class="col-sm-auto">
+            <select class="custom-select sensor-select" id="fuelLevelHightAlarmAction" disabled>
+              <option value="0">Останов</option>
+              <option value="1">Отключение нагрузки</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Уровень срабатывания</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-fuelLevelHightAlarmLevel" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-fuelLevelHightAlarmLevel">%</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-fuelLevelHightAlarmLevel"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Задержка</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-fuelLevelHightAlarmDelay" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-fuelLevelHightAlarmDelay">сек</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-fuelLevelHightAlarmDelay"></div>
           </div>
         </div>
 
@@ -1394,8 +1395,8 @@
                 <option value="7">Общее предупреждение</option>
               </optgroup>
               <optgroup label="Управление">
-                <option value="8">Включить генератор</option>
-                <option value="9">Включить генератор импульсно</option>
+                <option value="8" >Включить генератор</option>
+                <option value="9" >Включить генератор импульсно</option>
                 <option value="10">Выключить генератор импульсно</option>
                 <option value="11">Включить сеть</option>
                 <option value="12">Включить сеть импульсно</option>
@@ -1807,13 +1808,13 @@
             <label>Длина импульса отключения генераторного автомата</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerBreakerTripPulse" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-timerGenBreakerTripPulse" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit" id="label-timerBreakerTripPulse">сек</label>
+            <label class="pos-unit" id="label-timerGenBreakerTripPulse">сек</label>
           </div>
           <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-timerBreakerTripPulse"></div>
+            <div class="s-slider" id="s-slider-timerGenBreakerTripPulse"></div>
           </div>
         </div>
 
@@ -1822,13 +1823,43 @@
             <label>Длина импульса включения генераторного автомата</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerBreakerClosePulse" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-timerGenBreakerClosePulse" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit" id="label-timerBreakerClosePulse">сек</label>
+            <label class="pos-unit" id="label-timerGenBreakerClosePulse">сек</label>
           </div>
           <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-timerBreakerClosePulse"></div>
+            <div class="s-slider" id="s-slider-timerGenBreakerClosePulse"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Длина импульса отключения сетевого автомата</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-timerMainsBreakerTripPulse" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-timerMainsBreakerTripPulse">сек</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-timerMainsBreakerTripPulse"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Длина импульса включения сетевого автомата</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-timerMainsBreakerClosePulse" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-timerMainsBreakerClosePulse">сек</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-timerMainsBreakerClosePulse"></div>
           </div>
         </div>
 
@@ -2649,6 +2680,11 @@
           <div class="col-dimension">
             <label>часов</label>
           </div>
+          <div class="col-sm-auto">
+            <button aria-label="Connect" id="controllerWorkTimeSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить моточасы двигателя">
+              <span>Записать</span>
+            </button>
+          </div>
         </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -2659,6 +2695,11 @@
           </div>
           <div class="col-dimension">
             <label>раз</label>
+          </div>
+          <div class="col-sm-auto">
+            <button aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+              <span>Записать</span>
+            </button>
           </div>
         </div>
       </div>

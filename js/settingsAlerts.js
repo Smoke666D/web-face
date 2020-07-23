@@ -1,8 +1,8 @@
-function checkDO( target ) {
-  var types = document.getElementsByClassName("doType");
+function checkDO( targetText ) {
+  var types = document.getElementsByClassName( "doType" );
   var res = 0;
-  for (i=0;i<types.length;i++) {
-    if (types[i].options[types[i].value].text == target ) {
+  for ( i=0; i<types.length; i++ ) {
+    if ( types[i].options[types[i].value].text == targetText ) {
       res = 1;
     }
   }
@@ -14,19 +14,25 @@ function checkDO( target ) {
 
 
 function checkSettings() {
-  const names   = ["coolantTempHeaterEnb",
+  var self = this;
+  this.names   = ["coolantTempHeaterEnb",
                    "coolantTempCoolerEnb",
-                   "fuelPumpEnb"];
-  const targets = ["Управление охладителем охлаждающей жидкости",
-                   "Управление подогревателем охлаждающей жидкости",
-                   "Подкачка топлива"];
-  for (i=0;i<names.length;i++) {
-    obj = document.getElementById( names[i] );
-    obj.addEventListener("change",function(){
-      if ( this.checked == true ) {
-        checkDO( targets[i] );
+                   "fuelPumpEnb",
+                   "enginePreHeatEnb"];
+  this.targets = ["Охладитель охлаждающей жидкости",
+                   "Подогреватель охлаждающей жидкости",
+                   "Подкачка топлива",
+                   "Включение свечи накаливания"];
+  for ( i=0; i<names.length; i++ ) {
+    obj = document.getElementById( self.names[i] );
+    obj.addEventListener( "change", ( function() {
+      var j = i;
+      return function() {
+        if ( this.checked == true ) {
+          checkDO( self.targets[j] );
+        }
       }
-    });
+    })());
   }
 
   document.getElementById('starterStopSpeedEnb').addEventListener( 'change', function() {
