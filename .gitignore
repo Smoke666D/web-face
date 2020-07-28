@@ -6,3 +6,4 @@ release-builds
 
 *.pyc
 /node_modules
+/release-builds
