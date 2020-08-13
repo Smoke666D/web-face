@@ -95,7 +95,7 @@ document.getElementById("connect-button").addEventListener('click', function() {
             }
           });
         }
-        loadCharts( charts );
+        //loadCharts( charts );
         charts = [];
         let alert = new alerts.Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
         updateInterface();

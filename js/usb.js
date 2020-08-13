@@ -24,7 +24,49 @@ const usbInit = {
   "done" : 1
 }
 /*----------------------------------------------------------------------------*/
-function EnrrganController() {
+function MessageSequence () {
+  var self      = this;
+  this.sequence = [];
+  this.counter  = 0;
+  this.length   = 0;
+}
+/*----------------------------------------------------------------------------*/
+function USBtransport () {
+  /*------------------ Private ------------------*/
+  var self   = this;
+  var device = null;
+  var output = new MessageSequence;
+  var input  = new MessageSequence;
+  /*------------------- Public ------------------*/
+
+  /*---------------------------------------------*/
+  /*------------------ Private ------------------*/
+  /*---------------------------------------------*/
+  function scan ( success, fail ) {
+    var devices = HID.devices();
+    device      = null;
+    for ( var i=0; i<devices.length; i++ ) {
+      if ( devices[i].manufacturer == "Energan" ) {
+        device = new HID.HID( devices[i].path );
+        success();
+        break;
+      }
+    }
+    if ( device == null ) {
+      fail();
+    }
+    return;
+  }
+  /*---------------------------------------------*/
+  /*------------------- Public ------------------*/
+  /*---------------------------------------------*/
+
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+}
+/*----------------------------------------------------------------------------*/
+function EnrrganController () {
   /*------------------ Private ------------------*/
   var self          = this;
   var stat          = usbStat.wait;
@@ -140,18 +182,20 @@ function EnrrganController() {
         some.push( message.buffer[i] );
       }
       self.input[ ( self.input.length - 1 ) ].buffer = some;
-
-      if ( inputLenCount == ( inputLen - 1 ) ) {
-        seqCount++;
-        inputEnd = 1;
-      }
     } else {
       inputAdr = 0xFFFF;
     }
     /*-------------------------------------------*/
+    console.log("--------");
+    console.log(seqCount + " / " + inputSeq[inputSeqCount].len);
+    console.log( inputLen );
     if ( seqCount >= inputSeq[inputSeqCount].len ) {
       inputSeqCount++;
       seqCount = 0;
+      if ( inputLenCount == ( inputLen - 1 ) ) {
+        seqCount++;
+        inputEnd = 1;
+      }
       if ( inputSeqCount < inputSeq.length ) {
         write( [0x01, inputSeq[inputSeqCount].cmd, msgSTAT.USB_OK_STAT, 0xFF, 0xFF] );
         result = usbHandler.cont;
@@ -184,8 +228,8 @@ function EnrrganController() {
     return result;
   }
   function write ( data ) {
-    if (device != null) {
-      device.write(data);
+    if ( device != null ) {
+      device.write( data );
     }
     return;
   }
@@ -266,14 +310,13 @@ function EnrrganController() {
   this.receive  = function () {
     if ( stat == usbStat.wait) {
       this.input = [];
-      stat = usbStat.read;
-      seqData  = [];
-      seqCount = 0;
-      seqLen   = dataReg.length;
-
+      stat       = usbStat.read;
+      seqData    = [];
+      seqCount   = 0;
+      seqLen     = dataReg.length;
       inputSeq = [];
       inputSeq.push( {"cmd" : msgCMD.USB_GET_CONFIG_CMD, "len" : dataReg.length } );
-      inputSeq.push( {"cmd" : msgCMD.USB_GET_CHART_CMD,  "len" : 3 } );
+      //inputSeq.push( {"cmd" : msgCMD.USB_GET_CHART_CMD,  "len" : 3 } );
       inputSeqCount = 0;
       seqCount      = 0;
       write( [0x01, msgCMD.USB_GET_CONFIG_CMD, msgSTAT.USB_OK_STAT, 0xFF, 0xFF] );
