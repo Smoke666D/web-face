@@ -3429,6 +3429,14 @@
             <span>Загрузить</span>
           </button>
         </div>
+
+        <div class="controll-panel">
+          <div class="progress">
+            <div id="flash-progress" class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: 0%;">
+            </div>
+          </div>
+        </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="noDataPage" class="content-data hidden">
@@ -3562,6 +3570,7 @@
       require('./js/usb.js')
       require('./js/dfu.js')
       require('./js/bootloader.js')
+      require('./js/uploadFlash.js')
       let $ = require('jquery');
       require('popper.js');
       require('bootstrap');

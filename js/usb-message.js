@@ -245,16 +245,10 @@ function USBMessage ( buffer ) {
     setup( self.buffer, function () {
       self.length = 0;
       /*----------- Configuration value -----------*/
-      if ( dataReg[n].len == 1 ) {
-        self.buffer.push( ( dataReg[n].value & 0xFF00 ) >> 8 );
-        self.buffer.push( dataReg[n].value & 0x00FF );
+      for ( var i=0; i<dataReg[n].len; i++ ) {
+        self.buffer.push( ( dataReg[n].value[i] & 0xFF00 ) >> 8 );
+        self.buffer.push( dataReg[n].value[i] & 0x00FF );
         self.length += 2;
-      } else {
-        for ( var i=0; i<dataReg[n].len; i++ ) {
-          self.buffer.push( ( dataReg[n].value[i] & 0xFF00 ) >> 8 );
-          self.buffer.push( dataReg[n].value[i] & 0x00FF );
-          self.length += 2;
-        }
       }
       /*----------- Configuration scale -----------*/
       self.buffer.push( dataReg[n].scale );

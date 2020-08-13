@@ -442,6 +442,9 @@ function Slider( name, preInit ) {
 	}
 	this.update    = function() {
 		reg = dataReg[this.regNum];
+		try {
+
+
 		this.label.textContent = reg.units;
 		if ( this.enable == 1 ) {
 			this.input.disabled = false;
@@ -464,6 +467,9 @@ function Slider( name, preInit ) {
 				'max': (reg.max * this.scl)
 			}
 		})
+	} catch (e) {
+		console.log( "error on: " + this.name );
+	}
 		return;
 	}
 	this.grab      = function() {

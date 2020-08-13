@@ -89,7 +89,7 @@ document.getElementById("connect-button").addEventListener('click', function() {
         for ( var i=0; i<buffer.length; i++) {
           buffer[i].init( function() {
             out = buffer[i].parse( i );
-            if ( out[0] == 2 ){
+            if ( out[0] == 2 ) {
               charts.push( out[1] );
               out = [];
             }

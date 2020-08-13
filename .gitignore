@@ -7,3 +7,4 @@ release-builds
 *.pyc
 /node_modules
 /release-builds
+yarn-error.log

@@ -1,6 +1,7 @@
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
+from time import gmtime, strftime
 import os;
 import time;
 import codecs;
@@ -65,9 +66,6 @@ def addCssSection( cssLink, htmlText, index, minifyCSS, optimCSS ):
     cssText = open( cssLink, "r" ).read();
     cssFile = cssLink[( cssLink.rfind("\\") + 1 ):len(cssLink)];
     smallFile = 0;
-
-
-
     if ( optimCSS == True ):
         if len( cssText ) < 1024:
             startSize = len( cssText );
@@ -274,6 +272,17 @@ def minifyHtml( html ):
             out      = out[:index] + out[subindex:];
     return out;
 #-------------------------------------------------------------------------------
+def compilEWA( path, data ):
+    crc = 0;
+    f   = open( path, "w+" );
+    for byte in data:
+        f.write( format( ord( byte ), 'x' ) + ' ' );
+        crc = crc + ord( byte );
+    crc = crc & 0xFF;
+    f.write( format( crc, 'x' ) );
+    f.close();
+    return;
+#-------------------------------------------------------------------------------
 def compilHex( path, text, compressed ):
     f = open(path,"w+");
     f.write( "#ifndef INC_HTML_H_\n" );
@@ -331,11 +340,11 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
         print( "Compression   : Off" );
     #------------ Get paths to html, css, js and img files -----------
     localPath = os.getcwd();
-    htmlPath  = os.path.split( localPath )[0];
-    jsPath    = os.path.join( htmlPath,"js" );
-    cssPath   = os.path.join( htmlPath,"css" );
-    imgPath   = os.path.join( htmlPath,"img" );
-    htmlPath  = os.path.join( htmlPath,"index.html" );
+    path      = os.path.split( localPath )[0];
+    jsPath    = os.path.join( path,"js" );
+    cssPath   = os.path.join( path,"css" );
+    imgPath   = os.path.join( path,"img" );
+    htmlPath  = os.path.join( path,"index.html" );
     #------------- Get lists of js, css and image files --------------
     for root, dirs, files in os.walk( jsPath ):
         jsFiles = files;
@@ -429,6 +438,8 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     output.close();
     if compress == True:
         size = compilHex( outPath, htmlCompress, 1 );
+        name = strftime("%y%m%d", gmtime()) + '.ewa';
+        compilEWA( os.path.join( path, name ), htmlCompress );
     else:
         size = compilHex( outPath, htmlText, 0 );
     print( "Outut HEX     : " + outPath );
