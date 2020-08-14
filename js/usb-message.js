@@ -22,16 +22,17 @@ const USB_LEN2_BYTE = 5;
 const USB_LEN1_BYTE = 6;
 const USB_LEN0_BYTE = 7;
 const USB_DATA_BYTE = 8;
+const USB_DATA_SIZE = msgSIZE - USB_DATA_BYTE;
 /*----------------------------------------------------------------------------*/
 function USBMessage ( buffer ) {
   /*------------------ Private ------------------*/
   var self = this;
   /*------------------- Public ------------------*/
-  this.command = 0;
-  this.status  = 0;
-  this.adr     = 0;
-  this.length  = 0;
-  this.data    = [];
+  this.command = 0;  /* Command of mrssage */
+  this.status  = 0;  /* Status of message */
+  this.adr     = 0;  /* Target address */
+  this.length  = 0;  /* Length of full data */
+  this.data    = []; /* Data of message */
 
   this.buffer  = buffer;
   /*---------------------------------------------*/
@@ -87,9 +88,9 @@ function USBMessage ( buffer ) {
     buffer[USB_STAT_BYTE] = self.status;
     buffer[USB_ADR1_BYTE] = ( self.adr & 0xFF00 ) >> 8;
     buffer[USB_ADR0_BYTE] = self.adr & 0x00FF;
-    buffer[USB_LEN2_BYTE] = 0;
-    buffer[USB_LEN1_BYTE] = 0;
-    buffer[USB_LEN0_BYTE] = 0;
+    buffer[USB_LEN2_BYTE] = ( self.length & 0xFF0000 ) >> 16;
+    buffer[USB_LEN1_BYTE] = ( self.length & 0x00FF00 ) >> 8;
+    buffer[USB_LEN0_BYTE] = ( self.length & 0x0000FF );
     self.data = [];
     callback();
     return;
@@ -149,8 +150,8 @@ function USBMessage ( buffer ) {
   function parsingDataBytes () {
     if ( self.status != msgSTAT.USB_BAD_REQ_STAT ) {
       self.data   = [];
-      for( var i=0; i<self.length; i++ ) {
-        self.data.push( self.buffer[USB_DATA_BYTE + i] );
+      for ( var i=USB_DATA_BYTE; i<msgSIZE; i++ ) {
+        self.data.push( self.buffer[i] );
       }
     }
   }
@@ -258,7 +259,7 @@ function USBMessage ( buffer ) {
     return chart;
   }
   /*--------------------------------------------------------------------------*/
-  this.init       = function ( callback ) {
+  this.init              = function ( callback ) {
     parsingCommandByte();  /* Parsing command byte */
     parsingStateByte();    /* Parsing state byte */
     parsingAddressByte();  /* Parsing address bytes */
@@ -268,18 +269,28 @@ function USBMessage ( buffer ) {
     callback();
     return;
   }
-  this.getRawAdr  = function () {
-    return ( this.buffer[USB_ADR1_BYTE] << 8 ) | ( this.buffer[USB_ADR0_BYTE] );
+  this.makeConfigRequest = function ( n ) {
+    self.status  = msgSTAT.USB_OK_STAT;
+    self.command = msgCMD.USB_GET_CONFIG_CMD;
+    self.adr     = n;
+    self.length  = 0;
+    self.data    = [];
+    setup( self.buffer, function () {
+      finishMesageWithZero( self.buffer );
+    });
+    return;
   }
-  this.getRawLen  = function () {
-    return ( this.buffer[USB_LEN2_BYTE] << 16 ) |
-           ( this.buffer[USB_LEN1_BYTE] <<  8 ) |
-           ( this.buffer[USB_LEN0_BYTE] );
+  this.makeChartRequest  = function ( adr ) {
+    self.status  = msgSTAT.USB_OK_STAT;
+    self.command = msgCMD.USB_GET_CHART_CMD;
+    self.adr     = adr;
+    self.length  = 0;
+    self.data    = [];
+    setupLength( self.buffer );
+    finishMesageWithZero( self.buffer );
+    return;
   }
-  this.getRawSize = function() {
-    return this.buffer[58];
-  }
-  this.codeConfig = function ( n ) {
+  this.codeConfig        = function ( n ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_PUT_CONFIG_CMD;
     self.adr     = n;
@@ -308,7 +319,7 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.codeChart  = function ( chart, adr ) {
+  this.codeChart         = function ( chart, adr ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_PUT_CHART_CMD;
     self.adr     = adr;
@@ -356,7 +367,7 @@ function USBMessage ( buffer ) {
       finishMesageWithZero( self.buffer );
     }
   }
-  this.codeEWA    = function ( ewa, index ) {
+  this.codeEWA           = function ( ewa, index ) {
     var counter  = index;
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_PUT_CONFIG_CMD;
@@ -376,7 +387,7 @@ function USBMessage ( buffer ) {
     index = self.length;
     return;
   }
-  this.parse      = function ( n ) {
+  this.parse             = function ( n ) {
     var output = 0;
     var type   = 0;
     switch ( self.command ) {
@@ -399,6 +410,7 @@ module.exports.USBMessage = USBMessage;
 module.exports.msgCMD     = msgCMD;
 module.exports.msgSTAT    = msgSTAT;
 module.exports.msgSIZE    = msgSIZE;
+module.exports.USB_DATA_SIZE = USB_DATA_SIZE;
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/

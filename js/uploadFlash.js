@@ -74,6 +74,7 @@ function loaderInit () {
   swFlashLoad.addEventListener( 'click', function () {
     if ( ewa.valid > 0 ) {
       
+      usb.controller.send();
     }
   });
 }
