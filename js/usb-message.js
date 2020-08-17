@@ -376,22 +376,21 @@ function USBMessage ( buffer ) {
   this.codeEWA           = function ( ewa, index ) {
     var counter  = index;
     self.status  = msgSTAT.USB_OK_STAT;
-    self.command = msgCMD.USB_PUT_CONFIG_CMD;
+    self.command = msgCMD.USB_PUT_EWA_CMD;
     self.adr     = 0;
     setup( self.buffer, function () {
       for ( var i=USB_DATA_BYTE; i<msgSIZE; i++ ) {
-        if ( ewa.len <= counter ) {
+        if ( ewa.length > counter ) {
           self.buffer.push( ewa[counter] );
         } else {
           self.buffer.push( 0x00 );
         }
         counter++;
       }
-      self.length = counter - index;
     });
+    self.length = ewa.length;
     setupLength( self.buffer );
-    index = self.length;
-    return;
+    return counter;
   }
   this.parse             = function ( n ) {
     var output = 0;

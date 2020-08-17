@@ -108,7 +108,7 @@ document.getElementById("connect-button").addEventListener('click', function() {
       });
       if ( res == 1 ) {
         setSuccessConnection();
-        usb.controller.receive();
+        connectUpdate();
       }
     /*--------------------------------------------------------------*/
     /*-------------------------- ETHERNET --------------------------*/
@@ -120,9 +120,7 @@ document.getElementById("connect-button").addEventListener('click', function() {
       res     = verifyIP( ipAdr.toString() );
       if ( res == "" ) {
         setSuccessConnection();
-        ethDataUpdate( function() {
-          resetSuccessConnection();
-        });
+        connectUpdate();
       } else {
         ipInput.value = "";
         let alert = new alerts.Alert( "alert-warning", alerts.triIco, res );

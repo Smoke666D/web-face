@@ -1,26 +1,29 @@
 const usb    = require('./js/usb.js');
 const rest   = require('./js/rest.js');
 const main   = require('./js/main.js');
+const alerts = require('./js/alerts.js');
 //******************************************************************************
 function connectUpdate () {
+  let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Загрузка", 1 );
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     ethDataUpdate( function () {
       resetSuccessConnection();
     });
   } else if ( connectionType == 'usb' ) {
-    usb.controller.receive();
+    usb.controller.receive( alert );
   }
   return;
 }
 //******************************************************************************
 function connectGrab () {
+  let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Загрузка", 1 );
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     dataGrab( function () {
       resetSuccessConnection();
       return;
     });
   } else if ( connectionType == 'usb' ) {
-      usb.controller.send();
+      usb.controller.send( alert );
   }
   return;
 }

@@ -4363,6 +4363,11 @@ input[type="button"].btn-block {
   right: 20px;
   bottom: 20px;
   }
+  .alert-message .alert-content{
+    width: 300px;
+    vertical-align: middle;
+    word-wrap: break-word;
+  }
   .alert-message .alert-icon {
     font-size: 22px;
     width: 3rem;}

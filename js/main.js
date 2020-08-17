@@ -166,6 +166,7 @@ function setSuccessConnection() {
 		}
 		document.getElementById( 'refreshData-button' ).disabled = false;
 		document.getElementById( 'uploadData-button' ).disabled = false;
+		document.getElementById( 'flash-file' ).disabled = false;
 	}
 	return;
 }
@@ -179,6 +180,8 @@ function resetSuccessConnection() {
 		}
 		document.getElementById( 'refreshData-button' ).disabled = true;
 		document.getElementById( 'uploadData-button' ).disabled = true;
+		document.getElementById( 'flash-load' ).disabled = true;
+		document.getElementById( 'flash-file' ).disabled = true;
 	}
 	return;
 }

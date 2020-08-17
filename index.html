@@ -3058,8 +3058,8 @@
           </div>
           <div class="col-sm col-slider">
             <div class="progress offset-0">
-              <div id="progress-maintenanceAlarmAirTimeLeft" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%;">
               </div>
+              <div id="progress-maintenanceAlarmAirTimeLeft" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%;">
             </div>
           </div>
         </div>
@@ -3411,6 +3411,9 @@
       <!------------------------------------------------------------------------------------------------------------->
       <div id="flashPage" class="content-data hidden electron">
         <h1>Внешняя память</h1>
+        <div id="flashWarning" class="alert alert-warning">
+          Для записи данных, подключите устройсво по USB
+        </div>
         <p align="center">Всего использованно:</p>
         <div class="controll-panel">
           <div class="progress">
@@ -3420,11 +3423,11 @@
           </div>
         </div>
         <div class="controll-panel">
-          <button aria-label="Connect" id="flash-file" onclick="" class="btn btn-primary">
+          <button aria-label="Connect" id="flash-file" onclick="" class="btn btn-primary" disabled="true">
             <i class="far fa-folder-open"></i>
             <span>Файл...</span>
           </button>
-          <button aria-label="Connect" id="flash-load" onclick="" class="btn btn-primary">
+          <button aria-label="Connect" id="flash-load" onclick="" class="btn btn-primary" disabled="true">
             <i class="fas fa-file-upload"></i>
             <span>Загрузить</span>
           </button>

@@ -48,6 +48,18 @@ function MessageArray () {
   this.getCounter    = function () {
     return counter;
   }
+  this.getProgress   = function () {
+    if ( sequence.length < 1000 ) {
+      val =  ( ( counter + 1 ) / sequence.length ) * 100;
+      if ( val == 0 )   return 0;
+      if ( val < 25 )   return 25;
+      if ( val < 50 )   return 50;
+      if ( val < 75 )   return 75;
+      if ( val == 100 ) return 100;
+    } else {
+      return Math.ceil( ( ( counter + 1 ) / sequence.length ) * 100 );
+    }
+  }
   this.incCounter    = function () {
     counter++;
     return;
@@ -101,6 +113,9 @@ function InputMessageArray () {
       request.incCounter();
     }
     return output;
+  }
+  this.getProgress   = function () {
+    return request.getProgress();
   }
   this.process       = function ( message ) {
     let result = usbHandler.error;
@@ -159,6 +174,9 @@ function OutputMessageArray () {
     }
     return output;
   }
+  this.getProgress   = function () {
+    return array.getProgress();
+  }
   this.isEnd         = function () {
     let out = usbHandler.finish
     if ( array.getCounter() < array.getLength() ) {
@@ -184,6 +202,7 @@ function USBtransport () {
   var output = new OutputMessageArray;
   var input  = new InputMessageArray;
   var status = usbStat.wait;
+  var alert  = null;
 
   this.error         = [];
   this.errorCounter  = 0;
@@ -216,14 +235,16 @@ function USBtransport () {
     response.init( function () {
       if ( response.status == msgSTAT.USB_OK_STAT ) {
         if ( ( response.command == msgCMD.USB_PUT_CONFIG_CMD ) ||
-             ( response.command == msgCMD.USB_PUT_CHART_CMD ) ) {
+             ( response.command == msgCMD.USB_PUT_CHART_CMD  ) ||
+             ( response.command == msgCMD.USB_PUT_EWA_CMD  ) ) {
             result = output.isEnd();
             if ( result == usbHandler.continue )
             {
+              alert.setProgressBar( output.getProgress() );
               write( output.nextMessage() );
             }
         } else {
-          console.log("Error with command: " + response.command + " expected: " + msgCMD.USB_PUT_CONFIG_CMD + " or " + msgCMD.USB_PUT_CHART_CMD);
+          console.log("Error with command: " + response.command + " expected: " + msgCMD.USB_PUT_CONFIG_CMD + " or " + msgCMD.USB_PUT_CHART_CMD + " or " + msgCMD.USB_PUT_EWA_CMD );
         }
       } else {
         console.log("Error with status: " + response.status + " expected: " + msgSTAT.USB_OK_STAT);
@@ -236,6 +257,7 @@ function USBtransport () {
     message.init( function () {
       result = input.process( message );
       if ( ( result == usbHandler.finish ) && ( input.isEnd() == usbHandler.continue ) ) {
+        alert.setProgressBar( input.getProgress() );
         write( input.nextRequest() );
         result = usbHandler.continue;
       }
@@ -310,12 +332,15 @@ function USBtransport () {
     input.addRequest( message );
     return;
   }
-  this.start       = function ( dir ) {
+  this.start       = function ( dir, alertIn ) {
+    alert = alertIn;
     if ( dir == usbStat.write ) {
       status = usbStat.write;
+      alert.setProgressBar( output.getProgress() );
       write( output.nextMessage() );
     } else {
       status = usbStat.read;
+      alert.setProgressBar( input.getProgress() );
       write( input.nextRequest() );
     }
   }
@@ -328,6 +353,7 @@ function EnrrganController () {
   /*------------------ Private ------------------*/
   var self      = this;
   var transport = new USBtransport();
+  var alert     = null;
   /*---------------------------------------------*/
   function initWriteSequency ( callback ) {
     var msg = null;
@@ -356,10 +382,11 @@ function EnrrganController () {
     let index = 0;
     transport.clean();
     for ( var i=0; i<size; i++ ) {
-      msg = new USBMessage( [] );
-      msg.codeEWA( ewa, index );
+      msg   = new USBMessage( [] );
+      index = msg.codeEWA( ewa, index );
       transport.addToOutput( msg );
     }
+    callback();
     return;
   }
   function initReadSequency ( callback ) {
@@ -403,26 +430,29 @@ function EnrrganController () {
   this.getInput = function () {
     return transport.getInput();
   }
-  this.send     = function () {
+  this.send     = function ( alertIn) {
+    alert = alertIn;
     if ( transport.getStatus() == usbStat.wait) {
       initWriteSequency( function () {
-        transport.start( usbStat.write );
+        transport.start( usbStat.write, alert );
       });
     }
     return;
   }
-  this.sendEWA  = function ( ewa ) {
+  this.sendEWA  = function ( ewa, alertIn ) {
+    alert = alertIn;
     if ( transport.getStatus() == usbStat.wait) {
-      initWriteEWA( function () {
-        transport.start( usbStat.write );
+      initWriteEWA( ewa, function () {
+        transport.start( usbStat.write, alert );
       });
     }
     return;
   }
-  this.receive  = function () {
+  this.receive  = function ( alertIn ) {
+    alert = alertIn;
     if ( transport.getStatus() == usbStat.wait) {
       initReadSequency( function () {
-        transport.start( usbStat.read );
+        transport.start( usbStat.read, alert );
       });
     }
     return;

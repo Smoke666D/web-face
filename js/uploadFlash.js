@@ -3,7 +3,6 @@
 /*----------------------------------------------------------------------------*/
 const remote     = require('electron').remote;
 const { dialog } = require('electron').remote;
-//var HID          = require('node-hid');
 const alerts     = require('./alerts.js');
 const fs         = require('fs');
 /*----------------------------------------------------------------------------*/
@@ -11,35 +10,38 @@ var ewa = new EmbendedWebApp();
 /*----------------------------------------------------------------------------*/
 function EmbendedWebApp () {
   /*------------------ Private ------------------*/
-  var crc = 0;
+  var self = this;
+  var crc  = 0;
   /*------------------- Public ------------------*/
   this.valid = 0;
   this.size  = 0;
   this.data  = [];
   /*---------------------------------------------*/
-  this.fromFile = function ( file ) {
-    this.free();
+  this.getLength = function () {
+    return self.data.length;
+  }
+  this.fromFile  = function ( file ) {
+    self.free();
     let buffer = file.split( ' ' );
     if ( buffer.length > 2 ) {
-      this.size = buffer.length - 1;
+      self.size = buffer.length - 1;
       for ( var i=0; i<this.size; i++ ) {
         let byte = parseInt( buffer[i], 16 );
-        this.data.push( byte );
+        self.data.push( byte );
         crc += byte;
       }
       crc &= 0xFF;
-      console.log( this.data[0] );
-      console.log( this.data[1] );
       if ( crc == parseInt( buffer[i], 16 ) ) {
-        this.valid = 1;
+        self.valid = 1;
       }
     }
     return;
   }
-  this.free     = function () {
-    this.valid = 0;
-    this.size  = 0;
-    this.data  = [];
+  this.free      = function () {
+    self.valid = 0;
+    self.size  = 0;
+    self.data  = [];
+    crc        = 0;
     return;
   }
 }
@@ -73,8 +75,8 @@ function loaderInit () {
   /*------------------------------------------------------*/
   swFlashLoad.addEventListener( 'click', function () {
     if ( ewa.valid > 0 ) {
-      
-      usb.controller.send();
+      let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Загрузка", 1 );
+      usb.controller.sendEWA( ewa.data, alert );
     }
   });
 }
