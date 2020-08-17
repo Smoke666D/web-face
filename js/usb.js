@@ -72,7 +72,14 @@ function MessageArray () {
     return;
   }
   this.addMessage    = function ( message ) {
-    sequence.push( new MessageUnit( message.buffer, message.adr ) );
+    if ( typeof message.buffer[0] == "object" ) {
+      for ( var i=0; i<message.buffer.length; i++ ) {
+        sequence.push( new MessageUnit( message.buffer[i], message.adr ) );
+      }
+    } else {
+      sequence.push( new MessageUnit( message.buffer, message.adr ) );
+    }
+    return;
   }
   return;
 }
@@ -145,17 +152,19 @@ function OutputMessageArray () {
     return array.getCurrentAdr();
   }
   this.nextMessage   = function () {
-    let output = array.getData( array.getCounter() );
-    self.array.incCounter();
+    let output;
+    if ( array.getCounter() < array.getLength() ) {
+      output = array.getData( array.getCounter() );
+      array.incCounter();
+    }
     return output;
   }
   this.isEnd         = function () {
-    if ( array.getCounter() >= array.getLength() ) {
-      let result = usbHandler.finish;
-    } else {
-      let result = usbHandler.continue;
+    let out = usbHandler.finish
+    if ( array.getCounter() < array.getLength() ) {
+      out = usbHandler.continue;
     }
-    return result;
+    return out;
   }
   this.clean         = function () {
     array.clean();
@@ -219,7 +228,6 @@ function USBtransport () {
       } else {
         console.log("Error with status: " + response.status + " expected: " + msgSTAT.USB_OK_STAT);
       }
-      result = usbHandler.error;
     });
     return result;
   }
@@ -269,7 +277,7 @@ function USBtransport () {
       }
     });
     device.on("error", function( err ) {
-      error.push( err );
+      self.error.push( err );
       self.errorCounter++;
       status = usbStat.wait;
       errorCalback();
@@ -336,7 +344,7 @@ function EnrrganController () {
     for ( var i=0; i<charts.length; i++ ) {
       msg = new USBMessage( [] );
       msg.codeChart( charts[i], i );
-      transport.addToOutput( msg )
+      transport.addToOutput( msg );
     }
     /*----------------------------------------------*/
     callback();
@@ -397,7 +405,7 @@ function EnrrganController () {
   }
   this.send     = function () {
     if ( transport.getStatus() == usbStat.wait) {
-      initOutputDataSequency( function () {
+      initWriteSequency( function () {
         transport.start( usbStat.write );
       });
     }

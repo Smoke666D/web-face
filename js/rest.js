@@ -539,6 +539,7 @@ function updateVersions() {
 }
 //******************************************************************************
 var stringLineArray = [];
+var progressArray   = [];
 var slidersArray    = [];
 var switcherArray   = [];
 var selectorArray   = [];
@@ -556,7 +557,7 @@ function declareStrings() {
 function declareProgress() {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].name.endsWith( "TimeLeft" ) ) {
-			stringLineArray.push( new Progress( dataReg[i].name ) );
+			progressArray.push( new Progress( dataReg[i].name ) );
 		}
 	}
 }
@@ -673,7 +674,11 @@ function grabInterface() {
 		stringLineArray[i].grab();
 	}
 	for ( var i=0; i<slidersArray.length; i++ ) {
-		slidersArray[i].grab();
+		try {
+		  slidersArray[i].grab();
+		} catch (e) {
+			console.log("Grabing error on " + slidersArray[i].name );
+		}
 	}
 	for ( var i=0; i<switcherArray.length; i++ ) {
 		switcherArray[i].grab();
