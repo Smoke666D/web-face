@@ -40,7 +40,8 @@ def addJsSection( jsLink, htmlText, index, minifyJS ):
     jsFile = jsLink[(jsLink.rfind("\\", 0) + 1 ) : len(jsLink) ]
     out    = htmlText;
     jsText = open( jsLink, "r" ).read();
-    jsText = removeElectronFromJS( jsText );
+    if ( jsLink.find( 'filesaver' ) == -1 ):
+        jsText = removeElectronFromJS( jsText );
     smallFile = 0;
     if ( minifyJS == True ) and ( jsFile.find(".min.") == -1 ):
         if len( jsText ) < 1024:
