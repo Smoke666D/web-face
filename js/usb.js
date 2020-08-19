@@ -126,7 +126,6 @@ function InputMessageArray () {
     } else {
       length = 0;
     }
-
     response.addMessage( message );
     length += USB_DATA_SIZE;
     if ( length >= message.length ) {
@@ -245,9 +244,17 @@ function USBtransport () {
             }
         } else {
           console.log("Error with command: " + response.command + " expected: " + msgCMD.USB_PUT_CONFIG_CMD + " or " + msgCMD.USB_PUT_CHART_CMD + " or " + msgCMD.USB_PUT_EWA_CMD );
+          if ( alert != undefined ) {
+            alert.close();
+            self.close();
+          }
         }
       } else {
         console.log("Error with status: " + response.status + " expected: " + msgSTAT.USB_OK_STAT);
+        if ( alert != undefined ) {
+          alert.close();
+          self.close();
+        }
       }
     });
     return result;

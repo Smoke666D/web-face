@@ -787,7 +787,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 									 'cosFi',
 									 'genRatedApparentPower');
 	if (electronApp == 0) {
-		ethDataUpdate( function() { return; } );
+		connectUpdate();
 	}
 	checkSettings();
 	navbarToogling();

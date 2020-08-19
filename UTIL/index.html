@@ -5018,6 +5018,11 @@ input[type="button"].btn-block {
   right: 20px;
   bottom: 20px;
   }
+  .alert-message .alert-content{
+    width: 300px;
+    vertical-align: middle;
+    word-wrap: break-word;
+  }
   .alert-message .alert-icon {
     font-size: 22px;
     width: 3rem;}
@@ -12944,8 +12949,8 @@ QmCC
           </div>
           <div class="col-sm col-slider">
             <div class="progress offset-0">
-              <div id="progress-maintenanceAlarmAirTimeLeft" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%;">
               </div>
+              <div id="progress-maintenanceAlarmAirTimeLeft" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%;">
             </div>
           </div>
         </div>
@@ -13366,23 +13371,28 @@ const okIco      = '<i class="fas fa-check-circle"></i>';
 //------------------------------------------------------------------------------
 var alerIndex = 0;
 
-function closeAlert(id) {
-  object = document.getElementById('alert'+id);
-	object.classList.remove("show");
-	object.classList.add("fade");
+function closeAlert ( id ) {
+  object = document.getElementById( 'alert' + id );
+	object.classList.remove( 'show' );
+	object.classList.add( 'fade' );
   alerIndex--;
 	return;
 }
 
-function Alert(type,ico,text) {
-  var self = this;
-  var box = document.getElementById("alerts");
-  this.type = type;
-  this.ico = ico;
-  this.text = text;
-  this.index = 0;
+function Alert ( type, ico, text, progress ) {
+  var self      = this;
+  var box       = document.getElementById( 'alerts' );
+  this.type     = type;
+  this.ico      = ico;
+  this.text     = text;
+  this.index    = 0;
+  if ( progress == undefined ) {
+    this.progress = 0;
+  } else {
+    this.progress = progress;
+  }
   //-------------------------------------------
-  this.make = function() {
+  this.make = function () {
     this.index = alerIndex;
     alerIndex++;
     this.alertText  = '<div id="alert';
@@ -13391,28 +13401,63 @@ function Alert(type,ico,text) {
     this.alertText += this.type;
     this.alertText += ' alert-message shadow rounded d-flex p-0" role="alert"><div class="alert-icon d-flex justify-content-center align-items-center flex-grow-0 flex-shrink-0 py-3">';
     this.alertText += this.ico;
-    this.alertText += '</div><div id="alert-text" class="d-flex align-items-center py-2 px-3">';
+    this.alertText += '</div><div class="alert-content';
+    if ( this.progress == 0 ) {
+      this.alertText += ' d-flex align-items-center';
+    }
+    this.alertText += ' py-2 px-3">';
+    this.alertText += '<div id="alert-text">';
     this.alertText += this.text;
-    this.alertText += '</div><a href="#" class="close d-flex ml-auto justify-content-center align-items-center px-3" onclick="closeAlert('
-    this.alertText += this.index;
-    this.alertText += ')"><i class="fas fa-times"></i></a></div></div>';
-    box.innerHTML = box.innerHTML + this.alertText;
-    this.object = document.getElementById('alert'+this.index);
-    this.object.classList.add("show");
+    this.alertText += '</div>';
+    if ( this.progress > 0 ) {
+      this.alertText += '<div class="progress"><div id="alert-progress'
+      this.alertText += this.index;
+      this.alertText += '"class="progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" style="width: 0%;"></div></div>';
+    }
+    this.alertText += '</div>';
+    if ( this.progress == 0 ) {
+      this.alertText += '<a href="#" class="close d-flex ml-auto justify-content-center align-items-center px-3" onclick="closeAlert(';
+      this.alertText += this.index;
+      this.alertText += ')"><i class="fas fa-times"></i></a>';
+    }
+
+    this.alertText += '</div></div>';
+    box.innerHTML   = box.innerHTML + this.alertText;
+    this.object     = document.getElementById( 'alert' + this.index );
+    this.object.classList.add( 'show' );
+
+    this.pb = document.getElementById( 'alert-progress' + this.index );
     return;
   }
+  this.setProgressBar = function ( value ) {
+    this.pb.style.width = value + "%";
+    if ( value >= 100 ) {
+      this.close( 1 );
+    }
+    return;
+  }
+  this.close = function ( timeout ) {
+    setTimeout ( function () {
+      obj = document.getElementById( 'alert' + self.index );
+      if ( obj != null ) {
+        obj.classList.remove( 'show' );
+      	obj.classList.add( 'fade' );
+        alerIndex--;
+        setTimeout( function () {
+          let el = document.getElementById( 'alert' + self.index );
+          if ( el != null ) {
+            el.remove();
+          }
+        }, 1 * 1000 );
+      }
+    }, timeout * 1000 );
+  }
 
-  this.make();
-  setTimeout(function(){
-    obj = document.getElementById('alert'+self.index);
-    obj.classList.remove("show");
-  	obj.classList.add("fade");
-    alerIndex--;
-    setTimeout(function(){
-        document.getElementById('alert'+self.index).remove();
-
-    }, 1*1000);
-  }, 6*1000);
+  this.make ();
+  if ( this.progress == 0 ) {
+    this.close( 6 );
+  }
+  return self;
 }
 //------------------------------------------------------------------------------
 
@@ -16105,6 +16150,7 @@ function setSuccessConnection() {
 		}
 		document.getElementById( 'refreshData-button' ).disabled = false;
 		document.getElementById( 'uploadData-button' ).disabled = false;
+		document.getElementById( 'flash-file' ).disabled = false;
 	}
 	return;
 }
@@ -16118,6 +16164,8 @@ function resetSuccessConnection() {
 		}
 		document.getElementById( 'refreshData-button' ).disabled = true;
 		document.getElementById( 'uploadData-button' ).disabled = true;
+		document.getElementById( 'flash-load' ).disabled = true;
+		document.getElementById( 'flash-file' ).disabled = true;
 	}
 	return;
 }
@@ -17208,6 +17256,9 @@ function Slider( name, preInit ) {
 	}
 	this.update    = function() {
 		reg = dataReg[this.regNum];
+		try {
+
+
 		this.label.textContent = reg.units;
 		if ( this.enable == 1 ) {
 			this.input.disabled = false;
@@ -17230,6 +17281,9 @@ function Slider( name, preInit ) {
 				'max': (reg.max * this.scl)
 			}
 		})
+	} catch (e) {
+		console.log( "error on: " + this.name );
+	}
 		return;
 	}
 	this.grab      = function() {
@@ -17299,6 +17353,7 @@ function updateVersions() {
 }
 //******************************************************************************
 var stringLineArray = [];
+var progressArray   = [];
 var slidersArray    = [];
 var switcherArray   = [];
 var selectorArray   = [];
@@ -17316,7 +17371,7 @@ function declareStrings() {
 function declareProgress() {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].name.endsWith( "TimeLeft" ) ) {
-			stringLineArray.push( new Progress( dataReg[i].name ) );
+			progressArray.push( new Progress( dataReg[i].name ) );
 		}
 	}
 }
@@ -17433,7 +17488,11 @@ function grabInterface() {
 		stringLineArray[i].grab();
 	}
 	for ( var i=0; i<slidersArray.length; i++ ) {
-		slidersArray[i].grab();
+		try {
+		  slidersArray[i].grab();
+		} catch (e) {
+			console.log("Grabing error on " + slidersArray[i].name );
+		}
 	}
 	for ( var i=0; i<switcherArray.length; i++ ) {
 		switcherArray[i].grab();
@@ -17665,47 +17724,48 @@ function pasteDataReg( data ) {
     <script>
 
 
+
 //******************************************************************************
-function connectUpdate() {
+function connectUpdate () {
+  let alert = new Alert( "alert-warning", alerts.triIco, "Загрузка", 1 );
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
-    ethDataUpdate(function() {
+    ethDataUpdate( function () {
       resetSuccessConnection();
     });
   } else if ( connectionType == 'usb' ) {
-    usb.controller.receive();
+    usb.controller.receive( alert );
   }
   return;
 }
 //******************************************************************************
-function connectGrab() {
+function connectGrab () {
+  let alert = new Alert( "alert-warning", alerts.triIco, "Загрузка", 1 );
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
-    dataGrab( function() {
+    dataGrab( function () {
       resetSuccessConnection();
       return;
     });
   } else if ( connectionType == 'usb' ) {
-      usb.controller.send();
+      usb.controller.send( alert );
   }
   return;
 }
 //******************************************************************************
 var typeIpLastLen = 0;
 var typeIpDir     = "write";
-function ipv4AdrMask ( ) {
-  document.getElementById("input-ipaddress").addEventListener( 'input', function() {
+function ipv4AdrMask () {
+  document.getElementById( 'input-ipaddress' ).addEventListener( 'input', function() {
     var str = this.value;
-
     if ( typeIpLastLen < str.length ) {
       typeIdDir = "write";
     } else {
       typeIdDir = "back";
     }
     typeIpLastLen = str.length;
-
     if ( typeIdDir == "write" ) {
       var ch = str[str.length - 1];
       if ((str.length!=4)&&(str.length!=8)&&(str.length!=12)&&(ch != '0')&&(ch != '1')&&(ch != '2')&&(ch != '3')&&(ch != '4')&&(ch != '5')&&(ch != '6')&&(ch != '7')&&(ch != '8')&&(ch != '9')) {
-        str = str.slice(0,(str.length-1));
+        str = str.slice( 0, ( str.length - 1 ) );
         typeIpLastLen = str.length;
       }
       if (str.length > 15) {

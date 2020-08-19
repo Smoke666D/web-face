@@ -716,9 +716,9 @@ function ascii_to_hexa(str) {
 	return arr1.join( '' );
 }
 
-function ethDataUpdate( callback ) {
+function ethDataUpdate( alertProgress, callback ) {
 	document.getElementById( "i-loading" ).classList.add( "loading" );
-	try{
+	try {
 		const reqs = function( requests, store, failback ) {
 			if ( requests instanceof Array && requests.length > 0 ) {
 				const xhr = new XMLHttpRequest();
@@ -736,17 +736,22 @@ function ethDataUpdate( callback ) {
 						document.getElementById( "i-loading" ).classList.remove( "loading" );
 						failback('Something went wrong.');
 						let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
+						alertProgress.close( 1 );
 					}
 				});
 				xhr.ontimeout = function() {
 					xhr.abort();
 					let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
 					document.getElementById( "i-loading" ).classList.remove( "loading" );
+					alertProgress.close( 1 );
 					callback();
 				}
 				xhr.open( requests[0].method, requests[0].url );
 				xhr.timeout = 2000;
 				xhr.send();
+				var index  = store.length + 1;
+				var length = requests.length + store.length;
+				alertProgress.setProgressBar( index * 100 / length );
 			} else {
 				copyDataReg( store[0] );
 				updateInterface();
@@ -765,7 +770,9 @@ function ethDataUpdate( callback ) {
 		}
 		restSeq.push( {method: 'get', url: ( extUrl + '/configs/' )} );
 		restSeq.push( {method: 'get', url: ( extUrl + '/charts/' )} );
-		const results = reqs(restSeq, [],	function(error) { console.log( error )	});
+		const results = reqs( restSeq, [], function( error ) {
+			console.log( error )
+		});
 	} catch( e ) {
 		let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
 		return 0;
@@ -804,33 +811,41 @@ function resetSettings () {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function dataGrab( callback ) {
+function dataGrab( alertProgress, callback ) {
 	grabInterface();
   try {
-		const reqs = function( requests = [], failback ) {
+		const reqs = function ( requests = [], failback ) {
+			var store = [];
 			if ( requests instanceof Array && requests.length > 0 ) {
 	  		var xhr = new XMLHttpRequest();
-				xhr.onload = function() {
-					const status = xhr.status;
+				xhr.addEventListener( 'load', function( data ) {
+					const status = data.currentTarget.status;
+					const response = data.currentTarget.response;
 					if ( xhr.readyState == 4 && status == "200" ) {
+						store.push( status );
 						requests.shift();
 						return reqs( requests, content, failback );
 		  		}
-				};
+				});
 				xhr.addEventListener( 'error', function( error ) {
 					if ( failback ) {
 						let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
+						alertProgress.close( 1 );
 					}
 				});
 				xhr.ontimeout = function() {
 					xhr.abort();
 					let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
+					alertProgress.close( 1 );
 					callback();
 				}
 	  		xhr.open( requests[0].method, requests[0].url, true );
 				xhr.timeout = 2000;
 	  		xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
 	  		xhr.send( requests[0].content );
+				var index  = store.length + 1;
+				var length = requests.length + store.length;
+				alertProgress.setProgressBar( index * 100 / length );
 			} else {
 				setSuccessConnection();
 				let alert = new Alert( "alert-success", triIco, "Прибор успешно сконфигурирован" );
