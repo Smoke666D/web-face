@@ -13348,12 +13348,10 @@ QmCC
                   <i class="fas fa-plug"></i>
                   <span class="sr-only">Подключить</span>
                 </button>
-
                 <button id="disconnect-button" type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="tooltip" title="Отключить">
                   <i class="fas fa-ban"></i>
                   <span class="sr-only">Отключить</span>
                 </button>
-
               </div>
               <div class="modal-footer-right">
               </div>
@@ -15982,6 +15980,99 @@ function checkSettings() {
 },];</script>
     <script>softwareVersion = "0.1"
 </script>
+    <script>
+
+
+//******************************************************************************
+function connectUpdate () {
+  let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    ethDataUpdate( alert, function () {
+      resetSuccessConnection();
+    });
+  } else if ( connectionType == 'usb' ) {
+    usb.controller.receive( alert );
+  }
+  return;
+}
+//******************************************************************************
+function connectGrab () {
+  let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    dataGrab( alert, function () {
+      resetSuccessConnection();
+      return;
+    });
+  } else if ( connectionType == 'usb' ) {
+      usb.controller.send( alert );
+  }
+  return;
+}
+//******************************************************************************
+var typeIpLastLen = 0;
+var typeIpDir     = "write";
+function ipv4AdrMask () {
+  document.getElementById( 'input-ipaddress' ).addEventListener( 'input', function() {
+    var str = this.value;
+    if ( typeIpLastLen < str.length ) {
+      typeIdDir = "write";
+    } else {
+      typeIdDir = "back";
+    }
+    typeIpLastLen = str.length;
+    if ( typeIdDir == "write" ) {
+      var ch = str[str.length - 1];
+      if ((ch != '.')&&(ch != '0')&&(ch != '1')&&(ch != '2')&&(ch != '3')&&(ch != '4')&&(ch != '5')&&(ch != '6')&&(ch != '7')&&(ch != '8')&&(ch != '9')) {
+        str = str.slice( 0, ( str.length - 1 ) );
+        typeIpLastLen = str.length;
+      }
+      if (str.length > 15) {
+        str = str.slice(0,(str.length-1));
+        typeIpLastLen = str.length;
+      }
+    }
+    this.value = str;
+  });
+  return;
+}
+//******************************************************************************
+</script>
+    <script>
+//******************************************************************************
+function setSuccessConnection() {
+	if ( electronApp == 1 ) {
+		var obj = document.getElementById( 'modalConnect-button' );
+		if ( !( obj.classList.contains( 'btn-success' ) ) ) {
+			obj.classList.remove( 'btn-primary' );
+			obj.classList.add( 'btn-success' );
+		}
+		document.getElementById( 'refreshData-button' ).disabled = false;
+		document.getElementById( 'uploadData-button' ).disabled = false;
+    if ( connectionType == 'usb' ){
+      document.getElementById( 'flash-file' ).disabled = false;
+    }
+	}
+	return;
+}
+//******************************************************************************
+function resetSuccessConnection() {
+	if ( electronApp == 1 ) {
+		var obj = document.getElementById( 'modalConnect-button' );
+		if ( obj.classList.contains( 'btn-success' ) ) {
+			obj.classList.remove( 'btn-success' );
+			obj.classList.add( 'btn-primary' );
+		}
+		document.getElementById( 'refreshData-button' ).disabled = true;
+		document.getElementById( 'uploadData-button' ).disabled = true;
+		document.getElementById( 'flash-load' ).disabled = true;
+		document.getElementById( 'flash-file' ).disabled = true;
+	}
+	return;
+}
+//******************************************************************************
+
+
+</script>
     <script>var s_sliders;
 var s_sinputs;
 var checkboxes;
@@ -16138,35 +16229,6 @@ function setConnect( input ) {
     usbButton.classList.add( 'btn-success' );
 		ipInput.disabled = true;
   }
-	return;
-}
-
-function setSuccessConnection() {
-	if ( electronApp == 1 ) {
-		var obj = document.getElementById( 'modalConnect-button' );
-		if ( !( obj.classList.contains( 'btn-success' ) ) ) {
-			obj.classList.remove( 'btn-primary' );
-			obj.classList.add( 'btn-success' );
-		}
-		document.getElementById( 'refreshData-button' ).disabled = false;
-		document.getElementById( 'uploadData-button' ).disabled = false;
-		document.getElementById( 'flash-file' ).disabled = false;
-	}
-	return;
-}
-
-function resetSuccessConnection() {
-	if ( electronApp == 1 ) {
-		var obj = document.getElementById( 'modalConnect-button' );
-		if ( obj.classList.contains( 'btn-success' ) ) {
-			obj.classList.remove( 'btn-success' );
-			obj.classList.add( 'btn-primary' );
-		}
-		document.getElementById( 'refreshData-button' ).disabled = true;
-		document.getElementById( 'uploadData-button' ).disabled = true;
-		document.getElementById( 'flash-load' ).disabled = true;
-		document.getElementById( 'flash-file' ).disabled = true;
-	}
 	return;
 }
 //******************************************************************************
@@ -16771,7 +16833,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 									 'cosFi',
 									 'genRatedApparentPower');
 	if (electronApp == 0) {
-		ethDataUpdate( function() { return; } );
+		connectUpdate();
 	}
 	checkSettings();
 	navbarToogling();
@@ -16807,8 +16869,6 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-
-
 
 
 </script>
@@ -17530,9 +17590,9 @@ function ascii_to_hexa(str) {
 	return arr1.join( '' );
 }
 
-function ethDataUpdate( callback ) {
+function ethDataUpdate( alertProgress, callback ) {
 	document.getElementById( "i-loading" ).classList.add( "loading" );
-	try{
+	try {
 		const reqs = function( requests, store, failback ) {
 			if ( requests instanceof Array && requests.length > 0 ) {
 				const xhr = new XMLHttpRequest();
@@ -17550,17 +17610,22 @@ function ethDataUpdate( callback ) {
 						document.getElementById( "i-loading" ).classList.remove( "loading" );
 						failback('Something went wrong.');
 						let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
+						alertProgress.close( 1 );
 					}
 				});
 				xhr.ontimeout = function() {
 					xhr.abort();
 					let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
 					document.getElementById( "i-loading" ).classList.remove( "loading" );
+					alertProgress.close( 1 );
 					callback();
 				}
 				xhr.open( requests[0].method, requests[0].url );
 				xhr.timeout = 2000;
 				xhr.send();
+				var index  = store.length + 1;
+				var length = requests.length + store.length;
+				alertProgress.setProgressBar( index * 100 / length );
 			} else {
 				copyDataReg( store[0] );
 				updateInterface();
@@ -17579,7 +17644,9 @@ function ethDataUpdate( callback ) {
 		}
 		restSeq.push( {method: 'get', url: ( extUrl + '/configs/' )} );
 		restSeq.push( {method: 'get', url: ( extUrl + '/charts/' )} );
-		const results = reqs(restSeq, [],	function(error) { console.log( error )	});
+		const results = reqs( restSeq, [], function( error ) {
+			console.log( error )
+		});
 	} catch( e ) {
 		let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
 		return 0;
@@ -17618,33 +17685,41 @@ function resetSettings () {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function dataGrab( callback ) {
+function dataGrab( alertProgress, callback ) {
 	grabInterface();
   try {
-		const reqs = function( requests = [], failback ) {
+		const reqs = function ( requests = [], failback ) {
+			var store = [];
 			if ( requests instanceof Array && requests.length > 0 ) {
 	  		var xhr = new XMLHttpRequest();
-				xhr.onload = function() {
-					const status = xhr.status;
+				xhr.addEventListener( 'load', function( data ) {
+					const status = data.currentTarget.status;
+					const response = data.currentTarget.response;
 					if ( xhr.readyState == 4 && status == "200" ) {
+						store.push( status );
 						requests.shift();
 						return reqs( requests, content, failback );
 		  		}
-				};
+				});
 				xhr.addEventListener( 'error', function( error ) {
 					if ( failback ) {
 						let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
+						alertProgress.close( 1 );
 					}
 				});
 				xhr.ontimeout = function() {
 					xhr.abort();
 					let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
+					alertProgress.close( 1 );
 					callback();
 				}
 	  		xhr.open( requests[0].method, requests[0].url, true );
 				xhr.timeout = 2000;
 	  		xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
 	  		xhr.send( requests[0].content );
+				var index  = store.length + 1;
+				var length = requests.length + store.length;
+				alertProgress.setProgressBar( index * 100 / length );
 			} else {
 				setSuccessConnection();
 				let alert = new Alert( "alert-success", triIco, "Прибор успешно сконфигурирован" );
@@ -17720,75 +17795,6 @@ function pasteDataReg( data ) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-</script>\
-    <script>
-
-
-
-//******************************************************************************
-function connectUpdate () {
-  let alert = new Alert( "alert-warning", alerts.triIco, "Загрузка", 1 );
-  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
-    ethDataUpdate( function () {
-      resetSuccessConnection();
-    });
-  } else if ( connectionType == 'usb' ) {
-    usb.controller.receive( alert );
-  }
-  return;
-}
-//******************************************************************************
-function connectGrab () {
-  let alert = new Alert( "alert-warning", alerts.triIco, "Загрузка", 1 );
-  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
-    dataGrab( function () {
-      resetSuccessConnection();
-      return;
-    });
-  } else if ( connectionType == 'usb' ) {
-      usb.controller.send( alert );
-  }
-  return;
-}
-//******************************************************************************
-var typeIpLastLen = 0;
-var typeIpDir     = "write";
-function ipv4AdrMask () {
-  document.getElementById( 'input-ipaddress' ).addEventListener( 'input', function() {
-    var str = this.value;
-    if ( typeIpLastLen < str.length ) {
-      typeIdDir = "write";
-    } else {
-      typeIdDir = "back";
-    }
-    typeIpLastLen = str.length;
-    if ( typeIdDir == "write" ) {
-      var ch = str[str.length - 1];
-      if ((str.length!=4)&&(str.length!=8)&&(str.length!=12)&&(ch != '0')&&(ch != '1')&&(ch != '2')&&(ch != '3')&&(ch != '4')&&(ch != '5')&&(ch != '6')&&(ch != '7')&&(ch != '8')&&(ch != '9')) {
-        str = str.slice( 0, ( str.length - 1 ) );
-        typeIpLastLen = str.length;
-      }
-      if (str.length > 15) {
-        str = str.slice(0,(str.length-1));
-        typeIpLastLen = str.length;
-      }
-      if (( str.length == 3 ) || ( str.length == 7 ) || ( str.length == 11 )) {
-        str += '.';
-      }
-      if ((str.length > 3) && (str[3] != '.')) {
-        str = str.substring(0,3)+'.'+str.substring(4,str.length);
-      }
-      if ((str.length > 7) && (str[7] != '.')) {
-        str = str.substring(0,7)+'.'+str.substring(8,str.length);
-      }
-      if ((str.length > 11) && (str[11] != '.')) {
-        str = str.substring(0,11)+'.'+str.substring(12,str.length);
-      }
-    }
-    this.value = str;
-  });
-  return;
-}
 </script>
     <script>var pointIndex = 0;
 

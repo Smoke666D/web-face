@@ -49,10 +49,8 @@ function EmbendedWebApp () {
 function loaderInit () {
   swFlashFile    = document.getElementById( "flash-file" );
   swFlashLoad    = document.getElementById( "flash-load" );
-  flashProgress  = document.getElementById( "flash-progress" );
   /*------------------------------------------------------*/
   swFlashFile.addEventListener( 'click', function () {
-    flashProgress.style.width = "0%"
     ewa.free();
     dialog.showOpenDialog({
       filters    : [

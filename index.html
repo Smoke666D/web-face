@@ -3414,14 +3414,6 @@
         <div id="flashWarning" class="alert alert-warning">
           Для записи данных, подключите устройсво по USB
         </div>
-        <p align="center">Всего использованно:</p>
-        <div class="controll-panel">
-          <div class="progress">
-            <div class="progress-bar bg-info" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-              25%
-            </div>
-          </div>
-        </div>
         <div class="controll-panel">
           <button aria-label="Connect" id="flash-file" onclick="" class="btn btn-primary" disabled="true">
             <i class="far fa-folder-open"></i>
@@ -3432,14 +3424,6 @@
             <span>Загрузить</span>
           </button>
         </div>
-
-        <div class="controll-panel">
-          <div class="progress">
-            <div id="flash-progress" class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: 0%;">
-            </div>
-          </div>
-        </div>
-
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="noDataPage" class="content-data hidden">
@@ -3537,12 +3521,10 @@
                   <i class="fas fa-plug"></i>
                   <span class="sr-only">Подключить</span>
                 </button>
-
                 <button id="disconnect-button" type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="tooltip" title="Отключить">
                   <i class="fas fa-ban"></i>
                   <span class="sr-only">Отключить</span>
                 </button>
-
               </div>
               <div class="modal-footer-right">
               </div>
@@ -3559,13 +3541,16 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.js"></script>
     <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/version.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="js/rest.js"></script>\
     <script type="text/javascript" src="js/connect.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/rest.js"></script>
     <script type="text/javascript" src="js/sensortable.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
     <script type="text/javascript" src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
     <!--------------------------------------------------------------------------------------------------------------->
     <script>

@@ -8,6 +8,7 @@ const USBMessage    = require('./usb-message.js').USBMessage;
 const msgCMD        = require('./usb-message.js').msgCMD;
 const msgSTAT       = require('./usb-message.js').msgSTAT;
 const USB_DATA_SIZE = require('./usb-message.js').USB_DATA_SIZE;
+const common       = require('./common.js');
 /*----------------------------------------------------------------------------*/
 var charts = [];
 /*----------------------------------------------------------------------------*/
@@ -208,7 +209,13 @@ function USBtransport () {
 
   function write ( data ) {
     if ( device != null ) {
-      device.write( data );
+      try {
+        device.write( data );
+      } catch (e) {
+        if ( ( alert != null ) || ( alert != undefined ) ) {
+          alert.close( 1 );
+        }
+      }
     }
     return;
   }
@@ -245,15 +252,27 @@ function USBtransport () {
         } else {
           console.log("Error with command: " + response.command + " expected: " + msgCMD.USB_PUT_CONFIG_CMD + " or " + msgCMD.USB_PUT_CHART_CMD + " or " + msgCMD.USB_PUT_EWA_CMD );
           if ( alert != undefined ) {
-            alert.close();
+            if ( ( alert != null ) || ( alert != undefined ) ) {
+              alert.close( 1 );
+            }
             self.close();
+            if ( ( alert != null ) || ( alert != undefined ) ) {
+              alert.close( 1 );
+            }
+            resetSuccessConnection();
           }
         }
       } else {
         console.log("Error with status: " + response.status + " expected: " + msgSTAT.USB_OK_STAT);
         if ( alert != undefined ) {
-          alert.close();
+          if ( ( alert != null ) || ( alert != undefined ) ) {
+            alert.close( 1 );
+          }
           self.close();
+          if ( ( alert != null ) || ( alert != undefined ) ) {
+            alert.close( 1 );
+          }
+          resetSuccessConnection();
         }
       }
     });
@@ -267,6 +286,12 @@ function USBtransport () {
         alert.setProgressBar( input.getProgress() );
         write( input.nextRequest() );
         result = usbHandler.continue;
+      }
+      if ( result == usbHandler.error ) {
+        self.close();
+        if ( ( alert != null ) || ( alert != undefined ) ) {
+          alert.close( 1 );
+        }
       }
     });
     return result;
@@ -302,6 +327,7 @@ function USBtransport () {
         }
       } else if ( handle == usbHandler.error ) {
         status = usbStat.wait;
+        self.close();
         errorCalback();
       }
     });
@@ -309,6 +335,7 @@ function USBtransport () {
       self.error.push( err );
       self.errorCounter++;
       status = usbStat.wait;
+      self.close();
       errorCalback();
     });
     callback();

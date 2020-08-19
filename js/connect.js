@@ -1,7 +1,6 @@
 const usb    = require('./js/usb.js');
 const rest   = require('./js/rest.js');
 const alerts = require('./js/alerts.js');
-
 //******************************************************************************
 function connectUpdate () {
   let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
@@ -54,3 +53,4 @@ function ipv4AdrMask () {
   });
   return;
 }
+//******************************************************************************

@@ -105,6 +105,7 @@ document.getElementById("connect-button").addEventListener('click', function() {
         let alert = new alerts.Alert( "alert-success", alerts.okIco, "Прибор успешно сконфигурирован" );
       }, function() {
         let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );
+        resetSuccessConnection();
       });
       if ( res == 1 ) {
         setSuccessConnection();
