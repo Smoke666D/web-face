@@ -2096,6 +2096,7 @@ textarea.form-control {
       -webkit-transition: none;
       -o-transition: none;
       transition: none; } }
+
   .btn:hover {
     color: #212529;
     text-decoration: none; }
@@ -8418,9 +8419,6 @@ h1, h2, h3, h4, h5,
     #sidebar ul li a .fas{
       font-size: 22px;
       width: 50px;}
-    #sidebar ul li a .svg-icon {
-      width: 1em;
-      height: 1em;}
     #sidebar ul li a span {
       display:inline-block;
       vertical-align:middle;
@@ -8725,9 +8723,17 @@ input:checked + .slider:before {
 	  background: rgba(255,255,255,.1);}
   .ui-btn.exit:hover {
 	  background: #e81123;}
+  .ui-btn svg,
   .ui-btn .fas,
   .ui-btn .far {
 	  color: #fff;
+    width: 1.2em;
+    height: 1.2em;
+}
+
+svg {
+  width: 1.2em;
+  height: 1.2em;
 }
 
 .controll-panel {
