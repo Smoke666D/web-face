@@ -291,13 +291,13 @@ def compilHex( path, text, compressed ):
     f.write( "/*----------------------- Includes -------------------------------------*/\n" );
     f.write( "#include\t\"stm32f2xx_hal.h\"\n" );
     f.write( "/*------------------------ Define --------------------------------------*/\n" );
-    f.write( "#define\t\tHTML_LENGTH\t\t\t" + str( len( text ) ) + "U\t\t//" + str( len( text ) / 1024 )  +  " Kb\n" );
+    f.write( "#define  HTML_LENGTH    " + str( len( text ) ) + "U    // " + str( len( text ) / 1024 )  +  " Kb\n" );
     cmpr = " ";
     if compressed == 0:
         cmpr = "0U";
     else:
         cmpr = "1U";
-    f.write( "#define\t\tHTML_ENCODING\t\t" + cmpr + "\n" );
+    f.write( "#define  HTML_ENCODING  " + cmpr + "\n" );
     f.write( "static const unsigned char data__index_html[HTML_LENGTH] = {\n" );
     length = len( text ) / 16;
     last   = len( text ) - length * 16;
@@ -340,12 +340,13 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     else:
         print( "Compression   : Off" );
     #------------ Get paths to html, css, js and img files -----------
-    localPath = os.getcwd();
-    path      = os.path.split( localPath )[0];
-    jsPath    = os.path.join( path,"js" );
-    cssPath   = os.path.join( path,"css" );
-    imgPath   = os.path.join( path,"img" );
-    htmlPath  = os.path.join( path,"index.html" );
+    localPath   = os.getcwd();
+    path        = os.path.split( localPath )[0];
+    jsPath      = os.path.join( path,"js" );
+    cssPath     = os.path.join( path,"css" );
+    imgPath     = os.path.join( path,"img" );
+    htmlPath    = os.path.join( path,"index.html" );
+    html404Path = os.path.join( path,"404.html" );
     #------------- Get lists of js, css and image files --------------
     for root, dirs, files in os.walk( jsPath ):
         jsFiles = files;
@@ -359,10 +360,13 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
             del jsFiles[i];
     #------------------------- Read html file ------------------------
     try:
-        htmlFile = open( htmlPath, encoding="utf-8" );
+        htmlFile    = open( htmlPath,    encoding="utf-8" );
+        html404File = open( html404Path, encoding="utf-8" );
     except:
         htmlFile = open( htmlPath, "r" );
+        html404File = open( html404Path, "r" );
     htmlText = htmlFile.read();
+    html404Text = html404File.read();
     htmlText = removeElectronFromHTML( htmlText );
     if minifyHTML == True:
         htmlText = minifyHtml( htmlText );
@@ -433,12 +437,26 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
         finishSize   = len( htmlCompress ) / 1024;
         delta        = ( startSize - finishSize ) * 100 / startSize;
         print( "Compression   : from {} Kb to {} Kb ({}%)".format( startSize, finishSize, delta ) );
+
+    startSize = len( html404Text );
+    try:
+        out = StringIO.StringIO();
+    except:
+        out = StringIO();
+    with gzip.GzipFile( fileobj = out, mode="w" ) as f:
+        f.write( html404Text );
+    html404Compress = out.getvalue();
+    finishSize   = len( html404Compress );
+    delta        = ( startSize - finishSize ) * 100 / startSize;
+    print( "Compression404: from {} byte to {} byte ({}%)".format( startSize, finishSize, delta ) );
     #----------------------- Write output files -----------------------
     output = open( "index.html", "w+" );
+    startSize = len( html404Text ) / 1024;
     output.write( htmlText );
     output.close();
     if compress == True:
         size = compilHex( outPath, htmlCompress, 1 );
+        compilHex( outPath, html404Compress, 1 );
         name = strftime("%y%m%d", gmtime()) + '.ewa';
         compilEWA( os.path.join( path, name ), htmlCompress );
     else:
