@@ -736,14 +736,14 @@ function ethDataUpdate( alertProgress, callback ) {
 						document.getElementById( "i-loading" ).classList.remove( "loading" );
 						failback('Something went wrong.');
 						let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
-						alertProgress.close( 1 );
+						alertProgress.close( 0 );
 					}
 				});
 				xhr.ontimeout = function() {
 					xhr.abort();
 					let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
 					document.getElementById( "i-loading" ).classList.remove( "loading" );
-					alertProgress.close( 1 );
+					alertProgress.close( 0 );
 					callback();
 				}
 				xhr.open( requests[0].method, requests[0].url );
@@ -783,7 +783,7 @@ function ethDataUpdate( alertProgress, callback ) {
 function copyDataReg( data ) {
 	for ( var i=0; i<data.length; i++ ) {
 		for ( var j=0; j<dataReg.length; j++ ) {
-			if ( ( data[i].adr == dataReg[j].adr ) && ( data[i].page == dataReg[j].page ) ) {
+			if ( data[i].adr == dataReg[j].adr ) {
 				if ( dataReg[j].type == 'S' ) {
 					dataReg[j].value = [];
 					for ( var k=0; k<dataReg[j].len; k++ ) {
@@ -830,17 +830,17 @@ function dataGrab( alertProgress, callback ) {
 				xhr.addEventListener( 'error', function( error ) {
 					if ( failback ) {
 						let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
-						alertProgress.close( 1 );
+						alertProgress.close( 0 );
 					}
 				});
 				xhr.ontimeout = function() {
 					xhr.abort();
 					let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
-					alertProgress.close( 1 );
+					alertProgress.close( 0 );
 					callback();
 				}
 	  		xhr.open( requests[0].method, requests[0].url, true );
-				xhr.timeout = 2000;
+				xhr.timeout = 6000;
 	  		xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
 	  		xhr.send( requests[0].content );
 				var index  = store.length + 1;
@@ -865,6 +865,11 @@ function dataGrab( alertProgress, callback ) {
 					url:     extUrl + '/configs/' + i,
 					content: JSON.stringify( pasteDataReg( dataReg[i] ) )
 		})}}
+		restSeq.push( {
+			method:  'PUT',
+			url:     extUrl + '/saveConfigs/',
+			content: JSON.stringify( {"save":1} )
+		});
 		var chartContent = uploadCharts();
 		for ( i=0; i<3; i++ ) {
 			restSeq.push({
@@ -872,6 +877,7 @@ function dataGrab( alertProgress, callback ) {
 				url:     extUrl + '/charts/' + i,
 				content: JSON.stringify( chartContent[i] )
 		})}
+		console.log("her");
 		const results = reqs( restSeq, function( error ) { console.log( error) });
 	} catch( e ) {
 		let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
@@ -905,7 +911,6 @@ function pasteDataReg( data ) {
 		value = data.value;
 	}
 	return {
-		page       : data.page,
 		adr        : data.adr,
 		value      : value,
 		scale      : data.scale,

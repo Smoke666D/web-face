@@ -4,11 +4,12 @@
 const msgSIZE         = 65;
 const chartUnitLength = 18;
 const msgCMD  = {
-  "USB_GET_CONFIG_CMD" : 1,
-  "USB_PUT_CONFIG_CMD" : 2,
-  "USB_GET_CHART_CMD"  : 3,
-  "USB_PUT_CHART_CMD"  : 4,
-  "USB_PUT_EWA_CMD"    : 5 };
+  "USB_GET_CONFIG_CMD"  : 1,
+  "USB_PUT_CONFIG_CMD"  : 2,
+  "USB_GET_CHART_CMD"   : 3,
+  "USB_PUT_CHART_CMD"   : 4,
+  "USB_PUT_EWA_CMD"     : 5,
+  "USB_SAVE_CONFIG_CMD" : 6 };
 const msgSTAT = {
   "USB_OK_STAT"      : 1,
   "USB_BAD_REQ_STAT" : 2,
@@ -111,6 +112,9 @@ function USBMessage ( buffer ) {
         break;
       case msgCMD.USB_PUT_EWA_CMD:
         self.command = msgCMD.USB_PUT_EWA_CMD;
+        break;
+      case msgCMD.USB_SAVE_CONFIG_CMD:
+        self.command = msgCMD.USB_SAVE_CONFIG_CMD;
         break;
       default:
         self.command = 0;
@@ -322,6 +326,16 @@ function USBMessage ( buffer ) {
       finishMesageWithZero( self.buffer );
       /*-------------------------------------------*/
       return;
+    });
+    return;
+  }
+  this.codeSaveConfigs   = function () {
+    self.status  = msgSTAT.USB_OK_STAT;
+    self.command = msgCMD.USB_SAVE_CONFIG_CMD;
+    self.adr     = 0;
+    self.length  = 0;
+    setup( self.buffer, function () {
+      finishMesageWithZero( self.buffer );
     });
     return;
   }
