@@ -4,6 +4,11 @@ var usb      = require('./js/usb.js');
 var main     = require('./js/main.js');
 var rest     = require('./js/rest.js');
 var alerts   = require('./js/alerts.js');
+
+const USBMessage    = require('./js/usb-message.js').USBMessage;
+const USB_DATA_SIZE = require('./js/usb-message.js').USB_DATA_SIZE;
+const USB_CHART_HEADER_LENGTH = require('./js/usb-message.js').USB_CHART_HEADER_LENGTH;
+const USB_DATA_BYTE = require('./js/usb-message.js').USB_DATA_BYTE;
 /*----------------------------------------------------------------------------*/
 document.getElementById("min-btn").addEventListener("click", function (e) {
   var window = remote.getCurrentWindow();
@@ -79,19 +84,38 @@ document.getElementById("connect-button").addEventListener('click', function() {
     /*---------------------------- USB -----------------------------*/
     /*--------------------------------------------------------------*/
     if ( connectionType == 'usb' ) {
+      var msg = null;
       usb.controller.close();
-      out = [];
+      out    = [];
       charts = [];
-      res = usb.controller.init( function() {
+      res    = usb.controller.init( function() {
         /* After getting full message */
         var buffer = [];
         buffer = usb.controller.getInput();
         for ( var i=0; i<buffer.length; i++) {
           buffer[i].init( function() {
-            out = buffer[i].parse( i );
-            if ( out[0] == 2 ) {
-              charts.push( out[1] );
-              out = [];
+
+            if ( buffer[i].length > USB_DATA_SIZE ) {
+              if ( buffer[i].adr != buffer[i-1].adr ) {
+                msg = new USBMessage( buffer[i].buffer );
+                msg.initLong();
+              } else {
+                for ( var j=USB_DATA_BYTE; j<buffer[i].buffer.length; j++ ) {
+                  msg.addLong( buffer[i].buffer[j] );
+                }
+                if ( msg != null ) {
+                  if ( msg.data.length >= msg.length ) {
+                    out = msg.parse();
+                    if ( out[0] == 2 ) {
+                      charts.push( out[1] );
+                      out = [];
+                    }
+                  }
+                }
+              }
+
+            } else {
+              out = buffer[i].parse();
             }
           });
         }

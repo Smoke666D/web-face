@@ -9,7 +9,8 @@ const msgCMD  = {
   "USB_GET_CHART_CMD"   : 3,
   "USB_PUT_CHART_CMD"   : 4,
   "USB_PUT_EWA_CMD"     : 5,
-  "USB_SAVE_CONFIG_CMD" : 6 };
+  "USB_SAVE_CONFIG_CMD" : 6,
+  "USB_SAVE_CHART_CMD"  : 7 };
 const msgSTAT = {
   "USB_OK_STAT"      : 1,
   "USB_BAD_REQ_STAT" : 2,
@@ -24,6 +25,7 @@ const USB_LEN1_BYTE = 6;
 const USB_LEN0_BYTE = 7;
 const USB_DATA_BYTE = 8;
 const USB_DATA_SIZE = msgSIZE - USB_DATA_BYTE;
+const USB_CHART_HEADER_LENGTH = 54;
 /*----------------------------------------------------------------------------*/
 function USBMessage ( buffer ) {
   /*------------------ Private ------------------*/
@@ -116,6 +118,9 @@ function USBMessage ( buffer ) {
       case msgCMD.USB_SAVE_CONFIG_CMD:
         self.command = msgCMD.USB_SAVE_CONFIG_CMD;
         break;
+      case msgCMD.USB_SAVE_CHART_CMD:
+        self.command = msgCMD.USB_SAVE_CHART_CMD;
+        break;
       default:
         self.command = 0;
         self.status  = msgSTAT.USB_BAD_REQ_STAT;
@@ -200,7 +205,11 @@ function USBMessage ( buffer ) {
     for ( var i=counter; i<self.length; i++ ) {
       strBuffer += String.fromCharCode( self.data[i] );
     }
-    dataReg[n].units = decodeURI( strBuffer );
+    try {
+      dataReg[n].units = decodeURI( strBuffer );
+    } catch {
+      console.log( "Error on units decoding in " + dataReg[n].name );
+    }
     /*-------------------------------------------*/
     return;
   }
@@ -273,6 +282,20 @@ function USBMessage ( buffer ) {
     callback();
     return;
   }
+  this.initLong          = function () {
+    self.init( function() {
+      if ( self.command == msgCMD.USB_GET_CHART_CMD ) {
+        self.data.length = USB_CHART_HEADER_LENGTH;
+      }
+    });
+    return;
+  }
+  this.addLong           = function ( byte ) {
+    if ( self.length > self.data.length ) {
+      self.data.push( byte );
+    }
+    return;
+  }
   this.makeConfigRequest = function ( n ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_GET_CONFIG_CMD;
@@ -290,8 +313,9 @@ function USBMessage ( buffer ) {
     self.adr     = adr;
     self.length  = 0;
     self.data    = [];
-    setupLength( self.buffer );
-    finishMesageWithZero( self.buffer );
+    setup( self.buffer, function () {
+      finishMesageWithZero( self.buffer );
+    });
     return;
   }
   this.codeConfig        = function ( n ) {
@@ -339,6 +363,16 @@ function USBMessage ( buffer ) {
     });
     return;
   }
+  this.codeSaveCharts    = function () {
+    self.status  = msgSTAT.USB_OK_STAT;
+    self.command = msgCMD.USB_SAVE_CHART_CMD;
+    self.adr     = 0;
+    self.length  = 0;
+    setup( self.buffer, function () {
+      finishMesageWithZero( self.buffer );
+    });
+    return;
+  }
   this.codeChart         = function ( chart, adr ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_PUT_CHART_CMD;
@@ -353,6 +387,7 @@ function USBMessage ( buffer ) {
         uint32toByte( chart.xmax, self.buffer[0] );                       /* 10 */
         uint32toByte( chart.ymin, self.buffer[0] );                       /* 14 */
         uint32toByte( chart.ymax, self.buffer[0] );                       /* 18 */
+
         strToEncodeByte( chart.xunit, chartUnitLength, self.buffer[0] );  /* 36 */
         strToEncodeByte( chart.yunit, chartUnitLength, self.buffer[0] );  /* 54 */
         uint16toByte( chart.size, self.buffer[0] );
@@ -406,16 +441,16 @@ function USBMessage ( buffer ) {
     setupLength( self.buffer );
     return counter;
   }
-  this.parse             = function ( n ) {
+  this.parse             = function () {
     var output = 0;
     var type   = 0;
     switch ( self.command ) {
       case msgCMD.USB_GET_CONFIG_CMD:
-        parseConfig( n );
+        parseConfig( self.adr );
         type = 1;
         break;
       case msgCMD.USB_GET_CHART_CMD:
-        output = parseChart( n );
+        output = parseChart( self.adr );
         type = 2;
         break;
     }
@@ -430,6 +465,8 @@ module.exports.msgCMD     = msgCMD;
 module.exports.msgSTAT    = msgSTAT;
 module.exports.msgSIZE    = msgSIZE;
 module.exports.USB_DATA_SIZE = USB_DATA_SIZE;
+module.exports.USB_DATA_BYTE = USB_DATA_BYTE;
+module.exports.USB_CHART_HEADER_LENGTH = USB_CHART_HEADER_LENGTH;
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/

@@ -9,7 +9,7 @@ var dataReg = [
    "max": 0,
    "units": "",
    "type": "U",
-   "rw": "r",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -23,7 +23,7 @@ var dataReg = [
    "max": 0,
    "units": "",
    "type": "U",
-   "rw": "r",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -37,7 +37,7 @@ var dataReg = [
    "max": 0,
    "units": "",
    "type": "U",
-   "rw": "r",
+   "rw": "rw",
    "len": 6,
    "bitMapSize": 0,
    "bit": []

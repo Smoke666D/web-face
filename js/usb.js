@@ -10,7 +10,9 @@ const msgSTAT       = require('./usb-message.js').msgSTAT;
 const USB_DATA_SIZE = require('./usb-message.js').USB_DATA_SIZE;
 const common        = require('./common.js');
 /*----------------------------------------------------------------------------*/
-var charts = [];
+const chartsLength = 3;
+var   charts = [];
+
 /*----------------------------------------------------------------------------*/
 const usbStat = {
   "wait"  : 1,
@@ -40,7 +42,7 @@ function MessageArray () {
     if ( sequence.len == 0 ) {
       return 0xFFFF;
     } else {
-      return sequence[counter].adr;
+      return sequence[sequence.length-1].adr;
     }
   }
   this.getLength     = function () {
@@ -122,8 +124,8 @@ function InputMessageArray () {
   }
   this.process       = function ( message ) {
     let result = usbHandler.error;
-    if ( response.getLength > 0 ) {
-      if ( self.response.getCurrentAdr() != message.adr ) {
+    if ( response.getLength() > 0 ) {
+      if ( response.getCurrentAdr() != message.adr ) {
         length = 0;
       }
     } else {
@@ -244,6 +246,7 @@ function USBtransport () {
         if ( ( response.command == msgCMD.USB_PUT_CONFIG_CMD  ) ||
              ( response.command == msgCMD.USB_PUT_CHART_CMD   ) ||
              ( response.command == msgCMD.USB_SAVE_CONFIG_CMD ) ||
+             ( response.command == msgCMD.USB_SAVE_CHART_CMD )  ||
              ( response.command == msgCMD.USB_PUT_EWA_CMD  ) ) {
             result = output.isEnd();
             if ( result == usbHandler.continue )
@@ -410,6 +413,9 @@ function EnrrganController () {
       msg.codeChart( charts[i], i );
       transport.addToOutput( msg );
     }
+    msg = new USBMessage( [] );
+    msg.codeSaveCharts();
+    transport.addToOutput( msg );
     /*----------------------------------------------*/
     callback();
     return;
@@ -435,14 +441,11 @@ function EnrrganController () {
       msg.makeConfigRequest( i );
       transport.addRequest( msg );
     }
-
-    /*
-    for ( var i=0; i<charts.length; i++ ) {
+    for ( var i=0; i<chartsLength; i++ ) {
       msg = new USBMessage( [] )
       msg.makeChartRequest( i );
       transport.addRequest( msg );
     }
-    */
     callback();
     return;
   }
