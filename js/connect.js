@@ -26,6 +26,14 @@ function connectGrab () {
   }
   return;
 }
+function writeTime () {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    writeTimeEth();
+  } else if ( connectionType == 'usb' ) {
+
+  }
+  return;
+}
 //******************************************************************************
 var typeIpLastLen = 0;
 var typeIpDir     = "write";

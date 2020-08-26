@@ -1,15 +1,23 @@
 const remote = require( 'electron' ).remote;
+
+var stringLineArray = [];
+var progressArray   = [];
+var slidersArray    = [];
+var switcherArray   = [];
+var selectorArray   = [];
+var radioArray      = [];
+var rtcTime         = new RTC();
 //******************************************************************************
 function bitVal( n, reg ) {
 	return ( reg.value & reg.bit[n].mask ) >> reg.bit[n].shift;
 }
-
+//******************************************************************************
 function bitWrite( n, reg, val ) {
 	reg.value = ( reg.value & ( ~reg.bit[n].mask ) ) | ( val << reg.bit[n].shift );
 	return;
 }
 //******************************************************************************
-function StrLine( name ) {
+function StrLine ( name ) {
 	var self  = this;
 	this.name = name;
 
@@ -50,7 +58,7 @@ function StrLine( name ) {
 	return;
 }
 //******************************************************************************
-function Switch(name) {
+function Switch (name) {
 	this.name = name;
 
 	this.getData = function() {
@@ -100,7 +108,7 @@ function Switch(name) {
 	return;
 }
 //******************************************************************************
-function Progress( name ) {
+function Progress ( name ) {
 	var self = this;
 	this.name = name;
 
@@ -167,7 +175,7 @@ function Progress( name ) {
 	}
 }
 //******************************************************************************
-function Select( name ) {
+function Select ( name ) {
 	var self = this;
 	this.name    = name;
 
@@ -252,7 +260,7 @@ function Select( name ) {
 	return;
 }
 //******************************************************************************
-function Radio( name ) {
+function Radio ( name ) {
 	this.name    = name;
 	this.getData = function() {
 		for ( var i=0; i<dataReg.length; i++ ) {
@@ -302,7 +310,7 @@ function Radio( name ) {
 	return;
 }
 //******************************************************************************
-function Slider( name, preInit ) {
+function Slider ( name, preInit ) {
 	var self = this;
 	this.name      = name;
 	/*--------------------------------------------------------------------------*/
@@ -487,7 +495,7 @@ function Slider( name, preInit ) {
 	return;
 }
 //******************************************************************************
-function cosFiUpdate(){
+function cosFiUpdate (){
 	slider = document.getElementById( "s-slider-cosFi" );
 	input = document.getElementById( "sinput-cosFi" );
 	input.disabled = false;
@@ -504,7 +512,7 @@ function cosFiUpdate(){
 	return;
 }
 //******************************************************************************
-function updateVersions() {
+function updateVersions () {
 	var counter = 0;
 	var major   = 0;
 	var minor   = 0;
@@ -538,13 +546,112 @@ function updateVersions() {
 	return;
 }
 //******************************************************************************
-var stringLineArray = [];
-var progressArray   = [];
-var slidersArray    = [];
-var switcherArray   = [];
-var selectorArray   = [];
-var radioArray      = [];
+function RTC () {
+	var self   = this;
+	this.hour  = 0;
+	this.min   = 0;
+	this.sec   = 0;
+	this.year  = 2020;
+	this.month = 1;
+	this.day   = 1;
+	this.wday  = 0;
 
+	var timeInput = document.getElementById("timeInput")
+	var dateInput = document.getElementById("dateInput")
+
+	function makeDateStr () {
+		return ( self.year + 2000 ) + "-" + (self.month < 10 ? "0" : "") + self.month + "-" + (self.day < 10 ? "0" : "") + self.day;
+	}
+	function makeTimeStr () {
+		return (self.hour < 10 ? "0" : "") + self.hour + ":" + (self.min < 10 ? "0" : "") + self.min;
+	}
+	function isDateCorrect () {
+		var date = new Date();
+		if ( ( self.year  != date.getFullYear() - 2000 ) ||
+		     ( self.month != ( date.getMonth() + 1 ) )   ||
+				 ( self.day   != date.getDate() )            ||
+				 ( self.hour  != date.getHours() )           ||
+				 ( self.min   != date.getMinutes() ) ) {
+			return 0;
+		}
+		return 1;
+	}
+
+
+	this.getSystemTime = function () {
+		var date = new Date();
+		self.hour  = date.getHours();
+		self.min   = date.getMinutes();
+		self.sec   = date.getSeconds();
+		self.year  = date.getFullYear() - 2000;
+		self.month = date.getMonth() + 1;
+		self.day   = date.getDate();
+		self.wday  = date.getDay();
+	}
+	this.get = function ( data ) {
+		self.hour  = data.hour;
+		self.min   = data.min;
+		self.sec   = data.sec;
+		self.year  = data.year;
+		self.month = data.month;
+		self.day   = data.day;
+		self.wday  = data.wday;
+		this.update();
+		if ( isDateCorrect() == 0 ) {
+			$("#confirmModal").modal()
+		}
+		return;
+	}
+	this.readInput = function () {
+		let t = timeInput.value;
+		let d = dateInput.value;
+		self.hour  = parseInt( t.slice( 0, t.lastIndexOf( ":" ) ) );
+		self.min   = parseInt( t.slice( ( t.lastIndexOf( ":" ) + 1 ), t.length ) );
+		self.sec   = 0;
+		self.year  = parseInt( d.slice( 0, 4 ) ) - 2000;
+		self.month = parseInt( d.slice( 5, 7 ) );
+		self.day   = parseInt( d.slice( 8, 10 ) );
+	}
+	this.update    = function () {
+		timeInput.value = makeTimeStr();
+		dateInput.value = makeDateStr();
+	}
+  return;
+}
+
+function setInputTime () {
+	rtcTime.readInput();
+	writeTime();
+}
+
+function setSysTime () {
+	rtcTime.getSystemTime();
+	rtcTime.update();
+	writeTime();
+	return;
+}
+
+function writeTimeEth () {
+	var xhr = new XMLHttpRequest();
+	xhr.open( 'PUT', "http://" + document.getElementById( "input-ipaddress" ).value + '/time/', true );
+	xhr.timeout = 5000;
+	xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
+	xhr.send( JSON.stringify( rtcTime ) );
+	xhr.addEventListener( 'load', function( data ) {
+		if ( xhr.readyState == 4 && data.currentTarget.status == "200" ) {
+			let alert = new Alert( "alert-success", okIco, "Время успешно установленно" );
+		}
+	});
+	xhr.addEventListener( 'error', function( error ) {
+	  let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
+	});
+	xhr.ontimeout = function() {
+		xhr.abort();
+		let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
+	}
+}
+
+//******************************************************************************
 function declareStrings() {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].name.endsWith( "Message" ) ) {
@@ -553,7 +660,6 @@ function declareStrings() {
 	}
 	return;
 }
-
 function declareProgress() {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].name.endsWith( "TimeLeft" ) ) {
@@ -561,7 +667,6 @@ function declareProgress() {
 		}
 	}
 }
-
 function declareSliders() {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		str = dataReg[i].name;
@@ -577,7 +682,6 @@ function declareSliders() {
 	}
 	return;
 }
-
 function declareSwitches() {
 	var l = 0;
 	for ( var i=0; i<dataReg.length; i++ ) {
@@ -593,7 +697,6 @@ function declareSwitches() {
 	}
 	return;
 }
-
 function declareSelects() {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].bitMapSize > 0 ) {
@@ -611,7 +714,6 @@ function declareSelects() {
 	}
 	return;
 }
-
 function declareRadio() {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].bitMapSize > 0 ) {
@@ -624,7 +726,6 @@ function declareRadio() {
 	}
 	return;
 }
-
 function declareInterface() {
 	declareSliders();
 	declareStrings();
@@ -636,6 +737,7 @@ function declareInterface() {
 }
 
 function updateInterface() {
+	rtcTime.update();
 	for ( var i=0; i<stringLineArray.length; i++ ) {
 		stringLineArray[i].update();
 	}
@@ -668,7 +770,6 @@ function updateInterface() {
 	}
 	return;
 }
-
 function grabInterface() {
 	for ( var i=0; i<stringLineArray.length; i++ ) {
 		stringLineArray[i].grab();
@@ -756,12 +857,14 @@ function ethDataUpdate( alertProgress, callback ) {
 				copyDataReg( store[0] );
 				updateInterface();
 				loadCharts( store[1] );
+				rtcTime.get( store[2] )
 				setSuccessConnection();
 				let alert = new Alert( "alert-success", okIco, "Данные успешно обновленны" );
 				document.getElementById( "i-loading" ).classList.remove( "loading" );
 				return store;
 			}
 		};
+		/* Make GET sequency */
 		restSeq = []
 		ipAdr  = document.getElementById( "input-ipaddress" ).value;
 		extUrl = "";
@@ -770,6 +873,7 @@ function ethDataUpdate( alertProgress, callback ) {
 		}
 		restSeq.push( {method: 'get', url: ( extUrl + '/configs/' )} );
 		restSeq.push( {method: 'get', url: ( extUrl + '/charts/' )} );
+		restSeq.push( {method: 'get', url: ( extUrl + '/time/' )} );
 		const results = reqs( restSeq, [], function( error ) {
 			console.log( error )
 		});
@@ -840,7 +944,7 @@ function dataGrab( alertProgress, callback ) {
 					callback();
 				}
 	  		xhr.open( requests[0].method, requests[0].url, true );
-				xhr.timeout = 6000;
+				xhr.timeout = 600000;
 	  		xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
 	  		xhr.send( requests[0].content );
 				var index  = store.length + 1;
@@ -858,7 +962,7 @@ function dataGrab( alertProgress, callback ) {
 		if ( ipAdr.length > 0 ) {
 			extUrl = "http://" + ipAdr;
 		}
-		for ( i=0; i<103; i++ ) {
+		for ( i=3; i<103; i++ ) {
 			if ( dataReg[i].rw == "rw" ) {
 				restSeq.push( {
 					method:  'PUT',
@@ -877,7 +981,11 @@ function dataGrab( alertProgress, callback ) {
 				url:     extUrl + '/charts/' + i,
 				content: JSON.stringify( chartContent[i] )
 		})}
-		console.log("her");
+		restSeq.push( {
+			method:  'PUT',
+			url:     extUrl + '/saveCharts/',
+			content: JSON.stringify( {"save":1} )
+		});
 		const results = reqs( restSeq, function( error ) { console.log( error) });
 	} catch( e ) {
 		let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );

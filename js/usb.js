@@ -53,18 +53,6 @@ function MessageArray () {
   }
   this.getProgress   = function () {
     return Math.ceil( ( ( counter + 1 ) / sequence.length ) * 100 );
-    /*
-    if ( sequence.length < 1000 ) {
-      val =  ( ( counter + 1 ) / sequence.length ) * 100;
-      if ( val == 0 )   return 0;
-      if ( val < 25 )   return 25;
-      if ( val < 50 )   return 50;
-      if ( val < 75 )   return 75;
-      if ( val == 100 ) return 100;
-    } else {
-      return Math.ceil( ( ( counter + 1 ) / sequence.length ) * 100 );
-    }
-    */
   }
   this.incCounter    = function () {
     counter++;
@@ -287,6 +275,7 @@ function USBtransport () {
     result = usbHandler.error;
     message.init( function () {
       result = input.process( message );
+      console.log( message );
       if ( ( result == usbHandler.finish ) && ( input.isEnd() == usbHandler.continue ) ) {
         alert.setProgressBar( input.getProgress() );
         write( input.nextRequest() );

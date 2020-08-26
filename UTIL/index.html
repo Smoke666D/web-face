@@ -13607,7 +13607,7 @@ function checkSettings() {
    "max": 0,
    "units": "",
    "type": "U",
-   "rw": "r",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -13621,7 +13621,7 @@ function checkSettings() {
    "max": 0,
    "units": "",
    "type": "U",
-   "rw": "r",
+   "rw": "rw",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -13635,7 +13635,7 @@ function checkSettings() {
    "max": 0,
    "units": "",
    "type": "U",
-   "rw": "r",
+   "rw": "rw",
    "len": 6,
    "bitMapSize": 0,
    "bit": []
@@ -17658,7 +17658,7 @@ function dataGrab( alertProgress, callback ) {
 					callback();
 				}
 	  		xhr.open( requests[0].method, requests[0].url, true );
-				xhr.timeout = 6000;
+				xhr.timeout = 600000;
 	  		xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
 	  		xhr.send( requests[0].content );
 				var index  = store.length + 1;
@@ -17676,7 +17676,7 @@ function dataGrab( alertProgress, callback ) {
 		if ( ipAdr.length > 0 ) {
 			extUrl = "http://" + ipAdr;
 		}
-		for ( i=0; i<103; i++ ) {
+		for ( i=3; i<103; i++ ) {
 			if ( dataReg[i].rw == "rw" ) {
 				restSeq.push( {
 					method:  'PUT',
@@ -17695,7 +17695,11 @@ function dataGrab( alertProgress, callback ) {
 				url:     extUrl + '/charts/' + i,
 				content: JSON.stringify( chartContent[i] )
 		})}
-		console.log("her");
+		restSeq.push( {
+			method:  'PUT',
+			url:     extUrl + '/saveCharts/',
+			content: JSON.stringify( {"save":1} )
+		});
 		const results = reqs( restSeq, function( error ) { console.log( error) });
 	} catch( e ) {
 		let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );

@@ -2259,48 +2259,6 @@ var dataReg = [
    "bit": []
 },{
    "adr": 121,
-   "name": "maintenanceAlarmOilTimeLeft",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 5000,
-   "units": "час",
-   "type": "U",
-   "rw": "r",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 122,
-   "name": "maintenanceAlarmAirTimeLeft",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 5000,
-   "units": "час",
-   "type": "U",
-   "rw": "r",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 123,
-   "name": "maintenanceAlarmFuelTimeLeft",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 5000,
-   "units": "час",
-   "type": "U",
-   "rw": "r",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 124,
    "name": "logSetup",
    "value": 1,
    "default": 1,
