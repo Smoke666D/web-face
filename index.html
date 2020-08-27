@@ -2710,13 +2710,13 @@
             <label>Моточасы</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="0" max="65535" class="form-control small-input" id="engineWorkTimeInput">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineWorkTimeData">
           </div>
           <div class="col-dimension">
             <label>часов</label>
           </div>
           <div class="col-sm-auto">
-            <button aria-label="Connect" id="controllerWorkTimeSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить моточасы двигателя">
+            <button id="write-engineWorkTimeData" aria-label="Connect" id="controllerWorkTimeSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить моточасы двигателя">
               <span>Записать</span>
             </button>
           </div>
@@ -2726,13 +2726,13 @@
             <label>Количество пусков</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="0" max="65535" class="form-control small-input" id="engineStartsNumberInput">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
           </div>
           <div class="col-dimension">
             <label>раз</label>
           </div>
           <div class="col-sm-auto">
-            <button aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+            <button id="write-engineStartsNumberData" aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
               <span>Записать</span>
             </button>
           </div>
@@ -3150,12 +3150,10 @@
             </div>
           </div>
         </div>
-
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
         <h5>Журнал событий</h5>
-
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">

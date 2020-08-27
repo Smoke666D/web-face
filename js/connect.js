@@ -34,6 +34,14 @@ function writeTime () {
   }
   return;
 }
+function writeFreeData ( adr, value ) {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    writeFreeDataEth( adr, value );
+  } else if ( connectionType == 'usb' ) {
+    usb.controller.sendFreeData( adr, value );
+  }
+  return;
+}
 //******************************************************************************
 var typeIpLastLen = 0;
 var typeIpDir     = "write";

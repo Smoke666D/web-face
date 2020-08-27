@@ -1,5 +1,7 @@
 const remote = require( 'electron' ).remote;
 
+var declareDone = 0;
+
 var stringLineArray = [];
 var progressArray   = [];
 var slidersArray    = [];
@@ -7,6 +9,14 @@ var switcherArray   = [];
 var selectorArray   = [];
 var radioArray      = [];
 var rtcTime         = new RTC();
+
+var freeDataArray   = [];
+var freeDataValue   = [];
+var freeDataNames   = ["engineWorkTimeData",
+                       "engineStartsNumberData",
+											 "maintenanceAlarmOilTimeLeft",
+											 "maintenanceAlarmAirTimeLeft",
+											 "maintenanceAlarmFuelTimeLeft"];
 //******************************************************************************
 function bitVal( n, reg ) {
 	return ( reg.value & reg.bit[n].mask ) >> reg.bit[n].shift;
@@ -192,11 +202,9 @@ function Select ( name ) {
 		}
 		return;
 	}
-
 	this.getVal  = function() {
 		return this.object.value;
 	}
-
 	this.init    = function() {
 		this.getData();
 		this.object = document.getElementById( this.name );
@@ -225,7 +233,6 @@ function Select ( name ) {
 		}
 		return;
 	}
-
 	this.update = function() {
 		if ( this.object != null ) {
 			this.object.value = bitVal( this.bitNum, dataReg[this.regNum] );
@@ -245,14 +252,12 @@ function Select ( name ) {
 		}
 		return;
 	}
-
-	this.grab = function() {
+	this.grab   = function() {
 		if ( this.object != null ) {
 			bitWrite( this.bitNum, dataReg[this.regNum], this.object.value );
 		}
 		return;
 	}
-
 	this.init();
 	if ( this.object ) {
 		this.update();
@@ -546,6 +551,79 @@ function updateVersions () {
 	return;
 }
 //******************************************************************************
+function FreeData ( name ) {
+	var self = this;
+	this.name     = name;
+	this.adr      = 0;
+  this.input    = null;
+	this.progress = null;
+	this.max      = 100;
+	this.writeBut = null;
+	this.resetBut = null;
+
+	this.getData = function() {
+    for ( var i=0; i<freeDataNames.length; i++ )
+		{
+			if ( freeDataNames[i] == self.name ) {
+				self.adr = i;
+				break;
+			}
+		}
+		return;
+	}
+  this.init    = function() {
+		self.getData();
+    self.input    = document.getElementById( "input-"    + self.name );
+		self.progress = document.getElementById( "progress-" + self.name );
+		self.writeBut = document.getElementById( "write-"    + self.name );
+		self.resetBut = document.getElementById( "reset-"    + self.name );
+		if ( ( self.progress != null ) && ( self.progress != null ) && (self.name.endsWith( "Left" ) ) ) {
+			let str = self.name.slice( 0, self.name.lastIndexOf( "Left" ) );
+			for ( var i=0; i<dataReg.length; i++ ) {
+				if ( dataReg[i].name.search( str ) != -1 ) {
+					self.max = dataReg[i].value;
+					break;
+				}
+			}
+		}
+		if ( self.writeBut != null ) {
+			self.writeBut.addEventListener( 'click', function () {
+				self.grab();
+				console.log("her");
+				writeFreeData( self.adr, freeDataValue[self.adr] );
+				return;
+			});
+		}
+		if ( self.resetBut != null ) {
+			self.resetBut.addEventListener( 'click', function () {
+				freeDataValue[self.adr] = 0;
+				writeFreeData( self.adr, 0 );
+				this.update();
+				return;
+			});
+		}
+    return;
+	}
+	this.update  = function() {
+		if ( self.input != null ) {
+			self.input.value = freeDataValue[self.adr];
+		}
+		if ( self.progress != null ) {
+			self.progress.style.width = Math.ceil( ( freeDataValue[self.adr] / self.max ) * 100 ) + "%";
+		}
+		return;
+	}
+	this.grab    = function() {
+		if ( self.input != null ) {
+			freeDataValue[self.adr] = self.input.value;
+		}
+		return;
+	}
+	this.init();
+	this.update();
+	return;
+}
+//******************************************************************************
 function RTC () {
 	var self   = this;
 	this.hour  = 0;
@@ -631,15 +709,15 @@ function setSysTime () {
 	return;
 }
 
-function writeTimeEth () {
+function writeJSON ( adr, data, message ) {
 	var xhr = new XMLHttpRequest();
-	xhr.open( 'PUT', "http://" + document.getElementById( "input-ipaddress" ).value + '/time/', true );
+	xhr.open( 'PUT', "http://" + document.getElementById( "input-ipaddress" ).value + adr, true );
 	xhr.timeout = 5000;
 	xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
-	xhr.send( JSON.stringify( rtcTime ) );
+	xhr.send( data );
 	xhr.addEventListener( 'load', function( data ) {
 		if ( xhr.readyState == 4 && data.currentTarget.status == "200" ) {
-			let alert = new Alert( "alert-success", okIco, "Время успешно установленно" );
+			let alert = new Alert( "alert-success", okIco, message );
 		}
 	});
 	xhr.addEventListener( 'error', function( error ) {
@@ -649,6 +727,17 @@ function writeTimeEth () {
 		xhr.abort();
 		let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
 	}
+	return;
+}
+
+function writeFreeDataEth ( adr, data ) {
+	writeJSON( ( '/data/' + adr ), { value : data }, "Данные успешно записаны" );
+	return;
+}
+
+function writeTimeEth () {
+	writeJSON( '/time/', JSON.stringify( rtcTime ), "Время успешно установленно" );
+	return;
 }
 
 //******************************************************************************
@@ -660,14 +749,17 @@ function declareStrings() {
 	}
 	return;
 }
-function declareProgress() {
-	for ( var i=0; i<dataReg.length; i++ ) {
-		if ( dataReg[i].name.endsWith( "TimeLeft" ) ) {
-			progressArray.push( new Progress( dataReg[i].name ) );
-		}
+function declareFreeData () {
+	freeDataArray   = [];
+	freeDataValue   = [];
+	for ( var i=0; i<freeDataNames.length; i++ ) {
+		freeDataValue.push( 0 );
+		let fd = new FreeData( freeDataNames[i] );
+		freeDataArray.push( fd );
 	}
+	return;
 }
-function declareSliders() {
+function declareSliders () {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		str = dataReg[i].name;
 		if ( dataReg[i].name.endsWith( "Level" )   ||
@@ -675,9 +767,6 @@ function declareSliders() {
 				 dataReg[i].name.startsWith( "timer" ) ||
 				 dataReg[i].name.endsWith( "Time" ) ) {
 			slidersArray.push( new Slider( dataReg[i].name, 1 ) );
-			//if ( str == 'oilPressureAlarmLevel' ) {
-			//	console.log( slidersArray[slidersArray.length - 1] );
-			//}
 		}
 	}
 	return;
@@ -729,10 +818,10 @@ function declareRadio() {
 function declareInterface() {
 	declareSliders();
 	declareStrings();
-	declareProgress();
 	declareSwitches();
 	declareSelects();
 	declareRadio();
+	declareFreeData();
 	return;
 }
 
@@ -755,18 +844,8 @@ function updateInterface() {
 	}
 	cosFiUpdate();
 	updateVersions();
-	for( var i=0; i<dataReg.length; i++ ) {
-		/*
-		if ( dataReg[i].name == "engineSetup" )
-		{
-		  bitWrite(0,dataReg[i],document.getElementById('engineStartAttempts').value);
-		}*/
-		if ( dataReg[i].name == 'engineWorkTimeInput' ) {
-			document.getElementById( 'engineWorkTimeInput' ).value = dataReg[i].value;
-		}
-		if ( dataReg[i].name == 'engineStartsNumberInput' ) {
-			document.getElementById( 'engineStartsNumberInput' ).value = dataReg[i].value;
-		}
+	for ( var i=0; i<freeDataNames.length; i++ ) {
+		freeDataArray[i].update();
 	}
 	return;
 }
@@ -857,7 +936,10 @@ function ethDataUpdate( alertProgress, callback ) {
 				copyDataReg( store[0] );
 				updateInterface();
 				loadCharts( store[1] );
-				rtcTime.get( store[2] )
+				for ( var i=0; i<freeDataValue.length; i++ ) {
+					freeDataValue[i] = store[1+i].value;
+				}
+				rtcTime.get( store[2 + freeDataNames.length] )
 				setSuccessConnection();
 				let alert = new Alert( "alert-success", okIco, "Данные успешно обновленны" );
 				document.getElementById( "i-loading" ).classList.remove( "loading" );
@@ -873,6 +955,9 @@ function ethDataUpdate( alertProgress, callback ) {
 		}
 		restSeq.push( {method: 'get', url: ( extUrl + '/configs/' )} );
 		restSeq.push( {method: 'get', url: ( extUrl + '/charts/' )} );
+		for ( var i=0; i<freeDataNames.length; i++ ) {
+			restSeq.push( {method: 'get', url: ( extUrl + '/data/' + i )} );
+		}
 		restSeq.push( {method: 'get', url: ( extUrl + '/time/' )} );
 		const results = reqs( restSeq, [], function( error ) {
 			console.log( error )
@@ -903,6 +988,7 @@ function copyDataReg( data ) {
 	}
 	return;
 }
+
 //******************************************************************************
 function resetSettings () {
 	for ( var i=0; i<dataReg.length; i++ ) {
