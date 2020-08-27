@@ -94,7 +94,6 @@ document.getElementById("connect-button").addEventListener('click', function() {
         buffer = usb.controller.getInput();
         for ( var i=0; i<buffer.length; i++) {
           buffer[i].init( function() {
-
             if ( buffer[i].length > USB_DATA_SIZE ) {
               if ( buffer[i].adr != buffer[i-1].adr ) {
                 msg = new USBMessage( buffer[i].buffer );
@@ -113,9 +112,11 @@ document.getElementById("connect-button").addEventListener('click', function() {
                   }
                 }
               }
-
             } else {
               out = buffer[i].parse();
+              if ( out[0] == 3 ) {
+                rtcTime.get( out[1] );
+              }
             }
           });
         }
@@ -123,6 +124,7 @@ document.getElementById("connect-button").addEventListener('click', function() {
           loadCharts( charts );
         }
         charts = [];
+
         let alert = new alerts.Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
         updateInterface();
       }, function() {

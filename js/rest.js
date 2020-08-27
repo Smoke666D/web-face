@@ -551,7 +551,7 @@ function RTC () {
 	this.hour  = 0;
 	this.min   = 0;
 	this.sec   = 0;
-	this.year  = 2020;
+	this.year  = 00;
 	this.month = 1;
 	this.day   = 1;
 	this.wday  = 0;

@@ -235,6 +235,8 @@ function USBtransport () {
              ( response.command == msgCMD.USB_PUT_CHART_CMD   ) ||
              ( response.command == msgCMD.USB_SAVE_CONFIG_CMD ) ||
              ( response.command == msgCMD.USB_SAVE_CHART_CMD )  ||
+             ( response.command == msgCMD.USB_PUT_TIME )  ||
+             ( response.command == msgCMD.USB_PUT_DATA )  ||
              ( response.command == msgCMD.USB_PUT_EWA_CMD  ) ) {
             result = output.isEnd();
             if ( result == usbHandler.continue )
@@ -364,7 +366,9 @@ function USBtransport () {
     alert = alertIn;
     if ( dir == usbStat.write ) {
       status = usbStat.write;
-      alert.setProgressBar( output.getProgress() );
+      if ( alertIn != null ) {
+        alert.setProgressBar( output.getProgress() );
+      }
       write( output.nextMessage() );
     } else {
       status = usbStat.read;
@@ -409,6 +413,13 @@ function EnrrganController () {
     callback();
     return;
   }
+  function initTimeWriteSequency ( callback ){
+    let msg = new USBMessage([]);
+    msg.codeTime( rtcTime );
+    transport.addToOutput( msg );
+    callback();
+    return;
+  }
   function initWriteEWA ( ewa, callback ) {
     let msg   = null;
     let size  = Math.ceil( ewa.length / USB_DATA_SIZE );
@@ -435,6 +446,11 @@ function EnrrganController () {
       msg.makeChartRequest( i );
       transport.addRequest( msg );
     }
+    
+
+    msg = new USBMessage( [] )
+    msg.makeTimeRequest();
+    transport.addRequest( msg );
     callback();
     return;
   }
@@ -460,7 +476,15 @@ function EnrrganController () {
   this.getInput = function () {
     return transport.getInput();
   }
-  this.send     = function ( alertIn) {
+  this.sendTime = function () {
+    if ( transport.getStatus() == usbStat.wait) {
+      initTimeWriteSequency( function () {
+        transport.start( usbStat.write, null );
+      });
+    }
+    return;
+  }
+  this.send     = function ( alertIn ) {
     alert = alertIn;
     if ( transport.getStatus() == usbStat.wait) {
       initWriteSequency( function () {

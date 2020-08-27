@@ -30,7 +30,7 @@ function writeTime () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     writeTimeEth();
   } else if ( connectionType == 'usb' ) {
-
+    usb.controller.sendTime();
   }
   return;
 }
