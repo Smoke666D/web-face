@@ -13,8 +13,8 @@ const msgCMD  = {
   "USB_SAVE_CHART_CMD"  : 7,
   "USB_GET_TIME"        : 8,
   "USB_PUT_TIME"        : 9,
-  "USB_GET_DATA"        : 10,
-  'USB_PUT_DATA'        : 11, };
+  "USB_GET_FREE_DATA"   : 10,
+  'USB_PUT_FREE_DATA'   : 11, };
 const msgSTAT = {
   "USB_OK_STAT"      : 1,
   "USB_BAD_REQ_STAT" : 2,
@@ -131,11 +131,11 @@ function USBMessage ( buffer ) {
       case msgCMD.USB_PUT_TIME:
         self.command = msgCMD.USB_PUT_TIME;
         break;
-      case msgCMD.USB_GET_DATA:
-        self.command = msgCMD.USB_GET_DATA;
+      case msgCMD.USB_GET_FREE_DATA:
+        self.command = msgCMD.USB_GET_FREE_DATA;
         break;
-      case msgCMD.USB_PUT_DATA:
-        self.command = msgCMD.USB_PUT_DATA;
+      case msgCMD.USB_PUT_FREE_DATA:
+        self.command = msgCMD.USB_PUT_FREE_DATA;
         break;
       default:
         self.command = 0;
@@ -354,9 +354,9 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.makeDataRequest   = function ( adr ) {
+  this.makeFreeDataRequest   = function ( adr ) {
     self.status  = msgSTAT.USB_OK_STAT;
-    self.command = msgCMD.USB_GET_DATA;
+    self.command = msgCMD.USB_GET_FREE_DATA;
     self.adr     = adr;
     self.length  = 0;
     self.data    = [];
@@ -383,9 +383,9 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.codeData          = function ( adr, data ) {
+  this.codeFreeData      = function ( adr, data ) {
     self.status  = msgSTAT.USB_OK_STAT;
-    self.command = msgCMD.USB_PUT_DATA;
+    self.command = msgCMD.USB_PUT_FREE_DATA;
     self.adr     = adr;
     self.length  = 2;
     setup( self.buffer, function () {

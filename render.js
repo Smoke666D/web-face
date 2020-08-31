@@ -1,7 +1,6 @@
 const remote = require('electron').remote;
 var HID      = require('node-hid');
 var usb      = require('./js/usb.js');
-var main     = require('./js/main.js');
 var rest     = require('./js/rest.js');
 var alerts   = require('./js/alerts.js');
 
@@ -69,89 +68,84 @@ function verifyIP( input ) {
   return errorString
 }
 
-
 document.getElementById("disconnect-button").addEventListener('click', function() {
-  if ( main.electronApp == 1) {
-    resetSuccessConnection();
-    usb.controller.close();
-  }
+  resetSuccessConnection();
+  usb.controller.close();
 });
 
 document.getElementById("connect-button").addEventListener('click', function() {
-  if ( main.electronApp == 1) {
-    resetSuccessConnection();
-    /*--------------------------------------------------------------*/
-    /*---------------------------- USB -----------------------------*/
-    /*--------------------------------------------------------------*/
-    if ( connectionType == 'usb' ) {
-      var msg = null;
-      usb.controller.close();
-      out    = [];
-      charts = [];
-      res    = usb.controller.init( function() {
-        /* After getting full message */
-        var buffer = [];
-        buffer = usb.controller.getInput();
-        for ( var i=0; i<buffer.length; i++) {
-          buffer[i].init( function() {
-            if ( buffer[i].length > USB_DATA_SIZE ) {
-              if ( buffer[i].adr != buffer[i-1].adr ) {
-                msg = new USBMessage( buffer[i].buffer );
-                msg.initLong();
-              } else {
-                for ( var j=USB_DATA_BYTE; j<buffer[i].buffer.length; j++ ) {
-                  msg.addLong( buffer[i].buffer[j] );
-                }
-                if ( msg != null ) {
-                  if ( msg.data.length >= msg.length ) {
-                    out = msg.parse();
-                    if ( out[0] == 2 ) {
-                      charts.push( out[1] );
-                      out = [];
-                    }
+  resetSuccessConnection();
+  /*--------------------------------------------------------------*/
+  /*---------------------------- USB -----------------------------*/
+  /*--------------------------------------------------------------*/
+  if ( connectionType == 'usb' ) {
+    var msg = null;
+    usb.controller.close();
+    out    = [];
+    charts = [];
+    res    = usb.controller.init( function() {
+      /* After getting full message */
+      var buffer = [];
+      buffer = usb.controller.getInput();
+      for ( var i=0; i<buffer.length; i++) {
+        buffer[i].init( function() {
+          if ( buffer[i].length > USB_DATA_SIZE ) {
+            if ( buffer[i].adr != buffer[i-1].adr ) {
+              msg = new USBMessage( buffer[i].buffer );
+              msg.initLong();
+            } else {
+              for ( var j=USB_DATA_BYTE; j<buffer[i].buffer.length; j++ ) {
+                msg.addLong( buffer[i].buffer[j] );
+              }
+              if ( msg != null ) {
+                if ( msg.data.length >= msg.length ) {
+                  out = msg.parse();
+                  if ( out[0] == 2 ) {
+                    charts.push( out[1] );
+                    out = [];
                   }
                 }
               }
-            } else {
-              out = buffer[i].parse();
-              if ( out[0] == 3 ) {
-                rtcTime.get( out[1] );
-              }
             }
-          });
-        }
-        if ( charts.length == 3 ) {
-          loadCharts( charts );
-        }
-        charts = [];
+          } else {
+            out = buffer[i].parse();
+            if ( out[0] == 3 ) {
+              rtcTime.get( out[1] );
+            }
+          }
+        });
+      }
+      if ( charts.length == 3 ) {
+        loadCharts( charts );
+      }
+      charts = [];
 
-        let alert = new alerts.Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
-        updateInterface();
-      }, function() {
-        let alert = new alerts.Alert( "alert-success", alerts.okIco, "Прибор успешно сконфигурирован" );
-      }, function() {
-        let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );
-        resetSuccessConnection();
-      });
-      if ( res == 1 ) {
-        setSuccessConnection();
-        connectUpdate();
-      }
-    /*--------------------------------------------------------------*/
-    /*-------------------------- ETHERNET --------------------------*/
-    /*--------------------------------------------------------------*/
-    } else if ( connectionType == 'eth' ) {
-      usb.controller.close();
-      ipInput = document.getElementById("input-ipaddress");
-      ipAdr   = ipInput.value;
-      res     = verifyIP( ipAdr.toString() );
-      if ( res == "" ) {
-        setSuccessConnection();
-        connectUpdate();
-      } else {
-        ipInput.value = "";
-        let alert = new alerts.Alert( "alert-warning", alerts.triIco, res );
-      }
+      let alert = new alerts.Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
+      updateInterface();
+    }, function() {
+      let alert = new alerts.Alert( "alert-success", alerts.okIco, "Прибор успешно сконфигурирован" );
+    }, function() {
+      let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );
+      resetSuccessConnection();
+    });
+    if ( res == 1 ) {
+      setSuccessConnection();
+      connectUpdate();
+    }
+  /*--------------------------------------------------------------*/
+  /*-------------------------- ETHERNET --------------------------*/
+  /*--------------------------------------------------------------*/
+  } else if ( connectionType == 'eth' ) {
+    usb.controller.close();
+    ipInput = document.getElementById("input-ipaddress");
+    ipAdr   = ipInput.value;
+    res     = verifyIP( ipAdr.toString() );
+    if ( res == "" ) {
+      setSuccessConnection();
+      connectUpdate();
+    } else {
+      ipInput.value = "";
+      let alert = new alerts.Alert( "alert-warning", alerts.triIco, res );
     }
   }
 });

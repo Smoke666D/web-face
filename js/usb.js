@@ -235,8 +235,8 @@ function USBtransport () {
              ( response.command == msgCMD.USB_PUT_CHART_CMD   ) ||
              ( response.command == msgCMD.USB_SAVE_CONFIG_CMD ) ||
              ( response.command == msgCMD.USB_SAVE_CHART_CMD )  ||
-             ( response.command == msgCMD.USB_PUT_TIME )  ||
-             ( response.command == msgCMD.USB_PUT_DATA )  ||
+             ( response.command == msgCMD.USB_PUT_TIME )        ||
+             ( response.command == msgCMD.USB_PUT_FREE_DATA )   ||
              ( response.command == msgCMD.USB_PUT_EWA_CMD  ) ) {
             result = output.isEnd();
             if ( result == usbHandler.continue )
@@ -413,7 +413,7 @@ function EnrrganController () {
     callback();
     return;
   }
-  function initTimeWriteSequency ( callback ){
+  function initTimeWriteSequency ( callback ) {
     let msg = new USBMessage([]);
     msg.codeTime( rtcTime );
     transport.addToOutput( msg );
@@ -433,6 +433,13 @@ function EnrrganController () {
     callback();
     return;
   }
+  function initWriteFreeDataSequency ( n, data, callback ) {
+    let msg = new USBMessage( [] );
+    msg.codeFreeData( n, data );
+    transport.addToOutput( msg );
+    callback();
+    return;
+  }
   function initReadSequency ( callback ) {
     var msg = null;
     transport.clean();
@@ -446,8 +453,12 @@ function EnrrganController () {
       msg.makeChartRequest( i );
       transport.addRequest( msg );
     }
-
-
+    for ( var i=0; i<freeDataValue.length; i++ )
+    {
+      msg = new USBMessage( [] )
+      msg.makeFreeDataRequest( i );
+      transport.addRequest( msg );
+    }
     msg = new USBMessage( [] )
     msg.makeTimeRequest();
     transport.addRequest( msg );
@@ -479,6 +490,14 @@ function EnrrganController () {
   this.sendTime = function () {
     if ( transport.getStatus() == usbStat.wait) {
       initTimeWriteSequency( function () {
+        transport.start( usbStat.write, null );
+      });
+    }
+    return;
+  }
+  this.sendFreeData = function ( n, data ) {
+    if ( transport.getStatus() == usbStat.wait) {
+      initWriteFreeDataSequency( n, data, function () {
         transport.start( usbStat.write, null );
       });
     }
