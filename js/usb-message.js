@@ -293,7 +293,7 @@ function USBMessage ( buffer ) {
     time.wday  = self.data[6];
     return time;
   }
-  function parseData () {
+  function parseFreeData () {
     return ( ( self.data[0] & 0xFF ) << 8 ) | ( self.data[1] & 0xFF )
   }
   /*--------------------------------------------------------------------------*/
@@ -535,8 +535,8 @@ function USBMessage ( buffer ) {
         output = parseTime();
         type   = 3;
         break;
-      case msgCMD.USB_GET_TIME:
-        output = parseData();
+      case msgCMD.USB_GET_FREE_DATA:
+        output = parseFreeData();
         type   = 4;
         break;
     }
