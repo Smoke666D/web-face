@@ -258,7 +258,7 @@ function USBtransport () {
           }
         }
       } else {
-        console.log("Error with status: " + response.status + " expected: " + msgSTAT.USB_OK_STAT);
+        console.log("Error with status: " + response.status + " expected: " + msgSTAT.USB_OK_STAT + " on command " + response.command );
         if ( alert != undefined ) {
           if ( ( alert != null ) || ( alert != undefined ) ) {
             alert.close( 0 );
@@ -446,7 +446,7 @@ function EnrrganController () {
       msg.makeChartRequest( i );
       transport.addRequest( msg );
     }
-    
+
 
     msg = new USBMessage( [] )
     msg.makeTimeRequest();

@@ -589,7 +589,6 @@ function FreeData ( name ) {
 		if ( self.writeBut != null ) {
 			self.writeBut.addEventListener( 'click', function () {
 				self.grab();
-				console.log("her");
 				writeFreeData( self.adr, freeDataValue[self.adr] );
 				return;
 			});
@@ -873,12 +872,6 @@ function grabInterface() {
 		if ( dataReg[i].name == "engineSetup" )
 		{
 		  bitWrite( 0, dataReg[i], document.getElementById( 'engineStartAttempts' ).value );
-		}
-		if ( dataReg[i].name == 'engineWorkTimeInput' ) {
-			dataReg[i].value = document.getElementById( 'engineWorkTimeInput' ).value;
-		}
-		if ( dataReg[i].name == 'engineStartsNumberInput' ) {
-			dataReg[i].value = document.getElementById( 'engineStartsNumberInput' ).value;
 		}
 	}
 	return;

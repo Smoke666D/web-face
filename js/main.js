@@ -656,6 +656,7 @@ function slider4InitLimits( id1, id2, id3, id4 ) {
 //******************************************************************************
 //******************************************************************************
 document.addEventListener( "DOMContentLoaded", function( event ) {
+  console.log("her");
   $( function () {
 		$( '[data-toggle="tooltip"]' ).tooltip( {
 		  delay:     { 'show': 500, 'hide': 0 },

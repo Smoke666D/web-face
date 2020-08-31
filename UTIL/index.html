@@ -10332,13 +10332,13 @@ QmCC
             <label>Время контроллера</label>
           </div>
           <div class="col-sm-auto">
-            <input type="date" class="form-control">
+            <input id="dateInput" type="date" class="form-control">
           </div>
           <div class="col-sm-auto">
-            <input type="time" class="form-control">
+            <input id="timeInput" type="time" class="form-control">
           </div>
           <div class="col-sm-auto">
-            <button aria-label="Connect" id="controllerTimeSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить время контроллера">
+            <button aria-label="Connect" id="controllerTimeSetup" onclick="setInputTime()" class="btn btn-primary" data-toggle="tooltip" title="Установить время контроллера">
               <span>Записать</span>
             </button>
           </div>
@@ -12625,13 +12625,13 @@ QmCC
             <label>Моточасы</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="0" max="65535" class="form-control small-input" id="engineWorkTimeInput">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineWorkTimeData">
           </div>
           <div class="col-dimension">
             <label>часов</label>
           </div>
           <div class="col-sm-auto">
-            <button aria-label="Connect" id="controllerWorkTimeSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить моточасы двигателя">
+            <button id="write-engineWorkTimeData" aria-label="Connect" id="controllerWorkTimeSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить моточасы двигателя">
               <span>Записать</span>
             </button>
           </div>
@@ -12641,13 +12641,13 @@ QmCC
             <label>Количество пусков</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="0" max="65535" class="form-control small-input" id="engineStartsNumberInput">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
           </div>
           <div class="col-dimension">
             <label>раз</label>
           </div>
           <div class="col-sm-auto">
-            <button aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+            <button id="write-engineStartsNumberData" aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
               <span>Записать</span>
             </button>
           </div>
@@ -13065,12 +13065,10 @@ QmCC
             </div>
           </div>
         </div>
-
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
         <h5>Журнал событий</h5>
-
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -13363,6 +13361,32 @@ QmCC
                 <button type="button" id="chartApplay" aria-label="Remove point" disabled="false" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Изменить координаты">
                   <svg viewBox="0 0 512 512"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path></svg>
                   <span class="sr-only">Edit point</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!------------------------------------------------------------------------------------------------------------->
+      <div id="confirmModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Проблема с временем и датой</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Время контроллера не совпадают с системным временем. Установить время контроллера на системное время?</p>
+            </div>
+            <div class="modal-footer">
+              <div class="modal-footer-left">
+                <button type="button" aria-label="No" class="btn btn-secondary" data-toggle="tooltip" data-dismiss="modal">
+                  <a>Нет</a>
+                </button>
+                <button type="button" aria-label="Yes" onclick="setSysTime()" class="btn btn-primary" data-toggle="tooltip" data-dismiss="modal">
+                  <a>Да</a>
                 </button>
               </div>
             </div>
@@ -15857,48 +15881,6 @@ function checkSettings() {
    "bit": []
 },{
    "adr": 121,
-   "name": "maintenanceAlarmOilTimeLeft",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 5000,
-   "units": "час",
-   "type": "U",
-   "rw": "r",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 122,
-   "name": "maintenanceAlarmAirTimeLeft",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 5000,
-   "units": "час",
-   "type": "U",
-   "rw": "r",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 123,
-   "name": "maintenanceAlarmFuelTimeLeft",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 5000,
-   "units": "час",
-   "type": "U",
-   "rw": "r",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 124,
    "name": "logSetup",
    "value": 1,
    "default": 1,
@@ -15947,6 +15929,22 @@ function connectGrab () {
     });
   } else if ( connectionType == 'usb' ) {
       usb.controller.send( alert );
+  }
+  return;
+}
+function writeTime () {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    writeTimeEth();
+  } else if ( connectionType == 'usb' ) {
+    usb.controller.sendTime();
+  }
+  return;
+}
+function writeFreeData ( adr, value ) {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    writeFreeDataEth( adr, value );
+  } else if ( connectionType == 'usb' ) {
+    usb.controller.sendFreeData( adr, value );
   }
   return;
 }
@@ -16817,17 +16815,35 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 
 </script>
     <script>
+
+var declareDone = 0;
+
+var stringLineArray = [];
+var progressArray   = [];
+var slidersArray    = [];
+var switcherArray   = [];
+var selectorArray   = [];
+var radioArray      = [];
+var rtcTime         = new RTC();
+
+var freeDataArray   = [];
+var freeDataValue   = [];
+var freeDataNames   = ["engineWorkTimeData",
+                       "engineStartsNumberData",
+											 "maintenanceAlarmOilTimeLeft",
+											 "maintenanceAlarmAirTimeLeft",
+											 "maintenanceAlarmFuelTimeLeft"];
 //******************************************************************************
 function bitVal( n, reg ) {
 	return ( reg.value & reg.bit[n].mask ) >> reg.bit[n].shift;
 }
-
+//******************************************************************************
 function bitWrite( n, reg, val ) {
 	reg.value = ( reg.value & ( ~reg.bit[n].mask ) ) | ( val << reg.bit[n].shift );
 	return;
 }
 //******************************************************************************
-function StrLine( name ) {
+function StrLine ( name ) {
 	var self  = this;
 	this.name = name;
 
@@ -16868,7 +16884,7 @@ function StrLine( name ) {
 	return;
 }
 //******************************************************************************
-function Switch(name) {
+function Switch (name) {
 	this.name = name;
 
 	this.getData = function() {
@@ -16918,7 +16934,7 @@ function Switch(name) {
 	return;
 }
 //******************************************************************************
-function Progress( name ) {
+function Progress ( name ) {
 	var self = this;
 	this.name = name;
 
@@ -16985,7 +17001,7 @@ function Progress( name ) {
 	}
 }
 //******************************************************************************
-function Select( name ) {
+function Select ( name ) {
 	var self = this;
 	this.name    = name;
 
@@ -17002,11 +17018,9 @@ function Select( name ) {
 		}
 		return;
 	}
-
 	this.getVal  = function() {
 		return this.object.value;
 	}
-
 	this.init    = function() {
 		this.getData();
 		this.object = document.getElementById( this.name );
@@ -17035,7 +17049,6 @@ function Select( name ) {
 		}
 		return;
 	}
-
 	this.update = function() {
 		if ( this.object != null ) {
 			this.object.value = bitVal( this.bitNum, dataReg[this.regNum] );
@@ -17055,14 +17068,12 @@ function Select( name ) {
 		}
 		return;
 	}
-
-	this.grab = function() {
+	this.grab   = function() {
 		if ( this.object != null ) {
 			bitWrite( this.bitNum, dataReg[this.regNum], this.object.value );
 		}
 		return;
 	}
-
 	this.init();
 	if ( this.object ) {
 		this.update();
@@ -17070,7 +17081,7 @@ function Select( name ) {
 	return;
 }
 //******************************************************************************
-function Radio( name ) {
+function Radio ( name ) {
 	this.name    = name;
 	this.getData = function() {
 		for ( var i=0; i<dataReg.length; i++ ) {
@@ -17120,7 +17131,7 @@ function Radio( name ) {
 	return;
 }
 //******************************************************************************
-function Slider( name, preInit ) {
+function Slider ( name, preInit ) {
 	var self = this;
 	this.name      = name;
 	/*--------------------------------------------------------------------------*/
@@ -17305,7 +17316,7 @@ function Slider( name, preInit ) {
 	return;
 }
 //******************************************************************************
-function cosFiUpdate(){
+function cosFiUpdate (){
 	slider = document.getElementById( "s-slider-cosFi" );
 	input = document.getElementById( "sinput-cosFi" );
 	input.disabled = false;
@@ -17322,7 +17333,7 @@ function cosFiUpdate(){
 	return;
 }
 //******************************************************************************
-function updateVersions() {
+function updateVersions () {
 	var counter = 0;
 	var major   = 0;
 	var minor   = 0;
@@ -17356,13 +17367,196 @@ function updateVersions() {
 	return;
 }
 //******************************************************************************
-var stringLineArray = [];
-var progressArray   = [];
-var slidersArray    = [];
-var switcherArray   = [];
-var selectorArray   = [];
-var radioArray      = [];
+function FreeData ( name ) {
+	var self = this;
+	this.name     = name;
+	this.adr      = 0;
+  this.input    = null;
+	this.progress = null;
+	this.max      = 100;
+	this.writeBut = null;
+	this.resetBut = null;
 
+	this.getData = function() {
+    for ( var i=0; i<freeDataNames.length; i++ )
+		{
+			if ( freeDataNames[i] == self.name ) {
+				self.adr = i;
+				break;
+			}
+		}
+		return;
+	}
+  this.init    = function() {
+		self.getData();
+    self.input    = document.getElementById( "input-"    + self.name );
+		self.progress = document.getElementById( "progress-" + self.name );
+		self.writeBut = document.getElementById( "write-"    + self.name );
+		self.resetBut = document.getElementById( "reset-"    + self.name );
+		if ( ( self.progress != null ) && ( self.progress != null ) && (self.name.endsWith( "Left" ) ) ) {
+			let str = self.name.slice( 0, self.name.lastIndexOf( "Left" ) );
+			for ( var i=0; i<dataReg.length; i++ ) {
+				if ( dataReg[i].name.search( str ) != -1 ) {
+					self.max = dataReg[i].value;
+					break;
+				}
+			}
+		}
+		if ( self.writeBut != null ) {
+			self.writeBut.addEventListener( 'click', function () {
+				self.grab();
+				console.log("her");
+				writeFreeData( self.adr, freeDataValue[self.adr] );
+				return;
+			});
+		}
+		if ( self.resetBut != null ) {
+			self.resetBut.addEventListener( 'click', function () {
+				freeDataValue[self.adr] = 0;
+				writeFreeData( self.adr, 0 );
+				this.update();
+				return;
+			});
+		}
+    return;
+	}
+	this.update  = function() {
+		if ( self.input != null ) {
+			self.input.value = freeDataValue[self.adr];
+		}
+		if ( self.progress != null ) {
+			self.progress.style.width = Math.ceil( ( freeDataValue[self.adr] / self.max ) * 100 ) + "%";
+		}
+		return;
+	}
+	this.grab    = function() {
+		if ( self.input != null ) {
+			freeDataValue[self.adr] = self.input.value;
+		}
+		return;
+	}
+	this.init();
+	this.update();
+	return;
+}
+//******************************************************************************
+function RTC () {
+	var self   = this;
+	this.hour  = 0;
+	this.min   = 0;
+	this.sec   = 0;
+	this.year  = 00;
+	this.month = 1;
+	this.day   = 1;
+	this.wday  = 0;
+
+	var timeInput = document.getElementById("timeInput")
+	var dateInput = document.getElementById("dateInput")
+
+	function makeDateStr () {
+		return ( self.year + 2000 ) + "-" + (self.month < 10 ? "0" : "") + self.month + "-" + (self.day < 10 ? "0" : "") + self.day;
+	}
+	function makeTimeStr () {
+		return (self.hour < 10 ? "0" : "") + self.hour + ":" + (self.min < 10 ? "0" : "") + self.min;
+	}
+	function isDateCorrect () {
+		var date = new Date();
+		if ( ( self.year  != date.getFullYear() - 2000 ) ||
+		     ( self.month != ( date.getMonth() + 1 ) )   ||
+				 ( self.day   != date.getDate() )            ||
+				 ( self.hour  != date.getHours() )           ||
+				 ( self.min   != date.getMinutes() ) ) {
+			return 0;
+		}
+		return 1;
+	}
+
+
+	this.getSystemTime = function () {
+		var date = new Date();
+		self.hour  = date.getHours();
+		self.min   = date.getMinutes();
+		self.sec   = date.getSeconds();
+		self.year  = date.getFullYear() - 2000;
+		self.month = date.getMonth() + 1;
+		self.day   = date.getDate();
+		self.wday  = date.getDay();
+	}
+	this.get = function ( data ) {
+		self.hour  = data.hour;
+		self.min   = data.min;
+		self.sec   = data.sec;
+		self.year  = data.year;
+		self.month = data.month;
+		self.day   = data.day;
+		self.wday  = data.wday;
+		this.update();
+		if ( isDateCorrect() == 0 ) {
+			$("#confirmModal").modal()
+		}
+		return;
+	}
+	this.readInput = function () {
+		let t = timeInput.value;
+		let d = dateInput.value;
+		self.hour  = parseInt( t.slice( 0, t.lastIndexOf( ":" ) ) );
+		self.min   = parseInt( t.slice( ( t.lastIndexOf( ":" ) + 1 ), t.length ) );
+		self.sec   = 0;
+		self.year  = parseInt( d.slice( 0, 4 ) ) - 2000;
+		self.month = parseInt( d.slice( 5, 7 ) );
+		self.day   = parseInt( d.slice( 8, 10 ) );
+	}
+	this.update    = function () {
+		timeInput.value = makeTimeStr();
+		dateInput.value = makeDateStr();
+	}
+  return;
+}
+
+function setInputTime () {
+	rtcTime.readInput();
+	writeTime();
+}
+
+function setSysTime () {
+	rtcTime.getSystemTime();
+	rtcTime.update();
+	writeTime();
+	return;
+}
+
+function writeJSON ( adr, data, message ) {
+	var xhr = new XMLHttpRequest();
+	xhr.open( 'PUT', "http://" + document.getElementById( "input-ipaddress" ).value + adr, true );
+	xhr.timeout = 5000;
+	xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
+	xhr.send( data );
+	xhr.addEventListener( 'load', function( data ) {
+		if ( xhr.readyState == 4 && data.currentTarget.status == "200" ) {
+			let alert = new Alert( "alert-success", okIco, message );
+		}
+	});
+	xhr.addEventListener( 'error', function( error ) {
+	  let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
+	});
+	xhr.ontimeout = function() {
+		xhr.abort();
+		let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
+	}
+	return;
+}
+
+function writeFreeDataEth ( adr, data ) {
+	writeJSON( ( '/data/' + adr ), { value : data }, "Данные успешно записаны" );
+	return;
+}
+
+function writeTimeEth () {
+	writeJSON( '/time/', JSON.stringify( rtcTime ), "Время успешно установленно" );
+	return;
+}
+
+//******************************************************************************
 function declareStrings() {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].name.endsWith( "Message" ) ) {
@@ -17371,16 +17565,17 @@ function declareStrings() {
 	}
 	return;
 }
-
-function declareProgress() {
-	for ( var i=0; i<dataReg.length; i++ ) {
-		if ( dataReg[i].name.endsWith( "TimeLeft" ) ) {
-			progressArray.push( new Progress( dataReg[i].name ) );
-		}
+function declareFreeData () {
+	freeDataArray   = [];
+	freeDataValue   = [];
+	for ( var i=0; i<freeDataNames.length; i++ ) {
+		freeDataValue.push( 0 );
+		let fd = new FreeData( freeDataNames[i] );
+		freeDataArray.push( fd );
 	}
+	return;
 }
-
-function declareSliders() {
+function declareSliders () {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		str = dataReg[i].name;
 		if ( dataReg[i].name.endsWith( "Level" )   ||
@@ -17388,14 +17583,10 @@ function declareSliders() {
 				 dataReg[i].name.startsWith( "timer" ) ||
 				 dataReg[i].name.endsWith( "Time" ) ) {
 			slidersArray.push( new Slider( dataReg[i].name, 1 ) );
-			//if ( str == 'oilPressureAlarmLevel' ) {
-			//	console.log( slidersArray[slidersArray.length - 1] );
-			//}
 		}
 	}
 	return;
 }
-
 function declareSwitches() {
 	var l = 0;
 	for ( var i=0; i<dataReg.length; i++ ) {
@@ -17411,7 +17602,6 @@ function declareSwitches() {
 	}
 	return;
 }
-
 function declareSelects() {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].bitMapSize > 0 ) {
@@ -17429,7 +17619,6 @@ function declareSelects() {
 	}
 	return;
 }
-
 function declareRadio() {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].bitMapSize > 0 ) {
@@ -17442,18 +17631,18 @@ function declareRadio() {
 	}
 	return;
 }
-
 function declareInterface() {
 	declareSliders();
 	declareStrings();
-	declareProgress();
 	declareSwitches();
 	declareSelects();
 	declareRadio();
+	declareFreeData();
 	return;
 }
 
 function updateInterface() {
+	rtcTime.update();
 	for ( var i=0; i<stringLineArray.length; i++ ) {
 		stringLineArray[i].update();
 	}
@@ -17471,22 +17660,11 @@ function updateInterface() {
 	}
 	cosFiUpdate();
 	updateVersions();
-	for( var i=0; i<dataReg.length; i++ ) {
-		/*
-		if ( dataReg[i].name == "engineSetup" )
-		{
-		  bitWrite(0,dataReg[i],document.getElementById('engineStartAttempts').value);
-		}*/
-		if ( dataReg[i].name == 'engineWorkTimeInput' ) {
-			document.getElementById( 'engineWorkTimeInput' ).value = dataReg[i].value;
-		}
-		if ( dataReg[i].name == 'engineStartsNumberInput' ) {
-			document.getElementById( 'engineStartsNumberInput' ).value = dataReg[i].value;
-		}
+	for ( var i=0; i<freeDataNames.length; i++ ) {
+		freeDataArray[i].update();
 	}
 	return;
 }
-
 function grabInterface() {
 	for ( var i=0; i<stringLineArray.length; i++ ) {
 		stringLineArray[i].grab();
@@ -17511,12 +17689,6 @@ function grabInterface() {
 		if ( dataReg[i].name == "engineSetup" )
 		{
 		  bitWrite( 0, dataReg[i], document.getElementById( 'engineStartAttempts' ).value );
-		}
-		if ( dataReg[i].name == 'engineWorkTimeInput' ) {
-			dataReg[i].value = document.getElementById( 'engineWorkTimeInput' ).value;
-		}
-		if ( dataReg[i].name == 'engineStartsNumberInput' ) {
-			dataReg[i].value = document.getElementById( 'engineStartsNumberInput' ).value;
 		}
 	}
 	return;
@@ -17574,12 +17746,17 @@ function ethDataUpdate( alertProgress, callback ) {
 				copyDataReg( store[0] );
 				updateInterface();
 				loadCharts( store[1] );
+				for ( var i=0; i<freeDataValue.length; i++ ) {
+					freeDataValue[i] = store[1+i].value;
+				}
+				rtcTime.get( store[2 + freeDataNames.length] )
 				setSuccessConnection();
 				let alert = new Alert( "alert-success", okIco, "Данные успешно обновленны" );
 				document.getElementById( "i-loading" ).classList.remove( "loading" );
 				return store;
 			}
 		};
+		/* Make GET sequency */
 		restSeq = []
 		ipAdr  = document.getElementById( "input-ipaddress" ).value;
 		extUrl = "";
@@ -17588,6 +17765,10 @@ function ethDataUpdate( alertProgress, callback ) {
 		}
 		restSeq.push( {method: 'get', url: ( extUrl + '/configs/' )} );
 		restSeq.push( {method: 'get', url: ( extUrl + '/charts/' )} );
+		for ( var i=0; i<freeDataNames.length; i++ ) {
+			restSeq.push( {method: 'get', url: ( extUrl + '/data/' + i )} );
+		}
+		restSeq.push( {method: 'get', url: ( extUrl + '/time/' )} );
 		const results = reqs( restSeq, [], function( error ) {
 			console.log( error )
 		});
@@ -17617,6 +17798,7 @@ function copyDataReg( data ) {
 	}
 	return;
 }
+
 //******************************************************************************
 function resetSettings () {
 	for ( var i=0; i<dataReg.length; i++ ) {
