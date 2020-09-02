@@ -17378,7 +17378,7 @@ function FreeData ( name ) {
 	}
 	this.update  = function() {
 		if ( self.input != null ) {
-			self.input.value = freeDataValue[self.adr];
+			self.input.value = parseInt(freeDataValue[self.adr]);
 		}
 		if ( self.progress != null ) {
 			self.progress.style.width = Math.ceil( ( freeDataValue[self.adr] / self.max ) * 100 ) + "%";
@@ -17387,7 +17387,7 @@ function FreeData ( name ) {
 	}
 	this.grab    = function() {
 		if ( self.input != null ) {
-			freeDataValue[self.adr] = self.input.value;
+			freeDataValue[self.adr] = parseInt( self.input.value );
 		}
 		return;
 	}
@@ -17503,7 +17503,11 @@ function writeJSON ( adr, data, message ) {
 }
 
 function writeFreeDataEth ( adr, data ) {
-	writeJSON( ( '/data/' + adr ), { value : data }, "Данные успешно записаны" );
+  function FreeData ( data ) {
+    this.value = parseInt( data );
+  }
+  buf = new FreeData( data );
+	writeJSON( ( '/data/' + adr ), JSON.stringify( buf ), "Данные успешно записаны" );
 	return;
 }
 
@@ -17641,6 +17645,9 @@ function grabInterface() {
 	for ( var i=0; i<radioArray.length; i++ ) {
 		radioArray[i].grab();
 	}
+  for ( var i=0; i<freeDataNames.length; i++ ) {
+		freeDataArray[i].grab();
+	}
 	for ( var i=0;i<dataReg.length;i++ ) {
 		if ( dataReg[i].name == "engineSetup" )
 		{
@@ -17700,11 +17707,11 @@ function ethDataUpdate( alertProgress, callback ) {
 				alertProgress.setProgressBar( index * 100 / length );
 			} else {
 				copyDataReg( store[0] );
-				updateInterface();
 				loadCharts( store[1] );
 				for ( var i=0; i<freeDataValue.length; i++ ) {
-					freeDataValue[i] = store[1+i].value;
+					freeDataValue[i] = store[2+i].value;
 				}
+        updateInterface();
 				rtcTime.get( store[2 + freeDataNames.length] )
 				setSuccessConnection();
 				let alert = new Alert( "alert-success", okIco, "Данные успешно обновленны" );

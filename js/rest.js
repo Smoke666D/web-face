@@ -605,9 +605,6 @@ function FreeData ( name ) {
 	}
 	this.update  = function() {
 		if ( self.input != null ) {
-      console.log("============");
-      console.log(freeDataValue);
-      console.log("============");
 			self.input.value = parseInt(freeDataValue[self.adr]);
 		}
 		if ( self.progress != null ) {
@@ -713,7 +710,6 @@ function setSysTime () {
 
 function writeJSON ( adr, data, message ) {
 	var xhr = new XMLHttpRequest();
-  console.log(data);
 	xhr.open( 'PUT', "http://" + document.getElementById( "input-ipaddress" ).value + adr, true );
 	xhr.timeout = 5000;
 	xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
@@ -876,6 +872,9 @@ function grabInterface() {
 	for ( var i=0; i<radioArray.length; i++ ) {
 		radioArray[i].grab();
 	}
+  for ( var i=0; i<freeDataNames.length; i++ ) {
+		freeDataArray[i].grab();
+	}
 	for ( var i=0;i<dataReg.length;i++ ) {
 		if ( dataReg[i].name == "engineSetup" )
 		{
@@ -935,11 +934,11 @@ function ethDataUpdate( alertProgress, callback ) {
 				alertProgress.setProgressBar( index * 100 / length );
 			} else {
 				copyDataReg( store[0] );
-				updateInterface();
 				loadCharts( store[1] );
 				for ( var i=0; i<freeDataValue.length; i++ ) {
 					freeDataValue[i] = store[2+i].value;
 				}
+        updateInterface();
 				rtcTime.get( store[2 + freeDataNames.length] )
 				setSuccessConnection();
 				let alert = new Alert( "alert-success", okIco, "Данные успешно обновленны" );
