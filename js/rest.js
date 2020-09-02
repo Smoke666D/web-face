@@ -605,7 +605,10 @@ function FreeData ( name ) {
 	}
 	this.update  = function() {
 		if ( self.input != null ) {
-			self.input.value = freeDataValue[self.adr];
+      console.log("============");
+      console.log(freeDataValue);
+      console.log("============");
+			self.input.value = parseInt(freeDataValue[self.adr]);
 		}
 		if ( self.progress != null ) {
 			self.progress.style.width = Math.ceil( ( freeDataValue[self.adr] / self.max ) * 100 ) + "%";
@@ -614,7 +617,7 @@ function FreeData ( name ) {
 	}
 	this.grab    = function() {
 		if ( self.input != null ) {
-			freeDataValue[self.adr] = self.input.value;
+			freeDataValue[self.adr] = parseInt( self.input.value );
 		}
 		return;
 	}
@@ -710,6 +713,7 @@ function setSysTime () {
 
 function writeJSON ( adr, data, message ) {
 	var xhr = new XMLHttpRequest();
+  console.log(data);
 	xhr.open( 'PUT', "http://" + document.getElementById( "input-ipaddress" ).value + adr, true );
 	xhr.timeout = 5000;
 	xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
@@ -730,7 +734,11 @@ function writeJSON ( adr, data, message ) {
 }
 
 function writeFreeDataEth ( adr, data ) {
-	writeJSON( ( '/data/' + adr ), { value : data }, "Данные успешно записаны" );
+  function FreeData ( data ) {
+    this.value = parseInt( data );
+  }
+  buf = new FreeData( data );
+	writeJSON( ( '/data/' + adr ), JSON.stringify( buf ), "Данные успешно записаны" );
 	return;
 }
 
@@ -930,7 +938,7 @@ function ethDataUpdate( alertProgress, callback ) {
 				updateInterface();
 				loadCharts( store[1] );
 				for ( var i=0; i<freeDataValue.length; i++ ) {
-					freeDataValue[i] = store[1+i].value;
+					freeDataValue[i] = store[2+i].value;
 				}
 				rtcTime.get( store[2 + freeDataNames.length] )
 				setSuccessConnection();
