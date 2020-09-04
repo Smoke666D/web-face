@@ -13080,10 +13080,10 @@ QmCC
         </div>
 
         <div calss="row">
-          <button aria-label="Connect" id="reset-log" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Очистить журнал">
+          <button aria-label="Erase" id="reset-log" onclick="eraseLog()" class="btn btn-primary" data-toggle="tooltip" title="Очистить журнал">
             <svg viewBox="0 0 512 512"><path fill="currentColor" d="M497.941 273.941c18.745-18.745 18.745-49.137 0-67.882l-160-160c-18.745-18.745-49.136-18.746-67.883 0l-256 256c-18.745 18.745-18.745 49.137 0 67.882l96 96A48.004 48.004 0 0 0 144 480h356c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12H355.883l142.058-142.059zm-302.627-62.627l137.373 137.373L265.373 416H150.628l-80-80 124.686-124.686z"></path></svg>
           </button>
-          <button aria-label="Connect" id="reset-log" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Скачать журнал на ПК">
+          <button aria-label="Download" id="reset-log" onclick="saveLogToFile()" class="btn btn-primary" data-toggle="tooltip" title="Скачать журнал на ПК">
             <svg viewBox="0 0 512 512"><path fill="currentColor" d="M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path></svg>
           </button>
         </div>
@@ -13095,7 +13095,6 @@ QmCC
               <th>Дата</th>
               <th>Время</th>
               <th>Тип</th>
-              <th>Сообщение</th>
               <th>Действие</th>
             </tr>
           </thead>
@@ -13105,7 +13104,6 @@ QmCC
               <td>19.03.2020</td>
               <td>21:45:05</td>
               <td>Предупреждение</td>
-              <td>Высокий уровень тока</td>
               <td>Останов</td>
             </tr>
             <tr>
@@ -14516,7 +14514,7 @@ function checkSettings() {
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 8,
+   "bitMapSize": 6,
    "bit": [
        {
            "name": "doaNOC",
@@ -14554,22 +14552,38 @@ function checkSettings() {
            "min": 0,
            "max": 1,
            "shift": 5,
-       },{
-           "name": "doaType",
-           "mask": 16320,
-           "min": 0,
-           "max": 255,
-           "shift": 6,
-       },{
-           "name": "dobType",
-           "mask": 4177920,
-           "min": 0,
-           "max": 255,
-           "shift": 14,
        },
    ]
 },{
    "adr": 46,
+   "name": "doabType",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 1023,
+   "units": "",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 2,
+   "bit": [
+       {
+           "name": "doaType",
+           "mask": 255,
+           "min": 0,
+           "max": 255,
+           "shift": 0,
+       },{
+           "name": "dobType",
+           "mask": 65280,
+           "min": 0,
+           "max": 255,
+           "shift": 8,
+       },
+   ]
+},{
+   "adr": 47,
    "name": "docdType",
    "value": 0,
    "default": 0,
@@ -14597,7 +14611,7 @@ function checkSettings() {
        },
    ]
 },{
-   "adr": 47,
+   "adr": 48,
    "name": "doefType",
    "value": 0,
    "default": 0,
@@ -14625,7 +14639,7 @@ function checkSettings() {
        },
    ]
 },{
-   "adr": 48,
+   "adr": 49,
    "name": "timerMainsTransientDelay",
    "value": 1,
    "default": 1,
@@ -14639,7 +14653,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 49,
+   "adr": 50,
    "name": "timerStartDelay",
    "value": 5,
    "default": 5,
@@ -14653,7 +14667,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 50,
+   "adr": 51,
    "name": "timerCranking",
    "value": 10,
    "default": 10,
@@ -14667,7 +14681,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 51,
+   "adr": 52,
    "name": "timerCrankDelay",
    "value": 10,
    "default": 10,
@@ -14681,7 +14695,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 52,
+   "adr": 53,
    "name": "timerStartupIdleTime",
    "value": 10,
    "default": 10,
@@ -14695,7 +14709,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 53,
+   "adr": 54,
    "name": "timerNominalRPMDelay",
    "value": 10,
    "default": 10,
@@ -14709,7 +14723,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 54,
+   "adr": 55,
    "name": "timerSafetyOnDelay",
    "value": 10,
    "default": 10,
@@ -14723,7 +14737,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 55,
+   "adr": 56,
    "name": "timerWarming",
    "value": 1,
    "default": 1,
@@ -14737,7 +14751,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 56,
+   "adr": 57,
    "name": "timerTransferDelay",
    "value": 6,
    "default": 6,
@@ -14751,7 +14765,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 57,
+   "adr": 58,
    "name": "timerGenBreakerTripPulse",
    "value": 5,
    "default": 5,
@@ -14765,7 +14779,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 58,
+   "adr": 59,
    "name": "timerGenBreakerClosePulse",
    "value": 5,
    "default": 5,
@@ -14779,7 +14793,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 59,
+   "adr": 60,
    "name": "timerMainsBreakerTripPulse",
    "value": 5,
    "default": 5,
@@ -14793,7 +14807,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 60,
+   "adr": 61,
    "name": "timerMainsBreakerClosePulse",
    "value": 5,
    "default": 5,
@@ -14807,7 +14821,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 61,
+   "adr": 62,
    "name": "timerReturnDelay",
    "value": 30,
    "default": 30,
@@ -14821,7 +14835,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 62,
+   "adr": 63,
    "name": "timerCooling",
    "value": 60,
    "default": 60,
@@ -14835,7 +14849,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 63,
+   "adr": 64,
    "name": "timerCoolingIdle",
    "value": 20,
    "default": 20,
@@ -14849,7 +14863,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 64,
+   "adr": 65,
    "name": "timerSolenoidHold",
    "value": 20,
    "default": 20,
@@ -14863,7 +14877,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 65,
+   "adr": 66,
    "name": "timerFailStopDelay",
    "value": 30,
    "default": 30,
@@ -14877,7 +14891,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 66,
+   "adr": 67,
    "name": "timerGenTransientDelay",
    "value": 10,
    "default": 10,
@@ -14891,7 +14905,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 67,
+   "adr": 68,
    "name": "genSetup",
    "value": 1,
    "default": 1,
@@ -14919,7 +14933,7 @@ function checkSettings() {
        },
    ]
 },{
-   "adr": 68,
+   "adr": 69,
    "name": "genRatedActivePowerLevel",
    "value": 40000,
    "default": 40000,
@@ -14933,7 +14947,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 69,
+   "adr": 70,
    "name": "genRatedReactivePowerLevel",
    "value": 0,
    "default": 0,
@@ -14947,7 +14961,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 70,
+   "adr": 71,
    "name": "genRatedApparentPowerLevel",
    "value": 200,
    "default": 200,
@@ -14961,7 +14975,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 71,
+   "adr": 72,
    "name": "genRatedFrequencyLevel",
    "value": 500,
    "default": 500,
@@ -14975,7 +14989,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 72,
+   "adr": 73,
    "name": "genCurrentPrimaryLevel",
    "value": 600,
    "default": 600,
@@ -14989,7 +15003,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 73,
+   "adr": 74,
    "name": "genCurrentFullLoadRatingLevel",
    "value": 500,
    "default": 500,
@@ -15003,7 +15017,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 74,
+   "adr": 75,
    "name": "genAlarms",
    "value": 7167,
    "default": 7167,
@@ -15091,7 +15105,7 @@ function checkSettings() {
        },
    ]
 },{
-   "adr": 75,
+   "adr": 76,
    "name": "genUnderVoltageAlarmLevel",
    "value": 318,
    "default": 318,
@@ -15105,7 +15119,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 76,
+   "adr": 77,
    "name": "genUnderVoltagePreAlarmLevel",
    "value": 339,
    "default": 339,
@@ -15119,7 +15133,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 77,
+   "adr": 78,
    "name": "genOverVoltagePreAlarmLevel",
    "value": 439,
    "default": 439,
@@ -15133,7 +15147,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 78,
+   "adr": 79,
    "name": "genOverVoltageAlarmLevel",
    "value": 458,
    "default": 458,
@@ -15147,7 +15161,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 79,
+   "adr": 80,
    "name": "genUnderFrequencyAlarmLevel",
    "value": 400,
    "default": 400,
@@ -15161,7 +15175,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 80,
+   "adr": 81,
    "name": "genUnderFrequencyPreAlarmLevel",
    "value": 420,
    "default": 420,
@@ -15175,7 +15189,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 81,
+   "adr": 82,
    "name": "genOverFrequencyPreAlarmLevel",
    "value": 540,
    "default": 540,
@@ -15189,7 +15203,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 82,
+   "adr": 83,
    "name": "genOverFrequencyAlarmLevel",
    "value": 550,
    "default": 550,
@@ -15203,7 +15217,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 83,
+   "adr": 84,
    "name": "genOverCurrentThermalProtectionLevel",
    "value": 20,
    "default": 20,
@@ -15217,7 +15231,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 84,
+   "adr": 85,
    "name": "genOverCurrentCutoffLevel",
    "value": 40,
    "default": 40,
@@ -15231,7 +15245,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 85,
+   "adr": 86,
    "name": "genOverCurrentAlarmLevel",
    "value": 100,
    "default": 100,
@@ -15245,7 +15259,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 86,
+   "adr": 87,
    "name": "genOverCurrentAlarmDelay",
    "value": 60,
    "default": 60,
@@ -15259,7 +15273,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 87,
+   "adr": 88,
    "name": "genCurrentOverloadProtectionLevel",
    "value": 100,
    "default": 100,
@@ -15273,7 +15287,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 88,
+   "adr": 89,
    "name": "genCurrentOverloadProtectionDelay",
    "value": 5,
    "default": 5,
@@ -15287,7 +15301,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 89,
+   "adr": 90,
    "name": "genCurrentOverPhaseImbalanceLevel",
    "value": 100,
    "default": 100,
@@ -15301,7 +15315,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 90,
+   "adr": 91,
    "name": "genCurrentOverPhaseImbalanceDelay",
    "value": 60,
    "default": 60,
@@ -15315,7 +15329,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 91,
+   "adr": 92,
    "name": "mainsSetup",
    "value": 1,
    "default": 1,
@@ -15343,7 +15357,7 @@ function checkSettings() {
        },
    ]
 },{
-   "adr": 92,
+   "adr": 93,
    "name": "mainsAlarms",
    "value": 15,
    "default": 15,
@@ -15383,7 +15397,7 @@ function checkSettings() {
        },
    ]
 },{
-   "adr": 93,
+   "adr": 94,
    "name": "mainsUnderVoltageAlarmLevel",
    "value": 318,
    "default": 318,
@@ -15397,7 +15411,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 94,
+   "adr": 95,
    "name": "mainsOverVoltageAlarmLevel",
    "value": 438,
    "default": 438,
@@ -15411,7 +15425,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 95,
+   "adr": 96,
    "name": "mainsUnderFrequencyAlarmLevel",
    "value": 450,
    "default": 450,
@@ -15425,7 +15439,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 96,
+   "adr": 97,
    "name": "mainsOverFrequencyAlarmLevel",
    "value": 520,
    "default": 520,
@@ -15439,7 +15453,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 97,
+   "adr": 98,
    "name": "engineSetup",
    "value": 3,
    "default": 3,
@@ -15467,7 +15481,7 @@ function checkSettings() {
        },
    ]
 },{
-   "adr": 98,
+   "adr": 99,
    "name": "enginePreHeatLevel",
    "value": 50,
    "default": 50,
@@ -15481,7 +15495,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 99,
+   "adr": 100,
    "name": "enginePreHeatDelay",
    "value": 0,
    "default": 0,
@@ -15495,7 +15509,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 100,
+   "adr": 101,
    "name": "starterStopSetup",
    "value": 5,
    "default": 5,
@@ -15535,7 +15549,7 @@ function checkSettings() {
        },
    ]
 },{
-   "adr": 101,
+   "adr": 102,
    "name": "starterStopGenFreqLevel",
    "value": 210,
    "default": 210,
@@ -15549,7 +15563,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 102,
+   "adr": 103,
    "name": "starterStopOilPressureLevel",
    "value": 20,
    "default": 20,
@@ -15563,7 +15577,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 103,
+   "adr": 104,
    "name": "starterStopChargeAlternatorLevel",
    "value": 60,
    "default": 60,
@@ -15577,7 +15591,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 104,
+   "adr": 105,
    "name": "starterStopSpeedLevel",
    "value": 15000,
    "default": 15000,
@@ -15591,7 +15605,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 105,
+   "adr": 106,
    "name": "batteryAlarms",
    "value": 15,
    "default": 15,
@@ -15631,7 +15645,7 @@ function checkSettings() {
        },
    ]
 },{
-   "adr": 106,
+   "adr": 107,
    "name": "batteryUnderVoltageLevel",
    "value": 100,
    "default": 100,
@@ -15645,7 +15659,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 107,
+   "adr": 108,
    "name": "batteryUnderVoltageDelay",
    "value": 60,
    "default": 60,
@@ -15659,7 +15673,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 108,
+   "adr": 109,
    "name": "batteryOverVoltageLevel",
    "value": 300,
    "default": 300,
@@ -15673,7 +15687,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 109,
+   "adr": 110,
    "name": "batteryOverVoltageDelay",
    "value": 60,
    "default": 60,
@@ -15687,7 +15701,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 110,
+   "adr": 111,
    "name": "batteryChargeShutdownLevel",
    "value": 40,
    "default": 40,
@@ -15701,7 +15715,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 111,
+   "adr": 112,
    "name": "batteryChargeShutdownDelay",
    "value": 5,
    "default": 5,
@@ -15715,7 +15729,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 112,
+   "adr": 113,
    "name": "batteryChargeWarningLevel",
    "value": 60,
    "default": 60,
@@ -15729,7 +15743,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 113,
+   "adr": 114,
    "name": "batteryChargeWarningDelay",
    "value": 5,
    "default": 5,
@@ -15743,7 +15757,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 114,
+   "adr": 115,
    "name": "maintenanceAlarms",
    "value": 42,
    "default": 42,
@@ -15795,7 +15809,7 @@ function checkSettings() {
        },
    ]
 },{
-   "adr": 115,
+   "adr": 116,
    "name": "maintenanceAlarmOilTime",
    "value": 10,
    "default": 10,
@@ -15809,7 +15823,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 116,
+   "adr": 117,
    "name": "maintenanceAlarmAirTime",
    "value": 10,
    "default": 10,
@@ -15823,7 +15837,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 117,
+   "adr": 118,
    "name": "maintenanceAlarmFuelTime",
    "value": 10,
    "default": 10,
@@ -15837,7 +15851,7 @@ function checkSettings() {
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 118,
+   "adr": 119,
    "name": "logSetup",
    "value": 1,
    "default": 1,
@@ -15902,6 +15916,14 @@ function writeFreeData ( adr, value ) {
     writeFreeDataEth( adr, value );
   } else if ( connectionType == 'usb' ) {
     usb.controller.sendFreeData( adr, value );
+  }
+  return;
+}
+function eraseLog () {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    eraseLogEth();
+  } else if ( connectionType == 'usb' ) {
+    //usb.controller.sendFreeData( adr, value );
   }
   return;
 }
@@ -16790,6 +16812,92 @@ var freeDataNames   = ["engineWorkTimeData",
 											 "maintenanceAlarmOilTimeLeft",
 											 "maintenanceAlarmAirTimeLeft",
 											 "maintenanceAlarmFuelTimeLeft"];
+
+var logArray     = [];
+const logTypesDictionary   = [
+  "Нет",
+  "Внешная аварийная остановка",
+  "Ошибка пуска двигателя",
+  "Ошибка остановки двигателя",
+  "Низкое давление масла",
+  "Ошибка датчика давления масла",
+  "Высокая температура ОЖ",
+  "Ошибка датчика температуры ОЖ",
+  "Низкий уровень топлива",
+  "Высокий уровень топлива",
+  "Ошибка датчика топлива",
+  "Высокие обороты",
+  "Низкие обороты",
+  "Ошибка датчика оборотов",
+  "Ошибка зарядного устройства",
+  "Низкое напряжение АКБ",
+  "Высокое напряжение АКБ",
+  "Низкое напряжение генератора",
+  "Высокое напряжение генератора",
+  "Низкая частота генератора",
+  "Высокая частота генератора",
+  "Перекос фаз",
+  "Перегрузка по току",
+  "Перегрузка по мощности",
+  "Короткое замыкание",
+  "Низкое напряжение сети",
+  "Высокое напряжение сети",
+  "Низкая частота сети",
+  "Высокая частота сети",
+  "ТО масло",
+  "ТО воздух",
+  "ТО топливо",
+  "???",
+  "???"];
+const logActionsDictionary = [
+  "Нет",
+  "Предупреждение",
+  "Аварийная остановка",
+  "Переключение на генератор",
+  "Переключение на сеть",
+  "Плановая остановка",
+  "Отключение нагрузки"];
+
+const  LOG_DAY_MASK    = 0xF8000000;
+const  LOG_DAY_SHIFT   = 27;
+const  LOG_MONTH_MASK  = 0x07800000;
+const  LOG_MONTH_SHIFT = 23;
+const  LOG_YEAR_MASK   = 0x007E0000;
+const  LOG_YEAR_SHIFT  = 17;
+const  LOG_HOUR_MASK   = 0x0001F000;
+const  LOG_HOUR_SHIFT  = 12;
+const  LOG_MIN_MASK    = 0x00000FC0;
+const  LOG_MIN_SHIFT   = 6;
+const  LOG_SEC_MASK    = 0x0000003F;
+const  LOG_SEC_SHIFT   = 0;
+
+function  GET_LOG_DAY ( d ) {
+  return ( d & LOG_DAY_MASK ) >> LOG_DAY_SHIFT;
+}
+function  GET_LOG_MONTH ( d ){
+  return ( d & LOG_MONTH_MASK ) >> LOG_MONTH_SHIFT;
+}
+function  GET_LOG_YEAR ( d ) {
+  return ( d & LOG_YEAR_MASK  ) >> LOG_YEAR_SHIFT;
+}
+function  GET_LOG_HOUR ( d ) {
+  return ( d & LOG_HOUR_MASK  ) >> LOG_HOUR_SHIFT;
+}
+function  GET_LOG_MIN ( d ) {
+  return ( d & LOG_MIN_MASK   ) >> LOG_MIN_SHIFT;
+}
+function  GET_LOG_SEC ( d ) {
+  return ( d & LOG_SEC_MASK   ) >> LOG_SEC_SHIFT;
+}
+function  SET_LOG_DATE ( day, month, year, hour, min, sec ) {
+  return ( day   << LOG_DAY_SHIFT   ) |
+         ( month << LOG_MONTH_SHIFT ) |
+         ( year  << LOG_YEAR_SHIFT  ) |
+         ( hour  << LOG_HOUR_SHIFT  ) |
+         ( min   << LOG_MIN_SHIFT   ) |
+         ( sec   << LOG_SEC_SHIFT   );
+}
+
 //******************************************************************************
 function bitVal( n, reg ) {
 	return ( reg.value & reg.bit[n].mask ) >> reg.bit[n].shift;
@@ -17229,8 +17337,6 @@ function Slider ( name, preInit ) {
 	this.update    = function() {
 		reg = dataReg[this.regNum];
 		try {
-
-
 		this.label.textContent = reg.units;
 		if ( this.enable == 1 ) {
 			this.input.disabled = false;
@@ -17273,7 +17379,60 @@ function Slider ( name, preInit ) {
 	return;
 }
 //******************************************************************************
-function cosFiUpdate (){
+function LogRecord ( type, action, time ) {
+  var self = this;
+  this.type   = type;
+  this.action = action;
+  this.time   = time;
+}
+function redrawLogTable () {
+  var table = document.getElementById( 'log-body' );
+  var sell;
+  while ( table.rows[0] ) {
+    table.deleteRow(0);
+  }
+  for ( var i=0; i<logArray.length; i++ ) {
+    let row = table.insertRow(i);
+    cell = row.insertCell(0);
+    cell.textContent = i + 1;
+    cell = row.insertCell(1);
+    cell.textContent = GET_LOG_DAY( logArray[i].time ) + '.' + GET_LOG_MONTH( logArray[i].time ) + '.' + ( GET_LOG_YEAR( logArray[i].time ) + 2000 );
+    cell = row.insertCell(2);
+    cell.textContent = GET_LOG_HOUR( logArray[i].time ) + ':' + GET_LOG_MIN( logArray[i].time ) + ':' + GET_LOG_SEC( logArray[i].time );
+    cell = row.insertCell(3);
+    cell.textContent = logTypesDictionary[logArray[i].type];
+    cell = row.insertCell(4);
+    cell.textContent = logActionsDictionary[logArray[i].action];
+  }
+  return;
+}
+function saveLogToFile () {
+  function SaveAsFile ( data, file, m ) {
+  	try {
+    	var blob = new Blob( [data], { type: m } );
+      saveAs( blob, file );
+    } catch(e) {
+    	window.open( "data:" + m + "," + encodeURIComponent( t ), '_blank', '' );
+    }
+    return;
+  }
+  var date = new Date();
+  var name = ( date.getFullYear() - 2000 ).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) +
+             ( date.getMonth() + 1 ).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) +
+             ( date.getDate() ).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+  var data = "№;Дата;Время;Тип;Действие\r\n";
+  for ( var i=0; i<logArray.length; i++ ) {
+    data += ( i + 1 ) + ";" +
+            GET_LOG_DAY( logArray[i].time ) + '.' + GET_LOG_MONTH( logArray[i].time ) + '.' + ( GET_LOG_YEAR( logArray[i].time ) + 2000 ) + ";" +
+            GET_LOG_HOUR( logArray[i].time ) + ':' + GET_LOG_MIN( logArray[i].time ) + ':' + GET_LOG_SEC( logArray[i].time ) + ";" +
+            logTypesDictionary[logArray[i].type] + ";" +
+            logActionsDictionary[logArray[i].action] + "\r\n";
+  }
+	SaveAsFile( data, ( name + "_log" + ".txt" ), "text/plain;charset=utf-8" );
+  return;
+}
+//******************************************************************************
+function cosFiUpdate () {
 	slider = document.getElementById( "s-slider-cosFi" );
 	input = document.getElementById( "sinput-cosFi" );
 	input.disabled = false;
@@ -17426,8 +17585,6 @@ function RTC () {
 		}
 		return 1;
 	}
-
-
 	this.getSystemTime = function () {
 		var date = new Date();
 		self.hour  = date.getHours();
@@ -17484,7 +17641,7 @@ function setSysTime () {
 function writeJSON ( adr, data, message ) {
 	var xhr = new XMLHttpRequest();
 	xhr.open( 'PUT', "http://" + document.getElementById( "input-ipaddress" ).value + adr, true );
-	xhr.timeout = 5000;
+	xhr.timeout = 10000;
 	xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
 	xhr.send( data );
 	xhr.addEventListener( 'load', function( data ) {
@@ -17516,6 +17673,10 @@ function writeTimeEth () {
 	return;
 }
 
+function eraseLogEth () {
+  writeJSON( '/eraseLog/', JSON.stringify( rtcTime ), "Журнал установленно очищен" );
+  return;
+}
 //******************************************************************************
 function declareStrings() {
 	for ( var i=0; i<dataReg.length; i++ ) {
@@ -17598,6 +17759,7 @@ function declareInterface() {
 	declareSelects();
 	declareRadio();
 	declareFreeData();
+  logArray = [];
 	return;
 }
 
@@ -17623,6 +17785,7 @@ function updateInterface() {
 	for ( var i=0; i<freeDataNames.length; i++ ) {
 		freeDataArray[i].update();
 	}
+  redrawLogTable();
 	return;
 }
 function grabInterface() {
@@ -17708,11 +17871,12 @@ function ethDataUpdate( alertProgress, callback ) {
 			} else {
 				copyDataReg( store[0] );
 				loadCharts( store[1] );
+        copyLog( store[2] );
 				for ( var i=0; i<freeDataValue.length; i++ ) {
-					freeDataValue[i] = store[2+i].value;
+					freeDataValue[i] = store[3+i].value;
 				}
         updateInterface();
-				rtcTime.get( store[2 + freeDataNames.length] )
+				rtcTime.get( store[store.length - 1] )
 				setSuccessConnection();
 				let alert = new Alert( "alert-success", okIco, "Данные успешно обновленны" );
 				document.getElementById( "i-loading" ).classList.remove( "loading" );
@@ -17728,6 +17892,7 @@ function ethDataUpdate( alertProgress, callback ) {
 		}
 		restSeq.push( {method: 'get', url: ( extUrl + '/configs/' )} );
 		restSeq.push( {method: 'get', url: ( extUrl + '/charts/' )} );
+    restSeq.push( {method: 'get', url: ( extUrl + '/log/' )} );
 		for ( var i=0; i<freeDataNames.length; i++ ) {
 			restSeq.push( {method: 'get', url: ( extUrl + '/data/' + i )} );
 		}
@@ -17742,7 +17907,18 @@ function ethDataUpdate( alertProgress, callback ) {
 	return 0;
 }
 //******************************************************************************
-function copyDataReg( data ) {
+function copyLog ( data ) {
+  logArray = [];
+  for ( var i=0; i<data.length; i++ )
+  {
+
+      logArray.push( data[i] );
+
+  }
+  return;
+}
+//******************************************************************************
+function copyDataReg ( data ) {
 	for ( var i=0; i<data.length; i++ ) {
 		for ( var j=0; j<dataReg.length; j++ ) {
 			if ( data[i].adr == dataReg[j].adr ) {
@@ -18313,17 +18489,19 @@ function saveChartData(){
   return;
 }
 
-function downloadSensorData(){
-	function SaveAsFile(t,f,m) {
+function downloadSensorData () {
+	function SaveAsFile( t, file, m ) {
   	try {
-    	var b = new Blob([t],{type:m});
-      saveAs(b, f);
-    } catch(e) {
-    	window.open("data:"+m+"," + encodeURIComponent(t), '_blank','');
+    	var blob = new Blob( [t], { type: m } );
+      saveAs( blob, file );
+    } catch( e ) {
+    	window.open( ( "data:" + m + "," + encodeURIComponent( t ) ), '_blank', '' );
     }
+    return;
   }
 	saveToCurChart();
-	SaveAsFile(JSON.stringify(currentChart),currentChart.name+".JSON","text/plain;charset=utf-8");
+	SaveAsFile( JSON.stringify( currentChart ), ( currentChart.name + ".JSON" ), "text/plain;charset=utf-8" );
+  return;
 }
 //------------------------------------------------------------------------------
 function uploadSensorData() {

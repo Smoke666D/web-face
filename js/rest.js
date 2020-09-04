@@ -17,6 +17,92 @@ var freeDataNames   = ["engineWorkTimeData",
 											 "maintenanceAlarmOilTimeLeft",
 											 "maintenanceAlarmAirTimeLeft",
 											 "maintenanceAlarmFuelTimeLeft"];
+
+var logArray     = [];
+const logTypesDictionary   = [
+  "Нет",
+  "Внешная аварийная остановка",
+  "Ошибка пуска двигателя",
+  "Ошибка остановки двигателя",
+  "Низкое давление масла",
+  "Ошибка датчика давления масла",
+  "Высокая температура ОЖ",
+  "Ошибка датчика температуры ОЖ",
+  "Низкий уровень топлива",
+  "Высокий уровень топлива",
+  "Ошибка датчика топлива",
+  "Высокие обороты",
+  "Низкие обороты",
+  "Ошибка датчика оборотов",
+  "Ошибка зарядного устройства",
+  "Низкое напряжение АКБ",
+  "Высокое напряжение АКБ",
+  "Низкое напряжение генератора",
+  "Высокое напряжение генератора",
+  "Низкая частота генератора",
+  "Высокая частота генератора",
+  "Перекос фаз",
+  "Перегрузка по току",
+  "Перегрузка по мощности",
+  "Короткое замыкание",
+  "Низкое напряжение сети",
+  "Высокое напряжение сети",
+  "Низкая частота сети",
+  "Высокая частота сети",
+  "ТО масло",
+  "ТО воздух",
+  "ТО топливо",
+  "???",
+  "???"];
+const logActionsDictionary = [
+  "Нет",
+  "Предупреждение",
+  "Аварийная остановка",
+  "Переключение на генератор",
+  "Переключение на сеть",
+  "Плановая остановка",
+  "Отключение нагрузки"];
+
+const  LOG_DAY_MASK    = 0xF8000000;
+const  LOG_DAY_SHIFT   = 27;
+const  LOG_MONTH_MASK  = 0x07800000;
+const  LOG_MONTH_SHIFT = 23;
+const  LOG_YEAR_MASK   = 0x007E0000;
+const  LOG_YEAR_SHIFT  = 17;
+const  LOG_HOUR_MASK   = 0x0001F000;
+const  LOG_HOUR_SHIFT  = 12;
+const  LOG_MIN_MASK    = 0x00000FC0;
+const  LOG_MIN_SHIFT   = 6;
+const  LOG_SEC_MASK    = 0x0000003F;
+const  LOG_SEC_SHIFT   = 0;
+
+function  GET_LOG_DAY ( d ) {
+  return ( d & LOG_DAY_MASK ) >> LOG_DAY_SHIFT;
+}
+function  GET_LOG_MONTH ( d ){
+  return ( d & LOG_MONTH_MASK ) >> LOG_MONTH_SHIFT;
+}
+function  GET_LOG_YEAR ( d ) {
+  return ( d & LOG_YEAR_MASK  ) >> LOG_YEAR_SHIFT;
+}
+function  GET_LOG_HOUR ( d ) {
+  return ( d & LOG_HOUR_MASK  ) >> LOG_HOUR_SHIFT;
+}
+function  GET_LOG_MIN ( d ) {
+  return ( d & LOG_MIN_MASK   ) >> LOG_MIN_SHIFT;
+}
+function  GET_LOG_SEC ( d ) {
+  return ( d & LOG_SEC_MASK   ) >> LOG_SEC_SHIFT;
+}
+function  SET_LOG_DATE ( day, month, year, hour, min, sec ) {
+  return ( day   << LOG_DAY_SHIFT   ) |
+         ( month << LOG_MONTH_SHIFT ) |
+         ( year  << LOG_YEAR_SHIFT  ) |
+         ( hour  << LOG_HOUR_SHIFT  ) |
+         ( min   << LOG_MIN_SHIFT   ) |
+         ( sec   << LOG_SEC_SHIFT   );
+}
+
 //******************************************************************************
 function bitVal( n, reg ) {
 	return ( reg.value & reg.bit[n].mask ) >> reg.bit[n].shift;
@@ -456,8 +542,6 @@ function Slider ( name, preInit ) {
 	this.update    = function() {
 		reg = dataReg[this.regNum];
 		try {
-
-
 		this.label.textContent = reg.units;
 		if ( this.enable == 1 ) {
 			this.input.disabled = false;
@@ -500,7 +584,60 @@ function Slider ( name, preInit ) {
 	return;
 }
 //******************************************************************************
-function cosFiUpdate (){
+function LogRecord ( type, action, time ) {
+  var self = this;
+  this.type   = type;
+  this.action = action;
+  this.time   = time;
+}
+function redrawLogTable () {
+  var table = document.getElementById( 'log-body' );
+  var sell;
+  while ( table.rows[0] ) {
+    table.deleteRow(0);
+  }
+  for ( var i=0; i<logArray.length; i++ ) {
+    let row = table.insertRow(i);
+    cell = row.insertCell(0);
+    cell.textContent = i + 1;
+    cell = row.insertCell(1);
+    cell.textContent = GET_LOG_DAY( logArray[i].time ) + '.' + GET_LOG_MONTH( logArray[i].time ) + '.' + ( GET_LOG_YEAR( logArray[i].time ) + 2000 );
+    cell = row.insertCell(2);
+    cell.textContent = GET_LOG_HOUR( logArray[i].time ) + ':' + GET_LOG_MIN( logArray[i].time ) + ':' + GET_LOG_SEC( logArray[i].time );
+    cell = row.insertCell(3);
+    cell.textContent = logTypesDictionary[logArray[i].type];
+    cell = row.insertCell(4);
+    cell.textContent = logActionsDictionary[logArray[i].action];
+  }
+  return;
+}
+function saveLogToFile () {
+  function SaveAsFile ( data, file, m ) {
+  	try {
+    	var blob = new Blob( [data], { type: m } );
+      saveAs( blob, file );
+    } catch(e) {
+    	window.open( "data:" + m + "," + encodeURIComponent( t ), '_blank', '' );
+    }
+    return;
+  }
+  var date = new Date();
+  var name = ( date.getFullYear() - 2000 ).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) +
+             ( date.getMonth() + 1 ).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) +
+             ( date.getDate() ).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+  var data = "№;Дата;Время;Тип;Действие\r\n";
+  for ( var i=0; i<logArray.length; i++ ) {
+    data += ( i + 1 ) + ";" +
+            GET_LOG_DAY( logArray[i].time ) + '.' + GET_LOG_MONTH( logArray[i].time ) + '.' + ( GET_LOG_YEAR( logArray[i].time ) + 2000 ) + ";" +
+            GET_LOG_HOUR( logArray[i].time ) + ':' + GET_LOG_MIN( logArray[i].time ) + ':' + GET_LOG_SEC( logArray[i].time ) + ";" +
+            logTypesDictionary[logArray[i].type] + ";" +
+            logActionsDictionary[logArray[i].action] + "\r\n";
+  }
+	SaveAsFile( data, ( name + "_log" + ".txt" ), "text/plain;charset=utf-8" );
+  return;
+}
+//******************************************************************************
+function cosFiUpdate () {
 	slider = document.getElementById( "s-slider-cosFi" );
 	input = document.getElementById( "sinput-cosFi" );
 	input.disabled = false;
@@ -653,8 +790,6 @@ function RTC () {
 		}
 		return 1;
 	}
-
-
 	this.getSystemTime = function () {
 		var date = new Date();
 		self.hour  = date.getHours();
@@ -711,7 +846,7 @@ function setSysTime () {
 function writeJSON ( adr, data, message ) {
 	var xhr = new XMLHttpRequest();
 	xhr.open( 'PUT', "http://" + document.getElementById( "input-ipaddress" ).value + adr, true );
-	xhr.timeout = 5000;
+	xhr.timeout = 10000;
 	xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
 	xhr.send( data );
 	xhr.addEventListener( 'load', function( data ) {
@@ -743,6 +878,10 @@ function writeTimeEth () {
 	return;
 }
 
+function eraseLogEth () {
+  writeJSON( '/eraseLog/', JSON.stringify( rtcTime ), "Журнал установленно очищен" );
+  return;
+}
 //******************************************************************************
 function declareStrings() {
 	for ( var i=0; i<dataReg.length; i++ ) {
@@ -825,6 +964,7 @@ function declareInterface() {
 	declareSelects();
 	declareRadio();
 	declareFreeData();
+  logArray = [];
 	return;
 }
 
@@ -850,6 +990,7 @@ function updateInterface() {
 	for ( var i=0; i<freeDataNames.length; i++ ) {
 		freeDataArray[i].update();
 	}
+  redrawLogTable();
 	return;
 }
 function grabInterface() {
@@ -935,11 +1076,12 @@ function ethDataUpdate( alertProgress, callback ) {
 			} else {
 				copyDataReg( store[0] );
 				loadCharts( store[1] );
+        copyLog( store[2] );
 				for ( var i=0; i<freeDataValue.length; i++ ) {
-					freeDataValue[i] = store[2+i].value;
+					freeDataValue[i] = store[3+i].value;
 				}
         updateInterface();
-				rtcTime.get( store[2 + freeDataNames.length] )
+				rtcTime.get( store[store.length - 1] )
 				setSuccessConnection();
 				let alert = new Alert( "alert-success", okIco, "Данные успешно обновленны" );
 				document.getElementById( "i-loading" ).classList.remove( "loading" );
@@ -955,6 +1097,7 @@ function ethDataUpdate( alertProgress, callback ) {
 		}
 		restSeq.push( {method: 'get', url: ( extUrl + '/configs/' )} );
 		restSeq.push( {method: 'get', url: ( extUrl + '/charts/' )} );
+    restSeq.push( {method: 'get', url: ( extUrl + '/log/' )} );
 		for ( var i=0; i<freeDataNames.length; i++ ) {
 			restSeq.push( {method: 'get', url: ( extUrl + '/data/' + i )} );
 		}
@@ -969,7 +1112,18 @@ function ethDataUpdate( alertProgress, callback ) {
 	return 0;
 }
 //******************************************************************************
-function copyDataReg( data ) {
+function copyLog ( data ) {
+  logArray = [];
+  for ( var i=0; i<data.length; i++ )
+  {
+
+      logArray.push( data[i] );
+
+  }
+  return;
+}
+//******************************************************************************
+function copyDataReg ( data ) {
 	for ( var i=0; i<data.length; i++ ) {
 		for ( var j=0; j<dataReg.length; j++ ) {
 			if ( data[i].adr == dataReg[j].adr ) {

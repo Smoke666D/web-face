@@ -417,17 +417,19 @@ function saveChartData(){
   return;
 }
 
-function downloadSensorData(){
-	function SaveAsFile(t,f,m) {
+function downloadSensorData () {
+	function SaveAsFile( t, file, m ) {
   	try {
-    	var b = new Blob([t],{type:m});
-      saveAs(b, f);
-    } catch(e) {
-    	window.open("data:"+m+"," + encodeURIComponent(t), '_blank','');
+    	var blob = new Blob( [t], { type: m } );
+      saveAs( blob, file );
+    } catch( e ) {
+    	window.open( ( "data:" + m + "," + encodeURIComponent( t ) ), '_blank', '' );
     }
+    return;
   }
 	saveToCurChart();
-	SaveAsFile(JSON.stringify(currentChart),currentChart.name+".JSON","text/plain;charset=utf-8");
+	SaveAsFile( JSON.stringify( currentChart ), ( currentChart.name + ".JSON" ), "text/plain;charset=utf-8" );
+  return;
 }
 //------------------------------------------------------------------------------
 function uploadSensorData() {
