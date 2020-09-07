@@ -237,6 +237,7 @@ function USBtransport () {
              ( response.command == msgCMD.USB_SAVE_CHART_CMD )  ||
              ( response.command == msgCMD.USB_PUT_TIME )        ||
              ( response.command == msgCMD.USB_PUT_FREE_DATA )   ||
+             ( response.command == msgCMD.USB_ERASE_LOG )       ||
              ( response.command == msgCMD.USB_PUT_EWA_CMD  ) ) {
             result = output.isEnd();
             if ( result == usbHandler.continue )
@@ -440,6 +441,13 @@ function EnrrganController () {
     callback();
     return;
   }
+  function initWriteEraseLog ( callback ) {
+    let msg = new USBMessage( [] );
+    msg.codeLogErase();
+    transport.addToOutput( msg );
+    callback();
+    return;
+  }
   function initReadSequency ( callback ) {
     var msg = null;
     transport.clean();
@@ -457,6 +465,12 @@ function EnrrganController () {
     {
       msg = new USBMessage( [] )
       msg.makeFreeDataRequest( i );
+      transport.addRequest( msg );
+    }
+    for ( var i=0; i<logMaxSize; i++ )
+    {
+      msg = new USBMessage( [] )
+      msg.makeLogRequest( i );
       transport.addRequest( msg );
     }
     msg = new USBMessage( [] )
@@ -512,9 +526,17 @@ function EnrrganController () {
     }
     return;
   }
+  this.eraseLog = function () {
+    if ( transport.getStatus() == usbStat.wait ) {
+      initWriteEraseLog( function() {
+        transport.start( usbStat.write, alert );
+      });
+    }
+    return;
+  }
   this.sendEWA  = function ( ewa, alertIn ) {
     alert = alertIn;
-    if ( transport.getStatus() == usbStat.wait) {
+    if ( transport.getStatus() == usbStat.wait ) {
       initWriteEWA( ewa, function () {
         transport.start( usbStat.write, alert );
       });

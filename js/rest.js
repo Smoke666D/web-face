@@ -18,7 +18,8 @@ var freeDataNames   = ["engineWorkTimeData",
 											 "maintenanceAlarmAirTimeLeft",
 											 "maintenanceAlarmFuelTimeLeft"];
 
-var logArray     = [];
+var   logArray     = [];
+const logMaxSize   = 255;
 const logTypesDictionary   = [
   "Нет",
   "Внешная аварийная остановка",
@@ -1114,11 +1115,10 @@ function ethDataUpdate( alertProgress, callback ) {
 //******************************************************************************
 function copyLog ( data ) {
   logArray = [];
-  for ( var i=0; i<data.length; i++ )
-  {
-
+  for ( var i=0; i<data.length; i++ ) {
+    if ( data[i].time != 0 ) {
       logArray.push( data[i] );
-
+    }
   }
   return;
 }

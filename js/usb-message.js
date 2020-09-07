@@ -14,11 +14,15 @@ const msgCMD  = {
   "USB_GET_TIME"        : 8,
   "USB_PUT_TIME"        : 9,
   "USB_GET_FREE_DATA"   : 10,
-  'USB_PUT_FREE_DATA'   : 11, };
+  'USB_PUT_FREE_DATA'   : 11,
+  'USB_GET_LOG'         : 12,
+  'USB_ERASE_LOG'       : 13
+};
 const msgSTAT = {
   "USB_OK_STAT"      : 1,
   "USB_BAD_REQ_STAT" : 2,
-  "USB_NON_CON_STAT" : 3 };
+  "USB_NON_CON_STAT" : 3
+};
 const USB_DIR_BYTE  = 0;
 const USB_CMD_BYTE  = 1;
 const USB_STAT_BYTE = 2;
@@ -136,6 +140,12 @@ function USBMessage ( buffer ) {
         break;
       case msgCMD.USB_PUT_FREE_DATA:
         self.command = msgCMD.USB_PUT_FREE_DATA;
+        break;
+      case msgCMD.USB_GET_LOG:
+        self.command = msgCMD.USB_GET_LOG;
+        break;
+      case msgCMD.USB_ERASE_LOG:
+        self.command = msgCMD.USB_ERASE_LOG;
         break;
       default:
         self.command = 0;
@@ -296,6 +306,16 @@ function USBMessage ( buffer ) {
   function parseFreeData () {
     return ( ( self.data[0] & 0xFF ) << 8 ) | ( self.data[1] & 0xFF )
   }
+  function parseLog () {
+    let time   = ( ( self.data[0] << 24 ) & 0xFF000000 ) |
+                 ( ( self.data[1] << 16 ) & 0x00FF0000 ) |
+                 ( ( self.data[2] << 8  ) & 0x0000FF00 ) |
+                 ( ( self.data[3]       ) & 0x000000FF );
+    let type   = self.data[4];
+    let action = self.data[5];
+    let record = new LogRecord( type, action, time );
+    return record;
+  }
   /*--------------------------------------------------------------------------*/
   this.init              = function ( callback ) {
     parsingCommandByte();  /* Parsing command byte */
@@ -358,6 +378,28 @@ function USBMessage ( buffer ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_GET_FREE_DATA;
     self.adr     = adr;
+    self.length  = 0;
+    self.data    = [];
+    setup( self.buffer, function () {
+      finishMesageWithZero( self.buffer );
+    });
+    return;
+  }
+  this.makeLogRequest    = function ( adr ) {
+    self.status  = msgSTAT.USB_OK_STAT;
+    self.command = msgCMD.USB_GET_LOG;
+    self.adr     = adr;
+    self.length  = 0;
+    self.data    = [];
+    setup( self.buffer, function () {
+      finishMesageWithZero( self.buffer );
+    });
+    return;
+  }
+  this.codeLogErase      = function () {
+    self.status  = msgSTAT.USB_OK_STAT;
+    self.command = msgCMD.USB_ERASE_LOG;
+    self.adr     = 0;
     self.length  = 0;
     self.data    = [];
     setup( self.buffer, function () {
@@ -538,6 +580,10 @@ function USBMessage ( buffer ) {
       case msgCMD.USB_GET_FREE_DATA:
         output = parseFreeData();
         type   = 4;
+        break;
+      case msgCMD.USB_GET_LOG:
+        output = parseLog();
+        type   = 5;
         break;
     }
     return [type, output];

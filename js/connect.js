@@ -46,7 +46,7 @@ function eraseLog () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     eraseLogEth();
   } else if ( connectionType == 'usb' ) {
-    //usb.controller.sendFreeData( adr, value );
+    usb.controller.eraseLog();
   }
   return;
 }

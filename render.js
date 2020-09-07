@@ -115,6 +115,9 @@ document.getElementById("connect-button").addEventListener('click', function() {
             if ( out[0] == 4 ) {
               freeDataValue[buffer[i].adr] = out[1];
             }
+            if ( out[0] == 5 ) {
+              logArray[buffer[i].adr] = out[1];
+            }
           }
         });
       }
