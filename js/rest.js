@@ -1192,7 +1192,7 @@ function dataGrab( alertProgress, callback ) {
 				alertProgress.setProgressBar( index * 100 / length );
 			} else {
 				setSuccessConnection();
-				let alert = new Alert( "alert-success", triIco, "Прибор успешно сконфигурирован" );
+				let alert = new Alert( "alert-success", triIco, "Данные успешно переданы" );
 			}
 		};
 		//--------------------------------------------------------------------------

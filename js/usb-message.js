@@ -16,12 +16,16 @@ const msgCMD  = {
   "USB_GET_FREE_DATA"   : 10,
   'USB_PUT_FREE_DATA'   : 11,
   'USB_GET_LOG'         : 12,
-  'USB_ERASE_LOG'       : 13
+  'USB_ERASE_LOG'       : 13,
+  'USB_PUT_PASSWORD'    : 14,
+  'USB_AUTHORIZATION'   : 15,
+  'USB_ERASE_PASSWORD'  : 16,
 };
 const msgSTAT = {
-  "USB_OK_STAT"      : 1,
-  "USB_BAD_REQ_STAT" : 2,
-  "USB_NON_CON_STAT" : 3
+  "USB_OK_STAT"           : 1,
+  "USB_BAD_REQ_STAT"      : 2,
+  "USB_NON_CON_STAT"      : 3,
+  "USB_STAT_UNAUTHORIZED" : 4,
 };
 const USB_DIR_BYTE  = 0;
 const USB_CMD_BYTE  = 1;
@@ -147,6 +151,15 @@ function USBMessage ( buffer ) {
       case msgCMD.USB_ERASE_LOG:
         self.command = msgCMD.USB_ERASE_LOG;
         break;
+      case msgCMD.USB_PUT_PASSWORD:
+        self.command = msgCMD.USB_PUT_PASSWORD;
+        break;
+      case msgCMD.USB_AUTHORIZATION:
+        self.command = msgCMD.USB_AUTHORIZATION;
+        break;
+      case msgCMD.USB_ERASE_PASSWORD:
+        self.command = msgCMD.USB_ERASE_PASSWORD;
+        break;
       default:
         self.command = 0;
         self.status  = msgSTAT.USB_BAD_REQ_STAT;
@@ -165,6 +178,9 @@ function USBMessage ( buffer ) {
         break;
       case msgSTAT.USB_NON_CON_STAT:
         self.status = msgSTAT.USB_NON_CON_STAT;
+        break;
+      case msgSTAT.USB_STAT_UNAUTHORIZED:
+        self.status = msgSTAT.USB_STAT_UNAUTHORIZED;
         break;
       default:
         self.status = msgSTAT.USB_BAD_REQ_STAT;
@@ -396,6 +412,20 @@ function USBMessage ( buffer ) {
     });
     return;
   }
+  this.codeAuthorization = function () {
+    self.status  = msgSTAT.USB_OK_STAT;
+    self.command = msgCMD.USB_AUTHORIZATION;
+    self.adr     = 0;
+    self.length  = 2;
+    let data     = getCurrentPassword();
+    setup( self.buffer, function () {
+      self.buffer.push( ( data & 0xFF00 ) >> 8 );
+      self.buffer.push( data & 0x00FF );
+      finishMesageWithZero( self.buffer );
+    });
+    console.log( self );
+    return;
+  }
   this.codeLogErase      = function () {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_ERASE_LOG;
@@ -403,6 +433,20 @@ function USBMessage ( buffer ) {
     self.length  = 0;
     self.data    = [];
     setup( self.buffer, function () {
+      finishMesageWithZero( self.buffer );
+    });
+    return;
+  }
+  this.codePassword      = function ( password ) {
+    self.status  = msgSTAT.USB_OK_STAT;
+    self.command = msgCMD.USB_PUT_PASSWORD;
+    self.adr     = 0;
+    self.length  = 3;
+    setup( self.buffer, function () {
+      self.buffer.push( password.enb & 0xFF );
+      self.buffer.push( ( password.data & 0xFF00 ) >> 8 );
+      self.buffer.push( password.data & 0x00FF );
+      setupLength( self.buffer );
       finishMesageWithZero( self.buffer );
     });
     return;

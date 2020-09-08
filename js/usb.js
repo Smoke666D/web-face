@@ -19,9 +19,10 @@ const usbStat = {
   "write" : 2,
   "read"  : 3 };
 const usbHandler = {
-  "finish"   : 1,
-  "error"    : 2,
-  "continue" : 3 };
+  "finish"       : 1,
+  "error"        : 2,
+  "continue"     : 3,
+  "unauthorized" : 4 };
 const usbInit = {
   "fail" : 0,
   "done" : 1 }
@@ -112,19 +113,29 @@ function InputMessageArray () {
   }
   this.process       = function ( message ) {
     let result = usbHandler.error;
-    if ( response.getLength() > 0 ) {
-      if ( response.getCurrentAdr() != message.adr ) {
+    if ( message.status == msgSTAT.USB_OK_STAT ) {
+      if ( response.getLength() > 0 ) {
+        if ( response.getCurrentAdr() != message.adr ) {
+          length = 0;
+        }
+      } else {
         length = 0;
       }
+      response.addMessage( message );
+      length += USB_DATA_SIZE;
+      if ( length >= message.length ) {
+        result = usbHandler.finish;
+      } else {
+        result = usbHandler.continue;
+      }
     } else {
-      length = 0;
-    }
-    response.addMessage( message );
-    length += USB_DATA_SIZE;
-    if ( length >= message.length ) {
-      result = usbHandler.finish;
-    } else {
-      result = usbHandler.continue;
+      if ( message.status == msgSTAT.USB_BAD_REQ_STAT ) {
+        result = usbHandler.error;
+      } else if ( message.status == msgSTAT.USB_NON_CON_STAT ) {
+        result = usbHandler.error;
+      } else if ( message.status == msgSTAT.USB_STAT_UNAUTHORIZED ) {
+        result = usbHandler.unauthorized;
+      }
     }
     return result;
   }
@@ -234,10 +245,13 @@ function USBtransport () {
         if ( ( response.command == msgCMD.USB_PUT_CONFIG_CMD  ) ||
              ( response.command == msgCMD.USB_PUT_CHART_CMD   ) ||
              ( response.command == msgCMD.USB_SAVE_CONFIG_CMD ) ||
-             ( response.command == msgCMD.USB_SAVE_CHART_CMD )  ||
-             ( response.command == msgCMD.USB_PUT_TIME )        ||
-             ( response.command == msgCMD.USB_PUT_FREE_DATA )   ||
-             ( response.command == msgCMD.USB_ERASE_LOG )       ||
+             ( response.command == msgCMD.USB_SAVE_CHART_CMD  ) ||
+             ( response.command == msgCMD.USB_PUT_TIME        ) ||
+             ( response.command == msgCMD.USB_PUT_FREE_DATA   ) ||
+             ( response.command == msgCMD.USB_ERASE_LOG       ) ||
+             ( response.command == msgCMD.USB_PUT_PASSWORD    ) ||
+             ( response.command == msgCMD.USB_ERASE_PASSWOR   ) ||
+             ( response.command == msgCMD.USB_AUTHORIZATION   ) ||
              ( response.command == msgCMD.USB_PUT_EWA_CMD  ) ) {
             result = output.isEnd();
             if ( result == usbHandler.continue )
@@ -284,8 +298,7 @@ function USBtransport () {
         write( input.nextRequest() );
         result = usbHandler.continue;
       }
-      if ( result == usbHandler.error ) {
-        self.close();
+      if ( ( result == usbHandler.error ) || ( result == usbHandler.unauthorized ) ) {
         if ( ( alert != null ) || ( alert != undefined ) ) {
           alert.close( 0 );
         }
@@ -311,7 +324,7 @@ function USBtransport () {
     }
     return;
   }
-  this.initEvents  = function ( inCallback, outCallback, errorCalback, callback ) {
+  this.initEvents  = function ( inCallback, outCallback, errorCallback, unauthorizedCallback, callback ) {
     device.on( "data", function( data ) {
       handle = handler( data );
       if ( handle == usbHandler.finish ) {
@@ -325,7 +338,10 @@ function USBtransport () {
       } else if ( handle == usbHandler.error ) {
         status = usbStat.wait;
         self.close();
-        errorCalback();
+        errorCallback();
+      } else if ( handle == usbHandler.unauthorized ) {
+        status = usbStat.wait;
+        unauthorizedCallback();
       }
     });
     device.on("error", function( err ) {
@@ -441,6 +457,20 @@ function EnrrganController () {
     callback();
     return;
   }
+  function initWritePassSequency ( password, callback ) {
+    let msg = new USBMessage( [] );
+    msg.codePassword( password );
+    transport.addToOutput( msg );
+    callback();
+    return;
+  }
+  function initWriteAuthorSequency ( callback ) {
+    let msg = new USBMessage( [] );
+    msg.codeAuthorization();
+    transport.addToOutput( msg );
+    callback();
+    return;
+  }
   function initWriteEraseLog ( callback ) {
     let msg = new USBMessage( [] );
     msg.codeLogErase();
@@ -451,6 +481,11 @@ function EnrrganController () {
   function initReadSequency ( callback ) {
     var msg = null;
     transport.clean();
+
+    msg = new USBMessage( [] );
+    msg.codeAuthorization();
+    transport.addRequest( msg );
+
     for ( var i=0; i<dataReg.length; i++ ) {
       msg = new USBMessage( [] );
       msg.makeConfigRequest( i );
@@ -480,12 +515,12 @@ function EnrrganController () {
     return;
   }
   /*---------------------------------------------*/
-  this.init     = function ( inCallback, outCallback, errorCalback ) {
+  this.init     = function ( inCallback, outCallback, errorCalback, unauthorizedCallback ) {
     var result = usbInit.fail;
     var handle = usbHandler.finish;
 
     transport.scan( function () {
-      transport.initEvents( inCallback, outCallback, errorCalback, function() {
+      transport.initEvents( inCallback, outCallback, errorCalback, unauthorizedCallback, function() {
         result    = usbInit.done;
         let alert = new alerts.Alert( "alert-success", alerts.okIco, "Контроллер подключен по USB" );
       });
@@ -517,7 +552,23 @@ function EnrrganController () {
     }
     return;
   }
-  this.send     = function ( alertIn ) {
+  this.sendPass = function ( password ) {
+    if ( transport.getStatus() == usbStat.wait) {
+      initWritePassSequency( password, function () {
+        transport.start( usbStat.write, null );
+      });
+    }
+    return;
+  }
+  this.sendAuthorization = function () {
+    if ( transport.getStatus() == usbStat.wait) {
+      initWriteAuthorSequency( function () {
+        transport.start( usbStat.write, null );
+      });
+    }
+    return;
+  }
+  this.send              = function ( alertIn ) {
     alert = alertIn;
     if ( transport.getStatus() == usbStat.wait) {
       initWriteSequency( function () {

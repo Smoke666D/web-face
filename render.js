@@ -130,10 +130,12 @@ document.getElementById("connect-button").addEventListener('click', function() {
       let alert = new alerts.Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
       updateInterface();
     }, function() {
-      let alert = new alerts.Alert( "alert-success", alerts.okIco, "Прибор успешно сконфигурирован" );
+      let alert = new alerts.Alert( "alert-success", alerts.okIco, "Данные успешно переданы" );
     }, function() {
       let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );
       resetSuccessConnection();
+    }, function() {
+      let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка авторизации" );
     });
     if ( res == 1 ) {
       setSuccessConnection();

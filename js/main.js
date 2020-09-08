@@ -30,19 +30,6 @@ function connectClick() {
 	wrapper.innerHTML = wrapper.innerHTML + '<div id="backdrop" class="modal-backdrop show"></div>';
 	return;
 }
-/*----------------------------------------------------------------------------*/
-/*
-function connectModalClose() {
-	var modal    = document.getElementById( "connectionModal" );
-	var body     = document.getElementsByTagName( "body" )[0];
-	var backdrop = document.getElementById( "backdrop" );
-	modal.classList.remove( "show" );
-	modal.style.display = "none";
-	body.classList.remove( "modal-open" );
-	backdrop.remove();
-	return;
-}
-*/
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -81,7 +68,61 @@ function navbarToogling() {
 	networkToogle();
 	generatorToogle();
 }
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+function Password ( enb, data ) {
+	this.enb  = enb;
+	this.data = data;
+}
 
+function getCurrentPassword () {
+	return parseInt( document.getElementById( 'passwordInput' ).value );
+}
+
+function passwordProcessig () {
+	var enb       = document.getElementById( 'passwordEnb' );
+	var passNew   = document.getElementById( 'passwordSetupInput' );
+	var passCheck = document.getElementById( 'passwordCheckupInput' );
+	var button    = document.getElementById( 'setupPassword' );
+
+	function checkEnb () {
+		if ( enb.checked == 0 ) {
+      passNew.disabled   = true;
+			passCheck.disabled = true;
+		} else {
+			passNew.disabled   = false;
+			passCheck.disabled = false;
+		}
+		return;
+	}
+  enb.addEventListener( 'click', function () {
+		checkEnb();
+		return;
+	});
+	button.addEventListener( 'click', function () {
+		if ( enb.checked > 0 ) {
+			if ( passNew.value == passCheck.value ) {
+				if ( passNew.value.length == 4 ) {
+					let pass = new Password( 1, parseInt( passNew.value ) );
+					writePassword( pass );
+				} else {
+					let alert = new Alert( "alert-warning", triIco, 'Пароль должен состоять из 4 цифр' );
+					passNew.value   = '';
+					passCheck.value = '';
+				}
+			} else {
+				let alert = new Alert( "alert-warning", triIco, 'Введенные пароли не совпадают' );
+				passNew.value   = '';
+				passCheck.value = '';
+			}
+		} else {
+			let pass = new Password( 0, 0 );
+			writePassword( pass );
+		}
+	});
+	return;
+}
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -673,6 +714,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	try {
 		sliderInit();
 	} catch {}
+	passwordProcessig();
 	declareInterface();
 	oilScaleInit();
 	diInit( 'a' );

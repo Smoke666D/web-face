@@ -50,6 +50,22 @@ function eraseLog () {
   }
   return;
 }
+function writePassword ( password ) {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    writePasspordEth( password );
+  } else if ( connectionType == 'usb' ) {
+    usb.controller.sendPass( password );
+  }
+  return;
+}
+function authorization () {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    sendAuthorizationEth( getCurrentPassword() );
+  } else if ( connectionType == 'usb' ) {
+    usb.controller.sendAuthorization( getCurrentPassword() );
+  }
+  return;
+}
 //******************************************************************************
 var typeIpLastLen = 0;
 var typeIpDir     = "write";
