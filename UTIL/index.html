@@ -1139,11 +1139,11 @@ pre {
       max-width: 1140px; } }
 
 .container-fluid {
-  width: 100%;
+  width: auto;
+  align: left;
   padding-right: 15px;
   padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto; }
+  margin-right: auto;}
 
 .row {
   align-items: center;
@@ -4221,10 +4221,9 @@ input[type="button"].btn-block {
   background-size: 100% 100%; }
 
 .connect-container {
-  display: inline-block;
-  align: left;
-  padding-right: 15px;
-  padding-left: 15px;}
+  display: inline-flex;
+  align: right;
+  padding-right: 15px;}
 
 @media (max-width: 575.98px) {
   .navbar-expand-sm > .container,
@@ -9994,6 +9993,14 @@ QmCC
               <span>Контроллер</span>
             </a>
           </li>
+          <li class="nav-major">
+            <a class="navItem" id="nav-loginPage" onclick="loadContent('loginPage')" href="#">
+              <div class="fas">
+                <svg height="511pt" width="511pt" class="svg-icon" viewBox="0 0 512 512"><path fill="currentColor" d="M512 176.001C512 273.203 433.202 352 336 352c-11.22 0-22.19-1.062-32.827-3.069l-24.012 27.014A23.999 23.999 0 0 1 261.223 384H224v40c0 13.255-10.745 24-24 24h-40v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24v-78.059c0-6.365 2.529-12.47 7.029-16.971l161.802-161.802C163.108 213.814 160 195.271 160 176 160 78.798 238.797.001 335.999 0 433.488-.001 512 78.511 512 176.001zM336 128c0 26.51 21.49 48 48 48s48-21.49 48-48-21.49-48-48-48-48 21.49-48 48z"></path></svg>
+              </div>
+              <span>Безопасность</span>
+            </a>
+          </li>
           <li class="active nav-major">
             <a for="outputSubmenu" href="#outputSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
               <div class="fas">
@@ -10239,11 +10246,18 @@ QmCC
             <svg viewBox="0 0 448 512"><path fill="currentColor" d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path></svg>
           </button>
         </div>
-        
+        <div class="connect-container">
+          <div data-toggle="tooltip" title="Авторизация">
+            <button aria-label="Connection" id="modalauthorization-button" data-toggle="modal" data-target="#authorizationModal" onclick="" class="btn btn-primary">
+              <svg viewBox="0 0 512 512"><path fill="currentColor" d="M512 176.001C512 273.203 433.202 352 336 352c-11.22 0-22.19-1.062-32.827-3.069l-24.012 27.014A23.999 23.999 0 0 1 261.223 384H224v40c0 13.255-10.745 24-24 24h-40v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24v-78.059c0-6.365 2.529-12.47 7.029-16.971l161.802-161.802C163.108 213.814 160 195.271 160 176 160 78.798 238.797.001 335.999 0 433.488-.001 512 78.511 512 176.001zM336 128c0 26.51 21.49 48 48 48s48-21.49 48-48-21.49-48-48-48-48 21.49-48 48z"></path></svg>
+            </button>
+          </div>
+          
+        </div>
       </nav>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="devicePage" class="content-data hidden">
-        <h6>Информация</h6>
+        <h2>Контроллер</h2>
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Версия контроллера:</label>
@@ -10278,7 +10292,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Дисплей</h6>
+        <h5>Дисплей</h5>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -10325,18 +10339,27 @@ QmCC
           </div>
         </div>
 
-        <h6>Часы</h6>
+        <h5>Часы</h5>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Время контроллера</label>
           </div>
           <div class="col-sm-auto">
-            <input id="dateInput" type="date" class="form-control">
-          </div>
-          <div class="col-sm-auto">
             <input id="timeInput" type="time" class="form-control">
           </div>
+
+        </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Дата контроллера</label>
+          </div>
+          <div class="col-sm-auto">
+            <input id="dateInput" type="date" class="form-control">
+          </div>
+        </div>
+
+        <div class="row">
           <div class="col-sm-auto">
             <button aria-label="Connect" id="controllerTimeSetup" onclick="setInputTime()" class="btn btn-primary" data-toggle="tooltip" title="Установить время контроллера">
               <span>Записать</span>
@@ -10344,7 +10367,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Гизтерезис</h6>
+        <h5>Гизтерезис</h5>
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Велечина</label>
@@ -10362,9 +10385,54 @@ QmCC
 
       </div>
       <!------------------------------------------------------------------------------------------------------------->
+      <div id="loginPage" class="content-data hidden">
+        <h2>Безопасность</h2>
+        <div class="alert alert-warning">
+          <h4 class="alert-heading">Внимание</h4>
+          <ol>
+            <li>После установки пароля, конфигурирование контроллера будет возможно только после ввода пароля</li>
+            <li>Пароль распространяется на конфигурирование контроллера с панели оператора и с ПК</li>
+            <li>Пароль должен состоять из четырех чисел</li>
+            <li>Если Вы забыти пароль, обратитесь в службу поддержки</li>
+          </ol>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="passwordEnb">
+              <span class="slider"></span>
+            </label>
+            <label for="passwordEnb" class="form-check-label">Использовать пароль</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Новый пароль</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="password" placeholder="****" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" minlength="4" maxlength="4" class="form-control small-input" id="passwordSetupInput" disabled="true">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Повторите пароль</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="password" placeholder="****" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" minlength="4" maxlength="4" class="form-control small-input" id="passwordCheckupInput" disabled="true">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-auto">
+            <button aria-label="Connect" id="setupPassword" onclick="" class="btn btn-primary">
+              <span>Установить пароль</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!------------------------------------------------------------------------------------------------------------->
       <div id="alerts"></div>
       <div id="oilPressPage" class="content-data hidden">
-          <h5>Давление масла</h5>
+          <h2>Давление масла</h2>
           <div class="row">
             <div class="col-sm-2 pos-name">
               <label>Тип датчика</label>
@@ -10408,7 +10476,7 @@ QmCC
             </div>
           </div>
 
-          <h6>Сигналы низкого давления масла</h6>
+          <h5>Сигналы низкого давления масла</h5>
 
           <div class="row">
             <div class="col-sm-auto">
@@ -10461,7 +10529,7 @@ QmCC
         </div>
         <!------------------------------------------------------------------------------------------------------------->
         <div id="coolTempPage" class="content-data hidden">
-          <h5>Температура охдаждающей жидкости</h5>
+          <h2>Температура охдаждающей жидкости</h2>
           <div class="row">
             <div class="col-sm-2 pos-name">
               <label>Тип датчика</label>
@@ -10494,7 +10562,7 @@ QmCC
             </div>
           </div>
 
-          <h6>Сигналы высокой ткмпературы охлаждающей жидкости</h6>
+          <h5>Сигналы высокой ткмпературы охлаждающей жидкости</h5>
 
           <div class="row">
             <div class="col-sm-auto">
@@ -10628,7 +10696,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="fuelLevelPage" class="content-data hidden">
-        <h5>Уровень топлива</h5>
+        <h2>Уровень топлива</h2>
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Тип датчика</label>
@@ -10659,7 +10727,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Сигналы тревоги датчика</h6>
+        <h5>Сигналы тревоги датчика</h5>
 
         <div class="row">
           <div class="col-sm-auto">
@@ -10753,7 +10821,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Сигналы по рпевышению уровня топлива</h6>
+        <h5>Сигналы по рпевышению уровня топлива</h5>
 
         <div class="row">
           <div class="col-sm-auto">
@@ -10848,7 +10916,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Подкачка топлива</h6>
+        <h5>Подкачка топлива</h5>
 
         <div class="row">
           <div class="col-sm-auto">
@@ -10892,8 +10960,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="speedPage" class="content-data hidden">
-        <h5>Обороты двигателя</h5>
-
+        <h2>Обороты двигателя</h2>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -10956,7 +11023,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalInputAPage" class="content-data hidden">
-        <h5>Цифровой вход A</h5>
+        <h2>Цифровой вход A</h2>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -11048,7 +11115,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalInputBPage" class="content-data hidden">
-        <h5>Цифровой вход B</h5>
+        <h2>Цифровой вход B</h2>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -11140,7 +11207,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalInputCPage" class="content-data hidden">
-        <h5>Цифровой вход C</h5>
+        <h2>Цифровой вход C</h2>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -11232,7 +11299,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalInputDPage" class="content-data hidden">
-        <h5>Цифровой вход D</h5>
+        <h2>Цифровой вход D</h2>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -11324,7 +11391,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalOutputPage" class="content-data hidden">
-        <h5>Цифровые выходы</h5>
+        <h2>Цифровые выходы</h2>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -11616,9 +11683,9 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="timerPage" class="content-data hidden">
-        <h5>Таймеры</h5>
+        <h2>Таймеры</h2>
 
-        <h6>Таймеры запуска</h6>
+        <h5>Таймеры запуска</h5>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -11736,7 +11803,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Таймеры контроля нагрузки</h6>
+        <h5>Таймеры контроля нагрузки</h5>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -11813,7 +11880,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Таймеры остановки</h6>
+        <h5>Таймеры остановки</h5>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -11907,7 +11974,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="generatorOptionPage" class="content-data hidden">
-        <h5>Опции генератора</h5>
+        <h2>Опции генератора</h2>
 
         <div class="row">
           <div class="col-sm-auto">
@@ -11932,7 +11999,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Номинальные параметры генератора</h6>
+        <h5>Номинальные параметры генератора</h5>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -12009,7 +12076,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Опции тока генератора</h6>
+        <h5>Опции тока генератора</h5>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -12044,9 +12111,9 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="generatorVoltagePage" class="content-data hidden">
-        <h5>Напряжение генератора</h5>
+        <h2>Напряжение генератора</h2>
 
-        <h6>Сигналы низкого напряжения</h6>
+        <h5>Сигналы низкого напряжения</h5>
 
         <div class="row">
           <div class="col-sm-auto">
@@ -12099,7 +12166,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Сигналы перенапряжения</h6>
+        <h5>Сигналы перенапряжения</h5>
 
         <div class="row">
           <div class="col-sm-auto">
@@ -12152,9 +12219,9 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="generatorFreqPage" class="content-data hidden">
-        <h5>Частота генератора</h5>
+        <h2>Частота генератора</h2>
 
-        <h6>Сигнал понижения частоты</h6>
+        <h5>Сигнал понижения частоты</h5>
 
         <div class="row">
           <div class="col-sm-auto">
@@ -12206,7 +12273,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Сигнал сверх частоты</h6>
+        <h5>Сигнал сверх частоты</h5>
 
         <div class="row">
           <div class="col-sm-auto">
@@ -12260,9 +12327,9 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="generatorCurrentPage" class="content-data hidden">
-        <h5>Сила тока генератора</h5>
+        <h2>Сила тока генератора</h2>
 
-        <h6>Сигнал сверхтока</h6>
+        <h5>Сигнал сверхтока</h5>
 
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -12337,7 +12404,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Защита от прегрузки</h6>
+        <h5>Защита от прегрузки</h5>
 
         <div class="row">
           <div class="col-sm-auto">
@@ -12391,7 +12458,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Перекос фаз</h6>
+        <h5>Перекос фаз</h5>
 
         <div class="row">
           <div class="col-sm-auto">
@@ -12446,7 +12513,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="networkOptionPage" class="content-data hidden">
-        <h5>Опции сети</h5>
+        <h2>Опции сети</h2>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -12468,8 +12535,8 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="networkAlarmPage" class="content-data hidden">
-        <h5>Неисправность сети</h5>
-        <h6>Контроль напряжения</h6>
+        <h2>Неисправность сети</h2>
+        <h5>Контроль напряжения</h5>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -12519,7 +12586,7 @@ QmCC
             <div class="s-slider" id="s-slider-mainsOverVoltageAlarmLevel"></div>
           </div>
         </div>
-        <h6>Контроль частоты</h6>
+        <h5>Контроль частоты</h5>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -12569,8 +12636,8 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="engineOptionPage" class="content-data hidden">
-        <h5>Опции двигателя</h5>
-        <h6>Опции запуска</h6>
+        <h2>Опции двигателя</h2>
+        <h5>Опции запуска</h5>
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Попытки запуска</label>
@@ -12579,7 +12646,7 @@ QmCC
             <input type="number" min="1" class="form-control small-input" id="engineStartAttempts">
           </div>
         </div>
-        <h6>Включение свечи накаливания</h6>
+        <h5>Включение свечи накаливания</h5>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -12619,7 +12686,7 @@ QmCC
         </div>
 
 
-        <h6>Моточасы</h6>
+        <h5>Моточасы</h5>
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Моточасы</label>
@@ -12655,7 +12722,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="crankshaftPage" class="content-data hidden">
-        <h5>Отключение стартера</h5>
+        <h2>Отключение стартера</h2>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -12665,7 +12732,7 @@ QmCC
             <label class="form-check-label">Перед запуском проверить давление масла</label>
           </div>
         </div>
-        <h6>Отключение стартера по</h6>
+        <h5>Отключение стартера по</h5>
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Частоте генератора</label>
@@ -12754,8 +12821,8 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="battaryPage" class="content-data hidden">
-        <h5>Аккумулятор агрегата</h5>
-        <h6>Аварийный сигнал тревоги напряжения</h6>
+        <h2>Аккумулятор агрегата</h2>
+        <h5>Аварийный сигнал тревоги напряжения</h5>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -12830,7 +12897,7 @@ QmCC
             <div class="s-slider" id="s-slider-batteryOverVoltageDelay"></div>
           </div>
         </div>
-        <h6>Сигнал зарядного генератора</h6>
+        <h5>Сигнал зарядного генератора</h5>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -12908,8 +12975,8 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="servicePage" class="content-data hidden">
-        <h5>Сигналы техобслуживагия</h5>
-        <h6>Масло</h6>
+        <h2>Сигналы техобслуживагия</h2>
+        <h5>Масло</h5>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -12962,7 +13029,7 @@ QmCC
         </div>
 
 
-        <h6>Воздух</h6>
+        <h5>Воздух</h5>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -13014,7 +13081,7 @@ QmCC
           </div>
         </div>
 
-        <h6>Топливо</h6>
+        <h5>Топливо</h5>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -13068,7 +13135,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
-        <h5>Журнал событий</h5>
+        <h2>Журнал событий</h2>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -13087,7 +13154,7 @@ QmCC
             <svg viewBox="0 0 512 512"><path fill="currentColor" d="M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path></svg>
           </button>
         </div>
-        <h6></h6>
+        <h5></h5>
         <table class="table table-hover">
           <thead class="thead-dark">
             <tr>
@@ -13127,7 +13194,7 @@ QmCC
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="measurePage" class="content-data hidden">
-        <h5>Журнал измерений</h5>
+        <h2>Журнал измерений</h2>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -13137,7 +13204,7 @@ QmCC
             <label class="form-check-label">Активировать запись измерений</label>
           </div>
         </div>
-        <h6>Выбор параметров для записи</h6>
+        <h5>Выбор параметров для записи</h5>
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -13273,7 +13340,7 @@ QmCC
             <label class="form-check-label">Напряжение аккумулятора</label>
           </div>
         </div>
-        <h6>Выбор интервала и количества записей</h6>
+        <h5>Выбор интервала и количества записей</h5>
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Интервал записи</label>
@@ -13309,14 +13376,14 @@ QmCC
       
       <!------------------------------------------------------------------------------------------------------------->
       <div id="noDataPage" class="content-data hidden">
-        <h1>Страница находиться в разработке</h1>
+        <h2>Страница находиться в разработке</h2>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div class="modal fade" id="sensorModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Редактир графика датчика</h5>
+              <h5 class="modal-title">Редактор графика датчика</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -13328,29 +13395,23 @@ QmCC
               <div class="modal-footer-left">
                 <button type="button" aria-label="Save" class="btn btn-primary" onclick="saveChartData()" data-toggle="tooltip" title="Сохранить">
                   <svg viewBox="0 0 448 512"><path fill="currentColor" d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"></path></svg>
-                  <span class="sr-only">Сохранить</span>
                 </button>
                 <button type="button" aria-label="Save to PC" class="btn btn-primary" onclick="downloadSensorData()" data-toggle="tooltip" title="Скачать">
                   <svg viewBox="0 0 512 512"><path fill="currentColor" d="M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path></svg>
-                  <span class="sr-only">Сохранить на ПК</span>
                 </button>
                 <button  type="button" aria-label="Load from PC" class="btn btn-primary" onclick="uploadSensorData()" data-toggle="tooltip" title="Загрузить">
                   <svg viewBox="0 0 512 512"><path fill="currentColor" d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path></svg>
-                  <span  class="sr-only">Загрузить с ПК</span>
                 </button>
                 <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Закрыть">
                   <svg viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
-                  <span class="sr-only">Закрыть</span>
                 </button>
               </div>
               <div class="modal-footer-right">
                 <button type="button" aria-label="Add point" onclick="addChartPoint()" class="btn btn-primary" data-toggle="tooltip" title="Добавить точку">
                   <svg viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
-                  <span class="sr-only">Add point</span>
                 </button>
                 <button type="button" aria-label="Remove point" onclick="removeChartPoint()" class="btn btn-primary" data-toggle="tooltip" title="Удалить точку">
                   <svg viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
-                  <span class="sr-only">Remove point</span>
                 </button>
                 <label>X:</label>
                 <input type="number" class="form-control axis-input" id="chartXedit" disabled="false" step="0.01">
@@ -13358,7 +13419,6 @@ QmCC
                 <input type="number" class="form-control axis-input" id="chartYedit" disabled="false" step="0.01">
                 <button type="button" id="chartApplay" aria-label="Remove point" disabled="false" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Изменить координаты">
                   <svg viewBox="0 0 512 512"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path></svg>
-                  <span class="sr-only">Edit point</span>
                 </button>
               </div>
             </div>
@@ -13386,6 +13446,41 @@ QmCC
                 <button type="button" aria-label="Yes" onclick="setSysTime()" class="btn btn-primary" data-toggle="tooltip" data-dismiss="modal">
                   <a>Да</a>
                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!------------------------------------------------------------------------------------------------------------->
+      <div class="modal fade" id="authorizationModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Авторизация</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <label>Пароль</label>
+                </div>
+                <div class="col-sm-auto">
+                  <input type="password" value="1234" placeholder="****" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" minlength="4" maxlength="4" class="form-control small-input" id="passwordInput">
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="modal-footer-left">
+                <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Закрыть">
+                  <svg viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
+                </button>
+                <button id="authorization-button" onclick="authorization()" type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="tooltip" title="Авторизироваться">
+                  <svg viewBox="0 0 512 512"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path></svg>
+                </button>
+              </div>
+              <div class="modal-footer-right">
               </div>
             </div>
           </div>
@@ -13423,15 +13518,12 @@ QmCC
               <div class="modal-footer-left">
                 <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Закрыть">
                   <svg viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
-                  <span class="sr-only">Закрыть</span>
                 </button>
                 <button id="connect-button" type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="tooltip" title="Подключить">
                   <svg viewBox="0 0 384 512"><path fill="currentColor" d="M320,32a32,32,0,0,0-64,0v96h64Zm48,128H16A16,16,0,0,0,0,176v32a16,16,0,0,0,16,16H32v32A160.07,160.07,0,0,0,160,412.8V512h64V412.8A160.07,160.07,0,0,0,352,256V224h16a16,16,0,0,0,16-16V176A16,16,0,0,0,368,160ZM128,32a32,32,0,0,0-64,0v96h64Z"></path></svg>
-                  <span class="sr-only">Подключить</span>
                 </button>
                 <button id="disconnect-button" type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="tooltip" title="Отключить">
                   <svg viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"></path></svg>
-                  <span class="sr-only">Отключить</span>
                 </button>
               </div>
               <div class="modal-footer-right">
@@ -15927,6 +16019,22 @@ function eraseLog () {
   }
   return;
 }
+function writePassword ( password ) {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    writePasspordEth( password );
+  } else if ( connectionType == 'usb' ) {
+    usb.controller.sendPass( password );
+  }
+  return;
+}
+function authorization () {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    sendAuthorizationEth();
+  } else if ( connectionType == 'usb' ) {
+    usb.controller.sendAuthorization();
+  }
+  return;
+}
 //******************************************************************************
 var typeIpLastLen = 0;
 var typeIpDir     = "write";
@@ -16024,19 +16132,6 @@ function connectClick() {
 	wrapper.innerHTML = wrapper.innerHTML + '<div id="backdrop" class="modal-backdrop show"></div>';
 	return;
 }
-/*----------------------------------------------------------------------------*/
-/*
-function connectModalClose() {
-	var modal    = document.getElementById( "connectionModal" );
-	var body     = document.getElementsByTagName( "body" )[0];
-	var backdrop = document.getElementById( "backdrop" );
-	modal.classList.remove( "show" );
-	modal.style.display = "none";
-	body.classList.remove( "modal-open" );
-	backdrop.remove();
-	return;
-}
-*/
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -16075,7 +16170,67 @@ function navbarToogling() {
 	networkToogle();
 	generatorToogle();
 }
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+function Password ( status, data ) {
+	this.status = status;
+	this.data   = data;
+	return;
+}
 
+function Auth ( password ) {
+	this.data = password;
+	return;
+}
+
+function getCurrentPassword () {
+	return parseInt( document.getElementById( 'passwordInput' ).value );
+}
+
+function passwordProcessig () {
+	var enb       = document.getElementById( 'passwordEnb' );
+	var passNew   = document.getElementById( 'passwordSetupInput' );
+	var passCheck = document.getElementById( 'passwordCheckupInput' );
+	var button    = document.getElementById( 'setupPassword' );
+
+	function checkEnb () {
+		if ( enb.checked == 0 ) {
+      passNew.disabled   = true;
+			passCheck.disabled = true;
+		} else {
+			passNew.disabled   = false;
+			passCheck.disabled = false;
+		}
+		return;
+	}
+  enb.addEventListener( 'click', function () {
+		checkEnb();
+		return;
+	});
+	button.addEventListener( 'click', function () {
+		if ( enb.checked > 0 ) {
+			if ( passNew.value == passCheck.value ) {
+				if ( passNew.value.length == 4 ) {
+					let pass = new Password( 1, parseInt( passNew.value ) );
+					writePassword( pass );
+				} else {
+					let alert = new Alert( "alert-warning", triIco, 'Пароль должен состоять из 4 цифр' );
+					passNew.value   = '';
+					passCheck.value = '';
+				}
+			} else {
+				let alert = new Alert( "alert-warning", triIco, 'Введенные пароли не совпадают' );
+				passNew.value   = '';
+				passCheck.value = '';
+			}
+		} else {
+			let pass = new Password( 0, 0 );
+			writePassword( pass );
+		}
+	});
+	return;
+}
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -16667,6 +16822,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	try {
 		sliderInit();
 	} catch {}
+	passwordProcessig();
 	declareInterface();
 	oilScaleInit();
 	diInit( 'a' );
@@ -17639,16 +17795,31 @@ function setSysTime () {
 	return;
 }
 
-function writeJSON ( adr, data, message ) {
+function writeJSON ( adr, data, message, callback ) {
 	var xhr = new XMLHttpRequest();
-	xhr.open( 'PUT', "http://" + document.getElementById( "input-ipaddress" ).value + adr, true );
+  if ( electronApp == 0 ) {
+    let ipAdr  = document.domain;
+  } else {
+    let ipAdr  = document.getElementById( "input-ipaddress" ).value;
+  }
+	xhr.open( 'PUT', "http://" + ipAdr + adr, true );
 	xhr.timeout = 10000;
 	xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
 	xhr.send( data );
 	xhr.addEventListener( 'load', function( data ) {
-		if ( xhr.readyState == 4 && data.currentTarget.status == "200" ) {
+    let status = data.currentTarget.status;
+		if ( xhr.readyState == 4 && status == "200" ) {
 			let alert = new Alert( "alert-success", okIco, message );
+
+      callback();
 		}
+    else if ( status === 401 ) {
+      let alert = new Alert( "alert-warning", triIco, "Неправильный пароль" );
+    }
+    else {
+      let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
+    }
+    return;
 	});
 	xhr.addEventListener( 'error', function( error ) {
 	  let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
@@ -17665,17 +17836,28 @@ function writeFreeDataEth ( adr, data ) {
     this.value = parseInt( data );
   }
   buf = new FreeData( data );
-	writeJSON( ( '/data/' + adr ), JSON.stringify( buf ), "Данные успешно записаны" );
+	writeJSON( ( '/data/' + adr ), JSON.stringify( buf ), "Данные успешно записаны", function(){} );
 	return;
 }
 
 function writeTimeEth () {
-	writeJSON( '/time/', JSON.stringify( rtcTime ), "Время успешно установленно" );
+	writeJSON( '/time/', JSON.stringify( rtcTime ), "Время успешно установленно", function(){} );
 	return;
 }
 
 function eraseLogEth () {
-  writeJSON( '/eraseLog/', JSON.stringify( rtcTime ), "Журнал установленно очищен" );
+  writeJSON( '/eraseLog/', JSON.stringify( rtcTime ), "Журнал установленно очищен", function(){} );
+  return;
+}
+
+function writePasspordEth ( password ) {
+  writeJSON( '/password/', JSON.stringify( password ), "Пароль обновлен", function() {});
+  return;
+}
+
+function sendAuthorizationEth ( callback ) {
+  let password = new Auth( getCurrentPassword() );
+  writeJSON( '/auth/', JSON.stringify( password ), "Авторизация успешна", callback );
   return;
 }
 //******************************************************************************
@@ -17847,6 +18029,14 @@ function ethDataUpdate( alertProgress, callback ) {
 						requests.shift();
 						return reqs( requests, store, failback );
 					}
+          else if ( status === 401 ) {
+            alertProgress.close( 0 );
+            let alert = new Alert( "alert-warning", triIco, "Неправильный пароль" );
+          }
+          else {
+            alertProgress.close( 0 );
+            let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
+          }
 				});
 				xhr.addEventListener( 'error', function( error ) {
 					if ( failback ) {
@@ -17885,22 +18075,28 @@ function ethDataUpdate( alertProgress, callback ) {
 			}
 		};
 		/* Make GET sequency */
-		restSeq = []
-		ipAdr  = document.getElementById( "input-ipaddress" ).value;
+		restSeq = [];
+    if ( electronApp == 0 ) {
+      ipAdr  = document.domain;
+    } else {
+      ipAdr  = document.getElementById( "input-ipaddress" ).value;
+    }
 		extUrl = "";
 		if ( ipAdr.length > 0 ) {
 			extUrl = "http://" + ipAdr;
 		}
-		restSeq.push( {method: 'get', url: ( extUrl + '/configs/' )} );
-		restSeq.push( {method: 'get', url: ( extUrl + '/charts/' )} );
-    restSeq.push( {method: 'get', url: ( extUrl + '/log/' )} );
-		for ( var i=0; i<freeDataNames.length; i++ ) {
-			restSeq.push( {method: 'get', url: ( extUrl + '/data/' + i )} );
-		}
-		restSeq.push( {method: 'get', url: ( extUrl + '/time/' )} );
-		const results = reqs( restSeq, [], function( error ) {
-			console.log( error )
-		});
+    sendAuthorizationEth( function () {
+      restSeq.push( {method: 'get', url: ( extUrl + '/configs/' )} );
+  		restSeq.push( {method: 'get', url: ( extUrl + '/charts/' )} );
+      restSeq.push( {method: 'get', url: ( extUrl + '/log/' )} );
+  		for ( var i=0; i<freeDataNames.length; i++ ) {
+  			restSeq.push( {method: 'get', url: ( extUrl + '/data/' + i )} );
+  		}
+  		restSeq.push( {method: 'get', url: ( extUrl + '/time/' )} );
+  		const results = reqs( restSeq, [], function( error ) {
+  			console.log( error )
+  		});
+    });
 	} catch( e ) {
 		let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
 		return 0;
@@ -17960,11 +18156,19 @@ function dataGrab( alertProgress, callback ) {
 				xhr.addEventListener( 'load', function( data ) {
 					const status = data.currentTarget.status;
 					const response = data.currentTarget.response;
-					if ( xhr.readyState == 4 && status == "200" ) {
+					if ( xhr.readyState == 4 && status === 200 ) {
 						store.push( status );
 						requests.shift();
 						return reqs( requests, content, failback );
 		  		}
+          else if ( status === 401 ) {
+            alertProgress.close( 0 );
+            let alert = new Alert( "alert-warning", triIco, "Неправильный пароль" );
+          }
+          else {
+            alertProgress.close( 0 );
+            let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
+          }
 				});
 				xhr.addEventListener( 'error', function( error ) {
 					if ( failback ) {
@@ -17987,12 +18191,16 @@ function dataGrab( alertProgress, callback ) {
 				alertProgress.setProgressBar( index * 100 / length );
 			} else {
 				setSuccessConnection();
-				let alert = new Alert( "alert-success", triIco, "Прибор успешно сконфигурирован" );
+				let alert = new Alert( "alert-success", triIco, "Данные успешно переданы" );
 			}
 		};
 		//--------------------------------------------------------------------------
 		restSeq = []
-		ipAdr  = document.getElementById( "input-ipaddress" ).value;
+    if ( electronApp == 0 ) {
+      ipAdr  = document.domain;
+    } else {
+      ipAdr  = document.getElementById( "input-ipaddress" ).value;
+    }
 		extUrl = "";
 		if ( ipAdr.length > 0 ) {
 			extUrl = "http://" + ipAdr;

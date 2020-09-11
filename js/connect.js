@@ -60,9 +60,9 @@ function writePassword ( password ) {
 }
 function authorization () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
-    sendAuthorizationEth( getCurrentPassword() );
+    sendAuthorizationEth();
   } else if ( connectionType == 'usb' ) {
-    usb.controller.sendAuthorization( getCurrentPassword() );
+    usb.controller.sendAuthorization();
   }
   return;
 }

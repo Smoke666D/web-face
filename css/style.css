@@ -474,11 +474,11 @@ pre {
       max-width: 1140px; } }
 
 .container-fluid {
-  width: 100%;
+  width: auto;
+  align: left;
   padding-right: 15px;
   padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto; }
+  margin-right: auto;}
 
 .row {
   align-items: center;
@@ -3556,10 +3556,9 @@ input[type="button"].btn-block {
   background-size: 100% 100%; }
 
 .connect-container {
-  display:inline-flex;
-  align: left;
-  padding-right: 15px;
-  padding-left: 15px;}
+  display: inline-flex;
+  align: right;
+  padding-right: 15px;}
 
 @media (max-width: 575.98px) {
   .navbar-expand-sm > .container,
@@ -8383,6 +8382,7 @@ h1, h2, h3, h4, h5,
     height: 0;
     overflow: hidden; }
   #sidebar .footer{
+    height: 100px;
     background: #373a40; }
   #sidebar .logo {
     padding: 1.5rem;

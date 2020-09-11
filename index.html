@@ -308,6 +308,9 @@
             </a>
           </li>
         </ul>
+        <div class="footer">
+          
+        </div>
       </nav>
     <!------------------------------------------------------------------------------------------------------------->
     <div id="content" class="p-4 p-md-5">
@@ -432,11 +435,20 @@
             <label>Время контроллера</label>
           </div>
           <div class="col-sm-auto">
-            <input id="dateInput" type="date" class="form-control">
-          </div>
-          <div class="col-sm-auto">
             <input id="timeInput" type="time" class="form-control">
           </div>
+
+        </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Дата контроллера</label>
+          </div>
+          <div class="col-sm-auto">
+            <input id="dateInput" type="date" class="form-control">
+          </div>
+        </div>
+
+        <div class="row">
           <div class="col-sm-auto">
             <button aria-label="Connect" id="controllerTimeSetup" onclick="setInputTime()" class="btn btn-primary" data-toggle="tooltip" title="Установить время контроллера">
               <span>Записать</span>

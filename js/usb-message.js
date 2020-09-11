@@ -241,7 +241,7 @@ function USBMessage ( buffer ) {
       counter += dataReg[n].len * 2;
     }
     /*----------- Configuration scale -----------*/
-    dataReg[n].scale = self.data[counter++]
+    dataReg[n].scale = (new Int8Array([self.data[counter++]]))[0];
     /*----------- Configuration units -----------*/
     strBuffer = "";
     for ( var i=counter; i<self.length; i++ ) {
@@ -423,7 +423,6 @@ function USBMessage ( buffer ) {
       self.buffer.push( data & 0x00FF );
       finishMesageWithZero( self.buffer );
     });
-    console.log( self );
     return;
   }
   this.codeLogErase      = function () {

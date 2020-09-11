@@ -71,9 +71,15 @@ function navbarToogling() {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function Password ( enb, data ) {
-	this.enb  = enb;
-	this.data = data;
+function Password ( status, data ) {
+	this.status = status;
+	this.data   = data;
+	return;
+}
+
+function Auth ( password ) {
+	this.data = password;
+	return;
 }
 
 function getCurrentPassword () {

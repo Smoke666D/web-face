@@ -121,19 +121,20 @@ document.getElementById("connect-button").addEventListener('click', function() {
           }
         });
       }
-      console.log(freeDataValue);
       if ( charts.length == 3 ) {
         loadCharts( charts );
       }
       charts = [];
-
       let alert = new alerts.Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
       updateInterface();
+    /* outCallback */
     }, function() {
       let alert = new alerts.Alert( "alert-success", alerts.okIco, "Данные успешно переданы" );
+    /* errorCalback */
     }, function() {
       let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );
       resetSuccessConnection();
+    /* unauthorizedCallback */
     }, function() {
       let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка авторизации" );
     });

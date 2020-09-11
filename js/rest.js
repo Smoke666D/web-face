@@ -543,31 +543,31 @@ function Slider ( name, preInit ) {
 	this.update    = function() {
 		reg = dataReg[this.regNum];
 		try {
-		this.label.textContent = reg.units;
-		if ( this.enable == 1 ) {
-			this.input.disabled = false;
-			this.slider.removeAttribute( 'disabled' );
-		} else {
-			this.input.disabled = true;
-			this.slider.setAttribute( 'disabled', false );
-		}
-		this.calcScale();
-		this.input.value = reg.value * this.scl;
-		this.input.step  = this.scl;
-		this.input.addEventListener( 'change', function() {
-			this.value = parseFloat( this.value ).toFixed( calcFracLength( this.scl ) );
-		});
-		this.slider.noUiSlider.updateOptions({
-			step: 	this.scl,
-			start: [reg.value * this.scl],
-			range: {
-				'min': (reg.min * this.scl),
-				'max': (reg.max * this.scl)
-			}
-		})
-	} catch (e) {
-		console.log( "error on: " + this.name );
-	}
+		  this.label.textContent = reg.units;
+		  if ( this.enable == 1 ) {
+			  this.input.disabled = false;
+			  this.slider.removeAttribute( 'disabled' );
+		  } else {
+			  this.input.disabled = true;
+			  this.slider.setAttribute( 'disabled', false );
+		  }
+		  this.calcScale();
+		  this.input.value = reg.value * this.scl;
+		  this.input.step  = this.scl;
+		  this.input.addEventListener( 'change', function() {
+			  this.value = parseFloat( this.value ).toFixed( calcFracLength( this.scl ) );
+		  });
+		  this.slider.noUiSlider.updateOptions({
+			  step: 	this.scl,
+			  start: [reg.value * this.scl],
+			  range: {
+				  'min': (reg.min * this.scl),
+				  'max': (reg.max * this.scl)
+			  }
+		  })
+	  } catch (e) {
+		  console.log( "error on: " + this.name );
+	  }
 		return;
 	}
 	this.grab      = function() {
@@ -844,16 +844,31 @@ function setSysTime () {
 	return;
 }
 
-function writeJSON ( adr, data, message ) {
+function writeJSON ( adr, data, message, callback ) {
 	var xhr = new XMLHttpRequest();
-	xhr.open( 'PUT', "http://" + document.getElementById( "input-ipaddress" ).value + adr, true );
+  if ( electronApp == 0 ) {
+    let ipAdr  = document.domain;
+  } else {
+    let ipAdr  = document.getElementById( "input-ipaddress" ).value;
+  }
+	xhr.open( 'PUT', "http://" + ipAdr + adr, true );
 	xhr.timeout = 10000;
 	xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
 	xhr.send( data );
 	xhr.addEventListener( 'load', function( data ) {
-		if ( xhr.readyState == 4 && data.currentTarget.status == "200" ) {
+    let status = data.currentTarget.status;
+		if ( xhr.readyState == 4 && status == "200" ) {
 			let alert = new Alert( "alert-success", okIco, message );
+
+      callback();
 		}
+    else if ( status === 401 ) {
+      let alert = new Alert( "alert-warning", triIco, "Неправильный пароль" );
+    }
+    else {
+      let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
+    }
+    return;
 	});
 	xhr.addEventListener( 'error', function( error ) {
 	  let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
@@ -870,17 +885,28 @@ function writeFreeDataEth ( adr, data ) {
     this.value = parseInt( data );
   }
   buf = new FreeData( data );
-	writeJSON( ( '/data/' + adr ), JSON.stringify( buf ), "Данные успешно записаны" );
+	writeJSON( ( '/data/' + adr ), JSON.stringify( buf ), "Данные успешно записаны", function(){} );
 	return;
 }
 
 function writeTimeEth () {
-	writeJSON( '/time/', JSON.stringify( rtcTime ), "Время успешно установленно" );
+	writeJSON( '/time/', JSON.stringify( rtcTime ), "Время успешно установленно", function(){} );
 	return;
 }
 
 function eraseLogEth () {
-  writeJSON( '/eraseLog/', JSON.stringify( rtcTime ), "Журнал установленно очищен" );
+  writeJSON( '/eraseLog/', JSON.stringify( rtcTime ), "Журнал установленно очищен", function(){} );
+  return;
+}
+
+function writePasspordEth ( password ) {
+  writeJSON( '/password/', JSON.stringify( password ), "Пароль обновлен", function() {});
+  return;
+}
+
+function sendAuthorizationEth ( callback ) {
+  let password = new Auth( getCurrentPassword() );
+  writeJSON( '/auth/', JSON.stringify( password ), "Авторизация успешна", callback );
   return;
 }
 //******************************************************************************
@@ -1052,6 +1078,14 @@ function ethDataUpdate( alertProgress, callback ) {
 						requests.shift();
 						return reqs( requests, store, failback );
 					}
+          else if ( status === 401 ) {
+            alertProgress.close( 0 );
+            let alert = new Alert( "alert-warning", triIco, "Неправильный пароль" );
+          }
+          else {
+            alertProgress.close( 0 );
+            let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
+          }
 				});
 				xhr.addEventListener( 'error', function( error ) {
 					if ( failback ) {
@@ -1090,22 +1124,28 @@ function ethDataUpdate( alertProgress, callback ) {
 			}
 		};
 		/* Make GET sequency */
-		restSeq = []
-		ipAdr  = document.getElementById( "input-ipaddress" ).value;
+		restSeq = [];
+    if ( electronApp == 0 ) {
+      ipAdr  = document.domain;
+    } else {
+      ipAdr  = document.getElementById( "input-ipaddress" ).value;
+    }
 		extUrl = "";
 		if ( ipAdr.length > 0 ) {
 			extUrl = "http://" + ipAdr;
 		}
-		restSeq.push( {method: 'get', url: ( extUrl + '/configs/' )} );
-		restSeq.push( {method: 'get', url: ( extUrl + '/charts/' )} );
-    restSeq.push( {method: 'get', url: ( extUrl + '/log/' )} );
-		for ( var i=0; i<freeDataNames.length; i++ ) {
-			restSeq.push( {method: 'get', url: ( extUrl + '/data/' + i )} );
-		}
-		restSeq.push( {method: 'get', url: ( extUrl + '/time/' )} );
-		const results = reqs( restSeq, [], function( error ) {
-			console.log( error )
-		});
+    sendAuthorizationEth( function () {
+      restSeq.push( {method: 'get', url: ( extUrl + '/configs/' )} );
+  		restSeq.push( {method: 'get', url: ( extUrl + '/charts/' )} );
+      restSeq.push( {method: 'get', url: ( extUrl + '/log/' )} );
+  		for ( var i=0; i<freeDataNames.length; i++ ) {
+  			restSeq.push( {method: 'get', url: ( extUrl + '/data/' + i )} );
+  		}
+  		restSeq.push( {method: 'get', url: ( extUrl + '/time/' )} );
+  		const results = reqs( restSeq, [], function( error ) {
+  			console.log( error )
+  		});
+    });
 	} catch( e ) {
 		let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
 		return 0;
@@ -1165,11 +1205,19 @@ function dataGrab( alertProgress, callback ) {
 				xhr.addEventListener( 'load', function( data ) {
 					const status = data.currentTarget.status;
 					const response = data.currentTarget.response;
-					if ( xhr.readyState == 4 && status == "200" ) {
+					if ( xhr.readyState == 4 && status === 200 ) {
 						store.push( status );
 						requests.shift();
 						return reqs( requests, content, failback );
 		  		}
+          else if ( status === 401 ) {
+            alertProgress.close( 0 );
+            let alert = new Alert( "alert-warning", triIco, "Неправильный пароль" );
+          }
+          else {
+            alertProgress.close( 0 );
+            let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
+          }
 				});
 				xhr.addEventListener( 'error', function( error ) {
 					if ( failback ) {
@@ -1197,7 +1245,11 @@ function dataGrab( alertProgress, callback ) {
 		};
 		//--------------------------------------------------------------------------
 		restSeq = []
-		ipAdr  = document.getElementById( "input-ipaddress" ).value;
+    if ( electronApp == 0 ) {
+      ipAdr  = document.domain;
+    } else {
+      ipAdr  = document.getElementById( "input-ipaddress" ).value;
+    }
 		extUrl = "";
 		if ( ipAdr.length > 0 ) {
 			extUrl = "http://" + ipAdr;

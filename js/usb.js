@@ -273,16 +273,15 @@ function USBtransport () {
           }
         }
       } else {
-        console.log("Error with status: " + response.status + " expected: " + msgSTAT.USB_OK_STAT + " on command " + response.command );
+        if ( ( response.status == msgSTAT.USB_BAD_REQ_STAT ) || ( response.status == msgSTAT.USB_NON_CON_STAT ) ) {
+          result = usbHandler.error;
+        } else if ( response.status == msgSTAT.USB_STAT_UNAUTHORIZED ) {
+          result = usbHandler.unauthorized;
+        }
         if ( alert != undefined ) {
           if ( ( alert != null ) || ( alert != undefined ) ) {
             alert.close( 0 );
           }
-          self.close();
-          if ( ( alert != null ) || ( alert != undefined ) ) {
-            alert.close( 0 );
-          }
-          resetSuccessConnection();
         }
       }
     });
@@ -292,7 +291,6 @@ function USBtransport () {
     result = usbHandler.error;
     message.init( function () {
       result = input.process( message );
-      console.log( message );
       if ( ( result == usbHandler.finish ) && ( input.isEnd() == usbHandler.continue ) ) {
         alert.setProgressBar( input.getProgress() );
         write( input.nextRequest() );
@@ -349,7 +347,7 @@ function USBtransport () {
       self.errorCounter++;
       status = usbStat.wait;
       self.close();
-      errorCalback();
+      errorCallback();
     });
     callback();
     return;
