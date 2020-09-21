@@ -48,6 +48,8 @@ function eraseLog () {
   } else if ( connectionType == 'usb' ) {
     usb.controller.eraseLog();
   }
+  logArray = [];
+  redrawLogTable();
   return;
 }
 function writePassword ( password ) {

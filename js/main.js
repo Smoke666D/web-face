@@ -483,64 +483,62 @@ function oilScaleInit() {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function diInit( letter ) {
-	function setDisabled() {
-		var funct    = document.getElementById( 'di' + letter + 'Function' )
-		var polarity = document.getElementById( 'di' + letter + 'Polarity' );
-		var action   = document.getElementById( 'di' + letter + 'Action' );
-		var arming   = document.getElementById( 'di' + letter + 'Arming' );
-		var input    = document.getElementById( 'sinput-di' + letter + 'Delay' );
-		var slider   = document.getElementById( 's-slider-di' + letter + 'Delay' );
-		var message  = document.getElementById( 'di' + letter + 'Message' );
-		if ( funct.value == 0 ) {
-			polarity.disabled = true;
-			action.disabled   = true;
-			arming.disabled   = true;
-			message.disabled  = true;
-			input.disabled    = true;
-			slider.setAttribute( 'disabled', true);
-		} else if ( funct.value == 1 ) {
-			polarity.disabled = false;
-			action.disabled   = false;
-			arming.disabled   = false;
-			message.disabled  = false;
-			input.disabled    = false;
-			slider.removeAttribute( 'disabled' );
-	  } else {
-			polarity.disabled = false;
-			action.disabled   = true;
-			arming.disabled   = true;
-			message.disabled  = true;
-			input.disabled    = false;
-			slider.removeAttribute( 'disabled' );
-		}
-		return;
+function setDisabledDI( letter ) {
+	var funct    = document.getElementById( 'di' + letter + 'Function' )
+	var polarity = document.getElementById( 'di' + letter + 'Polarity' );
+	var action   = document.getElementById( 'di' + letter + 'Action' );
+	var arming   = document.getElementById( 'di' + letter + 'Arming' );
+	var input    = document.getElementById( 'sinput-di' + letter + 'Delay' );
+	var slider   = document.getElementById( 's-slider-di' + letter + 'Delay' );
+	var message  = document.getElementById( 'di' + letter + 'Message' );
+	if ( funct.value == 0 ) {
+		polarity.disabled = true;
+		action.disabled   = true;
+		arming.disabled   = true;
+		message.disabled  = true;
+		input.disabled    = true;
+		slider.setAttribute( 'disabled', true);
+	} else if ( funct.value == 1 ) {
+		polarity.disabled = false;
+		action.disabled   = false;
+		arming.disabled   = false;
+		message.disabled  = false;
+		input.disabled    = false;
+		slider.removeAttribute( 'disabled' );
+	} else {
+		polarity.disabled = false;
+		action.disabled   = true;
+		arming.disabled   = true;
+		message.disabled  = true;
+		input.disabled    = false;
+		slider.removeAttribute( 'disabled' );
 	}
-
-	setDisabled();
+	return;
+}
+function setDisabledDO( letter ) {
+	var no = document.getElementById( 'do' + letter + 'NO' );
+	var nc = document.getElementById( 'do' + letter + 'NC' );
+	var type = document.getElementById( 'do' + letter + 'Type' );
+	if ( type.value == 0 ) {
+		no.disabled = true;
+		nc.disabled = true;
+	} else {
+		no.disabled = false;
+		nc.disabled = false;
+	}
+	return;
+}
+function diInit( letter ) {
+	setDisabledDI( letter );
 	document.getElementById( 'di' + letter + 'Function' ).addEventListener( 'change', function() {
-		setDisabled();
+		setDisabledDI( letter );
 	});
 	return;
 }
-
-function doInit(letter) {
-	function setDisabled() {
-		var no = document.getElementById( 'do' + letter + 'NO' );
-		var nc = document.getElementById( 'do' + letter + 'NC' );
-		var type = document.getElementById( 'do' + letter + 'Type' );
-		if ( type.value == 0 ) {
-			no.disabled = true;
-			nc.disabled = true;
-		} else {
-			no.disabled = false;
-			nc.disabled = false;
-		}
-		return;
-	}
-	setDisabled();
+function doInit( letter ) {
+	setDisabledDO( letter );
 	document.getElementById( 'do' + letter + 'Type' ).addEventListener( 'change', function() {
-		setDisabled();
+		setDisabledDO( letter );
 	});
 	return;
 }

@@ -229,9 +229,10 @@ function USBMessage ( buffer ) {
       for ( var i=0; i<dataReg[n].len; i++ ) {
         if ( dataReg[n].type == 'S' ) {
           value = ( ( self.data[counter + i * 2]     << 24 ) & 0xFF000000 ) |
-                  ( ( self.data[counter + i * 2 + 1] << 16 ) & 0xFF0000 )   |
-                  ( ( self.data[counter + i * 2 + 2] << 8 )  & 0xFF00 )     |
-                  (   self.data[counter + i * 2 + 3]         & 0xFF );
+                  ( ( self.data[counter + i * 2 + 1] << 16 ) & 0x00FF0000 ) |
+                  ( ( self.data[counter + i * 2 + 2] << 8 )  & 0x0000FF00 ) |
+                  (   self.data[counter + i * 2 + 3]         & 0x000000FF );
+          console.log( self.data[counter + i * 2] + ' ' + self.data[counter + i * 2 + 1] + ' ' + self.data[counter + i * 2 + 2] + ' ' + self.data[counter + i * 2 + 3] );
           dataReg[n].value.push( decodeURI( value ) );
         } else {
           dataReg[n].value.push( ( ( self.data[counter + i * 2] << 8 ) & 0xFF00 ) |
@@ -327,6 +328,7 @@ function USBMessage ( buffer ) {
                  ( ( self.data[1] << 16 ) & 0x00FF0000 ) |
                  ( ( self.data[2] << 8  ) & 0x0000FF00 ) |
                  ( ( self.data[3]       ) & 0x000000FF );
+    time       = ( new Uint32Array( [time] ) )[0];
     let type   = self.data[4];
     let action = self.data[5];
     let record = new LogRecord( type, action, time );

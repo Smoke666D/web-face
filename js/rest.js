@@ -78,22 +78,32 @@ const  LOG_SEC_MASK    = 0x0000003F;
 const  LOG_SEC_SHIFT   = 0;
 
 function  GET_LOG_DAY ( d ) {
-  return ( d & LOG_DAY_MASK ) >> LOG_DAY_SHIFT;
+  return ( new Uint32Array( [( ( d  & LOG_DAY_MASK ) >> LOG_DAY_SHIFT ) & 0x1F ] ) )[0];
 }
-function  GET_LOG_MONTH ( d ){
-  return ( d & LOG_MONTH_MASK ) >> LOG_MONTH_SHIFT;
+function  GET_LOG_MONTH ( d ) {
+  let out = ( d & LOG_MONTH_MASK ) >> LOG_MONTH_SHIFT;
+  out     = ( new Uint32Array( [out] ) )[0];
+  return out;
 }
 function  GET_LOG_YEAR ( d ) {
-  return ( d & LOG_YEAR_MASK  ) >> LOG_YEAR_SHIFT;
+  let out =  ( d & LOG_YEAR_MASK  ) >> LOG_YEAR_SHIFT;
+  out     = ( new Uint32Array( [out] ) )[0];
+  return out;
 }
 function  GET_LOG_HOUR ( d ) {
-  return ( d & LOG_HOUR_MASK  ) >> LOG_HOUR_SHIFT;
+  let out =  ( d & LOG_HOUR_MASK  ) >> LOG_HOUR_SHIFT;
+  out     = ( new Uint32Array( [out] ) )[0];
+  return out;
 }
 function  GET_LOG_MIN ( d ) {
-  return ( d & LOG_MIN_MASK   ) >> LOG_MIN_SHIFT;
+  let out =  ( d & LOG_MIN_MASK   ) >> LOG_MIN_SHIFT;
+  out     = ( new Uint32Array( [out] ) )[0];
+  return out;
 }
 function  GET_LOG_SEC ( d ) {
-  return ( d & LOG_SEC_MASK   ) >> LOG_SEC_SHIFT;
+  let out =  ( d & LOG_SEC_MASK   ) >> LOG_SEC_SHIFT;
+  out     = ( new Uint32Array( [out] ) )[0];
+  return out;
 }
 function  SET_LOG_DATE ( day, month, year, hour, min, sec ) {
   return ( day   << LOG_DAY_SHIFT   ) |
@@ -586,29 +596,42 @@ function Slider ( name, preInit ) {
 }
 //******************************************************************************
 function LogRecord ( type, action, time ) {
-  var self = this;
+  var self    = this;
   this.type   = type;
   this.action = action;
   this.time   = time;
 }
-function redrawLogTable () {
+  function redrawLogTable () {
   var table = document.getElementById( 'log-body' );
   var sell;
+  var j     = 0;
   while ( table.rows[0] ) {
     table.deleteRow(0);
   }
   for ( var i=0; i<logArray.length; i++ ) {
-    let row = table.insertRow(i);
-    cell = row.insertCell(0);
-    cell.textContent = i + 1;
-    cell = row.insertCell(1);
-    cell.textContent = GET_LOG_DAY( logArray[i].time ) + '.' + GET_LOG_MONTH( logArray[i].time ) + '.' + ( GET_LOG_YEAR( logArray[i].time ) + 2000 );
-    cell = row.insertCell(2);
-    cell.textContent = GET_LOG_HOUR( logArray[i].time ) + ':' + GET_LOG_MIN( logArray[i].time ) + ':' + GET_LOG_SEC( logArray[i].time );
-    cell = row.insertCell(3);
-    cell.textContent = logTypesDictionary[logArray[i].type];
-    cell = row.insertCell(4);
-    cell.textContent = logActionsDictionary[logArray[i].action];
+    if ( logArray[i].time != 0 ) {
+      let row = table.insertRow(j);
+      cell = row.insertCell(0);
+      cell.textContent = j + 1;
+      cell = row.insertCell(1);
+      cell.textContent = ('0' + GET_LOG_DAY( logArray[i].time   ) ).slice(-2) + '.' +
+                         ('0' + GET_LOG_MONTH( logArray[i].time ) ).slice(-2) + '.' +
+                         ( GET_LOG_YEAR( logArray[i].time ) + 2000 );
+      cell = row.insertCell(2);
+      cell.textContent = ('0' + GET_LOG_HOUR( logArray[i].time ) ).slice(-2) + ':' +
+                         ('0' + GET_LOG_MIN( logArray[i].time  ) ).slice(-2) + ':' +
+                         ('0' + GET_LOG_SEC( logArray[i].time  ) ).slice(-2);
+      cell = row.insertCell(3);
+      cell.textContent = logTypesDictionary[logArray[i].type];
+      cell = row.insertCell(4);
+      cell.textContent = logActionsDictionary[logArray[i].action];
+      if ( logArray[i].action == 1 ) {
+        row.className  = "table-warning";
+      } else if ( logArray[i].action > 1 ) {
+        row.className  = "table-danger";
+      }
+      j++;
+    }
   }
   return;
 }
@@ -1018,6 +1041,16 @@ function updateInterface() {
 		freeDataArray[i].update();
 	}
   redrawLogTable();
+  setDisabledDI( 'a' );
+  setDisabledDI( 'b' );
+  setDisabledDI( 'c' );
+  setDisabledDI( 'd' );
+  setDisabledDO( 'a' );
+  setDisabledDO( 'b' );
+  setDisabledDO( 'c' );
+  setDisabledDO( 'd' );
+  setDisabledDO( 'e' );
+  setDisabledDO( 'f' );
 	return;
 }
 function grabInterface() {
