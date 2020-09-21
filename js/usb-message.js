@@ -219,7 +219,6 @@ function USBMessage ( buffer ) {
   }
   function parseConfig ( n ) {
     var counter = 0;
-    var value   = 0;
     /*----------- Configuration value -----------*/
     if ( dataReg[n].len == 1 ) {
       dataReg[n].value = ( ( self.data[counter] << 8 ) & 0xFF00 ) | ( self.data[counter + 1] & 0x00FF );
@@ -228,12 +227,7 @@ function USBMessage ( buffer ) {
       dataReg[n].value = [];
       for ( var i=0; i<dataReg[n].len; i++ ) {
         if ( dataReg[n].type == 'S' ) {
-          value = ( ( self.data[counter + i * 2]     << 24 ) & 0xFF000000 ) |
-                  ( ( self.data[counter + i * 2 + 1] << 16 ) & 0x00FF0000 ) |
-                  ( ( self.data[counter + i * 2 + 2] << 8 )  & 0x0000FF00 ) |
-                  (   self.data[counter + i * 2 + 3]         & 0x000000FF );
-          console.log( self.data[counter + i * 2] + ' ' + self.data[counter + i * 2 + 1] + ' ' + self.data[counter + i * 2 + 2] + ' ' + self.data[counter + i * 2 + 3] );
-          dataReg[n].value.push( decodeURI( value ) );
+          dataReg[n].value.push( String.fromCharCode( parseInt( ( ( ( self.data[counter + i * 2] << 8 ) & 0xFF00 ) | ( self.data[counter + i * 2 + 1] & 0xFF ) ).toString(10), 16 ) ) );
         } else {
           dataReg[n].value.push( ( ( self.data[counter + i * 2] << 8 ) & 0xFF00 ) |
                                  (   self.data[counter + i * 2 + 1]    & 0xFF ) );
@@ -242,7 +236,7 @@ function USBMessage ( buffer ) {
       counter += dataReg[n].len * 2;
     }
     /*----------- Configuration scale -----------*/
-    dataReg[n].scale = (new Int8Array([self.data[counter++]]))[0];
+    dataReg[n].scale = ( new Int8Array( [self.data[counter++]] ) )[0];
     /*----------- Configuration units -----------*/
     strBuffer = "";
     for ( var i=counter; i<self.length; i++ ) {
@@ -496,8 +490,14 @@ function USBMessage ( buffer ) {
         self.length += 2;
       } else {
         for ( var i=0; i<dataReg[n].len; i++ ) {
-          self.buffer.push( ( dataReg[n].value[i] & 0xFF00 ) >> 8 );
-          self.buffer.push( dataReg[n].value[i] & 0x00FF );
+          if ( dataReg[n].type == "S" ) {
+            let char = dataReg[n].value[i].charCodeAt( 0 ).toString( 16 );
+            self.buffer.push( ( char & 0xFF00 ) >> 8 );
+            self.buffer.push( char & 0x00FF );
+          } else {
+            self.buffer.push( ( dataReg[n].value[i] & 0xFF00 ) >> 8 );
+            self.buffer.push( dataReg[n].value[i] & 0x00FF );
+          }
           self.length += 2;
         }
       }

@@ -153,7 +153,11 @@ function StrLine ( name ) {
 	this.grab    = function() {
 		var text = this.object.value;
 		for ( var i=0; i<dataReg[this.regNum].len; i++ ) {
-			dataReg[this.regNum].value[i] = text.charAt( i );
+      if ( i < text.length ) {
+			  dataReg[this.regNum].value[i] = text.charAt( i );
+      } else {
+        dataReg[this.regNum].value[i] = " ";
+      }
 		}
 		return;
 	}
