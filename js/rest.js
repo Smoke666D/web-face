@@ -1044,6 +1044,14 @@ function updateInterface() {
 	for ( var i=0; i<freeDataNames.length; i++ ) {
 		freeDataArray[i].update();
 	}
+  for ( var i=0;i<dataReg.length;i++ ) {
+		if ( dataReg[i].name == "engineSetup" ) {
+		  //bitWrite( 0, dataReg[i], document.getElementById( 'engineStartAttempts' ).value );
+		}
+    if ( dataReg[i].name == "speedToothNumber" ) {
+      document.getElementById( 'speedToothNumber' ).value = dataReg[i].value;
+    }
+	}
   redrawLogTable();
   setDisabledDI( 'a' );
   setDisabledDI( 'b' );
@@ -1057,6 +1065,7 @@ function updateInterface() {
   setDisabledDO( 'f' );
 	return;
 }
+
 function grabInterface() {
 	for ( var i=0; i<stringLineArray.length; i++ ) {
 		stringLineArray[i].grab();
@@ -1081,10 +1090,12 @@ function grabInterface() {
 		freeDataArray[i].grab();
 	}
 	for ( var i=0;i<dataReg.length;i++ ) {
-		if ( dataReg[i].name == "engineSetup" )
-		{
+		if ( dataReg[i].name == "engineSetup" ) {
 		  bitWrite( 0, dataReg[i], document.getElementById( 'engineStartAttempts' ).value );
 		}
+    if ( dataReg[i].name == "speedToothNumber" ) {
+      dataReg[i].value = parseInt( document.getElementById( 'speedToothNumber' ).value );
+    }
 	}
 	return;
 }
