@@ -304,8 +304,8 @@ var dataReg = [
 },{
    "adr": 16,
    "name": "coolantTempCoolerOffLevel",
-   "value": 120,
-   "default": 120,
+   "value": 80,
+   "default": 80,
    "scale": 0,
    "min": 0,
    "max": 250,
@@ -318,8 +318,8 @@ var dataReg = [
 },{
    "adr": 17,
    "name": "coolantTempCoolerOnLevel",
-   "value": 80,
-   "default": 80,
+   "value": 120,
+   "default": 120,
    "scale": 0,
    "min": 0,
    "max": 250,
@@ -393,7 +393,7 @@ var dataReg = [
            "shift": 9,
        },{
            "name": "fuelPumpEnb",
-           "mask": 0,
+           "mask": 1024,
            "min": 0,
            "max": 1,
            "shift": 10,

@@ -820,8 +820,8 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	                                           'genUnderFrequencyPreAlarmLevel',
 																						 'genOverFrequencyPreAlarmLevel',
 																						 'genOverFrequencyAlarmLevel' );
-	const oilVoltageLims = new slider2InitLimits( 'oilPressureAlarmLevel',
-	                                              'oilPressurePreAlarmLevel');
+	const oilVoltageLims = new slider2InitLimits( 'oilPressurePreAlarmLevel',
+																								'oilPressureAlarmLevel' );
   const coolantLims = new slider2InitLimits( 'coolantHightTempPreAlarmLevel',
                                                     'coolantHightTempAlarmLevel' );
   const coolantHeaterLims = new slider2InitLimits('coolantTempHeaterOnLevel','coolantTempHeaterOffLevel');

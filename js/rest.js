@@ -1038,7 +1038,7 @@ function updateInterface() {
 	}
 	for ( var i=0; i<radioArray.length; i++ ) {
 		radioArray[i].update();
-	}
+  }
 	cosFiUpdate();
 	updateVersions();
 	for ( var i=0; i<freeDataNames.length; i++ ) {
