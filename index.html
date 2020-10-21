@@ -328,6 +328,13 @@
           <button aria-label="Reset data" id="uploadData-button" onclick="resetSettings()" class="btn btn-primary" data-toggle="tooltip" title="Сбросить настройки">
             <svg viewBox="0 0 448 512"><path fill="currentColor" d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path></svg>
           </button>
+
+          <button aria-label="Download to file" id="downloadToFile-button" onclick="saveConfigsToFile()" class="btn btn-primary" data-toggle="tooltip" title="Загрузить конфигурацию в файл">
+
+          </button>
+          <button aria-label="Upload to file" id="downloadToFile-button" onclick="loadConfigsFromFile()" class="btn btn-primary" data-toggle="tooltip" title="Загрузить конфигурацию из файла">
+
+          </button>
         </div>
         <div class="connect-container">
           <div data-toggle="tooltip" title="Авторизация">
@@ -3674,7 +3681,7 @@
     <script type="text/javascript" src="js/version.js"></script>
     <script type="text/javascript" src="js/connect.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>  
     <script type="text/javascript" src="js/rest.js"></script>
     <script type="text/javascript" src="js/sensortable.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>

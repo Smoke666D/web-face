@@ -14,6 +14,49 @@ function connectUpdate () {
   return;
 }
 //******************************************************************************
+function saveConfigsToFile () {
+  function SaveAsFile ( t, file, m ) {
+  	try {
+    	var blob = new Blob( [t], { type: m } );
+      saveAs( blob, file );
+    } catch( e ) {
+    	window.open( ( "data:" + m + "," + encodeURIComponent( t ) ), '_blank', '' );
+    }
+    return;
+  }
+	grabInterface()
+	SaveAsFile( JSON.stringify( dataReg ), ( "configs.JSON" ), "text/plain;charset=utf-8" );
+  return;
+}
+//******************************************************************************
+function loadConfigsFromFile () {
+  if ( window.File && window.FileReader && window.FileList && window.Blob ) {
+		var input = document.createElement( "input" );
+    input.setAttribute( "type", "file" );
+		input.addEventListener( "change", function() {
+			file = input.files[0];
+			if ( file.type != "application/json" ) {
+        let alert = new Alert( "alert-warning", triIco, "Выбран файл с неправильным расширением. Выберете JSON файл" );
+			} else {
+				let reader = new FileReader();
+        reader.readAsText( file );
+				reader.onload = function() {
+					try {
+						dataReg = JSON.parse( reader.result );
+					} catch( e ) {
+            let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
+					}
+  			};
+			}
+		});
+		input.click();
+    return false; // avoiding navigation
+	} else {
+    let alert = new Alert( "alert-warning", triIco, "Браузер не поддерживает загрузку файлов" );
+	}
+  return;
+}
+//******************************************************************************
 function connectGrab () {
   let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
@@ -22,7 +65,7 @@ function connectGrab () {
       return;
     });
   } else if ( connectionType == 'usb' ) {
-      usb.controller.send( alert );
+    usb.controller.send( alert );
   }
   return;
 }
