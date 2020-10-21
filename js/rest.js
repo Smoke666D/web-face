@@ -420,7 +420,7 @@ function Slider ( name, preInit ) {
 	var self = this;
 	this.name      = name;
 	/*--------------------------------------------------------------------------*/
-	this.getData   = function() {
+	this.getData   = function () {
 		for ( var i=0; i<dataReg.length; i++ ) {
 			if ( dataReg[i].name == name )
 			{
@@ -429,7 +429,7 @@ function Slider ( name, preInit ) {
 		}
 		return;
 	}
-	this.setUnits  = function( units ) {
+	this.setUnits  = function ( units ) {
 		dataReg[this.regNum].units = units;
 		return;
 	}
@@ -457,7 +457,7 @@ function Slider ( name, preInit ) {
 		this.sw = new Switch( swName + "Enb" )
 		if ( this.sw.object ) {
 			self.enable = this.sw.getVal();
-			this.sw.object.addEventListener( 'click', function() {
+			this.sw.object.addEventListener( 'change', function() {
 				if ( this.checked ) {
 					self.enable = 1
 					self.input.disabled = false;
