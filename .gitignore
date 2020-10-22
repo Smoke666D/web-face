@@ -1,8 +1,13 @@
-*.h
 UTIL\index_make.html
 release-builds
 
 *.rar
+*.tar
+*.7z
+*.zip
+*.arj
+*.cab
+*.lzh
 
 *.pyc
 /node_modules
