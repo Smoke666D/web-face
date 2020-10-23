@@ -437,6 +437,20 @@ function Slider ( name, preInit ) {
 		dataReg[this.regNum].scale = scale;
 		return;
 	}
+  this.enableCheck = function () {
+    if ( this.sw.object ) {
+      if ( this.sw.object.checked ) {
+        self.enable = 1
+        self.input.disabled = false;
+        self.slider.removeAttribute( 'disabled' );
+      } else {
+        self.enable = 0
+        self.input.disabled = true;
+        self.slider.setAttribute( 'disabled', false );
+      }
+    }
+    return;
+  }
 	this.init      = function() {
 		this.getData();
 		this.slider = document.getElementById( "s-slider-" + this.name );
@@ -458,15 +472,7 @@ function Slider ( name, preInit ) {
 		if ( this.sw.object ) {
 			self.enable = this.sw.getVal();
 			this.sw.object.addEventListener( 'change', function() {
-				if ( this.checked ) {
-					self.enable = 1
-					self.input.disabled = false;
-					self.slider.removeAttribute( 'disabled' );
-				} else {
-					self.enable = 0
-					self.input.disabled = true;
-					self.slider.setAttribute( 'disabled', false );
-				}
+				self.enableCheck();
 			});
 		} else {
 			this.enable = 1;
@@ -578,7 +584,8 @@ function Slider ( name, preInit ) {
 				  'min': (reg.min * this.scl),
 				  'max': (reg.max * this.scl)
 			  }
-		  })
+		  });
+      this.enableCheck();
 	  } catch (e) {
 		  console.log( "error on: " + this.name );
 	  }
@@ -1024,17 +1031,17 @@ function declareInterface() {
 
 function updateInterface() {
 	rtcTime.update();
+  for ( var i=0; i<switcherArray.length; i++ ) {
+		switcherArray[i].update();
+	}
+	for ( var i=0; i<selectorArray.length; i++ ) {
+		selectorArray[i].update();
+	}
 	for ( var i=0; i<stringLineArray.length; i++ ) {
 		stringLineArray[i].update();
 	}
 	for ( var i=0; i<slidersArray.length; i++ ) {
 		slidersArray[i].update();
-	}
-	for ( var i=0; i<switcherArray.length; i++ ) {
-		switcherArray[i].update();
-	}
-	for ( var i=0; i<selectorArray.length; i++ ) {
-		selectorArray[i].update();
 	}
 	for ( var i=0; i<radioArray.length; i++ ) {
 		radioArray[i].update();
