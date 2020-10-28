@@ -1,6 +1,10 @@
+#******************* Tempory ********************
 UTIL\index_make.html
+*.pyc
+#******************** Output ********************
 release-builds
-
+*.ewa
+#******************* Archives *******************
 *.rar
 *.tar
 *.7z
@@ -8,10 +12,7 @@ release-builds
 *.arj
 *.cab
 *.lzh
-
-*.pyc
+#**************** Node and yarn *****************
 /node_modules
-/release-builds
 yarn-error.log
-
-*.ewa
+yarn.lock
