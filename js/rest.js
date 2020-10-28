@@ -689,6 +689,10 @@ function cosFiUpdate () {
 	return;
 }
 //******************************************************************************
+function dec2hexString( dec ) {
+   return (dec+0x100).toString(16).substr(-2).toUpperCase();
+}
+//******************************************************************************
 function updateVersions () {
 	var counter = 0;
 	var major   = 0;
@@ -709,7 +713,7 @@ function updateVersions () {
 		if ( dataReg[i].name == "serialNumber" ) {
 			document.getElementById( "SerialNumber" ).textContent = "";
 			for ( var j=0; j<dataReg[i].len; j++ ) {
-				document.getElementById( "SerialNumber" ).textContent += ( ( ( dataReg[i].value[j] ) >> 8 ) & 0xFF ) + ':' + ( ( dataReg[i].value[j] ) & 0xFF );
+				document.getElementById( "SerialNumber" ).textContent += dec2hexString( ( ( dataReg[i].value[j] ) >> 8 ) & 0xFF ) + ':' + dec2hexString( ( dataReg[i].value[j] ) & 0xFF );
 				if ( j < ( dataReg[i].len - 1 ) ) {
 					document.getElementById( "SerialNumber" ).textContent += ':';
 				}
