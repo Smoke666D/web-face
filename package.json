@@ -20,7 +20,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "electron": "^8.2.2",
+    "electron": "8.2.2",
     "electron-builder": "^22.4.1",
     "electron-packager": "^14.2.1",
     "electron-rebuild": "^1.10.1",
