@@ -9047,6 +9047,7 @@ h1, h2, h3, h4, h5,
     height: 0;
     overflow: hidden; }
   #sidebar .footer{
+    height: 100px;
     background: #373a40; }
   #sidebar .logo {
     padding: 1.5rem;
@@ -10228,6 +10229,9 @@ QmCC
           
           
         </ul>
+        <div class="footer">
+
+        </div>
       </nav>
     <!------------------------------------------------------------------------------------------------------------->
     <div id="content" class="p-4 p-md-5">
@@ -10244,6 +10248,13 @@ QmCC
           </button>
           <button aria-label="Reset data" id="uploadData-button" onclick="resetSettings()" class="btn btn-primary" data-toggle="tooltip" title="Сбросить настройки">
             <svg viewBox="0 0 448 512"><path fill="currentColor" d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path></svg>
+          </button>
+
+          <button aria-label="Download to file" id="downloadToFile-button" onclick="saveConfigsToFile()" class="btn btn-primary" data-toggle="tooltip" title="Сохранить конфигурацию в файл">
+            <svg viewBox="0 0 448 512"><path fill="currentColor" d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"></path></svg>
+          </button>
+          <button aria-label="Upload to file" id="downloadToFile-button" onclick="loadConfigsFromFile()" class="btn btn-primary" data-toggle="tooltip" title="Загрузить конфигурацию из файла">
+            <svg viewBox="0 0 576 512"><path fill="currentColor" d="M572.694 292.093L500.27 416.248A63.997 63.997 0 0 1 444.989 448H45.025c-18.523 0-30.064-20.093-20.731-36.093l72.424-124.155A64 64 0 0 1 152 256h399.964c18.523 0 30.064 20.093 20.73 36.093zM152 224h328v-48c0-26.51-21.49-48-48-48H272l-64-64H48C21.49 64 0 85.49 0 112v278.046l69.077-118.418C86.214 242.25 117.989 224 152 224z"></path></svg>
           </button>
         </div>
         <div class="connect-container">
@@ -10484,7 +10495,7 @@ QmCC
                 <input type="checkbox" class="check-input" id="oilPressureAlarmEnb">
                 <span class="slider"></span>
               </label>
-              <label for="oilPressureAlarmEnb" class="form-check-label">Аварийный останов</label>
+              <label for="oilPressureAlarmEnb" class="form-check-label">Активировать аварийный сигнализатор</label>
             </div>
           </div>
 
@@ -10509,7 +10520,7 @@ QmCC
                 <input type="checkbox" class="check-input" id="oilPressurePreAlarmEnb">
                 <span class="slider"></span>
               </label>
-              <label for="oilPressurePreAlarmEnb" class="form-check-label">Предупредительный сигнал</label>
+              <label for="oilPressurePreAlarmEnb" class="form-check-label">Активировать предупредительный сигнализатор</label>
             </div>
           </div>
           <div class="row">
@@ -10669,13 +10680,13 @@ QmCC
             <label>Вкл</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-coolantTempCoolerOffLevel" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-coolantTempCoolerOnLevel" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit" id="label-coolantTempCoolerOffLevel">'C</label>
+            <label class="pos-unit" id="label-coolantTempCoolerOnLevel">'C</label>
           </div>
           <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-coolantTempCoolerOffLevel"></div>
+            <div class="s-slider" id="s-slider-coolantTempCoolerOnLevel"></div>
           </div>
         </div>
 
@@ -10684,13 +10695,13 @@ QmCC
             <label>Выкл</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-coolantTempCoolerOnLevel" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-coolantTempCoolerOffLevel" step="1">
           </div>
           <div class="col-dimension">
-            <label id="label-coolantTempCoolerOnLevel">'C</label>
+            <label id="label-coolantTempCoolerOffLevel">'C</label>
           </div>
           <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-coolantTempCoolerOnLevel"></div>
+            <div class="s-slider" id="s-slider-coolantTempCoolerOffLevel"></div>
           </div>
         </div>
       </div>
@@ -10787,7 +10798,7 @@ QmCC
               <input type="checkbox" class="check-input" id="fuelLevelLowPreAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Активировать Предупредительный сигнализатор нижнего предела</label>
+            <label class="form-check-label">Активировать предупредительный сигнализатор нижнего предела</label>
           </div>
         </div>
 
@@ -10829,7 +10840,7 @@ QmCC
               <input type="checkbox" class="check-input" id="fuelLevelHightPreAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Предупредительный сигнализатор верхнего предела</label>
+            <label class="form-check-label">Активировать предупредительный сигнализатор верхнего предела</label>
           </div>
         </div>
 
@@ -13166,29 +13177,6 @@ QmCC
             </tr>
           </thead>
           <tbody id="log-body">
-            <tr class="table-warning">
-              <td>1</td>
-              <td>19.03.2020</td>
-              <td>21:45:05</td>
-              <td>Предупреждение</td>
-              <td>Останов</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>19.03.2020</td>
-              <td>21:55:25</td>
-              <td>Сообшение</td>
-              <td>Произведена остановка двигателя</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>19.03.2020</td>
-              <td>22:25:25</td>
-              <td>Сообшение</td>
-              <td>Произведен запуск двигателя</td>
-              <td></td>
-            </tr>
           </tbody>
         </table>
       </div>
@@ -13790,2181 +13778,7 @@ function checkSettings() {
    "scale": 0,
    "min": 2,
    "max": 600,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 6,
-   "name": "hysteresisLevel",
-   "value": 20,
-   "default": 20,
-   "scale": -1,
-   "min": 0,
-   "max": 1000,
-   "units": "%",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 7,
-   "name": "moduleSetup",
-   "value": 3,
-   "default": 3,
-   "scale": 0,
-   "min": 0,
-   "max": 3,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 2,
-   "bit": [
-       {
-           "name": "moduleType",
-           "mask": 1,
-           "min": 0,
-           "max": 1,
-           "shift": 0,
-       },{
-           "name": "alarmAllBlock",
-           "mask": 2,
-           "min": 0,
-           "max": 1,
-           "shift": 1,
-       },
-   ]
-},{
-   "adr": 8,
-   "name": "oilPressureSetup",
-   "value": 51,
-   "default": 51,
-   "scale": 0,
-   "min": 0,
-   "max": 63,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 4,
-   "bit": [
-       {
-           "name": "oilPressureSensorType",
-           "mask": 15,
-           "min": 0,
-           "max": 11,
-           "shift": 0,
-       },{
-           "name": "oilPressureOpenCircuitAlarmEnb",
-           "mask": 16,
-           "min": 0,
-           "max": 1,
-           "shift": 4,
-       },{
-           "name": "oilPressureAlarmEnb",
-           "mask": 32,
-           "min": 0,
-           "max": 1,
-           "shift": 5,
-       },{
-           "name": "oilPressurePreAlarmEnb",
-           "mask": 64,
-           "min": 0,
-           "max": 1,
-           "shift": 6,
-       },
-   ]
-},{
-   "adr": 9,
-   "name": "oilPressureAlarmLevel",
-   "value": 103,
-   "default": 103,
-   "scale": -2,
-   "min": 0,
-   "max": 1030,
-   "units": "Бар",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 10,
-   "name": "oilPressurePreAlarmLevel",
-   "value": 124,
-   "default": 124,
-   "scale": -2,
-   "min": 0,
-   "max": 1030,
-   "units": "Бар",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 11,
-   "name": "coolantTempSetup",
-   "value": 51,
-   "default": 51,
-   "scale": 0,
-   "min": 0,
-   "max": 63,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 6,
-   "bit": [
-       {
-           "name": "coolantTempSensorType",
-           "mask": 15,
-           "min": 0,
-           "max": 11,
-           "shift": 0,
-       },{
-           "name": "coolantTempOpenCircuitAlarmEnb",
-           "mask": 16,
-           "min": 0,
-           "max": 1,
-           "shift": 4,
-       },{
-           "name": "coolantHightTempAlarmEnb",
-           "mask": 32,
-           "min": 0,
-           "max": 1,
-           "shift": 5,
-       },{
-           "name": "coolantHightTempPreAlarmEnb",
-           "mask": 64,
-           "min": 0,
-           "max": 1,
-           "shift": 6,
-       },{
-           "name": "coolantTempHeaterEnb",
-           "mask": 128,
-           "min": 0,
-           "max": 1,
-           "shift": 7,
-       },{
-           "name": "coolantTempCoolerEnb",
-           "mask": 256,
-           "min": 0,
-           "max": 1,
-           "shift": 8,
-       },
-   ]
-},{
-   "adr": 12,
-   "name": "coolantHightTempAlarmLevel",
-   "value": 96,
-   "default": 96,
-   "scale": 0,
-   "min": 0,
-   "max": 250,
-   "units": "C",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 13,
-   "name": "coolantHightTempPreAlarmLevel",
-   "value": 90,
-   "default": 90,
-   "scale": 0,
-   "min": 0,
-   "max": 250,
-   "units": "C",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 14,
-   "name": "coolantTempHeaterOffLevel",
-   "value": 60,
-   "default": 60,
-   "scale": 0,
-   "min": 0,
-   "max": 250,
-   "units": "C",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 15,
-   "name": "coolantTempHeaterOnLevel",
-   "value": 10,
-   "default": 10,
-   "scale": 0,
-   "min": 0,
-   "max": 250,
-   "units": "C",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 16,
-   "name": "coolantTempCoolerOffLevel",
-   "value": 120,
-   "default": 120,
-   "scale": 0,
-   "min": 0,
-   "max": 250,
-   "units": "C",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 17,
-   "name": "coolantTempCoolerOnLevel",
-   "value": 80,
-   "default": 80,
-   "scale": 0,
-   "min": 0,
-   "max": 250,
-   "units": "C",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 18,
-   "name": "fuelLevelSetup",
-   "value": 1339,
-   "default": 1339,
-   "scale": 0,
-   "min": 0,
-   "max": 1023,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 9,
-   "bit": [
-       {
-           "name": "fuelLevelSensorType",
-           "mask": 7,
-           "min": 0,
-           "max": 5,
-           "shift": 0,
-       },{
-           "name": "fuelLevelOpenCircuitAlarmEnb",
-           "mask": 8,
-           "min": 0,
-           "max": 1,
-           "shift": 3,
-       },{
-           "name": "fuelLevelLowAlarmEnb",
-           "mask": 16,
-           "min": 0,
-           "max": 1,
-           "shift": 4,
-       },{
-           "name": "fuelLevelLowAlarmAction",
-           "mask": 32,
-           "min": 0,
-           "max": 1,
-           "shift": 5,
-       },{
-           "name": "fuelLevelLowPreAlarmEnb",
-           "mask": 64,
-           "min": 0,
-           "max": 1,
-           "shift": 6,
-       },{
-           "name": "fuelLevelHightPreAlarmEnb",
-           "mask": 128,
-           "min": 0,
-           "max": 1,
-           "shift": 7,
-       },{
-           "name": "fuelLevelHightAlarmEnb",
-           "mask": 256,
-           "min": 0,
-           "max": 1,
-           "shift": 8,
-       },{
-           "name": "fuelLevelHightAlarmAction",
-           "mask": 512,
-           "min": 0,
-           "max": 1,
-           "shift": 9,
-       },{
-           "name": "fuelPumpEnb",
-           "mask": 0,
-           "min": 0,
-           "max": 1,
-           "shift": 10,
-       },
-   ]
-},{
-   "adr": 19,
-   "name": "fuelLevelLowAlarmLevel",
-   "value": 10,
-   "default": 10,
-   "scale": 0,
-   "min": 0,
-   "max": 95,
-   "units": "%",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 20,
-   "name": "fuelLevelLowAlarmDelay",
-   "value": 100,
-   "default": 100,
-   "scale": 0,
-   "min": 0,
-   "max": 3600,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 21,
-   "name": "fuelLevelLowPreAlarmLevel",
-   "value": 25,
-   "default": 25,
-   "scale": 0,
-   "min": 1,
-   "max": 96,
-   "units": "%",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 22,
-   "name": "fuelLevelLowPreAlarmDelay",
-   "value": 100,
-   "default": 100,
-   "scale": 0,
-   "min": 0,
-   "max": 3600,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 23,
-   "name": "fuelLevelHightPreAlarmLevel",
-   "value": 65,
-   "default": 65,
-   "scale": 0,
-   "min": 3,
-   "max": 98,
-   "units": "%",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 24,
-   "name": "fuelLevelHightPreAlarmDelay",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 3600,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 25,
-   "name": "fuelLevelHightAlarmLevel",
-   "value": 90,
-   "default": 90,
-   "scale": 0,
-   "min": 5,
-   "max": 100,
-   "units": "%",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 26,
-   "name": "fuelLevelHightAlarmDelay",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 3600,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 27,
-   "name": "fuelPumpOnLevel",
-   "value": 30,
-   "default": 30,
-   "scale": 0,
-   "min": 0,
-   "max": 100,
-   "units": "%",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 28,
-   "name": "fuelPumpOffLevel",
-   "value": 70,
-   "default": 70,
-   "scale": 0,
-   "min": 0,
-   "max": 100,
-   "units": "%",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 29,
-   "name": "speedSetup",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 1023,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 2,
-   "bit": [
-       {
-           "name": "speedEnb",
-           "mask": 1,
-           "min": 0,
-           "max": 1,
-           "shift": 0,
-       },{
-           "name": "speedLowAlarmEnb",
-           "mask": 2,
-           "min": 0,
-           "max": 1,
-           "shift": 1,
-       },
-   ]
-},{
-   "adr": 30,
-   "name": "speedToothNumber",
-   "value": 190,
-   "default": 190,
-   "scale": 0,
-   "min": 10,
-   "max": 500,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 31,
-   "name": "speedLowAlarmLevel",
-   "value": 1200,
-   "default": 1200,
-   "scale": 0,
-   "min": 0,
-   "max": 6000,
-   "units": "RPM",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 32,
-   "name": "speedHightAlarmLevel",
-   "value": 1710,
-   "default": 1710,
-   "scale": 0,
-   "min": 0,
-   "max": 6000,
-   "units": "RPM",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 33,
-   "name": "diaSetup",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 1023,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 4,
-   "bit": [
-       {
-           "name": "diaFunction",
-           "mask": 31,
-           "min": 0,
-           "max": 27,
-           "shift": 0,
-       },{
-           "name": "diaPolarity",
-           "mask": 32,
-           "min": 0,
-           "max": 1,
-           "shift": 5,
-       },{
-           "name": "diaAction",
-           "mask": 192,
-           "min": 0,
-           "max": 3,
-           "shift": 6,
-       },{
-           "name": "diaArming",
-           "mask": 768,
-           "min": 0,
-           "max": 4,
-           "shift": 8,
-       },
-   ]
-},{
-   "adr": 34,
-   "name": "diaDelay",
-   "value": 15,
-   "default": 15,
-   "scale": 0,
-   "min": 0,
-   "max": 60,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 35,
-   "name": "diaMessage",
-   "value": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-   "default": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "S",
-   "rw": "rw",
-   "len": 16,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 36,
-   "name": "dibSetup",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 1023,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 4,
-   "bit": [
-       {
-           "name": "dibFunction",
-           "mask": 31,
-           "min": 0,
-           "max": 27,
-           "shift": 0,
-       },{
-           "name": "dibPolarity",
-           "mask": 32,
-           "min": 0,
-           "max": 1,
-           "shift": 5,
-       },{
-           "name": "dibAction",
-           "mask": 192,
-           "min": 0,
-           "max": 3,
-           "shift": 6,
-       },{
-           "name": "dibArming",
-           "mask": 768,
-           "min": 0,
-           "max": 4,
-           "shift": 8,
-       },
-   ]
-},{
-   "adr": 37,
-   "name": "dibDelay",
-   "value": 15,
-   "default": 15,
-   "scale": 0,
-   "min": 0,
-   "max": 60,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 38,
-   "name": "dibMessage",
-   "value": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-   "default": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "S",
-   "rw": "rw",
-   "len": 16,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 39,
-   "name": "dicSetup",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 1023,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 4,
-   "bit": [
-       {
-           "name": "dicFunction",
-           "mask": 31,
-           "min": 0,
-           "max": 27,
-           "shift": 0,
-       },{
-           "name": "dicPolarity",
-           "mask": 32,
-           "min": 0,
-           "max": 1,
-           "shift": 5,
-       },{
-           "name": "dicAction",
-           "mask": 192,
-           "min": 0,
-           "max": 3,
-           "shift": 6,
-       },{
-           "name": "dicArming",
-           "mask": 768,
-           "min": 0,
-           "max": 4,
-           "shift": 8,
-       },
-   ]
-},{
-   "adr": 40,
-   "name": "dicDelay",
-   "value": 15,
-   "default": 15,
-   "scale": 0,
-   "min": 0,
-   "max": 60,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 41,
-   "name": "dicMessage",
-   "value": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-   "default": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "S",
-   "rw": "rw",
-   "len": 16,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 42,
-   "name": "didSetup",
-   "value": 64,
-   "default": 64,
-   "scale": 0,
-   "min": 0,
-   "max": 1023,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 4,
-   "bit": [
-       {
-           "name": "didFunction",
-           "mask": 31,
-           "min": 0,
-           "max": 27,
-           "shift": 0,
-       },{
-           "name": "didPolarity",
-           "mask": 32,
-           "min": 0,
-           "max": 1,
-           "shift": 5,
-       },{
-           "name": "didAction",
-           "mask": 192,
-           "min": 0,
-           "max": 3,
-           "shift": 6,
-       },{
-           "name": "didArming",
-           "mask": 768,
-           "min": 0,
-           "max": 4,
-           "shift": 8,
-       },
-   ]
-},{
-   "adr": 43,
-   "name": "didDelay",
-   "value": 15,
-   "default": 15,
-   "scale": 0,
-   "min": 0,
-   "max": 60,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 44,
-   "name": "didMessage",
-   "value": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-   "default": [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "S",
-   "rw": "rw",
-   "len": 16,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 45,
-   "name": "doSetup",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 1023,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 6,
-   "bit": [
-       {
-           "name": "doaNOC",
-           "mask": 1,
-           "min": 0,
-           "max": 1,
-           "shift": 0,
-       },{
-           "name": "dobNOC",
-           "mask": 2,
-           "min": 0,
-           "max": 1,
-           "shift": 1,
-       },{
-           "name": "docNOC",
-           "mask": 4,
-           "min": 0,
-           "max": 1,
-           "shift": 2,
-       },{
-           "name": "dodNOC",
-           "mask": 8,
-           "min": 0,
-           "max": 1,
-           "shift": 3,
-       },{
-           "name": "doeNOC",
-           "mask": 16,
-           "min": 0,
-           "max": 1,
-           "shift": 4,
-       },{
-           "name": "dofNOC",
-           "mask": 32,
-           "min": 0,
-           "max": 1,
-           "shift": 5,
-       },
-   ]
-},{
-   "adr": 46,
-   "name": "doabType",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 1023,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 2,
-   "bit": [
-       {
-           "name": "doaType",
-           "mask": 255,
-           "min": 0,
-           "max": 255,
-           "shift": 0,
-       },{
-           "name": "dobType",
-           "mask": 65280,
-           "min": 0,
-           "max": 255,
-           "shift": 8,
-       },
-   ]
-},{
-   "adr": 47,
-   "name": "docdType",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 1023,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 2,
-   "bit": [
-       {
-           "name": "docType",
-           "mask": 255,
-           "min": 0,
-           "max": 255,
-           "shift": 0,
-       },{
-           "name": "dodType",
-           "mask": 65280,
-           "min": 0,
-           "max": 255,
-           "shift": 8,
-       },
-   ]
-},{
-   "adr": 48,
-   "name": "doefType",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 1023,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 2,
-   "bit": [
-       {
-           "name": "doeType",
-           "mask": 255,
-           "min": 0,
-           "max": 255,
-           "shift": 0,
-       },{
-           "name": "dofType",
-           "mask": 65280,
-           "min": 0,
-           "max": 255,
-           "shift": 8,
-       },
-   ]
-},{
-   "adr": 49,
-   "name": "timerMainsTransientDelay",
-   "value": 1,
-   "default": 1,
-   "scale": -1,
-   "min": 1,
-   "max": 100,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 50,
-   "name": "timerStartDelay",
-   "value": 5,
-   "default": 5,
-   "scale": 0,
-   "min": 0,
-   "max": 300,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 51,
-   "name": "timerCranking",
-   "value": 10,
-   "default": 10,
-   "scale": 0,
-   "min": 1,
-   "max": 30,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 52,
-   "name": "timerCrankDelay",
-   "value": 10,
-   "default": 10,
-   "scale": 0,
-   "min": 1,
-   "max": 30,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 53,
-   "name": "timerStartupIdleTime",
-   "value": 10,
-   "default": 10,
-   "scale": 0,
-   "min": 0,
-   "max": 300,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 54,
-   "name": "timerNominalRPMDelay",
-   "value": 10,
-   "default": 10,
-   "scale": 0,
-   "min": 1,
-   "max": 30,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 55,
-   "name": "timerSafetyOnDelay",
-   "value": 10,
-   "default": 10,
-   "scale": 0,
-   "min": 1,
-   "max": 60,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 56,
-   "name": "timerWarming",
-   "value": 1,
-   "default": 1,
-   "scale": 0,
-   "min": 0,
-   "max": 300,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 57,
-   "name": "timerTransferDelay",
-   "value": 6,
-   "default": 6,
-   "scale": -1,
-   "min": 1,
-   "max": 300,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 58,
-   "name": "timerGenBreakerTripPulse",
-   "value": 5,
-   "default": 5,
-   "scale": -1,
-   "min": 1,
-   "max": 50,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 59,
-   "name": "timerGenBreakerClosePulse",
-   "value": 5,
-   "default": 5,
-   "scale": -1,
-   "min": 1,
-   "max": 50,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 60,
-   "name": "timerMainsBreakerTripPulse",
-   "value": 5,
-   "default": 5,
-   "scale": -1,
-   "min": 1,
-   "max": 50,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 61,
-   "name": "timerMainsBreakerClosePulse",
-   "value": 5,
-   "default": 5,
-   "scale": -1,
-   "min": 1,
-   "max": 50,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 62,
-   "name": "timerReturnDelay",
-   "value": 30,
-   "default": 30,
-   "scale": 0,
-   "min": 0,
-   "max": 300,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 63,
-   "name": "timerCooling",
-   "value": 60,
-   "default": 60,
-   "scale": 0,
-   "min": 0,
-   "max": 300,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 64,
-   "name": "timerCoolingIdle",
-   "value": 20,
-   "default": 20,
-   "scale": 0,
-   "min": 0,
-   "max": 300,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 65,
-   "name": "timerSolenoidHold",
-   "value": 20,
-   "default": 20,
-   "scale": 0,
-   "min": 0,
-   "max": 60,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 66,
-   "name": "timerFailStopDelay",
-   "value": 30,
-   "default": 30,
-   "scale": 0,
-   "min": 1,
-   "max": 60,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 67,
-   "name": "timerGenTransientDelay",
-   "value": 10,
-   "default": 10,
-   "scale": -1,
-   "min": 1,
-   "max": 100,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 68,
-   "name": "genSetup",
-   "value": 1,
-   "default": 1,
-   "scale": 0,
-   "min": 0,
-   "max": 255,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 2,
-   "bit": [
-       {
-           "name": "genPowerGeneratorControlEnb",
-           "mask": 1,
-           "min": 0,
-           "max": 1,
-           "shift": 0,
-       },{
-           "name": "genAcSys",
-           "mask": 6,
-           "min": 0,
-           "max": 3,
-           "shift": 1,
-       },
-   ]
-},{
-   "adr": 69,
-   "name": "genRatedActivePowerLevel",
-   "value": 40000,
-   "default": 40000,
-   "scale": 0,
-   "min": 0,
-   "max": 10000,
-   "units": "кВт",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 70,
-   "name": "genRatedReactivePowerLevel",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 10000,
-   "units": "кВАР",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 71,
-   "name": "genRatedApparentPowerLevel",
-   "value": 200,
-   "default": 200,
-   "scale": 0,
-   "min": 0,
-   "max": 10000,
-   "units": "кВА",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 72,
-   "name": "genRatedFrequencyLevel",
-   "value": 500,
-   "default": 500,
-   "scale": -1,
-   "min": 2,
-   "max": 747,
-   "units": "Гц",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 73,
-   "name": "genCurrentPrimaryLevel",
-   "value": 600,
-   "default": 600,
-   "scale": 0,
-   "min": 5,
-   "max": 8000,
-   "units": "А",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 74,
-   "name": "genCurrentFullLoadRatingLevel",
-   "value": 500,
-   "default": 500,
-   "scale": 0,
-   "min": 5,
-   "max": 8000,
-   "units": "А",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 75,
-   "name": "genAlarms",
-   "value": 7167,
-   "default": 7167,
-   "scale": 0,
-   "min": 0,
-   "max": 65535,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 12,
-   "bit": [
-       {
-           "name": "genUnderVoltageAlarmEnb",
-           "mask": 1,
-           "min": 0,
-           "max": 1,
-           "shift": 0,
-       },{
-           "name": "genUnderVoltagePreAlarmEnb",
-           "mask": 2,
-           "min": 0,
-           "max": 1,
-           "shift": 1,
-       },{
-           "name": "genOverVoltagePreAlarmEnb",
-           "mask": 4,
-           "min": 0,
-           "max": 1,
-           "shift": 2,
-       },{
-           "name": "genUnderFrequencyAlarmEnb",
-           "mask": 8,
-           "min": 0,
-           "max": 1,
-           "shift": 3,
-       },{
-           "name": "genUnderFrequencyPreAlarmEnb",
-           "mask": 16,
-           "min": 0,
-           "max": 1,
-           "shift": 4,
-       },{
-           "name": "genOverFrequencyPreAlarmEnb",
-           "mask": 32,
-           "min": 0,
-           "max": 1,
-           "shift": 5,
-       },{
-           "name": "genOverFrequencyAlarmEnb",
-           "mask": 64,
-           "min": 0,
-           "max": 1,
-           "shift": 6,
-       },{
-           "name": "genCurrentOverloadProtectionEnb",
-           "mask": 128,
-           "min": 0,
-           "max": 1,
-           "shift": 7,
-       },{
-           "name": "genCurrentOverPhaseImbalanceEnb",
-           "mask": 256,
-           "min": 0,
-           "max": 1,
-           "shift": 8,
-       },{
-           "name": "genCurrentOverAlarmAction",
-           "mask": 1536,
-           "min": 0,
-           "max": 3,
-           "shift": 9,
-       },{
-           "name": "genCurrentOverloadProtectionAction",
-           "mask": 2048,
-           "min": 0,
-           "max": 1,
-           "shift": 11,
-       },{
-           "name": "genCurrentOverPhaseImbalanceAction",
-           "mask": 4096,
-           "min": 0,
-           "max": 1,
-           "shift": 12,
-       },
-   ]
-},{
-   "adr": 76,
-   "name": "genUnderVoltageAlarmLevel",
-   "value": 318,
-   "default": 318,
-   "scale": 0,
-   "min": 86,
-   "max": 708,
-   "units": "В",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 77,
-   "name": "genUnderVoltagePreAlarmLevel",
-   "value": 339,
-   "default": 339,
-   "scale": 0,
-   "min": 88,
-   "max": 710,
-   "units": "В",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 78,
-   "name": "genOverVoltagePreAlarmLevel",
-   "value": 439,
-   "default": 439,
-   "scale": 0,
-   "min": 93,
-   "max": 715,
-   "units": "В",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 79,
-   "name": "genOverVoltageAlarmLevel",
-   "value": 458,
-   "default": 458,
-   "scale": 0,
-   "min": 95,
-   "max": 717,
-   "units": "В",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 80,
-   "name": "genUnderFrequencyAlarmLevel",
-   "value": 400,
-   "default": 400,
-   "scale": -1,
-   "min": 0,
-   "max": 744,
-   "units": "Гц",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 81,
-   "name": "genUnderFrequencyPreAlarmLevel",
-   "value": 420,
-   "default": 420,
-   "scale": -1,
-   "min": 1,
-   "max": 745,
-   "units": "Гц",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 82,
-   "name": "genOverFrequencyPreAlarmLevel",
-   "value": 540,
-   "default": 540,
-   "scale": -1,
-   "min": 4,
-   "max": 747,
-   "units": "Гц",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 83,
-   "name": "genOverFrequencyAlarmLevel",
-   "value": 550,
-   "default": 550,
-   "scale": -1,
-   "min": 5,
-   "max": 749,
-   "units": "Гц",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 84,
-   "name": "genOverCurrentThermalProtectionLevel",
-   "value": 20,
-   "default": 20,
-   "scale": 0,
-   "min": 90,
-   "max": 200,
-   "units": "%",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 85,
-   "name": "genOverCurrentCutoffLevel",
-   "value": 40,
-   "default": 40,
-   "scale": 0,
-   "min": 200,
-   "max": 500,
-   "units": "%",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 86,
-   "name": "genOverCurrentAlarmLevel",
-   "value": 100,
-   "default": 100,
-   "scale": 0,
-   "min": 50,
-   "max": 120,
-   "units": "%",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 87,
-   "name": "genOverCurrentAlarmDelay",
-   "value": 60,
-   "default": 60,
-   "scale": 0,
-   "min": 0,
-   "max": 3600,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 88,
-   "name": "genCurrentOverloadProtectionLevel",
-   "value": 100,
-   "default": 100,
-   "scale": 0,
-   "min": 1,
-   "max": 125,
-   "units": "%",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 89,
-   "name": "genCurrentOverloadProtectionDelay",
-   "value": 5,
-   "default": 5,
-   "scale": 0,
-   "min": 0,
-   "max": 3600,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 90,
-   "name": "genCurrentOverPhaseImbalanceLevel",
-   "value": 100,
-   "default": 100,
-   "scale": 0,
-   "min": 1,
-   "max": 125,
-   "units": "%",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 91,
-   "name": "genCurrentOverPhaseImbalanceDelay",
-   "value": 60,
-   "default": 60,
-   "scale": 0,
-   "min": 0,
-   "max": 3600,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 92,
-   "name": "mainsSetup",
-   "value": 1,
-   "default": 1,
-   "scale": 0,
-   "min": 0,
-   "max": 31,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 2,
-   "bit": [
-       {
-           "name": "mainsControlEnb",
-           "mask": 1,
-           "min": 0,
-           "max": 1,
-           "shift": 0,
-       },{
-           "name": "mainsPowerOffImmediatelyEnb",
-           "mask": 2,
-           "min": 0,
-           "max": 1,
-           "shift": 1,
-       },
-   ]
-},{
-   "adr": 93,
-   "name": "mainsAlarms",
-   "value": 15,
-   "default": 15,
-   "scale": 0,
-   "min": 0,
-   "max": 15,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 4,
-   "bit": [
-       {
-           "name": "mainsUnderVoltageAlarmEnb",
-           "mask": 1,
-           "min": 0,
-           "max": 1,
-           "shift": 0,
-       },{
-           "name": "mainsOverVoltageAlarmEnb",
-           "mask": 2,
-           "min": 0,
-           "max": 1,
-           "shift": 1,
-       },{
-           "name": "mainsUnderFrequencyAlarmEnb",
-           "mask": 4,
-           "min": 0,
-           "max": 1,
-           "shift": 2,
-       },{
-           "name": "mainsOverFrequencyAlarmEnb",
-           "mask": 8,
-           "min": 0,
-           "max": 1,
-           "shift": 3,
-       },
-   ]
-},{
-   "adr": 94,
-   "name": "mainsUnderVoltageAlarmLevel",
-   "value": 318,
-   "default": 318,
-   "scale": 0,
-   "min": 86,
-   "max": 713,
-   "units": "В",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 95,
-   "name": "mainsOverVoltageAlarmLevel",
-   "value": 438,
-   "default": 438,
-   "scale": 0,
-   "min": 90,
-   "max": 717,
-   "units": "В",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 96,
-   "name": "mainsUnderFrequencyAlarmLevel",
-   "value": 450,
-   "default": 450,
-   "scale": -1,
-   "min": 0,
-   "max": 747,
-   "units": "Гц",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 97,
-   "name": "mainsOverFrequencyAlarmLevel",
-   "value": 520,
-   "default": 520,
-   "scale": -1,
-   "min": 2,
-   "max": 749,
-   "units": "Гц",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 98,
-   "name": "engineSetup",
-   "value": 3,
-   "default": 3,
-   "scale": 0,
-   "min": 0,
-   "max": 63,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 2,
-   "bit": [
-       {
-           "name": "engineStartAttempts",
-           "mask": 15,
-           "min": 1,
-           "max": 9,
-           "shift": 0,
-       },{
-           "name": "enginePreHeatEnb",
-           "mask": 16,
-           "min": 0,
-           "max": 1,
-           "shift": 4,
-       },
-   ]
-},{
-   "adr": 99,
-   "name": "enginePreHeatLevel",
-   "value": 50,
-   "default": 50,
-   "scale": 0,
-   "min": 0,
-   "max": 100,
-   "units": "C",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 100,
-   "name": "enginePreHeatDelay",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 3600,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 101,
-   "name": "starterStopSetup",
-   "value": 5,
-   "default": 5,
-   "scale": 0,
-   "min": 0,
-   "max": 7,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 4,
-   "bit": [
-       {
-           "name": "starterOilPressureCheckOnStartEnb",
-           "mask": 1,
-           "min": 0,
-           "max": 1,
-           "shift": 0,
-       },{
-           "name": "starterStopOilPressureEnb",
-           "mask": 2,
-           "min": 0,
-           "max": 1,
-           "shift": 1,
-       },{
-           "name": "starterStopChargeAlternatorEnb",
-           "mask": 4,
-           "min": 0,
-           "max": 1,
-           "shift": 2,
-       },{
-           "name": "starterStopSpeedEnb",
-           "mask": 8,
-           "min": 0,
-           "max": 1,
-           "shift": 3,
-       },
-   ]
-},{
-   "adr": 102,
-   "name": "starterStopGenFreqLevel",
-   "value": 210,
-   "default": 210,
-   "scale": -1,
-   "min": 0,
-   "max": 400,
-   "units": "Гц",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 103,
-   "name": "starterStopOilPressureLevel",
-   "value": 20,
-   "default": 20,
-   "scale": -1,
-   "min": 5,
-   "max": 40,
-   "units": "Бар",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 104,
-   "name": "starterStopChargeAlternatorLevel",
-   "value": 60,
-   "default": 60,
-   "scale": -1,
-   "min": 0,
-   "max": 400,
-   "units": "В",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 105,
-   "name": "starterStopSpeedLevel",
-   "value": 15000,
-   "default": 15000,
-   "scale": -1,
-   "min": 0,
-   "max": 60000,
-   "units": "RPM",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 106,
-   "name": "batteryAlarms",
-   "value": 15,
-   "default": 15,
-   "scale": 0,
-   "min": 0,
-   "max": 15,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 4,
-   "bit": [
-       {
-           "name": "batteryUnderVoltageEnb",
-           "mask": 1,
-           "min": 0,
-           "max": 1,
-           "shift": 0,
-       },{
-           "name": "batteryOverVoltageEnb",
-           "mask": 2,
-           "min": 0,
-           "max": 1,
-           "shift": 1,
-       },{
-           "name": "batteryChargeShutdownEnb",
-           "mask": 4,
-           "min": 0,
-           "max": 1,
-           "shift": 2,
-       },{
-           "name": "batteryChargeWarningEnb",
-           "mask": 8,
-           "min": 0,
-           "max": 1,
-           "shift": 3,
-       },
-   ]
-},{
-   "adr": 107,
-   "name": "batteryUnderVoltageLevel",
-   "value": 100,
-   "default": 100,
-   "scale": -1,
-   "min": 0,
-   "max": 397,
-   "units": "В",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 108,
-   "name": "batteryUnderVoltageDelay",
-   "value": 60,
-   "default": 60,
-   "scale": 0,
-   "min": 0,
-   "max": 86400,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 109,
-   "name": "batteryOverVoltageLevel",
-   "value": 300,
-   "default": 300,
-   "scale": -1,
-   "min": 2,
-   "max": 400,
-   "units": "В",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 110,
-   "name": "batteryOverVoltageDelay",
-   "value": 60,
-   "default": 60,
-   "scale": 0,
-   "min": 0,
-   "max": 86400,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 111,
-   "name": "batteryChargeShutdownLevel",
-   "value": 40,
-   "default": 40,
-   "scale": -1,
-   "min": 0,
-   "max": 388,
-   "units": "В",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 112,
-   "name": "batteryChargeShutdownDelay",
-   "value": 5,
-   "default": 5,
-   "scale": 0,
-   "min": 0,
-   "max": 3600,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 113,
-   "name": "batteryChargeWarningLevel",
-   "value": 60,
-   "default": 60,
-   "scale": -1,
-   "min": 1,
-   "max": 390,
-   "units": "В",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 114,
-   "name": "batteryChargeWarningDelay",
-   "value": 5,
-   "default": 5,
-   "scale": 0,
-   "min": 0,
-   "max": 3600,
-   "units": "сек",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 115,
-   "name": "maintenanceAlarms",
-   "value": 42,
-   "default": 42,
-   "scale": 0,
-   "min": 0,
-   "max": 63,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 6,
-   "bit": [
-       {
-           "name": "maintenanceAlarmOilEnb",
-           "mask": 1,
-           "min": 0,
-           "max": 1,
-           "shift": 0,
-       },{
-           "name": "maintenanceAlarmOilAction",
-           "mask": 2,
-           "min": 0,
-           "max": 1,
-           "shift": 1,
-       },{
-           "name": "maintenanceAlarmAirEnb",
-           "mask": 4,
-           "min": 0,
-           "max": 1,
-           "shift": 2,
-       },{
-           "name": "maintenanceAlarmAirAction",
-           "mask": 8,
-           "min": 0,
-           "max": 1,
-           "shift": 3,
-       },{
-           "name": "maintenanceAlarmFuelEnb",
-           "mask": 16,
-           "min": 0,
-           "max": 1,
-           "shift": 4,
-       },{
-           "name": "maintenanceAlarmFuelAction",
-           "mask": 32,
-           "min": 0,
-           "max": 1,
-           "shift": 5,
-       },
-   ]
-},{
-   "adr": 116,
-   "name": "maintenanceAlarmOilTime",
-   "value": 10,
-   "default": 10,
-   "scale": 0,
-   "min": 10,
-   "max": 5000,
-   "units": "час",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 117,
-   "name": "maintenanceAlarmAirTime",
-   "value": 10,
-   "default": 10,
-   "scale": 0,
-   "min": 10,
-   "max": 5000,
-   "units": "час",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 118,
-   "name": "maintenanceAlarmFuelTime",
-   "value": 10,
-   "default": 10,
-   "scale": 0,
-   "min": 10,
-   "max": 5000,
-   "units": "час",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 119,
-   "name": "logSetup",
-   "value": 1,
-   "default": 1,
-   "scale": 0,
-   "min": 0,
-   "max": 65535,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 1,
-   "bit": [
-       {
-           "name": "logSaveWarningEventsEnb",
-           "mask": 1,
-           "min": 0,
-           "max": 1,
-           "shift": 0,
-       },
-   ]
-},];</script>
+</script>
     <script>softwareVersion = "0.1"
 </script>
     <script>
@@ -15983,6 +13797,49 @@ function connectUpdate () {
   return;
 }
 //******************************************************************************
+function saveConfigsToFile () {
+  function SaveAsFile ( t, file, m ) {
+  	try {
+    	var blob = new Blob( [t], { type: m } );
+      saveAs( blob, file );
+    } catch( e ) {
+    	window.open( ( "data:" + m + "," + encodeURIComponent( t ) ), '_blank', '' );
+    }
+    return;
+  }
+	grabInterface()
+	SaveAsFile( JSON.stringify( dataReg ), ( "configs.JSON" ), "text/plain;charset=utf-8" );
+  return;
+}
+//******************************************************************************
+function loadConfigsFromFile () {
+  if ( window.File && window.FileReader && window.FileList && window.Blob ) {
+		var input = document.createElement( "input" );
+    input.setAttribute( "type", "file" );
+		input.addEventListener( "change", function() {
+			file = input.files[0];
+			if ( file.type != "application/json" ) {
+        let alert = new Alert( "alert-warning", triIco, "Выбран файл с неправильным расширением. Выберете JSON файл" );
+			} else {
+				let reader = new FileReader();
+        reader.readAsText( file );
+				reader.onload = function() {
+					try {
+						dataReg = JSON.parse( reader.result );
+					} catch( e ) {
+            let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
+					}
+  			};
+			}
+		});
+		input.click();
+    return false; // avoiding navigation
+	} else {
+    let alert = new Alert( "alert-warning", triIco, "Браузер не поддерживает загрузку файлов" );
+	}
+  return;
+}
+//******************************************************************************
 function connectGrab () {
   let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
@@ -15991,7 +13848,7 @@ function connectGrab () {
       return;
     });
   } else if ( connectionType == 'usb' ) {
-      usb.controller.send( alert );
+    usb.controller.send( alert );
   }
   return;
 }
@@ -16017,6 +13874,8 @@ function eraseLog () {
   } else if ( connectionType == 'usb' ) {
     usb.controller.eraseLog();
   }
+  logArray = [];
+  redrawLogTable();
   return;
 }
 function writePassword ( password ) {
@@ -16585,64 +14444,62 @@ function oilScaleInit() {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function diInit( letter ) {
-	function setDisabled() {
-		var funct    = document.getElementById( 'di' + letter + 'Function' )
-		var polarity = document.getElementById( 'di' + letter + 'Polarity' );
-		var action   = document.getElementById( 'di' + letter + 'Action' );
-		var arming   = document.getElementById( 'di' + letter + 'Arming' );
-		var input    = document.getElementById( 'sinput-di' + letter + 'Delay' );
-		var slider   = document.getElementById( 's-slider-di' + letter + 'Delay' );
-		var message  = document.getElementById( 'di' + letter + 'Message' );
-		if ( funct.value == 0 ) {
-			polarity.disabled = true;
-			action.disabled   = true;
-			arming.disabled   = true;
-			message.disabled  = true;
-			input.disabled    = true;
-			slider.setAttribute( 'disabled', true);
-		} else if ( funct.value == 1 ) {
-			polarity.disabled = false;
-			action.disabled   = false;
-			arming.disabled   = false;
-			message.disabled  = false;
-			input.disabled    = false;
-			slider.removeAttribute( 'disabled' );
-	  } else {
-			polarity.disabled = false;
-			action.disabled   = true;
-			arming.disabled   = true;
-			message.disabled  = true;
-			input.disabled    = false;
-			slider.removeAttribute( 'disabled' );
-		}
-		return;
+function setDisabledDI( letter ) {
+	var funct    = document.getElementById( 'di' + letter + 'Function' )
+	var polarity = document.getElementById( 'di' + letter + 'Polarity' );
+	var action   = document.getElementById( 'di' + letter + 'Action' );
+	var arming   = document.getElementById( 'di' + letter + 'Arming' );
+	var input    = document.getElementById( 'sinput-di' + letter + 'Delay' );
+	var slider   = document.getElementById( 's-slider-di' + letter + 'Delay' );
+	var message  = document.getElementById( 'di' + letter + 'Message' );
+	if ( funct.value == 0 ) {
+		polarity.disabled = true;
+		action.disabled   = true;
+		arming.disabled   = true;
+		message.disabled  = true;
+		input.disabled    = true;
+		slider.setAttribute( 'disabled', true);
+	} else if ( funct.value == 1 ) {
+		polarity.disabled = false;
+		action.disabled   = false;
+		arming.disabled   = false;
+		message.disabled  = false;
+		input.disabled    = false;
+		slider.removeAttribute( 'disabled' );
+	} else {
+		polarity.disabled = false;
+		action.disabled   = true;
+		arming.disabled   = true;
+		message.disabled  = true;
+		input.disabled    = false;
+		slider.removeAttribute( 'disabled' );
 	}
-
-	setDisabled();
+	return;
+}
+function setDisabledDO( letter ) {
+	var no = document.getElementById( 'do' + letter + 'NO' );
+	var nc = document.getElementById( 'do' + letter + 'NC' );
+	var type = document.getElementById( 'do' + letter + 'Type' );
+	if ( type.value == 0 ) {
+		no.disabled = true;
+		nc.disabled = true;
+	} else {
+		no.disabled = false;
+		nc.disabled = false;
+	}
+	return;
+}
+function diInit( letter ) {
+	setDisabledDI( letter );
 	document.getElementById( 'di' + letter + 'Function' ).addEventListener( 'change', function() {
-		setDisabled();
+		setDisabledDI( letter );
 	});
 	return;
 }
-
-function doInit(letter) {
-	function setDisabled() {
-		var no = document.getElementById( 'do' + letter + 'NO' );
-		var nc = document.getElementById( 'do' + letter + 'NC' );
-		var type = document.getElementById( 'do' + letter + 'Type' );
-		if ( type.value == 0 ) {
-			no.disabled = true;
-			nc.disabled = true;
-		} else {
-			no.disabled = false;
-			nc.disabled = false;
-		}
-		return;
-	}
-	setDisabled();
+function doInit( letter ) {
+	setDisabledDO( letter );
 	document.getElementById( 'do' + letter + 'Type' ).addEventListener( 'change', function() {
-		setDisabled();
+		setDisabledDO( letter );
 	});
 	return;
 }
@@ -16924,8 +14781,8 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	                                           'genUnderFrequencyPreAlarmLevel',
 																						 'genOverFrequencyPreAlarmLevel',
 																						 'genOverFrequencyAlarmLevel' );
-	const oilVoltageLims = new slider2InitLimits( 'oilPressureAlarmLevel',
-	                                              'oilPressurePreAlarmLevel');
+	const oilVoltageLims = new slider2InitLimits( 'oilPressurePreAlarmLevel',
+																								'oilPressureAlarmLevel' );
   const coolantLims = new slider2InitLimits( 'coolantHightTempPreAlarmLevel',
                                                     'coolantHightTempAlarmLevel' );
   const coolantHeaterLims = new slider2InitLimits('coolantTempHeaterOnLevel','coolantTempHeaterOffLevel');
@@ -17029,22 +14886,32 @@ const  LOG_SEC_MASK    = 0x0000003F;
 const  LOG_SEC_SHIFT   = 0;
 
 function  GET_LOG_DAY ( d ) {
-  return ( d & LOG_DAY_MASK ) >> LOG_DAY_SHIFT;
+  return ( new Uint32Array( [( ( d  & LOG_DAY_MASK ) >> LOG_DAY_SHIFT ) & 0x1F ] ) )[0];
 }
-function  GET_LOG_MONTH ( d ){
-  return ( d & LOG_MONTH_MASK ) >> LOG_MONTH_SHIFT;
+function  GET_LOG_MONTH ( d ) {
+  let out = ( d & LOG_MONTH_MASK ) >> LOG_MONTH_SHIFT;
+  out     = ( new Uint32Array( [out] ) )[0];
+  return out;
 }
 function  GET_LOG_YEAR ( d ) {
-  return ( d & LOG_YEAR_MASK  ) >> LOG_YEAR_SHIFT;
+  let out =  ( d & LOG_YEAR_MASK  ) >> LOG_YEAR_SHIFT;
+  out     = ( new Uint32Array( [out] ) )[0];
+  return out;
 }
 function  GET_LOG_HOUR ( d ) {
-  return ( d & LOG_HOUR_MASK  ) >> LOG_HOUR_SHIFT;
+  let out =  ( d & LOG_HOUR_MASK  ) >> LOG_HOUR_SHIFT;
+  out     = ( new Uint32Array( [out] ) )[0];
+  return out;
 }
 function  GET_LOG_MIN ( d ) {
-  return ( d & LOG_MIN_MASK   ) >> LOG_MIN_SHIFT;
+  let out =  ( d & LOG_MIN_MASK   ) >> LOG_MIN_SHIFT;
+  out     = ( new Uint32Array( [out] ) )[0];
+  return out;
 }
 function  GET_LOG_SEC ( d ) {
-  return ( d & LOG_SEC_MASK   ) >> LOG_SEC_SHIFT;
+  let out =  ( d & LOG_SEC_MASK   ) >> LOG_SEC_SHIFT;
+  out     = ( new Uint32Array( [out] ) )[0];
+  return out;
 }
 function  SET_LOG_DATE ( day, month, year, hour, min, sec ) {
   return ( day   << LOG_DAY_SHIFT   ) |
@@ -17094,7 +14961,11 @@ function StrLine ( name ) {
 	this.grab    = function() {
 		var text = this.object.value;
 		for ( var i=0; i<dataReg[this.regNum].len; i++ ) {
-			dataReg[this.regNum].value[i] = text.charAt( i );
+      if ( i < text.length ) {
+			  dataReg[this.regNum].value[i] = text.charAt( i );
+      } else {
+        dataReg[this.regNum].value[i] = " ";
+      }
 		}
 		return;
 	}
@@ -17357,7 +15228,7 @@ function Slider ( name, preInit ) {
 	var self = this;
 	this.name      = name;
 	/*--------------------------------------------------------------------------*/
-	this.getData   = function() {
+	this.getData   = function () {
 		for ( var i=0; i<dataReg.length; i++ ) {
 			if ( dataReg[i].name == name )
 			{
@@ -17366,7 +15237,7 @@ function Slider ( name, preInit ) {
 		}
 		return;
 	}
-	this.setUnits  = function( units ) {
+	this.setUnits  = function ( units ) {
 		dataReg[this.regNum].units = units;
 		return;
 	}
@@ -17374,6 +15245,20 @@ function Slider ( name, preInit ) {
 		dataReg[this.regNum].scale = scale;
 		return;
 	}
+  this.enableCheck = function () {
+    if ( this.sw.object ) {
+      if ( this.sw.object.checked ) {
+        self.enable = 1
+        self.input.disabled = false;
+        self.slider.removeAttribute( 'disabled' );
+      } else {
+        self.enable = 0
+        self.input.disabled = true;
+        self.slider.setAttribute( 'disabled', false );
+      }
+    }
+    return;
+  }
 	this.init      = function() {
 		this.getData();
 		this.slider = document.getElementById( "s-slider-" + this.name );
@@ -17394,16 +15279,8 @@ function Slider ( name, preInit ) {
 		this.sw = new Switch( swName + "Enb" )
 		if ( this.sw.object ) {
 			self.enable = this.sw.getVal();
-			this.sw.object.addEventListener( 'click', function() {
-				if ( this.checked ) {
-					self.enable = 1
-					self.input.disabled = false;
-					self.slider.removeAttribute( 'disabled' );
-				} else {
-					self.enable = 0
-					self.input.disabled = true;
-					self.slider.setAttribute( 'disabled', false );
-				}
+			this.sw.object.addEventListener( 'change', function() {
+				self.enableCheck();
 			});
 		} else {
 			this.enable = 1;
@@ -17494,31 +15371,32 @@ function Slider ( name, preInit ) {
 	this.update    = function() {
 		reg = dataReg[this.regNum];
 		try {
-		this.label.textContent = reg.units;
-		if ( this.enable == 1 ) {
-			this.input.disabled = false;
-			this.slider.removeAttribute( 'disabled' );
-		} else {
-			this.input.disabled = true;
-			this.slider.setAttribute( 'disabled', false );
-		}
-		this.calcScale();
-		this.input.value = reg.value * this.scl;
-		this.input.step  = this.scl;
-		this.input.addEventListener( 'change', function() {
-			this.value = parseFloat( this.value ).toFixed( calcFracLength( this.scl ) );
-		});
-		this.slider.noUiSlider.updateOptions({
-			step: 	this.scl,
-			start: [reg.value * this.scl],
-			range: {
-				'min': (reg.min * this.scl),
-				'max': (reg.max * this.scl)
-			}
-		})
-	} catch (e) {
-		console.log( "error on: " + this.name );
-	}
+		  this.label.textContent = reg.units;
+		  if ( this.enable == 1 ) {
+			  this.input.disabled = false;
+			  this.slider.removeAttribute( 'disabled' );
+		  } else {
+			  this.input.disabled = true;
+			  this.slider.setAttribute( 'disabled', false );
+		  }
+		  this.calcScale();
+		  this.input.value = reg.value * this.scl;
+		  this.input.step  = this.scl;
+		  this.input.addEventListener( 'change', function() {
+			  this.value = parseFloat( this.value ).toFixed( calcFracLength( this.scl ) );
+		  });
+		  this.slider.noUiSlider.updateOptions({
+			  step: 	this.scl,
+			  start: [reg.value * this.scl],
+			  range: {
+				  'min': (reg.min * this.scl),
+				  'max': (reg.max * this.scl)
+			  }
+		  });
+      this.enableCheck();
+	  } catch (e) {
+		  console.log( "error on: " + this.name );
+	  }
 		return;
 	}
 	this.grab      = function() {
@@ -17537,29 +15415,42 @@ function Slider ( name, preInit ) {
 }
 //******************************************************************************
 function LogRecord ( type, action, time ) {
-  var self = this;
+  var self    = this;
   this.type   = type;
   this.action = action;
   this.time   = time;
 }
-function redrawLogTable () {
+  function redrawLogTable () {
   var table = document.getElementById( 'log-body' );
   var sell;
+  var j     = 0;
   while ( table.rows[0] ) {
     table.deleteRow(0);
   }
   for ( var i=0; i<logArray.length; i++ ) {
-    let row = table.insertRow(i);
-    cell = row.insertCell(0);
-    cell.textContent = i + 1;
-    cell = row.insertCell(1);
-    cell.textContent = GET_LOG_DAY( logArray[i].time ) + '.' + GET_LOG_MONTH( logArray[i].time ) + '.' + ( GET_LOG_YEAR( logArray[i].time ) + 2000 );
-    cell = row.insertCell(2);
-    cell.textContent = GET_LOG_HOUR( logArray[i].time ) + ':' + GET_LOG_MIN( logArray[i].time ) + ':' + GET_LOG_SEC( logArray[i].time );
-    cell = row.insertCell(3);
-    cell.textContent = logTypesDictionary[logArray[i].type];
-    cell = row.insertCell(4);
-    cell.textContent = logActionsDictionary[logArray[i].action];
+    if ( logArray[i].time != 0 ) {
+      let row = table.insertRow(j);
+      cell = row.insertCell(0);
+      cell.textContent = j + 1;
+      cell = row.insertCell(1);
+      cell.textContent = ('0' + GET_LOG_DAY( logArray[i].time   ) ).slice(-2) + '.' +
+                         ('0' + GET_LOG_MONTH( logArray[i].time ) ).slice(-2) + '.' +
+                         ( GET_LOG_YEAR( logArray[i].time ) + 2000 );
+      cell = row.insertCell(2);
+      cell.textContent = ('0' + GET_LOG_HOUR( logArray[i].time ) ).slice(-2) + ':' +
+                         ('0' + GET_LOG_MIN( logArray[i].time  ) ).slice(-2) + ':' +
+                         ('0' + GET_LOG_SEC( logArray[i].time  ) ).slice(-2);
+      cell = row.insertCell(3);
+      cell.textContent = logTypesDictionary[logArray[i].type];
+      cell = row.insertCell(4);
+      cell.textContent = logActionsDictionary[logArray[i].action];
+      if ( logArray[i].action == 1 ) {
+        row.className  = "table-warning";
+      } else if ( logArray[i].action > 1 ) {
+        row.className  = "table-danger";
+      }
+      j++;
+    }
   }
   return;
 }
@@ -17606,6 +15497,10 @@ function cosFiUpdate () {
 	return;
 }
 //******************************************************************************
+function dec2hexString( dec ) {
+   return (dec+0x100).toString(16).substr(-2).toUpperCase();
+}
+//******************************************************************************
 function updateVersions () {
 	var counter = 0;
 	var major   = 0;
@@ -17626,7 +15521,7 @@ function updateVersions () {
 		if ( dataReg[i].name == "serialNumber" ) {
 			document.getElementById( "SerialNumber" ).textContent = "";
 			for ( var j=0; j<dataReg[i].len; j++ ) {
-				document.getElementById( "SerialNumber" ).textContent += ( ( ( dataReg[i].value[j] ) >> 8 ) & 0xFF ) + ':' + ( ( dataReg[i].value[j] ) & 0xFF );
+				document.getElementById( "SerialNumber" ).textContent += dec2hexString( ( ( dataReg[i].value[j] ) >> 8 ) & 0xFF ) + ':' + dec2hexString( ( dataReg[i].value[j] ) & 0xFF );
 				if ( j < ( dataReg[i].len - 1 ) ) {
 					document.getElementById( "SerialNumber" ).textContent += ':';
 				}
@@ -17948,29 +15843,48 @@ function declareInterface() {
 
 function updateInterface() {
 	rtcTime.update();
+  for ( var i=0; i<switcherArray.length; i++ ) {
+		switcherArray[i].update();
+	}
+	for ( var i=0; i<selectorArray.length; i++ ) {
+		selectorArray[i].update();
+	}
 	for ( var i=0; i<stringLineArray.length; i++ ) {
 		stringLineArray[i].update();
 	}
 	for ( var i=0; i<slidersArray.length; i++ ) {
 		slidersArray[i].update();
 	}
-	for ( var i=0; i<switcherArray.length; i++ ) {
-		switcherArray[i].update();
-	}
-	for ( var i=0; i<selectorArray.length; i++ ) {
-		selectorArray[i].update();
-	}
 	for ( var i=0; i<radioArray.length; i++ ) {
 		radioArray[i].update();
-	}
+  }
 	cosFiUpdate();
 	updateVersions();
 	for ( var i=0; i<freeDataNames.length; i++ ) {
 		freeDataArray[i].update();
 	}
+  for ( var i=0;i<dataReg.length;i++ ) {
+		if ( dataReg[i].name == "engineSetup" ) {
+		  //bitWrite( 0, dataReg[i], document.getElementById( 'engineStartAttempts' ).value );
+		}
+    if ( dataReg[i].name == "speedToothNumber" ) {
+      document.getElementById( 'speedToothNumber' ).value = dataReg[i].value;
+    }
+	}
   redrawLogTable();
+  setDisabledDI( 'a' );
+  setDisabledDI( 'b' );
+  setDisabledDI( 'c' );
+  setDisabledDI( 'd' );
+  setDisabledDO( 'a' );
+  setDisabledDO( 'b' );
+  setDisabledDO( 'c' );
+  setDisabledDO( 'd' );
+  setDisabledDO( 'e' );
+  setDisabledDO( 'f' );
 	return;
 }
+
 function grabInterface() {
 	for ( var i=0; i<stringLineArray.length; i++ ) {
 		stringLineArray[i].grab();
@@ -17995,10 +15909,12 @@ function grabInterface() {
 		freeDataArray[i].grab();
 	}
 	for ( var i=0;i<dataReg.length;i++ ) {
-		if ( dataReg[i].name == "engineSetup" )
-		{
+		if ( dataReg[i].name == "engineSetup" ) {
 		  bitWrite( 0, dataReg[i], document.getElementById( 'engineStartAttempts' ).value );
 		}
+    if ( dataReg[i].name == "speedToothNumber" ) {
+      dataReg[i].value = parseInt( document.getElementById( 'speedToothNumber' ).value );
+    }
 	}
 	return;
 }
@@ -18279,9 +16195,7 @@ function pasteDataReg( data ) {
 //******************************************************************************
 </script>
     <script>var pointIndex = 0;
-
 var sensorData = {
-  //labels: ["0", "10"],
   datasets: [{
     data: [{
       x: 0,
@@ -18289,15 +16203,15 @@ var sensorData = {
     },{
       x: 10,
       y: 10,}],
-    fill: false,
-    backgroundColor: '#f8b739',
-    borderColor: '#f8b739',
-    pointBorderColor: '#f8b739',
+    fill:                 false,
+    backgroundColor:      '#f8b739',
+    borderColor:          '#f8b739',
+    pointBorderColor:     '#f8b739',
     pointBackgroundColor: '#f8b739',
-    pointHitRadius: 30,
-    pointHoverRadius: 10,
-    showLine: true,
-    lineTension: 0,
+    pointHitRadius:       30,
+    pointHoverRadius:     10,
+    showLine:             true,
+    lineTension:          0,
   }]
 };
 
@@ -18308,7 +16222,6 @@ var chartOptions = {
   dragData: true,
   dragX: true,
   dragDataRound: 2,
-
   scales: {
     yAxes: [{
       type: 'linear',
@@ -18333,93 +16246,93 @@ var chartOptions = {
       }
     }]
   },
-  onDrag: function(evt, datasetIndex, index, value) {
-    if (index > 0) {
-      if (value.x < sensorData.datasets[0].data[index-1].x+0.01){
-        sensorData.datasets[0].data[index].x = sensorData.datasets[0].data[index-1].x+0.01
+  onDrag: function( evt, datasetIndex, index, value ) {
+    if ( index > 0 ) {
+      if ( value.x < ( sensorData.datasets[0].data[index-1].x + 0.01 ) ) {
+        sensorData.datasets[0].data[index].x = sensorData.datasets[0].data[index-1].x + 0.01;
         return false;
       }
     }
-    if (index < (sensorData.datasets[0].data.length - 1)) {
-      if (value.x > sensorData.datasets[0].data[index+1].x-0.01){
-        sensorData.datasets[0].data[index].x = sensorData.datasets[0].data[index+1].x-0.01
+    if ( index < ( sensorData.datasets[0].data.length - 1 ) ) {
+      if ( value.x > ( sensorData.datasets[0].data[index + 1].x - 0.01 ) ) {
+        sensorData.datasets[0].data[index].x = sensorData.datasets[0].data[index+1].x - 0.01;
         return false;
       }
     }
-    pointIndex = index;
-    xFild = document.getElementById("chartXedit");
-    yFild = document.getElementById("chartYedit");
-    apply = document.getElementById("chartApplay");
+    pointIndex     = index;
+    xFild          = document.getElementById("chartXedit");
+    yFild          = document.getElementById("chartYedit");
+    apply          = document.getElementById("chartApplay");
     apply.disabled = false;
     xFild.disabled = false;
     yFild.disabled = false;
-    yFild.value = value.y;
-    xFild.value = value.x;
+    yFild.value    = value.y;
+    xFild.value    = value.x;
   },
-  onClick: function(evt) {
-    changeEvent(evt);
+  onClick: function ( evt ) {
+    changeEvent( evt );
   }
 };
 
 
-document.getElementById("chartXedit").addEventListener('change', function() {
-  var curVal = parseFloat(self.xFild.value);
-  if (curVal > lineChart.options.scales.xAxes[0].ticks.max) {
+document.getElementById( "chartXedit" ).addEventListener( 'change', function () {
+  var curVal = parseFloat( self.xFild.value );
+  if ( curVal > lineChart.options.scales.xAxes[0].ticks.max ) {
     self.xFild.value = lineChart.options.scales.xAxes[0].ticks.max;
   }
-  if (curVal < lineChart.options.scales.xAxes[0].ticks.min) {
+  if ( curVal < lineChart.options.scales.xAxes[0].ticks.min ) {
     self.xFild.value = lineChart.options.scales.xAxes[0].ticks.min;
   }
-  if (pointIndex > 0){
-    if (curVal < sensorData.datasets[0].data[pointIndex-1].x+0.1) {
-      self.xFild.value = sensorData.datasets[0].data[pointIndex-1].x+0.1;
+  if ( pointIndex > 0 ) {
+    if ( curVal < ( sensorData.datasets[0].data[pointIndex-1].x + 0.1 ) ) {
+      self.xFild.value = sensorData.datasets[0].data[pointIndex-1].x + 0.1;
     }
   }
-  if (pointIndex < (sensorData.datasets[0].data.length - 1)){
-    if (curVal > sensorData.datasets[0].data[pointIndex+1].x) {
+  if ( pointIndex < ( sensorData.datasets[0].data.length - 1 ) ) {
+    if ( curVal > sensorData.datasets[0].data[pointIndex+1].x ) {
       self.xFild.value = sensorData.datasets[0].data[pointIndex+1].x;
     }
   }
 })
-document.getElementById("chartYedit").addEventListener('change', res =  function() {
-  if (parseFloat(self.yFild.value) > lineChart.options.scales.yAxes[0].ticks.max) {
+document.getElementById( "chartYedit" ).addEventListener( 'change', res = function () {
+  if ( parseFloat( self.yFild.value ) > lineChart.options.scales.yAxes[0].ticks.max ) {
     self.yFild.value = lineChart.options.scales.yAxes[0].ticks.max;
   }
-  if (parseFloat(self.yFild.value) < lineChart.options.scales.yAxes[0].ticks.min) {
+  if ( parseFloat( self.yFild.value ) < lineChart.options.scales.yAxes[0].ticks.min ) {
     self.yFild.value = lineChart.options.scales.yAxes[0].ticks.max;
   }
 })
-document.getElementById("chartApplay").addEventListener('click', function(){
-  sensorData.datasets[0].data[pointIndex].x = parseFloat(self.xFild.value);
-  sensorData.datasets[0].data[pointIndex].y = parseFloat(self.yFild.value);
+document.getElementById( "chartApplay" ).addEventListener( 'click', function () {
+  sensorData.datasets[0].data[pointIndex].x = parseFloat( self.xFild.value );
+  sensorData.datasets[0].data[pointIndex].y = parseFloat( self.yFild.value );
   lineChart.update();
 })
 
-
-function changeEvent(evt) {
-  var self = this;
-  this.element = lineChart.getElementAtEvent(evt);
-  this.xFild = document.getElementById("chartXedit");
-  this.yFild = document.getElementById("chartYedit");
-  this.apply = document.getElementById("chartApplay");
-  if(this.element.length > 0)
+function changeEvent ( evt ) {
+  var self     = this;
+  this.element = lineChart.getElementAtEvent( evt );
+  this.xFild   = document.getElementById( "chartXedit"  );
+  this.yFild   = document.getElementById( "chartYedit"  );
+  this.apply   = document.getElementById( "chartApplay" );
+  if ( this.element.length > 0 )
   {
-    pointIndex = self.element[0]._index;
+    pointIndex          = self.element[0]._index;
     self.apply.disabled = false;
     self.xFild.disabled = false;
-    self.xFild.value = sensorData.datasets[0].data[pointIndex].x;
+    self.xFild.value    = sensorData.datasets[0].data[pointIndex].x;
     self.yFild.disabled = false;
-    self.yFild.value = sensorData.datasets[0].data[pointIndex].y;
+    self.yFild.value    = sensorData.datasets[0].data[pointIndex].y;
   }
+  return;
 }
 
-var lineChart = new Chart(sensorChart, {
-  type: 'scatter',
-  data: sensorData,
+var lineChart = new Chart( sensorChart, {
+  type:    'scatter',
+  data:    sensorData,
   options: chartOptions
 });
 //******************************************************************************
-function newSensorData(name,xmax,ymax,xunit){
+function newSensorData ( name, xmax, ymax, xunit, yunit ) {
   return {
     name:  name,
     xmin:  0,
@@ -18427,7 +16340,7 @@ function newSensorData(name,xmax,ymax,xunit){
     ymin:  0,
     ymax:  ymax,
     xunit: xunit,
-    yunit: "Бар",
+    yunit: yunit,
     size:  2,
     dots:  [{
       x: 0,
@@ -18437,73 +16350,77 @@ function newSensorData(name,xmax,ymax,xunit){
       y: ymax,
     }]
   }
+  return;
 }
-
-let oilSensorResistance = newSensorData("oilSensorResistance",1500,15,"Ом");
-let oilSensorCurrent = newSensorData("oilSensorCurrent",20,15,"мА");
-let coolantSensorResistance = newSensorData("coolantSensorResistance",1500,15,"Ом");
-let coolantSensorCurrent = newSensorData("coolantSensorCurrent",20,15,"мА");
-let fuelSensorResistance = newSensorData("fuelSensorResistance",1500,15,"Ом");
-let fuelSensorCurrent = newSensorData("fuelSensorCurrent",20,15,"мА");
-
+let oilSensorResistance     = newSensorData( "oilSensorResistance",     1500, 15, "Ом", "Бар"   );
+let oilSensorCurrent        = newSensorData( "oilSensorCurrent",        20,   15, "мА", "Бар"   );
+let coolantSensorResistance = newSensorData( "coolantSensorResistance", 1500, 15, "Ом", "\xB0C" );
+let coolantSensorCurrent    = newSensorData( "coolantSensorCurrent",    20,   15, "мА", "\xB0C" );
+let fuelSensorResistance    = newSensorData( "fuelSensorResistance",    1500, 15, "Ом", "%"     );
+let fuelSensorCurrent       = newSensorData( "fuelSensorCurrent",       20,   15, "мА", "%"     );
 var currentChart;
 //******************************************************************************
-function sensorModalInit(target) {
-  switch(target) {
+function sensorModalInit ( target ) {
+  switch( target ) {
     case 'oil':
-      type = document.getElementById("oilPressureSensorType").value - 3;
-      if (type == 0) {
+      type = document.getElementById( "oilPressureSensorType" ).value - 3;
+      if ( type == 0 ) {
         currentChart = oilSensorResistance;
       } else {
         currentChart = oilSensorCurrent;
       }
       break;
     case 'coolant':
-      type = document.getElementById("coolantTempSensorType").value - 3;
-      if (type == 0) {
+      type = document.getElementById( "coolantTempSensorType" ).value - 3;
+      if ( type == 0 ) {
         currentChart = coolantSensorResistance;
       } else {
         currentChart = coolantSensorCurrent;
       }
       break;
     case 'fuel':
-      type = document.getElementById("fuelLevelSensorType").value - 3;
-      if (type == 0) {
+      type = document.getElementById( "fuelLevelSensorType" ).value - 3;
+      if ( type == 0 ) {
         currentChart = fuelSensorResistance;
       } else {
         currentChart = fuelSensorCurrent;
       }
       break;
   }
-  document.getElementById("sensorModal").addEventListener("animationstart", function(){
-    makeChart(currentChart);
+  makeChart( currentChart );
+  document.getElementById( "sensorModal" ).addEventListener( "animationstart", function () {
+    makeChart( currentChart );
   });
+  return;
 }
 
-function cleanChart(){
+function cleanChart () {
   lineChart.data.labels.length = 0;
-  lineChart.data.datasets.forEach(function(dataset) {
-    dataset.data.length=0;
+  lineChart.data.datasets.forEach( function ( dataset ) {
+    dataset.data.length = 0;
+    return;
   });
+  return;
 }
 
-function makeChart(chrtData){
+function makeChart ( chrtData ) {
   var i = 0;
-  var xFild = document.getElementById("chartXedit");
+  var xFild      = document.getElementById( "chartXedit" );
   xFild.disabled = true;
-  xFild.value = null;
-  var yFild = document.getElementById("chartYedit");
+  xFild.value    = null;
+  var yFild      = document.getElementById( "chartYedit" );
   yFild.disabled = true;
-  yFild.value = null;
-  document.getElementById("chartApplay").disabled = true;
-  sensorData.labels=[];
-  sensorData.datasets[0].data=[];
-  lineChart.options.scales.yAxes[0].ticks.max = chrtData.ymax;
-  lineChart.options.scales.yAxes[0].ticks.min = chrtData.ymin;
-  lineChart.options.scales.xAxes[0].ticks.max = chrtData.xmax;
-  lineChart.options.scales.xAxes[0].ticks.min = chrtData.xmin;
+  yFild.value    = null;
+  document.getElementById( "chartApplay" ).disabled = true;
+  sensorData.labels                                        = [];
+  sensorData.datasets[0].data                              = [];
+  lineChart.options.scales.yAxes[0].ticks.max              = chrtData.ymax;
+  lineChart.options.scales.yAxes[0].ticks.min              = chrtData.ymin;
+  lineChart.options.scales.xAxes[0].ticks.max              = chrtData.xmax;
+  lineChart.options.scales.xAxes[0].ticks.min              = chrtData.xmin;
   lineChart.options.scales.xAxes[0].scaleLabel.labelString = chrtData.xunit;
-  for(i=0;i<chrtData.size;i++){
+  lineChart.options.scales.yAxes[0].scaleLabel.labelString = chrtData.yunit
+  for ( i=0; i<chrtData.size; i++ ) {
     sensorData.datasets[0].data.push({
       x: chrtData.dots[i].x,
       y: chrtData.dots[i].y,
@@ -18515,32 +16432,32 @@ function makeChart(chrtData){
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
-function addChartPoint(){
+function addChartPoint () {
   var dataLen  = sensorData.datasets[0].data.length;
-  var xLstVal  = sensorData.datasets[0].data[dataLen-1].x;
-  var xpreVal  = sensorData.datasets[0].data[dataLen-2].x;
-  var xNewVal  = parseFloat((xpreVal + (xLstVal-xpreVal)/2).toFixed(2));
-  var yLstVal  = sensorData.datasets[0].data[dataLen-1].y;
-  var yPreVal  = sensorData.datasets[0].data[dataLen-2].y;
-  var yNewVal  = parseFloat((yPreVal + (yLstVal-yPreVal)/2).toFixed(2));
+  var xLstVal  = sensorData.datasets[0].data[dataLen - 1].x;
+  var xpreVal  = sensorData.datasets[0].data[dataLen - 2].x;
+  var xNewVal  = parseFloat( ( xpreVal + ( xLstVal - xpreVal ) / 2 ).toFixed( 2 ) );
+  var yLstVal  = sensorData.datasets[0].data[dataLen - 1].y;
+  var yPreVal  = sensorData.datasets[0].data[dataLen - 2].y;
+  var yNewVal  = parseFloat( ( yPreVal + ( yLstVal - yPreVal ) / 2 ).toFixed( 2 ) );
   sensorData.datasets[0].data.push({
     x: xLstVal,
     y: yLstVal
   });
-  sensorData.datasets[0].data[dataLen-1].x = xNewVal;
-  sensorData.datasets[0].data[dataLen-1].y = yNewVal;
+  sensorData.datasets[0].data[dataLen - 1].x = xNewVal;
+  sensorData.datasets[0].data[dataLen - 1].y = yNewVal;
   lineChart.update();
   return;
 }
 //------------------------------------------------------------------------------
-function removeChartPoint(){
+function removeChartPoint () {
   var dataLen  = sensorData.datasets[0].data.length;
   if (dataLen > 2) {
-    var xLstVal  = sensorData.datasets[0].data[dataLen-1].x;
-    var yLstVal  = sensorData.datasets[0].data[dataLen-1].y;
+    var xLstVal  = sensorData.datasets[0].data[dataLen - 1].x;
+    var yLstVal  = sensorData.datasets[0].data[dataLen - 1].y;
     sensorData.datasets[0].data.pop();
-    sensorData.datasets[0].data[dataLen-2].x = xLstVal;
-    sensorData.datasets[0].data[dataLen-2].y = yLstVal;
+    sensorData.datasets[0].data[dataLen - 2].x = xLstVal;
+    sensorData.datasets[0].data[dataLen - 2].y = yLstVal;
     lineChart.update();
   }
   return;
@@ -18548,141 +16465,143 @@ function removeChartPoint(){
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
-function getVal(name) {
-  for(var i=0; i<dataReg.length; i++ ){
-    if (dataReg[i].bitMapSize > 0) {
-      for (var j=0; j<dataReg[i].bitMapSize; j++) {
-        if (dataReg[i].bit[j].name == name) {
-          return bitVal(j,dataReg[i]);
+function getVal ( name ) {
+  for ( var i=0; i<dataReg.length; i++ ) {
+    if ( dataReg[i].bitMapSize > 0 ) {
+      for ( var j=0; j<dataReg[i].bitMapSize; j++ ) {
+        if ( dataReg[i].bit[j].name == name ) {
+          return bitVal( j, dataReg[i] );
         }
       }
     }
   }
+  return;
 }
 //------------------------------------------------------------------------------
-function fix16Tofloat(fix) {
-  return fix/0x00010000;
+function fix16Tofloat ( fix ) {
+  return fix / 0x00010000;
 }
-function floatToFix16(float) {
-  return parseInt(float*0x00010000);
+function floatToFix16 ( float ) {
+  return parseInt( float * 0x00010000 );
 }
 //------------------------------------------------------------------------------
-function uploadCharts() {
-  function prepareCharts(chart) {
+function uploadCharts () {
+  function prepareCharts( chart ) {
     var dotArr = [];
-    if (chart.size>0) {
-      for(var i=0;i<chart.size;i++) {
+    if ( chart.size > 0 ) {
+      for ( var i=0; i<chart.size; i++) {
         dotArr.push({
-          x: floatToFix16(chart.dots[i].x),
-          y: floatToFix16(chart.dots[i].y)
+          x: floatToFix16( chart.dots[i].x ),
+          y: floatToFix16( chart.dots[i].y )
         })
       }
     }
     return {
-      "xmin" : floatToFix16(chart.xmin),
-      "xmax" : floatToFix16(chart.xmax),
-      "ymin" : floatToFix16(chart.ymin),
-      "ymax" : floatToFix16(chart.ymax),
-      "xunit": encodeURI(chart.xunit),
-      "yunit": encodeURI(chart.yunit),
+      "xmin" : floatToFix16( chart.xmin ),
+      "xmax" : floatToFix16( chart.xmax ),
+      "ymin" : floatToFix16( chart.ymin ),
+      "ymax" : floatToFix16( chart.ymax ),
+      "xunit": encodeURI( chart.xunit ),
+      "yunit": encodeURI( chart.yunit ),
       "size" : chart.size,
       "dots" : dotArr,
     }
   }
-  var sel = 0;
+  var sel     = 0;
   var content = [];
   //---------------- Oil resetence ----------------
-  sel = getVal("oilPressureSensorType");
-  if (sel == 3) {
-    content.push(prepareCharts(oilSensorResistance));
+  sel = getVal( "oilPressureSensorType" );
+  if ( sel == 3 ) {
+    content.push( prepareCharts( oilSensorResistance ) );
   //----------------- Oil current -----------------
-  } else if (sel == 4) {
-    content.push(prepareCharts(oilSensorCurrent));
+  } else if ( sel == 4 ) {
+    content.push( prepareCharts( oilSensorCurrent ) );
   } else {
-    content.push({"data" : 0});
+    content.push( {"data" : 0} );
   }
   //-------------- Coolant resetence --------------
-  sel = getVal("coolantTempSensorType");
-  if (sel == 3) {
-    content.push(prepareCharts(coolantSensorResistance));
+  sel = getVal( "coolantTempSensorType" );
+  if ( sel == 3 ) {
+    content.push( prepareCharts( coolantSensorResistance ) );
   //--------------- Coolant current ---------------
-  } else if (sel == 4) {
-    content.push(prepareCharts(coolantSensorCurrent));
+  } else if ( sel == 4 ) {
+    content.push( prepareCharts( coolantSensorCurrent ) );
   } else {
-    content.push({"data" : 0});
+    content.push( {"data" : 0} );
   }
   //---------------- Fuel resetence ---------------
-  sel = getVal("fuelLevelSensorType");
-  if (sel == 3) {
-    content.push(prepareCharts(fuelSensorResistance));
+  sel = getVal( "fuelLevelSensorType" );
+  if ( sel == 3 ) {
+    content.push( prepareCharts( fuelSensorResistance ) );
   //----------------- Fuel current ----------------
-  } else if (sel == 4) {
-    content.push(prepareCharts(fuelSensorCurrent));
+  } else if ( sel == 4 ) {
+    content.push( prepareCharts( fuelSensorCurrent ) );
   } else {
-    content.push({"data" : 0});
+    content.push( {"data" : 0} );
   }
   //-----------------------------------------------
   return content;
 }
 //------------------------------------------------------------------------------
-function loadCharts(data) {
-  function chartFixToFloat(input,name) {
+function loadCharts ( data ) {
+  function chartFixToFloat ( input, name ) {
     let output = newSensorData(
       name,
-      fix16Tofloat(input.xmax),
-      fix16Tofloat(input.ymax),
-      decodeURI(input.xunit));
-    output.xmin  = fix16Tofloat(input.xmin);
-    output.ymin  = fix16Tofloat(input.ymin);
-    output.yunit = decodeURI(input.yunit);
+      fix16Tofloat( input.xmax ),
+      fix16Tofloat( input.ymax ),
+      decodeURI( input.xunit ),
+      decodeURI( input.yunit ) );
+    output.xmin  = fix16Tofloat( input.xmin );
+    output.ymin  = fix16Tofloat( input.ymin );
+    output.yunit = decodeURI( input.yunit );
     output.size  = input.size;
     output.dots.length = 0;
-    for(var i=0;i<output.size;i++) {
-      output.dots.push({
-        x: fix16Tofloat(input.dots[i].x),
-        y: fix16Tofloat(input.dots[i].y),
+    for ( var i=0; i<output.size; i++ ) {
+      output.dots.push( {
+        x: fix16Tofloat( input.dots[i].x ),
+        y: fix16Tofloat( input.dots[i].y ),
       })
     }
     return output;
   }
   //---------------- Oil resetence ----------------
-  var sel = 0;
-  sel = getVal("oilPressureSensorType");
-  if (sel == 3) {
-    oilSensorResistance = chartFixToFloat(data[0],"oilSensorResistance");
+  var sel = getVal( "oilPressureSensorType" );
+  if ( sel == 3 ) {
+    oilSensorResistance = chartFixToFloat( data[0], "oilSensorResistance" );
   //----------------- Oil current -----------------
-  } else if (sel == 4) {
-    oilSensorCurrent = chartFixToFloat(data[0],"oilSensorCurrent");
+  } else if ( sel == 4 ) {
+    oilSensorCurrent = chartFixToFloat( data[0], "oilSensorCurrent" );
   }
   //-------------- Coolant resetence --------------
-  sel = getVal("coolantTempSensorType");
-  if (sel == 3) {
-    coolantSensorResistance = chartFixToFloat(data[1],"coolantSensorResistance");
+  sel = getVal( "coolantTempSensorType" );
+  if ( sel == 3 ) {
+    coolantSensorResistance = chartFixToFloat( data[1], "coolantSensorResistance" );
   //--------------- Coolant current ---------------
-  } else if (sel == 4) {
-    coolantSensorCurrent = chartFixToFloat(data[1],"coolantSensorCurrent");
+  } else if ( sel == 4 ) {
+    coolantSensorCurrent = chartFixToFloat( data[1], "coolantSensorCurrent" );
   }
   //---------------- Fuel resetence ---------------
-  sel = getVal("fuelLevelSensorType");
-  if (sel == 3) {
-    fuelSensorResistance = chartFixToFloat(data[2],"fuelSensorResistance");
+  sel = getVal( "fuelLevelSensorType" );
+  if ( sel == 3 ) {
+    fuelSensorResistance = chartFixToFloat( data[2], "fuelSensorResistance" );
   //----------------- Fuel current ----------------
-  } else if (sel == 4) {
-    fuelSensorCurrent = chartFixToFloat(data[2],"fuelSensorCurrent");
+  } else if ( sel == 4 ) {
+    fuelSensorCurrent = chartFixToFloat( data[2], "fuelSensorCurrent" );
   }
   //-----------------------------------------------
   return;
 }
 //------------------------------------------------------------------------------
-function saveToCurChart() {
+function saveToCurChart () {
   currentChart.size  = sensorData.datasets[0].data.length;
   currentChart.ymax  = lineChart.options.scales.yAxes[0].ticks.max;
   currentChart.ymin  = lineChart.options.scales.yAxes[0].ticks.min;
   currentChart.xmax  = lineChart.options.scales.xAxes[0].ticks.max;
   currentChart.xmin  = lineChart.options.scales.xAxes[0].ticks.min;
   currentChart.xunit = lineChart.options.scales.xAxes[0].scaleLabel.labelString;
+  currentChart.yunit = lineChart.options.scales.yAxes[0].scaleLabel.labelString;
   currentChart.dots.length = 0;
-  for(var i=0;i<currentChart.size;i++){
+  for ( var i=0; i<currentChart.size; i++ ) {
     currentChart.dots.push({
       x: sensorData.datasets[0].data[i].x,
       y: sensorData.datasets[0].data[i].y,
@@ -18691,14 +16610,14 @@ function saveToCurChart() {
   return;
 }
 
-function saveChartData(){
+function saveChartData () {
   saveToCurChart();
-  let alert = new Alert("alert-success",triIco,"График успешно сохранен.");
+  let alert = new Alert( "alert-success", triIco, "График успешно сохранен." );
   return;
 }
 
 function downloadSensorData () {
-	function SaveAsFile( t, file, m ) {
+	function SaveAsFile ( t, file, m ) {
   	try {
     	var blob = new Blob( [t], { type: m } );
       saveAs( blob, file );
@@ -18712,24 +16631,24 @@ function downloadSensorData () {
   return;
 }
 //------------------------------------------------------------------------------
-function uploadSensorData() {
+function uploadSensorData () {
 	var newCart;
-	if (window.File && window.FileReader && window.FileList && window.Blob) {
-		var input = document.createElement("input");
-    input.setAttribute("type","file");
-		input.addEventListener("change",function() {
+	if ( window.File && window.FileReader && window.FileList && window.Blob ) {
+		var input = document.createElement( "input" );
+    input.setAttribute( "type", "file" );
+		input.addEventListener( "change", function() {
 			file = input.files[0];
-			if (file.type != "application/json") {
-        let alert = new Alert("alert-warning",triIco,"Выбран файл с неправильным расширением. Выберете JSON файл");
+			if ( file.type != "application/json" ) {
+        let alert = new Alert( "alert-warning", triIco, "Выбран файл с неправильным расширением. Выберете JSON файл" );
 			} else {
 				let reader = new FileReader();
-        reader.readAsText(file);
+        reader.readAsText( file );
 				reader.onload = function() {
 					try {
-						currentChart = JSON.parse(reader.result);
-						makeChart(currentChart);
-					} catch(e) {
-            let alert = new Alert("alert-warning",triIco,"Неправильный формат файла");
+						currentChart = JSON.parse( reader.result );
+						makeChart( currentChart );
+					} catch( e ) {
+            let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
 					}
   			};
 			}
@@ -18737,8 +16656,9 @@ function uploadSensorData() {
 		input.click();
     return false; // avoiding navigation
 	} else {
-    let alert = new Alert("alert-warning",triIco,"Браузер не поддерживает загрузку файлов");
+    let alert = new Alert( "alert-warning", triIco, "Браузер не поддерживает загрузку файлов" );
 	}
+  return;
 }
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
