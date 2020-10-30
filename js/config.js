@@ -332,8 +332,8 @@ var dataReg = [
 },{
    "adr": 18,
    "name": "fuelLevelSetup",
-   "value": 1339,
-   "default": 1339,
+   "value": 411,
+   "default": 411,
    "scale": 0,
    "min": 0,
    "max": 1023,
@@ -341,7 +341,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 9,
+   "bitMapSize": 7,
    "bit": [
        {
            "name": "fuelLevelSensorType",
@@ -362,41 +362,29 @@ var dataReg = [
            "max": 1,
            "shift": 4,
        },{
-           "name": "fuelLevelLowAlarmAction",
+           "name": "fuelLevelLowPreAlarmEnb",
            "mask": 32,
            "min": 0,
            "max": 1,
            "shift": 5,
        },{
-           "name": "fuelLevelLowPreAlarmEnb",
+           "name": "fuelLevelHightPreAlarmEnb",
            "mask": 64,
            "min": 0,
            "max": 1,
            "shift": 6,
        },{
-           "name": "fuelLevelHightPreAlarmEnb",
+           "name": "fuelLevelHightAlarmEnb",
            "mask": 128,
            "min": 0,
            "max": 1,
            "shift": 7,
        },{
-           "name": "fuelLevelHightAlarmEnb",
+           "name": "fuelPumpEnb",
            "mask": 256,
            "min": 0,
            "max": 1,
            "shift": 8,
-       },{
-           "name": "fuelLevelHightAlarmAction",
-           "mask": 512,
-           "min": 0,
-           "max": 1,
-           "shift": 9,
-       },{
-           "name": "fuelPumpEnb",
-           "mask": 1024,
-           "min": 0,
-           "max": 1,
-           "shift": 10,
        },
    ]
 },{

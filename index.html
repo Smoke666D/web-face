@@ -15,7 +15,7 @@
     <meta name="msapplication-TileColor" content="#00aba9">
     <meta name="theme-color" content="#f8b739">
     <!--<link rel="manifest" href="json/manifest.json">-->
-    <!------------------------------------------------------------------------------------------------------------->
+    <!--------------------------J----------------------------------------------------------------------------------->
     <script src="js/Chart.min.js"></script>
     <script src="js/chartjs-plugin-dragdata.min.js"></script>
     <link rel="stylesheet" href="css/Chart.min.css">
@@ -837,18 +837,6 @@
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Действие</label>
-          </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="fuelLevelLowAlarmAction" disabled>
-              <option value="0">Останов</option>
-              <option value="1">Отключение нагрузки</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-2 pos-name">
             <label>Уровень срабатывания</label>
           </div>
           <div class="col-sm-auto">
@@ -967,18 +955,6 @@
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Активировать сигнализатор верхнего предела</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Действие</label>
-          </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="fuelLevelHightAlarmAction" disabled>
-              <option value="0">Останов</option>
-              <option value="1">Отключение нагрузки</option>
-            </select>
           </div>
         </div>
 
@@ -1497,31 +1473,30 @@
             <select class="custom-select sensor-select doType" id="doaType">
               <option value="0">Не использовать</option>
               <optgroup label="Режимы">
-                <option value="1">Автоматический режим</option>
-                <option value="2">Общее нарушение сети</option>
-                <option value="3">Готов к запуску</option>
-                <option value="4">Готовность генератора</option>
+                <option value="1">ДЭС готов</option>
+                <option value="2">Готов к запуску</option>
+                <option value="3">Готовность генератора</option>
               </optgroup>
               <optgroup label="Сигнализация">
-                <option value="5">Общий аварийный сигнал</option>
-                <option value="6">Неисправность ДЭС</option>
-                <option value="7">Общее предупреждение</option>
+                <option value="4">Общий аварийный сигнал</option>
+                <option value="5">Общая нарушение сети</option>
+                <option value="6">Общее предупреждение</option>
               </optgroup>
               <optgroup label="Управление">
-                <option value="8" >Включить генератор</option>
-                <option value="9" >Включить генератор импульсно</option>
-                <option value="10">Выключить генератор импульсно</option>
-                <option value="11">Включить сеть</option>
-                <option value="12">Включить сеть импульсно</option>
-                <option value="13">Выключить сеть импульсно</option>
-                <option value="14">Охладитель охлаждающей жидкости</option>
-                <option value="15">Подогреватель охлаждающей жидкости</option>
-                <option value="16">Стоповый соленоид</option>
-                <option value="17">Подкачка топлива</option>
-                <option value="18">Топливное реле</option>
-                <option value="19">Стартерное реле</option>
-                <option value="20">Включение свечи накаливания</option>
-                <option value="21">Работа на холостом ходу</option>
+                <option value="7" >Включить генератор</option>
+                <option value="8" >Включить генератор импульсно</option>
+                <option value="9" >Выключить генератор импульсно</option>
+                <option value="10">Включить сеть</option>
+                <option value="11">Включить сеть импульсно</option>
+                <option value="12">Выключить сеть импульсно</option>
+                <option value="13">Охладитель охлаждающей жидкости</option>
+                <option value="14">Подогреватель охлаждающей жидкости</option>
+                <option value="15">Стоповый соленоид</option>
+                <option value="16">Подкачка топлива</option>
+                <option value="17">Топливное реле</option>
+                <option value="18">Стартерное реле</option>
+                <option value="19">Включение свечи накаливания</option>
+                <option value="20">Работа на холостом ходу</option>
               </optgroup>
             </select>
           </div>
