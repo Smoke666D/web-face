@@ -221,6 +221,9 @@ select {
 
 select {
   word-wrap: normal; }
+select option:disabled
+{
+  color: #d4d7da; }
 
 button,
 [type="button"],

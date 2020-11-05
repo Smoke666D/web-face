@@ -543,6 +543,8 @@ function doInit( letter ) {
 	return;
 }
 //******************************************************************************
+
+//******************************************************************************
 //******************************************************************************
 //******************************************************************************
 function ainInit( master, checkers, slaves, callback ) {
@@ -812,6 +814,10 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	navbarToogling();
 	updateVersions();
 	starterStopProcessing();
+	const diList = new CheckSelectValues( "diFunction" );
+	const doList = new CheckSelectValues( "doType" );
+	diList.init();
+	doList.init();
 	const genVoltageLims = new slider4InitLimits( 'genUnderVoltageAlarmLevel',
 	                                              'genUnderVoltagePreAlarmLevel',
 																								'genOverVoltagePreAlarmLevel',

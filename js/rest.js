@@ -2,6 +2,9 @@ const remote = require( 'electron' ).remote;
 
 var declareDone = 0;
 
+const diList = new CheckSelectValues( "diFunction" );
+const doList = new CheckSelectValues( "doType" );
+
 var stringLineArray = [];
 var progressArray   = [];
 var slidersArray    = [];
@@ -13,6 +16,7 @@ var rtcTime         = new RTC();
 var freeDataArray   = [];
 var freeDataValue   = [];
 var freeDataNames   = ["engineWorkTimeData",
+                       "engineWorkMinutesData",
                        "engineStartsNumberData",
 											 "maintenanceAlarmOilTimeLeft",
 											 "maintenanceAlarmAirTimeLeft",
@@ -53,16 +57,20 @@ const logTypesDictionary   = [
   "ТО масло",
   "ТО воздух",
   "ТО топливо",
-  "???",
-  "???"];
+  "Двигатель запущен",
+  "Двигатель остановлен",
+  "Сеть востановлена",
+  "Ошибка сети"
+];
 const logActionsDictionary = [
   "Нет",
   "Предупреждение",
   "Аварийная остановка",
-  "Переключение на генератор",
-  "Переключение на сеть",
   "Плановая остановка",
-  "Отключение нагрузки"];
+  "Запрет следующего старта",
+  "Автостарт",
+  "Автостоп"
+];
 
 const  LOG_DAY_MASK    = 0xF8000000;
 const  LOG_DAY_SHIFT   = 27;
@@ -287,8 +295,8 @@ function Progress ( name ) {
 }
 //******************************************************************************
 function Select ( name ) {
-	var self = this;
-	this.name    = name;
+	var self  = this;
+	this.name = name;
 
 	this.getData = function() {
 		for ( var i=0; i<dataReg.length; i++ ){
@@ -638,8 +646,10 @@ function LogRecord ( type, action, time ) {
       cell.textContent = logActionsDictionary[logArray[i].action];
       if ( logArray[i].action == 1 ) {
         row.className  = "table-warning";
-      } else if ( logArray[i].action > 1 ) {
+      } else if ( ( logArray[i].action == 2 ) || ( logArray[i].action == 4 ) ) {
         row.className  = "table-danger";
+      } else {
+        //row.className  = "table-success";
       }
       j++;
     }
@@ -662,11 +672,13 @@ function saveLogToFile () {
              ( date.getDate() ).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
   var data = "№;Дата;Время;Тип;Действие\r\n";
   for ( var i=0; i<logArray.length; i++ ) {
-    data += ( i + 1 ) + ";" +
-            GET_LOG_DAY( logArray[i].time ) + '.' + GET_LOG_MONTH( logArray[i].time ) + '.' + ( GET_LOG_YEAR( logArray[i].time ) + 2000 ) + ";" +
-            GET_LOG_HOUR( logArray[i].time ) + ':' + GET_LOG_MIN( logArray[i].time ) + ':' + GET_LOG_SEC( logArray[i].time ) + ";" +
-            logTypesDictionary[logArray[i].type] + ";" +
-            logActionsDictionary[logArray[i].action] + "\r\n";
+    if ( logArray[i].time != 0 ) {
+      data += ( i + 1 ) + ";" +
+              GET_LOG_DAY( logArray[i].time ) + '.' + GET_LOG_MONTH( logArray[i].time ) + '.' + ( GET_LOG_YEAR( logArray[i].time ) + 2000 ) + ";" +
+              GET_LOG_HOUR( logArray[i].time ) + ':' + GET_LOG_MIN( logArray[i].time ) + ':' + GET_LOG_SEC( logArray[i].time ) + ";" +
+              logTypesDictionary[logArray[i].type] + ";" +
+              logActionsDictionary[logArray[i].action] + "\r\n";
+    }
   }
 	SaveAsFile( data, ( name + "_log" + ".txt" ), "text/plain;charset=utf-8" );
   return;
@@ -797,6 +809,61 @@ function FreeData ( name ) {
 	this.init();
 	this.update();
 	return;
+}
+//******************************************************************************
+function CheckSelectValues ( atribut ) {
+	var self     = this;
+	var types    = document.getElementsByClassName( atribut );
+	var usedFunc = new Array( types.length ).fill( 0 );
+
+  function disableFunc ( func ) {
+		for ( var i=0; i<types.length; i++ ) {
+			types[i].options[func].disabled = true;
+		}
+		return;
+	}
+	function enableFunc ( func ) {
+		for ( var i=0; i<types.length; i++ ) {
+			types[i].options[func].disabled = false;
+		}
+		return;
+	}
+	function updateList ( ) {
+		for ( var i=0; i<types.length; i++ ) {
+			usedFunc[i] = parseInt(types[i].value);
+		}
+		return;
+	}
+	function enableAll () {
+		for ( var i=0; i<types[0].options.length; i++ ) {
+			if ( usedFunc.indexOf( i ) == -1 ) {
+				enableFunc( i );
+			}
+		}
+		return;
+	}
+	this.update = function() {
+		updateList();
+		enableAll();
+		for ( var i=0; i<usedFunc.length; i++ ) {
+			disableFunc( usedFunc[i] );
+		}
+		return;
+	}
+	this.init   = function() {
+    for ( var i=0; i<types.length; i++ ) {
+      types[i].addEventListener( "change", function() {
+			  if ( this.value > 0 ) {
+				  updateList();
+			    disableFunc( this.value );
+ 			    enableAll();
+			  }
+			  return;
+		  });
+	  }
+		return;
+	}
+  return;
 }
 //******************************************************************************
 function RTC () {
@@ -1074,6 +1141,8 @@ function updateInterface() {
   setDisabledDO( 'd' );
   setDisabledDO( 'e' );
   setDisabledDO( 'f' );
+  diList.update();
+	doList.update();
 	return;
 }
 

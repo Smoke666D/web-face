@@ -2220,8 +2220,8 @@ var dataReg = [
 },{
    "adr": 119,
    "name": "logSetup",
-   "value": 1,
-   "default": 1,
+   "value": 3,
+   "default": 3,
    "scale": 0,
    "min": 0,
    "max": 65535,
@@ -2229,7 +2229,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 1,
+   "bitMapSize": 2,
    "bit": [
        {
            "name": "logSaveWarningEventsEnb",
@@ -2237,6 +2237,12 @@ var dataReg = [
            "min": 0,
            "max": 1,
            "shift": 0,
+       },{
+           "name": "logPositiveEventsEnb",
+           "mask": 2,
+           "min": 0,
+           "max": 1,
+           "shift": 1,
        },
    ]
 },];
