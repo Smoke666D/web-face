@@ -1,9 +1,9 @@
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
-const remote     = require('electron').remote;
-var   usb        = require('usb');
-const alerts     = require('./alerts.js');
+const remote = require('electron').remote;
+var   usb    = require('usb');
+const alerts = require('./alerts.js');
 /*----------------------------------------------------------------------------*/
 const minTransferSize = 2;
 const maxTransferSize = 1024;
@@ -151,37 +151,40 @@ function Memory( string ) {
   /*---------------------------------------------*/
   strInd = string.search("@");
   endInd = string.search("/");
-  this.type = string.substr( ( strInd + 1 ), ( endInd - 1 ) );
-  string = string.substr( ( endInd + 1 ), string.length );
-  endInd = string.search("/");
-  this.start = parseInt( string.substr( 0, endInd ) );
-  string = string.substr( ( endInd + 1 ), string.length );
-  while ( endFl == 0 ) {
-    endInd = string.search(",");
-    if ( endInd > 0 ) {
-      this.map.push( new Map( string.substr( 0, endInd ) ) );
-      this.size += this.map[this.map.length - 1].count * this.map[this.map.length - 1].size;
+  if ( ( strInd != -1 ) && ( endInd != -1 ) ) {
+    this.type = string.substr( ( strInd + 1 ), ( endInd - 1 ) );
+    string = string.substr( ( endInd + 1 ), string.length );
+    endInd = string.search("/");
+    if ( endInd != -1 ) {
+      this.start = parseInt( string.substr( 0, endInd ) );
       string = string.substr( ( endInd + 1 ), string.length );
-    } else {
-      this.map.push( new Map( string ) );
-      this.size += this.map[this.map.length - 1].count * this.map[this.map.length - 1].size;
-      endFl = 1;
+      while ( endFl == 0 ) {
+        endInd = string.search(",");
+        if ( endInd > 0 ) {
+          this.map.push( new Map( string.substr( 0, endInd ) ) );
+          this.size += this.map[this.map.length - 1].count * this.map[this.map.length - 1].size;
+          string = string.substr( ( endInd + 1 ), string.length );
+        } else {
+          this.map.push( new Map( string ) );
+          this.size += this.map[this.map.length - 1].count * this.map[this.map.length - 1].size;
+          endFl = 1;
+        }
+      }
+      adrCount = this.start;
+      adrShift = 0;
+      id       = 0;
+      for ( var i=0; i<this.map.length; i++ ) {
+        let rec = this.map[i];
+        for ( var j=0; j<rec.count; j++ ) {
+          this.sectors.push( new Sector( id, adrCount, adrShift, rec.size*1024, rec.readable, rec.erasable, rec.writable ) )
+          id++;
+          adrCount += rec.size*1024;
+          adrShift += rec.size;
+        }
+      }
+      this.size *= 1024;
     }
   }
-  adrCount = this.start;
-  adrShift = 0;
-  id       = 0;
-  for ( var i=0; i<this.map.length; i++ ) {
-    let rec = this.map[i];
-    for ( var j=0; j<rec.count; j++ ) {
-      this.sectors.push( new Sector( id, adrCount, adrShift, rec.size*1024, rec.readable, rec.erasable, rec.writable ) )
-      id++;
-      adrCount += rec.size*1024;
-      adrShift += rec.size;
-    }
-  }
-  this.size *= 1024;
-  /*---------------------------------------------*/
   return;
 }
 function Status( raw ) {
@@ -288,24 +291,40 @@ function dfuDevice() {
     if ( device != null ) {
       try {
         device.open();
-        device.getStringDescriptor( device.deviceDescriptor.iManufacturer, function( error, string ) {
-          self.manufacturer = string;
-          device.getStringDescriptor( device.deviceDescriptor.iProduct, function( error, string ) {
-            self.product = string;
-            device.getStringDescriptor( device.deviceDescriptor.iSerialNumber, function( error, string ) {
-              self.serial = string;
-              iface = device.interface( ifaceN );
-              iface.claim();
-              device.getStringDescriptor( iface.descriptor.iInterface, function( error, flashDescriptor ) {
-                self.memory = new Memory( flashDescriptor );
-                opened      = true;
-                let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Устройство подключено по USB в DFU режиме" );
-                result      = 1;
-                callback();
+        try {
+          device.getStringDescriptor( device.deviceDescriptor.iManufacturer, function( error, string ) {
+            self.manufacturer = string;
+            device.getStringDescriptor( device.deviceDescriptor.iProduct, function( error, string ) {
+              self.product = string;
+              device.getStringDescriptor( device.deviceDescriptor.iSerialNumber, function( error, string ) {
+                self.serial = string;
+                try {
+                  iface = device.interface( ifaceN );
+                  iface.claim();
+                  device.getStringDescriptor( iface.descriptor.iInterface, function( error, flashDescriptor ) {
+                    try {
+                      self.memory = new Memory( flashDescriptor );
+                    } catch(e) {
+                      let alert = new alerts.Alert("alert-warning",alerts.triIco,"Ошибка чтения дискриптора памяти");
+                    }
+                    opened      = true;
+                    let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Устройство подключено по USB в DFU режиме" );
+                    result      = 1;
+                    callback();
+                  });
+                } catch(e) {
+                  device = null;
+                  let alert = new alerts.Alert("alert-warning",alerts.triIco,"Сбой чтения интерфейса");
+                }
               });
+
+
             });
           });
-        });
+        } catch (e) {
+          device = null;
+          let alert = new alerts.Alert("alert-warning",alerts.triIco,"Сбой чтения строчного дискриптора");
+        }
       } catch (e) {
         device = null;
         let alert = new alerts.Alert("alert-warning",alerts.triIco,"Устройство занято другим приложением");
