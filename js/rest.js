@@ -1090,9 +1090,9 @@ function declareRadio() {
 	return;
 }
 function declareInterface() {
-	declareSliders();
+  declareSwitches();
+  declareSliders();
 	declareStrings();
-	declareSwitches();
 	declareSelects();
 	declareRadio();
 	declareFreeData();
