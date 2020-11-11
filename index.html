@@ -274,6 +274,14 @@
             </a>
             <ul class="collapse list-unstyled" id="logSubmenu">
               <li>
+                <a class="navItem" id="nav-statisticPage" onclick="loadContent('statisticPage')" href="#">
+                  <div class="fas">
+                    <svg class="svg-icon" viewBox="0 0 512 512"><path fill="currentColor" d="M500 384c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v308h436zM372.7 159.5L288 216l-85.3-113.7c-5.1-6.8-15.5-6.3-19.9 1L96 248v104h384l-89.9-187.8c-3.2-6.5-11.4-8.7-17.4-4.7z"></path></svg>
+                  </div>
+                  <span>Статистка</span>
+                </a>
+              </li>
+              <li>
                 <a class="navItem" id="nav-logPage" onclick="loadContent('logPage')" href="#">
                   <div class="fas">
                     <svg class="svg-icon" viewBox="0 0 448 512"><path fill="currentColor" d="M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z"></path></svg>
@@ -2750,41 +2758,6 @@
             <div class="s-slider" id="s-slider-enginePreHeatDelay"></div>
           </div>
         </div>
-
-
-        <h5>Моточасы</h5>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Моточасы</label>
-          </div>
-          <div class="col-sm-auto">
-            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineWorkTimeData">
-          </div>
-          <div class="col-dimension">
-            <label>часов</label>
-          </div>
-          <div class="col-sm-auto">
-            <button id="write-engineWorkTimeData" aria-label="Connect" id="controllerWorkTimeSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить моточасы двигателя">
-              <span>Записать</span>
-            </button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Количество пусков</label>
-          </div>
-          <div class="col-sm-auto">
-            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
-          </div>
-          <div class="col-dimension">
-            <label>раз</label>
-          </div>
-          <div class="col-sm-auto">
-            <button id="write-engineStartsNumberData" aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
-              <span>Записать</span>
-            </button>
-          </div>
-        </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="crankshaftPage" class="content-data hidden">
@@ -3198,6 +3171,101 @@
             </div>
           </div>
         </div>
+      </div>
+      <!------------------------------------------------------------------------------------------------------------->
+      <div id="statisticPage" class="content-data hidden">
+        <h2>Статистка</h2>
+        <h5>Моточасы</h5>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Моточасы</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineWorkTimeData">
+          </div>
+          <div class="col-dimension">
+            <label>часов</label>
+          </div>
+          <div class="col-sm-auto">
+            <button id="write-engineWorkTimeData" aria-label="Connect" id="controllerWorkTimeSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить моточасы двигателя">
+              <span>Записать</span>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Количество пусков</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
+          </div>
+          <div class="col-dimension">
+            <label>раз</label>
+          </div>
+          <div class="col-sm-auto">
+            <button id="write-engineStartsNumberData" aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+              <span>Записать</span>
+            </button>
+          </div>
+        </div>
+        <h5>Наработка электроэнергии</h5>
+
+
+
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Полная мощность</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
+          </div>
+          <div class="col-dimension">
+            <label>кВАч</label>
+          </div>
+          <div class="col-sm-auto">
+            <button id="write-engineStartsNumberData" aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+              <span>Записать</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Активная мощность</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
+          </div>
+          <div class="col-dimension">
+            <label>кВтч</label>
+          </div>
+          <div class="col-sm-auto">
+            <button id="write-engineStartsNumberData" aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+              <span>Записать</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Реактивная мощность</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
+          </div>
+          <div class="col-dimension">
+            <label>кВАРч</label>
+          </div>
+          <div class="col-sm-auto">
+            <button id="write-engineStartsNumberData" aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+              <span>Записать</span>
+            </button>
+          </div>
+        </div>
+
+
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
