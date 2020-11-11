@@ -1,5 +1,7 @@
 {
   "name": "web-face",
+  "productName": "Energan Configurator",
+  "description": "Energan configuration tool",
   "version": "1.9.1",
   "main": "index.js",
   "license": "MIT",
@@ -11,21 +13,21 @@
     "debug-test": "mocha --inspect-brk test/spec.js"
   },
   "dependencies": {
-    "bootstrap": "^4.4.1",
+    "bootstrap": "4.4.1",
     "jquery": "3.3.1",
-    "node-hid": "^1.2.0",
-    "popper.js": "^1.16.1",
-    "usb": "^1.6.3"
+    "node-hid": "1.2.0",
+    "popper.js": "1.16.1",
+    "usb": "1.6.3"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
-    "electron": "8.2.2",
-    "electron-builder": "^22.4.1",
-    "electron-packager": "^14.2.1",
-    "electron-rebuild": "^1.10.1",
-    "mocha": "^8.2.0",
-    "mocha-logger": "^1.0.7",
-    "spectron": "^12.0.0"
+    "chai": "4.2.0",
+    "chai-as-promised": "7.1.1",
+    "electron": "=8.2.2",
+    "electron-builder": "22.4.1",
+    "electron-packager": "14.2.1",
+    "electron-rebuild": "1.10.1",
+    "mocha": "8.2.0",
+    "mocha-logger": "1.0.7",
+    "spectron": "12.0.0"
   }
 }
