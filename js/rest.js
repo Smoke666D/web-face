@@ -20,7 +20,10 @@ var freeDataNames   = ["engineWorkTimeData",
                        "engineStartsNumberData",
 											 "maintenanceAlarmOilTimeLeft",
 											 "maintenanceAlarmAirTimeLeft",
-											 "maintenanceAlarmFuelTimeLeft"];
+											 "maintenanceAlarmFuelTimeLeft",
+                       "powerReactiveUsage",
+                       "powerActiveUsage",
+                       "powerFullUsage"];
 
 var   logArray     = [];
 const logMaxSize   = 255;

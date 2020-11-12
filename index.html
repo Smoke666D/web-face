@@ -278,7 +278,7 @@
                   <div class="fas">
                     <svg class="svg-icon" viewBox="0 0 512 512"><path fill="currentColor" d="M500 384c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v308h436zM372.7 159.5L288 216l-85.3-113.7c-5.1-6.8-15.5-6.3-19.9 1L96 248v104h384l-89.9-187.8c-3.2-6.5-11.4-8.7-17.4-4.7z"></path></svg>
                   </div>
-                  <span>Статистка</span>
+                  <span>Статистика</span>
                 </a>
               </li>
               <li>
@@ -3174,7 +3174,7 @@
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="statisticPage" class="content-data hidden">
-        <h2>Статистка</h2>
+        <h2>Статистика</h2>
         <h5>Моточасы</h5>
         <div class="row">
           <div class="col-sm-2 pos-name">
@@ -3187,7 +3187,7 @@
             <label>часов</label>
           </div>
           <div class="col-sm-auto">
-            <button id="write-engineWorkTimeData" aria-label="Connect" id="controllerWorkTimeSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить моточасы двигателя">
+            <button id="write-engineWorkTimeData" aria-label="Connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить моточасы двигателя">
               <span>Записать</span>
             </button>
           </div>
@@ -3203,69 +3203,60 @@
             <label>раз</label>
           </div>
           <div class="col-sm-auto">
-            <button id="write-engineStartsNumberData" aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+            <button id="write-engineStartsNumberData" aria-label="Connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
               <span>Записать</span>
             </button>
           </div>
         </div>
         <h5>Наработка электроэнергии</h5>
-
-
-
-
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Полная мощность</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-powerReactiveUsage">
           </div>
           <div class="col-dimension">
             <label>кВАч</label>
           </div>
           <div class="col-sm-auto">
-            <button id="write-engineStartsNumberData" aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+            <button id="write-powerReactiveUsage" aria-label="Connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
               <span>Записать</span>
             </button>
           </div>
         </div>
-
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Активная мощность</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-powerActiveUsage">
           </div>
           <div class="col-dimension">
             <label>кВтч</label>
           </div>
           <div class="col-sm-auto">
-            <button id="write-engineStartsNumberData" aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+            <button id="write-powerActiveUsage" aria-label="Connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
               <span>Записать</span>
             </button>
           </div>
         </div>
-
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Реактивная мощность</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-powerReactiveUsage">
           </div>
           <div class="col-dimension">
             <label>кВАРч</label>
           </div>
           <div class="col-sm-auto">
-            <button id="write-engineStartsNumberData" aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+            <button id="write-powerReactiveUsage" aria-label="Connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
               <span>Записать</span>
             </button>
           </div>
         </div>
-
-
-
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
