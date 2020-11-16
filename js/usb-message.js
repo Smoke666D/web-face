@@ -26,6 +26,7 @@ const msgSTAT = {
   "USB_BAD_REQ_STAT"      : 2,
   "USB_NON_CON_STAT"      : 3,
   "USB_STAT_UNAUTHORIZED" : 4,
+  "USB_FORBIDDEN"         : 5,
 };
 const USB_DIR_BYTE  = 0;
 const USB_CMD_BYTE  = 1;
@@ -43,13 +44,12 @@ function USBMessage ( buffer ) {
   /*------------------ Private ------------------*/
   var self = this;
   /*------------------- Public ------------------*/
-  this.command = 0;  /* Command of mrssage */
-  this.status  = 0;  /* Status of message */
-  this.adr     = 0;  /* Target address */
-  this.length  = 0;  /* Length of full data */
-  this.data    = []; /* Data of message */
-
-  this.buffer  = buffer;
+  this.command = 0;      /* Command of mrssage   */
+  this.status  = 0;      /* Status of message    */
+  this.adr     = 0;      /* Target address       */
+  this.length  = 0;      /* Length of full data  */
+  this.data    = [];     /* Data of message      */
+  this.buffer  = buffer; /* Copy input buffer    */
   /*---------------------------------------------*/
   function uint16toByte ( input, output ) {
     output.push( ( input & 0x00FF ) );
@@ -181,6 +181,9 @@ function USBMessage ( buffer ) {
         break;
       case msgSTAT.USB_STAT_UNAUTHORIZED:
         self.status = msgSTAT.USB_STAT_UNAUTHORIZED;
+        break;
+      case msgSTAT.USB_FORBIDDEN:
+        self.status = msgSTAT.USB_FORBIDDEN;
         break;
       default:
         self.status = msgSTAT.USB_BAD_REQ_STAT;

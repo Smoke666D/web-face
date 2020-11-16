@@ -137,6 +137,9 @@ document.getElementById("connect-button").addEventListener('click', function() {
     /* unauthorizedCallback */
     }, function() {
       let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка авторизации" );
+    /* Forbidden callback*/
+    }, function() {
+      let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Установка не остановлена. Доступ запрещен" );
     });
     if ( res == 1 ) {
       setSuccessConnection();
