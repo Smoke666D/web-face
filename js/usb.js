@@ -10,9 +10,8 @@ const msgSTAT       = require('./usb-message.js').msgSTAT;
 const USB_DATA_SIZE = require('./usb-message.js').USB_DATA_SIZE;
 const common        = require('./common.js');
 /*----------------------------------------------------------------------------*/
-const chartsLength = 3;
-var   charts = [];
-
+const chartsLength  = 3;
+var   charts        = [];
 /*----------------------------------------------------------------------------*/
 const usbStat = {
   "wait"  : 1,
@@ -521,10 +520,9 @@ function EnrrganController () {
     return;
   }
   /*---------------------------------------------*/
-  this.init     = function ( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback ) {
+  this.init      = function ( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback ) {
     var result = usbInit.fail;
     var handle = usbHandler.finish;
-
     transport.scan( function () {
       transport.initEvents( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback, function() {
         result    = usbInit.done;
@@ -535,14 +533,17 @@ function EnrrganController () {
     });
     return result;
   }
-  this.close    = function () {
+  this.getStatus = function () {
+    return transport.getStatus();
+  }
+  this.close     = function () {
     transport.close();
     return;
   }
-  this.getInput = function () {
+  this.getInput  = function () {
     return transport.getInput();
   }
-  this.sendTime = function () {
+  this.sendTime  = function () {
     if ( transport.getStatus() == usbStat.wait) {
       initTimeWriteSequency( function () {
         transport.start( usbStat.write, null );
@@ -567,7 +568,7 @@ function EnrrganController () {
     return;
   }
   this.sendAuthorization = function () {
-    if ( transport.getStatus() == usbStat.wait) {
+    if ( transport.getStatus() == usbStat.wait ) {
       initWriteAuthorSequency( function () {
         transport.start( usbStat.write, null );
       });

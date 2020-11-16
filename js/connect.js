@@ -3,12 +3,13 @@ const rest   = require('./js/rest.js');
 const alerts = require('./js/alerts.js');
 //******************************************************************************
 function connectUpdate () {
-  let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
     ethDataUpdate( alert, function () {
       resetSuccessConnection();
     });
-  } else if ( connectionType == 'usb' ) {
+  } else if ( ( connectionType == 'usb' ) && ( usb.controller.getStatus() == 1 ) ) {
+    let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
     usb.controller.receive( alert );
   }
   return;
@@ -60,13 +61,14 @@ function loadConfigsFromFile () {
 }
 //******************************************************************************
 function connectGrab () {
-  let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
     dataGrab( alert, function () {
       resetSuccessConnection();
       return;
     });
-  } else if ( connectionType == 'usb' ) {
+  } else if ( ( connectionType == 'usb' ) && ( usb.controller.getStatus() == 1 ) ) {
+    let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
     usb.controller.send( alert );
   }
   return;
