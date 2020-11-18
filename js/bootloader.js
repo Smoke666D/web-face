@@ -191,8 +191,11 @@ function bootInit () {
           }, function( mes ) {
             console.log( mes );
           });
-          let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Прошивка успешно загружена" );
-          bootProgress.style.width = "0%"
+          bootProgress.style.width = "100%"
+          let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Прошивка успешно загружена", 1 );
+          setTimeout ( function () {
+            bootProgress.style.width = "0%"
+          }, 1000 );
         }
       }
     } catch {

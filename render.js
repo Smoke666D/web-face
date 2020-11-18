@@ -129,7 +129,7 @@ document.getElementById("connect-button").addEventListener('click', function() {
       updateInterface();
     /* outCallback */
     }, function() {
-      let alert = new alerts.Alert( "alert-success", alerts.okIco, "Данные успешно переданы" );
+      let alert = new alerts.Alert( "alert-success", alerts.okIco, "Данные успешно переданы", 1 );
     /* errorCalback */
     }, function() {
       let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );

@@ -967,7 +967,6 @@ function writeJSON ( adr, data, message, callback ) {
     let status = data.currentTarget.status;
 		if ( xhr.readyState == 4 && status == "200" ) {
 			let alert = new Alert( "alert-success", okIco, message );
-
       callback();
 		}
     else if ( status === 401 ) {
@@ -1249,7 +1248,7 @@ function ethDataUpdate( alertProgress, callback ) {
         updateInterface();
 				rtcTime.get( store[store.length - 1] )
 				setSuccessConnection();
-				let alert = new Alert( "alert-success", okIco, "Данные успешно обновленны" );
+				let alert = new Alert( "alert-success", okIco, "Данные успешно обновленны", 1 );
 				document.getElementById( "i-loading" ).classList.remove( "loading" );
 				return store;
 			}
@@ -1371,7 +1370,7 @@ function dataGrab( alertProgress, callback ) {
 				alertProgress.setProgressBar( index * 100 / length );
 			} else {
 				setSuccessConnection();
-				let alert = new Alert( "alert-success", triIco, "Данные успешно переданы" );
+				let alert = new Alert( "alert-success", triIco, "Данные успешно переданы", 1 );
 			}
 		};
 		//--------------------------------------------------------------------------

@@ -15,13 +15,18 @@ function closeAlert ( id ) {
 	return;
 }
 
-function Alert ( type, ico, text, progress ) {
+function Alert ( type, ico, text, ack, progress ) {
   var self      = this;
   var box       = document.getElementById( 'alerts' );
   this.type     = type;
   this.ico      = ico;
   this.text     = text;
   this.index    = 0;
+  if ( ack == undefined ) {
+    this.ack = 0;
+  } else {
+    this.ack = ack;
+  }
   if ( progress == undefined ) {
     this.progress = 0;
   } else {
@@ -90,7 +95,7 @@ function Alert ( type, ico, text, progress ) {
   }
 
   this.make ();
-  if ( this.progress == 0 ) {
+  if ( ( this.progress == 0 ) && ( this.ack == 0 ) ) {
     this.close( 6 );
   }
   return self;
