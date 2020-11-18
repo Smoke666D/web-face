@@ -543,6 +543,8 @@ function doInit( letter ) {
 	return;
 }
 //******************************************************************************
+
+//******************************************************************************
 //******************************************************************************
 //******************************************************************************
 function ainInit( master, checkers, slaves, callback ) {
@@ -812,6 +814,8 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	navbarToogling();
 	updateVersions();
 	starterStopProcessing();
+	diList.init();
+	doList.init();
 	const genVoltageLims = new slider4InitLimits( 'genUnderVoltageAlarmLevel',
 	                                              'genUnderVoltagePreAlarmLevel',
 																								'genOverVoltagePreAlarmLevel',
@@ -820,8 +824,8 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	                                           'genUnderFrequencyPreAlarmLevel',
 																						 'genOverFrequencyPreAlarmLevel',
 																						 'genOverFrequencyAlarmLevel' );
-	const oilVoltageLims = new slider2InitLimits( 'oilPressurePreAlarmLevel',
-																								'oilPressureAlarmLevel' );
+	const oilVoltageLims = new slider2InitLimits( 'oilPressureAlarmLevel',
+																								'oilPressurePreAlarmLevel');
   const coolantLims = new slider2InitLimits( 'coolantHightTempPreAlarmLevel',
                                                     'coolantHightTempAlarmLevel' );
   const coolantHeaterLims = new slider2InitLimits('coolantTempHeaterOnLevel','coolantTempHeaterOffLevel');

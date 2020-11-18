@@ -11,10 +11,10 @@ function createWindow () {
     hasShadow: true,
     icon:      __dirname + "/img/favicon-32x32.png",
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
     }
   });
-  win.webContents.openDevTools();
+  //win.webContents.openDevTools();
 
   win.loadFile('index.html');
 

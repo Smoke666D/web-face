@@ -274,6 +274,14 @@
             </a>
             <ul class="collapse list-unstyled" id="logSubmenu">
               <li>
+                <a class="navItem" id="nav-statisticPage" onclick="loadContent('statisticPage')" href="#">
+                  <div class="fas">
+                    <svg class="svg-icon" viewBox="0 0 512 512"><path fill="currentColor" d="M500 384c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v308h436zM372.7 159.5L288 216l-85.3-113.7c-5.1-6.8-15.5-6.3-19.9 1L96 248v104h384l-89.9-187.8c-3.2-6.5-11.4-8.7-17.4-4.7z"></path></svg>
+                  </div>
+                  <span>Статистика</span>
+                </a>
+              </li>
+              <li>
                 <a class="navItem" id="nav-logPage" onclick="loadContent('logPage')" href="#">
                   <div class="fas">
                     <svg class="svg-icon" viewBox="0 0 448 512"><path fill="currentColor" d="M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z"></path></svg>
@@ -329,10 +337,10 @@
             <svg viewBox="0 0 448 512"><path fill="currentColor" d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path></svg>
           </button>
 
-          <button aria-label="Download to file" id="downloadToFile-button" onclick="saveConfigsToFile()" class="btn btn-primary" data-toggle="tooltip" title="Сохранить конфигурацию в файл">
+          <button aria-label="Download to file" onclick="saveConfigsToFile()" class="btn btn-primary" data-toggle="tooltip" title="Сохранить конфигурацию в файл">
             <svg viewBox="0 0 448 512"><path fill="currentColor" d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"></path></svg>
           </button>
-          <button aria-label="Upload to file" id="downloadToFile-button" onclick="loadConfigsFromFile()" class="btn btn-primary" data-toggle="tooltip" title="Загрузить конфигурацию из файла">
+          <button aria-label="Upload to file" onclick="loadConfigsFromFile()" class="btn btn-primary" data-toggle="tooltip" title="Загрузить конфигурацию из файла">
             <svg viewBox="0 0 576 512"><path fill="currentColor" d="M572.694 292.093L500.27 416.248A63.997 63.997 0 0 1 444.989 448H45.025c-18.523 0-30.064-20.093-20.731-36.093l72.424-124.155A64 64 0 0 1 152 256h399.964c18.523 0 30.064 20.093 20.73 36.093zM152 224h328v-48c0-26.51-21.49-48-48-48H272l-64-64H48C21.49 64 0 85.49 0 112v278.046l69.077-118.418C86.214 242.25 117.989 224 152 224z"></path></svg>
           </button>
         </div>
@@ -905,7 +913,7 @@
           </div>
         </div>
 
-        <h5>Сигналы по рпевышению уровня топлива</h5>
+        <h5>Сигналы по превышению уровня топлива</h5>
 
         <div class="row">
           <div class="col-sm-auto">
@@ -1102,7 +1110,7 @@
             <label>Функция</label>
           </div>
           <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="diaFunction">
+            <select class="custom-select sensor-select diFunction" id="diaFunction">
               <option value="0">Не использовать</option>
               <option value="1">Пользовательская</option>
               <option value="2">Сброс аварийной  сигнализации</option>
@@ -1194,7 +1202,7 @@
             <label>Функция</label>
           </div>
           <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="dibFunction">
+            <select class="custom-select sensor-select diFunction" id="dibFunction">
               <option value="0">Не использовать</option>
               <option value="1">Пользовательская</option>
               <option value="2">Сброс аварийной  сигнализации</option>
@@ -1286,7 +1294,7 @@
             <label>Функция</label>
           </div>
           <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="dicFunction">
+            <select class="custom-select sensor-select diFunction" id="dicFunction">
               <option value="0">Не использовать</option>
               <option value="1">Пользовательская</option>
               <option value="2">Сброс аварийной  сигнализации</option>
@@ -1378,7 +1386,7 @@
             <label>Функция</label>
           </div>
           <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="didFunction">
+            <select class="custom-select sensor-select diFunction" id="didFunction">
               <option value="0">Не использовать</option>
               <option value="1">Пользовательская</option>
               <option value="2">Сброс аварийной  сигнализации</option>
@@ -1520,31 +1528,30 @@
             <select class="custom-select sensor-select doType" id="dobType">
               <option value="0">Не использовать</option>
               <optgroup label="Режимы">
-                <option value="1">Автоматический режим</option>
-                <option value="2">Общее нарушение сети</option>
-                <option value="3">Готов к запуску</option>
-                <option value="4">Готовность генератора</option>
+                <option value="1">ДЭС готов</option>
+                <option value="2">Готов к запуску</option>
+                <option value="3">Готовность генератора</option>
               </optgroup>
               <optgroup label="Сигнализация">
-                <option value="5">Общий аварийный сигнал</option>
-                <option value="6">Неисправность ДЭС</option>
-                <option value="7">Общее предупреждение</option>
+                <option value="4">Общий аварийный сигнал</option>
+                <option value="5">Общая нарушение сети</option>
+                <option value="6">Общее предупреждение</option>
               </optgroup>
               <optgroup label="Управление">
-                <option value="8">Включить генератор</option>
-                <option value="9">Включить генератор импульсно</option>
-                <option value="10">Выключить генератор импульсно</option>
-                <option value="11">Включить сеть</option>
-                <option value="12">Включить сеть импульсно</option>
-                <option value="13">Выключить сеть импульсно</option>
-                <option value="14">Охладитель охлаждающей жидкости</option>
-                <option value="15">Подогреватель охлаждающей жидкости</option>
-                <option value="16">Стоповый соленоид</option>
-                <option value="17">Подкачка топлива</option>
-                <option value="18">Топливное реле</option>
-                <option value="19">Стартерное реле</option>
-                <option value="20">Включение свечи накаливания</option>
-                <option value="21">Работа на холостом ходу</option>
+                <option value="7" >Включить генератор</option>
+                <option value="8" >Включить генератор импульсно</option>
+                <option value="9" >Выключить генератор импульсно</option>
+                <option value="10">Включить сеть</option>
+                <option value="11">Включить сеть импульсно</option>
+                <option value="12">Выключить сеть импульсно</option>
+                <option value="13">Охладитель охлаждающей жидкости</option>
+                <option value="14">Подогреватель охлаждающей жидкости</option>
+                <option value="15">Стоповый соленоид</option>
+                <option value="16">Подкачка топлива</option>
+                <option value="17">Топливное реле</option>
+                <option value="18">Стартерное реле</option>
+                <option value="19">Включение свечи накаливания</option>
+                <option value="20">Работа на холостом ходу</option>
               </optgroup>
             </select>
           </div>
@@ -1568,31 +1575,30 @@
             <select class="custom-select sensor-select doType" id="docType">
               <option value="0">Не использовать</option>
               <optgroup label="Режимы">
-                <option value="1">Автоматический режим</option>
-                <option value="2">Общее нарушение сети</option>
-                <option value="3">Готов к запуску</option>
-                <option value="4">Готовность генератора</option>
+                <option value="1">ДЭС готов</option>
+                <option value="2">Готов к запуску</option>
+                <option value="3">Готовность генератора</option>
               </optgroup>
               <optgroup label="Сигнализация">
-                <option value="5">Общий аварийный сигнал</option>
-                <option value="6">Неисправность ДЭС</option>
-                <option value="7">Общее предупреждение</option>
+                <option value="4">Общий аварийный сигнал</option>
+                <option value="5">Общая нарушение сети</option>
+                <option value="6">Общее предупреждение</option>
               </optgroup>
               <optgroup label="Управление">
-                <option value="8">Включить генератор</option>
-                <option value="9">Включить генератор импульсно</option>
-                <option value="10">Выключить генератор импульсно</option>
-                <option value="11">Включить сеть</option>
-                <option value="12">Включить сеть импульсно</option>
-                <option value="13">Выключить сеть импульсно</option>
-                <option value="14">Охладитель охлаждающей жидкости</option>
-                <option value="15">Подогреватель охлаждающей жидкости</option>
-                <option value="16">Стоповый соленоид</option>
-                <option value="17">Подкачка топлива</option>
-                <option value="18">Топливное реле</option>
-                <option value="19">Стартерное реле</option>
-                <option value="20">Включение свечи накаливания</option>
-                <option value="21">Работа на холостом ходу</option>
+                <option value="7" >Включить генератор</option>
+                <option value="8" >Включить генератор импульсно</option>
+                <option value="9" >Выключить генератор импульсно</option>
+                <option value="10">Включить сеть</option>
+                <option value="11">Включить сеть импульсно</option>
+                <option value="12">Выключить сеть импульсно</option>
+                <option value="13">Охладитель охлаждающей жидкости</option>
+                <option value="14">Подогреватель охлаждающей жидкости</option>
+                <option value="15">Стоповый соленоид</option>
+                <option value="16">Подкачка топлива</option>
+                <option value="17">Топливное реле</option>
+                <option value="18">Стартерное реле</option>
+                <option value="19">Включение свечи накаливания</option>
+                <option value="20">Работа на холостом ходу</option>
               </optgroup>
             </select>
           </div>
@@ -1616,31 +1622,30 @@
             <select class="custom-select sensor-select doType" id="dodType">
               <option value="0">Не использовать</option>
               <optgroup label="Режимы">
-                <option value="1">Автоматический режим</option>
-                <option value="2">Общее нарушение сети</option>
-                <option value="3">Готов к запуску</option>
-                <option value="4">Готовность генератора</option>
+                <option value="1">ДЭС готов</option>
+                <option value="2">Готов к запуску</option>
+                <option value="3">Готовность генератора</option>
               </optgroup>
               <optgroup label="Сигнализация">
-                <option value="5">Общий аварийный сигнал</option>
-                <option value="6">Неисправность ДЭС</option>
-                <option value="7">Общее предупреждение</option>
+                <option value="4">Общий аварийный сигнал</option>
+                <option value="5">Общая нарушение сети</option>
+                <option value="6">Общее предупреждение</option>
               </optgroup>
               <optgroup label="Управление">
-                <option value="8">Включить генератор</option>
-                <option value="9">Включить генератор импульсно</option>
-                <option value="10">Выключить генератор импульсно</option>
-                <option value="11">Включить сеть</option>
-                <option value="12">Включить сеть импульсно</option>
-                <option value="13">Выключить сеть импульсно</option>
-                <option value="14">Охладитель охлаждающей жидкости</option>
-                <option value="15">Подогреватель охлаждающей жидкости</option>
-                <option value="16">Стоповый соленоид</option>
-                <option value="17">Подкачка топлива</option>
-                <option value="18">Топливное реле</option>
-                <option value="19">Стартерное реле</option>
-                <option value="20">Включение свечи накаливания</option>
-                <option value="21">Работа на холостом ходу</option>
+                <option value="7" >Включить генератор</option>
+                <option value="8" >Включить генератор импульсно</option>
+                <option value="9" >Выключить генератор импульсно</option>
+                <option value="10">Включить сеть</option>
+                <option value="11">Включить сеть импульсно</option>
+                <option value="12">Выключить сеть импульсно</option>
+                <option value="13">Охладитель охлаждающей жидкости</option>
+                <option value="14">Подогреватель охлаждающей жидкости</option>
+                <option value="15">Стоповый соленоид</option>
+                <option value="16">Подкачка топлива</option>
+                <option value="17">Топливное реле</option>
+                <option value="18">Стартерное реле</option>
+                <option value="19">Включение свечи накаливания</option>
+                <option value="20">Работа на холостом ходу</option>
               </optgroup>
             </select>
           </div>
@@ -1664,31 +1669,30 @@
             <select class="custom-select sensor-select doType" id="doeType">
               <option value="0">Не использовать</option>
               <optgroup label="Режимы">
-                <option value="1">Автоматический режим</option>
-                <option value="2">Общее нарушение сети</option>
-                <option value="3">Готов к запуску</option>
-                <option value="4">Готовность генератора</option>
+                <option value="1">ДЭС готов</option>
+                <option value="2">Готов к запуску</option>
+                <option value="3">Готовность генератора</option>
               </optgroup>
               <optgroup label="Сигнализация">
-                <option value="5">Общий аварийный сигнал</option>
-                <option value="6">Неисправность ДЭС</option>
-                <option value="7">Общее предупреждение</option>
+                <option value="4">Общий аварийный сигнал</option>
+                <option value="5">Общая нарушение сети</option>
+                <option value="6">Общее предупреждение</option>
               </optgroup>
               <optgroup label="Управление">
-                <option value="8">Включить генератор</option>
-                <option value="9">Включить генератор импульсно</option>
-                <option value="10">Выключить генератор импульсно</option>
-                <option value="11">Включить сеть</option>
-                <option value="12">Включить сеть импульсно</option>
-                <option value="13">Выключить сеть импульсно</option>
-                <option value="14">Охладитель охлаждающей жидкости</option>
-                <option value="15">Подогреватель охлаждающей жидкости</option>
-                <option value="16">Стоповый соленоид</option>
-                <option value="17">Подкачка топлива</option>
-                <option value="18">Топливное реле</option>
-                <option value="19">Стартерное реле</option>
-                <option value="20">Включение свечи накаливания</option>
-                <option value="21">Работа на холостом ходу</option>
+                <option value="7" >Включить генератор</option>
+                <option value="8" >Включить генератор импульсно</option>
+                <option value="9" >Выключить генератор импульсно</option>
+                <option value="10">Включить сеть</option>
+                <option value="11">Включить сеть импульсно</option>
+                <option value="12">Выключить сеть импульсно</option>
+                <option value="13">Охладитель охлаждающей жидкости</option>
+                <option value="14">Подогреватель охлаждающей жидкости</option>
+                <option value="15">Стоповый соленоид</option>
+                <option value="16">Подкачка топлива</option>
+                <option value="17">Топливное реле</option>
+                <option value="18">Стартерное реле</option>
+                <option value="19">Включение свечи накаливания</option>
+                <option value="20">Работа на холостом ходу</option>
               </optgroup>
             </select>
           </div>
@@ -1712,31 +1716,30 @@
             <select class="custom-select sensor-select doType" id="dofType">
               <option value="0">Не использовать</option>
               <optgroup label="Режимы">
-                <option value="1">Автоматический режим</option>
-                <option value="2">Общее нарушение сети</option>
-                <option value="3">Готов к запуску</option>
-                <option value="4">Готовность генератора</option>
+                <option value="1">ДЭС готов</option>
+                <option value="2">Готов к запуску</option>
+                <option value="3">Готовность генератора</option>
               </optgroup>
               <optgroup label="Сигнализация">
-                <option value="5">Общий аварийный сигнал</option>
-                <option value="6">Неисправность ДЭС</option>
-                <option value="7">Общее предупреждение</option>
+                <option value="4">Общий аварийный сигнал</option>
+                <option value="5">Общая нарушение сети</option>
+                <option value="6">Общее предупреждение</option>
               </optgroup>
               <optgroup label="Управление">
-                <option value="8">Включить генератор</option>
-                <option value="9">Включить генератор импульсно</option>
-                <option value="10">Выключить генератор импульсно</option>
-                <option value="11">Включить сеть</option>
-                <option value="12">Включить сеть импульсно</option>
-                <option value="13">Выключить сеть импульсно</option>
-                <option value="14">Охладитель охлаждающей жидкости</option>
-                <option value="15">Подогреватель охлаждающей жидкости</option>
-                <option value="16">Стоповый соленоид</option>
-                <option value="17">Подкачка топлива</option>
-                <option value="18">Топливное реле</option>
-                <option value="19">Стартерное реле</option>
-                <option value="20">Включение свечи накаливания</option>
-                <option value="21">Работа на холостом ходу</option>
+                <option value="7" >Включить генератор</option>
+                <option value="8" >Включить генератор импульсно</option>
+                <option value="9" >Выключить генератор импульсно</option>
+                <option value="10">Включить сеть</option>
+                <option value="11">Включить сеть импульсно</option>
+                <option value="12">Выключить сеть импульсно</option>
+                <option value="13">Охладитель охлаждающей жидкости</option>
+                <option value="14">Подогреватель охлаждающей жидкости</option>
+                <option value="15">Стоповый соленоид</option>
+                <option value="16">Подкачка топлива</option>
+                <option value="17">Топливное реле</option>
+                <option value="18">Стартерное реле</option>
+                <option value="19">Включение свечи накаливания</option>
+                <option value="20">Работа на холостом ходу</option>
               </optgroup>
             </select>
           </div>
@@ -2755,41 +2758,6 @@
             <div class="s-slider" id="s-slider-enginePreHeatDelay"></div>
           </div>
         </div>
-
-
-        <h5>Моточасы</h5>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Моточасы</label>
-          </div>
-          <div class="col-sm-auto">
-            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineWorkTimeData">
-          </div>
-          <div class="col-dimension">
-            <label>часов</label>
-          </div>
-          <div class="col-sm-auto">
-            <button id="write-engineWorkTimeData" aria-label="Connect" id="controllerWorkTimeSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить моточасы двигателя">
-              <span>Записать</span>
-            </button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Количество пусков</label>
-          </div>
-          <div class="col-sm-auto">
-            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
-          </div>
-          <div class="col-dimension">
-            <label>раз</label>
-          </div>
-          <div class="col-sm-auto">
-            <button id="write-engineStartsNumberData" aria-label="Connect" id="controllerStartNumberSetup" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
-              <span>Записать</span>
-            </button>
-          </div>
-        </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="crankshaftPage" class="content-data hidden">
@@ -3063,7 +3031,7 @@
           </div>
           <div class="col-sm-2">
             <select class="custom-select sensor-select" id="maintenanceAlarmOilAction">
-              <option value="0">Отключение</option>
+              <option value="0">Запрет следующего пуска</option>
               <option value="1">Предупреждение</option>
             </select>
           </div>
@@ -3116,7 +3084,7 @@
           </div>
           <div class="col-sm-2">
             <select class="custom-select sensor-select" id="maintenanceAlarmAirAction">
-              <option value="0">Отключение</option>
+              <option value="0">Запрет следующего пуска</option>
               <option value="1">Предупреждение</option>
             </select>
           </div>
@@ -3168,7 +3136,7 @@
           </div>
           <div class="col-sm-2">
             <select class="custom-select sensor-select" id="maintenanceAlarmFuelAction">
-              <option value="0">Отключение</option>
+              <option value="0">Запрет следующего пуска</option>
               <option value="1">Предупреждение</option>
             </select>
           </div>
@@ -3205,8 +3173,95 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
+      <div id="statisticPage" class="content-data hidden">
+        <h2>Статистика</h2>
+        <h5>Моточасы</h5>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Моточасы</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineWorkTimeData">
+          </div>
+          <div class="col-dimension">
+            <label>часов</label>
+          </div>
+          <div class="col-sm-auto">
+            <button id="write-engineWorkTimeData" aria-label="Connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить моточасы двигателя">
+              <span>Записать</span>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Количество пусков</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
+          </div>
+          <div class="col-dimension">
+            <label>раз</label>
+          </div>
+          <div class="col-sm-auto">
+            <button id="write-engineStartsNumberData" aria-label="Connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+              <span>Записать</span>
+            </button>
+          </div>
+        </div>
+        <h5>Наработка электроэнергии</h5>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Полная мощность</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-powerReactiveUsage">
+          </div>
+          <div class="col-dimension">
+            <label>кВАч</label>
+          </div>
+          <div class="col-sm-auto">
+            <button id="write-powerReactiveUsage" aria-label="Connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+              <span>Записать</span>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Активная мощность</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-powerActiveUsage">
+          </div>
+          <div class="col-dimension">
+            <label>кВтч</label>
+          </div>
+          <div class="col-sm-auto">
+            <button id="write-powerActiveUsage" aria-label="Connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+              <span>Записать</span>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Реактивная мощность</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-powerReactiveUsage">
+          </div>
+          <div class="col-dimension">
+            <label>кВАРч</label>
+          </div>
+          <div class="col-sm-auto">
+            <button id="write-powerReactiveUsage" aria-label="Connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество стартов двигателя">
+              <span>Записать</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!------------------------------------------------------------------------------------------------------------->
       <div id="logPage" class="content-data hidden">
         <h2>Журнал событий</h2>
+
         <div class="row">
           <div class="col-sm-auto">
             <label class="switch">
@@ -3217,12 +3272,22 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-sm-auto">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="logPositiveEventsEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Фиксировать события запуска и остановки</label>
+          </div>
+        </div>
+
         <div calss="row">
           <button aria-label="Erase" id="reset-log" onclick="eraseLog()" class="btn btn-primary" data-toggle="tooltip" title="Очистить журнал">
             <svg viewBox="0 0 512 512"><path fill="currentColor" d="M497.941 273.941c18.745-18.745 18.745-49.137 0-67.882l-160-160c-18.745-18.745-49.136-18.746-67.883 0l-256 256c-18.745 18.745-18.745 49.137 0 67.882l96 96A48.004 48.004 0 0 0 144 480h356c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12H355.883l142.058-142.059zm-302.627-62.627l137.373 137.373L265.373 416H150.628l-80-80 124.686-124.686z"></path></svg>
           </button>
           <button aria-label="Download" id="reset-log" onclick="saveLogToFile()" class="btn btn-primary" data-toggle="tooltip" title="Скачать журнал на ПК">
-            <svg viewBox="0 0 512 512"><path fill="currentColor" d="M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path></svg>
+            <svg viewBox="0 0 448 512"><path fill="currentColor" d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"></path></svg>
           </button>
         </div>
         <h5></h5>
@@ -3506,13 +3571,13 @@
             <div class="modal-footer">
               <div class="modal-footer-left">
                 <button type="button" aria-label="Save" class="btn btn-primary" onclick="saveChartData()" data-toggle="tooltip" title="Сохранить">
-                  <svg viewBox="0 0 448 512"><path fill="currentColor" d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"></path></svg>
+                  <svg viewBox="0 0 512 512"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path></svg>
                 </button>
                 <button type="button" aria-label="Save to PC" class="btn btn-primary" onclick="downloadSensorData()" data-toggle="tooltip" title="Скачать">
-                  <svg viewBox="0 0 512 512"><path fill="currentColor" d="M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path></svg>
+                  <svg viewBox="0 0 448 512"><path fill="currentColor" d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"></path></svg>
                 </button>
                 <button  type="button" aria-label="Load from PC" class="btn btn-primary" onclick="uploadSensorData()" data-toggle="tooltip" title="Загрузить">
-                  <svg viewBox="0 0 512 512"><path fill="currentColor" d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path></svg>
+                  <svg viewBox="0 0 576 512"><path fill="currentColor" d="M572.694 292.093L500.27 416.248A63.997 63.997 0 0 1 444.989 448H45.025c-18.523 0-30.064-20.093-20.731-36.093l72.424-124.155A64 64 0 0 1 152 256h399.964c18.523 0 30.064 20.093 20.73 36.093zM152 224h328v-48c0-26.51-21.49-48-48-48H272l-64-64H48C21.49 64 0 85.49 0 112v278.046l69.077-118.418C86.214 242.25 117.989 224 152 224z"></path></svg>
                 </button>
                 <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Закрыть">
                   <svg viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
@@ -3648,7 +3713,6 @@
       </div>
     </div>
     <!--------------------------------------------------------------------------------------------------------------->
-    <script type="text/javascript" src="js/settings.js"></script>
     <script type="text/javascript" src="js/alerts.js"></script>
     <script type="text/javascript" src="js/settingsAlerts.js"></script>
     <script type="text/javascript" src="js/nouislider.min.js"></script>

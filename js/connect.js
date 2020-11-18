@@ -3,29 +3,30 @@ const rest   = require('./js/rest.js');
 const alerts = require('./js/alerts.js');
 //******************************************************************************
 function connectUpdate () {
-  let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
     ethDataUpdate( alert, function () {
       resetSuccessConnection();
     });
-  } else if ( connectionType == 'usb' ) {
+  } else if ( ( connectionType == 'usb' ) && ( usb.controller.getStatus() == 1 ) ) {
+    let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
     usb.controller.receive( alert );
   }
   return;
 }
 //******************************************************************************
 function saveConfigsToFile () {
-  function SaveAsFile ( t, file, m ) {
+  function SaveAsFile ( text, name, type ) {
   	try {
-    	var blob = new Blob( [t], { type: m } );
-      saveAs( blob, file );
+    	var file = new File( [text], name, { type: type } );
+      saveAs( file );
     } catch( e ) {
     	window.open( ( "data:" + m + "," + encodeURIComponent( t ) ), '_blank', '' );
     }
     return;
   }
 	grabInterface()
-	SaveAsFile( JSON.stringify( dataReg ), ( "configs.JSON" ), "text/plain;charset=utf-8" );
+	SaveAsFile( JSON.stringify( dataReg ), ( "config" + ".JSON" ), "application/json;charset=utf-8" );
   return;
 }
 //******************************************************************************
@@ -36,13 +37,15 @@ function loadConfigsFromFile () {
 		input.addEventListener( "change", function() {
 			file = input.files[0];
 			if ( file.type != "application/json" ) {
-        let alert = new Alert( "alert-warning", triIco, "Выбран файл с неправильным расширением. Выберете JSON файл" );
+        let alert = new Alert( "alert-warning", triIco, "Выбран файл с неправильным расширением. Выберете JSON файл." );
 			} else {
 				let reader = new FileReader();
         reader.readAsText( file );
 				reader.onload = function() {
 					try {
 						dataReg = JSON.parse( reader.result );
+            updateInterface();
+            let alert = new Alert( "alert-success", okIco, "Конфигурация прочитана из файла" );
 					} catch( e ) {
             let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
 					}
@@ -58,13 +61,14 @@ function loadConfigsFromFile () {
 }
 //******************************************************************************
 function connectGrab () {
-  let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+    let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
     dataGrab( alert, function () {
       resetSuccessConnection();
       return;
     });
-  } else if ( connectionType == 'usb' ) {
+  } else if ( ( connectionType == 'usb' ) && ( usb.controller.getStatus() == 1 ) ) {
+    let alert = new Alert( "alert-warning", triIco, "Загрузка", 1 );
     usb.controller.send( alert );
   }
   return;

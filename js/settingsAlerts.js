@@ -1,6 +1,6 @@
-function checkDO( targetText ) {
+function checkDO ( targetText ) {
   var types = document.getElementsByClassName( "doType" );
-  var res = 0;
+  var res   = 0;
   for ( i=0; i<types.length; i++ ) {
     if ( types[i].options[types[i].value].text == targetText ) {
       res = 1;
@@ -11,10 +11,9 @@ function checkDO( targetText ) {
   }
   return res;
 }
-
-
-function checkSettings() {
-  var self = this;
+/*----------------------------------------------------------------------------*/
+function checkSettings () {
+  var self     = this;
   this.names   = ["coolantTempHeaterEnb",
                    "coolantTempCoolerEnb",
                    "fuelPumpEnb",
@@ -34,7 +33,6 @@ function checkSettings() {
       }
     })());
   }
-
   document.getElementById('starterStopSpeedEnb').addEventListener( 'change', function() {
     if ( ( document.getElementById('speedEnb').checked == false ) && (this.checked == true) ) {
       this.checked = false;
@@ -43,7 +41,6 @@ function checkSettings() {
       let alert = new Alert("alert-warning",tachometerIco,"Вход датчика скорости оборотов не сконфигурирован.")
     }
   });
-
   document.getElementById('starterStopOilPressureEnb').addEventListener( 'change', function() {
     var type = document.getElementById( 'oilPressureSensorType' );
     if ( this.disabled == true ) {
@@ -60,5 +57,4 @@ function checkSettings() {
       }
     }
   });
-
 }
