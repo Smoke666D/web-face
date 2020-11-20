@@ -317,8 +317,6 @@ function dfuDevice() {
                   let alert = new alerts.Alert("alert-warning",alerts.triIco,"Сбой чтения интерфейса");
                 }
               });
-
-
             });
           });
         } catch (e) {

@@ -7,8 +7,9 @@ const alerts     = require('./alerts.js');
 const { dialog } = require('electron').remote;
 const fs         = require('fs');
 /*----------------------------------------------------------------------------*/
-var firmware  = new Firmware();
-var dfuDevice = new dfu.dfuDevice();
+var firmware   = new Firmware();
+var dfuDevice  = new dfu.dfuDevice();
+var dfuProcess = 0;
 /*----------------------------------------------------------------------------*/
 function Line     ( str, shift ) {
   /*------------------ Private ------------------*/
@@ -152,7 +153,7 @@ function bootInit () {
         swBootFile.disabled = false;
       });
     } catch {
-      let alert   = new alerts.Alert( "alert-warning", alerts.triIco, "Прибор не найден" );
+      let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Прибор не найден" );
     }
   });
   /*------------------------------------------------------*/
@@ -180,19 +181,28 @@ function bootInit () {
   /*------------------------------------------------------*/
   swBootLoad.addEventListener( 'click', async function () {
     try {
-      if ( ( firmware.valid > 0 ) && ( dfuDevice != null ) ) {
-        let adr    = await dfuDevice.searchSector( firmware.start );
-        let result = await dfuDevice.downloadFirmware( firmware.data, adr, function( max, n ) {
-          bootProgress.style.width = ( n / max * 100 ) + "%";
-          console.log( n + "/" + max );
-        }, function( mes ) {
-          console.log( mes );
-        });
-        let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Прошивка успешно загружена" );
+      if ( dfuProcess == 0 ) {
+        if ( ( firmware.valid > 0 ) && ( dfuDevice != null ) ) {
+          dfuProcess = 1;
+          let adr    = await dfuDevice.searchSector( firmware.start );
+          let result = await dfuDevice.downloadFirmware( firmware.data, adr, function( max, n ) {
+            bootProgress.style.width = ( n / max * 100 ) + "%";
+            console.log( n + "/" + max );
+          }, function( mes ) {
+            console.log( mes );
+          });
+          bootProgress.style.width = "100%"
+          let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Прошивка успешно загружена", 1 );
+          setTimeout ( function () {
+            bootProgress.style.width = "0%"
+          }, 1000 );
+        }
       }
     } catch {
       let alert   = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка во время записи" );
+      bootProgress.style.width = "0%"
     }
+    dfuProcess = 0;
   });
   /*------------------------------------------------------*/
   return;
