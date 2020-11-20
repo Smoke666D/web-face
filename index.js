@@ -17,15 +17,17 @@ function createWindow () {
   //win.webContents.openDevTools();
 
   win.loadFile('index.html');
-
   win.on('closed', () => {
     mainWindow = null
   });
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then( function(){
+  createWindow();
+});
 
 app.on('window-all-closed', function () {
+  //globalShortcut.unregisterAll();
   if (process.platform !== 'darwin') {
     app.quit();
   }
