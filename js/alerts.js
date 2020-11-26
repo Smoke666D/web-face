@@ -92,8 +92,12 @@ function Alert ( type, ico, text, ack, progress ) {
     box.innerHTML    = box.innerHTML + this.alertText;
     this.object      = document.getElementById( 'alert' + this.index );
     this.pb          = document.getElementById( 'alert-progress' + this.index );
+    console.log( alertCurNumber );
     alertCurNumber++;
     this.object.style.bottom = alertCurNumber * ( this.object.offsetHeight + boxDistance ) + 'px';
+
+    console.log( this.object.style.bottom + " " + this.object.offsetHeight);
+
     console.log(alerts.length);
     if ( alertCurNumber > 1 ) {
       if ( alerts[alerts.length-2].style.bottom == this.object.style.bottom ) {
