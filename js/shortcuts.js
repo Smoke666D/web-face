@@ -1,5 +1,5 @@
 //var rest = require('./js/rest.js');
-var main   = require('./js/main.js');
+//var main   = require('./js/main.js');
 var render = require('./render.js');
 
 document.onkeyup = function( evt ) {

@@ -526,10 +526,10 @@ function EnrrganController () {
     transport.scan( function () {
       transport.initEvents( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback, function() {
         result    = usbInit.done;
-        let alert = new alerts.Alert( "alert-success", alerts.okIco, "Контроллер подключен по USB" );
+        let alert = new Alert( "alert-success", alerts.okIco, "Контроллер подключен по USB" );
       });
     }, function() {
-      let alert = new alerts.Alert("alert-warning",alerts.triIco,"Контроллер не подключен по USB");
+      let alert = new Alert("alert-warning",alerts.triIco,"Контроллер не подключен по USB");
     });
     return result;
   }

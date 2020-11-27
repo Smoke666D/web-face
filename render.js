@@ -126,25 +126,27 @@ function connect () {
         loadCharts( charts );
       }
       charts = [];
-      let alert = new alerts.Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
+      let alert = new Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
       updateInterface();
     /* outCallback */
     }, function() {
-      let alert = new alerts.Alert( "alert-success", alerts.okIco, "Данные успешно переданы", 1 );
+      let alert = new Alert( "alert-success", alerts.okIco, "Данные успешно переданы", 1 );
     /* errorCalback */
     }, function() {
-      let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );
+      let alert = new Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );
       resetSuccessConnection();
     /* unauthorizedCallback */
     }, function() {
-      let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка авторизации" );
+      let alert = new Alert( "alert-warning", alerts.triIco, "Ошибка авторизации" );
     /* Forbidden callback*/
     }, function() {
-      let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Установка не остановлена. Доступ запрещен" );
+      let alert = new Alert( "alert-warning", alerts.triIco, "Установка не остановлена. Доступ запрещен" );
     });
     if ( res == 1 ) {
-      setSuccessConnection();
-      connectUpdate();
+      setTimeout( function () {
+        setSuccessConnection();
+        connectUpdate();
+      }, 400 );
     }
   /*--------------------------------------------------------------*/
   /*-------------------------- ETHERNET --------------------------*/
@@ -159,7 +161,7 @@ function connect () {
       connectUpdate();
     } else {
       ipInput.value = "";
-      let alert = new alerts.Alert( "alert-warning", alerts.triIco, res );
+      let alert = new Alert( "alert-warning", alerts.triIco, res );
     }
   }
   return;

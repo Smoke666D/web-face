@@ -4281,20 +4281,17 @@ input[type="button"].btn-block {
   border-radius: 0; }
 
   #alerts {
-    display: inline-block;
     position: absolute;
-    height: 0px;
     right: 0px;
-    bottom: -60px;
+    bottom: 0px;
     z-index: 10;
   }
 
 .alert {
-  position: absolute;
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
   right: 0px;
-  z-index: 10;
-  padding: 10px 20px;
-  margin-bottom: 15px;
   border: 1px solid transparent;
   border-radius: 0.25rem;}
   .alert.animation {
@@ -4304,7 +4301,7 @@ input[type="button"].btn-block {
     -ms-transition: all 0.4s ease;
     transition: all 0.4s ease;}
   .alert.hidden {
-    right: -500px;}
+    right: -400px;}
   }
 
 .alert-heading {
@@ -4395,9 +4392,11 @@ input[type="button"].btn-block {
     color: #040505; }
 
 .alert-message{
+  position: absolute;
+  padding: 0px 0px;
+  margin-bottom: 0px;
   width: 330px;
   right: 20px;
-  bottom: 20px;
   }
   .alert-message .alert-content{
     width: 300px;

@@ -1,4 +1,4 @@
-const { app, BrowserWindow, globalShortcut, webFrame } = require('electron');
+const { app, BrowserWindow, globalShortcut } = require('electron');
 
 function createWindow () {
   let win = new BrowserWindow({

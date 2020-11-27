@@ -4,14 +4,14 @@ const okIco      = '<svg viewBox="0 0 512 512"><path fill="currentColor" d="M504
 const oilIco     = '<svg viewBox="0 0 640 512"><path fill="currentColor" d="M629.8 160.31L416 224l-50.49-25.24a64.07 64.07 0 0 0-28.62-6.76H280v-48h56c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16H176c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16h56v48h-56L37.72 166.86a31.9 31.9 0 0 0-5.79-.53C14.67 166.33 0 180.36 0 198.34v94.95c0 15.46 11.06 28.72 26.28 31.48L96 337.46V384c0 17.67 14.33 32 32 32h274.63c8.55 0 16.75-3.42 22.76-9.51l212.26-214.75c1.5-1.5 2.34-3.54 2.34-5.66V168c.01-5.31-5.08-9.15-10.19-7.69zM96 288.67l-48-8.73v-62.43l48 8.73v62.43zm453.33 84.66c0 23.56 19.1 42.67 42.67 42.67s42.67-19.1 42.67-42.67S592 288 592 288s-42.67 61.77-42.67 85.33z"></path></svg>';
 const shevronRightIco = '<svg viewBox="0 0 320 512"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path></svg>';
 const tachometerIco   = '<svg viewBox="0 0 576 512"><path fill="currentColor" d="M288 32C128.94 32 0 160.94 0 320c0 52.8 14.25 102.26 39.06 144.8 5.61 9.62 16.3 15.2 27.44 15.2h443c11.14 0 21.83-5.58 27.44-15.2C561.75 422.26 576 372.8 576 320c0-159.06-128.94-288-288-288zm0 64c14.71 0 26.58 10.13 30.32 23.65-1.11 2.26-2.64 4.23-3.45 6.67l-9.22 27.67c-5.13 3.49-10.97 6.01-17.64 6.01-17.67 0-32-14.33-32-32S270.33 96 288 96zM96 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm48-160c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm246.77-72.41l-61.33 184C343.13 347.33 352 364.54 352 384c0 11.72-3.38 22.55-8.88 32H232.88c-5.5-9.45-8.88-20.28-8.88-32 0-33.94 26.5-61.43 59.9-63.59l61.34-184.01c4.17-12.56 17.73-19.45 30.36-15.17 12.57 4.19 19.35 17.79 15.17 30.36zm14.66 57.2l15.52-46.55c3.47-1.29 7.13-2.23 11.05-2.23 17.67 0 32 14.33 32 32s-14.33 32-32 32c-11.38-.01-20.89-6.28-26.57-15.22zM480 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path></svg>';
-//------------------------------------------------------------------------------
+/*----------------------------------------------------------------------------*/
 const fadeTimeout = 0.4; /*sec*/
 const boxDistance = 15;  /*px*/
-//------------------------------------------------------------------------------
+/*----------------------------------------------------------------------------*/
 var alertAddIndex  = 0;
 var alertDelIndex  = 0;
 var alertCurNumber = 0;
-
+/*----------------------------------------------------------------------------*/
 function closeAlert ( id ) {
   let element = document.getElementById( 'alert' + id );
   if ( element.classList.contains( 'hidden' ) == false ) {
@@ -22,7 +22,7 @@ function closeAlert ( id ) {
         let element = document.getElementById( 'alert' + id );
         let alerts  = document.getElementsByClassName( 'alert-message' );
         if ( element != null ) {
-          for ( var i=(alerts.length-1); i>id; i-- ) {
+          for ( var i=alerts.length - 1; i>id; i-- ) {
             if ( alerts[i].classList.contains( 'hidden' ) == false ) {
               alerts[i].style.bottom = parseInt( alerts[i].style.bottom ) - element.offsetHeight - boxDistance + 'px';
             }
@@ -35,7 +35,7 @@ function closeAlert ( id ) {
   }
 	return;
 }
-
+/*----------------------------------------------------------------------------*/
 function Alert ( type, ico, text, ack, progress ) {
   var self      = this;
   var box       = document.getElementById( 'alerts' );
@@ -63,7 +63,7 @@ function Alert ( type, ico, text, ack, progress ) {
     this.alertText += this.index;
     this.alertText += '" class="alert ';
     this.alertText += this.type;
-    this.alertText += ' hidden alert-message shadow rounded d-flex p-0" role="alert"><div class="alert-icon d-flex justify-content-center align-items-center flex-grow-0 flex-shrink-0 py-3">';
+    this.alertText += ' hidden alert-message shadow rounded d-flex" role="alert"><div class="alert-icon d-flex justify-content-center align-items-center flex-grow-0 flex-shrink-0 py-3">';
     this.alertText += this.ico;
     this.alertText += '</div><div class="alert-content';
     if ( this.progress == 0 ) {
@@ -86,47 +86,35 @@ function Alert ( type, ico, text, ack, progress ) {
     }
     this.alertText  += '</div></div>';
 
-
-
     let alerts = document.getElementsByClassName( 'alert-message' );
     box.innerHTML    = box.innerHTML + this.alertText;
     this.object      = document.getElementById( 'alert' + this.index );
     this.pb          = document.getElementById( 'alert-progress' + this.index );
-    console.log( alertCurNumber );
-    alertCurNumber++;
-    this.object.style.bottom = alertCurNumber * ( this.object.offsetHeight + boxDistance ) + 'px';
-
-    console.log( this.object.style.bottom + " " + this.object.offsetHeight);
-
-    console.log(alerts.length);
-    if ( alertCurNumber > 1 ) {
-      if ( alerts[alerts.length-2].style.bottom == this.object.style.bottom ) {
-        this.object.style.bottom = parseInt(this.object.style.bottom) + this.object.offsetHeight + boxDistance + 'px'
-      }
+    if ( alertCurNumber > 0 ) {
+      self.object.style.bottom = parseInt( alerts[alerts.length-2].style.bottom ) + alerts[alerts.length-2].offsetHeight + boxDistance + 'px'
+    } else {
+      self.object.style.bottom = boxDistance + 'px';
     }
+    alertCurNumber++;
     setTimeout( function () {
       self.object.classList.add( 'animation' );
       setTimeout( function () {
         self.object.classList.remove( 'hidden' );
-      }, 100 );
+        //console.log(self.object);
+        //console.log(document.getElementsByClassName( 'alert-message' ));
+      }, 1 );
     }, 1 );
-
-
-
-
-
     return;
   }
-
+  /*--------------------------------------------------------------------------*/
   this.setProgressBar = function ( value ) {
     this.pb.style.width = value + "%";
     if ( value >= 100 ) {
-      this.close( 1 );
+      this.close( 2 );
     }
     return;
   }
-
-
+  /*--------------------------------------------------------------------------*/
   this.close = function ( timeout ) {
     setTimeout ( function () {
       if ( self.object != null ) {
@@ -134,10 +122,7 @@ function Alert ( type, ico, text, ack, progress ) {
       }
     }, timeout * 1000 );
   }
-
-
-
-
+  /*--------------------------------------------------------------------------*/
   this.make ();
   if ( ( this.progress == 0 ) && ( this.ack == 0 ) ) {
     this.close( 6 );
