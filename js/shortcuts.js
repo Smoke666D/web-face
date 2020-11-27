@@ -4,99 +4,108 @@ var render = require('./render.js');
 
 document.onkeyup = function( evt ) {
   if ( evt.ctrlKey == true ) {
-    switch ( parseInt(evt.which) ) {
-      case '0'.charCodeAt(0):
+    switch ( String.fromCharCode( parseInt(evt.which) ) ) {
+      case '0':
         break;
-      case '1'.charCodeAt(0):
+      case '1':
         // CONNECT via USB
         setConnect('usb');
         render.connect();
         break;
-      case '2'.charCodeAt(0):
+      case '2':
         // CONNECT via ETHERNET
         setConnect('eth')
         render.connect();
         break;
-      case '3'.charCodeAt(0):
+      case '3':
         break;
-      case '4'.charCodeAt(0):
+      case '4':
         break;
-      case '5'.charCodeAt(0):
+      case '5':
         break;
-      case '6'.charCodeAt(0):
+      case '6':
         break;
-      case '7'.charCodeAt(0):
+      case '7':
         break;
-      case '8'.charCodeAt(0):
+      case '8':
         break;
-      case '9'.charCodeAt(0):
+      case '9':
         break;
 
-      case 'a'.charCodeAt(0):
+      case 'A':
         break;
-      case 'b'.charCodeAt(0):
+      case 'B':
         break;
-      case 'c'.charCodeAt(0):
+      case 'C':
         break;
-      case 'd'.charCodeAt(0):
+      case 'D':
         // DOWMLOAD
-        connectUpdate();
+        if ( getConnectionStatus() > 0 ) {
+          connectUpdate();
+        }
         break;
-      case 'e'.charCodeAt(0):
+      case 'E':
         // ERASE LOG
-        eraseLog();
+        if ( getConnectionStatus() > 0 ) {
+          eraseLog();
+        }
         break;
-      case 'f'.charCodeAt(0):
+      case 'F':
+        // authorization menu
+        $("#authorizationModal").modal()
         break;
-      case 'g'.charCodeAt(0):
+      case 'G':
         break;
-      case 'h'.charCodeAt(0):
+      case 'H':
         break;
-      case 'i'.charCodeAt(0):
+      case 'I':
         break;
-      case 'j'.charCodeAt(0):
+      case 'J':
         // JOURNAL
         break;
-      case 'k'.charCodeAt(0):
+      case 'K':
         break;
-      case 'l'.charCodeAt(0):
+      case 'L':
         // LOAD
         loadConfigsFromFile();
         break;
-      case 'm'.charCodeAt(0):
+      case 'M':
+        break;
+      case 'N':
+        break;
+      case 'O':
+        break;
+      case 'P':
+        break;
+      case 'Q':
         // CONNECT menu
+        $("#connectionModal").modal()
         break;
-      case 'n'.charCodeAt(0):
-        break;
-      case 'o'.charCodeAt(0):
-        break;
-      case 'p'.charCodeAt(0):
-        break;
-      case 'q'.charCodeAt(0):
-        break;
-      case 'r'.charCodeAt(0):
+      case 'R':
         // RESET
         resetSettings();
         break;
-      case 's'.charCodeAt(0):
+      case 'S':
         // SAVE
         saveConfigsToFile();
         break;
-      case 't'.charCodeAt(0):
+      case 'T':
         break;
-      case 'u'.charCodeAt(0):
+      case 'U':
         // UPLOAD
-        connectGrab();
+        if ( getConnectionStatus() > 0 ) {
+          connectGrab();
+        }
         break;
-      case 'v'.charCodeAt(0):
+      case 'V':
         break;
-      case 'w'.charCodeAt(0):
+      case 'W':
         break;
-      case 'x'.charCodeAt(0):
+      case 'X':
         break;
-      case 'y'.charCodeAt(0):
+      case 'Y':
         break;
-      case 'z'.charCodeAt(0):
+      case 'Z':
         break;
     }
 
