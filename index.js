@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, globalShortcut } = require('electron');
 
 function createWindow () {
   let win = new BrowserWindow({
@@ -14,16 +14,24 @@ function createWindow () {
       nodeIntegration: true,
     }
   });
-  //win.webContents.openDevTools();
-
   win.loadFile('index.html');
-
-  win.on('closed', () => {
-    mainWindow = null
+  win.on('closed', function () {
+    mainWindow = null;
   });
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then( function(){
+  createWindow();
+});
+
+app.on('browser-window-focus', function () {
+  globalShortcut.register("CommandOrControl+R", function () {
+    console.log("CommandOrControl+R is pressed: Shortcut Disabled");
+  });
+  globalShortcut.register("F5", function () {
+    console.log("F5 is pressed: Shortcut Disabled");
+  });
+});
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {

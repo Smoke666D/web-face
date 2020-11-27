@@ -1,4 +1,4 @@
-
+var connetStatus = 0;
 //******************************************************************************
 function setSuccessConnection() {
 	if ( electronApp == 1 ) {
@@ -13,6 +13,7 @@ function setSuccessConnection() {
       document.getElementById( 'flash-file' ).disabled = false;
     }
 	}
+	connetStatus = 1;
 	return;
 }
 //******************************************************************************
@@ -28,8 +29,14 @@ function resetSuccessConnection() {
 		document.getElementById( 'flash-load' ).disabled = true;
 		document.getElementById( 'flash-file' ).disabled = true;
 	}
+	connetStatus = 0;
 	return;
 }
 //******************************************************************************
-module.exports.setSuccessConnection = setSuccessConnection;
+function getConnectionStatus () {
+	return connetStatus;
+}
+//******************************************************************************
+module.exports.setSuccessConnection   = setSuccessConnection;
 module.exports.resetSuccessConnection = resetSuccessConnection;
+module.exports.getConnectionStatus    = getConnectionStatus;

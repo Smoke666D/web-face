@@ -1772,11 +1772,19 @@ textarea.form-control {
   .form-check-input:disabled ~ .form-check-label {
     color: #6c757d; }
 
+.unselect {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */}
+
 .form-check-label {
   position: relative;
   margin-left: 4px;
   top: 5px;
-  margin-bottom: 0;}
+  margin-bottom: 0;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */}
 
 .form-check-inline {
   display: -webkit-inline-box;
@@ -3158,6 +3166,9 @@ input[type="button"].btn-block {
     background-color: rgba(0, 123, 255, 0.5); }
 
 .custom-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
   display: inline-block;
   width: 100%;
   height: calc(1.5em + 0.75rem + 2px);
@@ -3478,6 +3489,9 @@ input[type="button"].btn-block {
   display: block; }
 
 .navbar {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4266,12 +4280,29 @@ input[type="button"].btn-block {
   padding-left: 0;
   border-radius: 0; }
 
+  #alerts {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    z-index: 10;
+  }
+
 .alert {
   position: relative;
   padding: 0.75rem 1.25rem;
   margin-bottom: 1rem;
+  right: 0px;
   border: 1px solid transparent;
-  border-radius: 0.25rem; }
+  border-radius: 0.25rem;}
+  .alert.animation {
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    transition: all 0.4s ease;}
+  .alert.hidden {
+    right: -400px;}
+  }
 
 .alert-heading {
   color: inherit; }
@@ -4361,11 +4392,11 @@ input[type="button"].btn-block {
     color: #040505; }
 
 .alert-message{
-  width: auto;
-  min-width: 330px;
-  max-width: 330px;
+  position: absolute;
+  padding: 0px 0px;
+  margin-bottom: 0px;
+  width: 330px;
   right: 20px;
-  bottom: 20px;
   }
   .alert-message .alert-content{
     width: 300px;
@@ -8360,14 +8391,6 @@ h1, h2, h3, h4, h5,
     transition: max-height 0.35s ease;
   }
 
-#alerts {
-  display: inline-block;
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-  z-index: 10;
-}
-
 #sidebar {
   padding-top: 3rem;
   height: 100%;
@@ -8376,6 +8399,9 @@ h1, h2, h3, h4, h5,
   max-width: 300px;
   background: #373a40;
   color: #fff;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
   -webkit-transition: margin-left 0.3s, left 0.3s;
   -o-transition: margin-left 0.3s, left 0.3s;
   transition: margin-left 0.3s, left 0.3s; }
@@ -8483,6 +8509,22 @@ a[data-toggle="collapse"] {
     height: 0;
     overflow: hidden;
     transition-timing-function: linear, step-end;}
+  .content-data h2{
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Standard syntax */}
+  .content-data h3{
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Standard syntax */}
+  .content-data h4{
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Standard syntax */}
+  .content-data h5{
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Standard syntax */}
   .content-data h6{
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10+ and Edge */
@@ -8522,7 +8564,10 @@ a[data-toggle="collapse"] {
     width: 100%;
     padding-top: 0;
     left: -575px;
-    z-index: 20; }
+    z-index: 20;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Standard syntax */}
     #sidebar ul.components {
       height: 100%; }
     #sidebar.active {
@@ -8632,6 +8677,9 @@ a[data-toggle="collapse"] {
   display: inline-block;
   width: 60px;
   height: 34px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
 }
 
 /* Hide default HTML checkbox */
@@ -8643,6 +8691,9 @@ a[data-toggle="collapse"] {
 
 /* The slider */
 .slider {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
   position: absolute;
   cursor: pointer;
   top: 0;
