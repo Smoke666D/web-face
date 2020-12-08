@@ -779,7 +779,6 @@ function FreeData ( name ) {
 			for ( var i=0; i<dataReg.length; i++ ) {
 				if ( dataReg[i].name.search( str ) != -1 ) {
           self.maxRegN = i;
-					self.max = dataReg[i].value;
 					break;
 				}
 			}
@@ -812,9 +811,6 @@ function FreeData ( name ) {
         value = 100;
       }
       self.progress.style.width = value + "%";
-
-      console.log( freeDataNames[self.adr] + ": " + freeDataValue[self.adr] + "/" + self.max + " _ " + self.progress.style.width );
-      console.log(self.progress);
 		}
 		return;
 	}
