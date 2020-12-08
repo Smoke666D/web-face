@@ -350,6 +350,9 @@ function Select ( name ) {
 	this.update = function() {
 		if ( this.object != null ) {
 			this.object.value = bitVal( this.bitNum, dataReg[this.regNum] );
+      if ( this.sw.object ) {
+  			this.enable = this.sw.getVal();
+      }
 			if ( this.enable == 1 ) {
 				this.object.disabled = false;
 			} else {
@@ -751,6 +754,7 @@ function FreeData ( name ) {
   this.input    = null;
 	this.progress = null;
 	this.max      = 100;
+  this.maxRegN  = 0;
 	this.writeBut = null;
 	this.resetBut = null;
 
@@ -774,6 +778,7 @@ function FreeData ( name ) {
 			let str = self.name.slice( 0, self.name.lastIndexOf( "Left" ) );
 			for ( var i=0; i<dataReg.length; i++ ) {
 				if ( dataReg[i].name.search( str ) != -1 ) {
+          self.maxRegN = i;
 					self.max = dataReg[i].value;
 					break;
 				}
@@ -790,7 +795,7 @@ function FreeData ( name ) {
 			self.resetBut.addEventListener( 'click', function () {
 				freeDataValue[self.adr] = 0;
 				writeFreeData( self.adr, 0 );
-				this.update();
+				self.update();
 				return;
 			});
 		}
@@ -801,7 +806,15 @@ function FreeData ( name ) {
 			self.input.value = parseInt(freeDataValue[self.adr]);
 		}
 		if ( self.progress != null ) {
-			self.progress.style.width = Math.ceil( ( freeDataValue[self.adr] / self.max ) * 100 ) + "%";
+      self.max = dataReg[self.maxRegN].value;
+      let value = Math.ceil( ( freeDataValue[self.adr] / self.max ) * 100 );
+      if ( value > 100 ) {
+        value = 100;
+      }
+      self.progress.style.width = value + "%";
+
+      console.log( freeDataNames[self.adr] + ": " + freeDataValue[self.adr] + "/" + self.max + " _ " + self.progress.style.width );
+      console.log(self.progress);
 		}
 		return;
 	}
