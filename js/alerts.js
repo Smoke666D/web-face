@@ -14,22 +14,20 @@ var alertCurNumber = 0;
 /*----------------------------------------------------------------------------*/
 function closeAlert ( id ) {
   let element = document.getElementById( 'alert' + id );
-  if ( element.classList.contains( 'hidden' ) == false ) {
-    if ( element != null ) {
+  if ( element != null ) {
+    if ( element.classList.contains( 'hidden' ) == false ) {
       alertCurNumber--;
       element.classList.add( 'hidden' );
       setTimeout( function () {
         let element = document.getElementById( 'alert' + id );
         let alerts  = document.getElementsByClassName( 'alert-message' );
-        if ( element != null ) {
-          for ( var i=alerts.length - 1; i>id; i-- ) {
-            if ( alerts[i].classList.contains( 'hidden' ) == false ) {
-              alerts[i].style.bottom = parseInt( alerts[i].style.bottom ) - element.offsetHeight - boxDistance + 'px';
-            }
+        for ( var i=alerts.length - 1; i>id; i-- ) {
+          if ( alerts[i].classList.contains( 'hidden' ) == false ) {
+            alerts[i].style.bottom = parseInt( alerts[i].style.bottom ) - element.offsetHeight - boxDistance + 'px';
           }
-          element.style.dispalay = 'none';
-          alertDelIndex++;
         }
+        element.style.dispalay = 'none';
+        alertDelIndex++;
       }, fadeTimeout * 1000 );
     }
   }
@@ -117,9 +115,7 @@ function Alert ( type, ico, text, ack, progress ) {
   /*--------------------------------------------------------------------------*/
   this.close = function ( timeout ) {
     setTimeout ( function () {
-      if ( self.object != null ) {
-        closeAlert( self.index );
-      }
+      closeAlert( self.index );
     }, timeout * 1000 );
   }
   /*--------------------------------------------------------------------------*/

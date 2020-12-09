@@ -41,12 +41,12 @@ function navbarToogling() {
 		genPages = document.getElementById( 'genCollapse' );
 		if ( genSw.checked == false ) {
   		genPages.classList.add( 'hide' );
-			document.getElementById( 'sinput-starterStopgenFreqLevel' ).disabled = true;
-			document.getElementById( 's-slider-starterStopgenFreqLevel' ).setAttribute('disabled', false);
+			document.getElementById( 'sinput-starterStopGenFreqLevel' ).disabled = true;
+			document.getElementById( 's-slider-starterStopGenFreqLevel' ).setAttribute('disabled', false);
 		} else {
 			genPages.classList.remove( 'hide' );
-			document.getElementById( 'sinput-starterStopgenFreqLevel' ).disabled = false;
-			document.getElementById( 's-slider-starterStopgenFreqLevel' ).removeAttribute( 'disabled' );
+			document.getElementById( 'sinput-starterStopGenFreqLevel' ).disabled = false;
+			document.getElementById( 's-slider-starterStopGenFreqLevel' ).removeAttribute( 'disabled' );
 		}
 	}
 
