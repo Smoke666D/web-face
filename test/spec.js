@@ -1,45 +1,34 @@
-const assert = require('assert');
-const path = require('path');
-const Application = require('spectron').Application;
-const electronPath = require('electron');
+/*----------------------------------------------------------------------------*/
+const Application  = require('spectron').Application
+const assert       = require('assert')
+const electronPath = require('electron')
+const path         = require('path')
+const appPath      = path.resolve(__dirname, '../');
+/*----------------------------------------------------------------------------*/
+//var electronPath = path.resolve(__dirname, '../node_modules/.bin/electron');
+/*----------------------------------------------------------------------------*/
+describe('Application launch', function () {
+  this.timeout(10000)
 
-const app = new Application({
-  path: electronPath,
-  args: [path.join(__dirname, '..')]
-});
+  beforeEach(function () {
+    this.app = new Application({
+      path: electronPath,
+      args: [appPath],
+      chromeDriverArgs: [],
+    })
+    return this.app.start()
+  })
 
-describe( 'Electron app tests', function () {
-  beforeEach( function() {
-    return app.start();
-  });
-  afterEach( function() {
-    if ( app && app.isRunning() ) {
-      return app.stop();
+  afterEach(function () {
+    if (this.app && this.app.isRunning()) {
+      return this.app.stop()
     }
-  });
+  })
 
-  it( 'display the electron app window', function() {
-    return app.client.getWindowCount().then( function ( count ) {
+  it('shows an initial window', function () {
+    return this.app.client.getWindowCount().then(function (count) {
       assert.equal(count, 1)
-    })
-  });
-/*
-  it('displays a title', async () => {
-    const title = await app.client.waitUntilWindowLoaded().getTitle();
-    return assert.equal(title, 'Welcome');
-  });
 
-  it('has a input for name', async () => {
-    const labelText = await app.client.getText('label[for="lname"]');
-    return assert.equal(labelText, 'Enter Name:');
-  });
-
-  it('has a welcome on submitting name', async () => {
-    app.client.element('//input[@id="lname"]').setValue("test").then(() => {
-      app.client.element('//button[@id="sbm"]').click();
-      const welcomeNote = app.client.getText('#newdiv h2');
-      assert.equal(welcomeNote, 'Welcome,')
     })
-  });
-  */
-});
+  })
+})
