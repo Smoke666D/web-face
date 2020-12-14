@@ -1,18 +1,15 @@
-const remote = require( 'electron' ).remote;
-
+const remote  = require( 'electron' ).remote;
 var declareDone = 0;
 
-const diList = new CheckSelectValues( "diFunction" );
-const doList = new CheckSelectValues( "doType" );
-
+var diList;
+var doList;
 var stringLineArray = [];
 var progressArray   = [];
 var slidersArray    = [];
 var switcherArray   = [];
 var selectorArray   = [];
 var radioArray      = [];
-var rtcTime         = new RTC();
-
+var rtcTime;
 var freeDataArray   = [];
 var freeDataValue   = [];
 var freeDataNames   = ["engineWorkTimeData",
@@ -1028,13 +1025,13 @@ function sendAuthorizationEth ( callback ) {
   return;
 }
 //******************************************************************************
-function declareStrings() {
-	for ( var i=0; i<dataReg.length; i++ ) {
-		if ( dataReg[i].name.endsWith( "Message" ) ) {
-			stringLineArray.push( new StrLine( dataReg[i].name ) );
+function declareStrings ( configs ) {
+	for ( var i=0; i<configs.length; i++ ) {
+		if ( configs[i].name.endsWith( "Message" ) ) {
+			stringLineArray.push( new StrLine( configs[i].name ) );
 		}
 	}
-	return;
+	return stringLineArray;
 }
 function declareFreeData () {
 	freeDataArray   = [];
@@ -1105,11 +1102,15 @@ function declareRadio() {
 function declareInterface() {
   declareSwitches();
   declareSliders();
-	declareStrings();
+	declareStrings( dataReg );
 	declareSelects();
 	declareRadio();
 	declareFreeData();
+  diList  = new CheckSelectValues( "diFunction" );
+  doList  = new CheckSelectValues( "doType" );
+  rtcTime = new RTC();
   logArray = [];
+  declareDone = 1;
 	return;
 }
 
@@ -1467,3 +1468,13 @@ function pasteDataReg( data ) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+module.exports._test = {
+  declareStrings  : declareStrings,
+  stringLineArray : stringLineArray,
+
+  progressArray   : progressArray,
+  slidersArray    : slidersArray,
+  switcherArray   : switcherArray,
+  selectorArray   : selectorArray,
+  radioArray      : radioArray,
+}

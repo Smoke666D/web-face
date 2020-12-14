@@ -2246,3 +2246,4 @@ var dataReg = [
        },
    ]
 },];
+module.exports.dataReg = dataReg;
