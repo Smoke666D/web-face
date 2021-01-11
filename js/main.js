@@ -720,6 +720,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	try {
 		sliderInit();
 	} catch {}
+	chartInit();
 	passwordProcessig();
 	declareInterface();
 	oilScaleInit();
@@ -846,5 +847,6 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-module.exports.electronApp = electronApp;
+module.exports.electronApp    = electronApp;
 module.exports.connectionType = connectionType;
+module.exports.Password       = Password;

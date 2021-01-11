@@ -1,4 +1,5 @@
 var pointIndex = 0;
+var lineChart  = null;
 var sensorData = {
   datasets: [{
     data: [{
@@ -78,39 +79,46 @@ var chartOptions = {
   }
 };
 
-
-document.getElementById( "chartXedit" ).addEventListener( 'change', function () {
-  var curVal = parseFloat( self.xFild.value );
-  if ( curVal > lineChart.options.scales.xAxes[0].ticks.max ) {
-    self.xFild.value = lineChart.options.scales.xAxes[0].ticks.max;
-  }
-  if ( curVal < lineChart.options.scales.xAxes[0].ticks.min ) {
-    self.xFild.value = lineChart.options.scales.xAxes[0].ticks.min;
-  }
-  if ( pointIndex > 0 ) {
-    if ( curVal < ( sensorData.datasets[0].data[pointIndex-1].x + 0.1 ) ) {
-      self.xFild.value = sensorData.datasets[0].data[pointIndex-1].x + 0.1;
+function chartInit () {
+  lineChart = new Chart( sensorChart, {
+    type:    'scatter',
+    data:    sensorData,
+    options: chartOptions
+  });
+  document.getElementById( "chartXedit" ).addEventListener( 'change', function () {
+    var curVal = parseFloat( self.xFild.value );
+    if ( curVal > lineChart.options.scales.xAxes[0].ticks.max ) {
+      self.xFild.value = lineChart.options.scales.xAxes[0].ticks.max;
     }
-  }
-  if ( pointIndex < ( sensorData.datasets[0].data.length - 1 ) ) {
-    if ( curVal > sensorData.datasets[0].data[pointIndex+1].x ) {
-      self.xFild.value = sensorData.datasets[0].data[pointIndex+1].x;
+    if ( curVal < lineChart.options.scales.xAxes[0].ticks.min ) {
+      self.xFild.value = lineChart.options.scales.xAxes[0].ticks.min;
     }
-  }
-})
-document.getElementById( "chartYedit" ).addEventListener( 'change', res = function () {
-  if ( parseFloat( self.yFild.value ) > lineChart.options.scales.yAxes[0].ticks.max ) {
-    self.yFild.value = lineChart.options.scales.yAxes[0].ticks.max;
-  }
-  if ( parseFloat( self.yFild.value ) < lineChart.options.scales.yAxes[0].ticks.min ) {
-    self.yFild.value = lineChart.options.scales.yAxes[0].ticks.max;
-  }
-})
-document.getElementById( "chartApplay" ).addEventListener( 'click', function () {
-  sensorData.datasets[0].data[pointIndex].x = parseFloat( self.xFild.value );
-  sensorData.datasets[0].data[pointIndex].y = parseFloat( self.yFild.value );
-  lineChart.update();
-})
+    if ( pointIndex > 0 ) {
+      if ( curVal < ( sensorData.datasets[0].data[pointIndex-1].x + 0.1 ) ) {
+        self.xFild.value = sensorData.datasets[0].data[pointIndex-1].x + 0.1;
+      }
+    }
+    if ( pointIndex < ( sensorData.datasets[0].data.length - 1 ) ) {
+      if ( curVal > sensorData.datasets[0].data[pointIndex+1].x ) {
+        self.xFild.value = sensorData.datasets[0].data[pointIndex+1].x;
+      }
+    }
+  });
+  document.getElementById( "chartYedit" ).addEventListener( 'change', res = function () {
+    if ( parseFloat( self.yFild.value ) > lineChart.options.scales.yAxes[0].ticks.max ) {
+      self.yFild.value = lineChart.options.scales.yAxes[0].ticks.max;
+    }
+    if ( parseFloat( self.yFild.value ) < lineChart.options.scales.yAxes[0].ticks.min ) {
+      self.yFild.value = lineChart.options.scales.yAxes[0].ticks.max;
+    }
+  });
+  document.getElementById( "chartApplay" ).addEventListener( 'click', function () {
+    sensorData.datasets[0].data[pointIndex].x = parseFloat( self.xFild.value );
+    sensorData.datasets[0].data[pointIndex].y = parseFloat( self.yFild.value );
+    lineChart.update();
+  });
+  return;
+}
 
 function changeEvent ( evt ) {
   var self     = this;
@@ -129,12 +137,6 @@ function changeEvent ( evt ) {
   }
   return;
 }
-
-var lineChart = new Chart( sensorChart, {
-  type:    'scatter',
-  data:    sensorData,
-  options: chartOptions
-});
 //******************************************************************************
 function newSensorData ( name, xmax, ymax, xunit, yunit ) {
   return {
@@ -467,3 +469,4 @@ function uploadSensorData () {
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
+module.exports.newSensorData = newSensorData;

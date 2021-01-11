@@ -1,6 +1,10 @@
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
+const dataReg   = require('./config.js').dataReg;
+const RTC       = require('./rest').RTC;
+const LogRecord = require('./rest').LogRecord;
+/*----------------------------------------------------------------------------*/
 const msgSIZE         = 65;
 const chartUnitLength = 18;
 const msgCMD  = {
@@ -60,10 +64,10 @@ function USBMessage ( buffer ) {
     return ( byte1 & 0x00FF ) | ( ( byte0 & 0xFF00 ) >> 8 );
   }
   function uint32toByte ( input, output ) {
-    output.push( (input & 0x000000FF) );
-    output.push( ( (input & 0x0000FF00) >> 8 ) );
-    output.push( ( (input & 0x00FF0000) >> 16 ) );
-    output.push( ( (input & 0xFF000000) >> 24 ) );
+    output.push( ( input & 0x000000FF ) );
+    output.push( ( ( input & 0x0000FF00 ) >> 8 ) );
+    output.push( ( ( input & 0x00FF0000 ) >> 16 ) );
+    output.push( ( ( input & 0xFF000000 ) >> 24 ) );
     return;
   }
   function byteToUint32 ( byte0, byte1, byte2, byte3 ) {
@@ -332,7 +336,7 @@ function USBMessage ( buffer ) {
     return record;
   }
   /*--------------------------------------------------------------------------*/
-  this.init              = function ( callback ) {
+  this.init                = function ( callback ) {
     parsingCommandByte();  /* Parsing command byte */
     parsingStateByte();    /* Parsing state byte */
     parsingAddressByte();  /* Parsing address bytes */
@@ -342,7 +346,8 @@ function USBMessage ( buffer ) {
     callback();
     return;
   }
-  this.initLong          = function () {
+  /*
+  this.initLong            = function () {
     self.init( function() {
       if ( self.command == msgCMD.USB_GET_CHART_CMD ) {
         self.data.length = USB_CHART_HEADER_LENGTH;
@@ -350,13 +355,14 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.addLong           = function ( byte ) {
+  this.addLong             = function ( byte ) {
     if ( self.length > self.data.length ) {
       self.data.push( byte );
     }
     return;
   }
-  this.makeConfigRequest = function ( n ) {
+  */
+  this.makeConfigRequest   = function ( n ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_GET_CONFIG_CMD;
     self.adr     = n;
@@ -367,7 +373,7 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.makeChartRequest  = function ( adr ) {
+  this.makeChartRequest    = function ( adr ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_GET_CHART_CMD;
     self.adr     = adr;
@@ -378,7 +384,7 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.makeTimeRequest   = function () {
+  this.makeTimeRequest     = function () {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_GET_TIME;
     self.adr     = 0;
@@ -389,7 +395,7 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.makeFreeDataRequest   = function ( adr ) {
+  this.makeFreeDataRequest = function ( adr ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_GET_FREE_DATA;
     self.adr     = adr;
@@ -400,7 +406,7 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.makeLogRequest    = function ( adr ) {
+  this.makeLogRequest      = function ( adr ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_GET_LOG;
     self.adr     = adr;
@@ -411,12 +417,12 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.codeAuthorization = function () {
+  this.codeAuthorization   = function ( data ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_AUTHORIZATION;
     self.adr     = 0;
     self.length  = 2;
-    let data     = getCurrentPassword();
+    self.buffer  = [];
     setup( self.buffer, function () {
       self.buffer.push( ( data & 0xFF00 ) >> 8 );
       self.buffer.push( data & 0x00FF );
@@ -424,7 +430,7 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.codeLogErase      = function () {
+  this.codeLogErase        = function () {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_ERASE_LOG;
     self.adr     = 0;
@@ -435,13 +441,14 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.codePassword      = function ( password ) {
+  this.codePassword        = function ( password ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_PUT_PASSWORD;
     self.adr     = 0;
     self.length  = 3;
+    self.buffer  = [];
     setup( self.buffer, function () {
-      self.buffer.push( password.enb & 0xFF );
+      self.buffer.push( password.status & 0xFF );
       self.buffer.push( ( password.data & 0xFF00 ) >> 8 );
       self.buffer.push( password.data & 0x00FF );
       setupLength( self.buffer );
@@ -449,11 +456,12 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.codeTime          = function ( time ) {
+  this.codeTime            = function ( time ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_PUT_TIME;
     self.adr     = 0;
     self.length  = 7;
+    self.buffer  = [];
     setup( self.buffer, function () {
       self.buffer.push( time.hour  & 0xFF );
       self.buffer.push( time.min   & 0xFF );
@@ -467,11 +475,12 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.codeFreeData      = function ( adr, data ) {
+  this.codeFreeData        = function ( adr, data ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_PUT_FREE_DATA;
     self.adr     = adr;
     self.length  = 2;
+    self.buffer  = [];
     setup( self.buffer, function () {
       self.buffer.push( ( data & 0xFF00 ) >> 8 );
       self.buffer.push( data & 0x00FF );
@@ -480,10 +489,11 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.codeConfig        = function ( n ) {
+  this.codeConfig          = function ( n ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_PUT_CONFIG_CMD;
     self.adr     = n;
+    self.buffer  = [];
     setup( self.buffer, function () {
       self.length = 0;
       /*----------- Configuration value -----------*/
@@ -521,27 +531,29 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.codeSaveConfigs   = function () {
+  this.codeSaveConfigs     = function () {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_SAVE_CONFIG_CMD;
     self.adr     = 0;
     self.length  = 0;
+    self.buffer  = [];
     setup( self.buffer, function () {
       finishMesageWithZero( self.buffer );
     });
     return;
   }
-  this.codeSaveCharts    = function () {
+  this.codeSaveCharts      = function () {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_SAVE_CHART_CMD;
     self.adr     = 0;
     self.length  = 0;
+    self.buffer  = [];
     setup( self.buffer, function () {
       finishMesageWithZero( self.buffer );
     });
     return;
   }
-  this.codeChart         = function ( chart, adr ) {
+  this.codeChart           = function ( chart, adr ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_PUT_CHART_CMD;
     self.adr     = adr;
@@ -590,11 +602,12 @@ function USBMessage ( buffer ) {
       finishMesageWithZero( self.buffer );
     }
   }
-  this.codeEWA           = function ( ewa, index ) {
+  this.codeEWA             = function ( ewa, index ) {
     var counter  = index;
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_PUT_EWA_CMD;
     self.adr     = 0;
+    self.buffer  = [];
     setup( self.buffer, function () {
       for ( var i=USB_DATA_BYTE; i<msgSIZE; i++ ) {
         if ( ewa.length > counter ) {
@@ -609,7 +622,7 @@ function USBMessage ( buffer ) {
     setupLength( self.buffer );
     return counter;
   }
-  this.parse             = function () {
+  this.parse               = function () {
     var output = 0;
     var type   = 0;
     switch ( self.command ) {
@@ -640,12 +653,12 @@ function USBMessage ( buffer ) {
   return;
 }
 /*----------------------------------------------------------------------------*/
-module.exports.USBMessage = USBMessage;
-module.exports.msgCMD     = msgCMD;
-module.exports.msgSTAT    = msgSTAT;
-module.exports.msgSIZE    = msgSIZE;
-module.exports.USB_DATA_SIZE = USB_DATA_SIZE;
-module.exports.USB_DATA_BYTE = USB_DATA_BYTE;
+module.exports.USBMessage              = USBMessage;
+module.exports.msgCMD                  = msgCMD;
+module.exports.msgSTAT                 = msgSTAT;
+module.exports.msgSIZE                 = msgSIZE;
+module.exports.USB_DATA_SIZE           = USB_DATA_SIZE;
+module.exports.USB_DATA_BYTE           = USB_DATA_BYTE;
 module.exports.USB_CHART_HEADER_LENGTH = USB_CHART_HEADER_LENGTH;
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/

@@ -9,7 +9,8 @@
     "start": "electron .",
     "rebuild": "electron-rebuild --force",
     "make": "electron-packager ./ Energan --overwrite --platform=win32,linux,darwin --arch=x64 --icon='./img/favicon.ico' --prune=true --out=release-builds",
-    "test-spectron": "mocha  ./test/Spectron/spec.ts",
+    "test-spectron": "mocha  ./test/spectron/spec.ts",
+    "test-usbMessage": "mocha ./test/usb/usb-message.ts",
     "debug-test": "electron-mocha --renderer --require-main test/spec.js",
     "driver": "./node_modules/.bin/chromedriver --url-base=wd/hub --port=9515"
   },

@@ -887,9 +887,6 @@ function RTC () {
 	this.day   = 1;
 	this.wday  = 0;
 
-	var timeInput = document.getElementById("timeInput")
-	var dateInput = document.getElementById("dateInput")
-
 	function makeDateStr () {
 		return ( self.year + 2000 ) + "-" + (self.month < 10 ? "0" : "") + self.month + "-" + (self.day < 10 ? "0" : "") + self.day;
 	}
@@ -907,6 +904,11 @@ function RTC () {
 		}
 		return 1;
 	}
+  this.init          = function () {
+    var timeInput = document.getElementById("timeInput");
+  	var dateInput = document.getElementById("dateInput");
+    return;
+  }
 	this.getSystemTime = function () {
 		var date = new Date();
 		self.hour  = date.getHours();
@@ -1109,6 +1111,7 @@ function declareInterface() {
   diList  = new CheckSelectValues( "diFunction" );
   doList  = new CheckSelectValues( "doType" );
   rtcTime = new RTC();
+  rtcTime.init();
   logArray = [];
   declareDone = 1;
 	return;
@@ -1468,13 +1471,5 @@ function pasteDataReg( data ) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-module.exports._test = {
-  declareStrings  : declareStrings,
-  stringLineArray : stringLineArray,
-
-  progressArray   : progressArray,
-  slidersArray    : slidersArray,
-  switcherArray   : switcherArray,
-  selectorArray   : selectorArray,
-  radioArray      : radioArray,
-}
+module.exports.RTC       = RTC;
+module.exports.LogRecord = LogRecord;
