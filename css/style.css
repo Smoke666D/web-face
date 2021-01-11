@@ -492,8 +492,8 @@ pre {
   flex-wrap: wrap;
   padding-top: 5px;
   padding-bottom: 5px;
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-right: 0px;
+  margin-left: 0px;
  }
 
 .no-gutters {
@@ -715,7 +715,8 @@ pre {
 
 @media (min-width: 576px) {
   .col-dimension {
-    text-align: center;
+
+    text-align: left;
     -webkit-box-flex: 0;
     -ms-flex: 0 0 4ex;
     flex: 0 0 4ex;
@@ -745,11 +746,16 @@ pre {
     -ms-flex: 0 0 16.66667%;
     flex: 0 0 16.66667%;
     max-width: 16.66667%; }
+  .col-sm-2l {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 21%;
+    flex: 0 0 21%;
+    max-width: 21%; }
   .col-sm-3 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 25%;
-    flex: 0 0 25%;
-    max-width: 25%; }
+    -ms-flex: 0 0 28%;
+    flex: 0 0 28%;
+    max-width: 28%; }
   .col-sm-4 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 33.33333%;
@@ -8414,8 +8420,6 @@ h1, h2, h3, h4, h5,
     height: 100px;
     background: #373a40; }
   #sidebar .logo {
-    padding: 1.5rem;
-    padding-top: 0rem;
     display: block;
     max-width: 100%;
     height: auto;
@@ -8447,7 +8451,7 @@ h1, h2, h3, h4, h5,
       padding-left: 12px;
       padding-top: 7px;
       padding-bottom: 7px;
-      padding-right: 5px;
+      padding-right: 0px;
       display: block;
       color: #d2d3d4;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
@@ -8455,11 +8459,11 @@ h1, h2, h3, h4, h5,
         background: #4d5055;}
     #sidebar ul li a .fas{
       font-size: 22px;
-      width: 50px;}
+      width: 35px;}
     #sidebar ul li a span {
-      display:inline-block;
-      vertical-align:middle;
-      width:200px;}
+      display: inline-block;
+      vertical-align: middle;
+      width: 200px;}
     #sidebar path,
     #sidebar polygon,
     #sidebar rect {
@@ -8530,14 +8534,16 @@ a[data-toggle="collapse"] {
     -ms-user-select: none; /* IE 10+ and Edge */
     user-select: none; /* Standard syntax */
     padding: 10px}
+  .content-data label{
+    line-height: 1rem;
+  }
   .sensor-select{
     width: 420px!important;}
   .content-data .pos-name{
     text-align: left!important;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Standard syntax */
-    padding-left: 65px;}
+    user-select: none; /* Standard syntax */}
     .content-data.pos-name label{
       vertical-align:-6px;}
 
