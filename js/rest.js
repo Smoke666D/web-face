@@ -1471,5 +1471,7 @@ function pasteDataReg( data ) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-module.exports.RTC       = RTC;
-module.exports.LogRecord = LogRecord;
+module.exports.RTC            = RTC;
+module.exports.LogRecord      = LogRecord;
+/* For tests */
+module.exports.declareStrings = declareStrings;
