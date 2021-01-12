@@ -483,6 +483,31 @@ function oilScaleInit() {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+function initRecordEnb () {
+	var enable   = document.getElementById( 'recordEnb' );
+	var switches = document.getElementsByClassName( 'recordEnable' );
+
+	function updeteRecordSwitches () {
+		for ( var i=0; i<switches.length; i++ ) {
+			if ( enable.checked == false ) {
+			  switches[i].disabled = true;
+			} else {
+				switches[i].disabled = false;
+			}
+		}
+		return;
+	}
+
+	enable.addEventListener( 'click', function () {
+		updeteRecordSwitches();
+	});
+
+	updeteRecordSwitches();
+	return;
+}
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
 function setDisabledDI( letter ) {
 	var funct    = document.getElementById( 'di' + letter + 'Function' )
 	var polarity = document.getElementById( 'di' + letter + 'Polarity' );
@@ -815,6 +840,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	navbarToogling();
 	updateVersions();
 	starterStopProcessing();
+	initRecordEnb();
 	diList.init();
 	doList.init();
 	const genVoltageLims = new slider4InitLimits( 'genUnderVoltageAlarmLevel',

@@ -179,11 +179,11 @@ function StrLine ( name ) {
 	return;
 }
 //******************************************************************************
-function Switch (name) {
+function Switch ( name ) {
 	this.name = name;
 
 	this.getData = function() {
-		for ( var i=0; i<dataReg.length; i++ ){
+		for ( var i=0; i<dataReg.length; i++ ) {
 			if ( dataReg[i].bitMapSize > 0 ) {
 				for ( var j=0; j<dataReg[i].bitMapSize; j++ ) {
 					if ( dataReg[i].bit[j].name == this.name ) {

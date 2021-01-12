@@ -762,6 +762,7 @@ pre {
     flex: 0 0 33.33333%;
     max-width: 33.33333%; }
   .col-sm-5 {
+    background-color: red;
     -webkit-box-flex: 0;
     -ms-flex: 0 0 41.66667%;
     flex: 0 0 41.66667%;
@@ -1784,10 +1785,11 @@ textarea.form-control {
   user-select: none; /* Standard syntax */}
 
 .form-check-label {
+  //display: inline-block;
+  vertical-align: middle;
   position: relative;
   margin-left: 4px;
-  top: 5px;
-  margin-bottom: 0;
+  margin-bottom: -17px;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard syntax */}
@@ -8544,10 +8546,6 @@ a[data-toggle="collapse"] {
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10+ and Edge */
     user-select: none; /* Standard syntax */}
-    .content-data.pos-name label{
-      vertical-align:-6px;}
-
-
 
 /* Экстрамалые девайсы («телефоны», < 576px) */
 @media (max-width: 575.98px) {
@@ -8688,6 +8686,11 @@ a[data-toggle="collapse"] {
   user-select: none; /* Standard syntax */
 }
 
+.switch-label {
+
+  text-align: left;
+}
+
 /* Hide default HTML checkbox */
 .switch input {
   opacity: 0;
@@ -8727,6 +8730,10 @@ a[data-toggle="collapse"] {
 
 input:checked + .slider {
   background-color: #f8b739;
+}
+
+input[disabled]:checked + .slider {
+  background-color: #ccc;
 }
 
 input:focus + .slider {
