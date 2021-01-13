@@ -3296,7 +3296,7 @@
           </div>
           <div class="col-sm-6 pos-name">
             <label class="switch">
-              <input type="checkbox" class="check-input recordEnable" id="recordInputDEnb">
+                <input type="checkbox" class="check-input recordEnable" id="recordInputDEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Цифровой вход D</label>
@@ -3323,14 +3323,14 @@
         <div class="row unselect">
           <div class="col-sm-6 pos-name">
             <label class="switch">
-              <input type="checkbox" class="check-input recordEnable" id="VoltageNetEnb">
+              <input type="checkbox" class="check-input recordEnable" id="recordVoltageNetEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Напряжение сети</label>
           </div>
           <div class="col-sm-6 pos-name">
             <label class="switch">
-              <input type="checkbox" class="check-input recordEnable" id="FreqNetEnb">
+              <input type="checkbox" class="check-input recordEnable" id="recordFreqNetEnb">
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Частота сети</label>
@@ -3347,33 +3347,43 @@
           </div>
         </div>
         <br>
-        <h5>Выбор интервала и количества записей</h5>
+        <h5>Выбор интервала записей</h5>
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Интервал записи</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-recordInterval" step="1">
+            <input type="number" class="form-control s-sinput" id="sinput-recordDelay" step="1">
           </div>
           <div class="col-dimension">
-            <label class="pos-unit" id="label-recordInterval">сек</label>
+            <label class="pos-unit" id="label-recordDelay">сек</label>
           </div>
           <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-recordInterval"></div>
+            <div class="s-slider" id="s-slider-recordDelay"></div>
           </div>
         </div>
+
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Количества записей</label>
+            <label>Количество записей:</label>
           </div>
-          <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-recordNumber" step="1">
+          <div class="col-sm-1 pos-info">
+            <label id="recordNumber">0</label>
           </div>
-          <div class="col-dimension">
-            <label class="pos-unit" id="label-recordNumber">шт</label>
+          <div class="col-sm-1 pos-info">
+            <label>шт</label>
           </div>
-          <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-recordNumber"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Длительность измерений:</label>
+          </div>
+          <div class="col-sm-1 pos-info">
+            <label id="recordDuration">0</label>
+          </div>
+          <div class="col-sm-1 pos-info">
+            <label>сек</label>
           </div>
         </div>
       </div>

@@ -484,10 +484,41 @@ function oilScaleInit() {
 //******************************************************************************
 //******************************************************************************
 function initRecordEnb () {
-	var enable   = document.getElementById( 'recordEnb' );
-	var switches = document.getElementsByClassName( 'recordEnable' );
+	var enable               = document.getElementById( 'recordEnb' );
+	var switches             = document.getElementsByClassName( 'recordEnable' );
+	var recordIntervalInput  = document.getElementById( 'sinput-recordDelay' );
+	var recordIntervalSlider = document.getElementById( 's-slider-recordDelay' );
+	var recordNumberString   = document.getElementById( 'recordNumber' );
+	var recordDurationString = document.getElementById( 'recordDuration' );
 
-	function updeteRecordSwitches () {
+  var recordNumber = 0;
+	var memorySize   = 1024;
+
+	function getRecordNumber () {
+		recordNumber = 0;
+		var size = memorySize / 2;
+		for ( var i=0; i<switches.length; i++ ) {
+			if ( switches[i].checked == true ) {
+				recordNumber++;
+			}
+		}
+		if ( recordNumber > 0 ) {
+			size = Math.floor( memorySize / ( recordNumber * 2 ) );
+		}
+		recordNumberString.textContent   = size;
+		recordDurationString.textContent = size * parseFloat( recordIntervalInput.value );
+		return;
+	}
+
+	function updateRecordDuration () {
+		var size = memorySize / 2;
+		if ( recordNumber > 0 ) {
+			size = Math.floor( memorySize / ( recordNumber * parseFloat( recordLengthInput.value ) * 2 ) );
+		}
+		return;
+	}
+
+	function  updateRecordSwitches () {
 		for ( var i=0; i<switches.length; i++ ) {
 			if ( enable.checked == false ) {
 			  switches[i].disabled = true;
@@ -495,14 +526,37 @@ function initRecordEnb () {
 				switches[i].disabled = false;
 			}
 		}
+		if ( enable.checked == false ) {
+			recordIntervalInput.disabled = true;
+			recordIntervalSlider.setAttribute( 'disabled', false );
+		} else {
+			recordIntervalInput.disabled = false;
+			recordIntervalSlider.removeAttribute( 'disabled' );
+		}
 		return;
 	}
 
 	enable.addEventListener( 'click', function () {
-		updeteRecordSwitches();
+		 updateRecordSwitches();
+		 return;
 	});
 
-	updeteRecordSwitches();
+	for ( var i=0; i<switches.length; i++ ) {
+		switches[i].addEventListener( 'click', ( function() {
+			var j=i;
+			return function() {
+				getRecordNumber();
+			}
+		})() );
+	}
+
+	recordIntervalInput.addEventListener( 'change', function () {
+		getRecordNumber();
+		return;
+	});
+
+	updateRecordSwitches();
+	getRecordNumber();
 	return;
 }
 //******************************************************************************

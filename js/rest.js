@@ -505,7 +505,7 @@ function Slider ( name, preInit ) {
 									'min': 0,
 									'max': dataReg[self.regNum].max / 3600
 								}
-							})
+							});
 						} else	if ( self.input.value >= 61 ) {
 							this.scale = 0.1;
 							self.input.step  = 0.1;
@@ -517,7 +517,7 @@ function Slider ( name, preInit ) {
 									'min': 0,
 									'max': dataReg[self.regNum].max / 60
 								}
-							})
+							});
 						}
 						break;
 					case 'мин':
@@ -532,7 +532,7 @@ function Slider ( name, preInit ) {
 									'min': 0,
 									'max': dataReg[self.regNum].max / 3600
 								}
-							})
+							});
 						} else if ( self.input.value <= 1 ) {
 							self.calcScale();
 							self.input.step  = self.scale;
@@ -544,7 +544,7 @@ function Slider ( name, preInit ) {
 									'min': 0,
 									'max': dataReg[self.regNum].max
 								}
-							})
+							});
 						}
 						break;
 					case 'ч':
@@ -559,7 +559,7 @@ function Slider ( name, preInit ) {
 									'min': 0,
 									'max': dataReg[self.regNum].max / 60
 								}
-							})
+							});
 						}
 						break;
 					default:
