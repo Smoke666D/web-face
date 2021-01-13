@@ -2372,3 +2372,4 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },];
+module.exports.dataReg = dataReg;

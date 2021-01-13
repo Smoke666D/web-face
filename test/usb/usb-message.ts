@@ -4,7 +4,6 @@ const electronPath  = require('electron');
 const path          = require('path');
 const USBMessage    = require('../../js/usb-message.js').USBMessage;
 const RTC           = require('../../js/rest').RTC;
-//const LogRecord     = require('../../js/rest')._test.LogRecord;
 const dataReg       = require('../../js/config.js').dataReg;
 const newSensorData = require('../../js/sensortable.js').newSensorData;
 /*----------------------------------------------------------------------------*/
