@@ -221,7 +221,10 @@ function sliderInit() {
 			tooltips: true,
 			connect: [true, false],
 			padding: 0,
-			range: { 'min': 0, 'max': 100	},
+			range: {
+				'min': 0,
+				'max': 100
+			},
 		})
 		s_sliders[i].noUiSlider.on( 'update', ( function() {
 			var j=i;
@@ -486,15 +489,15 @@ function oilScaleInit() {
 function initRecordEnb () {
 	var enable               = document.getElementById( 'recordEnb' );
 	var switches             = document.getElementsByClassName( 'recordEnable' );
-	var recordIntervalInput  = document.getElementById( 'sinput-recordDelay' );
-	var recordIntervalSlider = document.getElementById( 's-slider-recordDelay' );
+	var recordIntervalInput  = document.getElementById( 'sinput-recordInterval' );
+	var recordIntervalSlider = document.getElementById( 's-slider-recordInterval' );
 	var recordNumberString   = document.getElementById( 'recordNumber' );
 	var recordDurationString = document.getElementById( 'recordDuration' );
 
   var recordNumber = 0;
 	var memorySize   = 1024;
 
-	function getRecordNumber () {
+	function calcRecords () {
 		recordNumber = 0;
 		var size = memorySize / 2;
 		for ( var i=0; i<switches.length; i++ ) {
@@ -505,8 +508,24 @@ function initRecordEnb () {
 		if ( recordNumber > 0 ) {
 			size = Math.floor( memorySize / ( recordNumber * 2 ) );
 		}
-		recordNumberString.textContent   = size;
-		recordDurationString.textContent = size * parseFloat( recordIntervalInput.value );
+		var time  = size * parseFloat( recordIntervalInput.value );
+		var units = 'сек';
+		if ( time > 60 ) {
+			time  = time / 60;
+			units = 'мин';
+			if ( time > 60 ) {
+				time  = time / 60;
+				units = 'час';
+				if ( time > 24 ) {
+					time = time / 24;
+					units = 'дней'
+				}
+			}
+		}
+
+		recordNumberString.textContent                               = size;
+		document.getElementById( 'recordDurationUnits' ).textContent = units;
+		recordDurationString.textContent                             = Math.floor( time );
 		return;
 	}
 
@@ -543,20 +562,24 @@ function initRecordEnb () {
 
 	for ( var i=0; i<switches.length; i++ ) {
 		switches[i].addEventListener( 'click', ( function() {
-			var j=i;
 			return function() {
-				getRecordNumber();
+				calcRecords();
 			}
-		})() );
+		})());
 	}
 
 	recordIntervalInput.addEventListener( 'change', function () {
-		getRecordNumber();
+		calcRecords();
+		return;
+	});
+
+	recordIntervalSlider.noUiSlider.on( 'change', function () {
+		calcRecords();
 		return;
 	});
 
 	updateRecordSwitches();
-	getRecordNumber();
+	calcRecords();
 	return;
 }
 //******************************************************************************

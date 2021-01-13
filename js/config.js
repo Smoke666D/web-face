@@ -2359,12 +2359,12 @@ var dataReg = [
    ]
 },{
    "adr": 121,
-   "name": "recordDelay",
-   "value": 100,
-   "default": 100,
-   "scale": 0,
-   "min": 0,
-   "max": 36000,
+   "name": "recordInterval",
+   "value": 1000,
+   "default": 1000,
+   "scale": -1,
+   "min": 1,
+   "max": 360000,
    "units": "сек",
    "type": "U",
    "rw": "rw",
