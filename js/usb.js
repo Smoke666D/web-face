@@ -471,7 +471,7 @@ function EnrrganController () {
   }
   function initWriteAuthorSequency ( callback ) {
     let msg = new USBMessage( [] );
-    msg.codeAuthorization( getCurrentPassword() );
+    msg.codeAuthorization();
     transport.addToOutput( msg );
     callback();
     return;
@@ -488,7 +488,7 @@ function EnrrganController () {
     transport.clean();
 
     msg = new USBMessage( [] );
-    msg.codeAuthorization( getCurrentPassword() );
+    msg.codeAuthorization();
     transport.addRequest( msg );
 
     for ( var i=0; i<dataReg.length; i++ ) {
