@@ -346,7 +346,6 @@ function USBMessage ( buffer ) {
     callback();
     return;
   }
-  /*
   this.initLong            = function () {
     self.init( function() {
       if ( self.command == msgCMD.USB_GET_CHART_CMD ) {
@@ -361,7 +360,6 @@ function USBMessage ( buffer ) {
     }
     return;
   }
-  */
   this.makeConfigRequest   = function ( n ) {
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_GET_CONFIG_CMD;

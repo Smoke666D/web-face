@@ -823,6 +823,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 		sliderInit();
 	} catch {}
 	chartInit();
+	measureChartInit();
 	passwordProcessig();
 	declareInterface();
 	oilScaleInit();

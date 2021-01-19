@@ -1161,6 +1161,7 @@ function updateInterface() {
   setDisabledDO( 'f' );
   diList.update();
 	doList.update();
+  console.log(dataReg);
 	return;
 }
 

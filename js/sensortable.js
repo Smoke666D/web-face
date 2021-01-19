@@ -80,7 +80,7 @@ var chartOptions = {
 };
 
 function chartInit () {
-  lineChart = new Chart( sensorChart, {
+    lineChart = new Chart( sensorChart, {
     type:    'scatter',
     data:    sensorData,
     options: chartOptions
