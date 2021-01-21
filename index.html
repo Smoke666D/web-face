@@ -3222,6 +3222,32 @@
             <label class="form-check-label">Активировать запись измерений</label>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Начать измерения после</label>
+          </div>
+          <div class="col-sm-2">
+            <select class="custom-select sensor-select" id="">
+              <option value="0">Включения контроллера</option>
+              <option value="1">Пуска двигателя</option>
+              <option value="2">Переключения на генератор</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Остановить измерения после</label>
+          </div>
+          <div class="col-sm-2">
+            <select class="custom-select sensor-select" id="">
+              <option value="0">Никогда</option>
+              <option value="1">Останова двигателя</option>
+              <option value="2">Переключения на сеть</option>
+            </select>
+          </div>
+        </div>
+
         <br>
         <h5>Выбор параметров для записи</h5>
         <div class="row unselect">
@@ -3728,9 +3754,8 @@
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/rest.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>-->
+    <script type="text/javascript" src="js/chartjs-plugin-zoom.min.js"></script>
     <script type="text/javascript" src="js/measure.js"></script>
 
     <script type="text/javascript" src="js/shortcuts.js"></script>
