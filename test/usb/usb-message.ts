@@ -130,6 +130,42 @@ describe( 'USB message test', function () {
     }
     return;
   });
+	it ( 'make memory size request', function () {
+		let message = new USBMessage( [] );
+		message.makeMemorySizeRequest();
+		assert.equal( message.status,        1,    'Wrong status'  );
+    assert.equal( message.command,       0x11, 'Wrong command' );
+    assert.equal( message.adr,           0,    'Wrong address' );
+    assert.equal( message.length,        0,    'Wrong length'  );
+    assert.equal( message.buffer.length, 65,   'Wrong buffer size' );
+    assert.equal( message.buffer[0],     0x01, 'Wrong status byte' );
+    assert.equal( message.buffer[1],     0x11, 'Wrong command byte' );
+    assert.equal( message.buffer[2],     0x01, 'Wrong status byte' );
+    assert.equal( message.buffer[3],     0x00, 'Wrong second address byte' );
+    assert.equal( message.buffer[4],     0x00, 'Wrong first address byte' );
+    for ( var i=5; i<message.buffer.length; i++ ) {
+      assert.equal( message.buffer[i], 0, 'Wrong buffer data at ' + i );
+    }
+		return;
+	});
+	it ( 'make measurement request', function () {
+		let message = new USBMessage( [] );
+		message.makeMeasurementRequest( 4 );
+		assert.equal( message.status,        1,    'Wrong status'  );
+		assert.equal( message.command,       0x12, 'Wrong command' );
+		assert.equal( message.adr,           4,    'Wrong address' );
+		assert.equal( message.length,        0,    'Wrong length'  );
+		assert.equal( message.buffer.length, 65,   'Wrong buffer size' );
+		assert.equal( message.buffer[0],     0x01, 'Wrong status byte' );
+		assert.equal( message.buffer[1],     0x12, 'Wrong command byte' );
+		assert.equal( message.buffer[2],     0x01, 'Wrong status byte' );
+		assert.equal( message.buffer[3],     0x00, 'Wrong second address byte' );
+		assert.equal( message.buffer[4],     0x04, 'Wrong first address byte' );
+		for ( var i=5; i<message.buffer.length; i++ ) {
+			assert.equal( message.buffer[i], 0, 'Wrong buffer data at ' + i );
+		}
+		return;
+	})
   it ( 'code authorization data', function () {
     let message = new USBMessage( buffer );
     message.codeAuthorization( '1234' );
@@ -146,8 +182,8 @@ describe( 'USB message test', function () {
     assert.equal( message.buffer[5],     0x00, 'Wrong third length byte' );
     assert.equal( message.buffer[6],     0x00, 'Wrong second length byte' );
     assert.equal( message.buffer[7],     0x02, 'Wrong first length byte' );
-    assert.equal( message.buffer[8],     0x04, 'Wrong second data byte' );
-    assert.equal( message.buffer[9],     0xD2, 'Wrong first data byte' );
+    assert.equal( message.buffer[8],     0xD2, 'Wrong second data byte' );
+    assert.equal( message.buffer[9],     0x04, 'Wrong first data byte' );
     for ( var i=10; i<message.buffer.length; i++ ) {
       assert.equal( message.buffer[i], 0, 'Wrong buffer data at ' + i );
     }
@@ -171,6 +207,24 @@ describe( 'USB message test', function () {
     }
     return;
   });
+	it ( 'code measurement erase command', function () {
+		let message = new USBMessage( [] );
+		message.codeMeasurementErase();
+    assert.equal( message.status,        1,    'Wrong status'  );
+    assert.equal( message.command,       0x13, 'Wrong command' );
+    assert.equal( message.adr,           0,    'Wrong address' );
+    assert.equal( message.length,        0,    'Wrong length'  );
+    assert.equal( message.buffer.length, 65,   'Wrong buffer size' );
+    assert.equal( message.buffer[0],     0x01, 'Wrong status byte' );
+    assert.equal( message.buffer[1],     0x13, 'Wrong command byte' );
+    assert.equal( message.buffer[2],     0x01, 'Wrong status byte' );
+    assert.equal( message.buffer[3],     0x00, 'Wrong second address byte' );
+    assert.equal( message.buffer[4],     0x00, 'Wrong first address byte' );
+    for ( var i=5; i<message.buffer.length; i++ ) {
+      assert.equal( message.buffer[i], 0, 'Wrong buffer data at ' + i );
+    }
+		return;
+	});
   it ( 'code password', function () {
     let message  = new USBMessage( buffer );
     let password = new Password( 1, parseInt( '1234' ) );
@@ -188,9 +242,9 @@ describe( 'USB message test', function () {
     assert.equal( message.buffer[5],     0x00, 'Wrong third length byte' );
     assert.equal( message.buffer[6],     0x00, 'Wrong second length byte' );
     assert.equal( message.buffer[7],     0x03, 'Wrong first length byte' );
-    assert.equal( message.buffer[8],     0x01, 'Wrong first data byte' );
-    assert.equal( message.buffer[9],     0x04, 'Wrong second data byte' );
-    assert.equal( message.buffer[10],    0xD2, 'Wrong third data byte' );
+    assert.equal( message.buffer[8],     0x00, 'Wrong first data byte' );
+    assert.equal( message.buffer[9],     0xD2, 'Wrong second data byte' );
+    assert.equal( message.buffer[10],    0x04, 'Wrong third data byte' );
     for ( var i=11; i<message.buffer.length; i++ ) {
       assert.equal( message.buffer[i], 0, 'Wrong buffer data at ' + i );
     }
@@ -242,8 +296,8 @@ describe( 'USB message test', function () {
     assert.equal( message.buffer[5],     0x00, 'Wrong third length byte'   );
     assert.equal( message.buffer[6],     0x00, 'Wrong second length byte'  );
     assert.equal( message.buffer[7],     0x02, 'Wrong first length byte'   );
-    assert.equal( message.buffer[8],     0x12, 'Wrong 1st data byte'       );
-    assert.equal( message.buffer[9],     0x34, 'Wrong 2nd data byte'       );
+    assert.equal( message.buffer[8],     0x34, 'Wrong 1st data byte'       );
+    assert.equal( message.buffer[9],     0x12, 'Wrong 2nd data byte'       );
     for ( var i=10; i<message.buffer.length; i++ ) {
       assert.equal( message.buffer[i], 0, 'Wrong buffer data at ' + i );
     }
@@ -252,13 +306,12 @@ describe( 'USB message test', function () {
   it ( 'code config data', function () {
     let text    = encodeURI( dataReg[3].units );
     let message = new USBMessage( buffer );
-    message.codeConfig( 3 );
+    message.codeConfig( dataReg[3], 3 );
     assert.equal( message.status,        1,    'Wrong status'              );
     assert.equal( message.command,       0x02, 'Wrong command'             );
     assert.equal( message.adr,           3,    'Wrong address'             );
     assert.equal( message.length,        6,    'Wrong length'              );
     assert.equal( message.buffer.length, 65,   'Wrong buffer size'         );
-
     assert.equal( message.buffer[0],     0x01, 'Wrong status byte'         );
     assert.equal( message.buffer[1],     0x02, 'Wrong command byte'        );
     assert.equal( message.buffer[2],     0x01, 'Wrong status byte'         );
@@ -267,21 +320,19 @@ describe( 'USB message test', function () {
     assert.equal( message.buffer[5],     0x00, 'Wrong third length byte'   );
     assert.equal( message.buffer[6],     0x00, 'Wrong second length byte'  );
     assert.equal( message.buffer[7],     0x06, 'Wrong first length byte'   );
-
-    assert.equal( message.buffer[8],     ( ( dataReg[3].value & 0xFF00 ) >> 8 ), 'Wrong 1st data byte' );
-    assert.equal( message.buffer[9],     ( dataReg[3].value & 0x00FF ),          'Wrong 2nd data byte' );
+    assert.equal( message.buffer[8],     ( ( dataReg[3].value & 0x00FF ) ),      'Wrong 1nd data byte' );
+    assert.equal( message.buffer[9],     ( ( dataReg[3].value & 0xFF00 ) >> 8 ), 'Wrong 2nd data byte' );
     assert.equal( message.buffer[10],    ( dataReg[3].scale ),                   'Wrong 3nd data byte' );
     assert.equal( message.buffer[11],    ( text.charAt( 0 ).charCodeAt() ),      'Wrong 4nd data byte' );
     assert.equal( message.buffer[12],    ( text.charAt( 1 ).charCodeAt() ),      'Wrong 5nd data byte' );
     assert.equal( message.buffer[13],    ( text.charAt( 2 ).charCodeAt() ),      'Wrong 6nd data byte' );
-
     for ( var i=14; i<message.buffer.length; i++ ) {
       assert.equal( message.buffer[i], 0, 'Wrong buffer data at ' + i );
     }
     return;
   });
+	/*
   it ( 'code chart data', function () {
-    /*
     let message = new USBMessage( buffer );
     let chart   = newSensorData( 'testChart', 10, 10, 't', 'унит');
     message.codeChart( chart, 1 );
@@ -297,9 +348,9 @@ describe( 'USB message test', function () {
     assert.equal( message.buffer[5],     0x00, 'Wrong third length byte'   );
     assert.equal( message.buffer[6],     0x00, 'Wrong second length byte'  );
     assert.equal( message.buffer[7],     0x06, 'Wrong first length byte'   );
-    */
     return;
   });
+	*/
   it ( 'code save configs command', function () {
     let message = new USBMessage( buffer );
     message.codeSaveConfigs();
@@ -308,7 +359,6 @@ describe( 'USB message test', function () {
     assert.equal( message.adr,           0,    'Wrong address'             );
     assert.equal( message.length,        0,    'Wrong length'              );
     assert.equal( message.buffer.length, 65,   'Wrong buffer size'         );
-
     assert.equal( message.buffer[0],     0x01, 'Wrong status byte'         );
     assert.equal( message.buffer[1],     0x06, 'Wrong command byte'        );
     assert.equal( message.buffer[2],     0x01, 'Wrong status byte'         );
@@ -317,7 +367,6 @@ describe( 'USB message test', function () {
     assert.equal( message.buffer[5],     0x00, 'Wrong third length byte'   );
     assert.equal( message.buffer[6],     0x00, 'Wrong second length byte'  );
     assert.equal( message.buffer[7],     0x00, 'Wrong first length byte'   );
-
     for ( var i=8; i<message.buffer.length; i++ ) {
       assert.equal( message.buffer[i], 0, 'Wrong buffer data at ' + i );
     }
@@ -331,7 +380,6 @@ describe( 'USB message test', function () {
     assert.equal( message.adr,           0,    'Wrong address'             );
     assert.equal( message.length,        0,    'Wrong length'              );
     assert.equal( message.buffer.length, 65,   'Wrong buffer size'         );
-
     assert.equal( message.buffer[0],     0x01, 'Wrong status byte'         );
     assert.equal( message.buffer[1],     0x07, 'Wrong command byte'        );
     assert.equal( message.buffer[2],     0x01, 'Wrong status byte'         );
@@ -340,7 +388,6 @@ describe( 'USB message test', function () {
     assert.equal( message.buffer[5],     0x00, 'Wrong third length byte'   );
     assert.equal( message.buffer[6],     0x00, 'Wrong second length byte'  );
     assert.equal( message.buffer[7],     0x00, 'Wrong first length byte'   );
-
     for ( var i=8; i<message.buffer.length; i++ ) {
       assert.equal( message.buffer[i], 0, 'Wrong buffer data at ' + i );
     }
@@ -359,7 +406,6 @@ describe( 'USB message test', function () {
     assert.equal( message.adr,           0,    'Wrong address'             );
     assert.equal( message.length,        40,   'Wrong length'              );
     assert.equal( message.buffer.length, 65,   'Wrong buffer size'         );
-
     assert.equal( message.buffer[0],     0x01, 'Wrong status byte'         );
     assert.equal( message.buffer[1],     0x05, 'Wrong command byte'        );
     assert.equal( message.buffer[2],     0x01, 'Wrong status byte'         );
@@ -368,7 +414,6 @@ describe( 'USB message test', function () {
     assert.equal( message.buffer[5],     0x00, 'Wrong third length byte'   );
     assert.equal( message.buffer[6],     0x00, 'Wrong second length byte'  );
     assert.equal( message.buffer[7],     0x28, 'Wrong first length byte'   );
-
     for ( var i=0; i<blob.length; i++ ) {
       assert.equal( message.buffer[8 + i], blob[i] , 'Wrong buffer data at ' + i );
     }
@@ -395,8 +440,8 @@ describe( 'USB message test', function () {
       0x00,
       0x00,
       0x06,
+			( data & 0x00FF ),
       ( ( data & 0xFF00 ) >> 8 ),
-      ( data & 0x00FF ),
       ( scale ),
       text.charAt( 0 ).charCodeAt(),
       text.charAt( 1 ).charCodeAt(),
@@ -409,9 +454,8 @@ describe( 'USB message test', function () {
     ];
     let message = new USBMessage( buffer );
     message.init( function () {
-      [type, output] = message.parse();
+      [type, output] = message.parse( dataReg );
     });
-
     assert.equal( type,             1,     'Wrong type of data'  );
     assert.equal( dataReg[3].value, data,  'Wrong data reading'  );
     assert.equal( dataReg[3].scale, scale, 'Wrong scale reading' );
@@ -477,8 +521,8 @@ describe( 'USB message test', function () {
       0x00,
       0x00,
       0x02,
+			( data & 0x00FF ),
       ( ( data & 0xFF00 ) >> 8 ),
-      ( data & 0x00FF ),
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -486,7 +530,6 @@ describe( 'USB message test', function () {
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
       0x00, 0x00, 0x00, 0x00, 0x00,
     ];
-
     let message = new USBMessage( buffer );
     message.init( function () {
       [type, output] = message.parse();
@@ -501,7 +544,6 @@ describe( 'USB message test', function () {
     let data0   = 0x12345678;
     let data1   = 0x06;
     let data2   = 0x09;
-
     buffer = [
       0x01,
       0x0C,
@@ -511,10 +553,10 @@ describe( 'USB message test', function () {
       0x00,
       0x00,
       0x06,
+			( data0 & 0x000000FF ),
+			( ( data0 & 0x0000FF00 ) >> 8  ),
+			( ( data0 & 0x00FF0000 ) >> 16 ),
       ( ( data0 & 0xFF000000 ) >> 24 ),
-      ( ( data0 & 0x00FF0000 ) >> 16 ),
-      ( ( data0 & 0x0000FF00 ) >> 8  ),
-      ( data0 & 0x000000FF ),
       ( data1 & 0xFF ),
       ( data2 & 0xFF ),
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -533,6 +575,69 @@ describe( 'USB message test', function () {
     assert.equal( output.action, data2, 'Wrong record action of data' );
     return;
   });
+	it ( 'parse memory size', function () {
+		let type   = 0;
+    let output = null;
+		let data   = 0x12345678;
+		buffer = [
+      0x01,
+      0x11,
+      0x01,
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+      0x04,
+			( data & 0x000000FF ),
+			( ( data & 0x0000FF00 ) >> 8  ),
+			( ( data & 0x00FF0000 ) >> 16 ),
+      ( ( data & 0xFF000000 ) >> 24 ),
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+    ];
+		let message = new USBMessage( buffer );
+    message.init( function () {
+      [type, output] = message.parse();
+    });
+		assert.equal( type,   6,    'Wrong type of data' );
+    assert.equal( output, data, 'Wrong data'         );
+    return;
+	});
+	it ( 'parse measurement', function () {
+		let type   = 0;
+    let output = null;
+		let data   = [ 0x1234, 0x5678];
+		buffer = [
+      0x01,
+      0x12,
+      0x01,
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+      0x04,
+			( data[0] & 0x00FF ),
+			( ( data[0] & 0xFF00 ) >> 8  ),
+			( data[1] & 0x00FF ),
+			( ( data[1] & 0xFF00 ) >> 8  ),
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+    ];
+		let message = new USBMessage( buffer );
+    message.init( function () {
+      [type, output] = message.parse();
+    });
+		assert.equal( type,      7,           'Wrong type of data' );
+    assert.equal( output[0], ( data[0] ), 'Wrong data 0'       );
+		assert.equal( output[1], ( data[1] ), 'Wrong data 1'       );
+    return;
+	})
 });
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/

@@ -10,7 +10,7 @@ function calcFracLength( x ) {
 //******************************************************************************
 //******************************************************************************
 window.addEventListener( 'load', function() {
-	window. scrollTo( 0, 0 );
+	window.scrollTo( 0, 0 );
 });
 document.addEventListener( 'touchmove', function( e ) {
 	e.preventDefault()
@@ -951,6 +951,6 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-module.exports.electronApp    = electronApp;
-module.exports.connectionType = connectionType;
-module.exports.Password       = Password;
+module.exports.electronApp        = electronApp;
+module.exports.connectionType     = connectionType;
+module.exports.Password           = Password;

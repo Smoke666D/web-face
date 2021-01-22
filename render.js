@@ -100,7 +100,7 @@ function connect () {
               }
               if ( msg != null ) {
                 if ( msg.data.length >= msg.length ) {
-                  out = msg.parse();
+                  out = msg.parse( dataReg );
                   if ( out[0] == 2 ) {
                     charts.push( out[1] );
                     out = [];
@@ -109,7 +109,7 @@ function connect () {
               }
             }
           } else {
-            out = buffer[i].parse();
+            out = buffer[i].parse( dataReg );
             if ( out[0] == 3 ) {
               rtcTime.get( out[1] );
             }
@@ -127,6 +127,7 @@ function connect () {
       }
       charts = [];
       let alert = new Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
+      console.log( dataReg[2] );
       updateInterface();
     /* outCallback */
     }, function() {

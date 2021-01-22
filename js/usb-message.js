@@ -1,3 +1,6 @@
+//const dataReg = require('../js/config.js').dataReg;
+const RTC       = require('../js/rest').RTC;
+const LogRecord = require('../js/rest').LogRecord;
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
@@ -114,7 +117,7 @@ function USBMessage ( buffer ) {
     buffer[USB_DIR_BYTE]  = 0x01;          /* 1st channel for sending via USB */
     buffer[USB_CMD_BYTE]  = self.command;
     buffer[USB_STAT_BYTE] = self.status;
-    buffer[USB_ADR0_BYTE] = self.adr & 0x00FF;
+    buffer[USB_ADR0_BYTE] =   self.adr & 0x00FF;
     buffer[USB_ADR1_BYTE] = ( self.adr & 0xFF00 ) >> 8;
     buffer[USB_LEN0_BYTE] = ( self.length & 0x0000FF );
     buffer[USB_LEN1_BYTE] = ( self.length & 0x00FF00 ) >> 8;
@@ -247,38 +250,53 @@ function USBMessage ( buffer ) {
     self.adr     = adr;
     self.length  = 0;
     self.data    = [];
+    self.buffer  = [ 0, 0, 0, 0, 0, 0, 0, 0];
     setup( self.buffer, function () {
       finishMesageWithZero( self.buffer );
     });
   }
-  function parseConfig ( n ) {
+  function makeResponse ( cmd, adr, data, length ) {
+    self.status  = msgSTAT.USB_OK_STAT;
+    self.command = cmd;
+    self.adr     = adr;
+    self.length  = length;
+    self.data    = [];
+    self.buffer  = [ 0, 0, 0, 0, 0, 0, 0, 0];
+    setup( self.buffer, function () {
+      for ( var i=0; i<data.length; i++ ) {
+        self.buffer.push( data[i] );
+      }
+      finishMesageWithZero( self.buffer );
+    });
+  }
+  function parseConfig ( reg ) {
     var counter = 0;
     /*----------- Configuration value -----------*/
-    if ( dataReg[n].len == 1 ) {
-      dataReg[n].value = byteToUint16( self.data[counter], self.data[counter + 1] );
-      counter += 2;
+    if ( reg.len == 1 ) {
+      reg.value = byteToUint16( self.data[counter], self.data[counter + 1] );
+      counter  += 2;
     } else {
-      dataReg[n].value = [];
-      for ( var i=0; i<dataReg[n].len; i++ ) {
-        if ( dataReg[n].type == 'S' ) {
-          dataReg[n].value.push( String.fromCharCode( parseInt(
+      reg.value = [];
+      for ( var i=0; i<reg.len; i++ ) {
+        if ( reg.type == 'S' ) {
+          reg.value.push( String.fromCharCode( parseInt(
              ( byteToUint16( self.data[counter + i * 2], self.data[counter + i * 2 + 1] ) ).toString(10), 16
            ) ) );
         } else {
-          dataReg[n].value.push( byteToUint16( self.data[counter + i * 2], self.data[counter + i * 2 + 1] ) );
+          reg.value.push( byteToUint16( self.data[counter + i * 2], self.data[counter + i * 2 + 1] ) );
         }
       }
-      counter += dataReg[n].len * 2;
+      counter += reg.len * 2;
     }
     /*----------- Configuration scale -----------*/
-    dataReg[n].scale = ( new Int8Array( [self.data[counter++]] ) )[0];
+    reg.scale = ( new Int8Array( [self.data[counter++]] ) )[0];
     /*----------- Configuration units -----------*/
     strBuffer = "";
     for ( var i=counter; i<self.length; i++ ) {
       strBuffer += String.fromCharCode( self.data[i] );
     }
     try {
-      dataReg[n].units = decodeURI( strBuffer );
+      reg.units = decodeURI( strBuffer );
     } catch {
       console.log( "Error on units decoding in " + dataReg[n].name );
     }
@@ -366,7 +384,7 @@ function USBMessage ( buffer ) {
     let measure = [];
     let size    = Math.trunc( length / 2 );
     for ( var i=0; i<size; i++ ) {
-      measure.push( byteToUint16( self.data[i], self.data[i+1] ) );
+      measure.push( byteToUint16( self.data[i*2], self.data[i*2 + 1] ) );
     }
     return measure;
   }
@@ -423,17 +441,9 @@ function USBMessage ( buffer ) {
     makeRequest( msgCMD.USB_GET_MEASUREMENT, adr );
     return;
   }
-  this.codeAuthorization      = function () {
-    self.status  = msgSTAT.USB_OK_STAT;
-    self.command = msgCMD.USB_AUTHORIZATION;
-    self.adr     = 0;
-    self.length  = 2;
-    let data     = getCurrentPassword();
-    setup( self.buffer, function () {
-      self.buffer.push( data & 0x00FF );
-      self.buffer.push( ( data & 0xFF00 ) >> 8 );
-      finishMesageWithZero( self.buffer );
-    });
+  this.codeAuthorization      = function ( pas ) {
+    let data = [ (pas & 0x00FF), ( ( pas & 0xFF00 ) >> 8 ) ];
+    makeResponse( msgCMD.USB_AUTHORIZATION, 0, data, data.length );
     return;
   }
   this.codeLogErase           = function () {
@@ -441,89 +451,53 @@ function USBMessage ( buffer ) {
     return;
   }
   this.codePassword           = function ( password ) {
-    self.status  = msgSTAT.USB_OK_STAT;
-    self.command = msgCMD.USB_PUT_PASSWORD;
-    self.adr     = 0;
-    self.length  = 3;
-    setup( self.buffer, function () {
-      self.buffer.push( password.enb & 0xFF );
-      self.buffer.push(   password.data & 0x00FF );
-      self.buffer.push( ( password.data & 0xFF00 ) >> 8 );
-      setupLength( self.buffer );
-      finishMesageWithZero( self.buffer );
-    });
+    let data = [ ( password.enb & 0xFF ), ( password.data & 0x00FF), ( ( password.data & 0xFF00 ) >> 8 ) ];
+    makeResponse( msgCMD.USB_PUT_PASSWORD, 0, data, data.length );
     return;
   }
   this.codeTime               = function ( time ) {
-    self.status  = msgSTAT.USB_OK_STAT;
-    self.command = msgCMD.USB_PUT_TIME;
-    self.adr     = 0;
-    self.length  = 7;
-    setup( self.buffer, function () {
-      self.buffer.push( time.hour  & 0xFF );
-      self.buffer.push( time.min   & 0xFF );
-      self.buffer.push( time.sec   & 0xFF );
-      self.buffer.push( time.year  & 0xFF );
-      self.buffer.push( time.month & 0xFF );
-      self.buffer.push( time.day   & 0xFF );
-      self.buffer.push( time.wday  & 0xFF );
-      setupLength( self.buffer );
-      finishMesageWithZero( self.buffer );
-    });
+    let data = [ ( time.hour  & 0xFF ),
+                 ( time.min   & 0xFF ),
+                 ( time.sec   & 0xFF ),
+                 ( time.year  & 0xFF ),
+                 ( time.month & 0xFF ),
+                 ( time.day   & 0xFF ),
+                 ( time.wday  & 0xFF ),
+               ];
+    makeResponse( msgCMD.USB_PUT_TIME, 0, data, data.length );
     return;
   }
   this.codeFreeData           = function ( adr, data ) {
-    self.status  = msgSTAT.USB_OK_STAT;
-    self.command = msgCMD.USB_PUT_FREE_DATA;
-    self.adr     = adr;
-    self.length  = 2;
-    setup( self.buffer, function () {
-      self.buffer.push(   data & 0x00FF );
-      self.buffer.push( ( data & 0xFF00 ) >> 8 );
-      setupLength( self.buffer );
-      finishMesageWithZero( self.buffer );
-    });
+    let output = [ ( data & 0x00FF ), ( ( data & 0xFF00 ) >> 8 ) ];
+    makeResponse( msgCMD.USB_PUT_FREE_DATA, adr, output, output.length );
     return;
   }
-  this.codeConfig             = function ( n ) {
-    self.status  = msgSTAT.USB_OK_STAT;
-    self.command = msgCMD.USB_PUT_CONFIG_CMD;
-    self.adr     = n;
-    setup( self.buffer, function () {
-      self.length = 0;
-      /*----------- Configuration value -----------*/
-      if ( dataReg[n].len == 1 ) {
-        self.buffer.push(   dataReg[n].value & 0x00FF );
-        self.buffer.push( ( dataReg[n].value & 0xFF00 ) >> 8 );
-        self.length += 2;
-      } else {
-        for ( var i=0; i<dataReg[n].len; i++ ) {
-          if ( dataReg[n].type == "S" ) {
-            let char = dataReg[n].value[i].charCodeAt( 0 ).toString( 16 );
-            self.buffer.push(   char & 0x00FF );
-            self.buffer.push( ( char & 0xFF00 ) >> 8 );
-          } else {
-            self.buffer.push(   dataReg[n].value[i] & 0x00FF );
-            self.buffer.push( ( dataReg[n].value[i] & 0xFF00 ) >> 8 );
-          }
-          self.length += 2;
+  this.codeConfig             = function ( reg, adr ) {
+    let data = [];
+    /*----------- Configuration value -----------*/
+    if ( reg.len == 1 ) {
+      data.push(   reg.value & 0x00FF );
+      data.push( ( reg.value & 0xFF00 ) >> 8 );
+    } else {
+      for ( var i=0; i<reg.len; i++ ) {
+        if ( reg.type == "S" ) {
+          let char = reg.value[i].charCodeAt( 0 ).toString( 16 );
+          data.push(   char & 0x00FF );
+          data.push( ( char & 0xFF00 ) >> 8 );
+        } else {
+          data.push(   reg.value[i] & 0x00FF );
+          data.push( ( reg.value[i] & 0xFF00 ) >> 8 );
         }
       }
-      /*----------- Configuration scale -----------*/
-      self.buffer.push( dataReg[n].scale );
-      self.length += 1;
-        /*----------- Configuration units -----------*/
-      strBuffer = encodeURI( dataReg[n].units );
-      for ( var i=0; i<strBuffer.length; i++ ) {
-        self.buffer.push( strBuffer.charAt( i ).charCodeAt() );
-        self.length += 1;
-      }
-      /*-------------------------------------------*/
-      setupLength( self.buffer );
-      finishMesageWithZero( self.buffer );
-      /*-------------------------------------------*/
-      return;
-    });
+    }
+    /*----------- Configuration scale -----------*/
+    data.push( reg.scale );
+    /*----------- Configuration units -----------*/
+    strBuffer = encodeURI( reg.units );
+    for ( var i=0; i<strBuffer.length; i++ ) {
+      data.push( strBuffer.charAt( i ).charCodeAt() );
+    }
+    makeResponse( msgCMD.USB_PUT_CONFIG_CMD, adr, data, data.length );
     return;
   }
   this.codeSaveConfigs        = function () {
@@ -584,6 +558,18 @@ function USBMessage ( buffer ) {
     }
   }
   this.codeEWA                = function ( ewa, index ) {
+    let data    = [];
+    var counter = index;
+    for ( var i=USB_DATA_BYTE; i<msgSIZE; i++ ) {
+      if ( ewa.length > counter ) {
+        data.push( ewa[counter] );
+      } else {
+        data.push( 0x00 );
+      }
+      counter++;
+    }
+    makeResponse( msgCMD.USB_PUT_EWA_CMD, 0, data, ewa.length);
+/*
     var counter  = index;
     self.status  = msgSTAT.USB_OK_STAT;
     self.command = msgCMD.USB_PUT_EWA_CMD;
@@ -600,18 +586,19 @@ function USBMessage ( buffer ) {
     });
     self.length = ewa.length;
     setupLength( self.buffer );
+    */
     return counter;
   }
   this.codeMeasurementErase   = function () {
     makeRequest( msgCMD.USB_ERASE_MEASUREMENT, 0 );
     return;
   }
-  this.parse                  = function () {
+  this.parse                  = function ( configs ) {
     var output = 0;
     var type   = 0;
     switch ( self.command ) {
       case msgCMD.USB_GET_CONFIG_CMD:
-        parseConfig( self.adr );
+        parseConfig( configs[self.adr] );
         type = 1;
         break;
       case msgCMD.USB_GET_CHART_CMD:
@@ -633,6 +620,7 @@ function USBMessage ( buffer ) {
       case msgCMD.USB_GET_MEMORY_SIZE:
         output = parseMemorySize();
         type   = 6;
+        break;
       case msgCMD.USB_GET_MEASUREMENT:
         output = parseMeasurement( self.length );
         type   = 7;
