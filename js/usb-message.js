@@ -61,7 +61,16 @@ function USBMessage ( buffer ) {
     return;
   }
   function byteToUint16 ( byte0, byte1 ) {
-    return ( ( byte0 & 0xFF ) << 8 ) | ( byte1 & 0xFF );
+    return ( byte0 & 0xFF ) | ( ( byte1 & 0xFF ) << 8 );
+  }
+  function uint24ToByte ( data, byte0, byte1, byte2 ) {
+    byte0 = ( data & 0x0000FF );
+    byte1 = ( data & 0x00FF00 ) >> 8;
+    byte2 = ( data & 0xFF0000 ) >> 16;
+    return;
+  }
+  function byteToUint24 ( byte0, byte1, byte2 ) {
+    return ( byte0 & 0xFF ) | ( ( byte1 & 0xFF ) << 8 ) | ( ( byte2 & 0xFF ) << 16 );
   }
   function uint32toByte ( input, output ) {
     output.push( (input & 0x000000FF) );
@@ -105,11 +114,11 @@ function USBMessage ( buffer ) {
     buffer[USB_DIR_BYTE]  = 0x01;          /* 1st channel for sending via USB */
     buffer[USB_CMD_BYTE]  = self.command;
     buffer[USB_STAT_BYTE] = self.status;
-    buffer[USB_ADR1_BYTE] = ( self.adr & 0xFF00 ) >> 8;
     buffer[USB_ADR0_BYTE] = self.adr & 0x00FF;
-    buffer[USB_LEN2_BYTE] = ( self.length & 0xFF0000 ) >> 16;
-    buffer[USB_LEN1_BYTE] = ( self.length & 0x00FF00 ) >> 8;
+    buffer[USB_ADR1_BYTE] = ( self.adr & 0xFF00 ) >> 8;
     buffer[USB_LEN0_BYTE] = ( self.length & 0x0000FF );
+    buffer[USB_LEN1_BYTE] = ( self.length & 0x00FF00 ) >> 8;
+    buffer[USB_LEN2_BYTE] = ( self.length & 0xFF0000 ) >> 16;
     self.data = [];
     callback();
     return;
@@ -208,14 +217,11 @@ function USBMessage ( buffer ) {
     return;
   }
   function parsingAddressByte () {
-    //self.adr = ( self.buffer[USB_ADR1_BYTE] << 8 ) | ( self.buffer[USB_ADR0_BYTE] );
-    self.adr = byteToUint16( self.buffer[USB_ADR1_BYTE], self.buffer[USB_ADR0_BYTE] );
+    self.adr = byteToUint16( self.buffer[USB_ADR0_BYTE], self.buffer[USB_ADR1_BYTE] );
     return;
   }
   function parsingLengthByte () {
-    self.length = ( self.buffer[USB_LEN2_BYTE] << 16 ) |
-                  ( self.buffer[USB_LEN1_BYTE] <<  8 ) |
-                  ( self.buffer[USB_LEN0_BYTE] );
+    self.length = byteToUint24( self.buffer[USB_LEN0_BYTE], self.buffer[USB_LEN1_BYTE], self.buffer[USB_LEN2_BYTE] );
     return;
   }
   function parsingDataBytes () {
@@ -227,9 +233,10 @@ function USBMessage ( buffer ) {
     }
   }
   function setupLength ( buffer ) {
-    buffer[USB_LEN2_BYTE] = ( self.length & 0xFF0000 ) >> 16;
-    buffer[USB_LEN1_BYTE] = ( self.length & 0x00FF00 ) >> 8;
-    buffer[USB_LEN0_BYTE] = ( self.length & 0x0000FF );
+    uint24ToByte( self.length, buffer[USB_LEN0_BYTE], buffer[USB_LEN1_BYTE], buffer[USB_LEN2_BYTE] );
+    //buffer[USB_LEN2_BYTE] = ( self.length & 0xFF0000 ) >> 16;
+    //buffer[USB_LEN1_BYTE] = ( self.length & 0x00FF00 ) >> 8;
+    //buffer[USB_LEN0_BYTE] = ( self.length & 0x0000FF );
     return;
   }
   function finishMesageWithZero ( buffer ) {
@@ -344,7 +351,8 @@ function USBMessage ( buffer ) {
     return time;
   }
   function parseFreeData () {
-    return byteToUint16( self.data[0], self.data[1] );
+    return ( ( self.data[0] & 0xFF ) << 8 ) | ( self.data[1] & 0xFF )
+    //return byteToUint16( self.data[0], self.data[1] );
   }
   function parseLog () {
     let time   = byteToUint32( self.data[0], self.data[1], self.data[2], self.data[3] );
@@ -361,7 +369,8 @@ function USBMessage ( buffer ) {
     let measure = [];
     let size    = Math.trunc( length / 2 );
     for ( var i=0; i<size; i++ ) {
-      measure.push( byteToUint16( self.data[i], self.data[i+1] ) );
+      measure.push( ( ( self.data[i] & 0xFF ) << 8 ) | ( self.data[i+1] & 0xFF ) )
+      //measure.push( byteToUint16( self.data[i], self.data[i+1] ) );
     }
     return measure;
   }
