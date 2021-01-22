@@ -56,8 +56,8 @@ function USBMessage ( buffer ) {
   this.buffer  = buffer; /* Copy input buffer    */
   /*---------------------------------------------*/
   function uint16toByte ( input, output ) {
-    output.push( ( input & 0x00FF ) );
-    output.push( ( ( input & 0xFF00 ) >> 8 ) );
+    output.push(   input & 0x00FF );
+    output.push( ( input & 0xFF00 ) >> 8 );
     return;
   }
   function byteToUint16 ( byte0, byte1 ) {
@@ -73,14 +73,14 @@ function USBMessage ( buffer ) {
     return ( byte0 & 0xFF ) | ( ( byte1 & 0xFF ) << 8 ) | ( ( byte2 & 0xFF ) << 16 );
   }
   function uint32toByte ( input, output ) {
-    output.push( (input & 0x000000FF) );
-    output.push( ( (input & 0x0000FF00) >> 8 ) );
-    output.push( ( (input & 0x00FF0000) >> 16 ) );
-    output.push( ( (input & 0xFF000000) >> 24 ) );
+    output.push(     input & 0x000000FF );
+    output.push( ( ( input & 0x0000FF00 ) >> 8 ) );
+    output.push( ( ( input & 0x00FF0000 ) >> 16 ) );
+    output.push( ( ( input & 0xFF000000 ) >> 24 ) );
     return;
   }
   function byteToUint32 ( byte0, byte1, byte2, byte3 ) {
-    return ( byte3 & 0x000000FF ) | ( ( byte2 << 8 ) & 0x0000FF00 ) | ( ( byte1 << 16 )  & 0x00FF0000 ) | ( ( byte0 << 24 )  & 0xFF000000 );
+    return ( byte0 & 0x000000FF ) | ( ( byte1 << 8 ) & 0x0000FF00 ) | ( ( byte2 << 16 )  & 0x00FF0000 ) | ( ( byte3 << 24 )  & 0xFF000000 );
   }
   function strToEncodeByte ( str, length, output ) {
     for ( var i=0; i<str.length; i++ ) {
@@ -234,9 +234,6 @@ function USBMessage ( buffer ) {
   }
   function setupLength ( buffer ) {
     uint24ToByte( self.length, buffer[USB_LEN0_BYTE], buffer[USB_LEN1_BYTE], buffer[USB_LEN2_BYTE] );
-    //buffer[USB_LEN2_BYTE] = ( self.length & 0xFF0000 ) >> 16;
-    //buffer[USB_LEN1_BYTE] = ( self.length & 0x00FF00 ) >> 8;
-    //buffer[USB_LEN0_BYTE] = ( self.length & 0x0000FF );
     return;
   }
   function finishMesageWithZero ( buffer ) {
@@ -258,16 +255,17 @@ function USBMessage ( buffer ) {
     var counter = 0;
     /*----------- Configuration value -----------*/
     if ( dataReg[n].len == 1 ) {
-      dataReg[n].value = ( ( self.data[counter] << 8 ) & 0xFF00 ) | ( self.data[counter + 1] & 0x00FF );
+      dataReg[n].value = byteToUint16( self.data[counter], self.data[counter + 1] );
       counter += 2;
     } else {
       dataReg[n].value = [];
       for ( var i=0; i<dataReg[n].len; i++ ) {
         if ( dataReg[n].type == 'S' ) {
-          dataReg[n].value.push( String.fromCharCode( parseInt( ( ( ( self.data[counter + i * 2] << 8 ) & 0xFF00 ) | ( self.data[counter + i * 2 + 1] & 0xFF ) ).toString(10), 16 ) ) );
+          dataReg[n].value.push( String.fromCharCode( parseInt(
+             ( byteToUint16( self.data[counter + i * 2], self.data[counter + i * 2 + 1] ) ).toString(10), 16
+           ) ) );
         } else {
-          dataReg[n].value.push( ( ( self.data[counter + i * 2] << 8 ) & 0xFF00 ) |
-                                 (   self.data[counter + i * 2 + 1]    & 0xFF ) );
+          dataReg[n].value.push( byteToUint16( self.data[counter + i * 2], self.data[counter + i * 2 + 1] ) );
         }
       }
       counter += dataReg[n].len * 2;
@@ -306,13 +304,13 @@ function USBMessage ( buffer ) {
     };
     if ( self.data.length > 0 ) {
       counter = 0;
-      chart.xmin = byteToUint32( self.data[counter+3], self.data[counter+2], self.data[counter+1], self.data[counter] );
+      chart.xmin = byteToUint32( self.data[counter], self.data[counter+1], self.data[counter+2], self.data[counter+3] );
       counter += 4;
-      chart.xmax = byteToUint32( self.data[counter+3], self.data[counter+2], self.data[counter+1], self.data[counter] );
+      chart.xmax = byteToUint32( self.data[counter], self.data[counter+1], self.data[counter+2], self.data[counter+3] );
       counter += 4;
-      chart.ymin = byteToUint32( self.data[counter+3], self.data[counter+2], self.data[counter+1], self.data[counter] );
+      chart.ymin = byteToUint32( self.data[counter], self.data[counter+1], self.data[counter+2], self.data[counter+3] );
       counter += 4;
-      chart.ymax = byteToUint32( self.data[counter+3], self.data[counter+2], self.data[counter+1], self.data[counter] );
+      chart.ymax = byteToUint32( self.data[counter], self.data[counter+1], self.data[counter+2], self.data[counter+3] );
       counter += 4;
       buffer  = [];
       for ( var i=0; i<chartUnitLength; i++ ) {
@@ -326,12 +324,12 @@ function USBMessage ( buffer ) {
       }
       chart.yunit = encodeByteToStr( buffer, chartUnitLength );
       counter    += chartUnitLength;
-      chart.size  = ( self.data[counter] & 0x00FF ) | ( ( self.data[counter+1] & 0xFF00 ) >> 8 );
+      chart.size = byteToUint16( self.data[counter], self.data[counter+1] );
       counter    += 2;
       for ( var i=0; i<chart.size; i++ ) {
-        dot.x = byteToUint32( self.data[counter+3], self.data[counter+2], self.data[counter+1], self.data[counter] );
+        dot.x = byteToUint32( self.data[counter], self.data[counter+1], self.data[counter+2], self.data[counter+3] );
         counter += 4;
-        dot.y = byteToUint32( self.data[counter+3], self.data[counter+2], self.data[counter+1], self.data[counter] );
+        dot.y = byteToUint32( self.data[counter], self.data[counter+1], self.data[counter+2], self.data[counter+3] );
         counter += 4;
         chart.dots.push( dot );
         dot = {};
@@ -351,8 +349,7 @@ function USBMessage ( buffer ) {
     return time;
   }
   function parseFreeData () {
-    return ( ( self.data[0] & 0xFF ) << 8 ) | ( self.data[1] & 0xFF )
-    //return byteToUint16( self.data[0], self.data[1] );
+    return byteToUint16( self.data[0], self.data[1] );
   }
   function parseLog () {
     let time   = byteToUint32( self.data[0], self.data[1], self.data[2], self.data[3] );
@@ -369,8 +366,7 @@ function USBMessage ( buffer ) {
     let measure = [];
     let size    = Math.trunc( length / 2 );
     for ( var i=0; i<size; i++ ) {
-      measure.push( ( ( self.data[i] & 0xFF ) << 8 ) | ( self.data[i+1] & 0xFF ) )
-      //measure.push( byteToUint16( self.data[i], self.data[i+1] ) );
+      measure.push( byteToUint16( self.data[i], self.data[i+1] ) );
     }
     return measure;
   }
@@ -434,8 +430,8 @@ function USBMessage ( buffer ) {
     self.length  = 2;
     let data     = getCurrentPassword();
     setup( self.buffer, function () {
-      self.buffer.push( ( data & 0xFF00 ) >> 8 );
       self.buffer.push( data & 0x00FF );
+      self.buffer.push( ( data & 0xFF00 ) >> 8 );
       finishMesageWithZero( self.buffer );
     });
     return;
@@ -451,8 +447,8 @@ function USBMessage ( buffer ) {
     self.length  = 3;
     setup( self.buffer, function () {
       self.buffer.push( password.enb & 0xFF );
+      self.buffer.push(   password.data & 0x00FF );
       self.buffer.push( ( password.data & 0xFF00 ) >> 8 );
-      self.buffer.push( password.data & 0x00FF );
       setupLength( self.buffer );
       finishMesageWithZero( self.buffer );
     });
@@ -482,8 +478,8 @@ function USBMessage ( buffer ) {
     self.adr     = adr;
     self.length  = 2;
     setup( self.buffer, function () {
+      self.buffer.push(   data & 0x00FF );
       self.buffer.push( ( data & 0xFF00 ) >> 8 );
-      self.buffer.push( data & 0x00FF );
       setupLength( self.buffer );
       finishMesageWithZero( self.buffer );
     });
@@ -497,18 +493,18 @@ function USBMessage ( buffer ) {
       self.length = 0;
       /*----------- Configuration value -----------*/
       if ( dataReg[n].len == 1 ) {
+        self.buffer.push(   dataReg[n].value & 0x00FF );
         self.buffer.push( ( dataReg[n].value & 0xFF00 ) >> 8 );
-        self.buffer.push( dataReg[n].value & 0x00FF );
         self.length += 2;
       } else {
         for ( var i=0; i<dataReg[n].len; i++ ) {
           if ( dataReg[n].type == "S" ) {
             let char = dataReg[n].value[i].charCodeAt( 0 ).toString( 16 );
+            self.buffer.push(   char & 0x00FF );
             self.buffer.push( ( char & 0xFF00 ) >> 8 );
-            self.buffer.push( char & 0x00FF );
           } else {
+            self.buffer.push(   dataReg[n].value[i] & 0x00FF );
             self.buffer.push( ( dataReg[n].value[i] & 0xFF00 ) >> 8 );
-            self.buffer.push( dataReg[n].value[i] & 0x00FF );
           }
           self.length += 2;
         }
