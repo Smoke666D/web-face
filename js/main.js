@@ -3,6 +3,8 @@ var s_sinputs;
 var checkboxes;
 var selectors;
 
+var memorySize   = 1024;
+
 function calcFracLength( x ) {
 	return ( x.toString().indexOf( '.' ) >= 0) ? ( x.toString().split( '.' ).pop().length ) : ( 0 );
 }
@@ -486,105 +488,6 @@ function oilScaleInit() {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function initRecordEnb () {
-	var enable               = document.getElementById( 'recordEnb' );
-	var switches             = document.getElementsByClassName( 'recordEnable' );
-	var recordIntervalInput  = document.getElementById( 'sinput-recordInterval' );
-	var recordIntervalSlider = document.getElementById( 's-slider-recordInterval' );
-	var recordNumberString   = document.getElementById( 'recordNumber' );
-	var recordDurationString = document.getElementById( 'recordDuration' );
-
-  var recordNumber = 0;
-	var memorySize   = 1024;
-
-	function calcRecords () {
-		recordNumber = 0;
-		var size = memorySize / 2;
-		for ( var i=0; i<switches.length; i++ ) {
-			if ( switches[i].checked == true ) {
-				recordNumber++;
-			}
-		}
-		if ( recordNumber > 0 ) {
-			size = Math.floor( memorySize / ( recordNumber * 2 ) );
-		}
-		var time  = size * parseFloat( recordIntervalInput.value );
-		var units = 'сек';
-		if ( time > 60 ) {
-			time  = time / 60;
-			units = 'мин';
-			if ( time > 60 ) {
-				time  = time / 60;
-				units = 'час';
-				if ( time > 24 ) {
-					time = time / 24;
-					units = 'дней'
-				}
-			}
-		}
-
-		recordNumberString.textContent                               = size;
-		document.getElementById( 'recordDurationUnits' ).textContent = units;
-		recordDurationString.textContent                             = Math.floor( time );
-		return;
-	}
-
-	function updateRecordDuration () {
-		var size = memorySize / 2;
-		if ( recordNumber > 0 ) {
-			size = Math.floor( memorySize / ( recordNumber * parseFloat( recordLengthInput.value ) * 2 ) );
-		}
-		return;
-	}
-
-	function  updateRecordSwitches () {
-		for ( var i=0; i<switches.length; i++ ) {
-			if ( enable.checked == false ) {
-			  switches[i].disabled = true;
-			} else {
-				switches[i].disabled = false;
-			}
-		}
-		if ( enable.checked == false ) {
-			recordIntervalInput.disabled = true;
-			recordIntervalSlider.setAttribute( 'disabled', false );
-		} else {
-			recordIntervalInput.disabled = false;
-			recordIntervalSlider.removeAttribute( 'disabled' );
-		}
-		return;
-	}
-
-	enable.addEventListener( 'click', function () {
-		 updateRecordSwitches();
-		 return;
-	});
-
-	for ( var i=0; i<switches.length; i++ ) {
-		switches[i].addEventListener( 'click', ( function() {
-			return function() {
-				calcRecords();
-			}
-		})());
-	}
-
-	recordIntervalInput.addEventListener( 'change', function () {
-		calcRecords();
-		return;
-	});
-
-	recordIntervalSlider.noUiSlider.on( 'change', function () {
-		calcRecords();
-		return;
-	});
-
-	updateRecordSwitches();
-	calcRecords();
-	return;
-}
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
 function setDisabledDI( letter ) {
 	var funct    = document.getElementById( 'di' + letter + 'Function' )
 	var polarity = document.getElementById( 'di' + letter + 'Polarity' );
@@ -918,7 +821,6 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	navbarToogling();
 	updateVersions();
 	starterStopProcessing();
-	initRecordEnb();
 	diList.init();
 	doList.init();
 	const genVoltageLims = new slider4InitLimits( 'genUnderVoltageAlarmLevel',

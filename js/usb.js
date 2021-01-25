@@ -516,6 +516,11 @@ function EnrrganController () {
     msg = new USBMessage( [] )
     msg.makeTimeRequest();
     transport.addRequest( msg );
+
+    msg = new USBMessage( [] );
+    msg.makeMemorySizeRequest();
+    transport.addRequest( msg );
+    
     callback();
     return;
   }
