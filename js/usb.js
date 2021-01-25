@@ -437,9 +437,9 @@ function EnrrganController () {
     callback();
     return;
   }
-  function initTimeWriteSequency ( callback ) {
+  function initTimeWriteSequency ( callback, time ) {
     let msg = new USBMessage([]);
-    msg.codeTime( rtcTime );
+    msg.codeTime( time );
     transport.addToOutput( msg );
     callback();
     return;
@@ -471,9 +471,9 @@ function EnrrganController () {
     callback();
     return;
   }
-  function initWriteAuthorSequency ( callback ) {
+  function initWriteAuthorSequency ( password, callback ) {
     let msg = new USBMessage( [] );
-    msg.codeAuthorization( getCurrentPassword() );
+    msg.codeAuthorization( password );
     transport.addToOutput( msg );
     callback();
     return;
@@ -485,11 +485,11 @@ function EnrrganController () {
     callback();
     return;
   }
-  function initReadSequency ( callback ) {
+  function initReadSequency ( password, callback ) {
     var msg = null;
     transport.clean();
     msg = new USBMessage( [] );
-    msg.codeAuthorization( getCurrentPassword() );
+    msg.codeAuthorization( password );
     transport.addRequest( msg );
     for ( var i=0; i<dataReg.length; i++ ) {
       msg = new USBMessage( [] );
@@ -526,7 +526,9 @@ function EnrrganController () {
     transport.scan( function () {
       transport.initEvents( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback, function() {
         result    = usbInit.done;
-        let alert = new Alert( "alert-success", alerts.okIco, "Контроллер подключен по USB" );
+        try {
+          let alert = new Alert( "alert-success", alerts.okIco, "Контроллер подключен по USB" );
+        } catch (e) {}
       });
     }, function() {
       let alert = new Alert("alert-warning",alerts.triIco,"Контроллер не подключен по USB");
@@ -543,11 +545,12 @@ function EnrrganController () {
   this.getInput  = function () {
     return transport.getInput();
   }
-  this.sendTime  = function () {
+  this.sendTime  = function ( time ) {
     if ( transport.getStatus() == usbStat.wait) {
       initTimeWriteSequency( function () {
         transport.start( usbStat.write, null );
-      });
+        return;
+      }, time );
     }
     return;
   }
@@ -567,9 +570,9 @@ function EnrrganController () {
     }
     return;
   }
-  this.sendAuthorization = function () {
+  this.sendAuthorization = function ( password ) {
     if ( transport.getStatus() == usbStat.wait ) {
-      initWriteAuthorSequency( function () {
+      initWriteAuthorSequency( password, function () {
         transport.start( usbStat.write, null );
       });
     }
@@ -601,10 +604,10 @@ function EnrrganController () {
     }
     return;
   }
-  this.receive  = function ( alertIn ) {
+  this.receive  = function ( password, alertIn ) {
     alert = alertIn;
     if ( transport.getStatus() == usbStat.wait) {
-      initReadSequency( function () {
+      initReadSequency( password, function () {
         transport.start( usbStat.read, alert );
       });
     }

@@ -10,7 +10,7 @@ function connectUpdate () {
     });
   } else if ( ( connectionType == 'usb' ) && ( usb.controller.getStatus() == 1 ) ) {
     let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
-    usb.controller.receive( alert );
+    usb.controller.receive( getCurrentPassword(), alert );
   }
   return;
 }
@@ -77,7 +77,7 @@ function writeTime () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     writeTimeEth();
   } else if ( connectionType == 'usb' ) {
-    usb.controller.sendTime();
+    usb.controller.sendTime( rtcTime );
   }
   return;
 }
@@ -111,7 +111,7 @@ function authorization () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     sendAuthorizationEth();
   } else if ( connectionType == 'usb' ) {
-    usb.controller.sendAuthorization();
+    usb.controller.sendAuthorization( getCurrentPassword() );
   }
   return;
 }

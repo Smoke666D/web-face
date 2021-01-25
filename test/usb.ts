@@ -642,57 +642,36 @@ describe( 'USB message test', function () {
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
-describe( 'USB device test', function () {
-	let self = this;
-  this.timeout( 10000 );
-  before ( function () {
-  });
-  after ( function () {
-  });
-	it ( 'usb device scanning', function () {
-		let transport = new usb.Transport;
-		assert.equal( transport.scan(), 1, 'There is no Energan device over USB' );
-		return;
-	});
-});
-/*----------------------------------------------------------------------------*/
-/*----------------------------------------------------------------------------*/
-/*----------------------------------------------------------------------------*/
 describe( 'USB transfer test', function () {
 	let self = this;
+	this.out    = [];
+	this.charts = [];
+	this.status = 0;
+	this.flag   = 0;
   this.timeout( 10000 );
+	/*--------------------------------------------------------------------------*/
   before ( function () {
-  });
-  after ( function () {
-  });
-	/*
-	it ( 'usb close', function () {
-		//usb.controller.close();
 		return;
 	});
-	it ( 'usb initilization', function () {
-		//usb.controller.init();
+  after ( function () {
+		usb.controller.close();
+		return;
+  });
+	/*--------------------------------------------------------------------------*/
+	it ( 'usb device scanning', function () {
+		let transport = new usb.Transport;
+		let result    = 0;
+		transport.scan( function () {
+			result = 1;
+			return;
+		}, function () {
+			result = 0;
+			return;
+		});
+		assert.equal( result, 1, 'There is no Energan device over USB' );
+		transport.close();
+		return;
 	});
-	it ( 'usb get status', function () {});
-
-	it ( 'usb configuration and chart transfer', function () {});
-	it ( 'usb time transfer', function () {});
-	it ( 'usb free data transfer', function () {});
-
-	it ( 'usb password writing', function () {});
-	it ( 'usb EWA writing', function () {});
-
-	it ( 'usb memory size reading', function () {});
-	it ( 'usb log reading', function () {});
-	it ( 'usb measurement reading', function () {});
-
-	it ( 'usb authorization command', function () {});
-	it ( 'usb erase log command', function () {});
-	it ( 'usb save configuration command', function () {});
-	it ( 'usb save charts command', function () {});
-	it ( 'usb measurement erase command', function () {});
-*/
-	return;
 });
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/

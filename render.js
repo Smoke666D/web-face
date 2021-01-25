@@ -127,21 +127,20 @@ function connect () {
       }
       charts = [];
       let alert = new Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
-      console.log( dataReg[2] );
       updateInterface();
-    /* outCallback */
-    }, function() {
-      let alert = new Alert( "alert-success", alerts.okIco, "Данные успешно переданы", 1 );
-    /* errorCalback */
-    }, function() {
-      let alert = new Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );
-      resetSuccessConnection();
-    /* unauthorizedCallback */
-    }, function() {
-      let alert = new Alert( "alert-warning", alerts.triIco, "Ошибка авторизации" );
-    /* Forbidden callback*/
-    }, function() {
-      let alert = new Alert( "alert-warning", alerts.triIco, "Установка не остановлена. Доступ запрещен" );
+      /* outCallback */
+      }, function() {
+        let alert = new Alert( "alert-success", alerts.okIco, "Данные успешно переданы", 1 );
+      /* errorCalback */
+      }, function() {
+        let alert = new Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );
+        resetSuccessConnection();
+      /* unauthorizedCallback */
+      }, function() {
+        let alert = new Alert( "alert-warning", alerts.triIco, "Ошибка авторизации" );
+      /* Forbidden callback*/
+      }, function() {
+        let alert = new Alert( "alert-warning", alerts.triIco, "Установка не остановлена. Доступ запрещен" );
     });
     if ( res == 1 ) {
       setTimeout( function () {
