@@ -99,6 +99,15 @@ function eraseLog () {
   redrawLogTable();
   return;
 }
+function eraseMeasurement () {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+
+  } else if ( connectionType == 'usb' ) {
+    usb.controller.eraseMeasurement();
+  }
+  /* Clean plot */
+  return;
+}
 function writePassword ( password ) {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     writePasspordEth( password );

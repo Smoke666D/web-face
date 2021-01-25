@@ -121,8 +121,6 @@ function connect () {
             }
             if ( out[0] == 6 ) {
               memorySize = out[1];
-              console.log( out[1] );
-              console.log( memorySize );
             }
           }
         });

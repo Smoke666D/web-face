@@ -254,6 +254,7 @@ function USBtransport () {
              ( response.command == msgCMD.USB_PUT_PASSWORD    ) ||
              ( response.command == msgCMD.USB_ERASE_PASSWOR   ) ||
              ( response.command == msgCMD.USB_AUTHORIZATION   ) ||
+             ( response.command == msgCMD.USB_ERASE_MEASUREMENT ) ||
              ( response.command == msgCMD.USB_PUT_EWA_CMD  ) ) {
             result = output.isEnd();
             if ( result == usbHandler.continue )
@@ -485,6 +486,13 @@ function EnrrganController () {
     callback();
     return;
   }
+  function initWriteEraseMeasurment ( callback ) {
+    let msg = new USBMessage( [] );
+    msg.codeMeasurementErase();
+    transport.addToOutput( msg );
+    callback();
+    return;
+  }
   function initReadSequency ( password, callback ) {
     var msg = null;
     transport.clean();
@@ -520,7 +528,7 @@ function EnrrganController () {
     msg = new USBMessage( [] );
     msg.makeMemorySizeRequest();
     transport.addRequest( msg );
-    
+
     callback();
     return;
   }
@@ -599,6 +607,14 @@ function EnrrganController () {
       });
     }
     return;
+  }
+  this.eraseMeasurement = function () {
+    if ( transport.getStatus() == usbStat.wait ) {
+      initWriteEraseMeasurment( function() {
+        transport.start( usbStat.write, alert );
+        return;
+      })
+    }
   }
   this.sendEWA  = function ( ewa, alertIn ) {
     alert = alertIn;
