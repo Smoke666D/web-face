@@ -313,10 +313,12 @@ function USBtransport () {
   /*---------------------------------------------*/
   this.scan        = function ( success, fail ) {
     var devices = HID.devices();
+    var res     = 0;
     device      = null;
     for ( var i=0; i<devices.length; i++ ) {
       if ( devices[i].manufacturer == "Energan" ) {
         device = new HID.HID( devices[i].path );
+        res    = 1;
         success();
         break;
       }
@@ -324,7 +326,7 @@ function USBtransport () {
     if ( device == null ) {
       fail();
     }
-    return;
+    return res;
   }
   this.initEvents  = function ( inCallback, outCallback, errorCallback, unauthorizedCallback, forbiddenCallback, callback ) {
     device.on( "data", function( data ) {
@@ -360,7 +362,7 @@ function USBtransport () {
     return;
   }
   this.close       = function () {
-    if (device != null) {
+    if ( device != null ) {
       device.close();
     }
     return;
@@ -486,11 +488,9 @@ function EnrrganController () {
   function initReadSequency ( callback ) {
     var msg = null;
     transport.clean();
-
     msg = new USBMessage( [] );
     msg.codeAuthorization( getCurrentPassword() );
     transport.addRequest( msg );
-
     for ( var i=0; i<dataReg.length; i++ ) {
       msg = new USBMessage( [] );
       msg.makeConfigRequest( i );
@@ -618,6 +618,7 @@ let controller = new EnrrganController();
 //------------------------------------------------------------------------------
 module.exports.EnrrganController = EnrrganController;
 module.exports.controller        = controller;
+module.exports.Transport         = USBtransport;
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/

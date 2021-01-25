@@ -1,11 +1,13 @@
 /*----------------------------------------------------------------------------*/
-const assert        = require('assert');
-const electronPath  = require('electron');
-const path          = require('path');
-const USBMessage    = require('../../js/usb-message.js').USBMessage;
-const RTC           = require('../../js/rest').RTC;
-const dataReg       = require('../../js/config.js').dataReg;
-const newSensorData = require('../../js/sensortable.js').newSensorData;
+const assert            = require( 'assert' );
+const electronPath      = require( 'electron' );
+const path              = require( 'path' );
+const USBMessage        = require( '../js/usb-message.js' ).USBMessage;
+const RTC               = require( '../js/rest' ).RTC;
+const dataReg           = require( '../js/config.js' ).dataReg;
+const newSensorData     = require( '../js/sensortable.js' ).newSensorData;
+const EnrrganController = require( '../js/usb.js' ).EnrrganController;
+const usb               = require( '../js/usb.js' );
 /*----------------------------------------------------------------------------*/
 /*          0     1      2     3     4     5     6     7    8     9*/
 /*         DIR   CMD   STAT  ADR1  ADR0  LEN2  LEN1  LEN0  D0    D1*/
@@ -21,13 +23,10 @@ function Password ( status, data ) {
 describe( 'USB message test', function () {
   let self = this;
   this.timeout( 10000 );
-
   before ( function () {
   });
-
   after ( function () {
   });
-
   it ( 'initilization', function () {
     let message = new USBMessage( buffer );
     message.init( function() {});
@@ -638,6 +637,62 @@ describe( 'USB message test', function () {
 		assert.equal( output[1], ( data[1] ), 'Wrong data 1'       );
     return;
 	})
+	return;
+});
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+describe( 'USB device test', function () {
+	let self = this;
+  this.timeout( 10000 );
+  before ( function () {
+  });
+  after ( function () {
+  });
+	it ( 'usb device scanning', function () {
+		let transport = new usb.Transport;
+		assert.equal( transport.scan(), 1, 'There is no Energan device over USB' );
+		return;
+	});
+});
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+describe( 'USB transfer test', function () {
+	let self = this;
+  this.timeout( 10000 );
+  before ( function () {
+  });
+  after ( function () {
+  });
+	/*
+	it ( 'usb close', function () {
+		//usb.controller.close();
+		return;
+	});
+	it ( 'usb initilization', function () {
+		//usb.controller.init();
+	});
+	it ( 'usb get status', function () {});
+
+	it ( 'usb configuration and chart transfer', function () {});
+	it ( 'usb time transfer', function () {});
+	it ( 'usb free data transfer', function () {});
+
+	it ( 'usb password writing', function () {});
+	it ( 'usb EWA writing', function () {});
+
+	it ( 'usb memory size reading', function () {});
+	it ( 'usb log reading', function () {});
+	it ( 'usb measurement reading', function () {});
+
+	it ( 'usb authorization command', function () {});
+	it ( 'usb erase log command', function () {});
+	it ( 'usb save configuration command', function () {});
+	it ( 'usb save charts command', function () {});
+	it ( 'usb measurement erase command', function () {});
+*/
+	return;
 });
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
