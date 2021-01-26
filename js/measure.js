@@ -109,6 +109,10 @@ function MeasureType ( step ) {
     this.line.push( line );
     return;
   }
+  this.setLabel = function ( label ) {
+    this.label = label;
+    return;
+  }
   this.calcStep();
   return;
 }
@@ -282,7 +286,43 @@ function measureSave () {
 }
 /*----------------------------------------------------------------------------*/
 function measureLoad () {
+  var data      = null;
+  var line      = null;
+  var lineArray = null;
+  if ( window.File && window.FileReader && window.FileList && window.Blob ) {
+		var input = document.createElement( "input" );
+    input.setAttribute( "type", "file" );
+		input.addEventListener( "change", function() {
+			file = input.files[0];
+			if ( file.type != "application/json" ) {
+        let alert = new Alert( "alert-warning", triIco, "Выбран файл с неправильным расширением. Выберете JSON файл" );
+			} else {
+				let reader = new FileReader();
+        reader.readAsText( file );
+				reader.onload = function() {
+					try {
+						data = JSON.parse( reader.result );
+            lineArray = new MeasureType( data.step );
+            lineArray.setLabel( data.label );
+            for ( var i=0; i<data.line.length; i++ ) {
+              line = new MeasureLine( 1, data.line[i].label );
+              line.init( data.line[i].data );
+              lineArray.addLine( line );
+              measureChartStruct.setData( lineArray );
+            }
 
+            console.log( data );
+					} catch( e ) {
+            let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
+					}
+  			};
+			}
+		});
+		input.click();
+    return false; // avoiding navigation
+	} else {
+    let alert = new Alert( "alert-warning", triIco, "Браузер не поддерживает загрузку файлов" );
+	}
   return;
 }
 /*----------------------------------------------------------------------------*/
