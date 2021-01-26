@@ -42,14 +42,6 @@ function AxeChartPreset ( max, min, label) {
   };
 }
 /*----------------------------------------------------------------------------*/
-function parseLinseData ( buffer, n ) {
-  let data = [];
-  for ( var i=0; i<buffer.length; i++ ) {
-    data.push( buffer[i][n] );
-  }
-  return out;
-}
-/*----------------------------------------------------------------------------*/
 function MeasureLine ( scale, label ) {
   var self      = this;
   this.initDone = false;
@@ -254,8 +246,6 @@ function measureUpdate ( buffer, scales, lables ) {
   var line      = null;
   var lineArray = new MeasureType( 1 );
 
-  console.log( buffer );
-
   for ( var i=0; i<buffer[0].length; i++ ) {
     data = [];
     for ( var j=0; j<buffer.length; j++ ) {
@@ -269,11 +259,37 @@ function measureUpdate ( buffer, scales, lables ) {
   return;
 }
 /*----------------------------------------------------------------------------*/
+function measureSave () {
+  function SaveAsFile ( t, file, m ) {
+  	try {
+    	var blob = new Blob( [t], { type: m } );
+      saveAs( blob, file );
+    } catch( e ) {
+    	window.open( ( "data:" + m + "," + encodeURIComponent( t ) ), '_blank', '' );
+    }
+    return;
+  }
+  let data = measureChartStruct.measure;
+  delete data.initDone;
+  delete data.max;
+  for ( var i=0; i<data.line.length; i++ ) {
+    delete data.line[i].initDone;
+    delete data.line[i].min;
+    delete data.line[i].max;
+  }
+	SaveAsFile( JSON.stringify( data ), "measurement.JSON", "text/plain;charset=utf-8" );
+  return;
+}
+/*----------------------------------------------------------------------------*/
+function measureLoad () {
+
+  return;
+}
+/*----------------------------------------------------------------------------*/
 function measureChartInit () {
   var testData = new MeasureType( 1 );
   var line     = null;
   var dd       = [];
-
   measureChartStruct = new MeasureChartType( 1 );
   measureChartStruct.init();
 
