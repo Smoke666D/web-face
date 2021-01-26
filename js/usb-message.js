@@ -7,25 +7,26 @@ const LogRecord = require('../js/rest').LogRecord;
 const msgSIZE         = 65;
 const chartUnitLength = 18;
 const msgCMD  = {
-  "USB_GET_CONFIG_CMD"    : 1,
-  "USB_PUT_CONFIG_CMD"    : 2,
-  "USB_GET_CHART_CMD"     : 3,
-  "USB_PUT_CHART_CMD"     : 4,
-  "USB_PUT_EWA_CMD"       : 5,
-  "USB_SAVE_CONFIG_CMD"   : 6,
-  "USB_SAVE_CHART_CMD"    : 7,
-  "USB_GET_TIME"          : 8,
-  "USB_PUT_TIME"          : 9,
-  "USB_GET_FREE_DATA"     : 10,
-  'USB_PUT_FREE_DATA'     : 11,
-  'USB_GET_LOG'           : 12,
-  'USB_ERASE_LOG'         : 13,
-  'USB_PUT_PASSWORD'      : 14,
-  'USB_AUTHORIZATION'     : 15,
-  'USB_ERASE_PASSWORD'    : 16,
-  'USB_GET_MEMORY_SIZE'   : 17,
-  'USB_GET_MEASUREMENT'   : 18,
-  'USB_ERASE_MEASUREMENT' : 19,
+  "USB_GET_CONFIG_CMD"       : 1,
+  "USB_PUT_CONFIG_CMD"       : 2,
+  "USB_GET_CHART_CMD"        : 3,
+  "USB_PUT_CHART_CMD"        : 4,
+  "USB_PUT_EWA_CMD"          : 5,
+  "USB_SAVE_CONFIG_CMD"      : 6,
+  "USB_SAVE_CHART_CMD"       : 7,
+  "USB_GET_TIME"             : 8,
+  "USB_PUT_TIME"             : 9,
+  "USB_GET_FREE_DATA"        : 10,
+  'USB_PUT_FREE_DATA'        : 11,
+  'USB_GET_LOG'              : 12,
+  'USB_ERASE_LOG'            : 13,
+  'USB_PUT_PASSWORD'         : 14,
+  'USB_AUTHORIZATION'        : 15,
+  'USB_ERASE_PASSWORD'       : 16,
+  'USB_GET_MEMORY_SIZE'      : 17,
+  'USB_GET_MEASUREMENT'      : 18,
+  'USB_ERASE_MEASUREMENT'    : 19,
+  'USB_GET_MEASUREMENT_LENGTH' : 20,
 };
 const msgSTAT = {
   "USB_OK_STAT"           : 1,
@@ -184,6 +185,9 @@ function USBMessage ( buffer ) {
         break;
       case msgCMD.USB_ERASE_MEASUREMENT:
         self.command = msgCMD.USB_ERASE_MEASUREMENT;
+        break;
+      case msgCMD.USB_GET_MEASUREMENT_LENGTH:
+        self.command = msgCMD.USB_GET_MEASUREMENT_LENGTH;
         break;
       default:
         self.command = 0;
@@ -388,6 +392,9 @@ function USBMessage ( buffer ) {
     }
     return measure;
   }
+  function parseMeasurementLength () {
+    return byteToUint16( self.data[0], self.data[1] );
+  }
   /*--------------------------------------------------------------------------*/
   this.init                   = function ( callback ) {
     parsingCommandByte();  /* Parsing command byte */
@@ -439,6 +446,10 @@ function USBMessage ( buffer ) {
   }
   this.makeMeasurementRequest = function ( adr ) {
     makeRequest( msgCMD.USB_GET_MEASUREMENT, adr );
+    return;
+  }
+  this.makeMeasurementLengthRequest = function () {
+    makeRequest( msgCMD.USB_GET_MEASUREMENT_LENGTH, 0 );
     return;
   }
   this.codeAuthorization      = function ( pas ) {
@@ -625,6 +636,9 @@ function USBMessage ( buffer ) {
         output = parseMeasurement( self.length );
         type   = 7;
         break;
+      case msgCMD.USB_GET_MEASUREMENT_LENGTH:
+        output = parseMeasurementLength();
+        type   = 8;
     }
     return [type, output];
   }

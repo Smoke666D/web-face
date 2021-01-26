@@ -82,9 +82,10 @@ function connect () {
   if ( connectionType == 'usb' ) {
     var msg = null;
     usb.controller.close();
-    out    = [];
-    charts = [];
-    res    = usb.controller.init( function() {
+    out           = [];
+    charts        = [];
+    measureBuffer = [];
+    res           = usb.controller.init( function() {
       /* After getting full message */
       var buffer = [];
       buffer = usb.controller.getInput();
@@ -121,6 +122,12 @@ function connect () {
             }
             if ( out[0] == 6 ) {
               memorySize = out[1];
+            }
+            if ( out[0] == 7 ) {
+              measureBuffer.push( out[1] );
+            }
+            if ( out[0] == 8 ) {
+              measurementLength = out[1];
             }
           }
         });

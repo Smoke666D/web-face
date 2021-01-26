@@ -3,7 +3,8 @@ var s_sinputs;
 var checkboxes;
 var selectors;
 
-var memorySize   = 1024;
+var memorySize        = 1024;
+var measurementLength = 0;
 
 function calcFracLength( x ) {
 	return ( x.toString().indexOf( '.' ) >= 0) ? ( x.toString().split( '.' ).pop().length ) : ( 0 );

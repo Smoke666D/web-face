@@ -529,6 +529,10 @@ function EnrrganController () {
     msg.makeMemorySizeRequest();
     transport.addRequest( msg );
 
+    msg = new USBMessage( [] );
+    msg.makeMeasurementLengthRequest();
+    transport.addRequest( msg );
+
     callback();
     return;
   }

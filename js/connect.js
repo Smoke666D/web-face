@@ -109,13 +109,15 @@ function eraseMeasurement () {
   return;
 }
 function readMeasurement () {
-  let size = parseInt( document.getElementById( 'recordNumber' ).textContent );
-  console.log(size);
-  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+  if ( measurementLength > 0 ) {
+    if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
 
-  } else if ( connectionType == 'usb' ) {
-    let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
-    usb.controller.readMeasurement( size, alert );
+    } else if ( connectionType == 'usb' ) {
+      let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
+      usb.controller.readMeasurement( measurementLength, alert );
+    }
+  } else {
+    let alert = new Alert( "alert-warning", triIco, "Нет записей измерений" );
   }
   /* Clean plot */
   return;
