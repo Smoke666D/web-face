@@ -10,6 +10,7 @@ var switcherArray   = [];
 var selectorArray   = [];
 var radioArray      = [];
 var rtcTime;
+var measurement;
 var freeDataArray   = [];
 var freeDataValue   = [];
 var freeDataNames   = ["engineWorkTimeData",
@@ -822,6 +823,91 @@ function FreeData ( name ) {
 	return;
 }
 //******************************************************************************
+function MeasurementSettings () {
+	var self                 = this;
+	var enable               = document.getElementById( 'recordEnb' );
+	var switches             = document.getElementsByClassName( 'recordEnable' );
+	var recordIntervalInput  = document.getElementById( 'sinput-recordInterval' );
+	var recordIntervalSlider = document.getElementById( 's-slider-recordInterval' );
+	var recordNumberString   = document.getElementById( 'recordNumber' );
+	var recordDurationString = document.getElementById( 'recordDuration' );
+  var recordNumber         = 0;
+
+	this.calcRecords = function () {
+		recordNumber = 0;
+		var size = memorySize / 2;
+		for ( var i=0; i<switches.length; i++ ) {
+			if ( switches[i].checked == true ) {
+				recordNumber++;
+			}
+		}
+		if ( recordNumber > 0 ) {
+			size = Math.floor( memorySize / ( recordNumber * 2 ) );
+		}
+		var time  = size * parseFloat( recordIntervalInput.value );
+		var units = 'сек';
+		if ( time > 60 ) {
+			time  = time / 60;
+			units = 'мин';
+			if ( time > 60 ) {
+				time  = time / 60;
+				units = 'час';
+				if ( time > 24 ) {
+					time = time / 24;
+					units = 'дней'
+				}
+			}
+		}
+		recordNumberString.textContent                               = size;
+		document.getElementById( 'recordDurationUnits' ).textContent = units;
+		recordDurationString.textContent                             = Math.floor( time );
+		return;
+	}
+	this.init = function () {
+		enable.addEventListener( 'click', function () {
+			 updateRecordSwitches();
+			 return;
+		});
+		for ( var i=0; i<switches.length; i++ ) {
+			switches[i].addEventListener( 'click', ( function() {
+				return function() {
+					self.calcRecords();
+				}
+			})());
+		}
+		recordIntervalInput.addEventListener( 'change', function () {
+			self.calcRecords();
+			return;
+		});
+		recordIntervalSlider.noUiSlider.on( 'change', function () {
+			self.calcRecords();
+			return;
+		});
+		updateRecordSwitches();
+		self.calcRecords();
+		return;
+	}
+
+	function  updateRecordSwitches () {
+		for ( var i=0; i<switches.length; i++ ) {
+			if ( enable.checked == false ) {
+			  switches[i].disabled = true;
+			} else {
+				switches[i].disabled = false;
+			}
+		}
+		if ( enable.checked == false ) {
+			recordIntervalInput.disabled = true;
+			recordIntervalSlider.setAttribute( 'disabled', false );
+		} else {
+			recordIntervalInput.disabled = false;
+			recordIntervalSlider.removeAttribute( 'disabled' );
+		}
+		return;
+	}
+	return;
+}
+//******************************************************************************
 function CheckSelectValues ( atribut ) {
 	var self     = this;
 	var types    = document.getElementsByClassName( atribut );
@@ -1113,6 +1199,8 @@ function declareInterface() {
   doList  = new CheckSelectValues( "doType" );
   rtcTime = new RTC();
   rtcTime.init();
+  measurement = new MeasurementSettings();
+	measurement.init();
   logArray = [];
   declareDone = 1;
 	return;
@@ -1161,7 +1249,7 @@ function updateInterface() {
   setDisabledDO( 'f' );
   diList.update();
 	doList.update();
-  console.log(dataReg);
+  measurement.calcRecords();
 	return;
 }
 

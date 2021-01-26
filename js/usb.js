@@ -244,16 +244,17 @@ function USBtransport () {
     var result = usbHandler.continue;
     response.init( function () {
       if ( response.status == msgSTAT.USB_OK_STAT ) {
-        if ( ( response.command == msgCMD.USB_PUT_CONFIG_CMD  ) ||
-             ( response.command == msgCMD.USB_PUT_CHART_CMD   ) ||
-             ( response.command == msgCMD.USB_SAVE_CONFIG_CMD ) ||
-             ( response.command == msgCMD.USB_SAVE_CHART_CMD  ) ||
-             ( response.command == msgCMD.USB_PUT_TIME        ) ||
-             ( response.command == msgCMD.USB_PUT_FREE_DATA   ) ||
-             ( response.command == msgCMD.USB_ERASE_LOG       ) ||
-             ( response.command == msgCMD.USB_PUT_PASSWORD    ) ||
-             ( response.command == msgCMD.USB_ERASE_PASSWOR   ) ||
-             ( response.command == msgCMD.USB_AUTHORIZATION   ) ||
+        if ( ( response.command == msgCMD.USB_PUT_CONFIG_CMD    ) ||
+             ( response.command == msgCMD.USB_PUT_CHART_CMD     ) ||
+             ( response.command == msgCMD.USB_SAVE_CONFIG_CMD   ) ||
+             ( response.command == msgCMD.USB_SAVE_CHART_CMD    ) ||
+             ( response.command == msgCMD.USB_PUT_TIME          ) ||
+             ( response.command == msgCMD.USB_PUT_FREE_DATA     ) ||
+             ( response.command == msgCMD.USB_ERASE_LOG         ) ||
+             ( response.command == msgCMD.USB_PUT_PASSWORD      ) ||
+             ( response.command == msgCMD.USB_ERASE_PASSWOR     ) ||
+             ( response.command == msgCMD.USB_AUTHORIZATION     ) ||
+             ( response.command == msgCMD.USB_ERASE_MEASUREMENT ) ||
              ( response.command == msgCMD.USB_PUT_EWA_CMD  ) ) {
             result = output.isEnd();
             if ( result == usbHandler.continue )
@@ -313,10 +314,12 @@ function USBtransport () {
   /*---------------------------------------------*/
   this.scan        = function ( success, fail ) {
     var devices = HID.devices();
+    var res     = 0;
     device      = null;
     for ( var i=0; i<devices.length; i++ ) {
       if ( devices[i].manufacturer == "Energan" ) {
         device = new HID.HID( devices[i].path );
+        res    = 1;
         success();
         break;
       }
@@ -324,7 +327,7 @@ function USBtransport () {
     if ( device == null ) {
       fail();
     }
-    return;
+    return res;
   }
   this.initEvents  = function ( inCallback, outCallback, errorCallback, unauthorizedCallback, forbiddenCallback, callback ) {
     device.on( "data", function( data ) {
@@ -360,7 +363,7 @@ function USBtransport () {
     return;
   }
   this.close       = function () {
-    if (device != null) {
+    if ( device != null ) {
       device.close();
     }
     return;
@@ -415,7 +418,7 @@ function EnrrganController () {
     grabInterface();
     for ( var i=0; i<dataReg.length; i++ ) {
       msg = new USBMessage( [] );
-      msg.codeConfig( i );
+      msg.codeConfig( dataReg[i], i );
       transport.addToOutput( msg );
     }
     msg = new USBMessage( [] );
@@ -435,9 +438,9 @@ function EnrrganController () {
     callback();
     return;
   }
-  function initTimeWriteSequency ( callback ) {
+  function initTimeWriteSequency ( callback, time ) {
     let msg = new USBMessage([]);
-    msg.codeTime( rtcTime );
+    msg.codeTime( time );
     transport.addToOutput( msg );
     callback();
     return;
@@ -469,9 +472,9 @@ function EnrrganController () {
     callback();
     return;
   }
-  function initWriteAuthorSequency ( callback ) {
+  function initWriteAuthorSequency ( password, callback ) {
     let msg = new USBMessage( [] );
-    msg.codeAuthorization();
+    msg.codeAuthorization( password );
     transport.addToOutput( msg );
     callback();
     return;
@@ -483,14 +486,19 @@ function EnrrganController () {
     callback();
     return;
   }
-  function initReadSequency ( callback ) {
+  function initWriteEraseMeasurment ( callback ) {
+    let msg = new USBMessage( [] );
+    msg.codeMeasurementErase();
+    transport.addToOutput( msg );
+    callback();
+    return;
+  }
+  function initReadSequency ( password, callback ) {
     var msg = null;
     transport.clean();
-
     msg = new USBMessage( [] );
-    msg.codeAuthorization();
+    msg.codeAuthorization( password );
     transport.addRequest( msg );
-
     for ( var i=0; i<dataReg.length; i++ ) {
       msg = new USBMessage( [] );
       msg.makeConfigRequest( i );
@@ -516,6 +524,15 @@ function EnrrganController () {
     msg = new USBMessage( [] )
     msg.makeTimeRequest();
     transport.addRequest( msg );
+
+    msg = new USBMessage( [] );
+    msg.makeMemorySizeRequest();
+    transport.addRequest( msg );
+
+    msg = new USBMessage( [] );
+    msg.makeMeasurementLengthRequest();
+    transport.addRequest( msg );
+
     callback();
     return;
   }
@@ -526,7 +543,9 @@ function EnrrganController () {
     transport.scan( function () {
       transport.initEvents( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback, function() {
         result    = usbInit.done;
-        let alert = new Alert( "alert-success", alerts.okIco, "Контроллер подключен по USB" );
+        try {
+          let alert = new Alert( "alert-success", alerts.okIco, "Контроллер подключен по USB" );
+        } catch (e) {}
       });
     }, function() {
       let alert = new Alert("alert-warning",alerts.triIco,"Контроллер не подключен по USB");
@@ -543,11 +562,12 @@ function EnrrganController () {
   this.getInput  = function () {
     return transport.getInput();
   }
-  this.sendTime  = function () {
+  this.sendTime  = function ( time ) {
     if ( transport.getStatus() == usbStat.wait) {
       initTimeWriteSequency( function () {
         transport.start( usbStat.write, null );
-      });
+        return;
+      }, time );
     }
     return;
   }
@@ -567,9 +587,9 @@ function EnrrganController () {
     }
     return;
   }
-  this.sendAuthorization = function () {
+  this.sendAuthorization = function ( password ) {
     if ( transport.getStatus() == usbStat.wait ) {
-      initWriteAuthorSequency( function () {
+      initWriteAuthorSequency( password, function () {
         transport.start( usbStat.write, null );
       });
     }
@@ -592,6 +612,27 @@ function EnrrganController () {
     }
     return;
   }
+  this.readMeasurement  = function ( size, alertIn ) {
+    alert = alertIn;
+    if ( transport.getStatus() == usbStat.wait) {
+      transport.clean();
+      for ( var i=0; i<size; i++ ) {
+        let msg = new USBMessage( [] );
+        msg.makeMeasurementRequest( i );
+        transport.addRequest( msg );
+      }
+    }
+    transport.start( usbStat.read, alert );
+    return;
+  }
+  this.eraseMeasurement = function () {
+    if ( transport.getStatus() == usbStat.wait ) {
+      initWriteEraseMeasurment( function() {
+        transport.start( usbStat.write, alert );
+        return;
+      })
+    }
+  }
   this.sendEWA  = function ( ewa, alertIn ) {
     alert = alertIn;
     if ( transport.getStatus() == usbStat.wait ) {
@@ -601,10 +642,10 @@ function EnrrganController () {
     }
     return;
   }
-  this.receive  = function ( alertIn ) {
+  this.receive  = function ( password, alertIn ) {
     alert = alertIn;
     if ( transport.getStatus() == usbStat.wait) {
-      initReadSequency( function () {
+      initReadSequency( password, function () {
         transport.start( usbStat.read, alert );
       });
     }
@@ -618,6 +659,7 @@ let controller = new EnrrganController();
 //------------------------------------------------------------------------------
 module.exports.EnrrganController = EnrrganController;
 module.exports.controller        = controller;
+module.exports.Transport         = USBtransport;
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/

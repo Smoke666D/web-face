@@ -2364,7 +2364,7 @@ var dataReg = [
    "default": 1000,
    "scale": -1,
    "min": 1,
-   "max": 360000,
+   "max": 36000,
    "units": "сек",
    "type": "U",
    "rw": "rw",
