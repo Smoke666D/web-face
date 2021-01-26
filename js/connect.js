@@ -108,6 +108,18 @@ function eraseMeasurement () {
   /* Clean plot */
   return;
 }
+function readMeasurement () {
+  let size = parseInt( document.getElementById( 'recordNumber' ).textContent );
+  console.log(size);
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+
+  } else if ( connectionType == 'usb' ) {
+    let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
+    usb.controller.readMeasurement( size, alert );
+  }
+  /* Clean plot */
+  return;
+}
 function writePassword ( password ) {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     writePasspordEth( password );
