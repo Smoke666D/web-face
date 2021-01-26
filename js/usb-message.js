@@ -635,7 +635,6 @@ function USBMessage ( buffer ) {
       case msgCMD.USB_GET_MEASUREMENT:
         output = parseMeasurement( self.length );
         type   = 7;
-        console.log ( output );
         break;
       case msgCMD.USB_GET_MEASUREMENT_LENGTH:
         output = parseMeasurementLength();
