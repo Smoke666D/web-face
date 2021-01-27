@@ -9,7 +9,7 @@ const USB_DATA_SIZE = require('./js/usb-message.js').USB_DATA_SIZE;
 const USB_CHART_HEADER_LENGTH = require('./js/usb-message.js').USB_CHART_HEADER_LENGTH;
 const USB_DATA_BYTE = require('./js/usb-message.js').USB_DATA_BYTE;
 
-var scales = [ 1, 1 ];
+var scales = [ 0, 0 ];
 var lables = [ 'шт', 'c' ];
 /*----------------------------------------------------------------------------*/
 document.getElementById("min-btn").addEventListener("click", function (e) {

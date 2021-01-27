@@ -104,7 +104,6 @@ function MeasureType ( step ) {
     return;
   }
   this.addLine  = function ( line ) {
-    line.init();
     this.line.push( line );
     return;
   }
