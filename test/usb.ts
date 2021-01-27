@@ -147,6 +147,24 @@ describe( 'USB message test', function () {
     }
 		return;
 	});
+	it ( 'make measurement length request', function () {
+		let message = new USBMessage( [] );
+		message.makeMeasurementLengthRequest();
+		assert.equal( message.status,        1,    'Wrong status'  );
+    assert.equal( message.command,       0x14, 'Wrong command' );
+    assert.equal( message.adr,           0,    'Wrong address' );
+    assert.equal( message.length,        0,    'Wrong length'  );
+    assert.equal( message.buffer.length, 65,   'Wrong buffer size' );
+    assert.equal( message.buffer[0],     0x01, 'Wrong status byte' );
+    assert.equal( message.buffer[1],     0x14, 'Wrong command byte' );
+    assert.equal( message.buffer[2],     0x01, 'Wrong status byte' );
+    assert.equal( message.buffer[3],     0x00, 'Wrong second address byte' );
+    assert.equal( message.buffer[4],     0x00, 'Wrong first address byte' );
+    for ( var i=5; i<message.buffer.length; i++ ) {
+      assert.equal( message.buffer[i], 0, 'Wrong buffer data at ' + i );
+    }
+		return;
+	});
 	it ( 'make measurement request', function () {
 		let message = new USBMessage( [] );
 		message.makeMeasurementRequest( 4 );
@@ -602,6 +620,35 @@ describe( 'USB message test', function () {
       [type, output] = message.parse();
     });
 		assert.equal( type,   6,    'Wrong type of data' );
+    assert.equal( output, data, 'Wrong data'         );
+    return;
+	});
+	it ( 'parse measurement length', function () {
+		let type   = 0;
+    let output = null;
+		let data   = 0x1234;
+		buffer = [
+      0x01,
+      0x14,
+      0x01,
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+      0x02,
+			( data & 0x00FF ),
+			( ( data & 0xFF00 ) >> 8  ),
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    ];
+		let message = new USBMessage( buffer );
+    message.init( function () {
+      [type, output] = message.parse();
+    });
+		assert.equal( type,   8,    'Wrong type of data' );
     assert.equal( output, data, 'Wrong data'         );
     return;
 	});
