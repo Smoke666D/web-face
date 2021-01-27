@@ -79,7 +79,6 @@ function MeasureType ( step ) {
   this.line     = [];
   this.label    = 'сек';
   this.max      = 0;
-
   this.calcStep = function () {
     if ( this.step > 60 ) {
       this.step  = this.step / 60;
@@ -118,9 +117,9 @@ function MeasureType ( step ) {
 }
 /*----------------------------------------------------------------------------*/
 function MeasureChartType ( step ) {
-  var self    = this;
-  var dataset = null;
-  var options = null;
+  var self      = this;
+  var dataset   = null;
+  var options   = null;
   var axePreset = {
     type: 'linear',
     scaleLabel: {
@@ -132,9 +131,7 @@ function MeasureChartType ( step ) {
       min: 0
     }
   };
-
-  this.measure = new MeasureType( step );
-
+  this.measure  = new MeasureType( step );
   function cleanDataset () {
     dataChart.data.datasets = [];
     return;
@@ -209,7 +206,6 @@ function MeasureChartType ( step ) {
     dataChart.data.datasets.push( new DataChartPreset( color, data, line.label, dash ) );
     return;
   }
-
   this.init      = function () {
     cleanChart();
     dataChart = new Chart( measureChart, {
@@ -249,7 +245,6 @@ function measureUpdate ( buffer, scales, lables ) {
   var data      = [];
   var line      = null;
   var lineArray = new MeasureType( 1 );
-
   for ( var i=0; i<buffer[0].length; i++ ) {
     data = [];
     for ( var j=0; j<buffer.length; j++ ) {
@@ -302,16 +297,22 @@ function measureLoad () {
 				reader.onload = function() {
 					try {
 						data = JSON.parse( reader.result );
-            lineArray = new MeasureType( data.step );
-            lineArray.setLabel( data.label );
-            for ( var i=0; i<data.line.length; i++ ) {
-              line = new MeasureLine( 1, data.line[i].label );
-              line.init( data.line[i].data );
-              lineArray.addLine( line );
-              measureChartStruct.setData( lineArray );
+            if ( ( data.step         == undefined ) ||
+                 ( data.label        == undefined ) ||
+                 ( data.line         == undefined ) ||
+                 ( data.line[0].data == undefined ) )
+            {
+              let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
+            } else {
+              lineArray = new MeasureType( data.step );
+              lineArray.setLabel( data.label );
+              for ( var i=0; i<data.line.length; i++ ) {
+                line = new MeasureLine( 1, data.line[i].label );
+                line.init( data.line[i].data );
+                lineArray.addLine( line );
+                measureChartStruct.setData( lineArray );
+              }
             }
-
-            console.log( data );
 					} catch( e ) {
             let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
 					}
@@ -332,8 +333,7 @@ function measureChartInit () {
   var dd       = [];
   measureChartStruct = new MeasureChartType( 1 );
   measureChartStruct.init();
-
-
+/*
   for ( var i=0; i<8; i++ ) {
     dd = [];
     for ( var j=0; j<1200; j++ ) {
@@ -344,6 +344,6 @@ function measureChartInit () {
     testData.addLine( line );
   }
   measureChartStruct.setData( testData );
-
+*/
   return;
 }
