@@ -165,14 +165,11 @@ function MeasureChartType ( step ) {
         }]
       },
     pan: {
-      enabled: true,
-      mode: "x",
-      speed: 100,
-      threshold: 100
+      enabled: false,
     },
     zoom: {
       enabled: true,
-      drag: false,
+      drag: true,
       mode: "x",
       limits: {
         max: 10,
