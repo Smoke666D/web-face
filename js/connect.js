@@ -105,6 +105,9 @@ function eraseMeasurement () {
   } else if ( connectionType == 'usb' ) {
     usb.controller.eraseMeasurement();
   }
+  measurementLength = 0;
+  measureBuffer     = [];
+  measureClean();
   /* Clean plot */
   return;
 }

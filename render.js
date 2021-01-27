@@ -9,8 +9,8 @@ const USB_DATA_SIZE = require('./js/usb-message.js').USB_DATA_SIZE;
 const USB_CHART_HEADER_LENGTH = require('./js/usb-message.js').USB_CHART_HEADER_LENGTH;
 const USB_DATA_BYTE = require('./js/usb-message.js').USB_DATA_BYTE;
 
-var scales = [ 1 ];
-var lables = [ 'шт' ];
+var scales = [ 1, 1 ];
+var lables = [ 'шт', 'c' ];
 /*----------------------------------------------------------------------------*/
 document.getElementById("min-btn").addEventListener("click", function (e) {
   var window = remote.getCurrentWindow();
@@ -148,6 +148,9 @@ function connect () {
       /* outCallback */
       }, function() {
         let alert = new Alert( "alert-success", alerts.okIco, "Данные успешно переданы", 1 );
+        measurementLength = 0;
+        measureBuffer     = [];
+        measureClean();
       /* errorCalback */
       }, function() {
         let alert = new Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );

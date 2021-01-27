@@ -225,6 +225,11 @@ function MeasureChartType ( step ) {
     dataChart.resetZoom();
     return;
   }
+  this.clean     = function () {
+    cleanDataset();
+    dataChart.update();
+    return;
+  }
   this.setup     = function () {
     cleanDataset();
     this.measure.init();
@@ -240,6 +245,11 @@ function MeasureChartType ( step ) {
 }
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+function measureClean () {
+  measureChartStruct.clean();
+  return;
+}
 /*----------------------------------------------------------------------------*/
 function measureUpdate ( buffer, scales, lables ) {
   var data      = [];
