@@ -165,12 +165,12 @@ function MeasureChartType ( step ) {
         }]
       },
     pan: {
-      enabled: false,
+      enabled: false
     },
     zoom: {
       enabled: true,
       drag: true,
-      mode: "x",
+      mode: "xy",
       limits: {
         max: 10,
         min: 0.5

@@ -50,7 +50,7 @@ def addJsSection( jsLink, htmlText, index, minifyJS ):
         else:
             startSize = len( jsText ) / 1024;
         jsText = minifyJs( jsText );
-        if (smallFile == 1):
+        if ( smallFile == 1 ):
             finishSize = len( jsText );
         else:
             finishSize = len( jsText ) / 1024;
@@ -67,7 +67,7 @@ def addCssSection( cssLink, htmlText, index, minifyCSS, optimCSS ):
     cssText = open( cssLink, "r" ).read();
     cssFile = cssLink[( cssLink.rfind("\\") + 1 ):len(cssLink)];
     smallFile = 0;
-    if ( optimCSS == True ):
+    if ( ( optimCSS == True ) and ( cssFile.find( '.min' ) == -1 ) ):
         if len( cssText ) < 1024:
             startSize = len( cssText );
             smallFile = 1;
@@ -83,10 +83,8 @@ def addCssSection( cssLink, htmlText, index, minifyCSS, optimCSS ):
             print( "CSS clean     : {} - from {} Kb to {} Kb ({}%)".format( cssFile, startSize, finishSize, delta ) );
         else:
             print( "CSS clean     : {} - from {} byte to {} byte ({}%)".format( cssFile, startSize, finishSize, delta ) );
-
-
     smallFile = 0;
-    if minifyCSS == True:
+    if ( ( minifyCSS == True ) and ( cssFile.find( '.min' ) == -1 ) ):
         if len( cssText ) < 1024:
             startSize = len( cssText );
             smallFile = 1;
@@ -205,11 +203,11 @@ def removeElectronFromHTML( html ):
             startIndex = out.rfind( "<", 0, index );
             endIndex   = out.find( ">", index ) + 1;
             divCounter = 1;
-            i = endIndex;
+            i          = endIndex;
             while True:
                 i = out.find( "<", i );
-                if (out[i+1] != '!'):
-                    if (out[i + 1] != '/'):
+                if ( ( out[i + 1] != '!' ) and ( not ( ( out[i+1] == 'b' ) and ( out[i+2] == 'r' ) and ( out[i+3] == '>' ) ) ) ):
+                    if ( out[i + 1] != '/' ):
                         divCounter += 1;
                     else:
                         divCounter -= 1;
@@ -365,9 +363,9 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     except:
         htmlFile = open( htmlPath, "r" );
         html404File = open( html404Path, "r" );
-    htmlText = htmlFile.read();
+    htmlText    = htmlFile.read();
     html404Text = html404File.read();
-    htmlText = removeElectronFromHTML( htmlText );
+    htmlText    = removeElectronFromHTML( htmlText );
     if minifyHTML == True:
         htmlText = minifyHtml( htmlText );
     #----------- Remove links and add css files from html file --------
