@@ -2003,8 +2003,8 @@
           <div class="col-sm-3 pos-name">
             <label>Система переменного тока</label>
           </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select" id="genAcSys">
+          <div class="col-sm-3">
+            <select class="custom-select data-select" id="genAcSys">
               <option value="0">Треугольник</option>
               <option value="1">Звезда</option>
               <option value="2">Одна фаза</option>
@@ -2085,6 +2085,20 @@
         </div>
         <br>
         <h5>Опции тока генератора</h5>
+        <div class="row">
+          <div class="col-sm-3 pos-name">
+            <label>Коэффициент трансформатора тока</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" class="form-control s-sinput" id="sinput-genCurrentTrasformRatioLevel" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-genCurrentTrasformRatioLevel"></label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-genCurrentTrasformRatioLevel"></div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-sm-3 pos-name">
             <label>Первичный ток трансформатора</label>
@@ -2933,8 +2947,8 @@
           <div class="col-sm-2 pos-name">
             <label>Действие</label>
           </div>
-          <div class="col-sm-2">
-            <select class="custom-select sensor-select" id="maintenanceAlarmOilAction">
+          <div class="col-sm-4">
+            <select class="custom-select" id="maintenanceAlarmOilAction">
               <option value="0">Запрет следующего пуска</option>
               <option value="1">Предупреждение</option>
             </select>
@@ -2985,8 +2999,8 @@
           <div class="col-sm-2 pos-name">
             <label>Действие</label>
           </div>
-          <div class="col-sm-2">
-            <select class="custom-select sensor-select" id="maintenanceAlarmAirAction">
+          <div class="col-sm-4">
+            <select class="custom-select" id="maintenanceAlarmAirAction">
               <option value="0">Запрет следующего пуска</option>
               <option value="1">Предупреждение</option>
             </select>
@@ -3037,8 +3051,8 @@
           <div class="col-sm-2 pos-name">
             <label>Действие</label>
           </div>
-          <div class="col-sm-2">
-            <select class="custom-select sensor-select" id="maintenanceAlarmFuelAction">
+          <div class="col-sm-4">
+            <select class="custom-select" id="maintenanceAlarmFuelAction">
               <option value="0">Запрет следующего пуска</option>
               <option value="1">Предупреждение</option>
             </select>
@@ -3223,10 +3237,10 @@
 
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Начать измерения после</label>
+            <label>Начать после</label>
           </div>
-          <div class="col-sm-2">
-            <select class="custom-select sensor-select" id="">
+          <div class="col-sm-4">
+            <select class="custom-select">
               <option value="0">Включения контроллера</option>
               <option value="1">Пуска двигателя</option>
               <option value="2">Переключения на генератор</option>
@@ -3235,10 +3249,10 @@
         </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Остановить измерения после</label>
+            <label>Остановить после</label>
           </div>
-          <div class="col-sm-2">
-            <select class="custom-select sensor-select" id="">
+          <div class="col-sm-4">
+            <select class="custom-select">
               <option value="0">Никогда</option>
               <option value="1">Останова двигателя</option>
               <option value="2">Переключения на сеть</option>

@@ -8539,6 +8539,9 @@ a[data-toggle="collapse"] {
   .content-data label{
     line-height: 1rem;
   }
+  .data-select {
+    width: 140px!important;}
+  }
   .sensor-select{
     width: 420px!important;}
   .content-data .pos-name{
