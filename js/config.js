@@ -137,7 +137,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 5,
+   "bitMapSize": 4,
    "bit": [
        {
            "name": "oilPressureSensorType",
@@ -163,12 +163,6 @@ var dataReg = [
            "max": 1,
            "min": 0,
            "shift": 6,
-       },{
-           "name": "oilPressureUnitsEnb",
-           "mask": 128,
-           "max": 1,
-           "min": 0,
-           "shift": 7,
        },
    ]
 },{
@@ -2277,7 +2271,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 16,
+   "bitMapSize": 14,
    "bit": [
        {
            "name": "recordEnb",
@@ -2286,95 +2280,83 @@ var dataReg = [
            "min": 0,
            "shift": 0,
        },{
-           "name": "recordTimeEnb",
+           "name": "recordOilPressureEnb",
            "mask": 2,
            "max": 1,
            "min": 0,
            "shift": 1,
        },{
-           "name": "recordDateEnb",
+           "name": "recordCoolantTempEnb",
            "mask": 4,
            "max": 1,
            "min": 0,
            "shift": 2,
        },{
-           "name": "recordOilPressureEnb",
+           "name": "recordFuelLevelEnb",
            "mask": 8,
            "max": 1,
            "min": 0,
            "shift": 3,
        },{
-           "name": "recordCoolantTempEnb",
+           "name": "recordSpeedEnb",
            "mask": 16,
            "max": 1,
            "min": 0,
            "shift": 4,
        },{
-           "name": "recordFuelLevelEnb",
+           "name": "recordInputAEnb",
            "mask": 32,
            "max": 1,
            "min": 0,
            "shift": 5,
        },{
-           "name": "recordSpeedEnb",
+           "name": "recordInputBEnb",
            "mask": 64,
            "max": 1,
            "min": 0,
            "shift": 6,
        },{
-           "name": "recordInputAEnb",
+           "name": "recordInputCEnb",
            "mask": 128,
            "max": 1,
            "min": 0,
            "shift": 7,
        },{
-           "name": "recordInputBEnb",
+           "name": "recordInputDEnb",
            "mask": 256,
            "max": 1,
            "min": 0,
            "shift": 8,
        },{
-           "name": "recordInputCEnb",
+           "name": "recordVoltageGenEnb",
            "mask": 512,
            "max": 1,
            "min": 0,
            "shift": 9,
        },{
-           "name": "recordInputDEnb",
+           "name": "recordFreqGenEnb",
            "mask": 1024,
            "max": 1,
            "min": 0,
            "shift": 10,
        },{
-           "name": "recordVoltageGenEnb",
+           "name": "recordVoltageNetEnb",
            "mask": 2048,
            "max": 1,
            "min": 0,
            "shift": 11,
        },{
-           "name": "recordFreqGenEnb",
+           "name": "recordFreqNetEnb",
            "mask": 4096,
            "max": 1,
            "min": 0,
            "shift": 12,
        },{
-           "name": "recordVoltageNetEnb",
+           "name": "recordVoltageAccEnb",
            "mask": 8192,
            "max": 1,
            "min": 0,
            "shift": 13,
-       },{
-           "name": "recordFreqNetEnb",
-           "mask": 16384,
-           "max": 1,
-           "min": 0,
-           "shift": 14,
-       },{
-           "name": "recordVoltageAccEnb",
-           "mask": 32768,
-           "max": 1,
-           "min": 0,
-           "shift": 15,
        },
    ]
 },{

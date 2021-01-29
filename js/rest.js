@@ -13,16 +13,16 @@ var rtcTime;
 var measurement;
 var freeDataArray   = [];
 var freeDataValue   = [];
-var freeDataNames   = ["engineWorkTimeData",
-                       "engineWorkMinutesData",
-                       "engineStartsNumberData",
-											 "maintenanceAlarmOilTimeLeft",
-											 "maintenanceAlarmAirTimeLeft",
-											 "maintenanceAlarmFuelTimeLeft",
-                       "powerReactiveUsage",
-                       "powerActiveUsage",
-                       "powerFullUsage"];
-
+var freeDataNames   = [
+  "engineWorkTimeData",
+  "engineWorkMinutesData",
+  "engineStartsNumberData",
+	"maintenanceAlarmOilTimeLeft",
+	"maintenanceAlarmAirTimeLeft",
+	"maintenanceAlarmFuelTimeLeft",
+  "powerReactiveUsage",
+  "powerActiveUsage",
+  "powerFullUsage"];
 var   logArray     = [];
 const logMaxSize   = 255;
 const logTypesDictionary   = [
@@ -124,7 +124,6 @@ function  SET_LOG_DATE ( day, month, year, hour, min, sec ) {
          ( min   << LOG_MIN_SHIFT   ) |
          ( sec   << LOG_SEC_SHIFT   );
 }
-
 //******************************************************************************
 function bitVal( n, reg ) {
 	return ( reg.value & reg.bit[n].mask ) >> reg.bit[n].shift;
@@ -136,9 +135,8 @@ function bitWrite( n, reg, val ) {
 }
 //******************************************************************************
 function StrLine ( name ) {
-	var self  = this;
-	this.name = name;
-
+	var self     = this;
+	this.name    = name;
 	this.getData = function() {
 		for ( var i=0; i<dataReg.length; i++ ) {
 			if ( dataReg[i].name == name ) {
@@ -172,7 +170,6 @@ function StrLine ( name ) {
 		}
 		return;
 	}
-
 	this.init();
 	if ( this.object ) {
 		this.update();
@@ -181,8 +178,8 @@ function StrLine ( name ) {
 }
 //******************************************************************************
 function Switch ( name ) {
-	this.name = name;
-
+  var self     = this;
+	this.name    = name;
 	this.getData = function() {
 		for ( var i=0; i<dataReg.length; i++ ) {
 			if ( dataReg[i].bitMapSize > 0 ) {
@@ -196,28 +193,23 @@ function Switch ( name ) {
 		}
 		return;
 	}
-
-	this.getVal = function() {
+	this.getVal  = function() {
 		return bitVal( this.bitNum, dataReg[this.regNum] );
 	}
-
-	this.setVal = function( input ) {
+	this.setVal  = function( input ) {
 		bitWrite( this.bitNum, dataReg[this.regNum], input );
 		return;
 	}
-
-	this.init = function() {
+	this.init    = function() {
 		this.object = document.getElementById( name );
 		this.getData();
 		return;
 	}
-
-	this.update = function() {
+	this.update  = function() {
 		this.object.checked = this.getVal();
 		return;
 	}
-
-	this.grab = function() {
+	this.grab    = function() {
 		if ( this.object.checked > 0 ) {
 			this.setVal( 1 );
 		} else {
@@ -225,15 +217,13 @@ function Switch ( name ) {
 		}
 		return;
 	}
-
 	this.init();
 	return;
 }
 //******************************************************************************
 function Progress ( name ) {
-	var self = this;
-	this.name = name;
-
+	var self     = this;
+	this.name    = name;
 	this.getData = function() {
 		for ( var i=0; i<dataReg.length; i++ ){
 			if ( dataReg[i].name == name ) {
@@ -242,8 +232,7 @@ function Progress ( name ) {
 		}
 		return;
 	}
-
-	this.init = function() {
+	this.init    = function() {
 		this.getData();
 		this.object = document.getElementById( "progress-" + this.name );
 		this.object.style.width = "0%";
@@ -282,32 +271,32 @@ function Progress ( name ) {
 			  this.resetSw.disabled = false;
 			}
 		}
+    return;
 	}
-
-	this.update = function() {
+	this.update  = function() {
 		if ( this.object != null ) {
 			var val = dataReg[this.regNum].value / dataReg[this.regNum].max * 100;
 			this.object.style.width = val.toString() + '%';
 		}
+    return;
 	}
-
 	this.init();
 	if ( this.object ) {
 		this.update();
 	}
+  return;
 }
 //******************************************************************************
 function Select ( name ) {
-	var self  = this;
-	this.name = name;
-
+	var self     = this;
+	this.name    = name;
 	this.getData = function() {
 		for ( var i=0; i<dataReg.length; i++ ){
 			if ( dataReg[i].bitMapSize > 0 ) {
 				for ( var j=0; j<dataReg[i].bitMapSize; j++ ) {
 					if ( dataReg[i].bit[j].name == this.name ) {
 						this.regNum = i;
-						this.bitNum = j
+						this.bitNum = j;
 					}
 				}
 			}
@@ -345,7 +334,7 @@ function Select ( name ) {
 		}
 		return;
 	}
-	this.update = function() {
+	this.update  = function() {
 		if ( this.object != null ) {
 			this.object.value = bitVal( this.bitNum, dataReg[this.regNum] );
       if ( this.sw.object ) {
@@ -367,7 +356,7 @@ function Select ( name ) {
 		}
 		return;
 	}
-	this.grab   = function() {
+	this.grab    = function() {
 		if ( this.object != null ) {
 			bitWrite( this.bitNum, dataReg[this.regNum], this.object.value );
 		}
@@ -431,10 +420,10 @@ function Radio ( name ) {
 }
 //******************************************************************************
 function Slider ( name, preInit ) {
-	var self = this;
-	this.name      = name;
+	var self  = this;
+	this.name = name;
 	/*--------------------------------------------------------------------------*/
-	this.getData   = function () {
+	this.getData     = function () {
 		for ( var i=0; i<dataReg.length; i++ ) {
 			if ( dataReg[i].name == name )
 			{
@@ -443,29 +432,21 @@ function Slider ( name, preInit ) {
 		}
 		return;
 	}
-	this.setUnits  = function ( units ) {
-		dataReg[this.regNum].units = units;
-		return;
-	}
-	this.setScale  = function( scale ) {
-		dataReg[this.regNum].scale = scale;
-		return;
-	}
   this.enableCheck = function () {
     if ( this.sw.object ) {
       if ( this.sw.object.checked ) {
-        self.enable = 1
+        self.enable         = 1
         self.input.disabled = false;
         self.slider.removeAttribute( 'disabled' );
       } else {
-        self.enable = 0
+        self.enable         = 0
         self.input.disabled = true;
         self.slider.setAttribute( 'disabled', false );
       }
     }
     return;
   }
-	this.init      = function() {
+	this.init        = function() {
 		this.getData();
 		this.slider = document.getElementById( "s-slider-" + this.name );
 		this.input  = document.getElementById( "sinput-" + this.name );
@@ -570,11 +551,11 @@ function Slider ( name, preInit ) {
 		}
 		return;
 	}
-	this.calcScale = function() {
+	this.calcScale   = function() {
 		this.scl = Math.pow( 10, dataReg[this.regNum].scale );
 		return;
 	}
-	this.update    = function() {
+	this.update      = function() {
 		reg = dataReg[this.regNum];
 		try {
       for ( var i=0; i<reg.units.length; i++ ) {
@@ -610,7 +591,7 @@ function Slider ( name, preInit ) {
 	  }
 		return;
 	}
-	this.grab      = function() {
+	this.grab        = function() {
 		this.calcScale();
 		val = parseFloat( this.input.value ) / Math.pow( 10, dataReg[this.regNum].scale )
 		dataReg[this.regNum].value = parseFloat( val.toFixed( 0 ) );
