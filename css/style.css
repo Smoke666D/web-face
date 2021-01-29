@@ -762,7 +762,6 @@ pre {
     flex: 0 0 33.33333%;
     max-width: 33.33333%; }
   .col-sm-5 {
-    background-color: red;
     -webkit-box-flex: 0;
     -ms-flex: 0 0 41.66667%;
     flex: 0 0 41.66667%;
@@ -8542,8 +8541,7 @@ a[data-toggle="collapse"] {
   .data-select {
     width: 140px!important;}
   }
-  .sensor-select{
-    width: 420px!important;}
+  .sensor-select{}
   .content-data .pos-name{
     text-align: left!important;
     -webkit-user-select: none; /* Safari */
@@ -8563,7 +8561,7 @@ a[data-toggle="collapse"] {
     left: -100px;
     opacity: 0;
     overflow: hidden;}
-  .content-data .sensor-select{
+  .content-data{
     width: 300px!important;
   }
   #sidebar {
@@ -8643,24 +8641,27 @@ a[data-toggle="collapse"] {
 .s-slider {
   display: block;
 }
-.s-sinput{
+.num-input {
   width: 90px;
   display: block;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard syntax */
 }
-.d-sinput-left{
-  width: 100px;
+.s-sinput {
+  width: 90px;
   display: block;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
 }
+
 .axis-input
 {
   display: inline-block;
   margin: 2px;
   width: 100px!important;
 }
-
 .pos-info{}
   .pos-info label{
     /*color: #28a745;*/
