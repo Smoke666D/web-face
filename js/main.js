@@ -448,10 +448,10 @@ function starterStopProcessing() {
 //******************************************************************************
 function oilScaleInit() {
 	var self = this;
-	this.object  = document.getElementById( 'oilScale' );
+	this.object  = document.getElementById( 'oilPressureUnitsEnb' );
 	this.label   = document.getElementById( 'oilScaleString' );
-	self.slider0 = new Slider( 'oilPressurePreAlarmLevel', 0 );
-	self.slider1 = new Slider( 'oilPressureAlarmLevel', 0 );
+	self.slider0 = new Slider( 'oilPressurePreAlarmLevel',    0 );
+	self.slider1 = new Slider( 'oilPressureAlarmLevel',       0 );
 	self.slider2 = new Slider( 'starterStopOilPressureLevel', 0 );
 
 	function calcOilScale() {
@@ -480,7 +480,6 @@ function oilScaleInit() {
 		self.slider2.update();
 	}
 
-
 	this.object.addEventListener( 'change', function() {
 		calcOilScale();
 	});
@@ -490,13 +489,13 @@ function oilScaleInit() {
 //******************************************************************************
 //******************************************************************************
 function setDisabledDI( letter ) {
-	var funct    = document.getElementById( 'di' + letter + 'Function' )
-	var polarity = document.getElementById( 'di' + letter + 'Polarity' );
-	var action   = document.getElementById( 'di' + letter + 'Action' );
-	var arming   = document.getElementById( 'di' + letter + 'Arming' );
-	var input    = document.getElementById( 'sinput-di' + letter + 'Delay' );
+	var funct    = document.getElementById( 'di'          + letter + 'Function' )
+	var polarity = document.getElementById( 'di'          + letter + 'Polarity' );
+	var action   = document.getElementById( 'di'          + letter + 'Action' );
+	var arming   = document.getElementById( 'di'          + letter + 'Arming' );
+	var input    = document.getElementById( 'sinput-di'   + letter + 'Delay' );
 	var slider   = document.getElementById( 's-slider-di' + letter + 'Delay' );
-	var message  = document.getElementById( 'di' + letter + 'Message' );
+	var message  = document.getElementById( 'di'          + letter + 'Message' );
 	if ( funct.value == 0 ) {
 		polarity.disabled = true;
 		action.disabled   = true;
@@ -522,8 +521,8 @@ function setDisabledDI( letter ) {
 	return;
 }
 function setDisabledDO( letter ) {
-	var no = document.getElementById( 'do' + letter + 'NO' );
-	var nc = document.getElementById( 'do' + letter + 'NC' );
+	var no   = document.getElementById( 'do' + letter + 'NO' );
+	var nc   = document.getElementById( 'do' + letter + 'NC' );
 	var type = document.getElementById( 'do' + letter + 'Type' );
 	if ( type.value == 0 ) {
 		no.disabled = true;
@@ -595,8 +594,8 @@ function slider2InitLimits( id1, id2 ) {
 	var self = this;
 	this.slider1 = document.getElementById( 's-slider-' + id1 );
 	this.slider2 = document.getElementById( 's-slider-' + id2 );
-	this.input1  = document.getElementById( 'sinput-' + id1 );
-	this.input2  = document.getElementById( 'sinput-' + id2 );
+	this.input1  = document.getElementById( 'sinput-'   + id1 );
+	this.input2  = document.getElementById( 'sinput-'   + id2 );
 	this.slider1.noUiSlider.on( 'change', function() {
 		val = parseFloat( self.slider2.noUiSlider.get() )
 		if ( parseFloat( self.slider1.noUiSlider.get() ) >= val ) {
@@ -613,7 +612,7 @@ function slider2InitLimits( id1, id2 ) {
 	this.slider2.noUiSlider.on( 'change', function() {
 		val = parseFloat( self.slider2.noUiSlider.get() );
 		min = parseFloat( self.slider1.noUiSlider.get() );
-		if ( val<=min ) {
+		if ( val <= min ) {
 			self.slider2.noUiSlider.set( min );
 		}
 	});

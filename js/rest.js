@@ -577,6 +577,11 @@ function Slider ( name, preInit ) {
 	this.update    = function() {
 		reg = dataReg[this.regNum];
 		try {
+      for ( var i=0; i<reg.units.length; i++ ) {
+        if ( reg.units.charCodeAt( i ).toString( 16 ) == 0 ) {
+          reg.units = reg.units.substring( 0, i );
+        }
+      }
 		  this.label.textContent = reg.units;
 		  if ( this.enable == 1 ) {
 			  this.input.disabled = false;

@@ -137,7 +137,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 4,
+   "bitMapSize": 5,
    "bit": [
        {
            "name": "oilPressureSensorType",
@@ -163,6 +163,12 @@ var dataReg = [
            "max": 1,
            "min": 0,
            "shift": 6,
+       },{
+           "name": "oilPressureUnitsEnb",
+           "mask": 128,
+           "max": 1,
+           "min": 0,
+           "shift": 7,
        },
    ]
 },{
