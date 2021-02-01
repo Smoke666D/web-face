@@ -292,18 +292,6 @@ function USBMessage ( buffer ) {
       }
       counter += reg.len * 2;
     }
-    /*----------- Configuration scale -----------*/
-    reg.scale = ( new Int8Array( [self.data[counter++]] ) )[0];
-    /*----------- Configuration units -----------*/
-    strBuffer = "";
-    for ( var i=counter; i<self.length; i++ ) {
-      strBuffer += String.fromCharCode( self.data[i] );
-    }
-    try {
-      reg.units = decodeURI( strBuffer );
-    } catch {
-      console.log( "Error on units decoding in " + dataReg[n].name );
-    }
     /*-------------------------------------------*/
     return;
   }
@@ -501,13 +489,7 @@ function USBMessage ( buffer ) {
         }
       }
     }
-    /*----------- Configuration scale -----------*/
-    data.push( reg.scale );
-    /*----------- Configuration units -----------*/
-    strBuffer = encodeURI( reg.units );
-    for ( var i=0; i<strBuffer.length; i++ ) {
-      data.push( strBuffer.charAt( i ).charCodeAt() );
-    }
+    /*-------------------------------------------*/
     makeResponse( msgCMD.USB_PUT_CONFIG_CMD, adr, data, data.length );
     return;
   }
