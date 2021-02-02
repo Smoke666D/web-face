@@ -158,8 +158,8 @@ function newSensorData ( name, xmax, ymax, xunit, yunit ) {
   }
   return;
 }
-let oilSensorResistance     = newSensorData( "oilSensorResistance",     1500, 15,  "Ом", "Бар"   );
-let oilSensorCurrent        = newSensorData( "oilSensorCurrent",        20,   15,  "мА", "Бар"   );
+let oilSensorResistance     = newSensorData( "oilSensorResistance",     1500, 2,   "Ом", "Бар"   );
+let oilSensorCurrent        = newSensorData( "oilSensorCurrent",        20,   2,   "мА", "Бар"   );
 let coolantSensorResistance = newSensorData( "coolantSensorResistance", 1500, 250, "Ом", "\xB0C" );
 let coolantSensorCurrent    = newSensorData( "coolantSensorCurrent",    20,   250, "мА", "\xB0C" );
 let fuelSensorResistance    = newSensorData( "fuelSensorResistance",    1500, 100, "Ом", "%"     );
