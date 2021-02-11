@@ -1935,7 +1935,7 @@ var dataReg = [
    "value": 210,
    "default": 210,
    "scale": -1,
-   "min": 0,
+   "min": 150,
    "max": 400,
    "units": "Гц",
    "type": "U",

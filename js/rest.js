@@ -895,10 +895,11 @@ function MeasurementSettings () {
 	return;
 }
 //******************************************************************************
-function CheckSelectValues ( atribut ) {
-	var self     = this;
-	var types    = document.getElementsByClassName( atribut );
-	var usedFunc = new Array( types.length ).fill( 0 );
+function CheckSelectValues ( atribut, enableForAll ) {
+	var self          = this;
+  this.enableForAll = enableForAll;
+	var types         = document.getElementsByClassName( atribut );
+	var usedFunc      = new Array( types.length ).fill( 0 );
 
   function disableFunc ( func ) {
 		for ( var i=0; i<types.length; i++ ) {
@@ -937,7 +938,7 @@ function CheckSelectValues ( atribut ) {
 	this.init   = function() {
     for ( var i=0; i<types.length; i++ ) {
       types[i].addEventListener( "change", function() {
-			  if ( this.value > 0 ) {
+			  if ( this.value > self.enableForAll ) {
 				  updateList();
 			    disableFunc( this.value );
  			    enableAll();
@@ -1182,8 +1183,8 @@ function declareInterface() {
 	declareSelects();
 	declareRadio();
 	declareFreeData();
-  diList  = new CheckSelectValues( "diFunction" );
-  doList  = new CheckSelectValues( "doType" );
+  diList  = new CheckSelectValues( "diFunction", 1 );
+  doList  = new CheckSelectValues( "doType",     0 );
   rtcTime = new RTC();
   rtcTime.init();
   measurement = new MeasurementSettings();
