@@ -583,7 +583,68 @@ function slider2InitLimits( id1, id2 ) {
 	return;
 }
 
-function slider4InitLimits( id1, id2, id3, id4 ) {
+function slider3InitLimits ( id1, id2, id3 ) {
+	var self = this;
+	this.slider1 = document.getElementById( 's-slider-' + id1 );
+	this.slider2 = document.getElementById( 's-slider-' + id2 );
+	this.slider3 = document.getElementById( 's-slider-' + id3 );
+	this.input1  = document.getElementById( 'sinput-'   + id1 );
+	this.input2  = document.getElementById( 'sinput-'   + id2 );
+	this.input3  = document.getElementById( 'sinput-'   + id3 );
+
+	this.slider1.noUiSlider.on( 'change', function() {
+		val = parseFloat( self.slider2.noUiSlider.get() )
+		if ( parseFloat( self.slider1.noUiSlider.get()) >= val ) {
+			self.slider1.noUiSlider.set( val );
+		}
+	});
+	this.input1.addEventListener( 'change', function() {
+		if ( self.input1.value >= self.input2.value ) {
+			self.input1.value = self.input2.value;
+			self.slider1.noUiSlider.set( self.input2.value );
+		}
+	});
+
+	this.slider2.noUiSlider.on( 'change', function() {
+		val = parseFloat( self.slider2.noUiSlider.get() );
+		min = parseFloat( self.slider1.noUiSlider.get() );
+		max = parseFloat( self.slider3.noUiSlider.get() );
+		if ( val <= min ) {
+			self.slider2.noUiSlider.set( min );
+		}
+		if ( val >= max ) {
+			self.slider2.noUiSlider.set( max );
+		}
+	});
+	this.input2.addEventListener( 'change', function() {
+		if ( self.input2.value <= self.input1.value ) {
+			self.input2.input2.value = self.input1.value;
+			self.slider2.noUiSlider.set( self.input1.value );
+		}
+		if ( self.input2.value >= self.input3.value ) {
+			self.input2.value = self.input3.value;
+			self.slider2.noUiSlider.set( input3.value );
+		}
+	});
+
+	this.slider3.noUiSlider.on( 'change', function() {
+		val = parseFloat( self.slider3.noUiSlider.get() );
+		min = parseFloat( self.slider2.noUiSlider.get() );
+		if ( val <= min ) {
+			self.slider3.noUiSlider.set( min );
+		}
+	});
+	this.input3.addEventListener( 'change', function() {
+		if ( self.input3.value <= self.input2.value ) {
+			self.input3.value = self.input2.value;
+			self.slider3.noUiSlider.set( self.input2.value );
+		}
+	});
+
+	return;
+}
+
+function slider4InitLimits ( id1, id2, id3, id4 ) {
 	var self = this;
 	this.slider1 = document.getElementById( 's-slider-' + id1 );
 	this.slider2 = document.getElementById( 's-slider-' + id2 );
@@ -790,8 +851,9 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 																						 'genOverFrequencyAlarmLevel' );
 	const oilVoltageLims = new slider2InitLimits( 'oilPressureAlarmLevel',
 																								'oilPressurePreAlarmLevel');
-  const coolantLims = new slider2InitLimits( 'coolantHightTempPreAlarmLevel',
-                                                    'coolantHightTempAlarmLevel' );
+  const coolantLims = new slider3InitLimits( 'coolantHightTempPreAlarmLevel',
+																						 'coolantHightTempElectroAlarmLevel',
+                                             'coolantHightTempAlarmLevel' );
   const coolantHeaterLims = new slider2InitLimits('coolantTempHeaterOnLevel','coolantTempHeaterOffLevel');
 	const coolantCoolerLims = new slider2InitLimits('coolantTempCoolerOnLevel','coolantTempCoolerOffLevel');
 	const fuelLims = new slider4InitLimits('fuelLevelLowAlarmLevel',
