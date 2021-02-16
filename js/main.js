@@ -478,6 +478,7 @@ function setDisabledDI( letter ) {
 	}
 	return;
 }
+
 function setDisabledDO( letter ) {
 	var no   = document.getElementById( 'do' + letter + 'NO' );
 	var nc   = document.getElementById( 'do' + letter + 'NC' );
@@ -495,6 +496,20 @@ function diInit( letter ) {
 	setDisabledDI( letter );
 	document.getElementById( 'di' + letter + 'Function' ).addEventListener( 'change', function() {
 		setDisabledDI( letter );
+	});
+	var message  = document.getElementById( 'di' + letter + 'Message' );
+	message.addEventListener( 'focus', function() {
+		while( message.value.endsWith( ' ' ) ) {
+			message.value = message.value.slice( 0, -1 );
+		}
+	});
+	message.addEventListener( 'blur', function() {
+		if ( message.value.length < 16 ) {
+			for ( var i=message.value.length; i<16; i++ ) {
+				message.value += ' ';
+			}
+		}
+		console.log( message.value );
 	});
 	return;
 }
