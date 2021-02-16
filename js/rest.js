@@ -1123,6 +1123,7 @@ function declareSliders () {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		str = dataReg[i].name;
 		if ( dataReg[i].name.endsWith( "Level" )    ||
+         dataReg[i].name.endsWith( "Quantity" )   ||
          dataReg[i].name.endsWith( "Interval" ) ||
 		     dataReg[i].name.endsWith( "Delay" )    ||
 				 dataReg[i].name.startsWith( "timer" )  ||
