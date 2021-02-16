@@ -282,10 +282,9 @@ function USBMessage ( buffer ) {
     } else {
       reg.value = [];
       for ( var i=0; i<reg.len; i++ ) {
-        if ( reg.type == 'S' ) {
-          reg.value.push( String.fromCharCode( parseInt(
-             ( byteToUint16( self.data[counter + i * 2], self.data[counter + i * 2 + 1] ) ).toString(10), 16
-           ) ) );
+        if ( reg.type == 'C' ) {
+          let input = String.fromCharCode(parseInt((byteToUint16( self.data[counter + i * 2], self.data[counter + i * 2 + 1] ) ).toString(10)));
+          reg.value.push( input );
         } else {
           reg.value.push( byteToUint16( self.data[counter + i * 2], self.data[counter + i * 2 + 1] ) );
         }
