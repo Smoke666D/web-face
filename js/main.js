@@ -354,6 +354,7 @@ function powerSliderInit( idActive, idReactive, idApparent, idCosFi, regName ) {
 	}
 	activeUpdate();
 	reactiveUpdate();
+
 	sliderActive.noUiSlider.on( 'change',function() {
 		activeUpdate();
 	});

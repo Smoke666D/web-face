@@ -474,6 +474,7 @@ function Slider ( name, preInit ) {
 		} else {
 			this.enable = 1;
 		}
+    /*
 		if ( ( this.name.endsWith( "Delay" ) ) || ( this.name.startsWith( "timer" ) ) ) {
 			this.slider.noUiSlider.on( 'change', function() {
 				switch( self.label.textContent ) {
@@ -551,6 +552,7 @@ function Slider ( name, preInit ) {
 				}
 			});
 		}
+    */
 		return;
 	}
 	this.calcScale   = function() {
