@@ -784,10 +784,10 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 						's-slider-oilPressurePreAlarmLevel'
 					],
 					function() {
-	  document.getElementById( 'starterStopOilPressureEnb' ).checked = false;
-		document.getElementById( 'sinput-starterStopOilPressureLevel' ).disabled = true;
-		document.getElementById( 's-slider-starterStopOilPressureLevel' ).setAttribute( 'disabled', false );
-		return;
+	  				document.getElementById( 'starterStopOilPressureEnb' ).checked = false;
+						document.getElementById( 'sinput-starterStopOilPressureLevel' ).disabled = true;
+						document.getElementById( 's-slider-starterStopOilPressureLevel' ).setAttribute( 'disabled', false );
+						return;
 	});
 	ainInit( 'coolantTempSensorType',
 	         [ 'coolantTempOpenCircuitAlarmEnb',
@@ -841,7 +841,9 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 					  'sinput-fuelPumpOnLevel',
 						's-slider-fuelPumpOnLevel'
 					],
-				  function() { return; } );
+				  function() {
+						return;
+	});
 	powerSliderInit( 'genRatedActivePowerLevel',
 		               'genRatedReactivePowerLevel',
 									 'genRatedApparentPowerLevel',
