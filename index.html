@@ -553,8 +553,8 @@
             <div class="col-sm-auto">
               <select class="custom-select sensor-select" id="oilPressureSensorType">
                 <option value="0">Не использовать</option>
-                <option value="1">Нормально открытый</option>
-                <option value="2">Нормально закрытый</option>
+                <option value="1">Замкнут при аварии</option>
+                <option value="2">Разомкнут при аварии</option>
                 <option value="3">Резистивный</option>
                 <option value="4">Токовый</option>
               </select>
@@ -636,8 +636,8 @@
             <div class="col-sm-auto">
               <select class="custom-select sensor-select" name="sensor-type" id="coolantTempSensorType">
                 <option value="0">Не использовать</option>
-                <option value="1">Нормально открытый</option>
-                <option value="2">Нормально закрытый</option>
+                <option value="1">Замкнут при аварии</option>
+                <option value="2">Разомкнут при аварии</option>
                 <option value="3">Резистивный</option>
                 <option value="4">Токовый</option>
               </select>
@@ -825,8 +825,8 @@
           <div class="col-sm-auto">
             <select class="custom-select sensor-select" id="fuelLevelSensorType">
               <option value="0">Не использовать</option>
-              <option value="1">Нормально открытый</option>
-              <option value="2">Нормально закрытый</option>
+              <option value="1">Замкнут при аварии</option>
+              <option value="2">Разомкнут при аварии</option>
               <option value="3">Резистивный</option>
               <option value="4">Токовый</option>
             </select>
@@ -1136,8 +1136,8 @@
           </div>
           <div class="col-sm-6">
             <select class="custom-select" id="diaPolarity">
-              <option value="0">Нормально разомкнутый</option>
-              <option value="1">Нормально замкнутый</option>
+              <option value="0">Замкнут при аварии</option>
+              <option value="1">Разомкнут при аварии</option>
             </select>
           </div>
         </div>
@@ -1150,7 +1150,6 @@
               <option value="0">Аварийный останов</option>
               <option value="1">Отключение нагрузки</option>
               <option value="2">Предупреждение</option>
-              <option value="3">Индикация</option>
             </select>
           </div>
         </div>
@@ -1221,8 +1220,8 @@
           </div>
           <div class="col-sm-6">
             <select class="custom-select" id="dibPolarity">
-              <option value="0">Нормально разомкнутый</option>
-              <option value="1">Нормально замкнутый</option>
+              <option value="0">Замкнут при аварии</option>
+              <option value="1">Разомкнут при аварии</option>
             </select>
           </div>
         </div>
@@ -1235,7 +1234,6 @@
               <option value="0">Аварийный останов</option>
               <option value="1">Отключение нагрузки</option>
               <option value="2">Предупреждение</option>
-              <option value="3">Индикация</option>
             </select>
           </div>
         </div>
@@ -1306,8 +1304,8 @@
           </div>
           <div class="col-sm-6">
             <select class="custom-select" id="dicPolarity">
-              <option value="0">Нормально разомкнутый</option>
-              <option value="1">Нормально замкнутый</option>
+              <option value="0">Замкнут при аварии</option>
+              <option value="1">Разомкнут при аварии</option>
             </select>
           </div>
         </div>
@@ -1320,7 +1318,6 @@
               <option value="0">Аварийный останов</option>
               <option value="1">Отключение нагрузки</option>
               <option value="2">Предупреждение</option>
-              <option value="3">Индикация</option>
             </select>
           </div>
         </div>
@@ -1391,8 +1388,8 @@
           </div>
           <div class="col-sm-6">
             <select class="custom-select" id="didPolarity">
-              <option value="0">Нормально разомкнутый</option>
-              <option value="1">Нормально замкнутый</option>
+              <option value="0">Замкнут при аварии</option>
+              <option value="1">Разомкнут при аварии</option>
             </select>
           </div>
         </div>
@@ -1405,7 +1402,6 @@
               <option value="0">Аварийный останов</option>
               <option value="1">Отключение нагрузки</option>
               <option value="2">Предупреждение</option>
-              <option value="3">Индикация</option>
             </select>
           </div>
         </div>
@@ -1449,7 +1445,7 @@
       <div id="digitalOutputPage" class="content-data hidden">
         <h2>Цифровые выходы</h2>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-first pos-name">
             <label>Выход A</label>
           </div>
           <div class="col-sm-auto">
@@ -1472,8 +1468,8 @@
                 <option value="10">Включить сеть</option>
                 <option value="11">Включить сеть импульсно</option>
                 <option value="12">Выключить сеть импульсно</option>
-                <option value="13">Охладитель охлаждающей жидкости</option>
-                <option value="14">Подогреватель охлаждающей жидкости</option>
+                <option value="13">Охладитель ОЖ</option>
+                <option value="14">Подогреватель ОЖ</option>
                 <option value="15">Стоповый соленоид</option>
                 <option value="16">Подкачка топлива</option>
                 <option value="17">Топливное реле</option>
@@ -1495,7 +1491,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-sm-first pos-name">
             <label>Выход B</label>
           </div>
           <div class="col-sm-auto">
@@ -1518,8 +1514,8 @@
                 <option value="10">Включить сеть</option>
                 <option value="11">Включить сеть импульсно</option>
                 <option value="12">Выключить сеть импульсно</option>
-                <option value="13">Охладитель охлаждающей жидкости</option>
-                <option value="14">Подогреватель охлаждающей жидкости</option>
+                <option value="13">Охладитель ОЖ</option>
+                <option value="14">Подогреватель ОЖ</option>
                 <option value="15">Стоповый соленоид</option>
                 <option value="16">Подкачка топлива</option>
                 <option value="17">Топливное реле</option>
@@ -1541,7 +1537,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-sm-first pos-name">
             <label>Выход С</label>
           </div>
           <div class="col-sm-auto">
@@ -1564,8 +1560,8 @@
                 <option value="10">Включить сеть</option>
                 <option value="11">Включить сеть импульсно</option>
                 <option value="12">Выключить сеть импульсно</option>
-                <option value="13">Охладитель охлаждающей жидкости</option>
-                <option value="14">Подогреватель охлаждающей жидкости</option>
+                <option value="13">Охладитель ОЖ</option>
+                <option value="14">Подогреватель ОЖ</option>
                 <option value="15">Стоповый соленоид</option>
                 <option value="16">Подкачка топлива</option>
                 <option value="17">Топливное реле</option>
@@ -1587,7 +1583,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-sm-first pos-name">
             <label>Выход D</label>
           </div>
           <div class="col-sm-auto">
@@ -1610,8 +1606,8 @@
                 <option value="10">Включить сеть</option>
                 <option value="11">Включить сеть импульсно</option>
                 <option value="12">Выключить сеть импульсно</option>
-                <option value="13">Охладитель охлаждающей жидкости</option>
-                <option value="14">Подогреватель охлаждающей жидкости</option>
+                <option value="13">Охладитель ОЖ</option>
+                <option value="14">Подогреватель ОЖ</option>
                 <option value="15">Стоповый соленоид</option>
                 <option value="16">Подкачка топлива</option>
                 <option value="17">Топливное реле</option>
@@ -1633,7 +1629,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-sm-first pos-name">
             <label>Выход E</label>
           </div>
           <div class="col-sm-auto">
@@ -1656,8 +1652,8 @@
                 <option value="10">Включить сеть</option>
                 <option value="11">Включить сеть импульсно</option>
                 <option value="12">Выключить сеть импульсно</option>
-                <option value="13">Охладитель охлаждающей жидкости</option>
-                <option value="14">Подогреватель охлаждающей жидкости</option>
+                <option value="13">Охладитель ОЖ</option>
+                <option value="14">Подогреватель ОЖ</option>
                 <option value="15">Стоповый соленоид</option>
                 <option value="16">Подкачка топлива</option>
                 <option value="17">Топливное реле</option>
@@ -1679,7 +1675,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-sm-first pos-name">
             <label>Выход F</label>
           </div>
           <div class="col-sm-auto">
@@ -1702,8 +1698,8 @@
                 <option value="10">Включить сеть</option>
                 <option value="11">Включить сеть импульсно</option>
                 <option value="12">Выключить сеть импульсно</option>
-                <option value="13">Охладитель охлаждающей жидкости</option>
-                <option value="14">Подогреватель охлаждающей жидкости</option>
+                <option value="13">Охладитель ОЖ</option>
+                <option value="14">Подогреватель ОЖ</option>
                 <option value="15">Стоповый соленоид</option>
                 <option value="16">Подкачка топлива</option>
                 <option value="17">Топливное реле</option>
