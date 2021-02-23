@@ -616,13 +616,37 @@ function LogRecord ( type, action, time ) {
   this.action = action;
   this.time   = time;
 }
-  function redrawLogTable () {
+function sortingLog () {
+  let buffer   = [];
+  let lastData = logArray[0].time;
+  let pointer  = 0;
+  if ( lastData != 0 ) {
+    for ( var i=1; i<logArray.length; i++ ) {
+      if ( ( lastData < logArray[i].time ) && ( logArray[i].time != 0 ) ) {
+        pointer  = i;
+        lastData = logArray[i].time;
+      }
+    }
+    for ( var i=pointer; i>=0; i-- ) {
+      buffer.push( logArray[i] );
+    }
+    if ( logArray[pointer + 1].data != 0 ) {
+      for ( var i=(logArray.length - 1 ); i>pointer; i-- ) {
+        buffer.push( logArray[i] );
+      }
+    }
+    logArray = buffer;
+  }
+  return;
+}
+function redrawLogTable () {
   var table = document.getElementById( 'log-body' );
-  var sell;
   var j     = 0;
+  var sell;
   while ( table.rows[0] ) {
     table.deleteRow(0);
   }
+  sortingLog();
   for ( var i=0; i<logArray.length; i++ ) {
     if ( logArray[i].time != 0 ) {
       let row = table.insertRow(j);
