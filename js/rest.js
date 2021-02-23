@@ -622,7 +622,7 @@ function sortingLog () {
   let pointer  = 0;
   if ( lastData != 0 ) {
     for ( var i=1; i<logArray.length; i++ ) {
-      if ( ( lastData < logArray[i].time ) && ( logArray[i].time != 0 ) ) {
+      if ( ( lastData <= logArray[i].time ) && ( logArray[i].time != 0 ) ) {
         pointer  = i;
         lastData = logArray[i].time;
       }
@@ -631,7 +631,7 @@ function sortingLog () {
       buffer.push( logArray[i] );
     }
     if ( logArray[pointer + 1].data != 0 ) {
-      for ( var i=(logArray.length - 1 ); i>pointer; i-- ) {
+      for ( var i=(logArray.length - 1); i>pointer; i-- ) {
         buffer.push( logArray[i] );
       }
     }
