@@ -23,8 +23,18 @@ var freeDataNames   = [
   "powerReactiveUsage",
   "powerActiveUsage",
   "powerFullUsage"];
-var   logArray     = [];
-const logMaxSize   = 255;
+var   logArray             = [];
+const logMaxSize           = 255;
+const userTypeA = 39;
+const userTypeB = 40;
+const userTypeC = 41;
+const userTypeD = 42;
+const logUserTypesDictionary = [
+  " Пользовательский А",
+  " Пользовательский B",
+  " Пользовательский C",
+  " Пользовательский D",
+];
 const logTypesDictionary   = [
   "Нет",
   "Внешная аварийная остановка",
@@ -63,7 +73,7 @@ const logTypesDictionary   = [
   "Сеть востановлена",
   "Ошибка сети",
   "Прерванный старт",
-  "прерванный стоп"
+  "Прерванный стоп"
 ];
 const logActionsDictionary = [
   "Нет",
@@ -639,6 +649,48 @@ function sortingLog () {
   }
   return;
 }
+function getLogType ( type ) {
+  let res = "";
+  let adr = 0;
+  if ( type < userTypeA ) {
+    res = logTypesDictionary[type];
+  } else {
+    switch ( type ) {
+      case userTypeA:
+        adr = 36;
+        break;
+      case userTypeB:
+        adr = 39;
+        break;
+      case userTypeC:
+        adr = 42;
+        break;
+      case userTypeD:
+        adr = 45;
+        break;
+    }
+    for ( var i=0; i<dataReg[adr].len; i++ ) {
+      res += dataReg[adr].value[i];
+    }
+    if ( res == "                " ) {
+      switch ( type ) {
+        case userTypeA:
+          res = logUserTypesDictionary[0];
+          break;
+        case userTypeB:
+          res = logUserTypesDictionary[1];
+          break;
+        case userTypeC:
+          res = logUserTypesDictionary[2];
+          break;
+        case userTypeD:
+          res = logUserTypesDictionary[3];
+          break;
+      }
+    }
+  }
+  return res;
+}
 function redrawLogTable () {
   var table = document.getElementById( 'log-body' );
   var j     = 0;
@@ -661,7 +713,7 @@ function redrawLogTable () {
                          ('0' + GET_LOG_MIN( logArray[i].time  ) ).slice(-2) + ':' +
                          ('0' + GET_LOG_SEC( logArray[i].time  ) ).slice(-2);
       cell = row.insertCell(3);
-      cell.textContent = logTypesDictionary[logArray[i].type];
+      cell.textContent = getLogType( logArray[i].type );
       cell = row.insertCell(4);
       cell.textContent = logActionsDictionary[logArray[i].action];
       if ( logArray[i].action == 1 ) {
