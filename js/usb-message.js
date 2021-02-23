@@ -284,7 +284,7 @@ function USBMessage ( buffer ) {
       for ( var i=0; i<reg.len; i++ ) {
         if ( reg.type == 'C' ) {
           let dig = byteToUint16( self.data[counter + i * 2], self.data[counter + i * 2 + 1] )
-          if ( dig == 0 ) {
+          if ( dig < 0x0020 ) {
             dig = 0x0020;
           }
           let input = String.fromCharCode( parseInt( ( dig ).toString( 10 ) ) );
@@ -482,8 +482,8 @@ function USBMessage ( buffer ) {
       data.push( ( reg.value & 0xFF00 ) >> 8 );
     } else {
       for ( var i=0; i<reg.len; i++ ) {
-        if ( reg.type == "S" ) {
-          let char = reg.value[i].charCodeAt( 0 ).toString( 16 );
+        if ( reg.type == "C" ) {
+          let char = reg.value[i].charCodeAt( 0 ).toString( 10 );
           data.push(   char & 0x00FF );
           data.push( ( char & 0xFF00 ) >> 8 );
         } else {
