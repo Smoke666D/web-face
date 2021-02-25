@@ -1,14 +1,15 @@
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
-const remote        = require('electron').remote;
-var HID             = require('node-hid');
-const alerts        = require('./alerts.js');
-const USBMessage    = require('./usb-message.js').USBMessage;
-const msgCMD        = require('./usb-message.js').msgCMD;
-const msgSTAT       = require('./usb-message.js').msgSTAT;
-const USB_DATA_SIZE = require('./usb-message.js').USB_DATA_SIZE;
-const common        = require('./common.js');
+const remote          = require('electron').remote;
+var HID               = require('node-hid');
+const alerts          = require('./alerts.js');
+const USBMessage      = require('./usb-message.js').USBMessage;
+const msgCMD          = require('./usb-message.js').msgCMD;
+const msgSTAT         = require('./usb-message.js').msgSTAT;
+const USB_DATA_SIZE   = require('./usb-message.js').USB_DATA_SIZE;
+const common          = require('./common.js');
+const CHART_DOTS_SIZE = require('../js/sensortable').CHART_DOTS_SIZE;
 /*----------------------------------------------------------------------------*/
 const chartsLength  = 3;
 var   charts        = [];
@@ -426,9 +427,19 @@ function EnrrganController () {
     transport.addToOutput( msg );
     /*------------------- Charts -------------------*/
     charts = uploadCharts();
-    for ( var i=0; i<charts.length; i++ ) {
+    for ( var i=0; i<(charts[0].size+1); i++ ) {
       msg = new USBMessage( [] );
-      msg.codeChart( charts[i], i );
+      msg.codeChartOil( charts[0], i );
+      transport.addToOutput( msg );
+    }
+    for ( var i=0; i<(charts[1].size+1); i++ ) {
+      msg = new USBMessage( [] );
+      msg.codeChartCoolant( charts[1], i );
+      transport.addToOutput( msg );
+    }
+    for ( var i=0; i<(charts[2].size+1); i++ ) {
+      msg = new USBMessage( [] );
+      msg.codeChartFuel( charts[2], i );
       transport.addToOutput( msg );
     }
     msg = new USBMessage( [] );
@@ -496,43 +507,61 @@ function EnrrganController () {
   function initReadSequency ( password, callback ) {
     var msg = null;
     transport.clean();
+    /*-------- Authorization --------*/
     msg = new USBMessage( [] );
     msg.codeAuthorization( password );
     transport.addRequest( msg );
+    /*-------- Configurations -------*/
     for ( var i=0; i<dataReg.length; i++ ) {
       msg = new USBMessage( [] );
       msg.makeConfigRequest( i );
       transport.addRequest( msg );
     }
-    for ( var i=0; i<chartsLength; i++ ) {
+    /*---------- Oil chart ----------*/
+    for ( var i=0; i<(CHART_DOTS_SIZE + 1); i++ ) {
       msg = new USBMessage( [] )
-      msg.makeChartRequest( i );
+      msg.makeChartOilRequest( i );
       transport.addRequest( msg );
     }
+    /*-------- Coolant chart --------*/
+    for ( var i=0; i<(CHART_DOTS_SIZE + 1); i++ ) {
+      msg = new USBMessage( [] )
+      msg.makeChartCoolantRequest( i );
+      transport.addRequest( msg );
+    }
+    /*--------- Fuel chart ----------*/
+    for ( var i=0; i<(CHART_DOTS_SIZE + 1); i++ ) {
+      msg = new USBMessage( [] )
+      msg.makeChartFuelRequest( i );
+      transport.addRequest( msg );
+    }
+    /*---------- Free data ----------*/
     for ( var i=0; i<freeDataValue.length; i++ )
     {
       msg = new USBMessage( [] )
       msg.makeFreeDataRequest( i );
       transport.addRequest( msg );
     }
+    /*------------- Log -------------*/
     for ( var i=0; i<logMaxSize; i++ )
     {
       msg = new USBMessage( [] )
       msg.makeLogRequest( i );
       transport.addRequest( msg );
     }
+    /*------------ Time -------------*/
     msg = new USBMessage( [] )
     msg.makeTimeRequest();
     transport.addRequest( msg );
-
+    /*-------- Memory size ----------*/
     msg = new USBMessage( [] );
     msg.makeMemorySizeRequest();
     transport.addRequest( msg );
-
+    /*----- Measurement Length ------*/
     msg = new USBMessage( [] );
     msg.makeMeasurementLengthRequest();
     transport.addRequest( msg );
-
+    /*-------------------------------*/
     callback();
     return;
   }

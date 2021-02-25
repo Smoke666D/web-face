@@ -104,6 +104,7 @@ function connect () {
                 msg.addLong( buffer[i].buffer[j] );
               }
               if ( msg != null ) {
+                /*
                 if ( msg.data.length >= msg.length ) {
                   out = msg.parse( dataReg );
                   if ( out[0] == 2 ) {
@@ -111,26 +112,27 @@ function connect () {
                     out = [];
                   }
                 }
+                */
               }
             }
           } else {
             out = buffer[i].parse( dataReg );
-            if ( out[0] == 3 ) {
+            if ( out[0] == msgType.time ) {
               rtcTime.get( out[1] );
             }
-            if ( out[0] == 4 ) {
+            if ( out[0] == msgType.freeData ) {
               freeDataValue[buffer[i].adr] = out[1];
             }
-            if ( out[0] == 5 ) {
+            if ( out[0] == msgType.log ) {
               logArray[buffer[i].adr] = out[1];
             }
-            if ( out[0] == 6 ) {
+            if ( out[0] == msgType.memorySize ) {
               memorySize = out[1];
             }
-            if ( out[0] == 7 ) {
+            if ( out[0] == msgType.measurement ) {
               measureBuffer.push( out[1] );
             }
-            if ( out[0] == 8 ) {
+            if ( out[0] == msgType.measurementLen ) {
               measurementLength = out[1];
             }
           }

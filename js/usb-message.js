@@ -1,32 +1,39 @@
 //const dataReg = require('../js/config.js').dataReg;
-const RTC       = require('../js/rest').RTC;
-const LogRecord = require('../js/rest').LogRecord;
+const RTC             = require('../js/rest').RTC;
+const LogRecord       = require('../js/rest').LogRecord;
+const ChartData       = require('../js/sensortable').ChartData;
+const ChartDotData    = require('../js/sensortable').ChartDotData;
+const CHART_DOTS_SIZE = require('../js/sensortable').CHART_DOTS_SIZE;
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 const msgSIZE         = 65;
 const chartUnitLength = 18;
 const msgCMD  = {
-  "USB_GET_CONFIG_CMD"       : 1,
-  "USB_PUT_CONFIG_CMD"       : 2,
-  "USB_GET_CHART_CMD"        : 3,
-  "USB_PUT_CHART_CMD"        : 4,
-  "USB_PUT_EWA_CMD"          : 5,
-  "USB_SAVE_CONFIG_CMD"      : 6,
-  "USB_SAVE_CHART_CMD"       : 7,
-  "USB_GET_TIME"             : 8,
-  "USB_PUT_TIME"             : 9,
-  "USB_GET_FREE_DATA"        : 10,
-  'USB_PUT_FREE_DATA'        : 11,
-  'USB_GET_LOG'              : 12,
-  'USB_ERASE_LOG'            : 13,
-  'USB_PUT_PASSWORD'         : 14,
-  'USB_AUTHORIZATION'        : 15,
-  'USB_ERASE_PASSWORD'       : 16,
-  'USB_GET_MEMORY_SIZE'      : 17,
-  'USB_GET_MEASUREMENT'      : 18,
-  'USB_ERASE_MEASUREMENT'    : 19,
-  'USB_GET_MEASUREMENT_LENGTH' : 20,
+  "USB_GET_CONFIG_CMD"         : 1,
+  "USB_PUT_CONFIG_CMD"         : 2,
+  "USB_GET_CHART_OIL_CMD"      : 3,
+  "USB_PUT_CHART_OIL_CMD"      : 4,
+  "USB_GET_CHART_COOLANT_CMD"  : 5,
+  "USB_PUT_CHART_COOLANT_CMD"  : 6,
+  "USB_GET_CHART_FUEL_CMD"     : 7,
+  "USB_PUT_CHART_FUEL_CMD"     : 8,
+  "USB_PUT_EWA_CMD"            : 9,
+  "USB_SAVE_CONFIG_CMD"        : 10,
+  "USB_SAVE_CHART_CMD"         : 11,
+  "USB_GET_TIME"               : 12,
+  "USB_PUT_TIME"               : 13,
+  "USB_GET_FREE_DATA"          : 14,
+  'USB_PUT_FREE_DATA'          : 15,
+  'USB_GET_LOG'                : 16,
+  'USB_ERASE_LOG'              : 17,
+  'USB_PUT_PASSWORD'           : 18,
+  'USB_AUTHORIZATION'          : 19,
+  'USB_ERASE_PASSWORD'         : 20,
+  'USB_GET_MEMORY_SIZE'        : 21,
+  'USB_GET_MEASUREMENT'        : 22,
+  'USB_ERASE_MEASUREMENT'      : 23,
+  'USB_GET_MEASUREMENT_LENGTH' : 24,
 };
 const msgSTAT = {
   "USB_OK_STAT"           : 1,
@@ -36,6 +43,21 @@ const msgSTAT = {
   "USB_FORBIDDEN"         : 5,
   "USB_INTERNAL"          : 6,
 };
+const msgType = {
+  "config"         : 1,
+  "oilChart"       : 2,
+  "oilDot"         : 3,
+  "coolantChart"   : 4,
+  "coolantDot"     : 5,
+  "fuelChart"      : 6,
+  "fuelDot"        : 7,
+  "time"           : 8,
+  "freeData"       : 9,
+  "log"            : 10,
+  "memorySize"     : 11,
+  "measurement"    : 12,
+  "measurementLen" : 13,
+}
 const USB_DIR_BYTE  = 0;
 const USB_CMD_BYTE  = 1;
 const USB_STAT_BYTE = 2;
@@ -135,11 +157,23 @@ function USBMessage ( buffer ) {
       case msgCMD.USB_PUT_CONFIG_CMD:
         self.command = msgCMD.USB_PUT_CONFIG_CMD;
         break;
-      case msgCMD.USB_GET_CHART_CMD:
-        self.command = msgCMD.USB_GET_CHART_CMD;
+      case msgCMD.USB_GET_CHART_OIL_CMD:
+        self.command = msgCMD.USB_GET_CHART_OIL_CMD;
         break;
-      case msgCMD.USB_PUT_CHART_CMD:
-        self.command = msgCMD.USB_PUT_CHART_CMD;
+      case msgCMD.USB_PUT_CHART_OIL_CMD:
+        self.command = msgCMD.USB_PUT_CHART_OIL_CMD;
+        break;
+      case msgCMD.USB_GET_CHART_COOLANT_CMD:
+        self.command = msgCMD.USB_GET_CHART_COOLANT_CMD;
+        break;
+      case msgCMD.USB_PUT_CHART_COOLANT_CMD:
+        self.command = msgCMD.USB_PUT_CHART_COOLANT_CMD;
+        break;
+      case msgCMD.USB_GET_CHART_FUEL_CMD:
+        self.command = msgCMD.USB_GET_CHART_FUEL_CMD;
+        break;
+      case msgCMD.USB_PUT_CHART_FUEL_CMD:
+        self.command = msgCMD.USB_PUT_CHART_FUEL_CMD;
         break;
       case msgCMD.USB_PUT_EWA_CMD:
         self.command = msgCMD.USB_PUT_EWA_CMD;
@@ -273,6 +307,18 @@ function USBMessage ( buffer ) {
       finishMesageWithZero( self.buffer );
     });
   }
+  function codeChart ( cmd, chart, adr ) {
+    let data = [];
+    if ( adr == 0 ) {
+      data.push( chart.xType );
+      data.push( chart.yType );
+      uint16toByte( data, chart.size );
+    } else if ( ( adr - 1 ) <= CHART_DOTS_SIZE ) {
+      uint32toByte( data, chart.dots[adr-1].x );
+      uint32toByte( data, chart.dots[adr-1].y );
+    }
+    makeResponse( cmd, adr, data, data.length );
+  }
   function parseConfig ( reg ) {
     var counter = 0;
     /*----------- Configuration value -----------*/
@@ -298,56 +344,17 @@ function USBMessage ( buffer ) {
     /*-------------------------------------------*/
     return;
   }
-  function parseChart ( n ) {
-    var counter = 0;
-    var buffer  = [];
-    var chart = {
-      "xmin"  : 0,
-      "xmax"  : 0,
-      "ymin"  : 0,
-      "ymax"  : 0,
-      "xunit" : "",
-      "yunit" : "",
-      "size"  : 0,
-      "dots"  : []
-    };
-    var dot = {
-      "x" : 0,
-      "y" : 0
-    };
-    if ( self.data.length > 0 ) {
-      counter = 0;
-      chart.xmin = byteToUint32( self.data[counter], self.data[counter+1], self.data[counter+2], self.data[counter+3] );
-      counter += 4;
-      chart.xmax = byteToUint32( self.data[counter], self.data[counter+1], self.data[counter+2], self.data[counter+3] );
-      counter += 4;
-      chart.ymin = byteToUint32( self.data[counter], self.data[counter+1], self.data[counter+2], self.data[counter+3] );
-      counter += 4;
-      chart.ymax = byteToUint32( self.data[counter], self.data[counter+1], self.data[counter+2], self.data[counter+3] );
-      counter += 4;
-      buffer  = [];
-      for ( var i=0; i<chartUnitLength; i++ ) {
-        buffer.push( self.data[counter+i] );
-      }
-      chart.xunit = encodeByteToStr( buffer, chartUnitLength );
-      counter += chartUnitLength;
-      buffer  = [];
-      for ( var i=0; i<chartUnitLength; i++ ) {
-        buffer.push( self.data[counter+i] );
-      }
-      chart.yunit = encodeByteToStr( buffer, chartUnitLength );
-      counter    += chartUnitLength;
-      chart.size = byteToUint16( self.data[counter], self.data[counter+1] );
-      counter    += 2;
-      for ( var i=0; i<chart.size; i++ ) {
-        dot.x = byteToUint32( self.data[counter], self.data[counter+1], self.data[counter+2], self.data[counter+3] );
-        counter += 4;
-        dot.y = byteToUint32( self.data[counter], self.data[counter+1], self.data[counter+2], self.data[counter+3] );
-        counter += 4;
-        chart.dots.push( dot );
-        dot = {};
-      }
-    }
+  function parseDot () {
+    var dot = new ChartDotData ();
+    dot.x = byteToUint32( self.data[0], self.data[1], self.data[2], self.data[3] );
+    dot.y = byteToUint32( self.data[4], self.data[5], self.data[6], self.data[7] );
+    return dot;
+  }
+  function parseChart () {
+    var chart  = new ChartData();
+    chart.xType = self.data[0];
+    chart.yData = self.data[1];
+    chart.size  = byteToUint16( self.data[3], self.data[4] );
     return chart;
   }
   function parseTime () {
@@ -397,7 +404,7 @@ function USBMessage ( buffer ) {
     callback();
     return;
   }
-  this.initLong               = function () {
+  this.initLong                     = function () {
     self.init( function() {
       if ( self.command == msgCMD.USB_GET_CHART_CMD ) {
         self.data.length = USB_CHART_HEADER_LENGTH;
@@ -405,37 +412,45 @@ function USBMessage ( buffer ) {
     });
     return;
   }
-  this.addLong                = function ( byte ) {
+  this.addLong                      = function ( byte ) {
     if ( self.length > self.data.length ) {
       self.data.push( byte );
     }
     return;
   }
-  this.makeConfigRequest      = function ( n ) {
+  this.makeConfigRequest            = function ( n ) {
     makeRequest( msgCMD.USB_GET_CONFIG_CMD, n );
     return;
   }
-  this.makeChartRequest       = function ( adr ) {
-    makeRequest( msgCMD.USB_GET_CHART_CMD, adr );
+  this.makeChartOilRequest          = function ( adr ) {
+    makeRequest( msgCMD.USB_GET_CHART_OIL_CMD, adr );
     return;
   }
-  this.makeTimeRequest        = function () {
+  this.makeChartCoolantRequest      = function ( adr ) {
+    makeRequest( msgCMD.USB_GET_CHART_COOLANT_CMD, adr );
+    return;
+  }
+  this.makeChartFuelRequest         = function ( adr ) {
+    makeRequest( msgCMD.USB_GET_CHART_FUEL_CMD, adr );
+    return;
+  }
+  this.makeTimeRequest              = function () {
     makeRequest( msgCMD.USB_GET_TIME, 0 );
     return;
   }
-  this.makeFreeDataRequest    = function ( adr ) {
+  this.makeFreeDataRequest          = function ( adr ) {
     makeRequest( msgCMD.USB_GET_FREE_DATA, adr );
     return;
   }
-  this.makeLogRequest         = function ( adr ) {
+  this.makeLogRequest               = function ( adr ) {
     makeRequest( msgCMD.USB_GET_LOG, adr );
     return;
   }
-  this.makeMemorySizeRequest  = function () {
+  this.makeMemorySizeRequest        = function () {
     makeRequest( msgCMD.USB_GET_MEMORY_SIZE, 0 );
     return;
   }
-  this.makeMeasurementRequest = function ( adr ) {
+  this.makeMeasurementRequest       = function ( adr ) {
     makeRequest( msgCMD.USB_GET_MEASUREMENT, adr );
     return;
   }
@@ -443,21 +458,21 @@ function USBMessage ( buffer ) {
     makeRequest( msgCMD.USB_GET_MEASUREMENT_LENGTH, 0 );
     return;
   }
-  this.codeAuthorization      = function ( pas ) {
+  this.codeAuthorization            = function ( pas ) {
     let data = [ (pas & 0x00FF), ( ( pas & 0xFF00 ) >> 8 ) ];
     makeResponse( msgCMD.USB_AUTHORIZATION, 0, data, data.length );
     return;
   }
-  this.codeLogErase           = function () {
+  this.codeLogErase                 = function () {
     makeRequest( msgCMD.USB_ERASE_LOG, 0 );
     return;
   }
-  this.codePassword           = function ( password ) {
+  this.codePassword                 = function ( password ) {
     let data = [ ( password.enb & 0xFF ), ( password.data & 0x00FF), ( ( password.data & 0xFF00 ) >> 8 ) ];
     makeResponse( msgCMD.USB_PUT_PASSWORD, 0, data, data.length );
     return;
   }
-  this.codeTime               = function ( time ) {
+  this.codeTime                     = function ( time ) {
     let data = [ ( time.hour  & 0xFF ),
                  ( time.min   & 0xFF ),
                  ( time.sec   & 0xFF ),
@@ -469,14 +484,13 @@ function USBMessage ( buffer ) {
     makeResponse( msgCMD.USB_PUT_TIME, 0, data, data.length );
     return;
   }
-  this.codeFreeData           = function ( adr, data ) {
+  this.codeFreeData                 = function ( adr, data ) {
     let output = [ ( data & 0x00FF ), ( ( data & 0xFF00 ) >> 8 ) ];
     makeResponse( msgCMD.USB_PUT_FREE_DATA, adr, output, output.length );
     return;
   }
-  this.codeConfig             = function ( reg, adr ) {
+  this.codeConfig                   = function ( reg, adr ) {
     let data = [];
-    /*----------- Configuration value -----------*/
     if ( reg.len == 1 ) {
       data.push(   reg.value & 0x00FF );
       data.push( ( reg.value & 0xFF00 ) >> 8 );
@@ -492,68 +506,30 @@ function USBMessage ( buffer ) {
         }
       }
     }
-    /*-------------------------------------------*/
     makeResponse( msgCMD.USB_PUT_CONFIG_CMD, adr, data, data.length );
     return;
   }
-  this.codeSaveConfigs        = function () {
+  this.codeSaveConfigs              = function () {
     makeRequest( msgCMD.USB_SAVE_CONFIG_CMD, 0 );
     return;
   }
-  this.codeSaveCharts         = function () {
+  this.codeSaveCharts               = function () {
     makeRequest( msgCMD.USB_SAVE_CHART_CMD, 0 );
     return;
   }
-  this.codeChart              = function ( chart, adr ) {
-    self.status  = msgSTAT.USB_OK_STAT;
-    self.command = msgCMD.USB_PUT_CHART_CMD;
-    self.adr     = adr;
-    self.length  = 0;
-    const dataLength = msgSIZE - 5;
-    if ( chart.hasOwnProperty("data") == false ) {
-      self.length = 18 + chartUnitLength*2 + 8*chart.size;
-      self.buffer.push( [] );
-      setup( self.buffer[0], function () {
-        uint32toByte( chart.xmin, self.buffer[0] );                       /* 6 */
-        uint32toByte( chart.xmax, self.buffer[0] );                       /* 10 */
-        uint32toByte( chart.ymin, self.buffer[0] );                       /* 14 */
-        uint32toByte( chart.ymax, self.buffer[0] );                       /* 18 */
-
-        strToEncodeByte( chart.xunit, chartUnitLength, self.buffer[0] );  /* 36 */
-        strToEncodeByte( chart.yunit, chartUnitLength, self.buffer[0] );  /* 54 */
-        uint16toByte( chart.size, self.buffer[0] );
-        setupLength( self.buffer[0] );
-        finishMesageWithZero( self.buffer[0] );
-        var dotLen  = Math.ceil(chart.size*8 / dataLength);
-        var dotNum  = Math.trunc( dataLength / 8 );
-        var lastNum = chart.size - dotNum*( dotLen - 1 );
-
-        for ( var i=0; i<dotLen; i++ ) {
-          self.buffer.push( [] );
-          setup( self.buffer[i + 1], function () {
-            var border = dotNum;
-            if ( i == ( dotLen - 1) ) {
-              border = lastNum;
-            }
-            for ( var j=0; j<border; j++ ) {
-              uint32toByte( chart.dots[j].x, self.buffer[i + 1] );
-              uint32toByte( chart.dots[j].y, self.buffer[i + 1] );
-            }
-          });
-          setupLength( self.buffer[i + 1] );
-          finishMesageWithZero( self.buffer[i + 1] );
-        }
-      });
-    } else {
-      cleanBuffer( self.buffer, function () {
-        setup( self.buffer, function () {
-        });
-      });
-      setupLength( self.buffer );
-      finishMesageWithZero( self.buffer );
-    }
+  this.codeChartOil                 = function ( chart, adr ) {
+    codeChart( msgCMD.USB_PUT_CONFIG_OIL_CMD, chart, adr );
+    return;
   }
-  this.codeEWA                = function ( ewa, index ) {
+  this.codeChartCoolant             = function ( chart, adr ) {
+    codeChart( msgCMD.USB_PUT_CONFIG_COOLANT_CMD, chart, adr );
+    return;
+  }
+  this.codeChartFuel                = function ( chart, adr ) {
+    codeChart( msgCMD.USB_PUT_CONFIG_FUEL_CMD, chart, adr );
+    return;
+  }
+  this.codeEWA                      = function ( ewa, index ) {
     let data    = [];
     var counter = index;
     for ( var i=USB_DATA_BYTE; i<msgSIZE; i++ ) {
@@ -585,45 +561,68 @@ function USBMessage ( buffer ) {
     */
     return counter;
   }
-  this.codeMeasurementErase   = function () {
+  this.codeMeasurementErase         = function () {
     makeRequest( msgCMD.USB_ERASE_MEASUREMENT, 0 );
     return;
   }
-  this.parse                  = function ( configs ) {
+  this.parse                        = function ( configs ) {
     var output = 0;
     var type   = 0;
     switch ( self.command ) {
       case msgCMD.USB_GET_CONFIG_CMD:
         parseConfig( configs[self.adr] );
-        type = 1;
+        type = msgType.config;
         break;
-      case msgCMD.USB_GET_CHART_CMD:
-        output = parseChart( self.adr );
-        type   = 2;
+      case msgCMD.USB_GET_CHART_OIL_CMD:
+        if ( self.adr == 0 ) {
+          output = parseChart();
+          type   = msgType.oilChart;
+        } else {
+          output = parseDot();
+          type   = msgType.oilDot;
+        }
+        break;
+      case msgCMD.USB_GET_CHART_COOLANT_CMD:
+        if ( self.adr == 0 ) {
+          output = parseChart();
+          type   = msgType.coolantChart;
+        } else {
+          output = parseDot();
+          type   = msgType.coolantDot;
+        }
+        break;
+      case msgCMD.USB_GET_CHART_FUEL_CMD:
+        if ( self.adr == 0 ) {
+          output = parseChart();
+          type   = msgType.fuelChart;
+        } else {
+          output = parseDot();
+          type   = msgType.fuelDot;
+        }
         break;
       case msgCMD.USB_GET_TIME:
         output = parseTime();
-        type   = 3;
+        type   = msgType.time;
         break;
       case msgCMD.USB_GET_FREE_DATA:
         output = parseFreeData();
-        type   = 4;
+        type   = msgType.freeData;
         break;
       case msgCMD.USB_GET_LOG:
         output = parseLog();
-        type   = 5;
+        type   = msgType.log;
         break;
       case msgCMD.USB_GET_MEMORY_SIZE:
         output = parseMemorySize();
-        type   = 6;
+        type   = msgType.memorySize;
         break;
       case msgCMD.USB_GET_MEASUREMENT:
         output = parseMeasurement( self.length );
-        type   = 7;
+        type   = msgType.measurement;
         break;
       case msgCMD.USB_GET_MEASUREMENT_LENGTH:
         output = parseMeasurementLength();
-        type   = 8;
+        type   = msgType.measurementLen;
     }
     return [type, output];
   }

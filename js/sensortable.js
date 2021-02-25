@@ -1,3 +1,4 @@
+const CHART_DOTS_SIZE = 128;
 var pointIndex = 0;
 var lineChart  = null;
 var sensorData = {
@@ -138,6 +139,16 @@ function changeEvent ( evt ) {
   return;
 }
 //******************************************************************************
+function ChartData () {
+  this.xType = 0;
+  this.yType = 0;
+  this.size  = 0;
+  this.dots  = [];
+}
+function ChartDotData () {
+  this.x = 0;
+  this.y = 0;
+}
 function newSensorData ( name, xmax, ymax, xunit, yunit ) {
   return {
     name:  name,
@@ -470,3 +481,5 @@ function uploadSensorData () {
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 module.exports.newSensorData = newSensorData;
+module.exports.ChartData     = ChartData;
+module.exports.ChartDotData  = ChartDotData;
