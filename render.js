@@ -4,10 +4,11 @@ var usb      = require('./js/usb.js');
 var rest     = require('./js/rest.js');
 var alerts   = require('./js/alerts.js');
 
-const USBMessage    = require('./js/usb-message.js').USBMessage;
-const USB_DATA_SIZE = require('./js/usb-message.js').USB_DATA_SIZE;
+const USBMessage              = require('./js/usb-message.js').USBMessage;
+const USB_DATA_SIZE           = require('./js/usb-message.js').USB_DATA_SIZE;
 const USB_CHART_HEADER_LENGTH = require('./js/usb-message.js').USB_CHART_HEADER_LENGTH;
-const USB_DATA_BYTE = require('./js/usb-message.js').USB_DATA_BYTE;
+const USB_DATA_BYTE           = require('./js/usb-message.js').USB_DATA_BYTE;
+const msgType                 = require('./js/usb-message.js').msgType;
 
 var scales = [ 0, 0, 0 ];
 var lables = [ 'шт', 'c', 'м' ];

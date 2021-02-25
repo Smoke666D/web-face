@@ -634,6 +634,7 @@ module.exports.USBMessage              = USBMessage;
 module.exports.msgCMD                  = msgCMD;
 module.exports.msgSTAT                 = msgSTAT;
 module.exports.msgSIZE                 = msgSIZE;
+module.exports.msgType                 = msgType;
 module.exports.USB_DATA_SIZE           = USB_DATA_SIZE;
 module.exports.USB_DATA_BYTE           = USB_DATA_BYTE;
 module.exports.USB_CHART_HEADER_LENGTH = USB_CHART_HEADER_LENGTH;
