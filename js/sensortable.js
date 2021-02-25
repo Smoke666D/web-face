@@ -1,4 +1,14 @@
 const CHART_DOTS_SIZE = 128;
+const xAxisType = {
+  "resestive" : 0,
+  "current"   : 1,
+};
+const yAxisType = {
+  "oil"     : 0,
+  "coolant" : 1,
+  "fuel"    : 2,
+};
+var chartList  = [];
 var pointIndex = 0;
 var lineChart  = null;
 var sensorData = {
@@ -139,16 +149,94 @@ function changeEvent ( evt ) {
   return;
 }
 //******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
 function ChartData () {
+  var x = new AxisAtrib();
+  var y = new AxisAtrib();
+
   this.xType = 0;
   this.yType = 0;
   this.size  = 0;
   this.dots  = [];
+
+  this.clean  = function () {
+    this.dots = [];
+    for ( var i=0; i<CHART_DOTS_SIZE; i++ ) {
+      let dot = new ChartDotData();
+      this.dots.push( dot );
+    }
+  }
+  this.setDef = function () {
+    this.clean();
+    this.size = 2;
+    this.dot[0].x = x.min;
+    this.dot[0].y = y.min;
+    this.dot[1].x = x.max;
+    this.dot[2].y = y.max;
+  }
+  this.init = function ( xType=this.xType, yType=this.yType ) {
+    this.xType = xType;
+    this.yType = yType;
+    switch ( this.xType ) {
+      case xAxisType.resestive:
+        x.min  = 0;
+        x.max  = 1500;
+        x.unit = "Ом";
+        break;
+      case xAxisType.current:
+        x.min  = 0;
+        x.max  = 20;
+        x.unit = "мА";
+        break;
+    }
+    switch ( this.yType ) {
+      case yAxisType.oil:
+        y.min  = 0;
+        y.max  = 2;
+        y.unit = "Бар";
+        break;
+      case yAxisType.coolant:
+        y.min  = 0;
+        y.max  = 250;
+        y.unit = "С";
+      break;
+      case yAxisType.fuel:
+        y.min  = 0;
+        y.max  = 100;
+        y.unit = "%";
+        break;
+    }
+  }
+  return;
 }
 function ChartDotData () {
   this.x = 0;
   this.y = 0;
+  return;
 }
+function AxisAtrib () {
+  this.min  = 0;
+  this.max  = 1;
+  this.unit = " ";
+  return;
+}
+
+function declareChartList () {
+  for ( var i=0; i<3; i++ ) {
+    chartList.push( new ChartData() );
+    chartList[i].clean();
+  }
+  chartList[0].init( xAxisType.resestive, yAxisType.oil );
+  chartList[1].init( xAxisType.resestive, yAxisType.coolant );
+  chartList[2].init( xAxisType.resestive, yAxisType.fuel );
+  return;
+}
+
 function newSensorData ( name, xmax, ymax, xunit, yunit ) {
   return {
     name:  name,
@@ -167,7 +255,6 @@ function newSensorData ( name, xmax, ymax, xunit, yunit ) {
       y: ymax,
     }]
   }
-  return;
 }
 let oilSensorResistance     = newSensorData( "oilSensorResistance",     1500, 2,   "Ом", "Бар"   );
 let oilSensorCurrent        = newSensorData( "oilSensorCurrent",        20,   2,   "мА", "Бар"   );
@@ -480,6 +567,8 @@ function uploadSensorData () {
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
-module.exports.newSensorData = newSensorData;
-module.exports.ChartData     = ChartData;
-module.exports.ChartDotData  = ChartDotData;
+module.exports.newSensorData   = newSensorData;
+module.exports.ChartData       = ChartData;
+module.exports.ChartDotData    = ChartDotData;
+module.exports.CHART_DOTS_SIZE = CHART_DOTS_SIZE;
+module.exports.chartList       = chartList;

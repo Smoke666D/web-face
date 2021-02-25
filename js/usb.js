@@ -9,7 +9,7 @@ const msgCMD          = require('./usb-message.js').msgCMD;
 const msgSTAT         = require('./usb-message.js').msgSTAT;
 const USB_DATA_SIZE   = require('./usb-message.js').USB_DATA_SIZE;
 const common          = require('./common.js');
-const CHART_DOTS_SIZE = require('../js/sensortable').CHART_DOTS_SIZE;
+const CHART_DOTS_SIZE = require('./sensortable.js').CHART_DOTS_SIZE;
 /*----------------------------------------------------------------------------*/
 const chartsLength  = 3;
 var   charts        = [];
@@ -39,7 +39,7 @@ function MessageArray () {
   var self     = this;
   var sequence = [];
   var counter  = 0;
-  /*------------------- Public ------------------*/
+  /*------------------- Pablic ------------------*/
   this.getCurrentAdr = function () {
     if ( sequence.len == 0 ) {
       return 0xFFFF;
@@ -97,7 +97,7 @@ function InputMessageArray () {
   var length   = 0;
   var response = new MessageArray();
   var request  = new MessageArray();
-  /*------------------- Public ------------------*/
+  /*------------------- Pablic ------------------*/
   this.getCurrentAdr = function () {
     return response.getCurrentAdr();
   }
@@ -168,7 +168,7 @@ function OutputMessageArray () {
   /*------------------ Private ------------------*/
   var self  = this;
   var array = new MessageArray();
-  /*------------------- Public ------------------*/
+  /*------------------- Pablic ------------------*/
   this.getCurrentAdr = function () {
     return array.getCurrentAdr();
   }
@@ -208,10 +208,10 @@ function USBtransport () {
   var input  = new InputMessageArray;
   var status = usbStat.wait;
   var alert  = null;
-
+  /*------------------- Pablic ------------------*/
   this.error         = [];
   this.errorCounter  = 0;
-
+  /*------------------ Private ------------------*/
   function write ( data ) {
     if ( device != null ) {
       try {
@@ -311,7 +311,7 @@ function USBtransport () {
     return result;
   }
   /*---------------------------------------------*/
-  /*------------------- Public ------------------*/
+  /*------------------- Pablic ------------------*/
   /*---------------------------------------------*/
   this.scan        = function ( success, fail ) {
     var devices = HID.devices();
@@ -566,7 +566,7 @@ function EnrrganController () {
     return;
   }
   /*---------------------------------------------*/
-  this.init      = function ( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback ) {
+  this.init              = function ( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback ) {
     var result = usbInit.fail;
     var handle = usbHandler.finish;
     transport.scan( function () {
@@ -581,17 +581,17 @@ function EnrrganController () {
     });
     return result;
   }
-  this.getStatus = function () {
+  this.getStatus         = function () {
     return transport.getStatus();
   }
-  this.close     = function () {
+  this.close             = function () {
     transport.close();
     return;
   }
-  this.getInput  = function () {
+  this.getInput          = function () {
     return transport.getInput();
   }
-  this.sendTime  = function ( time ) {
+  this.sendTime          = function ( time ) {
     if ( transport.getStatus() == usbStat.wait) {
       initTimeWriteSequency( function () {
         transport.start( usbStat.write, null );
@@ -600,7 +600,7 @@ function EnrrganController () {
     }
     return;
   }
-  this.sendFreeData = function ( n, data ) {
+  this.sendFreeData      = function ( n, data ) {
     if ( transport.getStatus() == usbStat.wait) {
       initWriteFreeDataSequency( n, data, function () {
         transport.start( usbStat.write, null );
@@ -608,7 +608,7 @@ function EnrrganController () {
     }
     return;
   }
-  this.sendPass = function ( password ) {
+  this.sendPass          = function ( password ) {
     if ( transport.getStatus() == usbStat.wait) {
       initWritePassSequency( password, function () {
         transport.start( usbStat.write, null );
@@ -633,7 +633,7 @@ function EnrrganController () {
     }
     return;
   }
-  this.eraseLog = function () {
+  this.eraseLog          = function () {
     if ( transport.getStatus() == usbStat.wait ) {
       initWriteEraseLog( function() {
         transport.start( usbStat.write, alert );
@@ -641,7 +641,7 @@ function EnrrganController () {
     }
     return;
   }
-  this.readMeasurement  = function ( size, alertIn ) {
+  this.readMeasurement   = function ( size, alertIn ) {
     alert = alertIn;
     if ( transport.getStatus() == usbStat.wait) {
       transport.clean();
@@ -654,7 +654,7 @@ function EnrrganController () {
     transport.start( usbStat.read, alert );
     return;
   }
-  this.eraseMeasurement = function () {
+  this.eraseMeasurement  = function () {
     if ( transport.getStatus() == usbStat.wait ) {
       initWriteEraseMeasurment( function() {
         transport.start( usbStat.write, alert );
@@ -662,7 +662,7 @@ function EnrrganController () {
       })
     }
   }
-  this.sendEWA  = function ( ewa, alertIn ) {
+  this.sendEWA           = function ( ewa, alertIn ) {
     alert = alertIn;
     if ( transport.getStatus() == usbStat.wait ) {
       initWriteEWA( ewa, function () {
@@ -671,7 +671,7 @@ function EnrrganController () {
     }
     return;
   }
-  this.receive  = function ( password, alertIn ) {
+  this.receive           = function ( password, alertIn ) {
     alert = alertIn;
     if ( transport.getStatus() == usbStat.wait) {
       initReadSequency( password, function () {

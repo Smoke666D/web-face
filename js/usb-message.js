@@ -354,7 +354,7 @@ function USBMessage ( buffer ) {
     var chart  = new ChartData();
     chart.xType = self.data[0];
     chart.yData = self.data[1];
-    chart.size  = byteToUint16( self.data[3], self.data[4] );
+    chart.size  = byteToUint16( self.data[2], self.data[3] );
     return chart;
   }
   function parseTime () {
