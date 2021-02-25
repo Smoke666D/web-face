@@ -245,17 +245,19 @@ function USBtransport () {
     var result = usbHandler.continue;
     response.init( function () {
       if ( response.status == msgSTAT.USB_OK_STAT ) {
-        if ( ( response.command == msgCMD.USB_PUT_CONFIG_CMD    ) ||
-             ( response.command == msgCMD.USB_PUT_CHART_CMD     ) ||
-             ( response.command == msgCMD.USB_SAVE_CONFIG_CMD   ) ||
-             ( response.command == msgCMD.USB_SAVE_CHART_CMD    ) ||
-             ( response.command == msgCMD.USB_PUT_TIME          ) ||
-             ( response.command == msgCMD.USB_PUT_FREE_DATA     ) ||
-             ( response.command == msgCMD.USB_ERASE_LOG         ) ||
-             ( response.command == msgCMD.USB_PUT_PASSWORD      ) ||
-             ( response.command == msgCMD.USB_ERASE_PASSWOR     ) ||
-             ( response.command == msgCMD.USB_AUTHORIZATION     ) ||
-             ( response.command == msgCMD.USB_ERASE_MEASUREMENT ) ||
+        if ( ( response.command == msgCMD.USB_PUT_CONFIG_CMD        ) ||
+             ( response.command == msgCMD.USB_PUT_CHART_OIL_CMD     ) ||
+             ( response.command == msgCMD.USB_PUT_CHART_COOLANT_CMD ) ||
+             ( response.command == msgCMD.USB_PUT_CHART_FUEL_CMD    ) ||
+             ( response.command == msgCMD.USB_SAVE_CONFIG_CMD       ) ||
+             ( response.command == msgCMD.USB_SAVE_CHART_CMD        ) ||
+             ( response.command == msgCMD.USB_PUT_TIME              ) ||
+             ( response.command == msgCMD.USB_PUT_FREE_DATA         ) ||
+             ( response.command == msgCMD.USB_ERASE_LOG             ) ||
+             ( response.command == msgCMD.USB_PUT_PASSWORD          ) ||
+             ( response.command == msgCMD.USB_ERASE_PASSWOR         ) ||
+             ( response.command == msgCMD.USB_AUTHORIZATION         ) ||
+             ( response.command == msgCMD.USB_ERASE_MEASUREMENT     ) ||
              ( response.command == msgCMD.USB_PUT_EWA_CMD  ) ) {
             result = output.isEnd();
             if ( result == usbHandler.continue )

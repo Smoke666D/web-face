@@ -156,9 +156,8 @@ function changeEvent ( evt ) {
 //******************************************************************************
 //******************************************************************************
 function ChartData () {
-  var x = new AxisAtrib();
-  var y = new AxisAtrib();
-
+  this.x     = new AxisAtrib();
+  this.y     = new AxisAtrib();
   this.xType = 0;
   this.yType = 0;
   this.size  = 0;
@@ -170,46 +169,89 @@ function ChartData () {
       let dot = new ChartDotData();
       this.dots.push( dot );
     }
+    return;
+  }
+  this.setData   = function ( chart ) {
+    if ( chart.xType <= 2 ) {
+      this.xType = chart.xType;
+    }
+    if ( chart.yType <= 3 ) {
+      this.yType = chart.yType;
+    }
+    if ( chart.size < CHART_DOTS_SIZE ) {
+      this.size  = chart.size;
+    } else {
+      this.size = CHART_DOTS_SIZE;
+    }
+    return;
+  }
+  this.setDot = function ( adr, dot ) {
+    this.dots[adr].x = fix16Tofloat( dot.x );
+    this.dots[adr].y = fix16Tofloat( dot.y );
+    console.log( this.dots[adr] );
+    return;
   }
   this.setDef = function () {
     this.clean();
     this.size = 2;
-    this.dot[0].x = x.min;
-    this.dot[0].y = y.min;
-    this.dot[1].x = x.max;
-    this.dot[2].y = y.max;
+    this.dots[0].x = this.x.min;
+    this.dots[0].y = this.y.min;
+    this.dots[1].x = this.x.max;
+    this.dots[1].y = this.y.max;
   }
   this.init = function ( xType=this.xType, yType=this.yType ) {
+    let reInit = 0;
+    if ( this.xType != xType ) {
+      reInit = 1;
+    }
     this.xType = xType;
     this.yType = yType;
     switch ( this.xType ) {
       case xAxisType.resestive:
-        x.min  = 0;
-        x.max  = 1500;
-        x.unit = "Ом";
+        this.x.min  = 0;
+        this.x.max  = 1500;
+        this.x.unit = "Ом";
         break;
       case xAxisType.current:
-        x.min  = 0;
-        x.max  = 20;
-        x.unit = "мА";
+        this.x.min  = 0;
+        this.x.max  = 20;
+        this.x.unit = "мА";
         break;
     }
     switch ( this.yType ) {
       case yAxisType.oil:
-        y.min  = 0;
-        y.max  = 2;
-        y.unit = "Бар";
+        this.y.min  = 0;
+        this.y.max  = 2;
+        this.y.unit = "Бар";
         break;
       case yAxisType.coolant:
-        y.min  = 0;
-        y.max  = 250;
-        y.unit = "С";
+        this.y.min  = 0;
+        this.y.max  = 250;
+        this.y.unit = "С";
       break;
       case yAxisType.fuel:
-        y.min  = 0;
-        y.max  = 100;
-        y.unit = "%";
+        this.y.min  = 0;
+        this.y.max  = 100;
+        this.y.unit = "%";
         break;
+    }
+    if ( reInit == 1 ) {
+      this.setDef();
+    } else {
+      for ( var i=0; i<this.size; i++ ) {
+        if ( this.dots[i].x < this.x.min ) {
+          this.dots[i].x = this.x.min;
+        }
+        if ( this.dots[i].x > this.x.max ) {
+          this.dots[i].x = this.x.max;
+        }
+        if ( this.dots[i].y < this.y.min ) {
+          this.dots[i].y = this.y.min;
+        }
+        if ( this.dots[i].y > this.y.max ) {
+          this.dots[i].y = this.y.max;
+        }
+      }
     }
   }
   return;
@@ -232,36 +274,13 @@ function declareChartList () {
     chartList[i].clean();
   }
   chartList[0].init( xAxisType.resestive, yAxisType.oil );
+  chartList[0].setDef();
   chartList[1].init( xAxisType.resestive, yAxisType.coolant );
+  chartList[1].setDef();
   chartList[2].init( xAxisType.resestive, yAxisType.fuel );
+  chartList[2].setDef();
   return;
 }
-
-function newSensorData ( name, xmax, ymax, xunit, yunit ) {
-  return {
-    name:  name,
-    xmin:  0,
-    xmax:  xmax,
-    ymin:  0,
-    ymax:  ymax,
-    xunit: xunit,
-    yunit: yunit,
-    size:  2,
-    dots:  [{
-      x: 0,
-      y: 0,
-    },{
-      x: xmax,
-      y: ymax,
-    }]
-  }
-}
-let oilSensorResistance     = newSensorData( "oilSensorResistance",     1500, 2,   "Ом", "Бар"   );
-let oilSensorCurrent        = newSensorData( "oilSensorCurrent",        20,   2,   "мА", "Бар"   );
-let coolantSensorResistance = newSensorData( "coolantSensorResistance", 1500, 250, "Ом", "\xB0C" );
-let coolantSensorCurrent    = newSensorData( "coolantSensorCurrent",    20,   250, "мА", "\xB0C" );
-let fuelSensorResistance    = newSensorData( "fuelSensorResistance",    1500, 100, "Ом", "%"     );
-let fuelSensorCurrent       = newSensorData( "fuelSensorCurrent",       20,   100, "мА", "%"     );
 var currentChart;
 //******************************************************************************
 function sensorModalInit ( target ) {
@@ -269,25 +288,31 @@ function sensorModalInit ( target ) {
     case 'oil':
       type = document.getElementById( "oilPressureSensorType" ).value - 3;
       if ( type == 0 ) {
-        currentChart = oilSensorResistance;
+        chartList[0].init( xType = xAxisType.resestive );
+        currentChart = chartList[0];
       } else {
-        currentChart = oilSensorCurrent;
+        chartList[0].init( xType = xAxisType.current );
+        currentChart = chartList[0];
       }
       break;
     case 'coolant':
       type = document.getElementById( "coolantTempSensorType" ).value - 3;
       if ( type == 0 ) {
-        currentChart = coolantSensorResistance;
+        chartList[1].init( xType = xAxisType.resestive );
+        currentChart = chartList[1];
       } else {
-        currentChart = coolantSensorCurrent;
+        chartList[1].init( xType = xAxisType.current );
+        currentChart = chartList[1];
       }
       break;
     case 'fuel':
       type = document.getElementById( "fuelLevelSensorType" ).value - 3;
       if ( type == 0 ) {
-        currentChart = fuelSensorResistance;
+        chartList[1].init( xType = xAxisType.resestive );
+        currentChart = chartList[2];
       } else {
-        currentChart = fuelSensorCurrent;
+        chartList[2].init( xType = xAxisType.current );
+        currentChart = chartList[2];
       }
       break;
   }
@@ -318,12 +343,12 @@ function makeChart ( chrtData ) {
   document.getElementById( "chartApplay" ).disabled = true;
   sensorData.labels                                        = [];
   sensorData.datasets[0].data                              = [];
-  lineChart.options.scales.yAxes[0].ticks.max              = chrtData.ymax;
-  lineChart.options.scales.yAxes[0].ticks.min              = chrtData.ymin;
-  lineChart.options.scales.xAxes[0].ticks.max              = chrtData.xmax;
-  lineChart.options.scales.xAxes[0].ticks.min              = chrtData.xmin;
-  lineChart.options.scales.xAxes[0].scaleLabel.labelString = chrtData.xunit;
-  lineChart.options.scales.yAxes[0].scaleLabel.labelString = chrtData.yunit
+  lineChart.options.scales.yAxes[0].ticks.max              = chrtData.y.max;
+  lineChart.options.scales.yAxes[0].ticks.min              = chrtData.y.min;
+  lineChart.options.scales.xAxes[0].ticks.max              = chrtData.x.max;
+  lineChart.options.scales.xAxes[0].ticks.min              = chrtData.x.min;
+  lineChart.options.scales.xAxes[0].scaleLabel.labelString = chrtData.x.unit;
+  lineChart.options.scales.yAxes[0].scaleLabel.labelString = chrtData.y.unit;
   for ( i=0; i<chrtData.size; i++ ) {
     sensorData.datasets[0].data.push({
       x: chrtData.dots[i].x,
@@ -390,61 +415,14 @@ function floatToFix16 ( float ) {
 }
 //------------------------------------------------------------------------------
 function uploadCharts () {
-  function prepareCharts( chart ) {
-    var dotArr = [];
-    if ( chart.size > 0 ) {
-      for ( var i=0; i<chart.size; i++) {
-        dotArr.push({
-          x: floatToFix16( chart.dots[i].x ),
-          y: floatToFix16( chart.dots[i].y )
-        })
-      }
-    }
-    return {
-      "xmin" : floatToFix16( chart.xmin ),
-      "xmax" : floatToFix16( chart.xmax ),
-      "ymin" : floatToFix16( chart.ymin ),
-      "ymax" : floatToFix16( chart.ymax ),
-      "xunit": encodeURI( chart.xunit ),
-      "yunit": encodeURI( chart.yunit ),
-      "size" : chart.size,
-      "dots" : dotArr,
+  var res = chartList;
+  for ( var i=0; i<res.length; i++ ) {
+    for( var j=0; j<res[i].size; j++ ) {
+      res[i].dots[j].x = floatToFix16( res[i].dots[j].x );
+      res[i].dots[j].y = floatToFix16( res[i].dots[j].y );
     }
   }
-  var sel     = 0;
-  var content = [];
-  //---------------- Oil resetence ----------------
-  sel = getVal( "oilPressureSensorType" );
-  if ( sel == 3 ) {
-    content.push( prepareCharts( oilSensorResistance ) );
-  //----------------- Oil current -----------------
-  } else if ( sel == 4 ) {
-    content.push( prepareCharts( oilSensorCurrent ) );
-  } else {
-    content.push( {"data" : 0} );
-  }
-  //-------------- Coolant resetence --------------
-  sel = getVal( "coolantTempSensorType" );
-  if ( sel == 3 ) {
-    content.push( prepareCharts( coolantSensorResistance ) );
-  //--------------- Coolant current ---------------
-  } else if ( sel == 4 ) {
-    content.push( prepareCharts( coolantSensorCurrent ) );
-  } else {
-    content.push( {"data" : 0} );
-  }
-  //---------------- Fuel resetence ---------------
-  sel = getVal( "fuelLevelSensorType" );
-  if ( sel == 3 ) {
-    content.push( prepareCharts( fuelSensorResistance ) );
-  //----------------- Fuel current ----------------
-  } else if ( sel == 4 ) {
-    content.push( prepareCharts( fuelSensorCurrent ) );
-  } else {
-    content.push( {"data" : 0} );
-  }
-  //-----------------------------------------------
-  return content;
+  return res;
 }
 //------------------------------------------------------------------------------
 function loadCharts ( data ) {
@@ -498,18 +476,10 @@ function loadCharts ( data ) {
 //------------------------------------------------------------------------------
 function saveToCurChart () {
   currentChart.size  = sensorData.datasets[0].data.length;
-  currentChart.ymax  = lineChart.options.scales.yAxes[0].ticks.max;
-  currentChart.ymin  = lineChart.options.scales.yAxes[0].ticks.min;
-  currentChart.xmax  = lineChart.options.scales.xAxes[0].ticks.max;
-  currentChart.xmin  = lineChart.options.scales.xAxes[0].ticks.min;
-  currentChart.xunit = lineChart.options.scales.xAxes[0].scaleLabel.labelString;
-  currentChart.yunit = lineChart.options.scales.yAxes[0].scaleLabel.labelString;
-  currentChart.dots.length = 0;
+  currentChart.clean();
   for ( var i=0; i<currentChart.size; i++ ) {
-    currentChart.dots.push({
-      x: sensorData.datasets[0].data[i].x,
-      y: sensorData.datasets[0].data[i].y,
-    })
+    currentChart.dots[i].x = sensorData.datasets[0].data[i].x;
+    currentChart.dots[i].y = sensorData.datasets[0].data[i].y;
   }
   return;
 }
@@ -567,7 +537,6 @@ function uploadSensorData () {
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
-module.exports.newSensorData   = newSensorData;
 module.exports.ChartData       = ChartData;
 module.exports.ChartDotData    = ChartDotData;
 module.exports.CHART_DOTS_SIZE = CHART_DOTS_SIZE;

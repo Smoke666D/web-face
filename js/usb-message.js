@@ -81,11 +81,6 @@ function USBMessage ( buffer ) {
   this.data    = [];     /* Data of message      */
   this.buffer  = buffer; /* Copy input buffer    */
   /*---------------------------------------------*/
-  function uint16toByte ( input, output ) {
-    output.push(   input & 0x00FF );
-    output.push( ( input & 0xFF00 ) >> 8 );
-    return;
-  }
   function byteToUint16 ( byte0, byte1 ) {
     return ( byte0 & 0xFF ) | ( ( byte1 & 0xFF ) << 8 );
   }
@@ -97,13 +92,6 @@ function USBMessage ( buffer ) {
   }
   function byteToUint24 ( byte0, byte1, byte2 ) {
     return ( byte0 & 0xFF ) | ( ( byte1 & 0xFF ) << 8 ) | ( ( byte2 & 0xFF ) << 16 );
-  }
-  function uint32toByte ( input, output ) {
-    output.push(     input & 0x000000FF );
-    output.push( ( ( input & 0x0000FF00 ) >> 8 ) );
-    output.push( ( ( input & 0x00FF0000 ) >> 16 ) );
-    output.push( ( ( input & 0xFF000000 ) >> 24 ) );
-    return;
   }
   function byteToUint32 ( byte0, byte1, byte2, byte3 ) {
     return ( byte0 & 0x000000FF ) | ( ( byte1 << 8 ) & 0x0000FF00 ) | ( ( byte2 << 16 )  & 0x00FF0000 ) | ( ( byte3 << 24 )  & 0xFF000000 );
@@ -312,10 +300,17 @@ function USBMessage ( buffer ) {
     if ( adr == 0 ) {
       data.push( chart.xType );
       data.push( chart.yType );
-      uint16toByte( data, chart.size );
+      data.push(   chart.size & 0x00FF );
+      data.push( ( chart.size & 0xFF00 ) >> 8 );
     } else if ( ( adr - 1 ) <= CHART_DOTS_SIZE ) {
-      uint32toByte( data, chart.dots[adr-1].x );
-      uint32toByte( data, chart.dots[adr-1].y );
+      data.push(     chart.dots[adr-1].x & 0x000000FF );
+      data.push( ( ( chart.dots[adr-1].x & 0x0000FF00 ) >> 8 ) );
+      data.push( ( ( chart.dots[adr-1].x & 0x00FF0000 ) >> 16 ) );
+      data.push( ( ( chart.dots[adr-1].x & 0xFF000000 ) >> 24 ) );
+      data.push(     chart.dots[adr-1].y & 0x000000FF );
+      data.push( ( ( chart.dots[adr-1].y & 0x0000FF00 ) >> 8 ) );
+      data.push( ( ( chart.dots[adr-1].y & 0x00FF0000 ) >> 16 ) );
+      data.push( ( ( chart.dots[adr-1].y & 0xFF000000 ) >> 24 ) );
     }
     makeResponse( cmd, adr, data, data.length );
   }
@@ -518,15 +513,15 @@ function USBMessage ( buffer ) {
     return;
   }
   this.codeChartOil                 = function ( chart, adr ) {
-    codeChart( msgCMD.USB_PUT_CONFIG_OIL_CMD, chart, adr );
+    codeChart( msgCMD.USB_PUT_CHART_OIL_CMD, chart, adr );
     return;
   }
   this.codeChartCoolant             = function ( chart, adr ) {
-    codeChart( msgCMD.USB_PUT_CONFIG_COOLANT_CMD, chart, adr );
+    codeChart( msgCMD.USB_PUT_CHART_COOLANT_CMD, chart, adr );
     return;
   }
   this.codeChartFuel                = function ( chart, adr ) {
-    codeChart( msgCMD.USB_PUT_CONFIG_FUEL_CMD, chart, adr );
+    codeChart( msgCMD.USB_PUT_CHART_FUEL_CMD, chart, adr );
     return;
   }
   this.codeEWA                      = function ( ewa, index ) {
