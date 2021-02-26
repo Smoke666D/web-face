@@ -427,13 +427,22 @@ function floatToFix16 ( float ) {
 }
 //------------------------------------------------------------------------------
 function uploadCharts () {
-  var res = chartList;
-  for ( var i=0; i<res.length; i++ ) {
-    for( var j=0; j<res[i].size; j++ ) {
-      res[i].dots[j].x = floatToFix16( res[i].dots[j].x );
-      res[i].dots[j].y = floatToFix16( res[i].dots[j].y );
+  //var res = Object.assign( {}, chartList );
+  //var res = chartList;
+  var res   = [];
+  for ( var i=0; i<chartList.length; i++ ) {
+    res.push( new ChartData() );
+    index = res.length - 1;
+    res[i].size = chartList[i].size;
+    for ( var j=0; j<res[i].size; j++ ) {
+      let dot = new ChartDotData();
+      dot.x = floatToFix16( chartList[i].dots[j].x );
+      dot.y = floatToFix16( chartList[i].dots[j].y );
+      res[i].dots.push( dot );
     }
   }
+  console.log( res );
+  console.log( chartList );
   return res;
 }
 //------------------------------------------------------------------------------

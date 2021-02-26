@@ -133,7 +133,7 @@ function connect () {
                 chartList[1].setData( out[1] );
                 chartList[1].clean();
                 chartList[1].getTypeFromReg( 1 );
-                chartList[1].init( 1 );
+                chartList[1].init();
                 break;
               case msgType.coolantDot:
                 chartList[1].setDot( ( buffer[i].adr - 1 ), out[1] );
@@ -142,7 +142,7 @@ function connect () {
                 chartList[2].setData( out[1] );
                 chartList[2].clean();
                 chartList[2].getTypeFromReg( 2 );
-                chartList[2].init( 2 );
+                chartList[2].init();
                 break;
               case msgType.fuelDot:
                 chartList[2].setDot( ( buffer[i].adr - 1 ), out[1] );
