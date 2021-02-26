@@ -1492,6 +1492,7 @@ function resetSettings () {
 		dataReg[i].value = dataReg[i].default;
 	}
 	updateInterface();
+  declareChartList();
 	let alert = new Alert( "alert-success", okIco, "Настройки сброшены до заводских" );
 	return;
 }

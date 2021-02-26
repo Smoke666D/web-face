@@ -761,6 +761,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 		sliderInit();
 	} catch {}
 	chartInit();
+	declareChartList();
 	measureChartInit();
 	passwordProcessig();
 	declareInterface();

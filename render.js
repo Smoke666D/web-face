@@ -4,10 +4,12 @@ var usb      = require('./js/usb.js');
 var rest     = require('./js/rest.js');
 var alerts   = require('./js/alerts.js');
 
-const USBMessage    = require('./js/usb-message.js').USBMessage;
-const USB_DATA_SIZE = require('./js/usb-message.js').USB_DATA_SIZE;
+const USBMessage              = require('./js/usb-message.js').USBMessage;
+const USB_DATA_SIZE           = require('./js/usb-message.js').USB_DATA_SIZE;
 const USB_CHART_HEADER_LENGTH = require('./js/usb-message.js').USB_CHART_HEADER_LENGTH;
-const USB_DATA_BYTE = require('./js/usb-message.js').USB_DATA_BYTE;
+const USB_DATA_BYTE           = require('./js/usb-message.js').USB_DATA_BYTE;
+const msgType                 = require('./js/usb-message.js').msgType;
+//var chartList               = require('./js/sensortable.js').chartList;
 
 var scales = [ 0, 0, 0 ];
 var lables = [ 'шт', 'c', 'м' ];
@@ -104,6 +106,7 @@ function connect () {
                 msg.addLong( buffer[i].buffer[j] );
               }
               if ( msg != null ) {
+                /*
                 if ( msg.data.length >= msg.length ) {
                   out = msg.parse( dataReg );
                   if ( out[0] == 2 ) {
@@ -111,27 +114,57 @@ function connect () {
                     out = [];
                   }
                 }
+                */
               }
             }
           } else {
             out = buffer[i].parse( dataReg );
-            if ( out[0] == 3 ) {
-              rtcTime.get( out[1] );
-            }
-            if ( out[0] == 4 ) {
-              freeDataValue[buffer[i].adr] = out[1];
-            }
-            if ( out[0] == 5 ) {
-              logArray[buffer[i].adr] = out[1];
-            }
-            if ( out[0] == 6 ) {
-              memorySize = out[1];
-            }
-            if ( out[0] == 7 ) {
-              measureBuffer.push( out[1] );
-            }
-            if ( out[0] == 8 ) {
-              measurementLength = out[1];
+            switch ( out[0] ) {
+              case msgType.oilChart:
+                chartList[0].setData( out[1] );
+                chartList[0].clean();
+                chartList[0].getTypeFromReg( 0 );
+                chartList[0].init();
+                break;
+              case msgType.oilDot:
+                chartList[0].setDot( ( buffer[i].adr - 1 ), out[1] );
+                break;
+              case msgType.coolantChart:
+                chartList[1].setData( out[1] );
+                chartList[1].clean();
+                chartList[1].getTypeFromReg( 1 );
+                chartList[1].init();
+                break;
+              case msgType.coolantDot:
+                chartList[1].setDot( ( buffer[i].adr - 1 ), out[1] );
+                break;
+              case msgType.fuelChart:
+                chartList[2].setData( out[1] );
+                chartList[2].clean();
+                chartList[2].getTypeFromReg( 2 );
+                chartList[2].init();
+                break;
+              case msgType.fuelDot:
+                chartList[2].setDot( ( buffer[i].adr - 1 ), out[1] );
+                break;
+              case msgType.time:
+                rtcTime.get( out[1] );
+                break;
+              case msgType.freeData:
+                freeDataValue[buffer[i].adr] = out[1];
+                break;
+              case msgType.log:
+                logArray[buffer[i].adr] = out[1];
+                break;
+              case msgType.memorySize:
+                memorySize = out[1];
+                break;
+              case msgType.measurement:
+                measureBuffer.push( out[1] );
+                break;
+              case msgType.measurementLen:
+                measurementLength = out[1];
+                break;
             }
           }
         });
@@ -139,7 +172,6 @@ function connect () {
       if ( charts.length == 3 ) {
         loadCharts( charts );
       }
-      charts = [];
       let alert = new Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
       updateInterface();
       if ( measureBuffer.length != 0 ) {
