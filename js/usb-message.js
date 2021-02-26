@@ -298,8 +298,6 @@ function USBMessage ( buffer ) {
   function codeChart ( cmd, chart, adr ) {
     let data = [];
     if ( adr == 0 ) {
-      data.push( chart.xType );
-      data.push( chart.yType );
       data.push(   chart.size & 0x00FF );
       data.push( ( chart.size & 0xFF00 ) >> 8 );
     } else if ( ( adr - 1 ) <= CHART_DOTS_SIZE ) {
@@ -347,9 +345,7 @@ function USBMessage ( buffer ) {
   }
   function parseChart () {
     var chart  = new ChartData();
-    chart.xType = self.data[0];
-    chart.yData = self.data[1];
-    chart.size  = byteToUint16( self.data[2], self.data[3] );
+    chart.size  = byteToUint16( self.data[0], self.data[1] );
     return chart;
   }
   function parseTime () {
@@ -591,7 +587,7 @@ function USBMessage ( buffer ) {
           output = parseChart();
           type   = msgType.fuelChart;
         } else {
-          output = parseDot();
+          output = parseDot();          
           type   = msgType.fuelDot;
         }
         break;

@@ -163,7 +163,7 @@ function ChartData () {
   this.size  = 0;
   this.dots  = [];
 
-  this.clean  = function () {
+  this.clean          = function () {
     this.dots = [];
     for ( var i=0; i<CHART_DOTS_SIZE; i++ ) {
       let dot = new ChartDotData();
@@ -171,13 +171,7 @@ function ChartData () {
     }
     return;
   }
-  this.setData   = function ( chart ) {
-    if ( chart.xType <= 2 ) {
-      this.xType = chart.xType;
-    }
-    if ( chart.yType <= 3 ) {
-      this.yType = chart.yType;
-    }
+  this.setData        = function ( chart ) {
     if ( chart.size < CHART_DOTS_SIZE ) {
       this.size  = chart.size;
     } else {
@@ -185,13 +179,12 @@ function ChartData () {
     }
     return;
   }
-  this.setDot = function ( adr, dot ) {
+  this.setDot         = function ( adr, dot ) {
     this.dots[adr].x = fix16Tofloat( dot.x );
     this.dots[adr].y = fix16Tofloat( dot.y );
-    console.log( this.dots[adr] );
     return;
   }
-  this.setDef = function () {
+  this.setDef         = function () {
     this.clean();
     this.size = 2;
     this.dots[0].x = this.x.min;
@@ -199,7 +192,25 @@ function ChartData () {
     this.dots[1].x = this.x.max;
     this.dots[1].y = this.y.max;
   }
-  this.init = function ( xType=this.xType, yType=this.yType ) {
+  this.getTypeFromReg = function ( n ) {
+    switch ( n ) {
+      case 0:
+        dataRegNum = 8;
+        break;
+      case 1:
+        dataRegNum = 11;
+        break;
+      case 2:
+        dataRegNum = 19;
+        break;
+    }
+    if ( bitVal( 0, dataReg[dataRegNum] ) == 4 ) {
+      this.xType = xAxisType.current;
+    } else {
+      this.xType = xAxisType.resestive;
+    }
+  }
+  this.init           = function ( xType = this.xType, yType = this.yType ) {
     let reInit = 0;
     if ( this.xType != xType ) {
       reInit = 1;
@@ -269,6 +280,7 @@ function AxisAtrib () {
 }
 
 function declareChartList () {
+  chartList = [];
   for ( var i=0; i<3; i++ ) {
     chartList.push( new ChartData() );
     chartList[i].clean();
