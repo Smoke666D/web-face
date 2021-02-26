@@ -107,6 +107,18 @@ function USBMessage ( buffer ) {
     }
     return;
   }
+  function codeCharToUtf8 ( char ) {
+    var buf = null;
+    if ( char.length == 1 ) {
+      buf = encodeURIComponent( char );
+      if ( buf.length == 1 ) {
+        buf = char.charCodeAt( 0 ).toString( 10 );
+      } else {
+        buf = parseInt( Number( "0x" + buf.slice( 1, 3 ) + buf.slice( 4, 6 ) ), 10 );
+      }
+    }
+    return buf;
+  }
   function encodeByteToStr ( data, length ) {
     var buffer = "";
     for ( var i=0; i<length; i++ ) {
@@ -326,7 +338,12 @@ function USBMessage ( buffer ) {
           if ( dig < 0x0020 ) {
             dig = 0x0020;
           }
-          let input = String.fromCharCode( parseInt( ( dig ).toString( 10 ) ) );
+
+          let buffer = "%" + dig.toString( 16 ).slice( 0, 2 ) + "%" + dig.toString( 16 ).slice( 2, 4 );
+          if ( buffer.length == 4) {
+            buffer = buffer.slice( 0, 3 );
+          }
+          let input  = decodeURIComponent( buffer );
           reg.value.push( input );
         } else {
           reg.value.push( byteToUint16( self.data[counter + i * 2], self.data[counter + i * 2 + 1] ) );
@@ -488,7 +505,8 @@ function USBMessage ( buffer ) {
     } else {
       for ( var i=0; i<reg.len; i++ ) {
         if ( reg.type == "C" ) {
-          let char = reg.value[i].charCodeAt( 0 ).toString( 10 );
+
+          let char = codeCharToUtf8( reg.value[i] );
           data.push(   char & 0x00FF );
           data.push( ( char & 0xFF00 ) >> 8 );
         } else {
@@ -587,7 +605,7 @@ function USBMessage ( buffer ) {
           output = parseChart();
           type   = msgType.fuelChart;
         } else {
-          output = parseDot();          
+          output = parseDot();
           type   = msgType.fuelDot;
         }
         break;

@@ -25,8 +25,9 @@ function saveConfigsToFile () {
     }
     return;
   }
-	grabInterface()
-	SaveAsFile( JSON.stringify( dataReg ), ( "config" + ".JSON" ), "application/json;charset=utf-8" );
+	grabInterface();
+  let output = JSON.stringify( { dataReg, chartList }, null, '\t' );
+	SaveAsFile( output, ( "config.JSON" ), "application/json" );
   return;
 }
 //******************************************************************************
@@ -43,7 +44,17 @@ function loadConfigsFromFile () {
         reader.readAsText( file );
 				reader.onload = function() {
 					try {
-						dataReg = JSON.parse( reader.result );
+            let data  = JSON.parse( reader.result );
+						dataReg   = data.dataReg;
+            for ( var i=0; i<chartList.length; i++ ) {
+              chartList[i].setData( data.chartList[i] );
+              chartList[i].clean();
+              chartList[i].getTypeFromReg( 0 );
+              chartList[i].init();
+              for ( var j=0; j<chartList[i].size; j++ ) {
+                chartList[i].writeDot( j, data.chartList[i].dots[j] );
+              }
+            }
             updateInterface();
             let alert = new Alert( "alert-success", okIco, "Конфигурация прочитана из файла" );
 					} catch( e ) {

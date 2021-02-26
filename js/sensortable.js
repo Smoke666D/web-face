@@ -179,6 +179,11 @@ function ChartData () {
     }
     return;
   }
+  this.writeDot       = function ( adr, dot ) {
+    this.dots[adr].x = dot.x;
+    this.dots[adr].y = dot.y;
+    return;
+  }
   this.setDot         = function ( adr, dot ) {
     this.dots[adr].x = fix16Tofloat( dot.x );
     this.dots[adr].y = fix16Tofloat( dot.y );
@@ -302,6 +307,7 @@ function sensorModalInit ( target ) {
       if ( type == 0 ) {
         chartList[0].init( xType = xAxisType.resestive );
         currentChart = chartList[0];
+        console.log( currentChart );
       } else {
         chartList[0].init( xType = xAxisType.current );
         currentChart = chartList[0];
@@ -427,9 +433,7 @@ function floatToFix16 ( float ) {
 }
 //------------------------------------------------------------------------------
 function uploadCharts () {
-  //var res = Object.assign( {}, chartList );
-  //var res = chartList;
-  var res   = [];
+  var res = [];
   for ( var i=0; i<chartList.length; i++ ) {
     res.push( new ChartData() );
     index = res.length - 1;
@@ -441,8 +445,6 @@ function uploadCharts () {
       res[i].dots.push( dot );
     }
   }
-  console.log( res );
-  console.log( chartList );
   return res;
 }
 //------------------------------------------------------------------------------

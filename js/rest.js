@@ -698,7 +698,9 @@ function redrawLogTable () {
   while ( table.rows[0] ) {
     table.deleteRow(0);
   }
-  sortingLog();
+  if ( logArray.length > 0 ) {
+    sortingLog();
+  }
   for ( var i=0; i<logArray.length; i++ ) {
     if ( logArray[i].time != 0 ) {
       let row = table.insertRow(j);
