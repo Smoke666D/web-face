@@ -9,7 +9,7 @@ var dataReg = [
    "max": 0,
    "units": "",
    "type": "U",
-   "rw": "rw",
+   "rw": "r",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -23,7 +23,7 @@ var dataReg = [
    "max": 0,
    "units": "",
    "type": "U",
-   "rw": "rw",
+   "rw": "r",
    "len": 1,
    "bitMapSize": 0,
    "bit": []
@@ -100,8 +100,8 @@ var dataReg = [
 },{
    "adr": 7,
    "name": "moduleSetup",
-   "value": 3,
-   "default": 3,
+   "value": 0,
+   "default": 0,
    "scale": 0,
    "min": 0,
    "max": 3,
@@ -109,20 +109,14 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 2,
+   "bitMapSize": 1,
    "bit": [
        {
-           "name": "moduleType",
+           "name": "passwordEnb",
            "mask": 1,
            "max": 1,
            "min": 0,
            "shift": 0,
-       },{
-           "name": "alarmAllBlock",
-           "mask": 2,
-           "max": 1,
-           "min": 0,
-           "shift": 1,
        },
    ]
 },{
@@ -1853,7 +1847,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 2,
+   "bitMapSize": 1,
    "bit": [
        {
            "name": "engineStartAttempts",
@@ -1861,12 +1855,6 @@ var dataReg = [
            "max": 9,
            "min": 1,
            "shift": 0,
-       },{
-           "name": "enginePreHeatEnb",
-           "mask": 16,
-           "max": 1,
-           "min": 0,
-           "shift": 4,
        },
    ]
 },{

@@ -105,7 +105,7 @@ function passwordProcessig () {
 		}
 		return;
 	}
-  enb.addEventListener( 'click', function () {
+  enb.addEventListener( 'change', function () {
 		checkEnb();
 		return;
 	});

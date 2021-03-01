@@ -219,6 +219,7 @@ function Switch ( name ) {
 	}
 	this.update  = function() {
 		this.object.checked = this.getVal();
+    this.object.dispatchEvent( new Event( 'change' ) );
 		return;
 	}
 	this.grab    = function() {

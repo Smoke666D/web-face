@@ -611,7 +611,7 @@ function EnrrganController () {
     return;
   }
   this.sendPass          = function ( password ) {
-    if ( transport.getStatus() == usbStat.wait) {
+    if ( transport.getStatus() == usbStat.wait ) {
       initWritePassSequency( password, function () {
         transport.start( usbStat.write, null );
       });

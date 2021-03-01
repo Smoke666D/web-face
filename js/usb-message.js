@@ -476,7 +476,7 @@ function USBMessage ( buffer ) {
     return;
   }
   this.codePassword                 = function ( password ) {
-    let data = [ ( password.enb & 0xFF ), ( password.data & 0x00FF), ( ( password.data & 0xFF00 ) >> 8 ) ];
+    let data = [ ( password.status & 0xFF ), ( password.data & 0x00FF), ( ( password.data & 0xFF00 ) >> 8 ) ];
     makeResponse( msgCMD.USB_PUT_PASSWORD, 0, data, data.length );
     return;
   }

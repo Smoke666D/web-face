@@ -17,11 +17,11 @@ function checkSettings () {
   this.names   = ["coolantTempHeaterEnb",
                    "coolantTempCoolerEnb",
                    "fuelPumpEnb",
-                   "enginePreHeatEnb"];
+                   ];
   this.targets = ["Охладитель охлаждающей жидкости",
                    "Подогреватель охлаждающей жидкости",
                    "Подкачка топлива",
-                   "Включение свечи накаливания"];
+                   ];
   for ( i=0; i<names.length; i++ ) {
     obj = document.getElementById( self.names[i] );
     obj.addEventListener( "change", ( function() {
