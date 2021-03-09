@@ -171,6 +171,14 @@ function ChartData () {
     }
     return;
   }
+  this.copy           = function ( buffer ) {
+    this.clean();
+    this.setData( buffer );
+    for ( var i=0; i<this.size; i++ ) {
+      this.writeDot( i, buffer.dots[i] );
+    }
+    return;
+  }
   this.setData        = function ( chart ) {
     if ( chart.size < CHART_DOTS_SIZE ) {
       this.size  = chart.size;
@@ -541,12 +549,14 @@ function uploadSensorData () {
 				let reader = new FileReader();
         reader.readAsText( file );
 				reader.onload = function() {
-					try {
-						currentChart = JSON.parse( reader.result );
+					//try {
+            let buffer = new ChartData();
+            buffer = JSON.parse( reader.result );
+            currentChart.copy( buffer );
 						makeChart( currentChart );
-					} catch( e ) {
-            let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
-					}
+					//} catch ( e ) {
+          //  let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
+					//}
   			};
 			}
 		});

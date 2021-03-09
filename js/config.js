@@ -1288,8 +1288,8 @@ var dataReg = [
 },{
    "adr": 69,
    "name": "genSetup",
-   "value": 1,
-   "default": 1,
+   "value": 9,
+   "default": 9,
    "scale": 0,
    "min": 0,
    "max": 255,
@@ -1297,7 +1297,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 2,
+   "bitMapSize": 3,
    "bit": [
        {
            "name": "genPowerGeneratorControlEnb",
@@ -1311,6 +1311,12 @@ var dataReg = [
            "max": 3,
            "min": 0,
            "shift": 1,
+       },{
+           "name": "genPhaseSequenceControlEnb",
+           "mask": 8,
+           "max": 1,
+           "min": 0,
+           "shift": 3,
        },
    ]
 },{
