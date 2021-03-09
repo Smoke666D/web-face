@@ -7,8 +7,20 @@ function setSuccessConnection() {
 			obj.classList.remove( 'btn-primary' );
 			obj.classList.add( 'btn-success' );
 		}
-		document.getElementById( 'refreshData-button' ).disabled = false;
-		document.getElementById( 'uploadData-button' ).disabled = false;
+		document.getElementById( 'refreshData-button' ).disabled           = false;
+		document.getElementById( 'uploadData-button' ).disabled            = false;
+		document.getElementById( 'setupPassword' ).disabled                = false;
+		document.getElementById( 'write-engineWorkTimeData' ).disabled     = false;
+		document.getElementById( 'write-engineStartsNumberData' ).disabled = false;
+		document.getElementById( 'write-powerFullUsage' ).disabled         = false;
+		document.getElementById( 'write-powerActiveUsage' ).disabled       = false;
+		document.getElementById( 'write-powerReactiveUsage' ).disabled     = false;
+		document.getElementById( 'controllerTimeSetup' ).disabled          = false;
+		document.getElementById( 'eraseLog-button' ).disabled              = false;
+		document.getElementById( 'saveLog-buton' ).disabled                = false;
+		document.getElementById( 'refreshMeasure-button' ).disabled        = false;
+		document.getElementById( 'measureSave-button' ).disabled           = false;
+		document.getElementById( 'measureErase-button' ).disabled          = false;
     if ( connectionType == 'usb' ){
       document.getElementById( 'flash-file' ).disabled = false;
     }
@@ -24,8 +36,19 @@ function resetSuccessConnection() {
 			obj.classList.remove( 'btn-success' );
 			obj.classList.add( 'btn-primary' );
 		}
-		document.getElementById( 'refreshData-button' ).disabled = true;
-		document.getElementById( 'uploadData-button' ).disabled = true;
+		document.getElementById( 'refreshData-button' ).disabled           = true;
+		document.getElementById( 'uploadData-button' ).disabled            = true;
+		document.getElementById( 'setupPassword' ).disabled                = true;
+		document.getElementById( 'write-engineWorkTimeData' ).disabled     = true;
+		document.getElementById( 'write-engineStartsNumberData' ).disabled = true;
+		document.getElementById( 'write-powerFullUsage' ).disabled         = true;
+		document.getElementById( 'write-powerActiveUsage' ).disabled       = true;
+		document.getElementById( 'write-powerReactiveUsage' ).disabled     = true;
+		document.getElementById( 'controllerTimeSetup' ).disabled          = true;
+		document.getElementById( 'eraseLog-button' ).disabled              = true;
+		document.getElementById( 'refreshMeasure-button' ).disabled        = true;
+		document.getElementById( 'measureSave-button' ).disabled           = true;
+		document.getElementById( 'measureErase-button' ).disabled          = true;
 		document.getElementById( 'flash-load' ).disabled = true;
 		document.getElementById( 'flash-file' ).disabled = true;
 	}

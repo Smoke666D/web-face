@@ -549,14 +549,14 @@ function uploadSensorData () {
 				let reader = new FileReader();
         reader.readAsText( file );
 				reader.onload = function() {
-					//try {
+					try {
             let buffer = new ChartData();
             buffer = JSON.parse( reader.result );
             currentChart.copy( buffer );
 						makeChart( currentChart );
-					//} catch ( e ) {
-          //  let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
-					//}
+					} catch ( e ) {
+            let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
+					}
   			};
 			}
 		});

@@ -752,8 +752,21 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 		})
 	})
 	if ( electronApp > 0 ) {
-		document.getElementById( 'refreshData-button' ).disabled = true;
-		document.getElementById( 'uploadData-button' ).disabled  = true;
+		document.getElementById( 'refreshData-button' ).disabled           = true;
+		document.getElementById( 'uploadData-button' ).disabled            = true;
+		document.getElementById( 'setupPassword' ).disabled                = true;
+		document.getElementById( 'write-engineWorkTimeData' ).disabled     = true;
+		document.getElementById( 'write-engineStartsNumberData' ).disabled = true;
+		document.getElementById( 'write-powerFullUsage' ).disabled         = true;
+		document.getElementById( 'write-powerActiveUsage' ).disabled       = true;
+		document.getElementById( 'write-powerReactiveUsage' ).disabled     = true;
+		document.getElementById( 'controllerTimeSetup' ).disabled          = true;
+		document.getElementById( 'eraseLog-button' ).disabled              = true;
+		document.getElementById( 'saveLog-buton' ).disabled                = true;
+		document.getElementById( 'refreshMeasure-button' ).disabled        = true;
+		document.getElementById( 'measureSave-button' ).disabled           = true;
+		document.getElementById( 'measureErase-button' ).disabled          = true;
+
 		ipv4AdrMask();
 	}
 	document.getElementById( 'versionSowtware' ).innerHTML = softwareVersion;
