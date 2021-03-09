@@ -517,7 +517,7 @@ function saveToCurChart () {
 
 function saveChartData () {
   saveToCurChart();
-  let alert = new Alert( "alert-success", triIco, "График успешно сохранен." );
+  let alert = new Alert( "alert-success", okIco, "График успешно сохранен." );
   return;
 }
 

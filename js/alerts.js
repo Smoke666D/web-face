@@ -26,12 +26,18 @@ function closeAlert ( id ) {
             alerts[i].style.bottom = parseInt( alerts[i].style.bottom ) - element.offsetHeight - boxDistance + 'px';
           }
         }
-        element.style.dispalay = 'none';
+        element.style.bottom = boxDistance + "px";
         alertDelIndex++;
       }, fadeTimeout * 1000 );
     }
   }
 	return;
+}
+/*----------------------------------------------------------------------------*/
+function AlertRecord ( bottom, height, index ) {
+  this.bottom = bottom;
+  this.height = height;
+  this.index  = index;
 }
 /*----------------------------------------------------------------------------*/
 function Alert ( type, ico, text, ack, progress ) {
@@ -85,11 +91,22 @@ function Alert ( type, ico, text, ack, progress ) {
     this.alertText  += '</div></div>';
 
     let alerts = document.getElementsByClassName( 'alert-message' );
-    box.innerHTML    = box.innerHTML + this.alertText;
-    this.object      = document.getElementById( 'alert' + this.index );
-    this.pb          = document.getElementById( 'alert-progress' + this.index );
-    if ( alertCurNumber > 0 ) {
-      self.object.style.bottom = parseInt( alerts[alerts.length-2].style.bottom ) + alerts[alerts.length-2].offsetHeight + boxDistance + 'px'
+    let active = [];
+    for ( var i=0; i<alerts.length; i++ ) {
+      if ( alerts[i].classList.contains( 'hidden' ) == false ) {
+        active.push( new AlertRecord( parseInt( alerts[i].style.bottom ), alerts[i].offsetHeight, i ) );
+      }
+    }
+    box.innerHTML = box.innerHTML + this.alertText;
+    this.object   = document.getElementById( 'alert' + this.index );
+    this.pb       = document.getElementById( 'alert-progress' + this.index );
+    if ( active.length > 0 ) {
+      self.object.style.bottom = active[active.length-1].bottom + active[active.length-1].height + boxDistance + 'px'
+      let limit = window.innerHeight - boxDistance * 3;
+      let tower = parseInt( self.object.style.bottom ) + self.object.offsetHeight ;
+      if ( limit < tower ) {
+        closeAlert( active[0].index );
+      }
     } else {
       self.object.style.bottom = boxDistance + 'px';
     }
@@ -98,8 +115,6 @@ function Alert ( type, ico, text, ack, progress ) {
       self.object.classList.add( 'animation' );
       setTimeout( function () {
         self.object.classList.remove( 'hidden' );
-        //console.log(self.object);
-        //console.log(document.getElementsByClassName( 'alert-message' ));
       }, 1 );
     }, 1 );
     return;
@@ -126,10 +141,10 @@ function Alert ( type, ico, text, ack, progress ) {
   return self;
 }
 //------------------------------------------------------------------------------
-module.exports.Alert = Alert;
-module.exports.triIco = triIco;
-module.exports.bellIco = bellIco;
-module.exports.okIco = okIco;
-module.exports.oilIco = oilIco;
+module.exports.Alert           = Alert;
+module.exports.triIco          = triIco;
+module.exports.bellIco         = bellIco;
+module.exports.okIco           = okIco;
+module.exports.oilIco          = oilIco;
 module.exports.shevronRightIco = shevronRightIco;
-module.exports.tachometerIco = tachometerIco;
+module.exports.tachometerIco   = tachometerIco;
