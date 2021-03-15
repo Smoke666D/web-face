@@ -1,6 +1,5 @@
 const remote  = require( 'electron' ).remote;
 var declareDone = 0;
-
 var diList;
 var doList;
 var stringLineArray = [];

@@ -528,11 +528,16 @@ function downloadSensorData () {
       saveAs( blob, file );
     } catch( e ) {
     	window.open( ( "data:" + m + "," + encodeURIComponent( t ) ), '_blank', '' );
+      let alert = new Alert( "alert-warning", triIco, "Ошибка записи грфика в файл" );
     }
     return;
   }
 	saveToCurChart();
-	SaveAsFile( JSON.stringify( currentChart ), ( currentChart.name + ".JSON" ), "text/plain;charset=utf-8" );
+  let name   = currentChart.name + ".json";
+  if ( electronApp > 0 ) {
+    name += ".json";
+  }
+	SaveAsFile( JSON.stringify( currentChart ), name, "application/json;charset=utf-8" );
   return;
 }
 //------------------------------------------------------------------------------

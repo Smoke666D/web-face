@@ -22,12 +22,17 @@ function saveConfigsToFile () {
       saveAs( file );
     } catch( e ) {
     	window.open( ( "data:" + m + "," + encodeURIComponent( t ) ), '_blank', '' );
+      let alert = new Alert( "alert-warning", triIco, "Ошибка записи конфигурации в файл" );
     }
     return;
   }
 	grabInterface();
   let output = JSON.stringify( { dataReg, chartList }, null, '\t' );
-	SaveAsFile( output, ( "config.JSON" ), "application/json" );
+  let name   = "config.json";
+  if ( electronApp > 0 ) {
+    name += ".json";
+  }
+	SaveAsFile( output, name, "application/json;charset=utf-8" );
   return;
 }
 //******************************************************************************

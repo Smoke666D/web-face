@@ -399,16 +399,14 @@
             <label id="versionSowtware">0.0.0</label>
           </div>
         </div>
-
         <br>
         <h5>Дисплей</h5>
-
         <div class="row">
           <div class="col-sm-2 pos-name">
             <label>Яркость</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-displayBrightnesLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-displayBrightnesLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-displayBrightnesLevel">%</label>
@@ -423,7 +421,7 @@
             <label>Контрастность</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-displayContarstLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-displayContarstLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-displayContarstLevel">%</label>
@@ -438,7 +436,7 @@
             <label>Переход в спящий режим</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-displaySleepDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-displaySleepDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-displaySleepDelay">сек</label>
@@ -455,7 +453,7 @@
             <label>Велечина</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-hysteresisLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-hysteresisLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-hysteresisLevel">%</label>
@@ -582,7 +580,7 @@
               <label>Аварийный</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control s-sinput" id="sinput-oilPressureAlarmLevel" step="1">
+              <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-oilPressureAlarmLevel" step="1">
             </div>
             <div class="col-dimension">
               <label class="pos-unit" id="label-oilPressureAlarmLevel">Бар</label>
@@ -603,7 +601,7 @@
               <label>Предупредительный</label>
             </div>
             <div class="col-sm-auto">
-              <input type="number" class="form-control s-sinput" id="sinput-oilPressurePreAlarmLevel" step="1">
+              <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-oilPressurePreAlarmLevel" step="1">
             </div>
             <div class="col-dimension">
               <label class="pos-unit" id="label-oilPressurePreAlarmLevel">Бар</label>
@@ -659,7 +657,7 @@
             <label>Аварийный</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-coolantHightTempAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-coolantHightTempAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-coolantHightTempAlarmLevel">'C</label>
@@ -679,7 +677,7 @@
             <label>Отключения</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-coolantHightTempElectroAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-coolantHightTempElectroAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-coolantHightTempElectroAlarmLevel">'C</label>
@@ -699,7 +697,7 @@
             <label>Предупредительный</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-coolantHightTempPreAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-coolantHightTempPreAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-coolantHightTempPreAlarmLevel">'C</label>
@@ -715,7 +713,7 @@
             <label>При температуре ниже</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-enginePreHeatLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-enginePreHeatLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-enginePreHeatLevel">'C</label>
@@ -740,7 +738,7 @@
             <label>Вкл</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-coolantTempHeaterOnLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-coolantTempHeaterOnLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-coolantTempHeaterOnLevel">'C</label>
@@ -755,7 +753,7 @@
             <label>Выкл</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-coolantTempHeaterOffLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-coolantTempHeaterOffLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-coolantTempHeaterOffLevel">'C</label>
@@ -780,7 +778,7 @@
             <label>Вкл</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-coolantTempCoolerOnLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-coolantTempCoolerOnLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-coolantTempCoolerOnLevel">'C</label>
@@ -794,7 +792,7 @@
             <label>Выкл</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-coolantTempCoolerOffLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-coolantTempCoolerOffLevel" step="1">
           </div>
           <div class="col-dimension">
             <label id="label-coolantTempCoolerOffLevel">'C</label>
@@ -853,7 +851,7 @@
             <label>Сигнализация</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelLevelLowAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-fuelLevelLowAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelLowAlarmLevel">%</label>
@@ -867,7 +865,7 @@
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelLevelLowAlarmDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-fuelLevelLowAlarmDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelLowAlarmDelay">сек</label>
@@ -890,7 +888,7 @@
             <label>Сигнализация</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelLevelLowPreAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-fuelLevelLowPreAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelLowPreAlarmLevel">%</label>
@@ -904,7 +902,7 @@
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelLevelLowPreAlarmDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-fuelLevelLowPreAlarmDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelLowPreAlarmDelay">сек</label>
@@ -929,7 +927,7 @@
             <label>Сигнализация</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelLevelHightPreAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-fuelLevelHightPreAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelHightPreAlarmLevel">%</label>
@@ -943,7 +941,7 @@
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelLevelHightPreAlarmDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-fuelLevelHightPreAlarmDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelHightPreAlarmDelay">сек</label>
@@ -966,7 +964,7 @@
             <label>Сигнализация</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelLevelHightAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-fuelLevelHightAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelHightAlarmLevel">%</label>
@@ -980,7 +978,7 @@
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelLevelHightAlarmDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-fuelLevelHightAlarmDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-fuelLevelHightAlarmDelay">сек</label>
@@ -1005,7 +1003,7 @@
             <label>Вкл</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelPumpOnLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-fuelPumpOnLevel" step="1">
           </div>
           <div class="col-dimension">
             <label id="label-fuelPumpOnLevel">%</label>
@@ -1019,7 +1017,7 @@
             <label>Выкл</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-fuelPumpOffLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-fuelPumpOffLevel" step="1">
           </div>
           <div class="col-dimension">
             <label id="label-fuelPumpOffLevel">%</label>
@@ -1046,7 +1044,7 @@
             <label>Количество зубьев маховика</label>
           </div>
           <div class="col-sm-2">
-            <input type="number" min="10" value="180" class="form-control num-input" id="speedToothNumber">
+            <input type="number" onkeypress="return event.charCode >= 48" min="10" value="180" class="form-control num-input" id="speedToothNumber">
           </div>
         </div>
         <br>
@@ -1062,7 +1060,7 @@
             <label>Нижний предел</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-speedLowAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-speedLowAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-speedLowAlarmLevel">RPM</label>
@@ -1076,7 +1074,7 @@
             <label for="sinput-speedHightAlarmLevel">Верхний предел</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-speedHightAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-speedHightAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-speedHightAlarmLevel">RPM</label>
@@ -1152,7 +1150,7 @@
             <label>Задержка срабатывания</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-diaDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-diaDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-diaDelay">сек</label>
@@ -1236,7 +1234,7 @@
             <label>Задержка срабатывания</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-dibDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-dibDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-dibDelay">сек</label>
@@ -1320,7 +1318,7 @@
             <label>Задержка срабатывания</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-dicDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-dicDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-dicDelay">сек</label>
@@ -1404,7 +1402,7 @@
             <label>Задержка срабатывания</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-didDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-didDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-didDelay">сек</label>
@@ -1439,7 +1437,7 @@
               </optgroup>
               <optgroup label="Сигнализация">
                 <option value="4">Общий аварийный сигнал</option>
-                <option value="5">Общая нарушение сети</option>
+                <option value="5">Общее нарушение сети</option>
                 <option value="6">Общее предупреждение</option>
               </optgroup>
               <optgroup label="Управление">
@@ -1485,7 +1483,7 @@
               </optgroup>
               <optgroup label="Сигнализация">
                 <option value="4">Общий аварийный сигнал</option>
-                <option value="5">Общая нарушение сети</option>
+                <option value="5">Общее нарушение сети</option>
                 <option value="6">Общее предупреждение</option>
               </optgroup>
               <optgroup label="Управление">
@@ -1531,7 +1529,7 @@
               </optgroup>
               <optgroup label="Сигнализация">
                 <option value="4">Общий аварийный сигнал</option>
-                <option value="5">Общая нарушение сети</option>
+                <option value="5">Общее нарушение сети</option>
                 <option value="6">Общее предупреждение</option>
               </optgroup>
               <optgroup label="Управление">
@@ -1577,7 +1575,7 @@
               </optgroup>
               <optgroup label="Сигнализация">
                 <option value="4">Общий аварийный сигнал</option>
-                <option value="5">Общая нарушение сети</option>
+                <option value="5">Общее нарушение сети</option>
                 <option value="6">Общее предупреждение</option>
               </optgroup>
               <optgroup label="Управление">
@@ -1623,7 +1621,7 @@
               </optgroup>
               <optgroup label="Сигнализация">
                 <option value="4">Общий аварийный сигнал</option>
-                <option value="5">Общая нарушение сети</option>
+                <option value="5">Общее нарушение сети</option>
                 <option value="6">Общее предупреждение</option>
               </optgroup>
               <optgroup label="Управление">
@@ -1669,7 +1667,7 @@
               </optgroup>
               <optgroup label="Сигнализация">
                 <option value="4">Общий аварийный сигнал</option>
-                <option value="5">Общая нарушение сети</option>
+                <option value="5">Общее нарушение сети</option>
                 <option value="6">Общее предупреждение</option>
               </optgroup>
               <optgroup label="Управление">
@@ -1705,7 +1703,6 @@
       <!------------------------------------------------------------------------------------------------------------->
       <div id="timerPage" class="content-data hidden">
         <h2>Таймеры</h2>
-
         <br>
         <h5>Таймеры запуска</h5>
         <div class="row">
@@ -1713,7 +1710,7 @@
             <label>Коммутационные скачки параметров сети</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerMainsTransientDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerMainsTransientDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerMainsTransientDelay">сек</label>
@@ -1727,7 +1724,7 @@
             <label>Задержка запуска</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerStartDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerStartDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerStartDelay">сек</label>
@@ -1741,7 +1738,7 @@
             <label>Предпрогрев</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-enginePreHeatDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-enginePreHeatDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-enginePreHeatDelay">сек</label>
@@ -1755,7 +1752,7 @@
             <label>Прокрутка стартера</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerCranking" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerCranking" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerCranking">сек</label>
@@ -1769,7 +1766,7 @@
             <label>Пауза между прокрутками</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerCrankDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerCrankDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerCrankDelay">сек</label>
@@ -1783,7 +1780,7 @@
             <label>Блокировка контроля параметров при старте</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerSafetyOnDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerSafetyOnDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerSafetyOnDelay">сек</label>
@@ -1797,7 +1794,7 @@
             <label>Работа на холостых оборотах</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerStartupIdleTime" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerStartupIdleTime" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerStartupIdleTime">сек</label>
@@ -1811,7 +1808,7 @@
             <label>Переход от холостых оборотов на номинальный режим</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerNominalRPMDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerNominalRPMDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerNominalRPMDelay">сек</label>
@@ -1825,7 +1822,7 @@
             <label>Время прогрева</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerWarming" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerWarming" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerWarming">сек</label>
@@ -1842,7 +1839,7 @@
             <label>Пауза между переключениями</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerTransferDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerTransferDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerTransferDelay">сек</label>
@@ -1856,7 +1853,7 @@
             <label>Длина импульса отключения генераторного автомата</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerGenBreakerTripPulse" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerGenBreakerTripPulse" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerGenBreakerTripPulse">сек</label>
@@ -1870,7 +1867,7 @@
             <label>Длина импульса включения генераторного автомата</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerGenBreakerClosePulse" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerGenBreakerClosePulse" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerGenBreakerClosePulse">сек</label>
@@ -1884,7 +1881,7 @@
             <label>Длина импульса отключения сетевого автомата</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerMainsBreakerTripPulse" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerMainsBreakerTripPulse" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerMainsBreakerTripPulse">сек</label>
@@ -1898,7 +1895,7 @@
             <label>Длина импульса включения сетевого автомата</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerMainsBreakerClosePulse" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerMainsBreakerClosePulse" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerMainsBreakerClosePulse">сек</label>
@@ -1915,7 +1912,7 @@
             <label>Задержка останова</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerReturnDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerReturnDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerReturnDelay">сек</label>
@@ -1929,7 +1926,7 @@
             <label>Время охлаждения</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerCooling" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerCooling" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerCooling">сек</label>
@@ -1943,7 +1940,7 @@
             <label>Время охлаждения на холостых оборотах</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerCoolingIdle" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerCoolingIdle" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerCoolingIdle">сек</label>
@@ -1957,7 +1954,7 @@
             <label>Работа стопового соленоида</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerSolenoidHold" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerSolenoidHold" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerSolenoidHold">сек</label>
@@ -1971,7 +1968,7 @@
             <label>Задержка сигнала «Сбой останова»</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerFailStopDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerFailStopDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerFailStopDelay">сек</label>
@@ -1985,7 +1982,7 @@
             <label>Коммутационные скачки параметров генератора</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-timerGenTransientDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-timerGenTransientDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-timerGenTransientDelay">сек</label>
@@ -2035,7 +2032,7 @@
             <label>Полная мощность</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genRatedApparentPowerLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genRatedApparentPowerLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genRatedApparentPowerLevel">кВА</label>
@@ -2049,7 +2046,7 @@
             <label>Активная мощность</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genRatedActivePowerLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genRatedActivePowerLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genRatedActivePowerLevel">кВт</label>
@@ -2063,7 +2060,7 @@
             <label>Реактивная мощность</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genRatedReactivePowerLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genRatedReactivePowerLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genRatedReactivePowerLevel">кВар</label>
@@ -2077,7 +2074,7 @@
             <label>cos(&phi;)</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-cosFi" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-cosFi" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit"></label>
@@ -2091,7 +2088,7 @@
             <label>Частота</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genRatedFrequencyLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genRatedFrequencyLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genRatedFrequencyLevel">Гц</label>
@@ -2105,7 +2102,7 @@
             <label>Ток</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genRatedCurrentLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genRatedCurrentLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genRatedCurrentLevel">А</label>
@@ -2121,7 +2118,7 @@
             <label>Количество полюсов</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genPoleQuantity" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genPoleQuantity" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genPoleQuantity">шт</label>
@@ -2135,7 +2132,7 @@
             <label>Коэффициент трансформатора тока</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genCurrentTrasformRatioLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genCurrentTrasformRatioLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genCurrentTrasformRatioLevel"></label>
@@ -2161,7 +2158,7 @@
             <label>Аварийный</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genUnderVoltageAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genUnderVoltageAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genUnderVoltageAlarmLevel">В</label>
@@ -2182,7 +2179,7 @@
             <label>Предупредительный</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genUnderVoltagePreAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genUnderVoltagePreAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genUnderVoltagePreAlarmLevel">В</label>
@@ -2204,7 +2201,7 @@
             <label>Предупредительный</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genOverVoltagePreAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genOverVoltagePreAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverVoltagePreAlarmLevel">В</label>
@@ -2219,7 +2216,7 @@
             <label>Аварийный</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genOverVoltageAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genOverVoltageAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverVoltageAlarmLevel">В</label>
@@ -2246,7 +2243,7 @@
             <label>Аварийный</label>
           </div>
           <div class="col-sm-auto">
-              <input type="number" class="form-control s-sinput" id="sinput-genUnderFrequencyAlarmLevel" step="1">
+              <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genUnderFrequencyAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genUnderFrequencyAlarmLevel">Гц</label>
@@ -2267,7 +2264,7 @@
             <label>Предупредительный</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genUnderFrequencyPreAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genUnderFrequencyPreAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genUnderFrequencyPreAlarmLevel">Гц</label>
@@ -2290,7 +2287,7 @@
             <label>Предупредительный</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genOverFrequencyPreAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genOverFrequencyPreAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverFrequencyPreAlarmLevel">Гц</label>
@@ -2310,7 +2307,7 @@
             <label>Аварийный сигнал</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genOverFrequencyAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genOverFrequencyAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverFrequencyAlarmLevel">Гц</label>
@@ -2342,7 +2339,7 @@
             <label>Предупреждение</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genOverCurrentWarningLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genOverCurrentWarningLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverCurrentWarningLevel">%</label>
@@ -2356,7 +2353,7 @@
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genOverCurrentWarningDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genOverCurrentWarningDelay" step="1">
           </div>
           <div class="col-dimension">
             <label id="label-genOverCurrentWarningDelay" class="pos-unit">мин</label>
@@ -2372,7 +2369,7 @@
             <label>Тепловая защита</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genOverCurrentThermalProtectionLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genOverCurrentThermalProtectionLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverCurrentThermalProtectionLevel">%</label>
@@ -2386,7 +2383,7 @@
             <label>Токовая отсечка</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genOverCurrentCutoffLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genOverCurrentCutoffLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genOverCurrentCutoffLevel">%</label>
@@ -2412,7 +2409,7 @@
             <label>Сигнализация</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genCurrentOverloadProtectionLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genCurrentOverloadProtectionLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genCurrentOverloadProtectionLevel">%</label>
@@ -2426,7 +2423,7 @@
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genCurrentOverloadProtectionDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genCurrentOverloadProtectionDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genCurrentOverloadProtectionDelay">сек</label>
@@ -2451,7 +2448,7 @@
             <label>Сигнализация</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genCurrentOverPhaseImbalanceLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genCurrentOverPhaseImbalanceLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genCurrentOverPhaseImbalanceLevel">%</label>
@@ -2465,7 +2462,7 @@
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-genCurrentOverPhaseImbalanceDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genCurrentOverPhaseImbalanceDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-genCurrentOverPhaseImbalanceDelay">сек</label>
@@ -2513,7 +2510,7 @@
             <label>Низкое напряжение</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-mainsUnderVoltageAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-mainsUnderVoltageAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-mainsUnderVoltageAlarmLevel">В</label>
@@ -2533,7 +2530,7 @@
             <label>Высокое напряжение</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-mainsOverVoltageAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-mainsOverVoltageAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-mainsOverVoltageAlarmLevel">В</label>
@@ -2555,7 +2552,7 @@
             <label>Низкая частота</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-mainsUnderFrequencyAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-mainsUnderFrequencyAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-mainsUnderFrequencyAlarmLevel">Гц</label>
@@ -2575,7 +2572,7 @@
             <label>Высокая частота</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-mainsOverFrequencyAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-mainsOverFrequencyAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-mainsOverFrequencyAlarmLevel">Гц</label>
@@ -2603,7 +2600,7 @@
             <label>Попытки запуска</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" min="1" class="form-control small-input" id="engineStartAttempts">
+            <input type="number" onkeypress="return event.charCode >= 48" min="1" class="form-control small-input" id="engineStartAttempts">
           </div>
         </div>
         <br>
@@ -2613,7 +2610,7 @@
             <label>Частоте генератора</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-starterStopGenFreqLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-starterStopGenFreqLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-starterStopGenFreqLevel">Гц</label>
@@ -2633,7 +2630,7 @@
             <label>Давлению масла</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-starterStopOilPressureLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-starterStopOilPressureLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-starterStopOilPressureLevel">Bar</label>
@@ -2653,7 +2650,7 @@
             <label>Напряжению зарядного генератор</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-starterStopChargeAlternatorLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-starterStopChargeAlternatorLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-starterStopChargeAlternatorLevel">B</label>
@@ -2673,7 +2670,7 @@
             <label>Оборотам двигателя</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-starterStopSpeedLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-starterStopSpeedLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-starterStopSpeedLevel">RPM</label>
@@ -2702,7 +2699,7 @@
             <label>Сигнализация</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-batteryUnderVoltageLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-batteryUnderVoltageLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-batteryUnderVoltageLevel">B</label>
@@ -2716,7 +2713,7 @@
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-batteryUnderVoltageDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-batteryUnderVoltageDelay" step="1">
           </div>
           <div class="col-dimension">
             <label id="label-batteryUnderVoltageDelay" class="pos-unit">мин</label>
@@ -2739,7 +2736,7 @@
             <label>Сигнализация</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-batteryOverVoltageLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-batteryOverVoltageLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-batteryOverVoltageLevel">B</label>
@@ -2753,7 +2750,7 @@
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-batteryOverVoltageDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-batteryOverVoltageDelay" step="1">
           </div>
           <div class="col-dimension">
             <label id="label-batteryOverVoltageDelay" class="pos-unit">мин</label>
@@ -2778,7 +2775,7 @@
             <label>Сигнализация</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-batteryChargeAlarmLevel" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-batteryChargeAlarmLevel" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-batteryChargeAlarmLevel">B</label>
@@ -2792,7 +2789,7 @@
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-batteryChargeAlarmDelay" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-batteryChargeAlarmDelay" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-batteryChargeAlarmDelay">мин</label>
@@ -2832,7 +2829,7 @@
             <label>Часы работы двигателя</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-maintenanceAlarmOilTime" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-maintenanceAlarmOilTime" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-maintenanceAlarmOilTime">час</label>
@@ -2884,7 +2881,7 @@
             <label>Часы работы двигателя</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-maintenanceAlarmAirTime" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-maintenanceAlarmAirTime" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-maintenanceAlarmAirTime">час</label>
@@ -2936,7 +2933,7 @@
             <label>Часы работы двигателя</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-maintenanceAlarmFuelTime" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-maintenanceAlarmFuelTime" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-maintenanceAlarmFuelTime">час</label>
@@ -2972,7 +2969,7 @@
             <label>Моточасы</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineWorkTimeData">
+            <input type="number" onkeypress="return event.charCode >= 48" value="0" min="0" max="65535" class="form-control small-input" id="input-engineWorkTimeData">
           </div>
           <div class="col-dimension">
             <label>часов</label>
@@ -2988,7 +2985,7 @@
             <label>Количество пусков</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
+            <input type="number" onkeypress="return event.charCode >= 48" value="0" min="0" max="65535" class="form-control small-input" id="input-engineStartsNumberData">
           </div>
           <div class="col-dimension">
             <label>раз</label>
@@ -3006,7 +3003,7 @@
             <label>Полная мощность</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-powerReactiveUsage">
+            <input type="number" onkeypress="return event.charCode >= 48" value="0" min="0" max="65535" class="form-control small-input" id="input-powerReactiveUsage">
           </div>
           <div class="col-dimension">
             <label>кВАч</label>
@@ -3022,7 +3019,7 @@
             <label>Активная мощность</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-powerActiveUsage">
+            <input type="number" onkeypress="return event.charCode >= 48" value="0" min="0" max="65535" class="form-control small-input" id="input-powerActiveUsage">
           </div>
           <div class="col-dimension">
             <label>кВтч</label>
@@ -3038,7 +3035,7 @@
             <label>Реактивная мощность</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" value="0" min="0" max="65535" class="form-control small-input" id="input-powerReactiveUsage">
+            <input type="number" onkeypress="return event.charCode >= 48" value="0" min="0" max="65535" class="form-control small-input" id="input-powerReactiveUsage">
           </div>
           <div class="col-dimension">
             <label>кВАРч</label>
@@ -3227,7 +3224,7 @@
             <label>Интервал записи</label>
           </div>
           <div class="col-sm-auto">
-            <input type="number" class="form-control s-sinput" id="sinput-recordInterval" step="1">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-recordInterval" step="1">
           </div>
           <div class="col-dimension">
             <label class="pos-unit" id="label-recordInterval">сек</label>
@@ -3474,9 +3471,9 @@
                   <svg viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
                 </button>
                 <label>X:</label>
-                <input type="number" class="form-control axis-input" id="chartXedit" disabled="false" step="0.01">
+                <input type="number" onkeypress="return event.charCode >= 48" class="form-control axis-input" id="chartXedit" disabled="false" step="0.01">
                 <label>Y:</label>
-                <input type="number" class="form-control axis-input" id="chartYedit" disabled="false" step="0.01">
+                <input type="number" onkeypress="return event.charCode >= 48" class="form-control axis-input" id="chartYedit" disabled="false" step="0.01">
                 <button type="button" id="chartApplay" aria-label="Remove point" disabled="false" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Изменить координаты">
                   <svg viewBox="0 0 512 512"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path></svg>
                 </button>

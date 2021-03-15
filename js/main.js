@@ -866,6 +866,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 		connectUpdate();
 	}
 	checkSettings();
+	checkTimers();
 	navbarToogling();
 	updateVersions();
 	starterStopProcessing();
@@ -897,6 +898,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	const mainsFreqLims = new slider2InitLimits( 'mainsUnderFrequencyAlarmLevel',
 		                                           'mainsOverFrequencyAlarmLevel' );
   loadContent( 'devicePage' );
+	doPairsAnalisInit();
 	return;
 });
 //******************************************************************************
