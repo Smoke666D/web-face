@@ -485,85 +485,6 @@ function Slider ( name, preInit ) {
 		} else {
 			this.enable = 1;
 		}
-    /*
-		if ( ( this.name.endsWith( "Delay" ) ) || ( this.name.startsWith( "timer" ) ) ) {
-			this.slider.noUiSlider.on( 'change', function() {
-				switch( self.label.textContent ) {
-					case 'сек':
-						if ( self.input.value >= 3602 ){
-							this.scale = 0.1;
-							self.input.step  = 0.1;
-							self.label.textContent = 'ч';
-							self.slider.noUiSlider.updateOptions({
-								step: 	0.1,
-								start: [self.input.value / 3600],
-								range: {
-									'min': 0,
-									'max': dataReg[self.regNum].max / 3600
-								}
-							});
-						} else	if ( self.input.value >= 61 ) {
-							this.scale = 0.1;
-							self.input.step  = 0.1;
-							self.label.textContent = 'мин';
-							self.slider.noUiSlider.updateOptions({
-								step: 	0.1,
-								start: [self.input.value / 60],
-								range: {
-									'min': 0,
-									'max': dataReg[self.regNum].max / 60
-								}
-							});
-						}
-						break;
-					case 'мин':
-						if ( self.input.value >= 62 ) {
-							this.scale = 0.1;
-							self.input.step  = 0.1;
-							self.label.textContent = 'ч';
-							self.slider.noUiSlider.updateOptions({
-								step: 	0.1,
-								start: [self.input.value / 60],
-								range: {
-									'min': 0,
-									'max': dataReg[self.regNum].max / 3600
-								}
-							});
-						} else if ( self.input.value <= 1 ) {
-							self.calcScale();
-							self.input.step  = self.scale;
-							self.label.textContent = 'сек';
-							self.slider.noUiSlider.updateOptions({
-								step: 	this.scale,
-								start: [self.input.value * 60],
-								range: {
-									'min': 0,
-									'max': dataReg[self.regNum].max
-								}
-							});
-						}
-						break;
-					case 'ч':
-						if ( self.input.value <= 1 ) {
-							this.scale = 0.1;
-							self.input.step  = 0.1;
-							self.label.textContent = 'мин';
-							self.slider.noUiSlider.updateOptions({
-								step: 	0.1,
-								start: [self.input.value * 60],
-								range: {
-									'min': 0,
-									'max': dataReg[self.regNum].max / 60
-								}
-							});
-						}
-						break;
-					default:
-						break;
-				}
-			});
-		}
-    */
 		return;
 	}
 	this.calcScale   = function() {
@@ -721,10 +642,10 @@ function redrawLogTable () {
       cell.textContent = logActionsDictionary[logArray[i].action];
       if ( logArray[i].action == 1 ) {
         row.className  = "table-warning";
-      } else if ( ( logArray[i].action == 2 ) || ( logArray[i].action == 4 ) ) {
+      } else if ( ( logArray[i].action == 2 ) || ( logArray[i].action == 3 ) ) {
         row.className  = "table-danger";
       } else {
-        //row.className  = "table-success";
+
       }
       j++;
     }

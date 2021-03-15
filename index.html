@@ -539,7 +539,7 @@
       <div id="oilPressPage" class="content-data hidden">
           <h2>Давление масла</h2>
           <div class="row">
-            <div class="col-sm-2 pos-name">
+            <div class="col-small">
               <label>Тип датчика</label>
             </div>
             <div class="col-sm-auto">
@@ -577,12 +577,9 @@
                 <input type="checkbox" class="check-input" id="oilPressureAlarmEnb">
                 <span class="slider"></span>
               </label>
-              <label for="oilPressureAlarmEnb" class="form-check-label">Аварийный сигнал</label>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-2 pos-name">
-              <label for="sinput-oilPressureAlarmLevel">Сигнализация</label>
+            <div class="col-alarmString">
+              <label>Аварийный</label>
             </div>
             <div class="col-sm-auto">
               <input type="number" class="form-control s-sinput" id="sinput-oilPressureAlarmLevel" step="1">
@@ -594,18 +591,16 @@
               <div class="s-slider" id="s-slider-oilPressureAlarmLevel"></div>
             </div>
           </div>
+
           <div class="row unselect">
             <div class="col-sm-auto pos-name">
               <label class="switch">
                 <input type="checkbox" class="check-input" id="oilPressurePreAlarmEnb">
                 <span class="slider"></span>
               </label>
-              <label for="oilPressurePreAlarmEnb" class="form-check-label">Предупредительный сигнал</label>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-2 pos-name">
-              <label for="sinput-oilPressurePreAlarmLevel">Сигнализация</label>
+            <div class="col-alarmString">
+              <label>Предупредительный</label>
             </div>
             <div class="col-sm-auto">
               <input type="number" class="form-control s-sinput" id="sinput-oilPressurePreAlarmLevel" step="1">
@@ -622,7 +617,7 @@
         <div id="coolTempPage" class="content-data hidden">
           <h2>Температура охдаждающей жидкости</h2>
           <div class="row">
-            <div class="col-sm-2 pos-name">
+            <div class="col-small">
               <label>Тип датчика</label>
             </div>
             <div class="col-sm-auto">
@@ -642,7 +637,6 @@
               </div>
             </div>
           </div>
-
           <div class="row unselect">
             <div class="col-sm-auto pos-name">
               <label class="switch">
@@ -652,7 +646,6 @@
               <label class="form-check-label">Контроль целостности цепи датчика</label>
             </div>
           </div>
-
           <br>
           <h5>Сигналы высокой температуры охлаждающей жидкости</h5>
           <div class="row unselect">
@@ -661,37 +654,29 @@
                 <input type="checkbox" class="check-input" id="coolantHightTempAlarmEnb">
                 <span class="slider"></span>
               </label>
-              <label class="form-check-label">Аварийный сигнал</label>
           </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Аварийный</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-coolantHightTempAlarmLevel" step="1">
           </div>
-          <div class="ccol-dimension">
+          <div class="col-dimension">
             <label class="pos-unit" id="label-coolantHightTempAlarmLevel">'C</label>
           </div>
           <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-coolantHightTempAlarmLevel"></div>
           </div>
         </div>
-
         <div class="row unselect">
           <div class="col-sm-auto pos-name">
             <label class="switch">
               <input type="checkbox" class="check-input" id="coolantHightTempElectroAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Сигнал электрического отключения</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Отключения</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-coolantHightTempElectroAlarmLevel" step="1">
@@ -703,19 +688,15 @@
             <div class="s-slider" id="s-slider-coolantHightTempElectroAlarmLevel"></div>
           </div>
         </div>
-
         <div class="row unselect">
           <div class="col-sm-auto pos-name">
             <label class="switch">
               <input type="checkbox" class="check-input" id="coolantHightTempPreAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Предупредительный сигнал</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Предупредительный</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-coolantHightTempPreAlarmLevel" step="1">
@@ -730,7 +711,7 @@
         <br>
         <h5>Предпрогрев</h5>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-stringToAlarm">
             <label>При температуре ниже</label>
           </div>
           <div class="col-sm-auto">
@@ -755,7 +736,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Вкл</label>
           </div>
           <div class="col-sm-auto">
@@ -770,7 +751,7 @@
         </div>
 
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Выкл</label>
           </div>
           <div class="col-sm-auto">
@@ -794,9 +775,8 @@
             <label class="form-check-label">Активировать</label>
           </div>
         </div>
-
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Вкл</label>
           </div>
           <div class="col-sm-auto">
@@ -809,9 +789,8 @@
             <div class="s-slider" id="s-slider-coolantTempCoolerOnLevel"></div>
           </div>
         </div>
-
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Выкл</label>
           </div>
           <div class="col-sm-auto">
@@ -829,7 +808,7 @@
       <div id="fuelLevelPage" class="content-data hidden">
         <h2>Уровень топлива</h2>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-small">
             <label>Тип датчика</label>
           </div>
           <div class="col-sm-auto">
@@ -849,7 +828,6 @@
             </div>
           </div>
         </div>
-
         <div class="row unselect">
           <div class="col-sm-auto pos-name">
             <label class="switch">
@@ -859,7 +837,6 @@
             <label class="form-check-label">Контроль целостности цепи датчика</label>
           </div>
         </div>
-
         <br>
         <h5>Сигналы нижнего предела</h5>
         <div class="row unselect">
@@ -871,9 +848,8 @@
             <label class="form-check-label">Аварийный сигнал</label>
           </div>
         </div>
-
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Сигнализация</label>
           </div>
           <div class="col-sm-auto">
@@ -886,9 +862,8 @@
             <div class="s-slider" id="s-slider-fuelLevelLowAlarmLevel"></div>
           </div>
         </div>
-
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
@@ -901,7 +876,6 @@
             <div class="s-slider" id="s-slider-fuelLevelLowAlarmDelay"></div>
           </div>
         </div>
-
         <div class="row unselect">
           <div class="col-sm-auto pos-name">
             <label class="switch">
@@ -912,7 +886,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Сигнализация</label>
           </div>
           <div class="col-sm-auto">
@@ -926,7 +900,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
@@ -939,7 +913,6 @@
             <div class="s-slider" id="s-slider-fuelLevelLowPreAlarmDelay"></div>
           </div>
         </div>
-
         <br>
         <h5>Сигналы верхнего предела</h5>
         <div class="row unselect">
@@ -952,7 +925,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Сигнализация</label>
           </div>
           <div class="col-sm-auto">
@@ -966,7 +939,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
@@ -989,7 +962,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Сигнализация</label>
           </div>
           <div class="col-sm-auto">
@@ -1003,7 +976,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Задержка</label>
           </div>
           <div class="col-sm-auto">
@@ -1016,7 +989,6 @@
             <div class="s-slider" id="s-slider-fuelLevelHightAlarmDelay"></div>
           </div>
         </div>
-
         <br>
         <h5>Подкачка топлива</h5>
         <div class="row unselect">
@@ -1029,7 +1001,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Вкл</label>
           </div>
           <div class="col-sm-auto">
@@ -1043,7 +1015,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-2 pos-name">
+          <div class="col-signalDelay">
             <label>Выкл</label>
           </div>
           <div class="col-sm-auto">
@@ -1070,25 +1042,24 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-3 pos-name">
+          <div class="col-stringToAlarm">
             <label>Количество зубьев маховика</label>
           </div>
           <div class="col-sm-2">
             <input type="number" min="10" value="180" class="form-control num-input" id="speedToothNumber">
           </div>
         </div>
+        <br>
+        <h5>Аварийные сигналы</h5>
         <div class="row unselect">
           <div class="col-sm-auto pos-name">
             <label class="switch">
               <input type="checkbox" class="check-input" id="speedLowAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Аварийный сигнал нижнего предела</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-3 pos-name">
-            <label for="sinput-speedLowAlarmLevel">Нижний предел</label>
+          <div class="col-alarmString">
+            <label>Нижний предел</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-speedLowAlarmLevel" step="1">
@@ -1101,7 +1072,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-3 pos-name">
+          <div class="col-alarmString first">
             <label for="sinput-speedHightAlarmLevel">Верхний предел</label>
           </div>
           <div class="col-sm-auto">
@@ -2185,12 +2156,9 @@
               <input type="checkbox" class="check-input" id="genUnderVoltageAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Аварийный сигнал</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Аварийный</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-genUnderVoltageAlarmLevel" step="1">
@@ -2202,18 +2170,16 @@
             <div class="s-slider" id="s-slider-genUnderVoltageAlarmLevel"></div>
           </div>
         </div>
+
         <div class="row unselect">
           <div class="col-sm-auto pos-name">
             <label class="switch">
               <input type="checkbox" class="check-input" id="genUnderVoltagePreAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Предупредительный сигнал</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Предупредительный</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-genUnderVoltagePreAlarmLevel" step="1">
@@ -2226,19 +2192,16 @@
           </div>
         </div>
         <br>
-        <h5>Сигналы перенапряжения</h5>
+        <h5>Сигналы высокого напряжения</h5>
         <div class="row unselect">
           <div class="col-sm-auto pos-name">
             <label class="switch">
               <input type="checkbox" class="check-input" id="genOverVoltagePreAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Предупредительный сигнал</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Предупредительный</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-genOverVoltagePreAlarmLevel" step="1">
@@ -2250,16 +2213,10 @@
             <div class="s-slider" id="s-slider-genOverVoltagePreAlarmLevel"></div>
           </div>
         </div>
+
         <div class="row">
-          <div class="col-sm-auto pos-name">
-            <div class="form-check">
-              <label class="form-check-label">Аварийный сигнал</label>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString first">
+            <label>Аварийный</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-genOverVoltageAlarmLevel" step="1">
@@ -2271,6 +2228,7 @@
             <div class="s-slider" id="s-slider-genOverVoltageAlarmLevel"></div>
           </div>
         </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="generatorFreqPage" class="content-data hidden">
@@ -2283,12 +2241,9 @@
               <input type="checkbox" class="check-input" id="genUnderFrequencyAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Аварийный сигнал</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Аварийный</label>
           </div>
           <div class="col-sm-auto">
               <input type="number" class="form-control s-sinput" id="sinput-genUnderFrequencyAlarmLevel" step="1">
@@ -2300,18 +2255,16 @@
             <div class="s-slider" id="s-slider-genUnderFrequencyAlarmLevel"></div>
           </div>
         </div>
+
         <div class="row unselect">
           <div class="col-sm-auto pos-name">
             <label class="switch">
               <input type="checkbox" class="check-input" id="genUnderFrequencyPreAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Предупредительный сигнал</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Предупредительный</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-genUnderFrequencyPreAlarmLevel" step="1">
@@ -2323,6 +2276,7 @@
             <div class="s-slider" id="s-slider-genUnderFrequencyPreAlarmLevel"></div>
           </div>
         </div>
+
         <br>
         <h5>Сигнал сверх частоты</h5>
         <div class="row unselect">
@@ -2331,12 +2285,9 @@
               <input type="checkbox" class="check-input" id="genOverFrequencyPreAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Предупредительный сигнал</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Предупредительный</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-genOverFrequencyPreAlarmLevel" step="1">
@@ -2354,12 +2305,9 @@
               <input type="checkbox" class="check-input" id="genOverFrequencyAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Аварийный сигнал</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Аварийный сигнал</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-genOverFrequencyAlarmLevel" step="1">
@@ -2371,6 +2319,7 @@
             <div class="s-slider" id="s-slider-genOverFrequencyAlarmLevel"></div>
           </div>
         </div>
+
       </div>
       <!------------------------------------------------------------------------------------------------------------->
       <div id="generatorCurrentPage" class="content-data hidden">
@@ -2559,12 +2508,9 @@
               <input type="checkbox" class="check-input" id="mainsUnderVoltageAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Низкое напряжение</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Низкое напряжение</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-mainsUnderVoltageAlarmLevel" step="1">
@@ -2582,12 +2528,9 @@
               <input type="checkbox" class="check-input" id="mainsOverVoltageAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Высокое напряжение</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Высокое напряжение</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-mainsOverVoltageAlarmLevel" step="1">
@@ -2607,12 +2550,9 @@
               <input type="checkbox" class="check-input" id="mainsUnderFrequencyAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Пониженная частота</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Низкая частота</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-mainsUnderFrequencyAlarmLevel" step="1">
@@ -2630,12 +2570,9 @@
               <input type="checkbox" class="check-input" id="mainsOverFrequencyAlarmEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Повышенная частота</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Сигнализация</label>
+          <div class="col-alarmString">
+            <label>Высокая частота</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" class="form-control s-sinput" id="sinput-mainsOverFrequencyAlarmLevel" step="1">
@@ -2672,7 +2609,7 @@
         <br>
         <h5>Отключение стартера по</h5>
         <div class="row">
-          <div class="col-engineStartNames first">
+          <div class="col-alarmString first">
             <label>Частоте генератора</label>
           </div>
           <div class="col-sm-auto">
@@ -2692,7 +2629,7 @@
               <span class="slider"></span>
             </label>
           </div>
-          <div class="col-engineStartNames">
+          <div class="col-alarmString">
             <label>Давлению масла</label>
           </div>
           <div class="col-sm-auto">
@@ -2712,7 +2649,7 @@
               <span class="slider"></span>
             </label>
           </div>
-          <div class="col-engineStartNames">
+          <div class="col-alarmString">
             <label>Напряжению зарядного генератор</label>
           </div>
           <div class="col-sm-auto">
@@ -2732,7 +2669,7 @@
               <span class="slider"></span>
             </label>
           </div>
-          <div class="col-engineStartNames">
+          <div class="col-alarmString">
             <label>Оборотам двигателя</label>
           </div>
           <div class="col-sm-auto">
@@ -3525,7 +3462,7 @@
                 <button type="button" aria-label="Close" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Закрыть">
                   <svg viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
                 </button>
-                <button type="button" aria-label="Apply" class="btn btn-primary" onclick="saveChartData()" data-toggle="tooltip" title="Применить">
+                <button type="button" aria-label="Apply" class="btn btn-primary" data-dismiss="modal" onclick="saveChartData()" data-toggle="tooltip" title="Применить">
                   <svg viewBox="0 0 512 512"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path></svg>
                 </button>
               </div>

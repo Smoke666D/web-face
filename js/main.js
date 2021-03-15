@@ -833,8 +833,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 						'fuelLevelHightPreAlarmEnb',
 						'fuelPumpEnb'
 					],
-					[ 'fuelLevelLowAlarmAction',
-					  'sinput-fuelLevelLowAlarmLevel',
+					[ 'sinput-fuelLevelLowAlarmLevel',
 					  's-slider-fuelLevelLowAlarmLevel',
 					  'sinput-fuelLevelLowAlarmDelay',
 					  's-slider-fuelLevelLowAlarmDelay',
@@ -842,7 +841,6 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 					  's-slider-fuelLevelLowPreAlarmLevel',
 						'sinput-fuelLevelLowPreAlarmDelay',
 					  's-slider-fuelLevelLowPreAlarmDelay',
-					  'fuelLevelHightAlarmAction',
 					  'sinput-fuelLevelHightAlarmLevel',
 					  's-slider-fuelLevelHightAlarmLevel',
 					  'sinput-fuelLevelHightAlarmDelay',

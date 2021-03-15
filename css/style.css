@@ -721,17 +721,45 @@ pre {
     flex: 0 0 4ex;
     max-width: 4ex; }
   }
-  .col-engineStartNames {
+    .col-alarmString {
     text-align: left;
     -webkit-box-flex: 0;
     -ms-flex: 0 0 20ex;
     flex: 0 0 20ex;
-    padding-left: 5px;
     max-width: 20ex;}
-    .col-engineStartNames.first {
-      padding-left: 80px!important;
-      padding-right: 140px!important;
+    .col-alarmString.first {
+      -ms-flex: 0 0 30ex!important;
+      flex: 0 0 30ex!important;
+      max-width: 30ex!important;
+      padding-left: 76px!important;
     }
+    .col-stringToAlarm {
+      text-align: left;
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 30ex;
+      flex: 0 0 30ex;
+      max-width: 30ex;
+    }
+    .col-small {
+      text-align: left;
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 12ex;
+      flex: 0 0 12ex;
+      max-width: 12ex;
+    }
+    .col-signalDelay {
+      text-align: left;
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 13ex;
+      flex: 0 0 13ex;
+      max-width: 13ex;
+    }
+    .col-onOffString {
+      text-align: left;
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 6ex;
+      flex: 0 0 6ex;
+      max-width: 6ex;}
 
 
   .col-sm {
