@@ -1,4 +1,5 @@
-function checkDO ( targetText ) {
+/*----------------------------------------------------------------------------*/
+function checkDOlist ( targetText ) {
   var types = document.getElementsByClassName( "doType" );
   var res   = 0;
   for ( i=0; i<types.length; i++ ) {
@@ -6,10 +7,65 @@ function checkDO ( targetText ) {
       res = 1;
     }
   }
-  if ( res == 0 ) {
-    let alert = new Alert( "alert-warning", shevronRightIco, "Цифровой выход под данную функцию не сконфигурирован." );
-  }
   return res;
+}
+/*----------------------------------------------------------------------------*/
+function checkDO ( targetText ) {
+  if ( checkDOlist() == 0 ) {
+    let alert = new Alert( "alert-warning", shevronRightIco, 'Цифровой выход <a class="text-danger">"' + targetText + '"</a> не сконфигурирован.' );
+  }
+}
+/*----------------------------------------------------------------------------*/
+function checkElectroDO () {
+  var relayPair = ["Включить генератор",
+                   "Включить сеть"];
+  var impulsSeq = ["Включить генератор импульсно",
+                   "Выключить генератор импульсно",
+                   "Включить сеть импульсно",
+                   "Выключить сеть импульсно"];
+  let genRel = checkDOlist( relayPair[0] );
+  let netRel = checkDOlist( relayPair[1] );
+  if ( ( genRel > 0 ) && ( netRel == 0 ) ) {
+    let alert = new Alert( "alert-warning", shevronLeftIco, 'Цифровой выход <a class="text-danger">"' + relayPair[1] + '"</a> не сконфигурирован.' );
+  } else if ( ( genRel == 0 ) && ( netRel > 0 ) ) {
+    let alert = new Alert( "alert-warning", shevronLeftIco, 'Цифровой выход <a class="text-danger">"' + relayPair[0] + '"</a> не сконфигурирован.' );
+  } else if ( ( genRel == 0 ) && ( netRel == 0 ) ) {
+    let imp     = [];
+    let alarms  = [];
+    let checkFl = 0;
+    for ( var i=0; i<impulsSeq.length; i++ ) {
+      let input = checkDOlist( impulsSeq[i] );
+      if ( input > 0 ) {
+        checkFl = 1;
+      }
+      imp.push( input );
+    }
+    if ( checkFl > 0 ) {
+      let string = '';
+      let lenStr = 0;
+      for ( var i=0; i<imp.length; i++ ) {
+        if ( imp[i] == 0 ) {
+          lenStr++;
+          string += '"' + impulsSeq[i] + '"'
+          if ( i != ( imp.length - 1) ) {
+            string += ', ';
+          }
+        }
+      }
+      if ( lenStr == 0 ) {
+        // All OK!
+      } else if ( lenStr == 1 ) {
+        alarms.push( new Alert( "alert-warning", shevronLeftIco, 'Цифровой выход <a class="text-danger">' + string + '</a> не сконфигурирован.' ) );
+      } else {
+        alarms.push( new Alert( "alert-warning", shevronLeftIco, 'Цифровые выходы <a class="text-danger">' + string + '</a> не сконфигурированы.' ) );
+      }
+    } else {
+      let alert = new Alert( "alert-warning", shevronLeftIco, 'Управление комутацией не сконфигурировано.' );
+    }
+  } else {
+    // All OK!
+  }
+  return;
 }
 /*----------------------------------------------------------------------------*/
 function analisDOpairs () {
@@ -54,6 +110,17 @@ function analisDOpairs () {
   return;
 }
 /*----------------------------------------------------------------------------*/
+function doPairsAnalisInit () {
+  var doList  = document.getElementsByClassName( "doType" );
+  for ( var i=0; i<doList.length; i++ ) {
+    doList[i].addEventListener( 'change', function ( ) {
+      analisDOpairs();
+      return;
+    });
+  }
+  return;
+}
+/*----------------------------------------------------------------------------*/
 function checkTimers () {
   var self     = this;
   this.names   = [ "enginePreHeatDelay",
@@ -74,11 +141,6 @@ function checkTimers () {
   for ( var i=0; i<self.names.length; i++ ) {
     let input  = document.getElementById( "sinput-"   + self.names[i] );
     let slider = document.getElementById( "s-slider-" + self.names[i] );
-
-
-
-
-
     input.addEventListener( 'change', ( function() {
       var j = i;
       return function() {
@@ -96,34 +158,41 @@ function checkTimers () {
   return;
 }
 /*----------------------------------------------------------------------------*/
-function doPairsAnalisInit () {
-  var doList  = document.getElementsByClassName( "doType" );
-  for ( var i=0; i<doList.length; i++ ) {
-    doList[i].addEventListener( 'change', function ( ) {
-      analisDOpairs();
-      return;
-    });
+function checkSelect () {
+  var self = this;
+  this.namesSel = ["genCurrentOverAction",
+                   "diaAction",
+                   "dibAction",
+                   "dicAction",
+                   "didAction"];
+  for ( i=0; i<self.namesSel.length; i++ ) {
+    obj = document.getElementById( self.namesSel[i] );
+    obj.addEventListener( 'change', ( function() {
+      var j = i;
+      return function () {
+        if ( this.value == 1 ) {
+          checkElectroDO();
+        }
+      }
+    })());
   }
-  return;
 }
 /*----------------------------------------------------------------------------*/
 function checkSettings () {
   var self     = this;
-  this.names   = ["coolantTempHeaterEnb",
-                  "coolantTempCoolerEnb",
-                  "fuelPumpEnb",
-                 ];
-  this.targets = ["Охладитель ОЖ",
-                  "Подогреватель ОЖ",
-                  "Подкачка топлива",
-                 ];
-  for ( i=0; i<self.names.length; i++ ) {;
-    obj = document.getElementById( self.names[i] );
+  this.namesSet   = ["coolantTempHeaterEnb",
+                     "coolantTempCoolerEnb",
+                     "fuelPumpEnb"];
+  this.targetsSet = ["Охладитель ОЖ",
+                     "Подогреватель ОЖ",
+                     "Подкачка топлива"];
+  for ( i=0; i<self.namesSet.length; i++ ) {;
+    obj = document.getElementById( self.namesSet[i] );
     obj.addEventListener( "change", ( function() {
       var j = i;
       return function() {
         if ( this.checked == true ) {
-          checkDO( self.targets[j] );
+          checkDO( self.targetsSet[j] );
         }
       }
     })());

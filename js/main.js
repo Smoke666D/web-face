@@ -867,6 +867,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	}
 	checkSettings();
 	checkTimers();
+	checkSelect();
 	navbarToogling();
 	updateVersions();
 	starterStopProcessing();
