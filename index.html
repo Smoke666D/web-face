@@ -1127,7 +1127,7 @@
           <div class="col-sm-6">
             <select class="custom-select" id="diaAction">
               <option value="0">Аварийный останов</option>
-              <option value="1">Отключение нагрузки</option>
+              <option value="1">Отключение</option>
               <option value="2">Предупреждение</option>
             </select>
           </div>
@@ -1211,7 +1211,7 @@
           <div class="col-sm-6">
             <select class="custom-select" id="dibAction">
               <option value="0">Аварийный останов</option>
-              <option value="1">Отключение нагрузки</option>
+              <option value="1">Отключение</option>
               <option value="2">Предупреждение</option>
             </select>
           </div>
@@ -1295,7 +1295,7 @@
           <div class="col-sm-6">
             <select class="custom-select" id="dicAction">
               <option value="0">Аварийный останов</option>
-              <option value="1">Отключение нагрузки</option>
+              <option value="1">Отключение</option>
               <option value="2">Предупреждение</option>
             </select>
           </div>
@@ -1379,7 +1379,7 @@
           <div class="col-sm-6">
             <select class="custom-select" id="didAction">
               <option value="0">Аварийный останов</option>
-              <option value="1">Отключение нагрузки</option>
+              <option value="1">Отключение</option>
               <option value="2">Предупреждение</option>
             </select>
           </div>
@@ -3143,44 +3143,44 @@
         <div class="row unselect">
           <div class="col-sm-6 pos-name">
             <label class="switch">
-              <input type="checkbox" class="check-input recordEnable" id="recordInputAEnb">
+              <input type="checkbox" class="check-input recordEnable" id="recordInputsEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Цифровой вход А</label>
+            <label class="form-check-label">Цифровые входы</label>
           </div>
           <div class="col-sm-6 pos-name">
             <label class="switch">
-              <input type="checkbox" class="check-input recordEnable" id="recordInputBEnb">
+              <input type="checkbox" class="check-input recordEnable" id="recordOutputsEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Цифровой вход B</label>
-          </div>
-        </div>
-
-        <div class="row unselect">
-          <div class="col-sm-6 pos-name">
-            <label class="switch">
-              <input type="checkbox" class="check-input recordEnable" id="recordInputCEnb">
-              <span class="slider"></span>
-            </label>
-            <label class="form-check-label">Цифровой вход C</label>
-          </div>
-          <div class="col-sm-6 pos-name">
-            <label class="switch">
-                <input type="checkbox" class="check-input recordEnable" id="recordInputDEnb">
-              <span class="slider"></span>
-            </label>
-            <label class="form-check-label">Цифровой вход D</label>
+            <label class="form-check-label">Цифровые выходы</label>
           </div>
         </div>
 
         <div class="row unselect">
           <div class="col-sm-6 pos-name">
             <label class="switch">
-              <input type="checkbox" class="check-input recordEnable" id="recordVoltageGenEnb">
+              <input type="checkbox" class="check-input recordEnable" id="recordGenPhaseVoltageEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Напряжение генератора</label>
+            <label class="form-check-label">Напряжение генератора фазовое</label>
+          </div>
+          <div class="col-sm-6 pos-name">
+            <label class="switch">
+              <input type="checkbox" class="check-input recordEnable" id="recordGenLineVoltageEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Напряжение генератора линейное</label>
+          </div>
+        </div>
+
+        <div class="row unselect">
+          <div class="col-sm-6 pos-name">
+            <label class="switch">
+              <input type="checkbox" class="check-input recordEnable" id="recordCurrentEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Ток нагрузки</label>
           </div>
           <div class="col-sm-6 pos-name">
             <label class="switch">
@@ -3191,24 +3191,66 @@
           </div>
         </div>
 
+
         <div class="row unselect">
           <div class="col-sm-6 pos-name">
             <label class="switch">
-              <input type="checkbox" class="check-input recordEnable" id="recordVoltageNetEnb">
+              <input type="checkbox" class="check-input recordEnable" id="recordCosFiEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Напряжение сети</label>
+            <label class="form-check-label">cos(&phi;)</label>
           </div>
           <div class="col-sm-6 pos-name">
             <label class="switch">
-              <input type="checkbox" class="check-input recordEnable" id="recordFreqNetEnb">
+              <input type="checkbox" class="check-input recordEnable" id="recordPowerActiveEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Частота сети</label>
+            <label class="form-check-label">Мощность активная</label>
           </div>
         </div>
 
         <div class="row unselect">
+          <div class="col-sm-6 pos-name">
+            <label class="switch">
+              <input type="checkbox" class="check-input recordEnable" id="recordPowerReactiveEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Мощность реактивная</label>
+          </div>
+          <div class="col-sm-6 pos-name">
+            <label class="switch">
+              <input type="checkbox" class="check-input recordEnable" id="recordPowerFullEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Мощность полная</label>
+          </div>
+        </div>
+
+        <div class="row unselect">
+          <div class="col-sm-6 pos-name">
+            <label class="switch">
+              <input type="checkbox" class="check-input recordEnable" id="recordMainsPhaseVoltageEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Напряжение сети фазовое</label>
+          </div>
+          <div class="col-sm-6 pos-name">
+            <label class="switch">
+              <input type="checkbox" class="check-input recordEnable" id="recordMainsLineVoltageEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Напряжение сети линейное</label>
+          </div>
+        </div>
+
+        <div class="row unselect">
+          <div class="col-sm-6 pos-name">
+            <label class="switch">
+              <input type="checkbox" class="check-input recordEnable" id="recordMainsFreqEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Частота сети</label>
+          </div>
           <div class="col-sm-auto pos-name">
             <label class="switch">
               <input type="checkbox" class="check-input recordEnable" id="recordVoltageAccEnb">
