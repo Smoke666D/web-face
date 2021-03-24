@@ -34,6 +34,8 @@ const msgCMD  = {
   'USB_GET_MEASUREMENT'        : 22,
   'USB_ERASE_MEASUREMENT'      : 23,
   'USB_GET_MEASUREMENT_LENGTH' : 24,
+  'USB_GET_OUTPUT_CMD'         : 25,
+  'USB_PUT_OUTPUT_CMD'         : 26,
 };
 const msgSTAT = {
   "USB_OK_STAT"           : 1,
@@ -57,6 +59,7 @@ const msgType = {
   "memorySize"     : 11,
   "measurement"    : 12,
   "measurementLen" : 13,
+  "output"         : 14,
 }
 const USB_DIR_BYTE  = 0;
 const USB_CMD_BYTE  = 1;
@@ -223,6 +226,12 @@ function USBMessage ( buffer ) {
       case msgCMD.USB_GET_MEASUREMENT_LENGTH:
         self.command = msgCMD.USB_GET_MEASUREMENT_LENGTH;
         break;
+      case msgCMD.USB_GET_OUTPUT_CMD:
+        self.command = msgCMD.USB_GET_OUTPUT_CMD;
+        break;
+      case msgCMD.USB_PUT_OUTPUT_CMD:
+        self.command = msgCMD.USB_PUT_OUTPUT_CMD;
+        break;
       default:
         self.command = 0;
         self.status  = msgSTAT.USB_BAD_REQ_STAT;
@@ -323,6 +332,10 @@ function USBMessage ( buffer ) {
       data.push( ( ( chart.dots[adr-1].y & 0xFF000000 ) >> 24 ) );
     }
     makeResponse( cmd, adr, data, data.length );
+  }
+  function parseOutput ( reg ) {
+    reg.value = byteToUint16( self.data[0], self.data[1] );
+    return;
   }
   function parseConfig ( reg ) {
     var counter = 0;
@@ -426,9 +439,12 @@ function USBMessage ( buffer ) {
     }
     return;
   }
-  this.makeConfigRequest            = function ( n ) {
-    makeRequest( msgCMD.USB_GET_CONFIG_CMD, n );
+  this.makeConfigRequest            = function ( adr ) {
+    makeRequest( msgCMD.USB_GET_CONFIG_CMD, adr );
     return;
+  }
+  this.makeOutputRequest            = function ( adr ) {
+    makeRequest( msgCMD.USB_GET_OUTPUT_CMD, adr );
   }
   this.makeChartOilRequest          = function ( adr ) {
     makeRequest( msgCMD.USB_GET_CHART_OIL_CMD, adr );
@@ -492,6 +508,13 @@ function USBMessage ( buffer ) {
     makeResponse( msgCMD.USB_PUT_TIME, 0, data, data.length );
     return;
   }
+  this.codeOutput                   = function ( reg, adr ) {
+    let data = [];
+    data.push(   reg.value & 0x00FF );
+    data.push( ( reg.value & 0xFF00 ) >> 8 );
+    makeResponse( msgCMD.USB_PUT_OUTPUT_CMD, adr, data, data.length );
+    return;
+  }
   this.codeFreeData                 = function ( adr, data ) {
     let output = [ ( data & 0x00FF ), ( ( data & 0xFF00 ) >> 8 ) ];
     makeResponse( msgCMD.USB_PUT_FREE_DATA, adr, output, output.length );
@@ -505,7 +528,6 @@ function USBMessage ( buffer ) {
     } else {
       for ( var i=0; i<reg.len; i++ ) {
         if ( reg.type == "C" ) {
-
           let char = codeCharToUtf8( reg.value[i] );
           data.push(   char & 0x00FF );
           data.push( ( char & 0xFF00 ) >> 8 );
@@ -581,6 +603,10 @@ function USBMessage ( buffer ) {
       case msgCMD.USB_GET_CONFIG_CMD:
         parseConfig( configs[self.adr] );
         type = msgType.config;
+        break;
+      case msgCMD.USB_GET_OUTPUT_CMD:
+        parseOutput( outputReg[self.adr] );
+        type = msgType.output;
         break;
       case msgCMD.USB_GET_CHART_OIL_CMD:
         if ( self.adr == 0 ) {

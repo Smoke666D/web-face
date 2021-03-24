@@ -414,7 +414,7 @@ function EnrrganController () {
   var transport = new USBtransport();
   var alert     = null;
   /*---------------------------------------------*/
-  function initWriteSequency ( callback ) {
+  function initWriteSequency ( adr, data, callback ) {
     var msg = null;
     transport.clean();
     /*--------------- Configurations ---------------*/
@@ -451,14 +451,14 @@ function EnrrganController () {
     callback();
     return;
   }
-  function initTimeWriteSequency ( callback, time ) {
+  function initTimeWriteSequency ( adr, data, callback ) {
     let msg = new USBMessage([]);
-    msg.codeTime( time );
+    msg.codeTime( data );
     transport.addToOutput( msg );
     callback();
     return;
   }
-  function initWriteEWA ( ewa, callback ) {
+  function initWriteEWA ( adr, ewa, callback ) {
     let msg   = null;
     let size  = Math.ceil( ewa.length / USB_DATA_SIZE );
     let index = 0;
@@ -471,42 +471,49 @@ function EnrrganController () {
     callback();
     return;
   }
-  function initWriteFreeDataSequency ( n, data, callback ) {
+  function initWriteFreeDataSequency ( adr, data, callback ) {
     let msg = new USBMessage( [] );
-    msg.codeFreeData( n, data );
+    msg.codeFreeData( adr, data );
     transport.addToOutput( msg );
     callback();
     return;
   }
-  function initWritePassSequency ( password, callback ) {
+  function initWriteOutputSequency ( adr, data, callback ) {
     let msg = new USBMessage( [] );
-    msg.codePassword( password );
+    msg.codeOutput( data, adr );
     transport.addToOutput( msg );
     callback();
     return;
   }
-  function initWriteAuthorSequency ( password, callback ) {
+  function initWritePassSequency ( adr, data, callback ) {
     let msg = new USBMessage( [] );
-    msg.codeAuthorization( password );
+    msg.codePassword( data );
     transport.addToOutput( msg );
     callback();
     return;
   }
-  function initWriteEraseLog ( callback ) {
+  function initWriteAuthorSequency ( adr, data, callback ) {
+    let msg = new USBMessage( [] );
+    msg.codeAuthorization( data );
+    transport.addToOutput( msg );
+    callback();
+    return;
+  }
+  function initWriteEraseLog ( adr, data, callback ) {
     let msg = new USBMessage( [] );
     msg.codeLogErase();
     transport.addToOutput( msg );
     callback();
     return;
   }
-  function initWriteEraseMeasurment ( callback ) {
+  function initWriteEraseMeasurment ( adr, data, callback ) {
     let msg = new USBMessage( [] );
     msg.codeMeasurementErase();
     transport.addToOutput( msg );
     callback();
     return;
   }
-  function initReadSequency ( password, callback ) {
+  function initReadSequency ( adr, password, callback ) {
     var msg = null;
     transport.clean();
     /*-------- Authorization --------*/
@@ -567,6 +574,42 @@ function EnrrganController () {
     callback();
     return;
   }
+  function initReadOutputSequency ( adr, data, callback ) {
+    for ( var i=0; i<outputReg.length; i++ )
+    {
+      msg = new USBMessage( [] )
+      msg.makeOutputRequest( i );
+      transport.addRequest( msg );
+    }
+    callback();
+    return;
+  }
+  function initReadMeasurementSequency ( adr, data, callback ) {
+    for ( var i=0; i<size; i++ ) {
+      let msg = new USBMessage( [] );
+      msg.makeMeasurementRequest( i );
+      transport.addRequest( msg );
+    }
+    callback();
+    return;
+  }
+  function sendSequency ( adr, data, alert, cmd, makeSeqCallBack ) {
+    if ( transport.getStatus() == usbStat.wait ) {
+      makeSeqCallBack( adr, data, function () {
+        transport.start( cmd, alert );
+        return;
+      });
+    }
+    return;
+  }
+  function writeSequency ( adr, data, alert, makeSeqCallBack ) {
+    sendSequency( adr, data, alert, usbStat.write, makeSeqCallBack );
+    return;
+  }
+  function readSequency ( adr, data, alert, makeSeqCallBack ) {
+    sendSequency( adr, data, alert, usbStat.read, makeSeqCallBack );
+    return;
+  }
   /*---------------------------------------------*/
   this.init              = function ( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback ) {
     var result = usbInit.fail;
@@ -594,92 +637,57 @@ function EnrrganController () {
     return transport.getInput();
   }
   this.sendTime          = function ( time ) {
-    if ( transport.getStatus() == usbStat.wait) {
-      initTimeWriteSequency( function () {
-        transport.start( usbStat.write, null );
-        return;
-      }, time );
-    }
+    writeSequency( 0, time, null, initTimeWriteSequency );
     return;
   }
-  this.sendFreeData      = function ( n, data ) {
-    if ( transport.getStatus() == usbStat.wait) {
-      initWriteFreeDataSequency( n, data, function () {
-        transport.start( usbStat.write, null );
-      });
-    }
+  this.sendFreeData      = function ( adr, data ) {
+    writeSequency( adr, data, null, initWriteFreeDataSequency );
+    return;
+  }
+  this.sendOutput        = function ( adr, data ) {
+    writeSequency( adr, data, null, initWriteOutputSequency );
     return;
   }
   this.sendPass          = function ( password ) {
-    if ( transport.getStatus() == usbStat.wait ) {
-      initWritePassSequency( password, function () {
-        transport.start( usbStat.write, null );
-      });
-    }
+    writeSequency( 0, password, null, initWritePassSequency );
     return;
   }
   this.sendAuthorization = function ( password ) {
-    if ( transport.getStatus() == usbStat.wait ) {
-      initWriteAuthorSequency( password, function () {
-        transport.start( usbStat.write, null );
-      });
-    }
+    writeSequency( 0, password, null, initWriteAuthorSequency );
     return;
   }
-  this.send              = function ( alertIn ) {
+  this.send              = function ( alertIn = null ) {
     alert = alertIn;
-    if ( transport.getStatus() == usbStat.wait) {
-      initWriteSequency( function () {
-        transport.start( usbStat.write, alert );
-      });
-    }
+    writeSequency( 0, 0, alert, initWriteSequency );
     return;
   }
-  this.eraseLog          = function () {
-    if ( transport.getStatus() == usbStat.wait ) {
-      initWriteEraseLog( function() {
-        transport.start( usbStat.write, alert );
-      });
-    }
-    return;
-  }
-  this.readMeasurement   = function ( size, alertIn ) {
+  this.eraseLog          = function ( alertIn = null ) {
     alert = alertIn;
-    if ( transport.getStatus() == usbStat.wait) {
-      transport.clean();
-      for ( var i=0; i<size; i++ ) {
-        let msg = new USBMessage( [] );
-        msg.makeMeasurementRequest( i );
-        transport.addRequest( msg );
-      }
-    }
-    transport.start( usbStat.read, alert );
+    writeSequency( 0, 0, alert, initWriteEraseLog );
     return;
   }
-  this.eraseMeasurement  = function () {
-    if ( transport.getStatus() == usbStat.wait ) {
-      initWriteEraseMeasurment( function() {
-        transport.start( usbStat.write, alert );
-        return;
-      })
-    }
-  }
-  this.sendEWA           = function ( ewa, alertIn ) {
+  this.readMeasurement   = function ( size, alertIn = null ) {
     alert = alertIn;
-    if ( transport.getStatus() == usbStat.wait ) {
-      initWriteEWA( ewa, function () {
-        transport.start( usbStat.write, alert );
-      });
-    }
+    readSequency( 0, 0, alert, initReadMeasurementSequency );
     return;
   }
-  this.receive           = function ( password, alertIn ) {
+  this.readOutput        = function () {
+    readSequency( 0, 0, null, initReadOutputSequency );
+    return;
+  }
+  this.eraseMeasurement  = function ( alertIn = null ) {
     alert = alertIn;
-    if ( transport.getStatus() == usbStat.wait) {
-      initReadSequency( password, function () {
-        transport.start( usbStat.read, alert );
-      });
-    }
+    writeSequency( 0, 0, alert, initWriteEraseMeasurment );
+    return;
+  }
+  this.sendEWA           = function ( ewa, alertIn = null ) {
+    alert = alertIn;
+    writeSequency( 0, ewa, alert, initWriteEWA );
+    return;
+  }
+  this.receive           = function ( password, alertIn = null ) {
+    alert = alertIn;
+    readSequency( 0, password, alert, initReadSequency );
     return;
   }
   /*----------------------------------------*/
