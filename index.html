@@ -58,6 +58,14 @@
               <span>Контроллер</span>
             </a>
           </li>
+          <li class="nav-major electron">
+            <a class="navItem" id="nav-scadaPage" onclick="loadContent('scadaPage')" href="#">
+              <div class="fas">
+                <svg viewBox="0 0 512 512"><path d="m197.332031 0h-160c-20.585937 0-37.332031 16.746094-37.332031 37.332031v96c0 20.589844 16.746094 37.335938 37.332031 37.335938h160c20.589844 0 37.335938-16.746094 37.335938-37.335938v-96c0-20.585937-16.746094-37.332031-37.335938-37.332031zm0 0"/><path d="m197.332031 213.332031h-160c-20.585937 0-37.332031 16.746094-37.332031 37.335938v224c0 20.585937 16.746094 37.332031 37.332031 37.332031h160c20.589844 0 37.335938-16.746094 37.335938-37.332031v-224c0-20.589844-16.746094-37.335938-37.335938-37.335938zm0 0"/><path d="m474.667969 341.332031h-160c-20.589844 0-37.335938 16.746094-37.335938 37.335938v96c0 20.585937 16.746094 37.332031 37.335938 37.332031h160c20.585937 0 37.332031-16.746094 37.332031-37.332031v-96c0-20.589844-16.746094-37.335938-37.332031-37.335938zm0 0"/><path d="m474.667969 0h-160c-20.589844 0-37.335938 16.746094-37.335938 37.332031v224c0 20.589844 16.746094 37.335938 37.335938 37.335938h160c20.585937 0 37.332031-16.746094 37.332031-37.335938v-224c0-20.585937-16.746094-37.332031-37.332031-37.332031zm0 0"/></svg>
+              </div>
+              <span>Мониторинг</span>
+            </a>
+          </li>
           <li class="nav-major">
             <a class="navItem" id="nav-loginPage" onclick="loadContent('loginPage')" href="#">
               <div class="fas">
@@ -445,7 +453,6 @@
             <div class="s-slider" id="s-slider-displaySleepDelay"></div>
           </div>
         </div>
-
         <br>
         <h5>Гизтерезис</h5>
         <div class="row">
@@ -485,6 +492,50 @@
             <button aria-label="Connect" id="controllerTimeSetup" onclick="setInputTime()" class="btn btn-primary" data-toggle="tooltip" title="Установить время контроллера">
               <span>Записать</span>
             </button>
+          </div>
+        </div>
+      </div>
+      <!------------------------------------------------------------------------------------------------------------->
+      <div id="scadaPage" class="content-data hidden">
+
+        <div class="card arc2">
+          <div class="card-header">
+            <div class="card-header-title">
+              <h5 class="card-title">Сеть</h5>
+            </div>
+            <div class="card-icon">
+              <svg viewBox="0 0 512 512"><path d="M472 243l-141-56v-35h60v15a15 15 0 0030 0v-15h15c16 0 21-21 7-28L325 65 267 5c-6-7-16-7-22 0l-58 60-118 59c-14 7-9 28 7 28h15v15a15 15 0 0030 0v-15h60v35L40 243c-15 6-10 29 6 29h15v15a15 15 0 0030 0v-15h90v44l-28 166h-47a15 15 0 000 30h300a15 15 0 000-30h-47l-28-166v-44h90v15a15 15 0 0030 0v-15h15c16 0 21-23 6-29zM256 380l-41-61 41-41 41 41zm-45-267l24 24-24 24zm90 48l-24-24 24-24zm-6 36l-39 39-39-39 39-39zm-84 36l24 24-24 24zm-6 124l32 48-49 48zm102 0l17 96-49-48zm-6-76l-24-24 24-24zm30-159v-21l41 21zm-75-85l39 40-39 39-39-39zm-116 85l41-21v21h-41zm-16 120l57-23v23zm78 240l54-54 54 54zm129-240v-23l57 23z"/></svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="arc-line">
+              <div class="arc-bar">
+                <p class="arc-header">Напряжеие</p>
+                <div class="half-arc">
+                  <svg>
+                    <g><path d=" M 0 70 A 70 70 90 0 1 140 70" /></g>
+                    <g><path d=" M 0 70 A 70 70 90 0 1 140 70" /></g>
+                  </svg>
+                  <div class="value-text">
+                    <p>320</p>
+                    <span>В</span>
+                  </div>
+                </div>
+              </div>
+              <div class="arc-bar">
+                <p class="arc-header">Частота</p>
+                <div class="half-arc">
+                  <svg>
+                    <g><path d=" M 0 70 A 70 70 90 0 1 140 70" /></g>
+                    <g><path d=" M 0 70 A 70 70 90 0 1 140 70" /></g>
+                  </svg>
+                  <div class="value-text">
+                    <p>50.1</p>
+                    <span>Гц</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -3632,7 +3683,7 @@
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/rest.js"></script>
-
+    <script type="text/javascript" src="js/arc.js"></script>
     <!--<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>-->
     <script type="text/javascript" src="js/chartjs-plugin-zoom.min.js"></script>
     <script type="text/javascript" src="js/measure.js"></script>
