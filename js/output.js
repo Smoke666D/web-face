@@ -681,20 +681,6 @@ var outputReg = [
    "bit": []
 },{
    "adr": 33,
-   "name": "errorLen",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 34,
    "name": "logRecordData0",
    "value": 0,
    "default": 0,
@@ -708,7 +694,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 35,
+   "adr": 34,
    "name": "logRecordData1",
    "value": 0,
    "default": 0,
@@ -722,7 +708,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 36,
+   "adr": 35,
    "name": "logRecordEvent",
    "value": 0,
    "default": 0,
@@ -736,8 +722,8 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 37,
-   "name": "errorRecordData0",
+   "adr": 36,
+   "name": "error0",
    "value": 0,
    "default": 0,
    "scale": 0,
@@ -747,11 +733,215 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 0,
-   "bit": []
+   "bitMapSize": 16,
+   "bit": [
+       {
+           "name": "errorExternEmegencyStop",
+           "mask": 1,
+           "max": 1,
+           "min": 0,
+           "shift": 0,
+       },{
+           "name": "errorStartFail",
+           "mask": 2,
+           "max": 1,
+           "min": 0,
+           "shift": 1,
+       },{
+           "name": "errorStopFail",
+           "mask": 4,
+           "max": 1,
+           "min": 0,
+           "shift": 2,
+       },{
+           "name": "errorOilLowPressure",
+           "mask": 8,
+           "max": 1,
+           "min": 0,
+           "shift": 3,
+       },{
+           "name": "errorOilSensor",
+           "mask": 16,
+           "max": 1,
+           "min": 0,
+           "shift": 4,
+       },{
+           "name": "errorTempHight",
+           "mask": 32,
+           "max": 1,
+           "min": 0,
+           "shift": 5,
+       },{
+           "name": "errorTempSensor",
+           "mask": 64,
+           "max": 1,
+           "min": 0,
+           "shift": 6,
+       },{
+           "name": "errorFuelLowLevel",
+           "mask": 128,
+           "max": 1,
+           "min": 0,
+           "shift": 7,
+       },{
+           "name": "errorFuelHightLevel",
+           "mask": 256,
+           "max": 1,
+           "min": 0,
+           "shift": 8,
+       },{
+           "name": "errorFuelSensor",
+           "mask": 512,
+           "max": 1,
+           "min": 0,
+           "shift": 9,
+       },{
+           "name": "errorSpeedHight",
+           "mask": 1024,
+           "max": 1,
+           "min": 0,
+           "shift": 10,
+       },{
+           "name": "errorSpeedLow",
+           "mask": 2048,
+           "max": 1,
+           "min": 0,
+           "shift": 11,
+       },{
+           "name": "errorSpeedSensor",
+           "mask": 4096,
+           "max": 1,
+           "min": 0,
+           "shift": 12,
+       },{
+           "name": "errorGenLowVoltage",
+           "mask": 8192,
+           "max": 1,
+           "min": 0,
+           "shift": 13,
+       },{
+           "name": "errorGenHightVoltage",
+           "mask": 16384,
+           "max": 1,
+           "min": 0,
+           "shift": 14,
+       },{
+           "name": "errorGenLowFreq",
+           "mask": 32768,
+           "max": 1,
+           "min": 0,
+           "shift": 15,
+       },
+   ]
+},{
+   "adr": 37,
+   "name": "error1",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 15,
+   "bit": [
+       {
+           "name": "errorGenHightFreq",
+           "mask": 1,
+           "max": 1,
+           "min": 0,
+           "shift": 0,
+       },{
+           "name": "errorGenPhaseSeq",
+           "mask": 2,
+           "max": 1,
+           "min": 0,
+           "shift": 1,
+       },{
+           "name": "errorPhaseImbalance",
+           "mask": 4,
+           "max": 1,
+           "min": 0,
+           "shift": 2,
+       },{
+           "name": "errorOverCurrent",
+           "mask": 8,
+           "max": 1,
+           "min": 0,
+           "shift": 3,
+       },{
+           "name": "errorOverPower",
+           "mask": 16,
+           "max": 1,
+           "min": 0,
+           "shift": 4,
+       },{
+           "name": "errorShortCircuit",
+           "mask": 32,
+           "max": 1,
+           "min": 0,
+           "shift": 5,
+       },{
+           "name": "errorMainsPhaseSeq",
+           "mask": 64,
+           "max": 1,
+           "min": 0,
+           "shift": 6,
+       },{
+           "name": "errorMaintenanceOil",
+           "mask": 128,
+           "max": 1,
+           "min": 0,
+           "shift": 7,
+       },{
+           "name": "errorMaintenanceAir",
+           "mask": 256,
+           "max": 1,
+           "min": 0,
+           "shift": 8,
+       },{
+           "name": "errorMaintenanceFuel",
+           "mask": 512,
+           "max": 1,
+           "min": 0,
+           "shift": 9,
+       },{
+           "name": "errorSensorCommon",
+           "mask": 1024,
+           "max": 1,
+           "min": 0,
+           "shift": 10,
+       },{
+           "name": "errorUserA",
+           "mask": 2048,
+           "max": 1,
+           "min": 0,
+           "shift": 11,
+       },{
+           "name": "errorUserB",
+           "mask": 4096,
+           "max": 1,
+           "min": 0,
+           "shift": 12,
+       },{
+           "name": "errorUserC",
+           "mask": 8192,
+           "max": 1,
+           "min": 0,
+           "shift": 13,
+       },{
+           "name": "errorUserD",
+           "mask": 16384,
+           "max": 1,
+           "min": 0,
+           "shift": 14,
+       },
+   ]
 },{
    "adr": 38,
-   "name": "errorRecordData1",
+   "name": "warning0",
    "value": 0,
    "default": 0,
    "scale": 0,
@@ -761,24 +951,108 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 0,
-   "bit": []
+   "bitMapSize": 16,
+   "bit": [
+       {
+           "name": "warningMainsLowVoltage",
+           "mask": 1,
+           "max": 1,
+           "min": 0,
+           "shift": 0,
+       },{
+           "name": "warningMainsHightVoltage",
+           "mask": 2,
+           "max": 1,
+           "min": 0,
+           "shift": 1,
+       },{
+           "name": "warningMainsLowFreq",
+           "mask": 4,
+           "max": 1,
+           "min": 0,
+           "shift": 2,
+       },{
+           "name": "warningMainsHightFreq",
+           "mask": 8,
+           "max": 1,
+           "min": 0,
+           "shift": 3,
+       },{
+           "name": "warningGenLowVoltage",
+           "mask": 16,
+           "max": 1,
+           "min": 0,
+           "shift": 4,
+       },{
+           "name": "warningGenHightVoltage",
+           "mask": 32,
+           "max": 1,
+           "min": 0,
+           "shift": 5,
+       },{
+           "name": "warningGenLowFreq",
+           "mask": 64,
+           "max": 1,
+           "min": 0,
+           "shift": 6,
+       },{
+           "name": "warningGenHightFreq",
+           "mask": 128,
+           "max": 1,
+           "min": 0,
+           "shift": 7,
+       },{
+           "name": "warningBatteryLow",
+           "mask": 256,
+           "max": 1,
+           "min": 0,
+           "shift": 8,
+       },{
+           "name": "warningBatteryHight",
+           "mask": 512,
+           "max": 1,
+           "min": 0,
+           "shift": 9,
+       },{
+           "name": "warningOverCurrent",
+           "mask": 1024,
+           "max": 1,
+           "min": 0,
+           "shift": 10,
+       },{
+           "name": "warningChargerFail",
+           "mask": 2048,
+           "max": 1,
+           "min": 0,
+           "shift": 11,
+       },{
+           "name": "warningFuelLowLevel",
+           "mask": 4096,
+           "max": 1,
+           "min": 0,
+           "shift": 12,
+       },{
+           "name": "warningFuelHightLevel",
+           "mask": 8192,
+           "max": 1,
+           "min": 0,
+           "shift": 13,
+       },{
+           "name": "warningTempHight",
+           "mask": 16384,
+           "max": 1,
+           "min": 0,
+           "shift": 14,
+       },{
+           "name": "warningOilLowPressure",
+           "mask": 32768,
+           "max": 1,
+           "min": 0,
+           "shift": 15,
+       },
+   ]
 },{
    "adr": 39,
-   "name": "errorRecordEvent",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 40,
    "name": "controll",
    "value": 0,
    "default": 0,
@@ -824,7 +1098,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 41,
+   "adr": 40,
    "name": "logAdr",
    "value": 0,
    "default": 0,
@@ -838,7 +1112,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 42,
+   "adr": 41,
    "name": "errorAdr",
    "value": 0,
    "default": 0,

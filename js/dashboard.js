@@ -52,17 +52,168 @@ const deviceStatusStr = [
   "Аварийный останов",
   "Запрет пуска",
 ];
+const errorDic = {
+  "errorExternEmegencyStop" : 0,
+  "errorStartFail"          : 1,
+  "errorStopFail"           : 2,
+  "errorOilLowPressure"     : 3,
+  "errorOilSensor"          : 4,
+  "errorTempHight"          : 5,
+  "errorTempSensor"         : 6,
+  "errorFuelLowLevel"       : 7,
+  "errorFuelHightLevel"     : 8,
+  "errorFuelSensor"         : 9,
+  "errorSpeedHight"         : 10,
+  "errorSpeedLow"           : 11,
+  "errorSpeedSensor"        : 12,
+  "errorGenLowVoltage"      : 13,
+  "errorGenHightVoltage"    : 14,
+  "errorGenLowFreq"         : 15,
+  "errorGenHightFreq"       : 16,
+  "errorGenPhaseSeq"        : 17,
+  "errorPhaseImbalance"     : 18,
+  "errorOverCurrent"        : 19,
+  "errorOverPower"          : 20,
+  "errorShortCircuit"       : 21,
+  "errorMainsPhaseSeq"      : 22,
+  "errorMaintenanceOil"     : 23,
+  "errorMaintenanceAir"     : 24,
+  "errorMaintenanceFuel"    : 25,
+  "errorSensorCommon"       : 26,
+  "errorUserA"              : 27,
+  "errorUserB"              : 28,
+  "errorUserC"              : 29,
+  "errorUserD"              : 30,
+};
+const warningDic = {
+  "warningMainsLowVoltage"   : 0,
+  "warningMainsHightVoltage" : 1,
+  "warningMainsLowFreq"      : 2,
+  "warningMainsHightFreq"    : 3,
+  "warningGenLowVoltage"     : 4,
+  "warningGenHightVoltage"   : 5,
+  "warningGenLowFreq"        : 6,
+  "warningGenHightFreq"      : 7,
+  "warningBatteryLow"        : 8,
+  "warningBatteryHight"      : 9,
+  "warningOverCurrent"       : 10,
+  "warningChargerFail"       : 11,
+  "warningFuelLowLevel"      : 12,
+  "warningFuelHightLevel"    : 13,
+  "warningTempHight"         : 14,
+  "warningOilLowPressure"    : 15,
+
+};
 const cardNames = [
-  "card-mains",
-  "card-load",
-  "card-gen",
-  "card-fuel",
-  "card-oil",
-  "card-coolant",
-  "card-speed",
-  "card-battery",
-  "card-charger",
+  {
+    name    : "cars-status",
+    error   : [
+      errorDic.errorExternEmegencyStop,
+      errorDic.errorStartFail,
+      errorDic.errorStopFail,
+      errorDic.errorMainsPhaseSeq,
+      errorDic.errorMaintenanceOil,
+      errorDic.errorMaintenanceAir,
+      errorDic.errorMaintenanceFuel,
+      errorDic.errorSensorCommon,
+      errorDic.errorUserA,
+      errorDic.errorUserB,
+      errorDic.errorUserC,
+      errorDic.errorUserD,
+    ],
+    warning : [],
+  },
+  {
+    name    : "card-mains",
+    error   : [],
+    warning : [
+      warningDic.warningMainsLowVoltage,
+      warningDic.warningMainsHightVoltage,
+      warningDic.warningMainsLowFreq,
+      warningDic.warningMainsHightFreq,
+    ] },
+  {
+    name    : "card-load",
+    error   : [
+      errorDic.errorPhaseImbalance,
+      errorDic.errorOverCurrent,
+      errorDic.errorOverPower,
+      errorDic.errorShortCircuit,
+    ],
+    warning : [warningDic.warningOverCurrent]
+  },
+  {
+    name    : "card-gen",
+    error   : [
+      errorDic.errorGenLowVoltage,
+      errorDic.errorGenHightVoltage,
+      errorDic.errorGenLowFreq,
+      errorDic.errorGenHightFreq,
+      errorDic.errorGenPhaseSeq,
+    ],
+    warning : [
+      warningDic.warningGenLowVoltage,
+      warningDic.warningGenHightVoltage,
+      warningDic.warningGenLowFreq,
+      warningDic.warningGenHightFreq,
+    ]
+  },
+  {
+    name    : "card-fuel",
+    error   : [
+      errorDic.errorFuelLowLevel,
+      errorDic.errorFuelHightLevel,
+      errorDic.errorFuelSensor,
+    ],
+    warning : [
+      warningDic.warningFuelLowLevel,
+      warningDic.warningFuelHightLevel,
+    ]
+  },
+  {
+    name    : "card-oil",
+    error   : [
+      errorDic.errorOilLowPressure,
+      errorDic.errorOilSensor,
+    ],
+    warning : [warningDic.warningOilLowPressure]
+  },
+  {
+    name    : "card-coolant",
+    error   : [
+      errorDic.errorTempHight,
+      errorDic.errorTempSensor,
+    ],
+    warning : [warningDic.warningTempHight]
+  },
+  {
+    name    : "card-speed",
+    error   : [
+      errorDic.errorSpeedHight,
+      errorDic.errorSpeedLow,
+      errorDic.errorSpeedSensor,
+    ],
+    warning : []
+  },
+  {
+    name    : "card-battery",
+    error   : [],
+    warning : [
+      warningDic.warningBatteryLow,
+      warningDic.warningBatteryHight,
+    ]
+  },
+  {
+    name    : "card-charger",
+    error   : [],
+    warning : [warningDic.warningChargerFail]
+  },
 ];
+const cardState = {
+  "normal"  : 0,
+  "error"   : 1,
+  "warning" : 2,
+};
 const dashboardNames = [
   { name : 'value-status',         type : dashUnitType.status,   adr :  0,           shift : 0, },
   { name : 'value-timer',          type : dashUnitType.time,     adr :  0,           shift : 0, },
@@ -198,42 +349,100 @@ function DashCard () {
   const fillStr    = "fill-white"
   var   object     = null;
   var   icon       = null;
+  var   errors     = [];
+  var   warnings   = [];
+  var   state      = cardState.normal;
 
-  this.init       = function ( name ) {
-    object = document.getElementById( name );
-    icon   = object.childNodes[1].childNodes[3].childNodes[1];
-    return;
-  }
-  this.setNormal  = function () {
+  function setNormal () {
     if ( object ) {
       object.classList.remove( warningStr );
       object.classList.remove( dangerStr );
       object.classList.remove( colorStr );
       icon.classList.remove( fillStr );
     }
+    return;
   }
-  this.setWarning = function () {
+  function setWarning () {
     if ( object ) {
       object.classList.add( warningStr );
       object.classList.remove( dangerStr );
       object.classList.add( colorStr );
       icon.classList.add( fillStr );
     }
+    return;
   }
-  this.setDanger  = function () {
+  function setDanger () {
     if ( object ) {
       object.classList.remove( warningStr );
       object.classList.add( dangerStr );
       object.classList.add( colorStr );
       icon.classList.add( fillStr );
     }
+    return;
+  }
+  function checkState ( warningList, errorList ) {
+    var res = cardState.normal;
+    for ( var i=0; i<warnings.length; i++ ) {
+      if ( warningList[warnings[i]] > 0 ) {
+        res = cardState.warning;
+      }
+    }
+    for ( var i=0; i<errors.length; i++ ) {
+      if ( errorList[errors[i]] > 0 ) {
+        res = cardState.error;
+      }
+    }
+    return res;
+  }
+
+  this.init   = function ( data ) {
+    object   = document.getElementById( data.name );
+    icon     = object.childNodes[1].childNodes[3].childNodes[1];
+    errors   = data.error;
+    warnings = data.warning;
+    return;
+  }
+  this.update = function ( warningList, errorList ) {
+    let stateNew = checkState( warningList, errorList );
+    if ( ( stateNew == cardState.warning ) && ( state != cardState.warning ) ) {
+      setWarning();
+      state = cardState.warning;
+    }
+    if ( ( stateNew == cardState.error ) && ( state != cardState.error ) ) {
+      setDanger();
+      state = cardState.error;
+    }
+    if ( ( stateNew == cardState.normal ) && ( state != cardState.normal ) ) {
+      setNormal();
+      state = cardState.normal;
+    }
+    return;
   }
   return;
 }
 function Dashbord ( ) {
   var units = [];
   var cards = [];
-  this.init = function () {
+
+  function getErrorList () {
+    let out = [];
+    for ( var i=0; i<outputReg[36].bitMapSize; i++ ) {
+      out.push( outputReg[36].value & outputReg[36].bit[i].mask );
+    }
+    for ( var i=0; i<outputReg[37].bitMapSize; i++ ) {
+      out.push( outputReg[37].value & outputReg[36].bit[i].mask );
+    }
+    return out;
+  }
+  function getWarningList () {
+    let out = [];
+    for ( var i=0; i<outputReg[38].bitMapSize; i++ ) {
+      out.push( outputReg[38].value & outputReg[38].bit[i].mask );
+    }
+    return out;
+  }
+
+  this.init   = function () {
     units = [];
     cards = [];
     for ( var i=0; i<dashboardNames.length; i++ ) {
@@ -254,8 +463,13 @@ function Dashbord ( ) {
     return;
   }
   this.update = function () {
-    for ( var i=0; i< units.length; i++ ) {
+    let warningList = getWarningList();
+    let errorList   = getErrorList();
+    for ( var i=0; i<units.length; i++ ) {
       units[i].update();
+    }
+    for ( var i=0; i<cards.length; i++ ) {
+      cards[i].update( warningList, errorList );
     }
     return;
   }
