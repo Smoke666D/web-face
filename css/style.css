@@ -3980,7 +3980,6 @@ input[type="button"].btn-block {
   padding-top: 1.25rem;
   flex: 1 1 auto;}
   .card-title {
-    color: #808080;
     font-size: 13px;
     text-align: left;}
   .card-subtitle {
@@ -3997,11 +3996,14 @@ input[type="button"].btn-block {
         font-size: 20px;
         text-align: center;}
   .card-text {
+    display: flex;
+    height: 68px;
     margin: 0;
     padding-left: 15px;
     padding-right: 15px;
     font-size: 38px;}
-    .card-text span {
+    .card-text .units {
+      padding-top: 29px;
       padding-left: 0.5rem;
       font-size: 15px;}
     .card-text:last-child {
@@ -4036,13 +4038,14 @@ input[type="button"].btn-block {
   right: 10px;
   height: 40px;
   width: 40px;
-  }
+  fill: #808080;}
   .card-icon svg {
-    fill: #808080;
     width: 1em;
     height: 1em;
     font-size: 43px;
   }
+
+
 
 .card-footer {
   padding: 0.75rem 1.25rem;
@@ -8299,6 +8302,10 @@ button.bg-dark:focus {
 
 .text-white {
   color: #fff !important; }
+
+.fill-white {
+  fill: #fff !important;
+}
 
 .text-primary {
   color: #007bff !important; }
