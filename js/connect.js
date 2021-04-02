@@ -105,6 +105,14 @@ function writeFreeData ( adr, value ) {
   }
   return;
 }
+function updateDashBoard () {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+
+  } else if ( connectionType == 'usb' ) {
+    //usb.controller.
+  }
+  return;
+}
 function eraseLog () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     eraseLogEth();

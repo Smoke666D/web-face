@@ -1,20 +1,6 @@
 var outputReg = [
 {
    "adr": 0,
-   "name": "deviceStatus",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 1,
    "name": "oilPressure",
    "value": 0,
    "default": 0,
@@ -28,7 +14,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 2,
+   "adr": 1,
    "name": "coolantTemp",
    "value": 0,
    "default": 0,
@@ -42,7 +28,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 3,
+   "adr": 2,
    "name": "fuelLevel",
    "value": 0,
    "default": 0,
@@ -56,7 +42,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 4,
+   "adr": 3,
    "name": "speedLevel",
    "value": 0,
    "default": 0,
@@ -70,7 +56,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 5,
+   "adr": 4,
    "name": "mainsPhaseVoltageL1",
    "value": 0,
    "default": 0,
@@ -84,7 +70,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 6,
+   "adr": 5,
    "name": "mainsPhaseVoltageL2",
    "value": 0,
    "default": 0,
@@ -98,7 +84,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 7,
+   "adr": 6,
    "name": "mainsPhaseVoltageL3",
    "value": 0,
    "default": 0,
@@ -112,7 +98,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 8,
+   "adr": 7,
    "name": "mainsLineVoltageL1",
    "value": 0,
    "default": 0,
@@ -126,7 +112,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 9,
+   "adr": 8,
    "name": "mainsLineVoltageL2",
    "value": 0,
    "default": 0,
@@ -140,7 +126,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 10,
+   "adr": 9,
    "name": "mainsLineVoltageL3",
    "value": 0,
    "default": 0,
@@ -154,7 +140,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 11,
+   "adr": 10,
    "name": "mainsFreq",
    "value": 0,
    "default": 0,
@@ -168,7 +154,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 12,
+   "adr": 11,
    "name": "generatorPhaseVoltageL1",
    "value": 0,
    "default": 0,
@@ -182,7 +168,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 13,
+   "adr": 12,
    "name": "generatorPhaseVoltageL2",
    "value": 0,
    "default": 0,
@@ -196,7 +182,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 14,
+   "adr": 13,
    "name": "generatorPhaseVoltageL3",
    "value": 0,
    "default": 0,
@@ -210,7 +196,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 15,
+   "adr": 14,
    "name": "generatorLineVoltageL1",
    "value": 0,
    "default": 0,
@@ -224,7 +210,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 16,
+   "adr": 15,
    "name": "generatorLineVoltageL2",
    "value": 0,
    "default": 0,
@@ -238,7 +224,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 17,
+   "adr": 16,
    "name": "generatorLineVoltageL3",
    "value": 0,
    "default": 0,
@@ -252,7 +238,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 18,
+   "adr": 17,
    "name": "generatorCurrentL1",
    "value": 0,
    "default": 0,
@@ -266,7 +252,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 19,
+   "adr": 18,
    "name": "generatorCurrentL2",
    "value": 0,
    "default": 0,
@@ -280,7 +266,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 20,
+   "adr": 19,
    "name": "generatorCurrentL3",
    "value": 0,
    "default": 0,
@@ -294,7 +280,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 21,
+   "adr": 20,
    "name": "generatorFreq",
    "value": 0,
    "default": 0,
@@ -308,7 +294,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 22,
+   "adr": 21,
    "name": "generatorCosFi",
    "value": 0,
    "default": 0,
@@ -322,7 +308,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 23,
+   "adr": 22,
    "name": "generatorPowerActive",
    "value": 0,
    "default": 0,
@@ -336,7 +322,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 24,
+   "adr": 23,
    "name": "generatorPowerReactive",
    "value": 0,
    "default": 0,
@@ -350,7 +336,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 25,
+   "adr": 24,
    "name": "generatorPowerFull",
    "value": 0,
    "default": 0,
@@ -364,7 +350,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 26,
+   "adr": 25,
    "name": "batteryVoltage",
    "value": 0,
    "default": 0,
@@ -378,7 +364,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 27,
+   "adr": 26,
    "name": "chargerVoltage",
    "value": 0,
    "default": 0,
@@ -392,7 +378,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 28,
+   "adr": 27,
    "name": "externalDevices",
    "value": 0,
    "default": 0,
@@ -438,7 +424,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 29,
+   "adr": 28,
    "name": "digitalOutput",
    "value": 0,
    "default": 0,
@@ -526,7 +512,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 30,
+   "adr": 29,
    "name": "digitalInput",
    "value": 0,
    "default": 0,
@@ -614,6 +600,20 @@ var outputReg = [
        },
    ]
 },{
+   "adr": 30,
+   "name": "deviceStatus",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
    "adr": 31,
    "name": "status",
    "value": 0,
@@ -681,7 +681,7 @@ var outputReg = [
    "bit": []
 },{
    "adr": 33,
-   "name": "logRecordData0",
+   "name": "logAdr",
    "value": 0,
    "default": 0,
    "scale": 0,
@@ -695,7 +695,7 @@ var outputReg = [
    "bit": []
 },{
    "adr": 34,
-   "name": "logRecordData1",
+   "name": "logRecordData0",
    "value": 0,
    "default": 0,
    "scale": 0,
@@ -709,7 +709,7 @@ var outputReg = [
    "bit": []
 },{
    "adr": 35,
-   "name": "logRecordEvent",
+   "name": "logRecordData1",
    "value": 0,
    "default": 0,
    "scale": 0,
@@ -723,6 +723,20 @@ var outputReg = [
    "bit": []
 },{
    "adr": 36,
+   "name": "logRecordEvent",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "adr": 37,
    "name": "error0",
    "value": 0,
    "default": 0,
@@ -834,7 +848,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 37,
+   "adr": 38,
    "name": "error1",
    "value": 0,
    "default": 0,
@@ -845,7 +859,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 15,
+   "bitMapSize": 16,
    "bit": [
        {
            "name": "errorGenHightFreq",
@@ -914,33 +928,61 @@ var outputReg = [
            "min": 0,
            "shift": 10,
        },{
-           "name": "errorUserA",
+           "name": "errorIterruptedStart",
            "mask": 2048,
            "max": 1,
            "min": 0,
            "shift": 11,
        },{
-           "name": "errorUserB",
+           "name": "errorIterruptedStop",
            "mask": 4096,
            "max": 1,
            "min": 0,
            "shift": 12,
        },{
-           "name": "errorUserC",
+           "name": "errorUserA",
            "mask": 8192,
            "max": 1,
            "min": 0,
            "shift": 13,
        },{
-           "name": "errorUserD",
+           "name": "errorUserB",
            "mask": 16384,
            "max": 1,
            "min": 0,
            "shift": 14,
+       },{
+           "name": "errorUserC",
+           "mask": 32768,
+           "max": 1,
+           "min": 0,
+           "shift": 15,
        },
    ]
 },{
-   "adr": 38,
+   "adr": 39,
+   "name": "error2",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 1,
+   "bit": [
+       {
+           "name": "errorUserD",
+           "mask": 1,
+           "max": 1,
+           "min": 0,
+           "shift": 0,
+       },
+   ]
+},{
+   "adr": 40,
    "name": "warning0",
    "value": 0,
    "default": 0,
@@ -1052,7 +1094,41 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 39,
+   "adr": 41,
+   "name": "warning1",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 3,
+   "bit": [
+       {
+           "name": "warningMaintenanceOil",
+           "mask": 1,
+           "max": 1,
+           "min": 0,
+           "shift": 0,
+       },{
+           "name": "warningMaintenanceAir",
+           "mask": 2,
+           "max": 1,
+           "min": 0,
+           "shift": 1,
+       },{
+           "name": "warningMaintenanceFuel",
+           "mask": 4,
+           "max": 1,
+           "min": 0,
+           "shift": 2,
+       },
+   ]
+},{
+   "adr": 42,
    "name": "controll",
    "value": 0,
    "default": 0,
@@ -1097,33 +1173,5 @@ var outputReg = [
            "shift": 4,
        },
    ]
-},{
-   "adr": 40,
-   "name": "logAdr",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 41,
-   "name": "errorAdr",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
 },];
 module.exports.dataReg = dataReg;

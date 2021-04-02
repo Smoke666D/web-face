@@ -80,10 +80,12 @@ const errorDic = {
   "errorMaintenanceAir"     : 24,
   "errorMaintenanceFuel"    : 25,
   "errorSensorCommon"       : 26,
-  "errorUserA"              : 27,
-  "errorUserB"              : 28,
-  "errorUserC"              : 29,
-  "errorUserD"              : 30,
+  "errorIterruptedStart"    : 27,
+  "errorIterruptedStop"     : 28,
+  "errorUserA"              : 29,
+  "errorUserB"              : 30,
+  "errorUserC"              : 31,
+  "errorUserD"              : 32,
 };
 const warningDic = {
   "warningMainsLowVoltage"   : 0,
@@ -102,7 +104,9 @@ const warningDic = {
   "warningFuelHightLevel"    : 13,
   "warningTempHight"         : 14,
   "warningOilLowPressure"    : 15,
-
+  "warningMaintenanceOil"    : 16,
+  "warningMaintenanceAir"    : 17,
+  "warningMaintenanceFuel"   : 18,
 };
 const cardNames = [
   {
@@ -426,18 +430,18 @@ function Dashbord ( ) {
 
   function getErrorList () {
     let out = [];
-    for ( var i=0; i<outputReg[36].bitMapSize; i++ ) {
-      out.push( outputReg[36].value & outputReg[36].bit[i].mask );
-    }
     for ( var i=0; i<outputReg[37].bitMapSize; i++ ) {
-      out.push( outputReg[37].value & outputReg[36].bit[i].mask );
+      out.push( outputReg[37].value & outputReg[37].bit[i].mask );
+    }
+    for ( var i=0; i<outputReg[38].bitMapSize; i++ ) {
+      out.push( outputReg[38].value & outputReg[38].bit[i].mask );
     }
     return out;
   }
   function getWarningList () {
     let out = [];
-    for ( var i=0; i<outputReg[38].bitMapSize; i++ ) {
-      out.push( outputReg[38].value & outputReg[38].bit[i].mask );
+    for ( var i=0; i<outputReg[39].bitMapSize; i++ ) {
+      out.push( outputReg[39].value & outputReg[39].bit[i].mask );
     }
     return out;
   }
