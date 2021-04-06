@@ -33,7 +33,7 @@ document.getElementById("close-btn").addEventListener("click", function (e) {
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
-//slet controller = new usb.EnrrganController();
+//slet controller = new usb.EnerganController();
 
 function parseConfigFromMsg( msg ){
   console.log( msg );

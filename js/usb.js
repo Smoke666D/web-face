@@ -408,7 +408,7 @@ function USBtransport () {
   /*---------------------------------------------*/
   /*---------------------------------------------*/
 }
-function EnrrganController () {
+function EnerganController () {
   /*------------------ Private ------------------*/
   var self      = this;
   var transport = new USBtransport();
@@ -686,9 +686,9 @@ function EnrrganController () {
   return;
 }
 //------------------------------------------------------------------------------
-let controller = new EnrrganController();
+let controller = new EnerganController();
 //------------------------------------------------------------------------------
-module.exports.EnrrganController = EnrrganController;
+module.exports.EnerganController = EnerganController;
 module.exports.controller        = controller;
 module.exports.Transport         = USBtransport;
 /*----------------------------------------------------------------------------*/

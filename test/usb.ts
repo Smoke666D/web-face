@@ -6,7 +6,7 @@ const USBMessage        = require( '../js/usb-message.js' ).USBMessage;
 const RTC               = require( '../js/rest' ).RTC;
 const dataReg           = require( '../js/config.js' ).dataReg;
 const newSensorData     = require( '../js/sensortable.js' ).newSensorData;
-const EnrrganController = require( '../js/usb.js' ).EnrrganController;
+const EnerganController = require( '../js/usb.js' ).EnerganController;
 const usb               = require( '../js/usb.js' );
 /*----------------------------------------------------------------------------*/
 /*          0     1      2     3     4     5     6     7    8     9*/
