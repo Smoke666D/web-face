@@ -4563,6 +4563,9 @@ input[type="button"].btn-block {
   .alert-message .alert-icon {
     font-size: 22px;
     width: 3rem;}
+    .alert-message .alert-icon svg {
+      height: 2rem;
+    }
   .alert-message .close{
     font-size: 1rem;
     color: #a6a6a6;
