@@ -109,7 +109,7 @@ function updateDashBoard () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
 
   } else if ( connectionType == 'usb' ) {
-    usb.controller.
+    usb.controller.readOutput();
   }
   return;
 }

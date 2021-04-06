@@ -17,7 +17,8 @@ var   charts        = [];
 const usbStat = {
   "wait"  : 1,
   "write" : 2,
-  "read"  : 3 };
+  "read"  : 3,
+  "dash"  : 4 };
 const usbHandler = {
   "finish"       : 1,
   "error"        : 2,
@@ -332,30 +333,42 @@ function USBtransport () {
     }
     return res;
   }
-  this.initEvents  = function ( inCallback, outCallback, errorCallback, unauthorizedCallback, forbiddenCallback, callback ) {
+  this.initEvents  = function ( inCallback, outCallback, errorCallback, unauthorizedCallback, forbiddenCallback, dashCallback, callback ) {
     device.on( "data", function( data ) {
       handle = handler( data );
-      if ( handle == usbHandler.finish ) {
-        if ( status == usbStat.write ) {
+      switch ( handle ) {
+        case usbHandler.finish:
+          switch ( status ) {
+            case usbStat.write:
+              status = usbStat.wait;
+              outCallback();
+              break;
+            case usbStat.read:
+              status = usbStat.wait;
+              inCallback();
+              break;
+            case usbStat.dash:
+              status = usbStat.wait;
+              dashCallback();
+              break;
+          }
+          break;
+        case usbHandler.forbidden:
           status = usbStat.wait;
-          outCallback();
-        } else if ( status == usbStat.read ) {
+          forbiddenCallback();
+          break;
+        case usbHandler.unauthorized:
           status = usbStat.wait;
-          inCallback();
-        }
-      } else if ( handle == usbHandler.forbidden ) {
-        status = usbStat.wait;
-        forbiddenCallback();
-      } else if ( handle == usbHandler.unauthorized ) {
-        status = usbStat.wait;
-        unauthorizedCallback();
-      } else if ( handle == usbHandler.error ) {
-        status = usbStat.wait;
-        self.close();
-        errorCallback();
+          unauthorizedCallback();
+          break;
+        case usbHandler.error:
+          status = usbStat.wait;
+          self.close();
+          errorCallback();
+          break;
       }
     });
-    device.on("error", function( err ) {
+    device.on( "error", function( err ) {
       self.error.push( err );
       self.errorCounter++;
       status = usbStat.wait;
@@ -392,17 +405,30 @@ function USBtransport () {
   }
   this.start       = function ( dir, alertIn ) {
     alert = alertIn;
-    if ( dir == usbStat.write ) {
-      status = usbStat.write;
+    switch ( dir ) {
+      case usbStat.write:
+        status = usbStat.write;
+        if ( alertIn != null ) {
+          alert.setProgressBar( output.getProgress() );
+        }
+        write( output.nextMessage() );
+        break;
+      case usbStat.read:
+        status = usbStat.read;
+        if ( alertIn != null ) {
+          alert.setProgressBar( input.getProgress() );
+        }
+        write( input.nextRequest() );
+        break;
+      case usbStat.dash:
+      status = usbStat.dash;
       if ( alertIn != null ) {
-        alert.setProgressBar( output.getProgress() );
+        alert.setProgressBar( input.getProgress() );
       }
-      write( output.nextMessage() );
-    } else {
-      status = usbStat.read;
-      alert.setProgressBar( input.getProgress() );
       write( input.nextRequest() );
+      break;
     }
+
   }
   /*---------------------------------------------*/
   /*---------------------------------------------*/
@@ -610,12 +636,16 @@ function EnerganController () {
     sendSequency( adr, data, alert, usbStat.read, makeSeqCallBack );
     return;
   }
+  function dashSequency ( adr, data, alert, makeSeqCallBack ) {
+    sendSequency( adr, data, alert, usbStat.dash, makeSeqCallBack );
+    return;
+  }
   /*---------------------------------------------*/
-  this.init              = function ( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback ) {
+  this.init              = function ( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback, dashCallback ) {
     var result = usbInit.fail;
     var handle = usbHandler.finish;
     transport.scan( function () {
-      transport.initEvents( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback, function() {
+      transport.initEvents( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback, dashCallback, function() {
         result    = usbInit.done;
         try {
           let alert = new Alert( "alert-success", alerts.okIco, "Контроллер подключен по USB" );
@@ -672,7 +702,7 @@ function EnerganController () {
     return;
   }
   this.readOutput        = function () {
-    readSequency( 0, 0, null, initReadOutputSequency );
+    dashSequency( 0, 0, null, initReadOutputSequency );
     return;
   }
   this.eraseMeasurement  = function ( alertIn = null ) {

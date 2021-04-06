@@ -193,6 +193,9 @@ function connect () {
       /* Forbidden callback*/
       }, function() {
         let alert = new Alert( "alert-warning", alerts.triIco, "Установка не остановлена. Доступ запрещен" );
+      /* dashCallback */
+      }, function() {
+        
     });
     if ( res == 1 ) {
       setTimeout( function () {
