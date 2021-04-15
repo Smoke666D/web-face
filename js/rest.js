@@ -1197,7 +1197,7 @@ function declareInterface() {
 	return;
 }
 
-function updateInterface() {
+function updateInterface ( callback = null ) {
 	rtcTime.update();
   for ( var i=0; i<switcherArray.length; i++ ) {
 		switcherArray[i].update();
@@ -1241,6 +1241,9 @@ function updateInterface() {
   diList.update();
 	doList.update();
   measurement.calcRecords();
+  if ( callback != null ) {
+    callback();
+  }
 	return;
 }
 

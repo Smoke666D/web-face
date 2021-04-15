@@ -9,9 +9,11 @@ var measurementLength = 0;
 function calcFracLength( x ) {
 	return ( x.toString().indexOf( '.' ) >= 0) ? ( x.toString().split( '.' ).pop().length ) : ( 0 );
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+dashLoop();
+/*----------------------------------------------------------------------------*/
 window.addEventListener( 'load', function() {
 	window.scrollTo( 0, 0 );
 });
@@ -20,6 +22,10 @@ document.addEventListener( 'touchmove', function( e ) {
 });
 var connectionType = 'usb';
 var electronApp = 1;
+
+if ( electronApp > 0 ) {
+	var dashboard = require('./js/dashboard.js').dashboard;
+}
 /*----------------------------------------------------------------------------*/
 function connectClick() {
 	var btn     = document.getElementById( 'modalConnect-button' );
@@ -871,7 +877,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	navbarToogling();
 	updateVersions();
 	starterStopProcessing();
-	dashbord.init();
+	dashboard.init();
 	diList.init();
 	doList.init();
 	const genVoltageLims = new slider4InitLimits( 'genUnderVoltageAlarmLevel',

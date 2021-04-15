@@ -335,7 +335,7 @@ function USBtransport () {
     }
     return res;
   }
-  this.initEvents  = function ( inCallback, outCallback, errorCallback, unauthorizedCallback, forbiddenCallback, dashCallback, callback ) {
+  this.initEvents  = function ( inCallback, outCallback, errorCallback, unauthorizedCallback, forbiddenCallback, callback ) {
     device.on( "data", function( data ) {
       handle = handler( data );
       switch ( handle ) {
@@ -348,10 +348,6 @@ function USBtransport () {
             case usbStat.read:
               status = usbStat.wait;
               inCallback();
-              break;
-            case usbStat.dash:
-              status = usbStat.wait;
-              dashCallback();
               break;
           }
           break;
@@ -438,9 +434,11 @@ function USBtransport () {
 }
 function EnerganController () {
   /*------------------ Private ------------------*/
-  var self      = this;
-  var transport = new USBtransport();
-  var alert     = null;
+  var self       = this;
+  var transport  = new USBtransport();
+  var alert      = null;
+  var loopActive = 0;
+  var loopBusy   = 0;
   /*---------------------------------------------*/
   function initWriteSequency ( adr, data, callback ) {
     var msg = null;
@@ -630,7 +628,12 @@ function EnerganController () {
     callback();
     return;
   }
-  function sendSequency ( adr, data, alert, cmd, makeSeqCallBack ) {
+  function sendSequency ( adr, data, alert, cmd, sync, makeSeqCallBack ) {
+    console.log( sync );
+    if ( sync == false ) {
+      loopActive = 0;
+      while ( loopBusy > 0 ) {}
+    }
     if ( transport.getStatus() == usbStat.wait ) {
       makeSeqCallBack( adr, data, function () {
         transport.start( cmd, alert );
@@ -639,20 +642,20 @@ function EnerganController () {
     }
     return;
   }
-  function writeSequency ( adr, data, alert, makeSeqCallBack ) {
-    sendSequency( adr, data, alert, usbStat.write, makeSeqCallBack );
+  function writeSequency ( adr, data, alert, sync, makeSeqCallBack ) {
+    sendSequency( adr, data, alert, usbStat.write, sync, makeSeqCallBack );
     return;
   }
-  function readSequency ( adr, data, alert, makeSeqCallBack ) {
-    sendSequency( adr, data, alert, usbStat.read, makeSeqCallBack );
+  function readSequency ( adr, data, alert, sync, makeSeqCallBack ) {
+    sendSequency( adr, data, alert, usbStat.read, sync, makeSeqCallBack );
     return;
   }
   /*---------------------------------------------*/
-  this.init              = function ( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback, dashCallback ) {
+  this.init              = function ( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback ) {
     var result = usbInit.fail;
     var handle = usbHandler.finish;
     transport.scan( function () {
-      transport.initEvents( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback, dashCallback, function() {
+      transport.initEvents( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback,  function() {
         result    = usbInit.done;
         try {
           let alert = new Alert( "alert-success", alerts.okIco, "Контроллер подключен по USB" );
@@ -663,6 +666,18 @@ function EnerganController () {
     });
     return result;
   }
+  this.enableLoop        = function () {
+    loopActive = 1;
+    return;
+  }
+  this.disableLoop       = function () {
+    loopActive = 0;
+    return;
+  }
+  this.resetLoopBusy     = function () {
+    loopBusy = 0;
+    return;
+  }
   this.getStatus         = function () {
     return transport.getStatus();
   }
@@ -670,61 +685,71 @@ function EnerganController () {
     transport.close();
     return;
   }
+  this.loop              = function () {
+    //console.log( "active = " + loopActive );
+    //console.log( "busy   = " + loopBusy );
+    //console.log("---------------------");
+    if ( loopActive > 0 ) {
+      loopBusy = 1;
+      this.readOutput();
+    }
+    return;
+  }
   this.getInput          = function () {
     return transport.getInput();
   }
   this.sendTime          = function ( time ) {
-    writeSequency( 0, time, null, initTimeWriteSequency );
+    writeSequency( 0, time, null, false, initTimeWriteSequency );
     return;
   }
   this.sendFreeData      = function ( adr, data ) {
-    writeSequency( adr, data, null, initWriteFreeDataSequency );
+    writeSequency( adr, data, null, false, initWriteFreeDataSequency );
     return;
   }
   this.sendOutput        = function ( adr, data ) {
-    writeSequency( adr, data, null, initWriteOutputSequency );
+    writeSequency( adr, data, null, false, initWriteOutputSequency );
     return;
   }
   this.sendPass          = function ( password ) {
-    writeSequency( 0, password, null, initWritePassSequency );
+    writeSequency( 0, password, null, false, initWritePassSequency );
     return;
   }
   this.sendAuthorization = function ( password ) {
-    writeSequency( 0, password, null, initWriteAuthorSequency );
+    writeSequency( 0, password, null, false, initWriteAuthorSequency );
     return;
   }
   this.send              = function ( alertIn = null ) {
     alert = alertIn;
-    writeSequency( 0, 0, alert, initWriteSequency );
+    writeSequency( 0, 0, alert, false, initWriteSequency );
     return;
   }
   this.eraseLog          = function ( alertIn = null ) {
     alert = alertIn;
-    writeSequency( 0, 0, alert, initWriteEraseLog );
+    writeSequency( 0, 0, alert, false, initWriteEraseLog );
     return;
   }
   this.readMeasurement   = function ( size, alertIn = null ) {
     alert = alertIn;
-    readSequency( 0, 0, alert, initReadMeasurementSequency );
+    readSequency( 0, 0, alert, false, initReadMeasurementSequency );
     return;
   }
   this.readOutput        = function () {
-    readSequency( 0, 0, null, initReadOutputSequency );
+    readSequency( 0, 0, null, true, initReadOutputSequency );
     return;
   }
   this.eraseMeasurement  = function ( alertIn = null ) {
     alert = alertIn;
-    writeSequency( 0, 0, alert, initWriteEraseMeasurment );
+    writeSequency( 0, 0, alert,  false, initWriteEraseMeasurment );
     return;
   }
   this.sendEWA           = function ( ewa, alertIn = null ) {
     alert = alertIn;
-    writeSequency( 0, ewa, alert, initWriteEWA );
+    writeSequency( 0, ewa, alert, false, initWriteEWA );
     return;
   }
   this.receive           = function ( password, alertIn = null ) {
     alert = alertIn;
-    readSequency( 0, password, alert, initReadSequency );
+    readSequency( 0, password, alert, false, initReadSequency );
     return;
   }
   /*----------------------------------------*/

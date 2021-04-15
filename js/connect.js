@@ -1,7 +1,9 @@
 const usb    = require('./js/usb.js');
 const rest   = require('./js/rest.js');
 const alerts = require('./js/alerts.js');
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*/
 function connectUpdate () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
@@ -14,7 +16,6 @@ function connectUpdate () {
   }
   return;
 }
-//******************************************************************************
 function saveConfigsToFile () {
   function SaveAsFile ( text, name, type ) {
   	try {
@@ -35,7 +36,6 @@ function saveConfigsToFile () {
 	SaveAsFile( output, name, "application/json;charset=utf-8" );
   return;
 }
-//******************************************************************************
 function loadConfigsFromFile () {
   if ( window.File && window.FileReader && window.FileList && window.Blob ) {
 		var input = document.createElement( "input" );
@@ -75,7 +75,6 @@ function loadConfigsFromFile () {
 	}
   return;
 }
-//******************************************************************************
 function connectGrab () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
@@ -165,7 +164,13 @@ function authorization () {
   }
   return;
 }
-//******************************************************************************
+function dashLoop () {
+    setTimeout( function () {
+      usb.controller.loop();
+      dashLoop();
+    }, 1000 );
+}
+/*----------------------------------------------------------------------------*/
 var typeIpLastLen = 0;
 var typeIpDir     = "write";
 function ipv4AdrMask () {
@@ -192,4 +197,4 @@ function ipv4AdrMask () {
   });
   return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/

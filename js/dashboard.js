@@ -274,16 +274,16 @@ function DashUnit ( ) {
     return zeroPad( min, 2 ) + ":" + zeroPad( sec, 2 );
   }
   function directCallBack ( adr ) {
-    return outputReg[adr].value * Math.pow( 10, outputReg[adr].scale );
+    return ( outputReg[adr].value * Math.pow( 10, outputReg[adr].scale )).toFixed( Math.abs( outputReg[adr].scale ) );
   }
   function maxCallBack ( adr ) {
-    var res = outputReg[adr[0]].value;
-    for ( var i=1; i<data.length; i++ ) {
+    let res = outputReg[adr[0]].value;
+    for ( var i=1; i<adr.length; i++ ) {
       if ( outputReg[adr[i]].value > res ) {
         res = outputReg[adr[i]].value;
       }
     }
-    return ( res * Math.pow( 10, outputReg[adr[0]].scale ) );
+    return directCallBack( adr[0] );
   }
   function discreteCallBack ( adr, shift ) {
     res = discreteDic.off;
@@ -429,7 +429,7 @@ function DashCard () {
   }
   return;
 }
-function Dashbord ( ) {
+function Dashboard ( ) {
   var units = [];
   var cards = [];
 
@@ -451,7 +451,6 @@ function Dashbord ( ) {
     for ( var i=0; i<outputReg[41].bitMapSize; i++ ) {
       out.push( outputReg[41].value & outputReg[41].bit[i].mask );
     }
-    console.log( out );
     return out;
   }
 
@@ -475,7 +474,7 @@ function Dashbord ( ) {
     }
     return;
   }
-  this.update = function () {
+  this.update = function ( callback = null ) {
     let warningList = getWarningList();
     let errorList   = getErrorList();
     for ( var i=0; i<units.length; i++ ) {
@@ -484,6 +483,9 @@ function Dashbord ( ) {
     for ( var i=0; i<cards.length; i++ ) {
       cards[i].update( warningList, errorList );
     }
+    if ( callback != null ) {
+      callback();
+    }
     return;
   }
   return;
@@ -491,7 +493,7 @@ function Dashbord ( ) {
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
-let dashbord = new Dashbord();
+let dashboard = new Dashboard();
 /*----------------------------------------------------------------------------*/
-module.exports.dashbord = dashbord;
+module.exports.dashboard = dashboard;
 /*----------------------------------------------------------------------------*/

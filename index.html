@@ -354,7 +354,6 @@
           <button aria-label="Toggle Menu" onclick="toogleNav()" class="btn btn-primary" data-toggle="tooltip" title="Скрыть/показать меню">
             <svg viewBox="0 0 448 512"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
           </button>
-          <button onclick="updateDashBoard()" class="btn btn-primary">Dashboard</button>
         </div>
         <div class="connect-container">
           <div data-toggle="tooltip" title="Авторизация">
@@ -3930,8 +3929,7 @@
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/rest.js"></script>
-    <script type="text/javascript" src="js/dashboard.js"></script>
-    <script type="text/javascript" src="js/arc.js"></script>
+    <!--<script type="text/javascript" src="js/dashboard.js"></script>-->
     <!--<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>-->
     <script type="text/javascript" src="js/chartjs-plugin-zoom.min.js"></script>
     <script type="text/javascript" src="js/measure.js"></script>
@@ -3944,11 +3942,12 @@
     <script type="text/javascript" src="js/filesaver.js"></script>
     <!--------------------------------------------------------------------------------------------------------------->
     <script>
-      require('./render')
-      require('./js/usb.js')
-      require('./js/dfu.js')
-      require('./js/bootloader.js')
-      require('./js/uploadFlash.js')
+      require('./render');
+      require('./js/dashboard.js');
+      require('./js/usb.js');
+      require('./js/dfu.js');
+      require('./js/bootloader.js');
+      require('./js/uploadFlash.js');
       let $ = require('jquery');
       require('popper.js');
       require('bootstrap');

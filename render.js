@@ -9,7 +9,7 @@ const USB_DATA_SIZE           = require('./js/usb-message.js').USB_DATA_SIZE;
 const USB_CHART_HEADER_LENGTH = require('./js/usb-message.js').USB_CHART_HEADER_LENGTH;
 const USB_DATA_BYTE           = require('./js/usb-message.js').USB_DATA_BYTE;
 const msgType                 = require('./js/usb-message.js').msgType;
-//var chartList               = require('./js/sensortable.js').chartList;
+const dashboard               = require('./js/dashboard.js').dashboard;
 
 var scales = [ 0, 0, 0 ];
 var lables = [ 'шт', 'c', 'м' ];
@@ -92,8 +92,8 @@ function connect () {
     measureBuffer = [];
     res           = usb.controller.init( function() {
       /* After getting full message */
-      var buffer    = [];
-      var dashboard = 0;
+      var buffer      = [];
+      var dashboardFl = 0;
       buffer = usb.controller.getInput();
       measureBuffer = [];
       for ( var i=0; i<buffer.length; i++) {
@@ -167,8 +167,7 @@ function connect () {
                 measurementLength = out[1];
                 break;
               case msgType.output:
-                dashboard = 1;
-
+                dashboardFl = 1;
             }
           }
         });
@@ -176,12 +175,15 @@ function connect () {
       if ( charts.length == 3 ) {
         loadCharts( charts );
       }
-      if ( dashboard == 0 ) {
-        let alert = new Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
-        updateInterface();
+      if ( dashboardFl == 0 ) {
+        updateInterface( function () {
+          let alert = new Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
+          usb.controller.enableLoop();
+        });
       } else {
-        let alert = new Alert( "alert-success", alerts.okIco, "Dashboard" );
-        dashbord.update();
+        dashboard.update( function () {
+          usb.controller.resetLoopBusy();
+        });
       }
       if ( measureBuffer.length != 0 ) {
         measureUpdate( measureBuffer, scales, lables );
@@ -192,9 +194,11 @@ function connect () {
         measurementLength = 0;
         measureBuffer     = [];
         measureClean();
+        usb.controller.enableLoop();
       /* errorCalback */
       }, function() {
         let alert = new Alert( "alert-warning", alerts.triIco, "Ошибка передачи данных по USB" );
+        usb.controller.disableLoop();
         resetSuccessConnection();
       /* unauthorizedCallback */
       }, function() {
@@ -203,9 +207,7 @@ function connect () {
       }, function() {
         let alert = new Alert( "alert-warning", alerts.triIco, "Установка не остановлена. Доступ запрещен" );
       /* dashCallback */
-      }, function() {
-        console.log("her");
-    });
+      });
     if ( res == 1 ) {
       setTimeout( function () {
         setSuccessConnection();
