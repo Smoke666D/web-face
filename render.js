@@ -92,7 +92,8 @@ function connect () {
     measureBuffer = [];
     res           = usb.controller.init( function() {
       /* After getting full message */
-      var buffer = [];
+      var buffer    = [];
+      var dashboard = 0;
       buffer = usb.controller.getInput();
       measureBuffer = [];
       for ( var i=0; i<buffer.length; i++) {
@@ -165,6 +166,9 @@ function connect () {
               case msgType.measurementLen:
                 measurementLength = out[1];
                 break;
+              case msgType.output:
+                dashboard = 1;
+
             }
           }
         });
@@ -172,8 +176,13 @@ function connect () {
       if ( charts.length == 3 ) {
         loadCharts( charts );
       }
-      let alert = new Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
-      updateInterface();
+      if ( dashboard == 0 ) {
+        let alert = new Alert( "alert-success", alerts.okIco, "Данные успешно обновленны" );
+        updateInterface();
+      } else {
+        let alert = new Alert( "alert-success", alerts.okIco, "Dashboard" );
+        dashbord.update();
+      }
       if ( measureBuffer.length != 0 ) {
         measureUpdate( measureBuffer, scales, lables );
       }
@@ -195,7 +204,7 @@ function connect () {
         let alert = new Alert( "alert-warning", alerts.triIco, "Установка не остановлена. Доступ запрещен" );
       /* dashCallback */
       }, function() {
-        
+        console.log("her");
     });
     if ( res == 1 ) {
       setTimeout( function () {

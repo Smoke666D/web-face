@@ -36,21 +36,21 @@ const deviceStatus = {
   "banStart"       : 14,
 };
 const deviceStatusStr = [
-  "Загрузка...",
-  "Готов к запуску",
-  "Дистанционный пуск",
-  "Предпрогрев",
-  "Работа стартера",
-  "Пауза стартера",
-  "Возбуждение",
-  "Прогрев Х.Х.",
-  "Прогрев",
-  "В работе",
-  "Охлаждение",
-  "Охлаждение Х.Х.",
-  "Останов",
-  "Аварийный останов",
-  "Запрет пуска",
+  "Не подключен",        /* 00 */
+  "Готов к запуску",     /* 01 */
+  "Дистанционный пуск",  /* 02 */
+  "Предпрогрев",         /* 03 */
+  "Работа стартера",     /* 04 */
+  "Пауза стартера",      /* 05 */
+  "Возбуждение",         /* 06 */
+  "Прогрев Х.Х.",        /* 07 */
+  "Прогрев",             /* 08 */
+  "В работе",            /* 09 */
+  "Охлаждение",          /* 10 */
+  "Охлаждение Х.Х.",     /* 11 */
+  "Останов",             /* 12 */
+  "Аварийный останов",   /* 13 */
+  "Запрет пуска",        /* 14 */
 ];
 const errorDic = {
   "errorExternEmegencyStop" : 0,
@@ -219,34 +219,34 @@ const cardState = {
   "warning" : 2,
 };
 const dashboardNames = [
-  { name : 'value-status',         type : dashUnitType.status,   adr :  0,           shift : 0, },
-  { name : 'value-timer',          type : dashUnitType.time,     adr :  0,           shift : 0, },
-  { name : 'value-oilPressure',    type : dashUnitType.direct,   adr :  1,           shift : 0, },
-  { name : 'value-coolantTemp',    type : dashUnitType.direct,   adr :  2,           shift : 0, },
-  { name : 'value-fuelLevel',      type : dashUnitType.direct,   adr :  3,           shift : 0, },
-  { name : 'value-speed',          type : dashUnitType.direct,   adr :  4,           shift : 0, },
-  { name : 'value-mainsVoltage',   type : dashUnitType.max,      adr : [5, 6, 7],    shift : 0, },
-  { name : 'value-mainsFreq',      type : dashUnitType.direct,   adr : 11,           shift : 0, },
-  { name : 'value-genVoltage',     type : dashUnitType.max,      adr : [12, 13, 14], shift : 0, },
-  { name : 'value-current',        type : dashUnitType.max,      adr : [18, 19, 20], shift : 0, },
-  { name : 'value-gebFreq',        type : dashUnitType.direct,   adr : 21,           shift : 0, },
-  { name : 'value-battery',        type : dashUnitType.direct,   adr : 26,           shift : 0, },
-  { name : 'value-chargerVoltage', type : dashUnitType.direct,   adr : 27,           shift : 0, },
-  { name : 'value-chargerStatus',  type : dashUnitType.logic,    adr : 28,           shift : 0, },
-  { name : 'value-coolantHeater',  type : dashUnitType.logic,    adr : 28,           shift : 1, },
-  { name : 'value-coolantCooler',  type : dashUnitType.logic,    adr : 28,           shift : 2, },
-  { name : 'value-fuelPump',       type : dashUnitType.logic,    adr : 28,           shift : 3, },
-  { name : 'value-preHeater',      type : dashUnitType.logic,    adr : 28,           shift : 4, },
-  { name : 'value-doa',            type : dashUnitType.discrete, adr : 29,           shift : 0, },
-  { name : 'value-dob',            type : dashUnitType.discrete, adr : 29,           shift : 1, },
-  { name : 'value-doc',            type : dashUnitType.discrete, adr : 29,           shift : 2, },
-  { name : 'value-dod',            type : dashUnitType.discrete, adr : 29,           shift : 3, },
-  { name : 'value-doe',            type : dashUnitType.discrete, adr : 29,           shift : 4, },
-  { name : 'value-dof',            type : dashUnitType.discrete, adr : 29,           shift : 5, },
-  { name : 'value-dia',            type : dashUnitType.discrete, adr : 30,           shift : 0, },
-  { name : 'value-dib',            type : dashUnitType.discrete, adr : 30,           shift : 1, },
-  { name : 'value-dic',            type : dashUnitType.discrete, adr : 30,           shift : 2, },
-  { name : 'value-did',            type : dashUnitType.discrete, adr : 30,           shift : 3, },
+  { name : 'value-status',         type : dashUnitType.status,   adr :  30,          shift : 0, },
+  { name : 'value-timer',          type : dashUnitType.time,     adr :  30,          shift : 0, },
+  { name : 'value-oilPressure',    type : dashUnitType.direct,   adr :  0,           shift : 0, },
+  { name : 'value-coolantTemp',    type : dashUnitType.direct,   adr :  1,           shift : 0, },
+  { name : 'value-fuelLevel',      type : dashUnitType.direct,   adr :  2,           shift : 0, },
+  { name : 'value-speed',          type : dashUnitType.direct,   adr :  3,           shift : 0, },
+  { name : 'value-mainsVoltage',   type : dashUnitType.max,      adr : [4, 5, 6],    shift : 0, },
+  { name : 'value-mainsFreq',      type : dashUnitType.direct,   adr : 10,           shift : 0, },
+  { name : 'value-genVoltage',     type : dashUnitType.max,      adr : [11, 12, 13], shift : 0, },
+  { name : 'value-current',        type : dashUnitType.max,      adr : [17, 18, 19], shift : 0, },
+  { name : 'value-gebFreq',        type : dashUnitType.direct,   adr : 20,           shift : 0, },
+  { name : 'value-battery',        type : dashUnitType.direct,   adr : 25,           shift : 0, },
+  { name : 'value-chargerVoltage', type : dashUnitType.direct,   adr : 26,           shift : 0, },
+  { name : 'value-chargerStatus',  type : dashUnitType.logic,    adr : 27,           shift : 0, },
+  { name : 'value-coolantHeater',  type : dashUnitType.logic,    adr : 27,           shift : 1, },
+  { name : 'value-coolantCooler',  type : dashUnitType.logic,    adr : 27,           shift : 2, },
+  { name : 'value-fuelPump',       type : dashUnitType.logic,    adr : 27,           shift : 3, },
+  { name : 'value-preHeater',      type : dashUnitType.logic,    adr : 27,           shift : 4, },
+  { name : 'value-doa',            type : dashUnitType.discrete, adr : 28,           shift : 0, },
+  { name : 'value-dob',            type : dashUnitType.discrete, adr : 28,           shift : 1, },
+  { name : 'value-doc',            type : dashUnitType.discrete, adr : 28,           shift : 2, },
+  { name : 'value-dod',            type : dashUnitType.discrete, adr : 28,           shift : 3, },
+  { name : 'value-doe',            type : dashUnitType.discrete, adr : 28,           shift : 4, },
+  { name : 'value-dof',            type : dashUnitType.discrete, adr : 28,           shift : 5, },
+  { name : 'value-dia',            type : dashUnitType.discrete, adr : 29,           shift : 0, },
+  { name : 'value-dib',            type : dashUnitType.discrete, adr : 29,           shift : 1, },
+  { name : 'value-dic',            type : dashUnitType.discrete, adr : 29,           shift : 2, },
+  { name : 'value-did',            type : dashUnitType.discrete, adr : 29,           shift : 3, },
 ];
 /*----------------------------------------------------------------------------*/
 function DashUnit ( ) {
@@ -260,7 +260,12 @@ function DashUnit ( ) {
   };
   /*--------------------------------------------------------------------------*/
   function statusCallBack ( adr ) {
-    return deviceStatusStr[outputReg[adr].value & deviceStatusMask];
+    let out = "Неизвестный статус";
+    let num = outputReg[adr].value & deviceStatusMask;
+    if ( num < deviceStatusStr.length ) {
+      out = deviceStatusStr[num];
+    }
+    return out;
   }
   function timeCallBack ( adr ) {
     let time = ( outputReg[adr].value & timeMask ) >> timeShift;
@@ -440,9 +445,13 @@ function Dashbord ( ) {
   }
   function getWarningList () {
     let out = [];
-    for ( var i=0; i<outputReg[39].bitMapSize; i++ ) {
-      out.push( outputReg[39].value & outputReg[39].bit[i].mask );
+    for ( var i=0; i<outputReg[40].bitMapSize; i++ ) {
+      out.push( outputReg[40].value & outputReg[40].bit[i].mask );
     }
+    for ( var i=0; i<outputReg[41].bitMapSize; i++ ) {
+      out.push( outputReg[41].value & outputReg[41].bit[i].mask );
+    }
+    console.log( out );
     return out;
   }
 

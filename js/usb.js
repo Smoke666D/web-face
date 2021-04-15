@@ -301,7 +301,9 @@ function USBtransport () {
     message.init( function () {
       result = input.process( message );
       if ( ( result == usbHandler.finish ) && ( input.isEnd() == usbHandler.continue ) ) {
-        alert.setProgressBar( input.getProgress() );
+        if ( alert != null ) {
+          alert.setProgressBar( input.getProgress() );
+        }
         write( input.nextRequest() );
         result = usbHandler.continue;
       }
@@ -421,12 +423,12 @@ function USBtransport () {
         write( input.nextRequest() );
         break;
       case usbStat.dash:
-      status = usbStat.dash;
-      if ( alertIn != null ) {
-        alert.setProgressBar( input.getProgress() );
-      }
-      write( input.nextRequest() );
-      break;
+        status = usbStat.dash;
+        if ( alertIn != null ) {
+          alert.setProgressBar( input.getProgress() );
+        }
+        write( input.nextRequest() );
+        break;
     }
 
   }
@@ -479,6 +481,7 @@ function EnerganController () {
   }
   function initTimeWriteSequency ( adr, data, callback ) {
     let msg = new USBMessage([]);
+    transport.clean();
     msg.codeTime( data );
     transport.addToOutput( msg );
     callback();
@@ -499,6 +502,7 @@ function EnerganController () {
   }
   function initWriteFreeDataSequency ( adr, data, callback ) {
     let msg = new USBMessage( [] );
+    transport.clean();
     msg.codeFreeData( adr, data );
     transport.addToOutput( msg );
     callback();
@@ -506,6 +510,7 @@ function EnerganController () {
   }
   function initWriteOutputSequency ( adr, data, callback ) {
     let msg = new USBMessage( [] );
+    transport.clean();
     msg.codeOutput( data, adr );
     transport.addToOutput( msg );
     callback();
@@ -513,6 +518,7 @@ function EnerganController () {
   }
   function initWritePassSequency ( adr, data, callback ) {
     let msg = new USBMessage( [] );
+    transport.clean();
     msg.codePassword( data );
     transport.addToOutput( msg );
     callback();
@@ -520,6 +526,7 @@ function EnerganController () {
   }
   function initWriteAuthorSequency ( adr, data, callback ) {
     let msg = new USBMessage( [] );
+    transport.clean();
     msg.codeAuthorization( data );
     transport.addToOutput( msg );
     callback();
@@ -527,6 +534,7 @@ function EnerganController () {
   }
   function initWriteEraseLog ( adr, data, callback ) {
     let msg = new USBMessage( [] );
+    transport.clean();
     msg.codeLogErase();
     transport.addToOutput( msg );
     callback();
@@ -534,6 +542,7 @@ function EnerganController () {
   }
   function initWriteEraseMeasurment ( adr, data, callback ) {
     let msg = new USBMessage( [] );
+    transport.clean();
     msg.codeMeasurementErase();
     transport.addToOutput( msg );
     callback();
@@ -601,9 +610,10 @@ function EnerganController () {
     return;
   }
   function initReadOutputSequency ( adr, data, callback ) {
+    transport.clean();
     for ( var i=0; i<outputReg.length; i++ )
     {
-      msg = new USBMessage( [] )
+      let msg = new USBMessage( [] )
       msg.makeOutputRequest( i );
       transport.addRequest( msg );
     }
@@ -611,6 +621,7 @@ function EnerganController () {
     return;
   }
   function initReadMeasurementSequency ( adr, data, callback ) {
+    transport.clean();
     for ( var i=0; i<size; i++ ) {
       let msg = new USBMessage( [] );
       msg.makeMeasurementRequest( i );
@@ -634,10 +645,6 @@ function EnerganController () {
   }
   function readSequency ( adr, data, alert, makeSeqCallBack ) {
     sendSequency( adr, data, alert, usbStat.read, makeSeqCallBack );
-    return;
-  }
-  function dashSequency ( adr, data, alert, makeSeqCallBack ) {
-    sendSequency( adr, data, alert, usbStat.dash, makeSeqCallBack );
     return;
   }
   /*---------------------------------------------*/
@@ -702,7 +709,7 @@ function EnerganController () {
     return;
   }
   this.readOutput        = function () {
-    dashSequency( 0, 0, null, initReadOutputSequency );
+    readSequency( 0, 0, null, initReadOutputSequency );
     return;
   }
   this.eraseMeasurement  = function ( alertIn = null ) {

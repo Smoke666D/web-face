@@ -335,6 +335,10 @@ function USBMessage ( buffer ) {
   }
   function parseOutput ( reg ) {
     reg.value = byteToUint16( self.data[0], self.data[1] );
+    //console.log("-----");
+    //console.log( self.adr );
+    //console.log( self.data );
+    //console.log( reg.value );
     return;
   }
   function parseConfig ( reg ) {
@@ -658,6 +662,7 @@ function USBMessage ( buffer ) {
       case msgCMD.USB_GET_MEASUREMENT_LENGTH:
         output = parseMeasurementLength();
         type   = msgType.measurementLen;
+        break;
     }
     return [type, output];
   }
