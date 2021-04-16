@@ -628,17 +628,30 @@ function EnerganController () {
     callback();
     return;
   }
-  function sendSequency ( adr, data, alert, cmd, sync, makeSeqCallBack ) {
-    console.log( sync );
-    if ( sync == false ) {
-      loopActive = 0;
-      while ( loopBusy > 0 ) {}
+  function awaitLoopBusyReset ( callback ) {
+    if ( ( loopBusy > 0 ) && ( transport.getStatus != usbStat.wait ) ) {
+      setTimeout( function () {
+        awaitLoopBusyReset( callback );
+      }, 100 );
+    } else {
+      callback();
     }
-    if ( transport.getStatus() == usbStat.wait ) {
+    return;
+  }
+  function sendSequency ( adr, data, alert, cmd, sync, makeSeqCallBack ) {
+    function startSeq () {
       makeSeqCallBack( adr, data, function () {
         transport.start( cmd, alert );
         return;
       });
+      return;
+    }
+    if ( sync == false ) {
+      awaitLoopBusyReset( function () {
+        startSeq();
+      });
+    } else if ( transport.getStatus() == usbStat.wait ) {
+      startSeq();
     }
     return;
   }
@@ -679,16 +692,17 @@ function EnerganController () {
     return;
   }
   this.getStatus         = function () {
-    return transport.getStatus();
+    let out = usbStat.dash
+    if ( loopActive == 0 ) {
+      out = transport.getStatus();
+    }
+    return out;
   }
   this.close             = function () {
     transport.close();
     return;
   }
   this.loop              = function () {
-    //console.log( "active = " + loopActive );
-    //console.log( "busy   = " + loopBusy );
-    //console.log("---------------------");
     if ( loopActive > 0 ) {
       loopBusy = 1;
       this.readOutput();
@@ -699,36 +713,44 @@ function EnerganController () {
     return transport.getInput();
   }
   this.sendTime          = function ( time ) {
+    this.disableLoop();
     writeSequency( 0, time, null, false, initTimeWriteSequency );
     return;
   }
   this.sendFreeData      = function ( adr, data ) {
+    this.disableLoop();
     writeSequency( adr, data, null, false, initWriteFreeDataSequency );
     return;
   }
   this.sendOutput        = function ( adr, data ) {
+    this.disableLoop();
     writeSequency( adr, data, null, false, initWriteOutputSequency );
     return;
   }
   this.sendPass          = function ( password ) {
+    this.disableLoop();
     writeSequency( 0, password, null, false, initWritePassSequency );
     return;
   }
   this.sendAuthorization = function ( password ) {
+    this.disableLoop();
     writeSequency( 0, password, null, false, initWriteAuthorSequency );
     return;
   }
   this.send              = function ( alertIn = null ) {
+    this.disableLoop();
     alert = alertIn;
     writeSequency( 0, 0, alert, false, initWriteSequency );
     return;
   }
   this.eraseLog          = function ( alertIn = null ) {
+    this.disableLoop();
     alert = alertIn;
     writeSequency( 0, 0, alert, false, initWriteEraseLog );
     return;
   }
   this.readMeasurement   = function ( size, alertIn = null ) {
+    this.disableLoop();
     alert = alertIn;
     readSequency( 0, 0, alert, false, initReadMeasurementSequency );
     return;
@@ -738,16 +760,19 @@ function EnerganController () {
     return;
   }
   this.eraseMeasurement  = function ( alertIn = null ) {
+    this.disableLoop();
     alert = alertIn;
     writeSequency( 0, 0, alert,  false, initWriteEraseMeasurment );
     return;
   }
   this.sendEWA           = function ( ewa, alertIn = null ) {
+    this.disableLoop();
     alert = alertIn;
     writeSequency( 0, ewa, alert, false, initWriteEWA );
     return;
   }
   this.receive           = function ( password, alertIn = null ) {
+    this.disableLoop();
     alert = alertIn;
     readSequency( 0, password, alert, false, initReadSequency );
     return;

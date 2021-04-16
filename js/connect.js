@@ -82,9 +82,12 @@ function connectGrab () {
       resetSuccessConnection();
       return;
     });
-  } else if ( ( connectionType == 'usb' ) && ( usb.controller.getStatus() == 1 ) ) {
-    let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
-    usb.controller.send( alert );
+  } else if ( connectionType == 'usb' ) {
+    let state = usb.controller.getStatus();
+    if ( ( state == 1 ) || ( state == 4 ) ) {
+      let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
+      usb.controller.send( alert );
+    }
   }
   return;
 }
