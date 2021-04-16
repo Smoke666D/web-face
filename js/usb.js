@@ -631,7 +631,8 @@ function EnerganController () {
   function awaitLoopBusyReset ( callback ) {
     if ( ( loopBusy > 0 ) && ( transport.getStatus != usbStat.wait ) ) {
       setTimeout( function () {
-        awaitLoopBusyReset( callback );
+        console.log( "Await loop reset ");
+          awaitLoopBusyReset( callback );
       }, 100 );
     } else {
       callback();
@@ -703,7 +704,7 @@ function EnerganController () {
     return;
   }
   this.loop              = function () {
-    if ( loopActive > 0 ) {
+    if ( ( loopActive > 0 ) && ( loopBusy == 0 ) ) {
       loopBusy = 1;
       this.readOutput();
     }

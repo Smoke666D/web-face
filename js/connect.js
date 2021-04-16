@@ -171,7 +171,7 @@ function dashLoop () {
     setTimeout( function () {
       usb.controller.loop();
       dashLoop();
-    }, 1000 );
+    }, 100 );
 }
 /*----------------------------------------------------------------------------*/
 var typeIpLastLen = 0;
