@@ -9,10 +9,10 @@ const dashUnitType = {
 }
 const deviceStatusMask = 0x000F;
 const timeMask         = 0xFFF0;
-const timeShift        = 8;
+const timeShift        = 4;
 const logicDic = {
-  "on"  : "ВКЛ",
-  "off" : "ВЫКЛ",
+  "on"  : '►',
+  "off" : '⬛',
 };
 const discreteDic = {
   "on"  : '✓',
@@ -259,6 +259,17 @@ function DashUnit ( ) {
     shift : 0,
   };
   /*--------------------------------------------------------------------------*/
+  function isTimerStatus ( status ) {
+    let out = true;
+    if ( ( status == 0  ) ||
+         ( status == 1  ) ||
+         ( status == 9  ) ||
+         ( status == 13 ) ||
+         ( status == 14 ) ) {
+      out = false;
+    }
+    return out;
+  }
   function statusCallBack ( adr ) {
     let out = "Неизвестный статус";
     let num = outputReg[adr].value & deviceStatusMask;
@@ -268,10 +279,15 @@ function DashUnit ( ) {
     return out;
   }
   function timeCallBack ( adr ) {
-    let time = ( outputReg[adr].value & timeMask ) >> timeShift;
-    let min  = Math.trunc( time / 60 );
-    let sec  = time - min * 60;
-    return zeroPad( min, 2 ) + ":" + zeroPad( sec, 2 );
+    let out = "00:00";
+    if ( isTimerStatus( outputReg[adr].value & deviceStatusMask ) == true ) {
+      let time = ( outputReg[adr].value & timeMask ) >> timeShift;
+      console.log( outputReg[adr].value >> timeShift );
+      let min  = Math.trunc( time / 60 );
+      let sec  = time - min * 60;
+      out = zeroPad( min, 2 ) + ":" + zeroPad( sec, 2 );
+    }
+    return out;
   }
   function directCallBack ( adr ) {
     return ( outputReg[adr].value * Math.pow( 10, outputReg[adr].scale )).toFixed( Math.abs( outputReg[adr].scale ) );
@@ -354,6 +370,7 @@ function DashUnit ( ) {
 function DashCard () {
   const warningStr = "bg-warning";
   const dangerStr  = "bg-danger";
+  const workingStr = "bg-success";
   const colorStr   = "text-white";
   const fillStr    = "fill-white"
   var   object     = null;
@@ -365,6 +382,7 @@ function DashCard () {
   function setNormal () {
     if ( object ) {
       object.classList.remove( warningStr );
+      object.classList.remove( workingStr );
       object.classList.remove( dangerStr );
       object.classList.remove( colorStr );
       icon.classList.remove( fillStr );
@@ -374,6 +392,7 @@ function DashCard () {
   function setWarning () {
     if ( object ) {
       object.classList.add( warningStr );
+      object.classList.remove( workingStr );
       object.classList.remove( dangerStr );
       object.classList.add( colorStr );
       icon.classList.add( fillStr );
@@ -383,11 +402,21 @@ function DashCard () {
   function setDanger () {
     if ( object ) {
       object.classList.remove( warningStr );
+      object.classList.remove( workingStr );
       object.classList.add( dangerStr );
       object.classList.add( colorStr );
       icon.classList.add( fillStr );
     }
     return;
+  }
+  function setWorking () {
+    if ( object ) {
+      object.classList.remove( warningStr );
+      object.classList.add( workingStr );
+      object.classList.remove( dangerStr );
+      object.classList.add( colorStr );
+      icon.classList.add( fillStr );
+    }
   }
   function checkState ( warningList, errorList ) {
     var res = cardState.normal;
