@@ -720,9 +720,9 @@ pre {
   .col-dimension {
     text-align: left;
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 4ex;
-    flex: 0 0 4ex;
-    max-width: 4ex; }
+    -ms-flex: 0 0 5ex;
+    flex: 0 0 5ex;
+    max-width: 5ex; }
   }
     .col-alarmString {
     text-align: left;

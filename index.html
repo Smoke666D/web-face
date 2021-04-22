@@ -1150,6 +1150,29 @@
             <label class="form-check-label">Контроль целостности цепи датчика</label>
           </div>
         </div>
+        <div class="row unselect">
+          <div class="col-sm-auto pos-name">
+            <label class="switch">
+              <input type="checkbox" class="check-input" id="fuelLeakAlarmEnb">
+              <span class="slider"></span>
+            </label>
+            <label class="form-check-label">Контроль утечки топлива</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-signalDelay">
+            <label>Объем бака</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-fuelTankLevel" step="1">
+          </div>
+          <div class="col-dimension">
+            <label id="label-fuelTankLevel">л</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-fuelTankLevel"></div>
+          </div>
+        </div>
         <br>
         <h5>Сигналы нижнего предела</h5>
         <div class="row unselect">
@@ -1300,6 +1323,36 @@
           </div>
           <div class="col-sm col-slider">
             <div class="s-slider" id="s-slider-fuelLevelHightAlarmDelay"></div>
+          </div>
+        </div>
+        <br>
+        <h5>Номинальные расходы топлива</h5>
+        <div class="row">
+          <div class="col-signalDelay">
+            <label>Без нагрузки</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-fuelRateIdleLevel" step="1">
+          </div>
+          <div class="col-dimension">
+            <label id="label-fuelRateIdleLevel">л/c</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-fuelRateIdleLevel"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-signalDelay">
+            <label>Под нагрузкой</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-fuelRateLevel" step="1">
+          </div>
+          <div class="col-dimension">
+            <label id="label-fuelRateLevel">л/кВт</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-fuelRateLevel"></div>
           </div>
         </div>
         <br>

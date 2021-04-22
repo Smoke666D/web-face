@@ -532,7 +532,7 @@ function doInit( letter ) {
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-function ainInit( master, checkers, slaves, callback ) {
+function ainInit ( master, checkers, slaves, enb, callback ) {
 	function setDisabled() {
 		if ( document.getElementById( master ).value < 3 ) {
 			for ( var i=0; i<checkers.length; i++ ) {
@@ -558,6 +558,14 @@ function ainInit( master, checkers, slaves, callback ) {
 		} else {
 			for ( var i=0; i<checkers.length; i++ ) {
 				document.getElementById( checkers[i] ).disabled = false;
+			}
+			for ( var i=0; i<enb.length; i++ ) {
+				var element = document.getElementById( enb[i] );
+				if ( enb[i].search( 'slider' ) != -1 ) {
+					element.removeAttribute( 'disabled' );
+				} else {
+					element.disabled = false;
+				}
 			}
 		}
 		callback();
@@ -804,6 +812,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 						'sinput-oilPressurePreAlarmLevel',
 						's-slider-oilPressurePreAlarmLevel'
 					],
+					[],
 					function() {
 	  				document.getElementById( 'starterStopOilPressureEnb' ).checked = false;
 						document.getElementById( 'sinput-starterStopOilPressureLevel' ).disabled = true;
@@ -830,6 +839,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 						 'sinput-coolantTempCoolerOnLevel',
 						 's-slider-coolantTempCoolerOnLevel'
 					 ],
+					 [],
 					 function() { return; } );
 	ainInit( 'fuelLevelSensorType',
 	        [ 'fuelLevelOpenCircuitAlarmEnb',
@@ -837,10 +847,17 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	  			  'fuelLevelLowPreAlarmEnb',
 						'fuelLevelHightAlarmEnb',
 						'fuelLevelHightPreAlarmEnb',
-						'fuelPumpEnb'
+						'fuelPumpEnb',
+						'fuelLeakAlarmEnb'
 					],
 					[ 'sinput-fuelLevelLowAlarmLevel',
 					  's-slider-fuelLevelLowAlarmLevel',
+						'sinput-fuelTankLevel',
+						's-slider-fuelTankLevel',
+						'sinput-fuelRateIdleLevel',
+						's-slider-fuelRateIdleLevel',
+						'sinput-fuelRateLevel',
+						's-slider-fuelRateLevel',
 					  'sinput-fuelLevelLowAlarmDelay',
 					  's-slider-fuelLevelLowAlarmDelay',
 					  'sinput-fuelLevelLowPreAlarmLevel',
@@ -859,6 +876,13 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 					  's-slider-fuelPumpOffLevel',
 					  'sinput-fuelPumpOnLevel',
 						's-slider-fuelPumpOnLevel'
+					],
+					[ 'sinput-fuelTankLevel',
+					  's-slider-fuelTankLevel',
+					  'sinput-fuelRateIdleLevel',
+					  's-slider-fuelRateIdleLevel',
+					  'sinput-fuelRateLevel',
+					  's-slider-fuelRateLevel',
 					],
 				  function() {
 						return;
