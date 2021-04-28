@@ -21,7 +21,9 @@ var freeDataNames   = [
 	"maintenanceAlarmFuelTimeLeft",
   "powerReactiveUsage",
   "powerActiveUsage",
-  "powerFullUsage"];
+  "powerFullUsage",
+  "fuelUsageData",
+  "fuelRateData"];
 var   logArray             = [];
 const logMaxSize           = 255;
 const userTypeA = 39;
@@ -219,7 +221,7 @@ function Switch ( name ) {
 	this.update  = function() {
     if ( this.object ) {
       this.object.checked = this.getVal();
-      this.object.dispatchEvent( new Event( 'change' ) );  
+      this.object.dispatchEvent( new Event( 'change' ) );
     }
 		return;
 	}
@@ -512,7 +514,7 @@ function Slider ( name, preInit ) {
 		  this.input.value = reg.value * this.scl;
 		  this.input.step  = this.scl;
 		  this.input.addEventListener( 'change', function() {
-			  this.value = parseFloat( this.value ).toFixed( calcFracLength( this.scl ) );
+			  self.value = parseFloat( self.value ).toFixed( calcFracLength( self.scl ) );
 		  });
 		  this.slider.noUiSlider.updateOptions({
 			  step: 	this.scl,
@@ -1251,26 +1253,46 @@ function updateInterface ( callback = null ) {
 
 function grabInterface() {
 	for ( var i=0; i<stringLineArray.length; i++ ) {
-		stringLineArray[i].grab();
+    try {
+      stringLineArray[i].grab();
+    } catch (e) {
+      console.log("Grabing string error on " + stringLineArray[i].name );
+    }
 	}
 	for ( var i=0; i<slidersArray.length; i++ ) {
 		try {
 		  slidersArray[i].grab();
 		} catch (e) {
-			console.log("Grabing error on " + slidersArray[i].name );
+			console.log("Grabing slider error on " + slidersArray[i].name );
 		}
 	}
 	for ( var i=0; i<switcherArray.length; i++ ) {
-		switcherArray[i].grab();
+    try {
+      switcherArray[i].grab();
+    } catch (e) {
+      console.log("Grabing slider error on " + switcherArray[i].name );
+    }
 	}
 	for ( var i=0; i<selectorArray.length; i++ ) {
-		selectorArray[i].grab();
+    try {
+      selectorArray[i].grab();
+    } catch (e) {
+      console.log("Grabing selector error on " + selectorArray[i].name );
+    }
 	}
 	for ( var i=0; i<radioArray.length; i++ ) {
-		radioArray[i].grab();
+    try {
+      radioArray[i].grab();
+    } catch (e) {
+      console.log("Grabing radio error on " + radioArray[i].name );
+    }
 	}
   for ( var i=0; i<freeDataNames.length; i++ ) {
-		freeDataArray[i].grab();
+    try {
+      freeDataArray[i].grab();
+    } catch (e) {
+      console.log("Grabing free data error on " + freeDataArray[i].name );
+    }
 	}
 	for ( var i=0;i<dataReg.length;i++ ) {
 		if ( dataReg[i].name == "engineSetup" ) {

@@ -771,6 +771,8 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 		document.getElementById( 'setupPassword' ).disabled                = true;
 		document.getElementById( 'write-engineWorkTimeData' ).disabled     = true;
 		document.getElementById( 'write-engineStartsNumberData' ).disabled = true;
+		document.getElementById( 'write-fuelUsageData' ).disabled          = true;
+		document.getElementById( 'write-fuelRateData' ).disabled           = true;
 		document.getElementById( 'write-powerFullUsage' ).disabled         = true;
 		document.getElementById( 'write-powerActiveUsage' ).disabled       = true;
 		document.getElementById( 'write-powerReactiveUsage' ).disabled     = true;
@@ -780,7 +782,6 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 		document.getElementById( 'refreshMeasure-button' ).disabled        = true;
 		document.getElementById( 'measureSave-button' ).disabled           = true;
 		document.getElementById( 'measureErase-button' ).disabled          = true;
-
 		ipv4AdrMask();
 	}
 	document.getElementById( 'versionSowtware' ).innerHTML = softwareVersion;

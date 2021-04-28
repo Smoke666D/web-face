@@ -3358,6 +3358,40 @@
           </div>
         </div>
         <br>
+        <h5>Расход топлива</h5>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Всего потрачено</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" onkeypress="return event.charCode >= 48" value="0" min="0" max="65535" class="form-control small-input" id="input-fuelUsageData">
+          </div>
+          <div class="col-dimension">
+            <label>л</label>
+          </div>
+          <div class="col-sm-auto">
+            <button id="write-fuelUsageData" aria-label="Connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить количество потраченного топлива">
+              <span>Записать</span>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Средний расход</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" onkeypress="return event.charCode >= 48" value="0" min="0" max="65535" class="form-control small-input" id="input-fuelRateData">
+          </div>
+          <div class="col-dimension">
+            <label>л/кВт</label>
+          </div>
+          <div class="col-sm-auto">
+            <button id="write-fuelRateData" aria-label="Connect" onclick="" class="btn btn-primary" data-toggle="tooltip" title="Установить средний расход топлива">
+              <span>Записать</span>
+            </button>
+          </div>
+        </div>
+        <br>
         <h5>Наработка электроэнергии</h5>
         <div class="row">
           <div class="col-sm-2 pos-name">

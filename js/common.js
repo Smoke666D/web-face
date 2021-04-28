@@ -12,6 +12,8 @@ function setSuccessConnection() {
 		document.getElementById( 'setupPassword' ).disabled                = false;
 		document.getElementById( 'write-engineWorkTimeData' ).disabled     = false;
 		document.getElementById( 'write-engineStartsNumberData' ).disabled = false;
+		document.getElementById( 'write-fuelUsageData' ).disabled          = false;
+		document.getElementById( 'write-fuelRateData' ).disabled           = false;
 		document.getElementById( 'write-powerFullUsage' ).disabled         = false;
 		document.getElementById( 'write-powerActiveUsage' ).disabled       = false;
 		document.getElementById( 'write-powerReactiveUsage' ).disabled     = false;
@@ -41,6 +43,8 @@ function resetSuccessConnection() {
 		document.getElementById( 'setupPassword' ).disabled                = true;
 		document.getElementById( 'write-engineWorkTimeData' ).disabled     = true;
 		document.getElementById( 'write-engineStartsNumberData' ).disabled = true;
+		document.getElementById( 'write-fuelUsageData' ).disabled          = true;
+		document.getElementById( 'write-fuelRateData' ).disabled           = true;
 		document.getElementById( 'write-powerFullUsage' ).disabled         = true;
 		document.getElementById( 'write-powerActiveUsage' ).disabled       = true;
 		document.getElementById( 'write-powerReactiveUsage' ).disabled     = true;

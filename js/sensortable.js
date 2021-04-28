@@ -315,7 +315,6 @@ function sensorModalInit ( target ) {
       if ( type == 0 ) {
         chartList[0].init( xType = xAxisType.resestive );
         currentChart = chartList[0];
-        console.log( currentChart );
       } else {
         chartList[0].init( xType = xAxisType.current );
         currentChart = chartList[0];
