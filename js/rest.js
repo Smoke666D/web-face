@@ -906,7 +906,6 @@ function CheckSelectValues ( atribut, enableForAll ) {
   this.enableForAll = enableForAll;
 	var types         = document.getElementsByClassName( atribut );
 	var usedFunc      = new Array( types.length ).fill( 0 );
-
   function disableFunc ( func ) {
 		for ( var i=0; i<types.length; i++ ) {
 			types[i].options[func].disabled = true;
@@ -937,17 +936,19 @@ function CheckSelectValues ( atribut, enableForAll ) {
 		updateList();
 		enableAll();
 		for ( var i=0; i<usedFunc.length; i++ ) {
-			disableFunc( usedFunc[i] );
+      if ( usedFunc[i] > self.enableForAll ) {
+        disableFunc( usedFunc[i] );
+      }
 		}
 		return;
 	}
 	this.init   = function() {
     for ( var i=0; i<types.length; i++ ) {
       types[i].addEventListener( "change", function() {
+        updateList();
+        enableAll();
 			  if ( this.value > self.enableForAll ) {
-				  updateList();
 			    disableFunc( this.value );
- 			    enableAll();
 			  }
 			  return;
 		  });
