@@ -425,6 +425,132 @@ var outputReg = [
    ]
 },{
    "adr": 28,
+   "name": "engineWorkTimeOut",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "ч",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "adr": 29,
+   "name": "engineWorkMinOut",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "ч",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "adr": 30,
+   "name": "engineStartsNumberOut",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "adr": 31,
+   "name": "powerReactiveUsageOut",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "кВАР",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "adr": 32,
+   "name": "powerActiveUsageOut",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "кВт",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "adr": 33,
+   "name": "powerFullUsageOut",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "кВА",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "adr": 34,
+   "name": "fuelUsageOut",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "л",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "adr": 35,
+   "name": "fuelMomentalRateOut",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "г/кВт",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "adr": 36,
+   "name": "fuelAverageRateOut",
+   "value": 0,
+   "default": 0,
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "г/кВт",
+   "type": "U",
+   "rw": "rw",
+   "len": 1,
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "adr": 37,
    "name": "digitalOutput",
    "value": 0,
    "default": 0,
@@ -512,7 +638,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 29,
+   "adr": 38,
    "name": "digitalInput",
    "value": 0,
    "default": 0,
@@ -600,7 +726,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 30,
+   "adr": 39,
    "name": "deviceStatus",
    "value": 0,
    "default": 0,
@@ -614,7 +740,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 31,
+   "adr": 40,
    "name": "status",
    "value": 0,
    "default": 0,
@@ -666,7 +792,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 32,
+   "adr": 41,
    "name": "logLen",
    "value": 0,
    "default": 0,
@@ -680,7 +806,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 33,
+   "adr": 42,
    "name": "logAdr",
    "value": 0,
    "default": 0,
@@ -694,7 +820,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 34,
+   "adr": 43,
    "name": "logRecordData0",
    "value": 0,
    "default": 0,
@@ -708,7 +834,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 35,
+   "adr": 44,
    "name": "logRecordData1",
    "value": 0,
    "default": 0,
@@ -722,7 +848,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 36,
+   "adr": 45,
    "name": "logRecordEvent",
    "value": 0,
    "default": 0,
@@ -736,7 +862,7 @@ var outputReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 37,
+   "adr": 46,
    "name": "error0",
    "value": 0,
    "default": 0,
@@ -848,7 +974,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 38,
+   "adr": 47,
    "name": "error1",
    "value": 0,
    "default": 0,
@@ -960,7 +1086,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 39,
+   "adr": 48,
    "name": "error2",
    "value": 0,
    "default": 0,
@@ -982,7 +1108,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 40,
+   "adr": 49,
    "name": "warning0",
    "value": 0,
    "default": 0,
@@ -1094,7 +1220,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 41,
+   "adr": 50,
    "name": "warning1",
    "value": 0,
    "default": 0,
@@ -1128,7 +1254,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 42,
+   "adr": 51,
    "name": "controll",
    "value": 0,
    "default": 0,

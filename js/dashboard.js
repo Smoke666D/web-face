@@ -6,6 +6,7 @@ const dashUnitType = {
   "max"      : 3,
   "discrete" : 4,
   "logic"    : 5,
+  "free"     : 6,
 }
 const deviceStatusMask = 0x000F;
 const timeMask         = 0xFFF0;
@@ -219,34 +220,43 @@ const cardState = {
   "warning" : 2,
 };
 const dashboardNames = [
-  { name : 'value-status',         type : dashUnitType.status,   adr :  30,          shift : 0, },
-  { name : 'value-timer',          type : dashUnitType.time,     adr :  30,          shift : 0, },
-  { name : 'value-oilPressure',    type : dashUnitType.direct,   adr :  0,           shift : 0, },
-  { name : 'value-coolantTemp',    type : dashUnitType.direct,   adr :  1,           shift : 0, },
-  { name : 'value-fuelLevel',      type : dashUnitType.direct,   adr :  2,           shift : 0, },
-  { name : 'value-speed',          type : dashUnitType.direct,   adr :  3,           shift : 0, },
-  { name : 'value-mainsVoltage',   type : dashUnitType.max,      adr : [4, 5, 6],    shift : 0, },
-  { name : 'value-mainsFreq',      type : dashUnitType.direct,   adr : 10,           shift : 0, },
-  { name : 'value-genVoltage',     type : dashUnitType.max,      adr : [11, 12, 13], shift : 0, },
-  { name : 'value-current',        type : dashUnitType.max,      adr : [17, 18, 19], shift : 0, },
-  { name : 'value-gebFreq',        type : dashUnitType.direct,   adr : 20,           shift : 0, },
-  { name : 'value-battery',        type : dashUnitType.direct,   adr : 25,           shift : 0, },
-  { name : 'value-chargerVoltage', type : dashUnitType.direct,   adr : 26,           shift : 0, },
-  { name : 'value-chargerStatus',  type : dashUnitType.logic,    adr : 27,           shift : 0, },
-  { name : 'value-coolantHeater',  type : dashUnitType.logic,    adr : 27,           shift : 1, },
-  { name : 'value-coolantCooler',  type : dashUnitType.logic,    adr : 27,           shift : 2, },
-  { name : 'value-fuelPump',       type : dashUnitType.logic,    adr : 27,           shift : 3, },
-  { name : 'value-preHeater',      type : dashUnitType.logic,    adr : 27,           shift : 4, },
-  { name : 'value-doa',            type : dashUnitType.discrete, adr : 28,           shift : 0, },
-  { name : 'value-dob',            type : dashUnitType.discrete, adr : 28,           shift : 1, },
-  { name : 'value-doc',            type : dashUnitType.discrete, adr : 28,           shift : 2, },
-  { name : 'value-dod',            type : dashUnitType.discrete, adr : 28,           shift : 3, },
-  { name : 'value-doe',            type : dashUnitType.discrete, adr : 28,           shift : 4, },
-  { name : 'value-dof',            type : dashUnitType.discrete, adr : 28,           shift : 5, },
-  { name : 'value-dia',            type : dashUnitType.discrete, adr : 29,           shift : 0, },
-  { name : 'value-dib',            type : dashUnitType.discrete, adr : 29,           shift : 1, },
-  { name : 'value-dic',            type : dashUnitType.discrete, adr : 29,           shift : 2, },
-  { name : 'value-did',            type : dashUnitType.discrete, adr : 29,           shift : 3, },
+  { name : 'value-status',             type : dashUnitType.status,   adr :  39,          shift : 0, },
+  //{ name : 'value-timer',              type : dashUnitType.time,     adr :  39,          shift : 0, },
+  { name : 'value-oilPressure',        type : dashUnitType.direct,   adr :  0,           shift : 0, },
+  { name : 'value-coolantTemp',        type : dashUnitType.direct,   adr :  1,           shift : 0, },
+  { name : 'value-fuelLevel',          type : dashUnitType.direct,   adr :  2,           shift : 0, },
+  { name : 'value-speed',              type : dashUnitType.direct,   adr :  3,           shift : 0, },
+  { name : 'value-mainsVoltage',       type : dashUnitType.max,      adr : [4, 5, 6],    shift : 0, },
+  { name : 'value-mainsFreq',          type : dashUnitType.direct,   adr : 10,           shift : 0, },
+  { name : 'value-genVoltage',         type : dashUnitType.max,      adr : [11, 12, 13], shift : 0, },
+  { name : 'value-current',            type : dashUnitType.max,      adr : [17, 18, 19], shift : 0, },
+  { name : 'value-gebFreq',            type : dashUnitType.direct,   adr : 20,           shift : 0, },
+  { name : 'value-battery',            type : dashUnitType.direct,   adr : 25,           shift : 0, },
+  { name : 'value-chargerVoltage',     type : dashUnitType.direct,   adr : 26,           shift : 0, },
+  { name : 'value-chargerStatus',      type : dashUnitType.logic,    adr : 27,           shift : 0, },
+  { name : 'value-coolantHeater',      type : dashUnitType.logic,    adr : 27,           shift : 1, },
+  { name : 'value-coolantCooler',      type : dashUnitType.logic,    adr : 27,           shift : 2, },
+  { name : 'value-fuelPump',           type : dashUnitType.logic,    adr : 27,           shift : 3, },
+  { name : 'value-preHeater',          type : dashUnitType.logic,    adr : 27,           shift : 4, },
+  { name : 'value-engineRunTime',      type : dashUnitType.free,     adr : 28,           shift : 0 },
+  { name : 'value-engineRunMin',       type : dashUnitType.free,     adr : 29,           shift : 0 },
+  { name : 'value-engineStartsNumber', type : dashUnitType.free,     adr : 30,           shift : 0 },
+  { name : 'value-powerReactiveRate',  type : dashUnitType.free,     adr : 31,           shift : 0 },
+  { name : 'value-powerActiveRate',    type : dashUnitType.free,     adr : 32,           shift : 0 },
+  { name : 'value-powerFullRate',      type : dashUnitType.free,     adr : 33,           shift : 0 },
+  { name : 'value-fuelUsage',          type : dashUnitType.free,     adr : 34,           shift : 0 },
+  { name : 'value-fuelMomentalRate',   type : dashUnitType.free,     adr : 35,           shift : 0 },
+  { name : 'value-fuelAverageRate',    type : dashUnitType.free,     adr : 36,           shift : 0 },
+  { name : 'value-doa',                type : dashUnitType.discrete, adr : 37,           shift : 0, },
+  { name : 'value-dob',                type : dashUnitType.discrete, adr : 37,           shift : 1, },
+  { name : 'value-doc',                type : dashUnitType.discrete, adr : 37,           shift : 2, },
+  { name : 'value-dod',                type : dashUnitType.discrete, adr : 37,           shift : 3, },
+  { name : 'value-doe',                type : dashUnitType.discrete, adr : 37,           shift : 4, },
+  { name : 'value-dof',                type : dashUnitType.discrete, adr : 37,           shift : 5, },
+  { name : 'value-dia',                type : dashUnitType.discrete, adr : 38,           shift : 0, },
+  { name : 'value-dib',                type : dashUnitType.discrete, adr : 38,           shift : 1, },
+  { name : 'value-dic',                type : dashUnitType.discrete, adr : 38,           shift : 2, },
+  { name : 'value-did',                type : dashUnitType.discrete, adr : 38,           shift : 3, },
 ];
 /*----------------------------------------------------------------------------*/
 function DashUnit ( ) {
@@ -292,6 +302,9 @@ function DashUnit ( ) {
   function directCallBack ( adr ) {
     return ( outputReg[adr].value * Math.pow( 10, outputReg[adr].scale )).toFixed( Math.abs( outputReg[adr].scale ) );
   }
+  function freeCallBack ( adr ) {
+    return outputReg[adr].value;
+  }
   function maxCallBack ( adr ) {
     let res = outputReg[adr[0]].value;
     for ( var i=1; i<adr.length; i++ ) {
@@ -329,6 +342,9 @@ function DashUnit ( ) {
         break;
       case dashUnitType.max:
         res = maxCallBack( output.adr );
+        break;
+      case dashUnitType.free:
+        res = freeCallBack( output.adr );
         break;
       case dashUnitType.discrete:
         res = discreteCallBack( output.adr, output.shift );
@@ -464,21 +480,21 @@ function Dashboard ( ) {
 
   function getErrorList () {
     let out = [];
-    for ( var i=0; i<outputReg[37].bitMapSize; i++ ) {
-      out.push( outputReg[37].value & outputReg[37].bit[i].mask );
+    for ( var i=0; i<outputReg[46].bitMapSize; i++ ) {
+      out.push( outputReg[46].value & outputReg[46].bit[i].mask );
     }
-    for ( var i=0; i<outputReg[38].bitMapSize; i++ ) {
-      out.push( outputReg[38].value & outputReg[38].bit[i].mask );
+    for ( var i=0; i<outputReg[47].bitMapSize; i++ ) {
+      out.push( outputReg[47].value & outputReg[47].bit[i].mask );
     }
     return out;
   }
   function getWarningList () {
     let out = [];
-    for ( var i=0; i<outputReg[40].bitMapSize; i++ ) {
-      out.push( outputReg[40].value & outputReg[40].bit[i].mask );
+    for ( var i=0; i<outputReg[49].bitMapSize; i++ ) {
+      out.push( outputReg[49].value & outputReg[49].bit[i].mask );
     }
-    for ( var i=0; i<outputReg[41].bitMapSize; i++ ) {
-      out.push( outputReg[41].value & outputReg[41].bit[i].mask );
+    for ( var i=0; i<outputReg[50].bitMapSize; i++ ) {
+      out.push( outputReg[50].value & outputReg[50].bit[i].mask );
     }
     return out;
   }
