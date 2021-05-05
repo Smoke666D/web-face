@@ -14,10 +14,10 @@ function calcFracLength( x ) {
 /*----------------------------------------------------------------------------*/
 dashLoop();
 /*----------------------------------------------------------------------------*/
-window.addEventListener( 'load', function() {
+window.addEventListener ( 'load', function() {
 	window.scrollTo( 0, 0 );
 });
-document.addEventListener( 'touchmove', function( e ) {
+document.addEventListener ( 'touchmove', function( e ) {
 	e.preventDefault()
 });
 var connectionType = 'usb';
@@ -27,7 +27,19 @@ if ( electronApp > 0 ) {
 	var dashboard = require('./js/dashboard.js').dashboard;
 }
 /*----------------------------------------------------------------------------*/
-function connectClick() {
+function modbusAdrProc () {
+	let obj = document.getElementById( 'modbusAdr' );
+	console.log( obj.value );
+	if ( obj.value > 255 ) {
+		obj.value = 255;
+	}
+	if ( obj.value < 1 ) {
+		obj.value = 1;
+	}
+	return;
+}
+/*----------------------------------------------------------------------------*/
+function connectClick () {
 	var btn     = document.getElementById( 'modalConnect-button' );
 	var modal   = document.getElementById( 'connectionModal' );
 	var body    = document.getElementsByTagName( 'body' )[0];

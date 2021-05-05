@@ -450,6 +450,37 @@
           </div>
         </div>
         <br>
+        <h5>ModBus</h5>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Адрес</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" onchange="modbusAdrProc()" onkeypress="return event.charCode >= 48" class="form-control small-input" id="modbusAdr">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Скорость</label>
+          </div>
+          <div class="col-sm-auto">
+            <select class="custom-select sensor-select" id="modbusBaudrate">
+              <option value="0">300</option>
+              <option value="1">600</option>
+              <option value="2">1200</option>
+              <option value="3">2400</option>
+              <option value="4">4800</option>
+              <option value="5">9600</option>
+              <option value="6">19200</option>
+              <option value="7">38400</option>
+              <option value="8">57600</option>
+              <option value="9">115200</option>
+              <option value="10"></option>
+              <option value="11"></option>
+            </select>
+          </div>
+        </div>
+        <br>
         <h5>Гистерезис</h5>
         <div class="row">
           <div class="col-sm-2 pos-name">

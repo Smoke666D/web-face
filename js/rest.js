@@ -137,16 +137,16 @@ function  SET_LOG_DATE ( day, month, year, hour, min, sec ) {
          ( min   << LOG_MIN_SHIFT   ) |
          ( sec   << LOG_SEC_SHIFT   );
 }
-//******************************************************************************
-function bitVal( n, reg ) {
+/*----------------------------------------------------------------------------*/
+function bitVal ( n, reg ) {
 	return ( reg.value & reg.bit[n].mask ) >> reg.bit[n].shift;
 }
-//******************************************************************************
-function bitWrite( n, reg, val ) {
+/*----------------------------------------------------------------------------*/
+function bitWrite ( n, reg, val ) {
 	reg.value = ( reg.value & ( ~reg.bit[n].mask ) ) | ( val << reg.bit[n].shift );
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function StrLine ( name ) {
 	var self     = this;
 	this.name    = name;
@@ -189,7 +189,7 @@ function StrLine ( name ) {
 	}
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function Switch ( name ) {
   var self     = this;
 	this.name    = name;
@@ -236,7 +236,7 @@ function Switch ( name ) {
 	this.init();
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function Progress ( name ) {
 	var self     = this;
 	this.name    = name;
@@ -302,7 +302,7 @@ function Progress ( name ) {
 	}
   return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function Select ( name ) {
 	var self     = this;
 	this.name    = name;
@@ -384,7 +384,7 @@ function Select ( name ) {
 	}
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function Radio ( name ) {
 	this.name    = name;
 	this.getData = function() {
@@ -434,7 +434,7 @@ function Radio ( name ) {
 	}
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function Slider ( name, preInit ) {
 	var self  = this;
 	this.name = name;
@@ -544,7 +544,7 @@ function Slider ( name, preInit ) {
 	/*--------------------------------------------------------------------------*/
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function LogRecord ( type, action, time ) {
   var self    = this;
   this.type   = type;
@@ -682,7 +682,7 @@ function saveLogToFile () {
 	SaveAsFile( data, ( name + "_log" + ".txt" ), "text/plain;charset=utf-8" );
   return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function cosFiUpdate () {
 	slider = document.getElementById( "s-slider-cosFi" );
 	input = document.getElementById( "sinput-cosFi" );
@@ -699,11 +699,11 @@ function cosFiUpdate () {
 	})
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function dec2hexString( dec ) {
    return (dec+0x100).toString(16).substr(-2).toUpperCase();
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function updateVersions () {
 	var counter = 0;
 	var major   = 0;
@@ -737,7 +737,7 @@ function updateVersions () {
 	}
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function FreeData ( name ) {
 	var self = this;
 	this.name     = name;
@@ -815,7 +815,7 @@ function FreeData ( name ) {
 	this.update();
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function MeasurementSettings () {
 	var self                 = this;
 	var enable               = document.getElementById( 'recordEnb' );
@@ -900,7 +900,7 @@ function MeasurementSettings () {
 	}
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function CheckSelectValues ( atribut, enableForAll ) {
 	var self          = this;
   this.enableForAll = enableForAll;
@@ -957,7 +957,7 @@ function CheckSelectValues ( atribut, enableForAll ) {
 	}
   return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function RTC () {
 	var self   = this;
 	this.hour  = 0;
@@ -1030,19 +1030,16 @@ function RTC () {
 	}
   return;
 }
-
 function setInputTime () {
 	rtcTime.readInput();
 	writeTime();
 }
-
 function setSysTime () {
 	rtcTime.getSystemTime();
 	rtcTime.update();
 	writeTime();
 	return;
 }
-
 function writeJSON ( adr, data, message, callback ) {
 	var xhr = new XMLHttpRequest();
   if ( electronApp == 0 ) {
@@ -1077,7 +1074,6 @@ function writeJSON ( adr, data, message, callback ) {
 	}
 	return;
 }
-
 function writeFreeDataEth ( adr, data ) {
   function FreeData ( data ) {
     this.value = parseInt( data );
@@ -1086,28 +1082,24 @@ function writeFreeDataEth ( adr, data ) {
 	writeJSON( ( '/data/' + adr ), JSON.stringify( buf ), "Данные успешно записаны", function(){} );
 	return;
 }
-
 function writeTimeEth () {
 	writeJSON( '/time/', JSON.stringify( rtcTime ), "Время успешно установленно", function(){} );
 	return;
 }
-
 function eraseLogEth () {
   writeJSON( '/eraseLog/', JSON.stringify( rtcTime ), "Журнал установленно очищен", function(){} );
   return;
 }
-
 function writePasspordEth ( password ) {
   writeJSON( '/password/', JSON.stringify( password ), "Пароль обновлен", function() {});
   return;
 }
-
 function sendAuthorizationEth ( callback ) {
   let password = new Auth( getCurrentPassword() );
   writeJSON( '/auth/', JSON.stringify( password ), "Авторизация успешна", callback );
   return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function declareStrings ( configs ) {
 	for ( var i=0; i<configs.length; i++ ) {
 		if ( configs[i].name.endsWith( "Message" ) ) {
@@ -1164,6 +1156,7 @@ function declareSelects() {
 					   ( dataReg[i].bit[j].name.endsWith( "Type" ) )     ||
 					   ( dataReg[i].bit[j].name.endsWith( "Function" ) ) ||
 					   ( dataReg[i].bit[j].name.endsWith( "Polarity" ) ) ||
+             ( dataReg[i].bit[j].name.endsWith( "Baudrate" ) ) ||
 					   ( dataReg[i].bit[j].name.endsWith( "Arming" ) ) ) {
 					selectorArray.push( new Select( dataReg[i].bit[j].name ) );
 				}
@@ -1226,10 +1219,13 @@ function updateInterface ( callback = null ) {
 	}
   for ( var i=0;i<dataReg.length;i++ ) {
 		if ( dataReg[i].name == "engineSetup" ) {
-		  //bitWrite( 0, dataReg[i], document.getElementById( 'engineStartAttempts' ).value );
+      document.getElementById( 'engineStartAttempts' ).value = bitVal( 0, dataReg[i] );
 		}
     if ( dataReg[i].name == "speedToothNumber" ) {
       document.getElementById( 'speedToothNumber' ).value = dataReg[i].value;
+    }
+    if ( dataReg[i].name == "modbusAdr" ) {
+      document.getElementById( 'modbusAdr' ).value = bitVal( 0, dataReg[i] );
     }
 	}
   redrawLogTable();
@@ -1305,9 +1301,9 @@ function grabInterface() {
 	}
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function ascii_to_hexa(str) {
 	var arr1 = [];
 	for ( var n=0, l=str.length; n<l; n++)
@@ -1406,7 +1402,7 @@ function ethDataUpdate( alertProgress, callback ) {
 	}
 	return 0;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function copyLog ( data ) {
   logArray = [];
   for ( var i=0; i<data.length; i++ ) {
@@ -1416,7 +1412,7 @@ function copyLog ( data ) {
   }
   return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function copyDataReg ( data ) {
 	for ( var i=0; i<data.length; i++ ) {
 		for ( var j=0; j<dataReg.length; j++ ) {
@@ -1437,7 +1433,7 @@ function copyDataReg ( data ) {
 	return;
 }
 
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function resetSettings () {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		dataReg[i].value = dataReg[i].default;
@@ -1447,9 +1443,9 @@ function resetSettings () {
 	let alert = new Alert( "alert-success", okIco, "Настройки сброшены до заводских" );
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function dataGrab( alertProgress, callback ) {
 	grabInterface();
   try {
@@ -1539,7 +1535,7 @@ function dataGrab( alertProgress, callback ) {
 	}
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function pasteDataReg( data ) {
 	var bitArr = [];
 	var value  = 0;
@@ -1578,9 +1574,9 @@ function pasteDataReg( data ) {
 		bit        : bitArr,
 	};
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 module.exports.RTC            = RTC;
 module.exports.LogRecord      = LogRecord;
 /* For tests */
