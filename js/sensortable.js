@@ -163,6 +163,17 @@ function ChartData () {
   this.size  = 0;
   this.dots  = [];
 
+  function searchRegAdr ( name ) {
+    res = dataReg.length;
+    for ( var i=0; i<dataReg.length; i++ ) {
+      if ( dataReg[i].name == name ) {
+        res = dataReg[i].adr;
+        break;
+      }
+    }
+    return res;
+  }
+
   this.clean          = function () {
     this.dots = [];
     for ( var i=0; i<CHART_DOTS_SIZE; i++ ) {
@@ -208,13 +219,13 @@ function ChartData () {
   this.getTypeFromReg = function ( n ) {
     switch ( n ) {
       case 0:
-        dataRegNum = 8;
+        dataRegNum = searchRegAdr( "oilPressureSetup" );
         break;
       case 1:
-        dataRegNum = 11;
+        dataRegNum = searchRegAdr( "coolantTempSetup" );
         break;
       case 2:
-        dataRegNum = 19;
+        dataRegNum = searchRegAdr( "fuelLevelSetup" );
         break;
     }
     if ( bitVal( 0, dataReg[dataRegNum] ) == 4 ) {

@@ -480,21 +480,21 @@ function Dashboard ( ) {
 
   function getErrorList () {
     let out = [];
-    for ( var i=0; i<outputReg[46].bitMapSize; i++ ) {
-      out.push( outputReg[46].value & outputReg[46].bit[i].mask );
+    for ( var i=0; i<outputReg[41].bitMapSize; i++ ) {
+      out.push( outputReg[41].value & outputReg[41].bit[i].mask );
     }
-    for ( var i=0; i<outputReg[47].bitMapSize; i++ ) {
-      out.push( outputReg[47].value & outputReg[47].bit[i].mask );
+    for ( var i=0; i<outputReg[42].bitMapSize; i++ ) {
+      out.push( outputReg[42].value & outputReg[42].bit[i].mask );
     }
     return out;
   }
   function getWarningList () {
     let out = [];
-    for ( var i=0; i<outputReg[49].bitMapSize; i++ ) {
-      out.push( outputReg[49].value & outputReg[49].bit[i].mask );
+    for ( var i=0; i<outputReg[44].bitMapSize; i++ ) {
+      out.push( outputReg[44].value & outputReg[44].bit[i].mask );
     }
-    for ( var i=0; i<outputReg[50].bitMapSize; i++ ) {
-      out.push( outputReg[50].value & outputReg[50].bit[i].mask );
+    for ( var i=0; i<outputReg[45].bitMapSize; i++ ) {
+      out.push( outputReg[45].value & outputReg[45].bit[i].mask );
     }
     return out;
   }

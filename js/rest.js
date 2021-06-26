@@ -139,7 +139,7 @@ function  SET_LOG_DATE ( day, month, year, hour, min, sec ) {
 }
 /*----------------------------------------------------------------------------*/
 function bitVal ( n, reg ) {
-	return ( reg.value & reg.bit[n].mask ) >> reg.bit[n].shift;
+  return ( reg.value & reg.bit[n].mask ) >> reg.bit[n].shift;
 }
 /*----------------------------------------------------------------------------*/
 function bitWrite ( n, reg, val ) {

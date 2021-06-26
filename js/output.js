@@ -793,76 +793,6 @@ var outputReg = [
    ]
 },{
    "adr": 41,
-   "name": "logLen",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 42,
-   "name": "logAdr",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 43,
-   "name": "logRecordData0",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 44,
-   "name": "logRecordData1",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 45,
-   "name": "logRecordEvent",
-   "value": 0,
-   "default": 0,
-   "scale": 0,
-   "min": 0,
-   "max": 0,
-   "units": "",
-   "type": "U",
-   "rw": "rw",
-   "len": 1,
-   "bitMapSize": 0,
-   "bit": []
-},{
-   "adr": 46,
    "name": "error0",
    "value": 0,
    "default": 0,
@@ -974,7 +904,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 47,
+   "adr": 42,
    "name": "error1",
    "value": 0,
    "default": 0,
@@ -1086,7 +1016,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 48,
+   "adr": 43,
    "name": "error2",
    "value": 0,
    "default": 0,
@@ -1108,7 +1038,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 49,
+   "adr": 44,
    "name": "warning0",
    "value": 0,
    "default": 0,
@@ -1220,7 +1150,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 50,
+   "adr": 45,
    "name": "warning1",
    "value": 0,
    "default": 0,
@@ -1254,7 +1184,7 @@ var outputReg = [
        },
    ]
 },{
-   "adr": 51,
+   "adr": 46,
    "name": "controll",
    "value": 0,
    "default": 0,

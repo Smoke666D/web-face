@@ -50,18 +50,23 @@ function loadConfigsFromFile () {
 				reader.onload = function() {
 					try {
             let data  = JSON.parse( reader.result );
-						dataReg   = data.dataReg;
-            for ( var i=0; i<chartList.length; i++ ) {
-              chartList[i].setData( data.chartList[i] );
-              chartList[i].clean();
-              chartList[i].getTypeFromReg( 0 );
-              chartList[i].init();
-              for ( var j=0; j<chartList[i].size; j++ ) {
-                chartList[i].writeDot( j, data.chartList[i].dots[j] );
+            if ( data.dataReg.length == dataReg.length )
+            {
+              dataReg   = data.dataReg;
+              for ( var i=0; i<chartList.length; i++ ) {
+                chartList[i].setData( data.chartList[i] );
+                chartList[i].clean();
+                chartList[i].getTypeFromReg( 0 );
+                chartList[i].init();
+                for ( var j=0; j<chartList[i].size; j++ ) {
+                  chartList[i].writeDot( j, data.chartList[i].dots[j] );
+                }
               }
+              updateInterface();
+              let alert = new Alert( "alert-success", okIco, "Конфигурация прочитана из файла" );
+            } else {
+              let alert = new Alert( "alert-warning", triIco, "Конфигурация не совместима с используемой версией программы" );
             }
-            updateInterface();
-            let alert = new Alert( "alert-success", okIco, "Конфигурация прочитана из файла" );
 					} catch( e ) {
             let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
 					}
