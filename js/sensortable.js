@@ -1,4 +1,4 @@
-const CHART_DOTS_SIZE = 128;
+const CHART_DOTS_SIZE = 32;
 const xAxisType = {
   "resestive" : 0,
   "current"   : 1,

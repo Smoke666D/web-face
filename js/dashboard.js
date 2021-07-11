@@ -531,6 +531,7 @@ function Dashboard ( ) {
     if ( callback != null ) {
       callback();
     }
+    console.log("Update...");
     return;
   }
   return;

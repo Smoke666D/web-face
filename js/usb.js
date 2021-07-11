@@ -163,6 +163,9 @@ function InputMessageArray () {
   this.getData       = function () {
     return response.getFullData();
   }
+  this.getLength     = function () {
+    return length;
+  }
   return;
 }
 function OutputMessageArray () {
@@ -299,6 +302,7 @@ function USBtransport () {
   function readHandler ( message ) {
     result = usbHandler.error;
     message.init( function () {
+      //console.log( message.length );
       result = input.process( message );
       if ( ( result == usbHandler.finish ) && ( input.isEnd() == usbHandler.continue ) ) {
         if ( alert != null ) {
@@ -763,7 +767,7 @@ function EnerganController () {
   this.eraseMeasurement  = function ( alertIn = null ) {
     this.disableLoop();
     alert = alertIn;
-    writeSequency( 0, 0, alert,  false, initWriteEraseMeasurment );
+    writeSequency( 0, 0, alert, false, initWriteEraseMeasurment );
     return;
   }
   this.sendEWA           = function ( ewa, alertIn = null ) {

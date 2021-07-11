@@ -7,7 +7,7 @@ const CHART_DOTS_SIZE = require('../js/sensortable').CHART_DOTS_SIZE;
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
-const msgSIZE         = 65;
+const msgSIZE         = 41;
 const chartUnitLength = 18;
 const msgCMD  = {
   "USB_GET_CONFIG_CMD"         : 1,
@@ -335,10 +335,6 @@ function USBMessage ( buffer ) {
   }
   function parseOutput ( reg ) {
     reg.value = byteToUint16( self.data[0], self.data[1] );
-    //console.log("-----");
-    //console.log( self.adr );
-    //console.log( self.data );
-    //console.log( reg.value );
     return;
   }
   function parseConfig ( reg ) {
