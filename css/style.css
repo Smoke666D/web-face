@@ -763,6 +763,12 @@ pre {
       -ms-flex: 0 0 6ex;
       flex: 0 0 6ex;
       max-width: 6ex;}
+    .col-output {
+      text-align: left;
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 8ex;
+      flex: 0 0 8ex;
+      max-width: 8ex;}
 
 
   .col-sm {

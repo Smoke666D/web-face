@@ -814,6 +814,10 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	doInit( 'd' );
 	doInit( 'e' );
 	doInit( 'f' );
+	doInit( 'g' );
+	doInit( 'h' );
+	doInit( 'i' );
+	doInit( 'j' );
 	ainInit( 'oilPressureSensorType',
 	        [ 'oilPressureOpenCircuitAlarmEnb',
 					  'oilPressureAlarmEnb',

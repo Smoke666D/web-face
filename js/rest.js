@@ -920,7 +920,7 @@ function CheckSelectValues ( atribut, enableForAll ) {
 	}
 	function updateList ( ) {
 		for ( var i=0; i<types.length; i++ ) {
-			usedFunc[i] = parseInt(types[i].value);
+			usedFunc[i] = parseInt( types[i].value );
 		}
 		return;
 	}
