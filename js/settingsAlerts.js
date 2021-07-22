@@ -2,6 +2,7 @@
 function checkDOlist ( targetText ) {
   var types = document.getElementsByClassName( "doType" );
   var res   = 0;
+  console.log( targetText );
   for ( i=0; i<types.length; i++ ) {
     if ( types[i].options[types[i].value].text == targetText ) {
       res = 1;
@@ -9,13 +10,14 @@ function checkDOlist ( targetText ) {
   }
   return res;
 }
-/*----------------------------------------------------------------------------*/
 function checkDO ( targetText ) {
-  if ( checkDOlist() == 0 ) {
-    let alert = new Alert( "alert-warning", shevronRightIco, 'Цифровой выход <a class="text-danger">"' + targetText + '"</a> не сконфигурирован.' );
+  if ( checkDOlist( targetText ) == 0 ) {
+    let alert = new Alert( "alert-warning", shevronRightIco,
+                           'Цифровой выход <a class="text-danger">"' +
+                           targetText + '"</a> не сконфигурирован.' );
   }
+  return;
 }
-/*----------------------------------------------------------------------------*/
 function checkElectroDO () {
   var relayPair = ["Включить генератор",
                    "Включить сеть"];
@@ -26,9 +28,13 @@ function checkElectroDO () {
   let genRel = checkDOlist( relayPair[0] );
   let netRel = checkDOlist( relayPair[1] );
   if ( ( genRel > 0 ) && ( netRel == 0 ) ) {
-    let alert = new Alert( "alert-warning", shevronLeftIco, 'Цифровой выход <a class="text-danger">"' + relayPair[1] + '"</a> не сконфигурирован.' );
+    let alert = new Alert( "alert-warning", shevronLeftIco,
+                           'Цифровой выход <a class="text-danger">"' +
+                           relayPair[1] + '"</a> не сконфигурирован.' );
   } else if ( ( genRel == 0 ) && ( netRel > 0 ) ) {
-    let alert = new Alert( "alert-warning", shevronLeftIco, 'Цифровой выход <a class="text-danger">"' + relayPair[0] + '"</a> не сконфигурирован.' );
+    let alert = new Alert( "alert-warning", shevronLeftIco,
+                           'Цифровой выход <a class="text-danger">"' +
+                           relayPair[0] + '"</a> не сконфигурирован.' );
   } else if ( ( genRel == 0 ) && ( netRel == 0 ) ) {
     let imp     = [];
     let alarms  = [];
@@ -55,19 +61,23 @@ function checkElectroDO () {
       if ( lenStr == 0 ) {
         // All OK!
       } else if ( lenStr == 1 ) {
-        alarms.push( new Alert( "alert-warning", shevronLeftIco, 'Цифровой выход <a class="text-danger">' + string + '</a> не сконфигурирован.' ) );
+        alarms.push( new Alert( "alert-warning", shevronLeftIco,
+                                'Цифровой выход <a class="text-danger">' +
+                                string + '</a> не сконфигурирован.' ) );
       } else {
-        alarms.push( new Alert( "alert-warning", shevronLeftIco, 'Цифровые выходы <a class="text-danger">' + string + '</a> не сконфигурированы.' ) );
+        alarms.push( new Alert( "alert-warning", shevronLeftIco,
+                                'Цифровые выходы <a class="text-danger">' +
+                                string + '</a> не сконфигурированы.' ) );
       }
     } else {
-      let alert = new Alert( "alert-warning", shevronLeftIco, 'Управление комутацией не сконфигурировано.' );
+      let alert = new Alert( "alert-warning", shevronLeftIco,
+                             'Управление комутацией не сконфигурировано.' );
     }
   } else {
     // All OK!
   }
   return;
 }
-/*----------------------------------------------------------------------------*/
 function analisDOpairs () {
   var res       = 0;
   var warning   = 0;
@@ -77,20 +87,20 @@ function analisDOpairs () {
   for ( var i=0; i<(doList.length / 2); i++ ) {
     if ( res == 0 ) {
       if ( warning == 0 ) {
-        if ( ( doList[2*i].value == 0 ) && ( doList[2*i+1].value != 0 ) ) {
+        if ( ( doList[2 * i].value == 0 ) && ( doList[2 * i + 1].value != 0 ) ) {
           warning   = 1;
           emptySlot = 2 * i;
         }
-        if ( ( doList[2*i].value != 0 ) && ( doList[2*i+1].value == 0 ) ) {
+        if ( ( doList[2 * i].value != 0 ) && ( doList[2 * i + 1].value == 0 ) ) {
           warning = 1;
           emptySlot = 2 * i + 1;
         }
       } else {
-        if ( doList[2*i].value != 0 ) {
+        if ( doList[2 * i].value != 0 ) {
           res      = 1;
           fullSlot = 2 * i;
         }
-        if ( doList[2*i+1].value != 0 ) {
+        if ( doList[2 * i + 1].value != 0 ) {
           res      = 1;
           fullSlot = 2 * i + 1;
         }
@@ -109,7 +119,6 @@ function analisDOpairs () {
   }
   return;
 }
-/*----------------------------------------------------------------------------*/
 function doPairsAnalisInit () {
   var doList  = document.getElementsByClassName( "doType" );
   for ( var i=0; i<doList.length; i++ ) {
@@ -120,7 +129,6 @@ function doPairsAnalisInit () {
   }
   return;
 }
-/*----------------------------------------------------------------------------*/
 function checkTimers () {
   var self     = this;
   this.names   = [ "enginePreHeatDelay",
