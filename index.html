@@ -899,6 +899,8 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="row">
           <div class="card col">
             <div class="card-body">
               <p class="card-title">Цифровые выходы</p>
@@ -925,6 +927,18 @@
                   <div class="col">
                     <p>F</p>
                   </div>
+                  <div class="col">
+                    <p>G</p>
+                  </div>
+                  <div class="col">
+                    <p>H</p>
+                  </div>
+                  <div class="col">
+                    <p>I</p>
+                  </div>
+                  <div class="col">
+                    <p>J</p>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col">
@@ -944,6 +958,18 @@
                   </div>
                   <div class="col">
                     <p id="value-dof">&#10005;</p>
+                  </div>
+                  <div class="col">
+                    <p id="value-dog">&#10005;</p>
+                  </div>
+                  <div class="col">
+                    <p id="value-doh">&#10005;</p>
+                  </div>
+                  <div class="col">
+                    <p id="value-doi">&#10005;</p>
+                  </div>
+                  <div class="col">
+                    <p id="value-doj">&#10005;</p>
                   </div>
                 </div>
               </div>
@@ -1937,281 +1963,471 @@
       <!------------------------------------------------------------------------------------------------------------->
       <div id="digitalOutputPage" class="content-data hidden">
         <h2>Цифровые выходы</h2>
-        <div class="row">
-          <div class="col-first pos-name">
-            <label>Выход A</label>
-          </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select doType" id="doaType">
-              <option value="0">Не использовать</option>
-              <optgroup label="Режимы">
-                <option value="1">ДЭС готов</option>
-                <option value="2">Готов к запуску</option>
-                <option value="3">Готовность генератора</option>
-              </optgroup>
-              <optgroup label="Сигнализация">
-                <option value="4">Общий аварийный сигнал</option>
-                <option value="5">Общее нарушение сети</option>
-                <option value="6">Общее предупреждение</option>
-              </optgroup>
-              <optgroup label="Управление">
-                <option value="7" >Включить генератор</option>
-                <option value="8" >Включить генератор импульсно</option>
-                <option value="9" >Выключить генератор импульсно</option>
-                <option value="10">Включить сеть</option>
-                <option value="11">Включить сеть импульсно</option>
-                <option value="12">Выключить сеть импульсно</option>
-                <option value="13">Охладитель ОЖ</option>
-                <option value="14">Подогреватель ОЖ</option>
-                <option value="15">Стоповый соленоид</option>
-                <option value="16">Подкачка топлива</option>
-                <option value="17">Топливное реле</option>
-                <option value="18">Стартерное реле</option>
-                <option value="19">Включение свечи накаливания</option>
-                <option value="20">Работа на холостом ходу</option>
-              </optgroup>
-            </select>
-          </div>
-          <div class="col-sm-auto radio-line">
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="doaNO" name="groupDOA">
-              <label class="custom-control-label" for="doaNO">НО</label>
+        <div id="gecco-1-base">
+          <div class="row">
+            <div class="col-output">
+              <label>Выход A</label>
             </div>
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="doaNC" name="groupDOA">
-              <label class="custom-control-label" for="doaNC">НЗ</label>
+            <div class="col-sm-auto">
+              <select class="custom-select sensor-select doType" id="doaType">
+                <option value="0">Не использовать</option>
+                <optgroup label="Режимы">
+                  <option value="1">ДЭС готов</option>
+                  <option value="2">Готов к запуску</option>
+                  <option value="3">Готовность генератора</option>
+                </optgroup>
+                <optgroup label="Сигнализация">
+                  <option value="4">Общий аварийный сигнал</option>
+                  <option value="5">Общее нарушение сети</option>
+                  <option value="6">Общее предупреждение</option>
+                </optgroup>
+                <optgroup label="Управление">
+                  <option value="7" >Включить генератор</option>
+                  <option value="8" >Включить генератор импульсно</option>
+                  <option value="9" >Выключить генератор импульсно</option>
+                  <option value="10">Включить сеть</option>
+                  <option value="11">Включить сеть импульсно</option>
+                  <option value="12">Выключить сеть импульсно</option>
+                  <option value="13">Охладитель ОЖ</option>
+                  <option value="14">Подогреватель ОЖ</option>
+                  <option value="15">Стоповый соленоид</option>
+                  <option value="16">Подкачка топлива</option>
+                  <option value="17">Топливное реле</option>
+                  <option value="18">Стартерное реле</option>
+                  <option value="19">Включение свечи накаливания</option>
+                  <option value="20">Работа на холостом ходу</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="col-sm-auto radio-line">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="doaNO" name="groupDOA">
+                <label class="custom-control-label" for="doaNO">НО</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="doaNC" name="groupDOA">
+                <label class="custom-control-label" for="doaNC">НЗ</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-output">
+              <label>Выход B</label>
+            </div>
+            <div class="col-sm-auto">
+              <select class="custom-select sensor-select doType" id="dobType">
+                <option value="0">Не использовать</option>
+                <optgroup label="Режимы">
+                  <option value="1">ДЭС готов</option>
+                  <option value="2">Готов к запуску</option>
+                  <option value="3">Готовность генератора</option>
+                </optgroup>
+                <optgroup label="Сигнализация">
+                  <option value="4">Общий аварийный сигнал</option>
+                  <option value="5">Общее нарушение сети</option>
+                  <option value="6">Общее предупреждение</option>
+                </optgroup>
+                <optgroup label="Управление">
+                  <option value="7" >Включить генератор</option>
+                  <option value="8" >Включить генератор импульсно</option>
+                  <option value="9" >Выключить генератор импульсно</option>
+                  <option value="10">Включить сеть</option>
+                  <option value="11">Включить сеть импульсно</option>
+                  <option value="12">Выключить сеть импульсно</option>
+                  <option value="13">Охладитель ОЖ</option>
+                  <option value="14">Подогреватель ОЖ</option>
+                  <option value="15">Стоповый соленоид</option>
+                  <option value="16">Подкачка топлива</option>
+                  <option value="17">Топливное реле</option>
+                  <option value="18">Стартерное реле</option>
+                  <option value="19">Включение свечи накаливания</option>
+                  <option value="20">Работа на холостом ходу</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="col-sm-auto radio-line">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="dobNO" name="groupDOB" checked>
+                <label class="custom-control-label" for="dobNO">НО</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="dobNC" name="groupDOB">
+                <label class="custom-control-label" for="dobNC">НЗ</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-output">
+              <label>Выход С</label>
+            </div>
+            <div class="col-sm-auto">
+              <select class="custom-select sensor-select doType" id="docType">
+                <option value="0">Не использовать</option>
+                <optgroup label="Режимы">
+                  <option value="1">ДЭС готов</option>
+                  <option value="2">Готов к запуску</option>
+                  <option value="3">Готовность генератора</option>
+                </optgroup>
+                <optgroup label="Сигнализация">
+                  <option value="4">Общий аварийный сигнал</option>
+                  <option value="5">Общее нарушение сети</option>
+                  <option value="6">Общее предупреждение</option>
+                </optgroup>
+                <optgroup label="Управление">
+                  <option value="7" >Включить генератор</option>
+                  <option value="8" >Включить генератор импульсно</option>
+                  <option value="9" >Выключить генератор импульсно</option>
+                  <option value="10">Включить сеть</option>
+                  <option value="11">Включить сеть импульсно</option>
+                  <option value="12">Выключить сеть импульсно</option>
+                  <option value="13">Охладитель ОЖ</option>
+                  <option value="14">Подогреватель ОЖ</option>
+                  <option value="15">Стоповый соленоид</option>
+                  <option value="16">Подкачка топлива</option>
+                  <option value="17">Топливное реле</option>
+                  <option value="18">Стартерное реле</option>
+                  <option value="19">Включение свечи накаливания</option>
+                  <option value="20">Работа на холостом ходу</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="col-sm-auto radio-line">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="docNO" name="groupDOC" checked>
+                <label class="custom-control-label" for="docNO">НО</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="docNC" name="groupDOC">
+                <label class="custom-control-label" for="docNC">НЗ</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-output">
+              <label>Выход D</label>
+            </div>
+            <div class="col-sm-auto">
+              <select class="custom-select sensor-select doType" id="dodType">
+                <option value="0">Не использовать</option>
+                <optgroup label="Режимы">
+                  <option value="1">ДЭС готов</option>
+                  <option value="2">Готов к запуску</option>
+                  <option value="3">Готовность генератора</option>
+                </optgroup>
+                <optgroup label="Сигнализация">
+                  <option value="4">Общий аварийный сигнал</option>
+                  <option value="5">Общее нарушение сети</option>
+                  <option value="6">Общее предупреждение</option>
+                </optgroup>
+                <optgroup label="Управление">
+                  <option value="7" >Включить генератор</option>
+                  <option value="8" >Включить генератор импульсно</option>
+                  <option value="9" >Выключить генератор импульсно</option>
+                  <option value="10">Включить сеть</option>
+                  <option value="11">Включить сеть импульсно</option>
+                  <option value="12">Выключить сеть импульсно</option>
+                  <option value="13">Охладитель ОЖ</option>
+                  <option value="14">Подогреватель ОЖ</option>
+                  <option value="15">Стоповый соленоид</option>
+                  <option value="16">Подкачка топлива</option>
+                  <option value="17">Топливное реле</option>
+                  <option value="18">Стартерное реле</option>
+                  <option value="19">Включение свечи накаливания</option>
+                  <option value="20">Работа на холостом ходу</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="col-sm-auto radio-line">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="dodNO" name="groupDOD" checked>
+                <label class="custom-control-label" for="dodNO">НО</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="dodNC" name="groupDOD">
+                <label class="custom-control-label" for="dodNC">НЗ</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-output">
+              <label>Выход E</label>
+            </div>
+            <div class="col-sm-auto">
+              <select class="custom-select sensor-select doType" id="doeType">
+                <option value="0">Не использовать</option>
+                <optgroup label="Режимы">
+                  <option value="1">ДЭС готов</option>
+                  <option value="2">Готов к запуску</option>
+                  <option value="3">Готовность генератора</option>
+                </optgroup>
+                <optgroup label="Сигнализация">
+                  <option value="4">Общий аварийный сигнал</option>
+                  <option value="5">Общее нарушение сети</option>
+                  <option value="6">Общее предупреждение</option>
+                </optgroup>
+                <optgroup label="Управление">
+                  <option value="7" >Включить генератор</option>
+                  <option value="8" >Включить генератор импульсно</option>
+                  <option value="9" >Выключить генератор импульсно</option>
+                  <option value="10">Включить сеть</option>
+                  <option value="11">Включить сеть импульсно</option>
+                  <option value="12">Выключить сеть импульсно</option>
+                  <option value="13">Охладитель ОЖ</option>
+                  <option value="14">Подогреватель ОЖ</option>
+                  <option value="15">Стоповый соленоид</option>
+                  <option value="16">Подкачка топлива</option>
+                  <option value="17">Топливное реле</option>
+                  <option value="18">Стартерное реле</option>
+                  <option value="19">Включение свечи накаливания</option>
+                  <option value="20">Работа на холостом ходу</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="col-sm-auto radio-line">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="doeNO" name="groupDOE" checked>
+                <label class="custom-control-label" for="doeNO">НО</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="doeNC" name="groupDOE">
+                <label class="custom-control-label" for="doeNC">НЗ</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-output">
+              <label>Выход F</label>
+            </div>
+            <div class="col-sm-auto">
+              <select class="custom-select sensor-select doType" id="dofType">
+                <option value="0">Не использовать</option>
+                <optgroup label="Режимы">
+                  <option value="1">ДЭС готов</option>
+                  <option value="2">Готов к запуску</option>
+                  <option value="3">Готовность генератора</option>
+                </optgroup>
+                <optgroup label="Сигнализация">
+                  <option value="4">Общий аварийный сигнал</option>
+                  <option value="5">Общее нарушение сети</option>
+                  <option value="6">Общее предупреждение</option>
+                </optgroup>
+                <optgroup label="Управление">
+                  <option value="7" >Включить генератор</option>
+                  <option value="8" >Включить генератор импульсно</option>
+                  <option value="9" >Выключить генератор импульсно</option>
+                  <option value="10">Включить сеть</option>
+                  <option value="11">Включить сеть импульсно</option>
+                  <option value="12">Выключить сеть импульсно</option>
+                  <option value="13">Охладитель ОЖ</option>
+                  <option value="14">Подогреватель ОЖ</option>
+                  <option value="15">Стоповый соленоид</option>
+                  <option value="16">Подкачка топлива</option>
+                  <option value="17">Топливное реле</option>
+                  <option value="18">Стартерное реле</option>
+                  <option value="19">Включение свечи накаливания</option>
+                  <option value="20">Работа на холостом ходу</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="col-sm-auto radio-line">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="dofNO" name="groupDOF" checked>
+                <label class="custom-control-label" for="dofNO">НО</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="dofNC" name="groupDOF">
+                <label class="custom-control-label" for="dofNC">НЗ</label>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-first pos-name">
-            <label>Выход B</label>
-          </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select doType" id="dobType">
-              <option value="0">Не использовать</option>
-              <optgroup label="Режимы">
-                <option value="1">ДЭС готов</option>
-                <option value="2">Готов к запуску</option>
-                <option value="3">Готовность генератора</option>
-              </optgroup>
-              <optgroup label="Сигнализация">
-                <option value="4">Общий аварийный сигнал</option>
-                <option value="5">Общее нарушение сети</option>
-                <option value="6">Общее предупреждение</option>
-              </optgroup>
-              <optgroup label="Управление">
-                <option value="7" >Включить генератор</option>
-                <option value="8" >Включить генератор импульсно</option>
-                <option value="9" >Выключить генератор импульсно</option>
-                <option value="10">Включить сеть</option>
-                <option value="11">Включить сеть импульсно</option>
-                <option value="12">Выключить сеть импульсно</option>
-                <option value="13">Охладитель ОЖ</option>
-                <option value="14">Подогреватель ОЖ</option>
-                <option value="15">Стоповый соленоид</option>
-                <option value="16">Подкачка топлива</option>
-                <option value="17">Топливное реле</option>
-                <option value="18">Стартерное реле</option>
-                <option value="19">Включение свечи накаливания</option>
-                <option value="20">Работа на холостом ходу</option>
-              </optgroup>
-            </select>
-          </div>
-          <div class="col-sm-auto radio-line">
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="dobNO" name="groupDOB" checked>
-              <label class="custom-control-label" for="dobNO">НО</label>
+        <div id="gecco-1-luxary">
+
+          <div class="row">
+            <div class="col-output">
+              <label>Выход G</label>
             </div>
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="dobNC" name="groupDOB">
-              <label class="custom-control-label" for="dobNC">НЗ</label>
+            <div class="col-sm-auto">
+              <select class="custom-select sensor-select doType" id="dogType">
+                <option value="0">Не использовать</option>
+                <optgroup label="Режимы">
+                  <option value="1">ДЭС готов</option>
+                  <option value="2">Готов к запуску</option>
+                  <option value="3">Готовность генератора</option>
+                </optgroup>
+                <optgroup label="Сигнализация">
+                  <option value="4">Общий аварийный сигнал</option>
+                  <option value="5">Общее нарушение сети</option>
+                  <option value="6">Общее предупреждение</option>
+                </optgroup>
+                <optgroup label="Управление">
+                  <option value="7" >Включить генератор</option>
+                  <option value="8" >Включить генератор импульсно</option>
+                  <option value="9" >Выключить генератор импульсно</option>
+                  <option value="10">Включить сеть</option>
+                  <option value="11">Включить сеть импульсно</option>
+                  <option value="12">Выключить сеть импульсно</option>
+                  <option value="13">Охладитель ОЖ</option>
+                  <option value="14">Подогреватель ОЖ</option>
+                  <option value="15">Стоповый соленоид</option>
+                  <option value="16">Подкачка топлива</option>
+                  <option value="17">Топливное реле</option>
+                  <option value="18">Стартерное реле</option>
+                  <option value="19">Включение свечи накаливания</option>
+                  <option value="20">Работа на холостом ходу</option>
+                </optgroup>
+              </select>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-first pos-name">
-            <label>Выход С</label>
-          </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select doType" id="docType">
-              <option value="0">Не использовать</option>
-              <optgroup label="Режимы">
-                <option value="1">ДЭС готов</option>
-                <option value="2">Готов к запуску</option>
-                <option value="3">Готовность генератора</option>
-              </optgroup>
-              <optgroup label="Сигнализация">
-                <option value="4">Общий аварийный сигнал</option>
-                <option value="5">Общее нарушение сети</option>
-                <option value="6">Общее предупреждение</option>
-              </optgroup>
-              <optgroup label="Управление">
-                <option value="7" >Включить генератор</option>
-                <option value="8" >Включить генератор импульсно</option>
-                <option value="9" >Выключить генератор импульсно</option>
-                <option value="10">Включить сеть</option>
-                <option value="11">Включить сеть импульсно</option>
-                <option value="12">Выключить сеть импульсно</option>
-                <option value="13">Охладитель ОЖ</option>
-                <option value="14">Подогреватель ОЖ</option>
-                <option value="15">Стоповый соленоид</option>
-                <option value="16">Подкачка топлива</option>
-                <option value="17">Топливное реле</option>
-                <option value="18">Стартерное реле</option>
-                <option value="19">Включение свечи накаливания</option>
-                <option value="20">Работа на холостом ходу</option>
-              </optgroup>
-            </select>
-          </div>
-          <div class="col-sm-auto radio-line">
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="docNO" name="groupDOC" checked>
-              <label class="custom-control-label" for="docNO">НО</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="docNC" name="groupDOC">
-              <label class="custom-control-label" for="docNC">НЗ</label>
+            <div class="col-sm-auto radio-line">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="dogNO" name="groupDOG" checked>
+                <label class="custom-control-label" for="dogNO">НО</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="dogNC" name="groupDOG">
+                <label class="custom-control-label" for="dogNC">НЗ</label>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-first pos-name">
-            <label>Выход D</label>
-          </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select doType" id="dodType">
-              <option value="0">Не использовать</option>
-              <optgroup label="Режимы">
-                <option value="1">ДЭС готов</option>
-                <option value="2">Готов к запуску</option>
-                <option value="3">Готовность генератора</option>
-              </optgroup>
-              <optgroup label="Сигнализация">
-                <option value="4">Общий аварийный сигнал</option>
-                <option value="5">Общее нарушение сети</option>
-                <option value="6">Общее предупреждение</option>
-              </optgroup>
-              <optgroup label="Управление">
-                <option value="7" >Включить генератор</option>
-                <option value="8" >Включить генератор импульсно</option>
-                <option value="9" >Выключить генератор импульсно</option>
-                <option value="10">Включить сеть</option>
-                <option value="11">Включить сеть импульсно</option>
-                <option value="12">Выключить сеть импульсно</option>
-                <option value="13">Охладитель ОЖ</option>
-                <option value="14">Подогреватель ОЖ</option>
-                <option value="15">Стоповый соленоид</option>
-                <option value="16">Подкачка топлива</option>
-                <option value="17">Топливное реле</option>
-                <option value="18">Стартерное реле</option>
-                <option value="19">Включение свечи накаливания</option>
-                <option value="20">Работа на холостом ходу</option>
-              </optgroup>
-            </select>
-          </div>
-          <div class="col-sm-auto radio-line">
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="dodNO" name="groupDOD" checked>
-              <label class="custom-control-label" for="dodNO">НО</label>
+          <div class="row">
+            <div class="col-output">
+              <label>Выход H</label>
             </div>
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="dodNC" name="groupDOD">
-              <label class="custom-control-label" for="dodNC">НЗ</label>
+            <div class="col-sm-auto">
+              <select class="custom-select sensor-select doType" id="dohType">
+                <option value="0">Не использовать</option>
+                <optgroup label="Режимы">
+                  <option value="1">ДЭС готов</option>
+                  <option value="2">Готов к запуску</option>
+                  <option value="3">Готовность генератора</option>
+                </optgroup>
+                <optgroup label="Сигнализация">
+                  <option value="4">Общий аварийный сигнал</option>
+                  <option value="5">Общее нарушение сети</option>
+                  <option value="6">Общее предупреждение</option>
+                </optgroup>
+                <optgroup label="Управление">
+                  <option value="7" >Включить генератор</option>
+                  <option value="8" >Включить генератор импульсно</option>
+                  <option value="9" >Выключить генератор импульсно</option>
+                  <option value="10">Включить сеть</option>
+                  <option value="11">Включить сеть импульсно</option>
+                  <option value="12">Выключить сеть импульсно</option>
+                  <option value="13">Охладитель ОЖ</option>
+                  <option value="14">Подогреватель ОЖ</option>
+                  <option value="15">Стоповый соленоид</option>
+                  <option value="16">Подкачка топлива</option>
+                  <option value="17">Топливное реле</option>
+                  <option value="18">Стартерное реле</option>
+                  <option value="19">Включение свечи накаливания</option>
+                  <option value="20">Работа на холостом ходу</option>
+                </optgroup>
+              </select>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-first pos-name">
-            <label>Выход E</label>
-          </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select doType" id="doeType">
-              <option value="0">Не использовать</option>
-              <optgroup label="Режимы">
-                <option value="1">ДЭС готов</option>
-                <option value="2">Готов к запуску</option>
-                <option value="3">Готовность генератора</option>
-              </optgroup>
-              <optgroup label="Сигнализация">
-                <option value="4">Общий аварийный сигнал</option>
-                <option value="5">Общее нарушение сети</option>
-                <option value="6">Общее предупреждение</option>
-              </optgroup>
-              <optgroup label="Управление">
-                <option value="7" >Включить генератор</option>
-                <option value="8" >Включить генератор импульсно</option>
-                <option value="9" >Выключить генератор импульсно</option>
-                <option value="10">Включить сеть</option>
-                <option value="11">Включить сеть импульсно</option>
-                <option value="12">Выключить сеть импульсно</option>
-                <option value="13">Охладитель ОЖ</option>
-                <option value="14">Подогреватель ОЖ</option>
-                <option value="15">Стоповый соленоид</option>
-                <option value="16">Подкачка топлива</option>
-                <option value="17">Топливное реле</option>
-                <option value="18">Стартерное реле</option>
-                <option value="19">Включение свечи накаливания</option>
-                <option value="20">Работа на холостом ходу</option>
-              </optgroup>
-            </select>
-          </div>
-          <div class="col-sm-auto radio-line">
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="doeNO" name="groupDOE" checked>
-              <label class="custom-control-label" for="doeNO">НО</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="doeNC" name="groupDOE">
-              <label class="custom-control-label" for="doeNC">НЗ</label>
+            <div class="col-sm-auto radio-line">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="dohNO" name="groupDOH" checked>
+                <label class="custom-control-label" for="dohNO">НО</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="dohNC" name="groupDOH">
+                <label class="custom-control-label" for="dohNC">НЗ</label>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-first pos-name">
-            <label>Выход F</label>
-          </div>
-          <div class="col-sm-auto">
-            <select class="custom-select sensor-select doType" id="dofType">
-              <option value="0">Не использовать</option>
-              <optgroup label="Режимы">
-                <option value="1">ДЭС готов</option>
-                <option value="2">Готов к запуску</option>
-                <option value="3">Готовность генератора</option>
-              </optgroup>
-              <optgroup label="Сигнализация">
-                <option value="4">Общий аварийный сигнал</option>
-                <option value="5">Общее нарушение сети</option>
-                <option value="6">Общее предупреждение</option>
-              </optgroup>
-              <optgroup label="Управление">
-                <option value="7" >Включить генератор</option>
-                <option value="8" >Включить генератор импульсно</option>
-                <option value="9" >Выключить генератор импульсно</option>
-                <option value="10">Включить сеть</option>
-                <option value="11">Включить сеть импульсно</option>
-                <option value="12">Выключить сеть импульсно</option>
-                <option value="13">Охладитель ОЖ</option>
-                <option value="14">Подогреватель ОЖ</option>
-                <option value="15">Стоповый соленоид</option>
-                <option value="16">Подкачка топлива</option>
-                <option value="17">Топливное реле</option>
-                <option value="18">Стартерное реле</option>
-                <option value="19">Включение свечи накаливания</option>
-                <option value="20">Работа на холостом ходу</option>
-              </optgroup>
-            </select>
-          </div>
-          <div class="col-sm-auto radio-line">
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="dofNO" name="groupDOF" checked>
-              <label class="custom-control-label" for="dofNO">НО</label>
+          <div class="row">
+            <div class="col-output">
+              <label>Выход I</label>
             </div>
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="dofNC" name="groupDOF">
-              <label class="custom-control-label" for="dofNC">НЗ</label>
+            <div class="col-sm-auto">
+              <select class="custom-select sensor-select doType" id="doiType">
+                <option value="0">Не использовать</option>
+                <optgroup label="Режимы">
+                  <option value="1">ДЭС готов</option>
+                  <option value="2">Готов к запуску</option>
+                  <option value="3">Готовность генератора</option>
+                </optgroup>
+                <optgroup label="Сигнализация">
+                  <option value="4">Общий аварийный сигнал</option>
+                  <option value="5">Общее нарушение сети</option>
+                  <option value="6">Общее предупреждение</option>
+                </optgroup>
+                <optgroup label="Управление">
+                  <option value="7" >Включить генератор</option>
+                  <option value="8" >Включить генератор импульсно</option>
+                  <option value="9" >Выключить генератор импульсно</option>
+                  <option value="10">Включить сеть</option>
+                  <option value="11">Включить сеть импульсно</option>
+                  <option value="12">Выключить сеть импульсно</option>
+                  <option value="13">Охладитель ОЖ</option>
+                  <option value="14">Подогреватель ОЖ</option>
+                  <option value="15">Стоповый соленоид</option>
+                  <option value="16">Подкачка топлива</option>
+                  <option value="17">Топливное реле</option>
+                  <option value="18">Стартерное реле</option>
+                  <option value="19">Включение свечи накаливания</option>
+                  <option value="20">Работа на холостом ходу</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="col-sm-auto radio-line">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="doiNO" name="groupDOI" checked>
+                <label class="custom-control-label" for="doiNO">НО</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="doiNC" name="groupDOI">
+                <label class="custom-control-label" for="doiNC">НЗ</label>
+              </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-output">
+              <label>Выход J</label>
+            </div>
+            <div class="col-sm-auto">
+              <select class="custom-select sensor-select doType" id="dojType">
+                <option value="0">Не использовать</option>
+                <optgroup label="Режимы">
+                  <option value="1">ДЭС готов</option>
+                  <option value="2">Готов к запуску</option>
+                  <option value="3">Готовность генератора</option>
+                </optgroup>
+                <optgroup label="Сигнализация">
+                  <option value="4">Общий аварийный сигнал</option>
+                  <option value="5">Общее нарушение сети</option>
+                  <option value="6">Общее предупреждение</option>
+                </optgroup>
+                <optgroup label="Управление">
+                  <option value="7" >Включить генератор</option>
+                  <option value="8" >Включить генератор импульсно</option>
+                  <option value="9" >Выключить генератор импульсно</option>
+                  <option value="10">Включить сеть</option>
+                  <option value="11">Включить сеть импульсно</option>
+                  <option value="12">Выключить сеть импульсно</option>
+                  <option value="13">Охладитель ОЖ</option>
+                  <option value="14">Подогреватель ОЖ</option>
+                  <option value="15">Стоповый соленоид</option>
+                  <option value="16">Подкачка топлива</option>
+                  <option value="17">Топливное реле</option>
+                  <option value="18">Стартерное реле</option>
+                  <option value="19">Включение свечи накаливания</option>
+                  <option value="20">Работа на холостом ходу</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="col-sm-auto radio-line">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="dojNO" name="groupDOJ" checked>
+                <label class="custom-control-label" for="dojNO">НО</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="dojNC" name="groupDOJ">
+                <label class="custom-control-label" for="dojNC">НЗ</label>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
