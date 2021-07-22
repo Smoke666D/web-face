@@ -725,7 +725,7 @@ function slider4InitLimits ( id1, id2, id3, id4 ) {
 		}
 		if ( self.input2.value >= self.input3.value ) {
 			self.input2.value = self.input3.value;
-			self.slider2.noUiSlider.set( input3.value );
+			self.slider2.noUiSlider.set( self.input3.value );
 		}
 	});
 	this.slider3.noUiSlider.on( 'change', function() {
@@ -759,7 +759,7 @@ function slider4InitLimits ( id1, id2, id3, id4 ) {
 	this.input4.addEventListener( 'change', function() {
 		if ( self.input4.value <= self.input3.value ) {
 			self.input4.value = self.input3.value;
-			self.slider4.noUiSlider.set( input3.value );
+			self.slider4.noUiSlider.set( self.input3.value );
 		}
 	});
 	return;
