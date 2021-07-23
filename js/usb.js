@@ -443,6 +443,7 @@ function EnerganController () {
   var alert      = null;
   var loopActive = 0;
   var loopBusy   = 0;
+  var connected  = false;
   /*---------------------------------------------*/
   function initWriteSequency ( adr, data, callback ) {
     var msg = null;
@@ -684,6 +685,11 @@ function EnerganController () {
     });
     return result;
   }
+  this.isConnected       = function () {
+    let out   = connected;
+    connected = true;
+    return out;
+  }
   this.enableLoop        = function () {
     loopActive = 1;
     return;
@@ -705,6 +711,7 @@ function EnerganController () {
   }
   this.close             = function () {
     transport.close();
+    connected = false;
     return;
   }
   this.loop              = function () {

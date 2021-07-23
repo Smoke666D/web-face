@@ -565,9 +565,12 @@ function sortingLog () {
     for ( var i=pointer; i>=0; i-- ) {
       buffer.push( logArray[i] );
     }
-    if ( logArray[pointer + 1].data != 0 ) {
-      for ( var i=(logArray.length - 1); i>pointer; i-- ) {
-        buffer.push( logArray[i] );
+
+    if ( pointer < ( logArray.length - 1 ) ) {
+      if ( logArray[pointer + 1].data != 0 ) {
+        for ( var i=(logArray.length - 1); i>pointer; i-- ) {
+          buffer.push( logArray[i] );
+        }
       }
     }
     logArray = buffer;

@@ -31,7 +31,7 @@ function setSuccessConnection() {
 	return;
 }
 //******************************************************************************
-function resetSuccessConnection() {
+function resetSuccessConnection () {
 	if ( electronApp == 1 ) {
 		var obj = document.getElementById( 'modalConnect-button' );
 		if ( obj.classList.contains( 'btn-success' ) ) {
