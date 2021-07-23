@@ -50,9 +50,9 @@ function connectClick () {
 	wrapper.innerHTML = wrapper.innerHTML + '<div id="backdrop" class="modal-backdrop show"></div>';
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function navbarToogling() {
 	genSw = document.getElementById( 'genPowerGeneratorControlEnb' );
 	netSw = document.getElementById( 'mainsControlEnb' );
@@ -88,9 +88,9 @@ function navbarToogling() {
 	networkToogle();
 	generatorToogle();
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function Password ( status, data ) {
 	this.status = status;
 	this.data   = data;
@@ -149,9 +149,9 @@ function passwordProcessig () {
 	});
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function toogleNav() {
 	var sb   = document.getElementById( 'sidebar' );
 	if ( sb.classList.contains( 'active' ) ) {
@@ -162,7 +162,7 @@ function toogleNav() {
 	return;
 }
 
-function hideConteny() {
+function hideContent() {
 	var contentPages = document.getElementsByClassName( 'content-data' );
 	var navItems     = document.getElementsByClassName( 'navItem' );
 	for ( var i=0; i<navItems.length; i++ ) {
@@ -175,7 +175,7 @@ function hideConteny() {
 }
 
 function loadContent( id ) {
-	hideConteny();
+	hideContent();
 	document.getElementById( id ).classList.remove( 'hidden' );
 	document.getElementById( 'nav-' + id ).classList.add( 'checked' );
 	var sb = document.getElementById( 'sidebar' );
@@ -183,6 +183,7 @@ function loadContent( id ) {
 		sb.classList.remove( 'active' );
 		sidebarDone = 0;
 	}
+	document.getElementById( 'content' ).scrollTop = 0;
 	return;
 }
 
@@ -223,9 +224,9 @@ function setConnect( input ) {
   }
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function sliderInit() {
 	var i=0;
 	selectors  = document.getElementsByClassName( 'custom-select' );
@@ -262,9 +263,49 @@ function sliderInit() {
 	}
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+function schemTypeProcessing () {
+	function serchConfigDef ( name ) {
+		var out = 0;
+		for ( i=0; i<dataReg.length; i++ ) {
+			if ( dataReg[i].name == name ) {
+				out = dataReg[i].default;
+				break;
+			}
+		}
+		return out;
+	}
+	var schemType = document.getElementById( 'genAcSys' );
+	schemType.addEventListener( 'change', function () {
+    let gU1 = document.getElementById( 'sinput-genUnderVoltageAlarmLevel' );
+		let gU2 = document.getElementById( 'sinput-genUnderVoltagePreAlarmLevel' );
+		let gU3 = document.getElementById( 'sinput-genOverVoltagePreAlarmLevel' );
+		let gU4 = document.getElementById( 'sinput-genOverVoltageAlarmLevel' );
+		let nU1 = document.getElementById( 'sinput-mainsUnderVoltageAlarmLevel' );
+		let nU2 = document.getElementById( 'sinput-mainsOverVoltageAlarmLevel' );
+		if ( schemType.value == 2 ) {
+			gU1.value = 180;
+			gU2.value = 200;
+			gU3.value = 240;
+			gU4.value = 260;
+			nU1.value = 180;
+			nU2.value = 260;
+		} else {
+			gU1.value = serchConfigDef( 'genUnderVoltageAlarmLevel' );
+			gU2.value = serchConfigDef( 'genUnderVoltagePreAlarmLevel' );
+			gU3.value = serchConfigDef( 'genOverVoltagePreAlarmLevel' );
+			gU4.value = serchConfigDef( 'genOverVoltageAlarmLevel' );
+			nU1.value = serchConfigDef( 'mainsUnderVoltageAlarmLevel' );
+			nU2.value = serchConfigDef( 'mainsOverVoltageAlarmLevel' );
+		}
+	});
+	return;
+}
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function powerSliderInit( idActive, idReactive, idApparent, idCosFi, regName ) {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].name == regName ) {
@@ -395,9 +436,9 @@ function powerSliderInit( idActive, idReactive, idApparent, idCosFi, regName ) {
 	})
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function starterStopProcessing() {
 	var self = this;
 	this.genEnb     = document.getElementById( 'genPowerGeneratorControlEnb' );
@@ -461,9 +502,9 @@ function starterStopProcessing() {
 
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function setDisabledDI( letter ) {
 	var funct    = document.getElementById( 'di'          + letter + 'Function' )
 	var polarity = document.getElementById( 'di'          + letter + 'Polarity' );
@@ -538,11 +579,11 @@ function doInit( letter ) {
 	});
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function ainInit ( master, checkers, slaves, enb, callback ) {
 	function setDisabled() {
 		if ( document.getElementById( master ).value < 3 ) {
@@ -586,9 +627,9 @@ function ainInit ( master, checkers, slaves, enb, callback ) {
 		setDisabled();
 	});
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function slider2InitLimits( id1, id2 ) {
 	var self = this;
 	this.slider1 = document.getElementById( 's-slider-' + id1 );
@@ -764,9 +805,9 @@ function slider4InitLimits ( id1, id2, id3, id4 ) {
 	});
 	return;
  }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 document.addEventListener( "DOMContentLoaded", function( event ) {
   $( function () {
 		$( '[data-toggle="tooltip"]' ).tooltip( {
@@ -945,13 +986,14 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 		                                              'mainsOverVoltageAlarmLevel' );
 	const mainsFreqLims = new slider2InitLimits( 'mainsUnderFrequencyAlarmLevel',
 		                                           'mainsOverFrequencyAlarmLevel' );
+	schemTypeProcessing();
   loadContent( 'devicePage' );
 	doPairsAnalisInit();
 	return;
 });
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 module.exports.electronApp        = electronApp;
 module.exports.connectionType     = connectionType;
 module.exports.Password           = Password;
