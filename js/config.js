@@ -1066,8 +1066,8 @@ var dataReg = [
 },{
    "adr": 53,
    "name": "doabType",
-   "value": 0,
-   "default": 0,
+   "value": 4370,
+   "default": 4370,
    "scale": 0,
    "min": 0,
    "max": 1023,
