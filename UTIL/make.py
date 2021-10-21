@@ -37,7 +37,7 @@ def removeLink( string, name, type ):
 def addJsSection( jsLink, htmlText, index, minifyJS ):
     jsFile = jsLink[(jsLink.rfind("\\", 0) + 1 ) : len(jsLink) ]
     out    = htmlText;
-    jsText = open( jsLink, "r" ).read();
+    jsText = open( jsLink, "r", encoding="utf-8" ).read();
     if ( jsLink.find( 'filesaver' ) == -1 ):
         jsText = removeElectronFromJS( jsText );
     smallFile = 0;
