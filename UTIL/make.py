@@ -7,10 +7,8 @@ import time;
 import codecs;
 import sys;
 import gzip;
-try:
-    from StringIO import StringIO;   ## for Python 2
-except ImportError:
-    from io import StringIO;         ## for Python 3
+from io import StringIO;         ## for Python 3
+from io import BytesIO;
 import base64;
 sys.path.append( 'rcssmin-1.0.6' );
 from rcssmin import cssmin;
@@ -184,15 +182,15 @@ def encodeImg( imgPath ):
         except:
             return 'data:image/png;base64,' + data.encode( "base64" );
 #-------------------------------------------------------------------------------
-def compressString( string ):
-    try:
-        out = StringIO.StringIO();
-    except:
-        out = StringIO();
-    with gzip.GzipFile( fileobj = out, mode = "w" ) as f:
-        f.write( string );
-        string = out.getvalue();
-    return len( string );
+def compressString( string, encoding='utf-8', **kws ):
+    out = BytesIO();
+    kws['fileobj'] = out;
+    kws.setdefault('mode', 'wb');
+    kws.setdefault('compresslevel', 6);
+    gzf = gzip.GzipFile(**kws);
+    gzf.write(string.encode(encoding));
+    gzf.close();
+    return out.getvalue();
 #-------------------------------------------------------------------------------
 def removeElectronFromHTML( html ):
     index = 1;
@@ -206,8 +204,10 @@ def removeElectronFromHTML( html ):
             i          = endIndex;
             while True:
                 i = out.find( "<", i );
-                if ( ( out[i + 1] != '!' ) and ( not ( ( out[i+1] == 'b' ) and ( out[i+2] == 'r' ) and ( out[i+3] == '>' ) ) ) ):
-                    e = out.find( ">", i );
+                e = out.find( ">", i );
+                if ( ( out[i + 1] != '!' ) and
+                     ( not ( ( out[i+1] == 'b' ) and ( out[i+2] == 'r' ) and ( out[i+3] == '>' ) ) ) and
+                     ( not ( out[i+1:i+6] == "input" ) ) ):
                     if ( out[e-1] == "/" ):
                         divCounter -= 1;
                     if ( out[i + 1] != '/' ):
@@ -275,18 +275,22 @@ def minifyHtml( html ):
     return out;
 #-------------------------------------------------------------------------------
 def compilEWA( path, data ):
-    crc = 0;
-    f   = open( path, "w+" );
+    print( "Make EWA file")
+    crc     = 0;
+    counter = 0;
+    f       = open( path, "w+" );
     for byte in data:
-        f.write( format( ord( byte ), 'x' ) + ' ' );
-        crc = crc + ord( byte );
+        counter += 1;
+        f.write( format( byte, 'x' ) + ' ' );
+        crc = crc + byte;
     crc = crc & 0xFF;
     f.write( format( crc, 'x' ) );
     f.close();
+    print( "EWA size is   : " + str( counter ) + " bytes" );
     return;
 #-------------------------------------------------------------------------------
 def compilHex( path, text, compressed ):
-    f = open(path,"w+");
+    f = open( path, "w+" );
     f.write( "#ifndef INC_HTML_H_\n" );
     f.write( "#define INC_HTML_H_\n" );
     f.write( "/*----------------------- Includes -------------------------------------*/\n" );
@@ -300,21 +304,27 @@ def compilHex( path, text, compressed ):
         cmpr = "1U";
     f.write( "#define  HTML_ENCODING  " + cmpr + "\n" );
     f.write( "static const unsigned char data__index_html[HTML_LENGTH] = {\n" );
-    length = len( text ) / 16;
+    length = int( len( text ) / 16 );
     last   = len( text ) - length * 16;
     for i in range( 0, length ):
         f.write( "\t\t" );
         for j in range( 0, 16 ):
-            f.write( hex( ord( text[i*16 + j] ) ) + ",\t" );
+            f.write( hex( text[i*16 + j] ) + ",\t" );
         f.write( "\n" );
     if last > 0:
         f.write( "\t\t" );
         for i in range( 0, last ):
-            f.write( hex( ord( text[len( text ) - last + i] ) ) + ",\t" );
+            f.write( hex( text[len( text ) - last + i] ) + ",\t" );
     f.write( "};\n" );
     f.write( "#endif /* INC_INDEX_H_ */" );
     f.close();
     return len( text );
+#-------------------------------------------------------------------------------
+def testSpan ( string ):
+    start = string.find( "<span>", 0 );
+    end   = string.find( "</span>", start );
+    print( "____________________________________" + string[start+6:end]);
+    return;
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
@@ -372,6 +382,7 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     print( "Read HTML files" );
     htmlText    = htmlFile.read();
     html404Text = html404File.read();
+    print( "Remove Electron sections" );
     htmlText    = removeElectronFromHTML( htmlText );
     if minifyHTML == True:
         htmlText = minifyHtml( htmlText );
@@ -431,38 +442,26 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
             imgStr   = encodeImg( os.path.join( imgPath, img ) );
             htmlText = htmlText[:nameSt] + imgStr + htmlText[nameEn:];
             sizeA    = len( imgStr ) / 1024;
-            sizeB    = compressString( imgStr ) / 1024;
+            imgStr   = compressString( imgStr )
+            sizeB    = len( imgStr ) / 1024;
             delta    = ( sizeA - sizeB ) * 100 / sizeA;
             print( "Image {}       : from {} Kb to {} Kb ({}%)".format( counter, sizeA, sizeB, delta ) );
             counter = counter + 1;
     print( "Encoding image" );
     #------------------------- Compress file -------------------------
     if compress == True:
-        startSize = len( htmlText ) / 1024;
-        try:
-            out = StringIO.StringIO();
-        except:
-            out = StringIO();
-        with gzip.GzipFile( fileobj = out, mode="w" ) as f:
-            f.write( htmlText );
-        htmlCompress = out.getvalue();
+        startSize    = len( htmlText ) / 1024;
+        htmlCompress = compressString( htmlText )
         finishSize   = len( htmlCompress ) / 1024;
         delta        = ( startSize - finishSize ) * 100 / startSize;
         print( "Compression   : from {} Kb to {} Kb ({}%)".format( startSize, finishSize, delta ) );
-
-    startSize = len( html404Text );
-    try:
-        out = StringIO.StringIO();
-    except:
-        out = StringIO();
-    with gzip.GzipFile( fileobj = out, mode="w" ) as f:
-        f.write( html404Text );
-    html404Compress = out.getvalue();
-    finishSize   = len( html404Compress );
-    delta        = ( startSize - finishSize ) * 100 / startSize;
+    startSize       = len( html404Text );
+    html404Compress = compressString( html404Text );
+    finishSize      = len( html404Compress );
+    delta           = ( startSize - finishSize ) * 100 / startSize;
     print( "Compression404: from {} byte to {} byte ({}%)".format( startSize, finishSize, delta ) );
     #----------------------- Write output files -----------------------
-    output = open( "index.html", "w+" );
+    output = open( "index.html", "w+", encoding="utf-8" );
     startSize = len( html404Text ) / 1024;
     output.write( htmlText );
     output.close();
@@ -479,5 +478,5 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     print( "****************************************************" );
 #*******************************************************************************
 if __name__ == "__main__":
-    make( minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = False, compress = True );
+    make( minifyHTML = True, optimCSS = False, minifyCSS = True, minifyJS = True, compress = True );
 #*******************************************************************************

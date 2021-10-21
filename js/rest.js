@@ -1191,8 +1191,10 @@ function declareInterface() {
   doList  = new CheckSelectValues( "doType",     0 );
   rtcTime = new RTC();
   rtcTime.init();
-  measurement = new MeasurementSettings();
-	measurement.init();
+  if ( electronApp > 0 ) {
+    measurement = new MeasurementSettings();
+  	measurement.init();
+  }
   logArray = [];
   declareDone = 1;
 	return;

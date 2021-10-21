@@ -11,8 +11,6 @@ function calcFracLength( x ) {
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
-dashLoop();
-/*----------------------------------------------------------------------------*/
 window.addEventListener ( 'load', function() {
 	window.scrollTo( 0, 0 );
 });
@@ -24,6 +22,7 @@ var electronApp = 1;
 
 if ( electronApp > 0 ) {
 	var dashboard = require('./js/dashboard.js').dashboard;
+	dashLoop();
 }
 /*----------------------------------------------------------------------------*/
 function modbusAdrProc () {
@@ -842,7 +841,9 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	} catch {}
 	chartInit();
 	declareChartList();
-	measureChartInit();
+	if ( electronApp > 0 ) {
+	  measureChartInit();
+	}
 	passwordProcessig();
 	declareInterface();
 	diInit( 'a' );
@@ -958,7 +959,9 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	navbarToogling();
 	updateVersions();
 	starterStopProcessing();
-	dashboard.init();
+	if ( electronApp > 0 ) {
+		dashboard.init();
+	}
 	diList.init();
 	doList.init();
 	const genVoltageLims = new slider4InitLimits( 'genUnderVoltageAlarmLevel',

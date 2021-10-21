@@ -291,7 +291,7 @@
                   <span>События</span>
                 </a>
               </li>
-              <li>
+              <li class="electron">
                 <a class="navItem" id="nav-measureSettingPage" onclick="loadContent('measureSettingPage')" href="#">
                   <div class="fas">
                     <svg height="511pt" width="511pt" viewBox="0 0 512 512"><path fill="currentColor" d="M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"></path></svg>
@@ -542,7 +542,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="scadaPage" class="content-data hidden">
+      <div id="scadaPage" class="content-data hidden electron">
         <div class="row">
           <div id="cars-status" class="card col-9">
             <div class="card-body">
@@ -3869,7 +3869,7 @@
         </table>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="measureSettingPage" class="content-data hidden">
+      <div id="measureSettingPage" class="content-data hidden electron">
         <h2>Настройки самописца</h2>
         <div class="row unselect">
           <div class="col-sm-6 pos-name">
@@ -4066,7 +4066,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div id="measurePage" class="content-data hidden">
+      <div id="measurePage" class="content-data hidden electron">
         <h2>Измерения</h2>
         <div class="row">
           <button aria-label="Refresh data" id="refreshMeasure-button" onclick="readMeasurement()" class="btn btn-primary" data-toggle="tooltip" title="Считать данные измерения из контроллера">
@@ -4341,7 +4341,7 @@
         </div>
       </div>
       <!------------------------------------------------------------------------------------------------------------->
-      <div class="modal fade" id="connectionModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal fade electron" id="connectionModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -4391,20 +4391,22 @@
     <script type="text/javascript" src="js/settingsAlerts.js"></script>
     <script type="text/javascript" src="js/nouislider.min.js"></script>
     <script type="text/javascript" src="js/config.js"></script>
-    <script type="text/javascript" src="js/output.js"></script>
     <script type="text/javascript" src="js/version.js"></script>
     <script type="text/javascript" src="js/connect.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/rest.js"></script>
     <script type="text/javascript" src="js/chartjs-plugin-zoom.min.js"></script>
-    <script type="text/javascript" src="js/measure.js"></script>
-    <script type="text/javascript" src="js/shortcuts.js"></script>
     <script type="text/javascript" src="js/sensortable.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/popper.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/filesaver.js"></script>
+    <div class="electron">
+      <script type="text/javascript" src="js/output.js"></script>
+      <script type="text/javascript" src="js/measure.js"></script>
+      <script type="text/javascript" src="js/shortcuts.js"></script>
+    </div>
     <!--------------------------------------------------------------------------------------------------------------->
     <script>
       require('./render');
