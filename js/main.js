@@ -567,7 +567,6 @@ function diInit( letter ) {
 				message.value += ' ';
 			}
 		}
-		console.log( message.value );
 	});
 	return;
 }

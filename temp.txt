@@ -1,6 +1,5 @@
 2
 12
-32
 8
 6
 
@@ -10,7 +9,7 @@ len= 2    USB_GET_CONFIG_CMD    adr= 0
 len= 2    USB_GET_CONFIG_CMD    adr= 1
 len= 2    USB_GET_CONFIG_CMD    adr= 2
 len= 2    USB_GET_CONFIG_CMD    adr= 3
-len= 12    USB_GET_CONFIG_CMD    adr= 4
+  len= 12    USB_GET_CONFIG_CMD    adr= 4
 len= 2    USB_GET_CONFIG_CMD    adr= 5
 len= 2    USB_GET_CONFIG_CMD    adr= 6
 len= 2    USB_GET_CONFIG_CMD    adr= 7

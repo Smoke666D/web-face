@@ -148,39 +148,50 @@ function bitWrite ( n, reg, val ) {
 }
 /*----------------------------------------------------------------------------*/
 function StrLine ( name ) {
-	var self     = this;
-	this.name    = name;
+	var self    = this;
+	this.name   = name.slice( 0, name.length - 1 );
+  this.regNum = []
+  this.object = null;
+
 	this.getData = function() {
-		for ( var i=0; i<dataReg.length; i++ ) {
-			if ( dataReg[i].name == name ) {
-				this.regNum = i;
-			}
-		}
+    for ( var j=0; j<4; j++ ) {
+      for ( var i=0; i<dataReg.length; i++ ) {
+  			if ( dataReg[i].name == ( self.name + j ) ) {
+  				self.regNum.push( i );
+  			}
+  		}
+    }
 		return;
 	}
 	this.init    = function() {
-		this.object = document.getElementById( name );
-		this.getData();
+		self.object = document.getElementById( self.name );
+		self.getData();
 		return;
 	}
 	this.update  = function() {
-		var text = "";
-		reg = dataReg[this.regNum];
-		for ( var i=0; i<reg.len; i++ ) {
-			text += reg.value[i];
-		}
-		this.object.value = text;
+		var text   = "";
+    var buffer = [];
+    self.regNum.forEach( function( n, i ) {
+      reg = dataReg[n];
+      for ( var i=0; i<reg.len; i++ ) {
+  			text += reg.value[i];
+  		}
+    });
+		self.object.value = text;
 		return;
 	}
 	this.grab    = function() {
 		var text = this.object.value;
-		for ( var i=0; i<dataReg[this.regNum].len; i++ ) {
-      if ( i < text.length ) {
-			  dataReg[this.regNum].value[i] = text.charAt( i );
-      } else {
-        dataReg[this.regNum].value[i] = " ";
+    for ( var n=0; n<self.regNum.length; n++) {
+      for ( var i=0; i<dataReg[self.regNum[n]].len; i++ ) {
+        if ( i < text.length ) {
+  			  dataReg[self.regNum[n]].value[i] = text.charAt( i + n * dataReg[self.regNum[n]].len );
+        } else {
+          dataReg[self.regNum[n]].value[i] = " ";
+        }
       }
-		}
+    }
+
 		return;
 	}
 	this.init();
@@ -724,10 +735,17 @@ function updateVersions () {
 			document.getElementById( "versionFirmware" ).textContent = major + '.' + minor;
 			counter++;
 		}
-		if ( dataReg[i].name == "serialNumber" ) {
+		if ( dataReg[i].name == "serialNumber0" ) {
 			document.getElementById( "SerialNumber" ).textContent = "";
 			for ( var j=0; j<dataReg[i].len; j++ ) {
 				document.getElementById( "SerialNumber" ).textContent += dec2hexString( ( ( dataReg[i].value[j] ) >> 8 ) & 0xFF ) + ':' + dec2hexString( ( dataReg[i].value[j] ) & 0xFF );
+				if ( j < ( dataReg[i].len - 1 ) ) {
+					document.getElementById( "SerialNumber" ).textContent += ':';
+				}
+			}
+      document.getElementById( "SerialNumber" ).textContent += ":";
+      for ( var j=0; j<dataReg[i].len; j++ ) {
+				document.getElementById( "SerialNumber" ).textContent += dec2hexString( ( ( dataReg[i+1].value[j] ) >> 8 ) & 0xFF ) + ':' + dec2hexString( ( dataReg[i+1].value[j] ) & 0xFF );
 				if ( j < ( dataReg[i].len - 1 ) ) {
 					document.getElementById( "SerialNumber" ).textContent += ':';
 				}
@@ -1105,7 +1123,7 @@ function sendAuthorizationEth ( callback ) {
 /*----------------------------------------------------------------------------*/
 function declareStrings ( configs ) {
 	for ( var i=0; i<configs.length; i++ ) {
-		if ( configs[i].name.endsWith( "Message" ) ) {
+		if ( configs[i].name.endsWith( "Message0" ) ) {
 			stringLineArray.push( new StrLine( configs[i].name ) );
 		}
 	}
@@ -1262,11 +1280,14 @@ function grabInterface() {
     }
 	}
 	for ( var i=0; i<slidersArray.length; i++ ) {
+    slidersArray[i].grab();
+    /*
 		try {
 		  slidersArray[i].grab();
 		} catch (e) {
 			console.log("Grabing slider error on " + slidersArray[i].name );
 		}
+    */
 	}
 	for ( var i=0; i<switcherArray.length; i++ ) {
     try {
