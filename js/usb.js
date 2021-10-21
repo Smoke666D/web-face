@@ -302,7 +302,7 @@ function USBtransport () {
   function readHandler ( message ) {
     result = usbHandler.error;
     message.init( function () {
-      //console.log( message.length );
+      console.log( "len= " + message.length + " cmd = " + message.command + " adr= " + message.adr );
       result = input.process( message );
       if ( ( result == usbHandler.finish ) && ( input.isEnd() == usbHandler.continue ) ) {
         if ( alert != null ) {
