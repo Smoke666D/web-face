@@ -207,6 +207,9 @@ def removeElectronFromHTML( html ):
             while True:
                 i = out.find( "<", i );
                 if ( ( out[i + 1] != '!' ) and ( not ( ( out[i+1] == 'b' ) and ( out[i+2] == 'r' ) and ( out[i+3] == '>' ) ) ) ):
+                    e = out.find( ">", i );
+                    if ( out[e-1] == "/" ):
+                        divCounter -= 1;
                     if ( out[i + 1] != '/' ):
                         divCounter += 1;
                     else:
@@ -345,6 +348,7 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     imgPath     = os.path.join( path,"img" );
     htmlPath    = os.path.join( path,"index.html" );
     html404Path = os.path.join( path,"404.html" );
+    print( "Add source paths" );
     #------------- Get lists of js, css and image files --------------
     for root, dirs, files in os.walk( jsPath ):
         jsFiles = files;
@@ -352,10 +356,12 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
         cssFiles = files;
     for root, dirs, files in os.walk( imgPath ):
         imgFiles = files;
+    print( "Get list of files" );
     #------------------------- Remove key.js -------------------------
     for i in range( 0, ( len( jsFiles ) - 1 ) ):
         if jsFiles[i] == 'key.js':
             del jsFiles[i];
+    print( "Remove key.js" );
     #------------------------- Read html file ------------------------
     try:
         htmlFile    = open( htmlPath,    encoding="utf-8" );
@@ -363,11 +369,13 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     except:
         htmlFile = open( htmlPath, "r" );
         html404File = open( html404Path, "r" );
+    print( "Read HTML files" );
     htmlText    = htmlFile.read();
     html404Text = html404File.read();
     htmlText    = removeElectronFromHTML( htmlText );
     if minifyHTML == True:
         htmlText = minifyHtml( htmlText );
+        print( "HTML minify" );
     #----------- Remove links and add css files from html file --------
     valid = [];
     for cssFile in cssFiles:
@@ -382,6 +390,7 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
         if valid[i] == 1:
             buffer.append( cssFiles[i] );
     cssFiles = buffer;
+    print( "Add CSS to HTML" );
     #----------- Remove links and add js files and to html file --------
     valid = [];
     for i in range( 0, len( jsFiles ) ):
@@ -396,6 +405,7 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
         if valid[i] == 1:
             buffer.append( jsFiles[i] );
     jsFiles = buffer;
+    print( "Add JS to HTML")
     #------------------ Reset ElectronApp flag ----------------------
     startIndex = htmlText.find( "var electronApp = " );
     endIndex   = htmlText.find( ';', startIndex );
@@ -403,11 +413,14 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     startIndex = htmlText.find( "var electronApp=" );
     endIndex   = htmlText.find( ';', startIndex );
     htmlText   = htmlText[:startIndex] + "var electronApp=0" + htmlText[endIndex:];
+    print( "Reset Electron flags in JS" );
+    print( "-----------------------------" );
     #----------------- Print all included files ---------------------
     for file in jsFiles:
         print( "include       : " + file );
     for file in cssFiles:
         print( "include       : " + file );
+    print( "-----------------------------" );
     #------------------------- Encode images -------------------------
     counter = 1;
     for img in imgFiles:
@@ -422,6 +435,7 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
             delta    = ( sizeA - sizeB ) * 100 / sizeA;
             print( "Image {}       : from {} Kb to {} Kb ({}%)".format( counter, sizeA, sizeB, delta ) );
             counter = counter + 1;
+    print( "Encoding image" );
     #------------------------- Compress file -------------------------
     if compress == True:
         startSize = len( htmlText ) / 1024;
