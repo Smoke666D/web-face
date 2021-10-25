@@ -10,9 +10,12 @@ function connectUpdate () {
     ethDataUpdate( alert, function () {
       resetSuccessConnection();
     });
-  } else if ( ( connectionType == 'usb' ) && ( usb.controller.getStatus() == 1 ) ) {
-    let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
-    usb.controller.receive( getCurrentPassword(), alert );
+  } else if ( connectionType == 'usb' ) {
+    let state = usb.controller.getStatus();
+    if ( ( state == 1 ) || ( state == 4 ) ) {
+      let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
+      usb.controller.receive( getCurrentPassword(), alert );
+    }
   }
   return;
 }
