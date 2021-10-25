@@ -103,14 +103,13 @@ def addCssSection( cssLink, htmlText, index, minifyCSS, optimCSS ):
     return out
 #-------------------------------------------------------------------------------
 def minifyCss( css ):
-    delList = ["  ", "\n", "\r"];
-    spacesPlace =  ["; }", ": "," {", "} }", ", ", " !", "' ", " > ", " - ", " + ", " ~ ", "{ }"];
-    replacePlace = [";}" , ":" ,"{" , "}}" , "," , "!" , "'" , ">"  , "-"  , "+"  , "~"  , "{}" ];
-    indexStr = 0;
-    indexEnd = 0;
-
-    index    = 1;
-    subindex = 1;
+    delList      = ["  ", "\n", "\r"];
+    spacesPlace  = ["; }", ": "," {", "} }", ", ", " !", " > ", " - ", " + ", " ~ ", "{ }"];
+    replacePlace = [";}" , ":" ,"{" , "}}" , "," , "!" , ">"  , "-"  , "+"  , "~"  , "{}" ];
+    indexStr     = 0;
+    indexEnd     = 0;
+    index        = 1;
+    subindex     = 1;
     while index > -1:
         index = css.find( "/*", index + 1 );
         if index > -1:
@@ -289,21 +288,21 @@ def compilEWA( path, data ):
     print( "EWA size is   : " + str( counter ) + " bytes" );
     return;
 #-------------------------------------------------------------------------------
-def compilHex( path, text, compressed ):
+def compilHex( path, text, compressed, name ):
     f = open( path, "w+" );
-    f.write( "#ifndef INC_HTML_H_\n" );
-    f.write( "#define INC_HTML_H_\n" );
+    f.write( "#ifndef INC_" + name + "_H_\n" );
+    f.write( "#define INC_" + name + "_H_\n" );
     f.write( "/*----------------------- Includes -------------------------------------*/\n" );
     f.write( "#include\t\"stm32f2xx_hal.h\"\n" );
     f.write( "/*------------------------ Define --------------------------------------*/\n" );
-    f.write( "#define  HTML_LENGTH    " + str( len( text ) ) + "U    // " + str( len( text ) / 1024 )  +  " Kb\n" );
+    f.write( "#define  " + name + "_LENGTH    " + str( len( text ) ) + "U    // " + str( len( text ) / 1024 )  +  " Kb\n" );
     cmpr = " ";
     if compressed == 0:
         cmpr = "0U";
     else:
         cmpr = "1U";
-    f.write( "#define  HTML_ENCODING  " + cmpr + "\n" );
-    f.write( "static const unsigned char data__index_html[HTML_LENGTH] = {\n" );
+    f.write( "#define  " + name + "_ENCODING  " + cmpr + "\n" );
+    f.write( "static const unsigned char data__" + name.lower() + "_html[" + name + "_LENGTH] = {\n" );
     length = int( len( text ) / 16 );
     last   = len( text ) - length * 16;
     for i in range( 0, length ):
@@ -316,7 +315,7 @@ def compilHex( path, text, compressed ):
         for i in range( 0, last ):
             f.write( hex( text[len( text ) - last + i] ) + ",\t" );
     f.write( "};\n" );
-    f.write( "#endif /* INC_INDEX_H_ */" );
+    f.write( "#endif /* INC_" + name + "_H_ */" );
     f.close();
     return len( text );
 #-------------------------------------------------------------------------------
@@ -328,7 +327,7 @@ def testSpan ( string ):
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = False, compress = True, outPath = "C:/PROJECTS/ENERGAN/energan_enb/eth/site/index.h"):
+def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = False, compress = True, outPath = "C:\\PROJECTS\\ENERGAN\\217_migrate\\ethernet\\site\\index.h"):
     print( "****************************************************" )
     if minifyHTML == True:
         print( "HTML mimnfy   : On" );
@@ -466,8 +465,9 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     output.write( htmlText );
     output.close();
     if compress == True:
-        size = compilHex( outPath, htmlCompress, 1 );
-        compilHex( outPath, html404Compress, 1 );
+        # compilHex( outPath, htmlCompress, 1, 'WEB' );
+        compilHex( outPath, html404Compress, 1, 'INDEX' );
+        size = compilHex( "C:\\PROJECTS\\ENERGAN\\217_migrate\\ethernet\\site\\web.h", htmlCompress, 1, 'WEB' );
         name = strftime("%y%m%d", gmtime()) + '.ewa';
         compilEWA( os.path.join( path, name ), htmlCompress );
     else:
@@ -478,5 +478,5 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     print( "****************************************************" );
 #*******************************************************************************
 if __name__ == "__main__":
-    make( minifyHTML = True, optimCSS = False, minifyCSS = True, minifyJS = True, compress = True );
+    make( minifyHTML = True, optimCSS = False, minifyCSS = True, minifyJS = False, compress = True );
 #*******************************************************************************

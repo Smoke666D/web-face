@@ -202,6 +202,10 @@ function OutputMessageArray () {
     array.addMessage( message );
     return;
   }
+  this.printState    = function () {
+    console.log( ( array.getCounter() * USB_DATA_SIZE ) + "/" + ( array.getLength() * USB_DATA_SIZE ) + " bytes ( " + ( array.getCounter() / array.getLength() * 100 ) + "% )" );
+    return;
+  }
   return;
 }
 function USBtransport () {
@@ -268,6 +272,7 @@ function USBtransport () {
             {
               alert.setProgressBar( output.getProgress() );
               write( output.nextMessage() );
+              output.printState();
             }
         } else {
           console.log("Error with command: " + response.command + " expected: " + msgCMD.USB_PUT_CONFIG_CMD + " or " + msgCMD.USB_PUT_CHART_CMD + " or " + msgCMD.USB_PUT_EWA_CMD );
@@ -441,7 +446,7 @@ function USBtransport () {
 function EnerganController () {
   /*------------------ Private ------------------*/
   var self       = this;
-  var transport  = new USBtransport();
+  var transport  = null;
   var alert      = null;
   var loopActive = 0;
   var loopBusy   = 0;
@@ -585,15 +590,13 @@ function EnerganController () {
       transport.addRequest( msg );
     }
     /*---------- Free data ----------*/
-    for ( var i=0; i<freeDataValue.length; i++ )
-    {
+    for ( var i=0; i<freeDataValue.length; i++ ) {
       msg = new USBMessage( [] )
       msg.makeFreeDataRequest( i );
       transport.addRequest( msg );
     }
     /*------------- Log -------------*/
-    for ( var i=0; i<logMaxSize; i++ )
-    {
+    for ( var i=0; i<logMaxSize; i++ ) {
       msg = new USBMessage( [] )
       msg.makeLogRequest( i );
       transport.addRequest( msg );
@@ -675,6 +678,7 @@ function EnerganController () {
   this.init              = function ( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback ) {
     var result = usbInit.fail;
     var handle = usbHandler.finish;
+    transport  = new USBtransport();
     transport.scan( function () {
       transport.initEvents( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback,  function() {
         result    = usbInit.done;
@@ -712,7 +716,12 @@ function EnerganController () {
     return out;
   }
   this.close             = function () {
-    transport.close();
+    self.disableLoop();
+    loopBusy = 0;
+    if ( transport != null ) {
+      transport.close();
+      transport = null;
+    }
     connected = false;
     return;
   }

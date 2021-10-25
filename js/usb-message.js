@@ -1,4 +1,3 @@
-//const dataReg = require('../js/config.js').dataReg;
 const RTC             = require('../js/rest').RTC;
 const LogRecord       = require('../js/rest').LogRecord;
 const ChartData       = require('../js/sensortable').ChartData;
@@ -311,6 +310,7 @@ function USBMessage ( buffer ) {
     self.buffer  = [ 0, 0, 0, 0, 0, 0, 0, 0];
     setup( self.buffer, function () {
       for ( var i=0; i<data.length; i++ ) {
+        self.data.push( data[i] );
         self.buffer.push( data[i] );
       }
       finishMesageWithZero( self.buffer );
