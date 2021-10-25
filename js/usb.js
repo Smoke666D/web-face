@@ -684,17 +684,16 @@ function EnerganController () {
         result    = usbInit.done;
         try {
           let alert = new Alert( "alert-success", alerts.okIco, "Контроллер подключен по USB" );
+          connected = true;
         } catch (e) {}
       });
     }, function() {
-      let alert = new Alert("alert-warning",alerts.triIco,"Контроллер не подключен по USB");
+      let alert = new Alert( "alert-warning", alerts.triIco, "Контроллер не подключен по USB" );
     });
     return result;
   }
   this.isConnected       = function () {
-    let out   = connected;
-    connected = true;
-    return out;
+    return connected;
   }
   this.enableLoop        = function () {
     loopActive = 1;

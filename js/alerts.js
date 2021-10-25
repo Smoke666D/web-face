@@ -34,6 +34,18 @@ function closeAlert ( id ) {
   }
 	return;
 }
+function closeAllAlerts () {
+  let alerts = document.getElementsByClassName( 'alert' );
+  for ( var i=0; i<alerts.length; i++ ) {
+    if ( alerts[i].id.includes( "alert" ) ) {
+      let n = parseInt( alerts[i].id.slice( 5 ) );
+      if ( n != NaN ) {
+        closeAlert( n );
+      }
+    }
+  }
+  return;
+}
 /*----------------------------------------------------------------------------*/
 function AlertRecord ( bottom, height, index ) {
   this.bottom = bottom;
