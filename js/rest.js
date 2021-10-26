@@ -87,7 +87,9 @@ const logActionsDictionary = [
   "Автостарт",
   "Автостоп"
 ];
-
+/*----------------------------------------------------------------------------*/
+const HTTP_TIMEOUT = 5000;
+/*----------------------------------------------------------------------------*/
 const  LOG_DAY_MASK    = 0xF8000000;
 const  LOG_DAY_SHIFT   = 27;
 const  LOG_MONTH_MASK  = 0x07800000;
@@ -100,7 +102,7 @@ const  LOG_MIN_MASK    = 0x00000FC0;
 const  LOG_MIN_SHIFT   = 6;
 const  LOG_SEC_MASK    = 0x0000003F;
 const  LOG_SEC_SHIFT   = 0;
-
+/*----------------------------------------------------------------------------*/
 function  GET_LOG_DAY ( d ) {
   return ( new Uint32Array( [( ( d  & LOG_DAY_MASK ) >> LOG_DAY_SHIFT ) & 0x1F ] ) )[0];
 }
@@ -1069,7 +1071,7 @@ function writeJSON ( adr, data, message, callback ) {
     let ipAdr  = document.getElementById( "input-ipaddress" ).value;
   }
 	xhr.open( 'PUT', "http://" + ipAdr + adr, true );
-	xhr.timeout = 10000;
+	xhr.timeout = HTTP_TIMEOUT;
 	xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
 	xhr.send( data );
 	xhr.addEventListener( 'load', function( data ) {
@@ -1108,7 +1110,7 @@ function writeTimeEth () {
 	return;
 }
 function eraseLogEth () {
-  writeJSON( '/eraseLog/', JSON.stringify( rtcTime ), "Журнал установленно очищен", function(){} );
+  writeJSON( '/eraseLog/', JSON.stringify( rtcTime ), "Журнал успешно очищен", function(){} );
   return;
 }
 function writePasspordEth ( password ) {
@@ -1217,7 +1219,6 @@ function declareInterface() {
   declareDone = 1;
 	return;
 }
-
 function updateInterface ( callback = null ) {
 	rtcTime.update();
   for ( var i=0; i<switcherArray.length; i++ ) {
@@ -1264,13 +1265,14 @@ function updateInterface ( callback = null ) {
   setDisabledDO( 'f' );
   diList.update();
 	doList.update();
-  measurement.calcRecords();
+  if ( electronApp > 0 ) {
+    measurement.calcRecords();
+  }
   if ( callback != null ) {
     callback();
   }
 	return;
 }
-
 function grabInterface() {
 	for ( var i=0; i<stringLineArray.length; i++ ) {
     try {
@@ -1280,14 +1282,11 @@ function grabInterface() {
     }
 	}
 	for ( var i=0; i<slidersArray.length; i++ ) {
-    slidersArray[i].grab();
-    /*
 		try {
 		  slidersArray[i].grab();
 		} catch (e) {
 			console.log("Grabing slider error on " + slidersArray[i].name );
 		}
-    */
 	}
 	for ( var i=0; i<switcherArray.length; i++ ) {
     try {
@@ -1339,7 +1338,6 @@ function ascii_to_hexa(str) {
 	 }
 	return arr1.join( '' );
 }
-
 function ethDataUpdate( alertProgress, callback ) {
 	document.getElementById( "i-loading" ).classList.add( "loading" );
 	try {
@@ -1350,7 +1348,6 @@ function ethDataUpdate( alertProgress, callback ) {
 					const status = data.currentTarget.status;
 					const response = data.currentTarget.response;
 					if ( status === 200 ) {
-            //console.log( response );
 						store.push( JSON.parse( response ) );
 						requests.shift();
 						return reqs( requests, store, failback );
@@ -1380,7 +1377,7 @@ function ethDataUpdate( alertProgress, callback ) {
 					callback();
 				}
 				xhr.open( requests[0].method, requests[0].url );
-				xhr.timeout = 2000;
+				xhr.timeout = HTTP_TIMEOUT;
 				xhr.send();
 				var index  = store.length + 1;
 				var length = requests.length + store.length;
@@ -1459,7 +1456,6 @@ function copyDataReg ( data ) {
 	}
 	return;
 }
-
 /*----------------------------------------------------------------------------*/
 function resetSettings () {
 	for ( var i=0; i<dataReg.length; i++ ) {
@@ -1484,9 +1480,9 @@ function dataGrab( alertProgress, callback ) {
 					const status = data.currentTarget.status;
 					const response = data.currentTarget.response;
 					if ( xhr.readyState == 4 && status === 200 ) {
-						store.push( status );
-						requests.shift();
-						return reqs( requests, content, failback );
+            store.push( status );
+            requests.shift();
+            return reqs( requests, content, failback );
 		  		}
           else if ( status === 401 ) {
             alertProgress.close( 0 );
@@ -1510,7 +1506,7 @@ function dataGrab( alertProgress, callback ) {
 					callback();
 				}
 	  		xhr.open( requests[0].method, requests[0].url, true );
-				xhr.timeout = 600000;
+				xhr.timeout = HTTP_TIMEOUT;
 	  		xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
 	  		xhr.send( requests[0].content );
 				var index  = store.length + 1;
@@ -1532,7 +1528,7 @@ function dataGrab( alertProgress, callback ) {
 		if ( ipAdr.length > 0 ) {
 			extUrl = "http://" + ipAdr;
 		}
-		for ( i=3; i<103; i++ ) {
+		for ( i=6; i<dataReg.length; i++ ) {
 			if ( dataReg[i].rw == "rw" ) {
 				restSeq.push( {
 					method:  'PUT',
@@ -1566,16 +1562,6 @@ function dataGrab( alertProgress, callback ) {
 function pasteDataReg( data ) {
 	var bitArr = [];
 	var value  = 0;
-	if ( data.bitMapSize > 0 ) {
-		for ( var i=0; i<data.bitMapSize; i++ ) {
-			bitArr.push( {
-				mask  : data.bit[i].mask,
-				min   : data.bit[i].min,
-				max   : data.bit[i].max,
-				shift : data.bit[i].shift,
-			})
-		}
-	}
 	if ( data.type == 'S' ) {
 		value = [];
 		for ( var i=0; i<data.len; i++ ) {
@@ -1589,16 +1575,7 @@ function pasteDataReg( data ) {
 		value = data.value;
 	}
 	return {
-		adr        : data.adr,
-		value      : value,
-		scale      : data.scale,
-		min        : data.min,
-		max        : data.max,
-		units      : encodeURI( data.units ),
-		type       : encodeURI( data.type ),
-		len        : data.len,
-		bitMapSize : data.bitMapSize,
-		bit        : bitArr,
+		value : value,
 	};
 }
 /*----------------------------------------------------------------------------*/

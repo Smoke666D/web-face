@@ -438,9 +438,12 @@ function floatToFix16 ( float ) {
 }
 function uploadCharts () {
   var res = [];
+  function ChartTransferData () {
+    this.size = 0;
+    this.dots = [];
+  }
   for ( var i=0; i<chartList.length; i++ ) {
-    res.push( new ChartData() );
-    index = res.length - 1;
+    res.push( new ChartTransferData() );
     res[i].size = chartList[i].size;
     for ( var j=0; j<res[i].size; j++ ) {
       let dot = new ChartDotData();
