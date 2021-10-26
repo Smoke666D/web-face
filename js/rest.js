@@ -1350,6 +1350,7 @@ function ethDataUpdate( alertProgress, callback ) {
 					const status = data.currentTarget.status;
 					const response = data.currentTarget.response;
 					if ( status === 200 ) {
+            //console.log( response );
 						store.push( JSON.parse( response ) );
 						requests.shift();
 						return reqs( requests, store, failback );
