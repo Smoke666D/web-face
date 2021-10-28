@@ -7,10 +7,8 @@ import time;
 import codecs;
 import sys;
 import gzip;
-try:
-    from StringIO import StringIO;   ## for Python 2
-except ImportError:
-    from io import StringIO;         ## for Python 3
+from io import StringIO;         ## for Python 3
+from io import BytesIO;
 import base64;
 sys.path.append( 'rcssmin-1.0.6' );
 from rcssmin import cssmin;
@@ -39,7 +37,7 @@ def removeLink( string, name, type ):
 def addJsSection( jsLink, htmlText, index, minifyJS ):
     jsFile = jsLink[(jsLink.rfind("\\", 0) + 1 ) : len(jsLink) ]
     out    = htmlText;
-    jsText = open( jsLink, "r" ).read();
+    jsText = open( jsLink, "r", encoding="utf-8" ).read();
     if ( jsLink.find( 'filesaver' ) == -1 ):
         jsText = removeElectronFromJS( jsText );
     smallFile = 0;
@@ -50,7 +48,7 @@ def addJsSection( jsLink, htmlText, index, minifyJS ):
         else:
             startSize = len( jsText ) / 1024;
         jsText = minifyJs( jsText );
-        if (smallFile == 1):
+        if ( smallFile == 1 ):
             finishSize = len( jsText );
         else:
             finishSize = len( jsText ) / 1024;
@@ -67,7 +65,7 @@ def addCssSection( cssLink, htmlText, index, minifyCSS, optimCSS ):
     cssText = open( cssLink, "r" ).read();
     cssFile = cssLink[( cssLink.rfind("\\") + 1 ):len(cssLink)];
     smallFile = 0;
-    if ( optimCSS == True ):
+    if ( ( optimCSS == True ) and ( cssFile.find( '.min' ) == -1 ) ):
         if len( cssText ) < 1024:
             startSize = len( cssText );
             smallFile = 1;
@@ -83,10 +81,8 @@ def addCssSection( cssLink, htmlText, index, minifyCSS, optimCSS ):
             print( "CSS clean     : {} - from {} Kb to {} Kb ({}%)".format( cssFile, startSize, finishSize, delta ) );
         else:
             print( "CSS clean     : {} - from {} byte to {} byte ({}%)".format( cssFile, startSize, finishSize, delta ) );
-
-
     smallFile = 0;
-    if minifyCSS == True:
+    if ( ( minifyCSS == True ) and ( cssFile.find( '.min' ) == -1 ) ):
         if len( cssText ) < 1024:
             startSize = len( cssText );
             smallFile = 1;
@@ -107,14 +103,13 @@ def addCssSection( cssLink, htmlText, index, minifyCSS, optimCSS ):
     return out
 #-------------------------------------------------------------------------------
 def minifyCss( css ):
-    delList = ["  ", "\n", "\r"];
-    spacesPlace =  ["; }", ": "," {", "} }", ", ", " !", "' ", " > ", " - ", " + ", " ~ ", "{ }"];
-    replacePlace = [";}" , ":" ,"{" , "}}" , "," , "!" , "'" , ">"  , "-"  , "+"  , "~"  , "{}" ];
-    indexStr = 0;
-    indexEnd = 0;
-
-    index    = 1;
-    subindex = 1;
+    delList      = ["  ", "\n", "\r"];
+    spacesPlace  = ["; }", ": "," {", "} }", ", ", " !", " > ", " - ", " + ", " ~ ", "{ }"];
+    replacePlace = [";}" , ":" ,"{" , "}}" , "," , "!" , ">"  , "-"  , "+"  , "~"  , "{}" ];
+    indexStr     = 0;
+    indexEnd     = 0;
+    index        = 1;
+    subindex     = 1;
     while index > -1:
         index = css.find( "/*", index + 1 );
         if index > -1:
@@ -186,15 +181,15 @@ def encodeImg( imgPath ):
         except:
             return 'data:image/png;base64,' + data.encode( "base64" );
 #-------------------------------------------------------------------------------
-def compressString( string ):
-    try:
-        out = StringIO.StringIO();
-    except:
-        out = StringIO();
-    with gzip.GzipFile( fileobj = out, mode = "w" ) as f:
-        f.write( string );
-        string = out.getvalue();
-    return len( string );
+def compressString( string, encoding='utf-8', **kws ):
+    out = BytesIO();
+    kws['fileobj'] = out;
+    kws.setdefault('mode', 'wb');
+    kws.setdefault('compresslevel', 6);
+    gzf = gzip.GzipFile(**kws);
+    gzf.write(string.encode(encoding));
+    gzf.close();
+    return out.getvalue();
 #-------------------------------------------------------------------------------
 def removeElectronFromHTML( html ):
     index = 1;
@@ -205,11 +200,16 @@ def removeElectronFromHTML( html ):
             startIndex = out.rfind( "<", 0, index );
             endIndex   = out.find( ">", index ) + 1;
             divCounter = 1;
-            i = endIndex;
+            i          = endIndex;
             while True:
                 i = out.find( "<", i );
-                if (out[i+1] != '!'):
-                    if (out[i + 1] != '/'):
+                e = out.find( ">", i );
+                if ( ( out[i + 1] != '!' ) and
+                     ( not ( ( out[i+1] == 'b' ) and ( out[i+2] == 'r' ) and ( out[i+3] == '>' ) ) ) and
+                     ( not ( out[i+1:i+6] == "input" ) ) ):
+                    if ( out[e-1] == "/" ):
+                        divCounter -= 1;
+                    if ( out[i + 1] != '/' ):
                         divCounter += 1;
                     else:
                         divCounter -= 1;
@@ -274,50 +274,60 @@ def minifyHtml( html ):
     return out;
 #-------------------------------------------------------------------------------
 def compilEWA( path, data ):
-    crc = 0;
-    f   = open( path, "w+" );
+    print( "Make EWA file")
+    crc     = 0;
+    counter = 0;
+    f       = open( path, "w+" );
     for byte in data:
-        f.write( format( ord( byte ), 'x' ) + ' ' );
-        crc = crc + ord( byte );
+        counter += 1;
+        f.write( format( byte, 'x' ) + ' ' );
+        crc = crc + byte;
     crc = crc & 0xFF;
     f.write( format( crc, 'x' ) );
     f.close();
+    print( "EWA size is   : " + str( counter ) + " bytes" );
     return;
 #-------------------------------------------------------------------------------
-def compilHex( path, text, compressed ):
-    f = open(path,"w+");
-    f.write( "#ifndef INC_HTML_H_\n" );
-    f.write( "#define INC_HTML_H_\n" );
+def compilHex( path, text, compressed, name ):
+    f = open( path, "w+" );
+    f.write( "#ifndef INC_" + name + "_H_\n" );
+    f.write( "#define INC_" + name + "_H_\n" );
     f.write( "/*----------------------- Includes -------------------------------------*/\n" );
     f.write( "#include\t\"stm32f2xx_hal.h\"\n" );
     f.write( "/*------------------------ Define --------------------------------------*/\n" );
-    f.write( "#define  HTML_LENGTH    " + str( len( text ) ) + "U    // " + str( len( text ) / 1024 )  +  " Kb\n" );
+    f.write( "#define  " + name + "_LENGTH    " + str( len( text ) ) + "U    // " + str( len( text ) / 1024 )  +  " Kb\n" );
     cmpr = " ";
     if compressed == 0:
         cmpr = "0U";
     else:
         cmpr = "1U";
-    f.write( "#define  HTML_ENCODING  " + cmpr + "\n" );
-    f.write( "static const unsigned char data__index_html[HTML_LENGTH] = {\n" );
-    length = len( text ) / 16;
+    f.write( "#define  " + name + "_ENCODING  " + cmpr + "\n" );
+    f.write( "static const unsigned char data__" + name.lower() + "_html[" + name + "_LENGTH] = {\n" );
+    length = int( len( text ) / 16 );
     last   = len( text ) - length * 16;
     for i in range( 0, length ):
         f.write( "\t\t" );
         for j in range( 0, 16 ):
-            f.write( hex( ord( text[i*16 + j] ) ) + ",\t" );
+            f.write( hex( text[i*16 + j] ) + ",\t" );
         f.write( "\n" );
     if last > 0:
         f.write( "\t\t" );
         for i in range( 0, last ):
-            f.write( hex( ord( text[len( text ) - last + i] ) ) + ",\t" );
+            f.write( hex( text[len( text ) - last + i] ) + ",\t" );
     f.write( "};\n" );
-    f.write( "#endif /* INC_INDEX_H_ */" );
+    f.write( "#endif /* INC_" + name + "_H_ */" );
     f.close();
     return len( text );
 #-------------------------------------------------------------------------------
+def testSpan ( string ):
+    start = string.find( "<span>", 0 );
+    end   = string.find( "</span>", start );
+    print( "____________________________________" + string[start+6:end]);
+    return;
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = False, compress = True, outPath = "C:/PROJECTS/ENERGAN/energan_enb/eth/site/index.h"):
+#-------------------------------------------------------------------------------
+def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = False, compress = True, outPath = "C:\\PROJECTS\\ENERGAN\\217_migrate\\ethernet\\site\\index.h"):
     print( "****************************************************" )
     if minifyHTML == True:
         print( "HTML mimnfy   : On" );
@@ -347,6 +357,7 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     imgPath     = os.path.join( path,"img" );
     htmlPath    = os.path.join( path,"index.html" );
     html404Path = os.path.join( path,"404.html" );
+    print( "Add source paths" );
     #------------- Get lists of js, css and image files --------------
     for root, dirs, files in os.walk( jsPath ):
         jsFiles = files;
@@ -354,10 +365,12 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
         cssFiles = files;
     for root, dirs, files in os.walk( imgPath ):
         imgFiles = files;
+    print( "Get list of files" );
     #------------------------- Remove key.js -------------------------
     for i in range( 0, ( len( jsFiles ) - 1 ) ):
         if jsFiles[i] == 'key.js':
             del jsFiles[i];
+    print( "Remove key.js" );
     #------------------------- Read html file ------------------------
     try:
         htmlFile    = open( htmlPath,    encoding="utf-8" );
@@ -365,11 +378,14 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     except:
         htmlFile = open( htmlPath, "r" );
         html404File = open( html404Path, "r" );
-    htmlText = htmlFile.read();
+    print( "Read HTML files" );
+    htmlText    = htmlFile.read();
     html404Text = html404File.read();
-    htmlText = removeElectronFromHTML( htmlText );
+    print( "Remove Electron sections" );
+    htmlText    = removeElectronFromHTML( htmlText );
     if minifyHTML == True:
         htmlText = minifyHtml( htmlText );
+        print( "HTML minify" );
     #----------- Remove links and add css files from html file --------
     valid = [];
     for cssFile in cssFiles:
@@ -384,6 +400,7 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
         if valid[i] == 1:
             buffer.append( cssFiles[i] );
     cssFiles = buffer;
+    print( "Add CSS to HTML" );
     #----------- Remove links and add js files and to html file --------
     valid = [];
     for i in range( 0, len( jsFiles ) ):
@@ -398,6 +415,7 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
         if valid[i] == 1:
             buffer.append( jsFiles[i] );
     jsFiles = buffer;
+    print( "Add JS to HTML")
     #------------------ Reset ElectronApp flag ----------------------
     startIndex = htmlText.find( "var electronApp = " );
     endIndex   = htmlText.find( ';', startIndex );
@@ -405,11 +423,14 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     startIndex = htmlText.find( "var electronApp=" );
     endIndex   = htmlText.find( ';', startIndex );
     htmlText   = htmlText[:startIndex] + "var electronApp=0" + htmlText[endIndex:];
+    print( "Reset Electron flags in JS" );
+    print( "-----------------------------" );
     #----------------- Print all included files ---------------------
     for file in jsFiles:
         print( "include       : " + file );
     for file in cssFiles:
         print( "include       : " + file );
+    print( "-----------------------------" );
     #------------------------- Encode images -------------------------
     counter = 1;
     for img in imgFiles:
@@ -420,43 +441,33 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
             imgStr   = encodeImg( os.path.join( imgPath, img ) );
             htmlText = htmlText[:nameSt] + imgStr + htmlText[nameEn:];
             sizeA    = len( imgStr ) / 1024;
-            sizeB    = compressString( imgStr ) / 1024;
+            imgStr   = compressString( imgStr )
+            sizeB    = len( imgStr ) / 1024;
             delta    = ( sizeA - sizeB ) * 100 / sizeA;
             print( "Image {}       : from {} Kb to {} Kb ({}%)".format( counter, sizeA, sizeB, delta ) );
             counter = counter + 1;
+    print( "Encoding image" );
     #------------------------- Compress file -------------------------
     if compress == True:
-        startSize = len( htmlText ) / 1024;
-        try:
-            out = StringIO.StringIO();
-        except:
-            out = StringIO();
-        with gzip.GzipFile( fileobj = out, mode="w" ) as f:
-            f.write( htmlText );
-        htmlCompress = out.getvalue();
+        startSize    = len( htmlText ) / 1024;
+        htmlCompress = compressString( htmlText )
         finishSize   = len( htmlCompress ) / 1024;
         delta        = ( startSize - finishSize ) * 100 / startSize;
         print( "Compression   : from {} Kb to {} Kb ({}%)".format( startSize, finishSize, delta ) );
-
-    startSize = len( html404Text );
-    try:
-        out = StringIO.StringIO();
-    except:
-        out = StringIO();
-    with gzip.GzipFile( fileobj = out, mode="w" ) as f:
-        f.write( html404Text );
-    html404Compress = out.getvalue();
-    finishSize   = len( html404Compress );
-    delta        = ( startSize - finishSize ) * 100 / startSize;
+    startSize       = len( html404Text );
+    html404Compress = compressString( html404Text );
+    finishSize      = len( html404Compress );
+    delta           = ( startSize - finishSize ) * 100 / startSize;
     print( "Compression404: from {} byte to {} byte ({}%)".format( startSize, finishSize, delta ) );
     #----------------------- Write output files -----------------------
-    output = open( "index.html", "w+" );
+    output = open( "index.html", "w+", encoding="utf-8" );
     startSize = len( html404Text ) / 1024;
     output.write( htmlText );
     output.close();
     if compress == True:
-        size = compilHex( outPath, htmlCompress, 1 );
-        compilHex( outPath, html404Compress, 1 );
+        # compilHex( outPath, htmlCompress, 1, 'WEB' );
+        compilHex( outPath, html404Compress, 1, 'INDEX' );
+        size = compilHex( "C:\\PROJECTS\\ENERGAN\\217_migrate\\ethernet\\site\\web.h", htmlCompress, 1, 'WEB' );
         name = strftime("%y%m%d", gmtime()) + '.ewa';
         compilEWA( os.path.join( path, name ), htmlCompress );
     else:
@@ -467,5 +478,5 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     print( "****************************************************" );
 #*******************************************************************************
 if __name__ == "__main__":
-    make( minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = False, compress = True );
+    make( minifyHTML = True, optimCSS = False, minifyCSS = True, minifyJS = True, compress = True );
 #*******************************************************************************

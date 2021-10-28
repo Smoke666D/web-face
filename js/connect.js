@@ -1,20 +1,24 @@
 const usb    = require('./js/usb.js');
 const rest   = require('./js/rest.js');
 const alerts = require('./js/alerts.js');
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*/
 function connectUpdate () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
     ethDataUpdate( alert, function () {
       resetSuccessConnection();
     });
-  } else if ( ( connectionType == 'usb' ) && ( usb.controller.getStatus() == 1 ) ) {
-    let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
-    usb.controller.receive( alert );
+  } else if ( connectionType == 'usb' ) {
+    let state = usb.controller.getStatus();
+    if ( ( state == 1 ) || ( state == 4 ) ) {
+      let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
+      usb.controller.receive( getCurrentPassword(), alert );
+    }
   }
   return;
 }
-//******************************************************************************
 function saveConfigsToFile () {
   function SaveAsFile ( text, name, type ) {
   	try {
@@ -22,14 +26,19 @@ function saveConfigsToFile () {
       saveAs( file );
     } catch( e ) {
     	window.open( ( "data:" + m + "," + encodeURIComponent( t ) ), '_blank', '' );
+      let alert = new Alert( "alert-warning", triIco, "Ошибка записи конфигурации в файл" );
     }
     return;
   }
-	grabInterface()
-	SaveAsFile( JSON.stringify( dataReg ), ( "config" + ".JSON" ), "application/json;charset=utf-8" );
+	grabInterface();
+  let output = JSON.stringify( { dataReg, chartList }, null, '\t' );
+  let name   = "config.json";
+  if ( electronApp > 0 ) {
+    name += ".json";
+  }
+	SaveAsFile( output, name, "application/json;charset=utf-8" );
   return;
 }
-//******************************************************************************
 function loadConfigsFromFile () {
   if ( window.File && window.FileReader && window.FileList && window.Blob ) {
 		var input = document.createElement( "input" );
@@ -43,9 +52,24 @@ function loadConfigsFromFile () {
         reader.readAsText( file );
 				reader.onload = function() {
 					try {
-						dataReg = JSON.parse( reader.result );
-            updateInterface();
-            let alert = new Alert( "alert-success", okIco, "Конфигурация прочитана из файла" );
+            let data  = JSON.parse( reader.result );
+            if ( data.dataReg.length == dataReg.length )
+            {
+              dataReg   = data.dataReg;
+              for ( var i=0; i<chartList.length; i++ ) {
+                chartList[i].setData( data.chartList[i] );
+                chartList[i].clean();
+                chartList[i].getTypeFromReg( 0 );
+                chartList[i].init();
+                for ( var j=0; j<chartList[i].size; j++ ) {
+                  chartList[i].writeDot( j, data.chartList[i].dots[j] );
+                }
+              }
+              updateInterface();
+              let alert = new Alert( "alert-success", okIco, "Конфигурация прочитана из файла" );
+            } else {
+              let alert = new Alert( "alert-warning", triIco, "Конфигурация не совместима с используемой версией программы" );
+            }
 					} catch( e ) {
             let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
 					}
@@ -59,7 +83,6 @@ function loadConfigsFromFile () {
 	}
   return;
 }
-//******************************************************************************
 function connectGrab () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
@@ -67,9 +90,12 @@ function connectGrab () {
       resetSuccessConnection();
       return;
     });
-  } else if ( ( connectionType == 'usb' ) && ( usb.controller.getStatus() == 1 ) ) {
-    let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
-    usb.controller.send( alert );
+  } else if ( connectionType == 'usb' ) {
+    let state = usb.controller.getStatus();
+    if ( ( state == 1 ) || ( state == 4 ) ) {
+      let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
+      usb.controller.send( alert );
+    }
   }
   return;
 }
@@ -77,7 +103,7 @@ function writeTime () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     writeTimeEth();
   } else if ( connectionType == 'usb' ) {
-    usb.controller.sendTime();
+    usb.controller.sendTime( rtcTime );
   }
   return;
 }
@@ -89,6 +115,14 @@ function writeFreeData ( adr, value ) {
   }
   return;
 }
+function updateDashBoard () {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+
+  } else if ( connectionType == 'usb' ) {
+    usb.controller.readOutput();
+  }
+  return;
+}
 function eraseLog () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     eraseLogEth();
@@ -97,6 +131,32 @@ function eraseLog () {
   }
   logArray = [];
   redrawLogTable();
+  return;
+}
+function eraseMeasurement () {
+  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+
+  } else if ( connectionType == 'usb' ) {
+    usb.controller.eraseMeasurement();
+  }
+  measurementLength = 0;
+  measureBuffer     = [];
+  measureClean();
+  /* Clean plot */
+  return;
+}
+function readMeasurement () {
+  if ( measurementLength > 0 ) {
+    if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+
+    } else if ( connectionType == 'usb' ) {
+      let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
+      usb.controller.readMeasurement( measurementLength, alert );
+    }
+  } else {
+    let alert = new Alert( "alert-warning", triIco, "Нет записей измерений" );
+  }
+  /* Clean plot */
   return;
 }
 function writePassword ( password ) {
@@ -111,11 +171,17 @@ function authorization () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     sendAuthorizationEth();
   } else if ( connectionType == 'usb' ) {
-    usb.controller.sendAuthorization();
+    usb.controller.sendAuthorization( getCurrentPassword() );
   }
   return;
 }
-//******************************************************************************
+function dashLoop () {
+    setTimeout( function () {
+      usb.controller.loop();
+      dashLoop();
+    }, 4000 );
+}
+/*----------------------------------------------------------------------------*/
 var typeIpLastLen = 0;
 var typeIpDir     = "write";
 function ipv4AdrMask () {
@@ -142,4 +208,4 @@ function ipv4AdrMask () {
   });
   return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/

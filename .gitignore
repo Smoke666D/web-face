@@ -16,3 +16,4 @@ release-builds
 /node_modules
 yarn-error.log
 yarn.lock
+dist

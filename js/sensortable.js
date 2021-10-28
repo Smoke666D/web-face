@@ -1,5 +1,19 @@
-var pointIndex = 0;
-var sensorData = {
+/*----------------------------------------------------------------------------*/
+const CHART_DOTS_SIZE = 32;
+const xAxisType       = {
+  "resestive" : 0,
+  "current"   : 1,
+};
+const yAxisType       = {
+  "oil"     : 0,
+  "coolant" : 1,
+  "fuel"    : 2,
+};
+/*----------------------------------------------------------------------------*/
+var chartList    = [];
+var pointIndex   = 0;
+var lineChart    = null;
+var sensorData   = {
   datasets: [{
     data: [{
       x: 0,
@@ -18,7 +32,6 @@ var sensorData = {
     lineTension:          0,
   }]
 };
-
 var chartOptions = {
   legend: {
     display: false,
@@ -77,49 +90,57 @@ var chartOptions = {
     changeEvent( evt );
   }
 };
-
-
-document.getElementById( "chartXedit" ).addEventListener( 'change', function () {
-  var curVal = parseFloat( self.xFild.value );
-  if ( curVal > lineChart.options.scales.xAxes[0].ticks.max ) {
-    self.xFild.value = lineChart.options.scales.xAxes[0].ticks.max;
-  }
-  if ( curVal < lineChart.options.scales.xAxes[0].ticks.min ) {
-    self.xFild.value = lineChart.options.scales.xAxes[0].ticks.min;
-  }
-  if ( pointIndex > 0 ) {
-    if ( curVal < ( sensorData.datasets[0].data[pointIndex-1].x + 0.1 ) ) {
-      self.xFild.value = sensorData.datasets[0].data[pointIndex-1].x + 0.1;
+/*----------------------------------------------------------------------------*/
+var currentChart = null;
+/*----------------------------------------------------------------------------*/
+function chartInit () {
+    lineChart = new Chart( sensorChart, {
+    type:    'scatter',
+    data:    sensorData,
+    options: chartOptions
+  });
+  document.getElementById( "chartXedit" ).addEventListener( 'change', function () {
+    var curVal = parseFloat( self.xFild.value );
+    if ( curVal > lineChart.options.scales.xAxes[0].ticks.max ) {
+      self.xFild.value = lineChart.options.scales.xAxes[0].ticks.max;
     }
-  }
-  if ( pointIndex < ( sensorData.datasets[0].data.length - 1 ) ) {
-    if ( curVal > sensorData.datasets[0].data[pointIndex+1].x ) {
-      self.xFild.value = sensorData.datasets[0].data[pointIndex+1].x;
+    if ( curVal < lineChart.options.scales.xAxes[0].ticks.min ) {
+      self.xFild.value = lineChart.options.scales.xAxes[0].ticks.min;
     }
-  }
-})
-document.getElementById( "chartYedit" ).addEventListener( 'change', res = function () {
-  if ( parseFloat( self.yFild.value ) > lineChart.options.scales.yAxes[0].ticks.max ) {
-    self.yFild.value = lineChart.options.scales.yAxes[0].ticks.max;
-  }
-  if ( parseFloat( self.yFild.value ) < lineChart.options.scales.yAxes[0].ticks.min ) {
-    self.yFild.value = lineChart.options.scales.yAxes[0].ticks.max;
-  }
-})
-document.getElementById( "chartApplay" ).addEventListener( 'click', function () {
-  sensorData.datasets[0].data[pointIndex].x = parseFloat( self.xFild.value );
-  sensorData.datasets[0].data[pointIndex].y = parseFloat( self.yFild.value );
-  lineChart.update();
-})
-
+    if ( pointIndex > 0 ) {
+      if ( curVal < ( sensorData.datasets[0].data[pointIndex-1].x + 0.1 ) ) {
+        self.xFild.value = sensorData.datasets[0].data[pointIndex-1].x + 0.1;
+      }
+    }
+    if ( pointIndex < ( sensorData.datasets[0].data.length - 1 ) ) {
+      if ( curVal > sensorData.datasets[0].data[pointIndex+1].x ) {
+        self.xFild.value = sensorData.datasets[0].data[pointIndex+1].x;
+      }
+    }
+  });
+  document.getElementById( "chartYedit" ).addEventListener( 'change', res = function () {
+    if ( parseFloat( self.yFild.value ) > lineChart.options.scales.yAxes[0].ticks.max ) {
+      self.yFild.value = lineChart.options.scales.yAxes[0].ticks.max;
+    }
+    if ( parseFloat( self.yFild.value ) < lineChart.options.scales.yAxes[0].ticks.min ) {
+      self.yFild.value = lineChart.options.scales.yAxes[0].ticks.max;
+    }
+  });
+  document.getElementById( "chartApplay" ).addEventListener( 'click', function () {
+    sensorData.datasets[0].data[pointIndex].x = parseFloat( self.xFild.value );
+    sensorData.datasets[0].data[pointIndex].y = parseFloat( self.yFild.value );
+    lineChart.update();
+  });
+  return;
+}
+/*----------------------------------------------------------------------------*/
 function changeEvent ( evt ) {
   var self     = this;
   this.element = lineChart.getElementAtEvent( evt );
   this.xFild   = document.getElementById( "chartXedit"  );
   this.yFild   = document.getElementById( "chartYedit"  );
   this.apply   = document.getElementById( "chartApplay" );
-  if ( this.element.length > 0 )
-  {
+  if ( this.element.length > 0 ) {
     pointIndex          = self.element[0]._index;
     self.apply.disabled = false;
     self.xFild.disabled = false;
@@ -129,65 +150,202 @@ function changeEvent ( evt ) {
   }
   return;
 }
-
-var lineChart = new Chart( sensorChart, {
-  type:    'scatter',
-  data:    sensorData,
-  options: chartOptions
-});
-//******************************************************************************
-function newSensorData ( name, xmax, ymax, xunit, yunit ) {
-  return {
-    name:  name,
-    xmin:  0,
-    xmax:  xmax,
-    ymin:  0,
-    ymax:  ymax,
-    xunit: xunit,
-    yunit: yunit,
-    size:  2,
-    dots:  [{
-      x: 0,
-      y: 0,
-    },{
-      x: xmax,
-      y: ymax,
-    }]
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+function ChartDotData () {
+  self.x = 0;
+  self.y = 0;
+  return;
+}
+function AxisAtrib () {
+  this.min  = 0;
+  this.max  = 1;
+  this.unit = " ";
+  return;
+}
+function ChartData () {
+  var self   = this;
+  this.x     = new AxisAtrib();
+  this.y     = new AxisAtrib();
+  this.xType = 0;
+  this.yType = 0;
+  this.size  = 0;
+  this.dots  = [];
+  function searchRegAdr ( name ) {
+    res = dataReg.length;
+    for ( var i=0; i<dataReg.length; i++ ) {
+      if ( dataReg[i].name == name ) {
+        res = dataReg[i].adr;
+        break;
+      }
+    }
+    return res;
+  }
+  this.clean          = function () {
+    self.dots = [];
+    for ( var i=0; i<CHART_DOTS_SIZE; i++ ) {
+      let dot = new ChartDotData();
+      self.dots.push( dot );
+    }
+    return;
+  }
+  this.copy           = function ( buffer ) {
+    self.clean();
+    self.setData( buffer );
+    for ( var i=0; i<self.size; i++ ) {
+      self.writeDot( i, buffer.dots[i] );
+    }
+    return;
+  }
+  this.setData        = function ( chart ) {
+    if ( chart.size < CHART_DOTS_SIZE ) {
+      self.size  = chart.size;
+    } else {
+      self.size = CHART_DOTS_SIZE;
+    }
+    return;
+  }
+  this.writeDot       = function ( adr, dot ) {
+    self.dots[adr].x = dot.x;
+    self.dots[adr].y = dot.y;
+    return;
+  }
+  this.setDot         = function ( adr, dot ) {
+    self.dots[adr].x = fix16Tofloat( dot.x );
+    self.dots[adr].y = fix16Tofloat( dot.y );
+    return;
+  }
+  this.setDef         = function () {
+    self.clean();
+    self.size = 2;
+    self.dots[0].x = self.x.min;
+    self.dots[0].y = self.y.min;
+    self.dots[1].x = self.x.max;
+    self.dots[1].y = self.y.max;
+  }
+  this.getTypeFromReg = function ( n ) {
+    switch ( n ) {
+      case 0:
+        dataRegNum = searchRegAdr( "oilPressureSetup" );
+        break;
+      case 1:
+        dataRegNum = searchRegAdr( "coolantTempSetup" );
+        break;
+      case 2:
+        dataRegNum = searchRegAdr( "fuelLevelSetup" );
+        break;
+    }
+    if ( bitVal( 0, dataReg[dataRegNum] ) == 4 ) {
+      this.xType = xAxisType.current;
+    } else {
+      this.xType = xAxisType.resestive;
+    }
+  }
+  this.init           = function ( xType = self.xType, yType = self.yType ) {
+    let reInit = 0;
+    if ( self.xType != xType ) {
+      reInit = 1;
+    }
+    self.xType = xType;
+    self.yType = yType;
+    switch ( self.xType ) {
+      case xAxisType.resestive:
+        self.x.min  = 0;
+        self.x.max  = 1500;
+        self.x.unit = "Ом";
+        break;
+      case xAxisType.current:
+        self.x.min  = 0;
+        self.x.max  = 20;
+        self.x.unit = "мА";
+        break;
+    }
+    switch ( self.yType ) {
+      case yAxisType.oil:
+        self.y.min  = 0;
+        self.y.max  = 2;
+        self.y.unit = "Бар";
+        break;
+      case yAxisType.coolant:
+        self.y.min  = 0;
+        self.y.max  = 250;
+        self.y.unit = "С";
+      break;
+      case yAxisType.fuel:
+        self.y.min  = 0;
+        self.y.max  = 100;
+        self.y.unit = "%";
+        break;
+    }
+    if ( reInit == 1 ) {
+      self.setDef();
+    } else {
+      for ( var i=0; i<self.size; i++ ) {
+        if ( self.dots[i].x < self.x.min ) {
+          self.dots[i].x = self.x.min;
+        }
+        if ( self.dots[i].x > self.x.max ) {
+          self.dots[i].x = self.x.max;
+        }
+        if ( self.dots[i].y < self.y.min ) {
+          self.dots[i].y = self.y.min;
+        }
+        if ( self.dots[i].y > self.y.max ) {
+          self.dots[i].y = self.y.max;
+        }
+      }
+    }
   }
   return;
 }
-let oilSensorResistance     = newSensorData( "oilSensorResistance",     1500, 15, "Ом", "Бар"   );
-let oilSensorCurrent        = newSensorData( "oilSensorCurrent",        20,   15, "мА", "Бар"   );
-let coolantSensorResistance = newSensorData( "coolantSensorResistance", 1500, 15, "Ом", "\xB0C" );
-let coolantSensorCurrent    = newSensorData( "coolantSensorCurrent",    20,   15, "мА", "\xB0C" );
-let fuelSensorResistance    = newSensorData( "fuelSensorResistance",    1500, 15, "Ом", "%"     );
-let fuelSensorCurrent       = newSensorData( "fuelSensorCurrent",       20,   15, "мА", "%"     );
-var currentChart;
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+function declareChartList () {
+  chartList = [];
+  for ( var i=0; i<3; i++ ) {
+    chartList.push( new ChartData() );
+    chartList[i].clean();
+  }
+  chartList[yAxisType.oil].init( xAxisType.resestive, yAxisType.oil );
+  chartList[yAxisType.oil].setDef();
+  chartList[yAxisType.coolant].init( xAxisType.resestive, yAxisType.coolant );
+  chartList[yAxisType.coolant].setDef();
+  chartList[yAxisType.fuel].init( xAxisType.resestive, yAxisType.fuel );
+  chartList[yAxisType.fuel].setDef();
+  return;
+}
 function sensorModalInit ( target ) {
-  switch( target ) {
+  switch ( target ) {
     case 'oil':
       type = document.getElementById( "oilPressureSensorType" ).value - 3;
       if ( type == 0 ) {
-        currentChart = oilSensorResistance;
+        chartList[0].init( xType = xAxisType.resestive );
+        currentChart = chartList[0];
       } else {
-        currentChart = oilSensorCurrent;
+        chartList[0].init( xType = xAxisType.current );
+        currentChart = chartList[0];
       }
       break;
     case 'coolant':
       type = document.getElementById( "coolantTempSensorType" ).value - 3;
       if ( type == 0 ) {
-        currentChart = coolantSensorResistance;
+        chartList[1].init( xType = xAxisType.resestive );
+        currentChart = chartList[1];
       } else {
-        currentChart = coolantSensorCurrent;
+        chartList[1].init( xType = xAxisType.current );
+        currentChart = chartList[1];
       }
       break;
     case 'fuel':
       type = document.getElementById( "fuelLevelSensorType" ).value - 3;
       if ( type == 0 ) {
-        currentChart = fuelSensorResistance;
+        chartList[1].init( xType = xAxisType.resestive );
+        currentChart = chartList[2];
       } else {
-        currentChart = fuelSensorCurrent;
+        chartList[2].init( xType = xAxisType.current );
+        currentChart = chartList[2];
       }
       break;
   }
@@ -197,7 +355,6 @@ function sensorModalInit ( target ) {
   });
   return;
 }
-
 function cleanChart () {
   lineChart.data.labels.length = 0;
   lineChart.data.datasets.forEach( function ( dataset ) {
@@ -206,7 +363,6 @@ function cleanChart () {
   });
   return;
 }
-
 function makeChart ( chrtData ) {
   var i = 0;
   var xFild      = document.getElementById( "chartXedit" );
@@ -218,12 +374,12 @@ function makeChart ( chrtData ) {
   document.getElementById( "chartApplay" ).disabled = true;
   sensorData.labels                                        = [];
   sensorData.datasets[0].data                              = [];
-  lineChart.options.scales.yAxes[0].ticks.max              = chrtData.ymax;
-  lineChart.options.scales.yAxes[0].ticks.min              = chrtData.ymin;
-  lineChart.options.scales.xAxes[0].ticks.max              = chrtData.xmax;
-  lineChart.options.scales.xAxes[0].ticks.min              = chrtData.xmin;
-  lineChart.options.scales.xAxes[0].scaleLabel.labelString = chrtData.xunit;
-  lineChart.options.scales.yAxes[0].scaleLabel.labelString = chrtData.yunit
+  lineChart.options.scales.yAxes[0].ticks.max              = chrtData.y.max;
+  lineChart.options.scales.yAxes[0].ticks.min              = chrtData.y.min;
+  lineChart.options.scales.xAxes[0].ticks.max              = chrtData.x.max;
+  lineChart.options.scales.xAxes[0].ticks.min              = chrtData.x.min;
+  lineChart.options.scales.xAxes[0].scaleLabel.labelString = chrtData.x.unit;
+  lineChart.options.scales.yAxes[0].scaleLabel.labelString = chrtData.y.unit;
   for ( i=0; i<chrtData.size; i++ ) {
     sensorData.datasets[0].data.push({
       x: chrtData.dots[i].x,
@@ -233,9 +389,6 @@ function makeChart ( chrtData ) {
   lineChart.update();
   return;
 }
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 function addChartPoint () {
   var dataLen  = sensorData.datasets[0].data.length;
   var xLstVal  = sensorData.datasets[0].data[dataLen - 1].x;
@@ -253,7 +406,6 @@ function addChartPoint () {
   lineChart.update();
   return;
 }
-//------------------------------------------------------------------------------
 function removeChartPoint () {
   var dataLen  = sensorData.datasets[0].data.length;
   if (dataLen > 2) {
@@ -266,9 +418,6 @@ function removeChartPoint () {
   }
   return;
 }
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 function getVal ( name ) {
   for ( var i=0; i<dataReg.length; i++ ) {
     if ( dataReg[i].bitMapSize > 0 ) {
@@ -281,145 +430,66 @@ function getVal ( name ) {
   }
   return;
 }
-//------------------------------------------------------------------------------
 function fix16Tofloat ( fix ) {
   return fix / 0x00010000;
 }
 function floatToFix16 ( float ) {
   return parseInt( float * 0x00010000 );
 }
-//------------------------------------------------------------------------------
 function uploadCharts () {
-  function prepareCharts( chart ) {
-    var dotArr = [];
-    if ( chart.size > 0 ) {
-      for ( var i=0; i<chart.size; i++) {
-        dotArr.push({
-          x: floatToFix16( chart.dots[i].x ),
-          y: floatToFix16( chart.dots[i].y )
-        })
-      }
-    }
-    return {
-      "xmin" : floatToFix16( chart.xmin ),
-      "xmax" : floatToFix16( chart.xmax ),
-      "ymin" : floatToFix16( chart.ymin ),
-      "ymax" : floatToFix16( chart.ymax ),
-      "xunit": encodeURI( chart.xunit ),
-      "yunit": encodeURI( chart.yunit ),
-      "size" : chart.size,
-      "dots" : dotArr,
+  var res = [];
+  function ChartTransferData () {
+    this.size = 0;
+    this.dots = [];
+  }
+  for ( var i=0; i<chartList.length; i++ ) {
+    res.push( new ChartTransferData() );
+    res[i].size = chartList[i].size;
+    for ( var j=0; j<res[i].size; j++ ) {
+      let dot = new ChartDotData();
+      dot.x = floatToFix16( chartList[i].dots[j].x );
+      dot.y = floatToFix16( chartList[i].dots[j].y );
+      res[i].dots.push( dot );
     }
   }
-  var sel     = 0;
-  var content = [];
-  //---------------- Oil resetence ----------------
-  sel = getVal( "oilPressureSensorType" );
-  if ( sel == 3 ) {
-    content.push( prepareCharts( oilSensorResistance ) );
-  //----------------- Oil current -----------------
-  } else if ( sel == 4 ) {
-    content.push( prepareCharts( oilSensorCurrent ) );
-  } else {
-    content.push( {"data" : 0} );
-  }
-  //-------------- Coolant resetence --------------
-  sel = getVal( "coolantTempSensorType" );
-  if ( sel == 3 ) {
-    content.push( prepareCharts( coolantSensorResistance ) );
-  //--------------- Coolant current ---------------
-  } else if ( sel == 4 ) {
-    content.push( prepareCharts( coolantSensorCurrent ) );
-  } else {
-    content.push( {"data" : 0} );
-  }
-  //---------------- Fuel resetence ---------------
-  sel = getVal( "fuelLevelSensorType" );
-  if ( sel == 3 ) {
-    content.push( prepareCharts( fuelSensorResistance ) );
-  //----------------- Fuel current ----------------
-  } else if ( sel == 4 ) {
-    content.push( prepareCharts( fuelSensorCurrent ) );
-  } else {
-    content.push( {"data" : 0} );
-  }
-  //-----------------------------------------------
-  return content;
+  return res;
 }
-//------------------------------------------------------------------------------
 function loadCharts ( data ) {
-  function chartFixToFloat ( input, name ) {
-    let output = newSensorData(
-      name,
-      fix16Tofloat( input.xmax ),
-      fix16Tofloat( input.ymax ),
-      decodeURI( input.xunit ),
-      decodeURI( input.yunit ) );
-    output.xmin  = fix16Tofloat( input.xmin );
-    output.ymin  = fix16Tofloat( input.ymin );
-    output.yunit = decodeURI( input.yunit );
+  function chartParsing ( input ) {
+    let output   = new ChartData();
     output.size  = input.size;
-    output.dots.length = 0;
-    for ( var i=0; i<output.size; i++ ) {
-      output.dots.push( {
-        x: fix16Tofloat( input.dots[i].x ),
-        y: fix16Tofloat( input.dots[i].y ),
-      })
+    output.xType = input.xType;
+    output.yType = input.yType;
+    for ( var i=0; i<input.size; i++ ) {
+      output.dots.push( new ChartDotData() );
+      output.dots[i].x = fix16Tofloat( input.dots[i].x );
+      output.dots[i].y = fix16Tofloat( input.dots[i].y );
     }
+    output.init();
     return output;
   }
-  //---------------- Oil resetence ----------------
-  var sel = getVal( "oilPressureSensorType" );
-  if ( sel == 3 ) {
-    oilSensorResistance = chartFixToFloat( data[0], "oilSensorResistance" );
-  //----------------- Oil current -----------------
-  } else if ( sel == 4 ) {
-    oilSensorCurrent = chartFixToFloat( data[0], "oilSensorCurrent" );
+
+  for ( var i=0; i<data.length; i++ ) {
+    let chart = chartParsing( data[i] );
+    chartList[chart.yType] = chart;
   }
-  //-------------- Coolant resetence --------------
-  sel = getVal( "coolantTempSensorType" );
-  if ( sel == 3 ) {
-    coolantSensorResistance = chartFixToFloat( data[1], "coolantSensorResistance" );
-  //--------------- Coolant current ---------------
-  } else if ( sel == 4 ) {
-    coolantSensorCurrent = chartFixToFloat( data[1], "coolantSensorCurrent" );
-  }
-  //---------------- Fuel resetence ---------------
-  sel = getVal( "fuelLevelSensorType" );
-  if ( sel == 3 ) {
-    fuelSensorResistance = chartFixToFloat( data[2], "fuelSensorResistance" );
-  //----------------- Fuel current ----------------
-  } else if ( sel == 4 ) {
-    fuelSensorCurrent = chartFixToFloat( data[2], "fuelSensorCurrent" );
-  }
-  //-----------------------------------------------
+
   return;
 }
-//------------------------------------------------------------------------------
 function saveToCurChart () {
   currentChart.size  = sensorData.datasets[0].data.length;
-  currentChart.ymax  = lineChart.options.scales.yAxes[0].ticks.max;
-  currentChart.ymin  = lineChart.options.scales.yAxes[0].ticks.min;
-  currentChart.xmax  = lineChart.options.scales.xAxes[0].ticks.max;
-  currentChart.xmin  = lineChart.options.scales.xAxes[0].ticks.min;
-  currentChart.xunit = lineChart.options.scales.xAxes[0].scaleLabel.labelString;
-  currentChart.yunit = lineChart.options.scales.yAxes[0].scaleLabel.labelString;
-  currentChart.dots.length = 0;
+  currentChart.clean();
   for ( var i=0; i<currentChart.size; i++ ) {
-    currentChart.dots.push({
-      x: sensorData.datasets[0].data[i].x,
-      y: sensorData.datasets[0].data[i].y,
-    })
+    currentChart.dots[i].x = sensorData.datasets[0].data[i].x;
+    currentChart.dots[i].y = sensorData.datasets[0].data[i].y;
   }
   return;
 }
-
 function saveChartData () {
   saveToCurChart();
-  let alert = new Alert( "alert-success", triIco, "График успешно сохранен." );
+  let alert = new Alert( "alert-success", okIco, "График успешно сохранен." );
   return;
 }
-
 function downloadSensorData () {
 	function SaveAsFile ( t, file, m ) {
   	try {
@@ -427,14 +497,18 @@ function downloadSensorData () {
       saveAs( blob, file );
     } catch( e ) {
     	window.open( ( "data:" + m + "," + encodeURIComponent( t ) ), '_blank', '' );
+      let alert = new Alert( "alert-warning", triIco, "Ошибка записи грфика в файл" );
     }
     return;
   }
 	saveToCurChart();
-	SaveAsFile( JSON.stringify( currentChart ), ( currentChart.name + ".JSON" ), "text/plain;charset=utf-8" );
+  let name   = currentChart.name + ".json";
+  if ( electronApp > 0 ) {
+    name += ".json";
+  }
+	SaveAsFile( JSON.stringify( currentChart ), name, "application/json;charset=utf-8" );
   return;
 }
-//------------------------------------------------------------------------------
 function uploadSensorData () {
 	var newCart;
 	if ( window.File && window.FileReader && window.FileList && window.Blob ) {
@@ -449,9 +523,11 @@ function uploadSensorData () {
         reader.readAsText( file );
 				reader.onload = function() {
 					try {
-						currentChart = JSON.parse( reader.result );
+            let buffer = new ChartData();
+            buffer = JSON.parse( reader.result );
+            currentChart.copy( buffer );
 						makeChart( currentChart );
-					} catch( e ) {
+					} catch ( e ) {
             let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
 					}
   			};
@@ -467,3 +543,7 @@ function uploadSensorData () {
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
+module.exports.ChartData       = ChartData;
+module.exports.ChartDotData    = ChartDotData;
+module.exports.CHART_DOTS_SIZE = CHART_DOTS_SIZE;
+module.exports.chartList       = chartList;

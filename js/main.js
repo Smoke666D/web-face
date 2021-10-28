@@ -2,23 +2,42 @@ var s_sliders;
 var s_sinputs;
 var checkboxes;
 var selectors;
+var memorySize        = 1024;
+var measurementLength = 0;
 
 function calcFracLength( x ) {
 	return ( x.toString().indexOf( '.' ) >= 0) ? ( x.toString().split( '.' ).pop().length ) : ( 0 );
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-window.addEventListener( 'load', function() {
-	window. scrollTo( 0, 0 );
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+window.addEventListener ( 'load', function() {
+	window.scrollTo( 0, 0 );
 });
-document.addEventListener( 'touchmove', function( e ) {
+document.addEventListener ( 'touchmove', function( e ) {
 	e.preventDefault()
 });
 var connectionType = 'usb';
 var electronApp = 1;
+
+if ( electronApp > 0 ) {
+	var dashboard = require('./js/dashboard.js').dashboard;
+	dashLoop();
+}
 /*----------------------------------------------------------------------------*/
-function connectClick() {
+function modbusAdrProc () {
+	let obj = document.getElementById( 'modbusAdr' );
+	console.log( obj.value );
+	if ( obj.value > 255 ) {
+		obj.value = 255;
+	}
+	if ( obj.value < 1 ) {
+		obj.value = 1;
+	}
+	return;
+}
+/*----------------------------------------------------------------------------*/
+function connectClick () {
 	var btn     = document.getElementById( 'modalConnect-button' );
 	var modal   = document.getElementById( 'connectionModal' );
 	var body    = document.getElementsByTagName( 'body' )[0];
@@ -30,9 +49,9 @@ function connectClick() {
 	wrapper.innerHTML = wrapper.innerHTML + '<div id="backdrop" class="modal-backdrop show"></div>';
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function navbarToogling() {
 	genSw = document.getElementById( 'genPowerGeneratorControlEnb' );
 	netSw = document.getElementById( 'mainsControlEnb' );
@@ -41,12 +60,12 @@ function navbarToogling() {
 		genPages = document.getElementById( 'genCollapse' );
 		if ( genSw.checked == false ) {
   		genPages.classList.add( 'hide' );
-			document.getElementById( 'sinput-starterStopgenFreqLevel' ).disabled = true;
-			document.getElementById( 's-slider-starterStopgenFreqLevel' ).setAttribute('disabled', false);
+			document.getElementById( 'sinput-starterStopGenFreqLevel' ).disabled = true;
+			document.getElementById( 's-slider-starterStopGenFreqLevel' ).setAttribute('disabled', false);
 		} else {
 			genPages.classList.remove( 'hide' );
-			document.getElementById( 'sinput-starterStopgenFreqLevel' ).disabled = false;
-			document.getElementById( 's-slider-starterStopgenFreqLevel' ).removeAttribute( 'disabled' );
+			document.getElementById( 'sinput-starterStopGenFreqLevel' ).disabled = false;
+			document.getElementById( 's-slider-starterStopGenFreqLevel' ).removeAttribute( 'disabled' );
 		}
 	}
 
@@ -68,9 +87,9 @@ function navbarToogling() {
 	networkToogle();
 	generatorToogle();
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function Password ( status, data ) {
 	this.status = status;
 	this.data   = data;
@@ -102,7 +121,7 @@ function passwordProcessig () {
 		}
 		return;
 	}
-  enb.addEventListener( 'click', function () {
+  enb.addEventListener( 'change', function () {
 		checkEnb();
 		return;
 	});
@@ -129,9 +148,9 @@ function passwordProcessig () {
 	});
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function toogleNav() {
 	var sb   = document.getElementById( 'sidebar' );
 	if ( sb.classList.contains( 'active' ) ) {
@@ -142,7 +161,7 @@ function toogleNav() {
 	return;
 }
 
-function hideConteny() {
+function hideContent() {
 	var contentPages = document.getElementsByClassName( 'content-data' );
 	var navItems     = document.getElementsByClassName( 'navItem' );
 	for ( var i=0; i<navItems.length; i++ ) {
@@ -155,7 +174,7 @@ function hideConteny() {
 }
 
 function loadContent( id ) {
-	hideConteny();
+	hideContent();
 	document.getElementById( id ).classList.remove( 'hidden' );
 	document.getElementById( 'nav-' + id ).classList.add( 'checked' );
 	var sb = document.getElementById( 'sidebar' );
@@ -163,6 +182,7 @@ function loadContent( id ) {
 		sb.classList.remove( 'active' );
 		sidebarDone = 0;
 	}
+	document.getElementById( 'content' ).scrollTop = 0;
 	return;
 }
 
@@ -203,9 +223,9 @@ function setConnect( input ) {
   }
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function sliderInit() {
 	var i=0;
 	selectors  = document.getElementsByClassName( 'custom-select' );
@@ -221,7 +241,10 @@ function sliderInit() {
 			tooltips: true,
 			connect: [true, false],
 			padding: 0,
-			range: { 'min': 0, 'max': 100	},
+			range: {
+				'min': 0,
+				'max': 100
+			},
 		})
 		s_sliders[i].noUiSlider.on( 'update', ( function() {
 			var j=i;
@@ -239,9 +262,49 @@ function sliderInit() {
 	}
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+function schemTypeProcessing () {
+	function serchConfigDef ( name ) {
+		var out = 0;
+		for ( i=0; i<dataReg.length; i++ ) {
+			if ( dataReg[i].name == name ) {
+				out = dataReg[i].default;
+				break;
+			}
+		}
+		return out;
+	}
+	var schemType = document.getElementById( 'genAcSys' );
+	schemType.addEventListener( 'change', function () {
+    let gU1 = document.getElementById( 'sinput-genUnderVoltageAlarmLevel' );
+		let gU2 = document.getElementById( 'sinput-genUnderVoltagePreAlarmLevel' );
+		let gU3 = document.getElementById( 'sinput-genOverVoltagePreAlarmLevel' );
+		let gU4 = document.getElementById( 'sinput-genOverVoltageAlarmLevel' );
+		let nU1 = document.getElementById( 'sinput-mainsUnderVoltageAlarmLevel' );
+		let nU2 = document.getElementById( 'sinput-mainsOverVoltageAlarmLevel' );
+		if ( schemType.value == 2 ) {
+			gU1.value = 180;
+			gU2.value = 200;
+			gU3.value = 240;
+			gU4.value = 260;
+			nU1.value = 180;
+			nU2.value = 260;
+		} else {
+			gU1.value = serchConfigDef( 'genUnderVoltageAlarmLevel' );
+			gU2.value = serchConfigDef( 'genUnderVoltagePreAlarmLevel' );
+			gU3.value = serchConfigDef( 'genOverVoltagePreAlarmLevel' );
+			gU4.value = serchConfigDef( 'genOverVoltageAlarmLevel' );
+			nU1.value = serchConfigDef( 'mainsUnderVoltageAlarmLevel' );
+			nU2.value = serchConfigDef( 'mainsOverVoltageAlarmLevel' );
+		}
+	});
+	return;
+}
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function powerSliderInit( idActive, idReactive, idApparent, idCosFi, regName ) {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].name == regName ) {
@@ -348,6 +411,7 @@ function powerSliderInit( idActive, idReactive, idApparent, idCosFi, regName ) {
 	}
 	activeUpdate();
 	reactiveUpdate();
+
 	sliderActive.noUiSlider.on( 'change',function() {
 		activeUpdate();
 	});
@@ -371,9 +435,9 @@ function powerSliderInit( idActive, idReactive, idApparent, idCosFi, regName ) {
 	})
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function starterStopProcessing() {
 	var self = this;
 	this.genEnb     = document.getElementById( 'genPowerGeneratorControlEnb' );
@@ -437,60 +501,17 @@ function starterStopProcessing() {
 
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-function oilScaleInit() {
-	var self = this;
-	this.object  = document.getElementById( 'oilScale' );
-	this.label   = document.getElementById( 'oilScaleString' );
-	self.slider0 = new Slider( 'oilPressurePreAlarmLevel', 0 );
-	self.slider1 = new Slider( 'oilPressureAlarmLevel', 0 );
-	self.slider2 = new Slider( 'starterStopOilPressureLevel', 0 );
-
-	function calcOilScale() {
-		self.slider0.grab();
-		self.slider1.grab();
-		self.slider2.grab();
-		if ( self.object.checked ) {
-			self.label.textContent = 'КПа';
-			self.slider0.setUnits( 'КПа' );
-			self.slider1.setUnits( 'КПа' );
-			self.slider2.setUnits( 'КПа' );
-			self.slider0.setScale( 1 );
-			self.slider1.setScale( 1 );
-			self.slider2.setScale( 1 );
-		} else {
-			self.label.textContent = 'Бар';
-			self.slider0.setUnits( 'Бар' );
-			self.slider1.setUnits( 'Бар' );
-			self.slider2.setUnits( 'Бар' );
-			self.slider0.setScale( -2 );
-			self.slider1.setScale( -2 );
-			self.slider2.setScale( -2 );
-		}
-		self.slider0.update();
-		self.slider1.update();
-		self.slider2.update();
-	}
-
-
-	this.object.addEventListener( 'change', function() {
-		calcOilScale();
-	});
-	calcOilScale();
-}
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function setDisabledDI( letter ) {
-	var funct    = document.getElementById( 'di' + letter + 'Function' )
-	var polarity = document.getElementById( 'di' + letter + 'Polarity' );
-	var action   = document.getElementById( 'di' + letter + 'Action' );
-	var arming   = document.getElementById( 'di' + letter + 'Arming' );
-	var input    = document.getElementById( 'sinput-di' + letter + 'Delay' );
+	var funct    = document.getElementById( 'di'          + letter + 'Function' )
+	var polarity = document.getElementById( 'di'          + letter + 'Polarity' );
+	var action   = document.getElementById( 'di'          + letter + 'Action' );
+	var arming   = document.getElementById( 'di'          + letter + 'Arming' );
+	var input    = document.getElementById( 'sinput-di'   + letter + 'Delay' );
 	var slider   = document.getElementById( 's-slider-di' + letter + 'Delay' );
-	var message  = document.getElementById( 'di' + letter + 'Message' );
+	var message  = document.getElementById( 'di'          + letter + 'Message' );
 	if ( funct.value == 0 ) {
 		polarity.disabled = true;
 		action.disabled   = true;
@@ -515,9 +536,10 @@ function setDisabledDI( letter ) {
 	}
 	return;
 }
+
 function setDisabledDO( letter ) {
-	var no = document.getElementById( 'do' + letter + 'NO' );
-	var nc = document.getElementById( 'do' + letter + 'NC' );
+	var no   = document.getElementById( 'do' + letter + 'NO' );
+	var nc   = document.getElementById( 'do' + letter + 'NC' );
 	var type = document.getElementById( 'do' + letter + 'Type' );
 	if ( type.value == 0 ) {
 		no.disabled = true;
@@ -533,6 +555,19 @@ function diInit( letter ) {
 	document.getElementById( 'di' + letter + 'Function' ).addEventListener( 'change', function() {
 		setDisabledDI( letter );
 	});
+	var message  = document.getElementById( 'di' + letter + 'Message' );
+	message.addEventListener( 'focus', function() {
+		while( message.value.endsWith( ' ' ) ) {
+			message.value = message.value.slice( 0, -1 );
+		}
+	});
+	message.addEventListener( 'blur', function() {
+		if ( message.value.length < 16 ) {
+			for ( var i=message.value.length; i<16; i++ ) {
+				message.value += ' ';
+			}
+		}
+	});
 	return;
 }
 function doInit( letter ) {
@@ -542,12 +577,12 @@ function doInit( letter ) {
 	});
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-function ainInit( master, checkers, slaves, callback ) {
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+function ainInit ( master, checkers, slaves, enb, callback ) {
 	function setDisabled() {
 		if ( document.getElementById( master ).value < 3 ) {
 			for ( var i=0; i<checkers.length; i++ ) {
@@ -574,6 +609,14 @@ function ainInit( master, checkers, slaves, callback ) {
 			for ( var i=0; i<checkers.length; i++ ) {
 				document.getElementById( checkers[i] ).disabled = false;
 			}
+			for ( var i=0; i<enb.length; i++ ) {
+				var element = document.getElementById( enb[i] );
+				if ( enb[i].search( 'slider' ) != -1 ) {
+					element.removeAttribute( 'disabled' );
+				} else {
+					element.disabled = false;
+				}
+			}
 		}
 		callback();
 	}
@@ -582,15 +625,15 @@ function ainInit( master, checkers, slaves, callback ) {
 		setDisabled();
 	});
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function slider2InitLimits( id1, id2 ) {
 	var self = this;
 	this.slider1 = document.getElementById( 's-slider-' + id1 );
 	this.slider2 = document.getElementById( 's-slider-' + id2 );
-	this.input1  = document.getElementById( 'sinput-' + id1 );
-	this.input2  = document.getElementById( 'sinput-' + id2 );
+	this.input1  = document.getElementById( 'sinput-'   + id1 );
+	this.input2  = document.getElementById( 'sinput-'   + id2 );
 	this.slider1.noUiSlider.on( 'change', function() {
 		val = parseFloat( self.slider2.noUiSlider.get() )
 		if ( parseFloat( self.slider1.noUiSlider.get() ) >= val ) {
@@ -607,7 +650,7 @@ function slider2InitLimits( id1, id2 ) {
 	this.slider2.noUiSlider.on( 'change', function() {
 		val = parseFloat( self.slider2.noUiSlider.get() );
 		min = parseFloat( self.slider1.noUiSlider.get() );
-		if ( val<=min ) {
+		if ( val <= min ) {
 			self.slider2.noUiSlider.set( min );
 		}
 	});
@@ -620,7 +663,68 @@ function slider2InitLimits( id1, id2 ) {
 	return;
 }
 
-function slider4InitLimits( id1, id2, id3, id4 ) {
+function slider3InitLimits ( id1, id2, id3 ) {
+	var self = this;
+	this.slider1 = document.getElementById( 's-slider-' + id1 );
+	this.slider2 = document.getElementById( 's-slider-' + id2 );
+	this.slider3 = document.getElementById( 's-slider-' + id3 );
+	this.input1  = document.getElementById( 'sinput-'   + id1 );
+	this.input2  = document.getElementById( 'sinput-'   + id2 );
+	this.input3  = document.getElementById( 'sinput-'   + id3 );
+
+	this.slider1.noUiSlider.on( 'change', function() {
+		val = parseFloat( self.slider2.noUiSlider.get() )
+		if ( parseFloat( self.slider1.noUiSlider.get()) >= val ) {
+			self.slider1.noUiSlider.set( val );
+		}
+	});
+	this.input1.addEventListener( 'change', function() {
+		if ( self.input1.value >= self.input2.value ) {
+			self.input1.value = self.input2.value;
+			self.slider1.noUiSlider.set( self.input2.value );
+		}
+	});
+
+	this.slider2.noUiSlider.on( 'change', function() {
+		val = parseFloat( self.slider2.noUiSlider.get() );
+		min = parseFloat( self.slider1.noUiSlider.get() );
+		max = parseFloat( self.slider3.noUiSlider.get() );
+		if ( val <= min ) {
+			self.slider2.noUiSlider.set( min );
+		}
+		if ( val >= max ) {
+			self.slider2.noUiSlider.set( max );
+		}
+	});
+	this.input2.addEventListener( 'change', function() {
+		if ( self.input2.value <= self.input1.value ) {
+			self.input2.input2.value = self.input1.value;
+			self.slider2.noUiSlider.set( self.input1.value );
+		}
+		if ( self.input2.value >= self.input3.value ) {
+			self.input2.value = self.input3.value;
+			self.slider2.noUiSlider.set( input3.value );
+		}
+	});
+
+	this.slider3.noUiSlider.on( 'change', function() {
+		val = parseFloat( self.slider3.noUiSlider.get() );
+		min = parseFloat( self.slider2.noUiSlider.get() );
+		if ( val <= min ) {
+			self.slider3.noUiSlider.set( min );
+		}
+	});
+	this.input3.addEventListener( 'change', function() {
+		if ( self.input3.value <= self.input2.value ) {
+			self.input3.value = self.input2.value;
+			self.slider3.noUiSlider.set( self.input2.value );
+		}
+	});
+
+	return;
+}
+
+function slider4InitLimits ( id1, id2, id3, id4 ) {
 	var self = this;
 	this.slider1 = document.getElementById( 's-slider-' + id1 );
 	this.slider2 = document.getElementById( 's-slider-' + id2 );
@@ -660,7 +764,7 @@ function slider4InitLimits( id1, id2, id3, id4 ) {
 		}
 		if ( self.input2.value >= self.input3.value ) {
 			self.input2.value = self.input3.value;
-			self.slider2.noUiSlider.set( input3.value );
+			self.slider2.noUiSlider.set( self.input3.value );
 		}
 	});
 	this.slider3.noUiSlider.on( 'change', function() {
@@ -694,14 +798,14 @@ function slider4InitLimits( id1, id2, id3, id4 ) {
 	this.input4.addEventListener( 'change', function() {
 		if ( self.input4.value <= self.input3.value ) {
 			self.input4.value = self.input3.value;
-			self.slider4.noUiSlider.set( input3.value );
+			self.slider4.noUiSlider.set( self.input3.value );
 		}
 	});
 	return;
  }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 document.addEventListener( "DOMContentLoaded", function( event ) {
   $( function () {
 		$( '[data-toggle="tooltip"]' ).tooltip( {
@@ -712,17 +816,35 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 		})
 	})
 	if ( electronApp > 0 ) {
-		document.getElementById( 'refreshData-button' ).disabled = true;
-		document.getElementById( 'uploadData-button' ).disabled  = true;
+		document.getElementById( 'refreshData-button' ).disabled           = true;
+		document.getElementById( 'uploadData-button' ).disabled            = true;
+		document.getElementById( 'setupPassword' ).disabled                = true;
+		document.getElementById( 'write-engineWorkTimeData' ).disabled     = true;
+		document.getElementById( 'write-engineStartsNumberData' ).disabled = true;
+		document.getElementById( 'write-fuelUsageData' ).disabled          = true;
+		document.getElementById( 'write-fuelRateData' ).disabled           = true;
+		document.getElementById( 'write-powerFullUsage' ).disabled         = true;
+		document.getElementById( 'write-powerActiveUsage' ).disabled       = true;
+		document.getElementById( 'write-powerReactiveUsage' ).disabled     = true;
+		document.getElementById( 'controllerTimeSetup' ).disabled          = true;
+		document.getElementById( 'eraseLog-button' ).disabled              = true;
+		document.getElementById( 'saveLog-buton' ).disabled                = true;
+		document.getElementById( 'refreshMeasure-button' ).disabled        = true;
+		document.getElementById( 'measureSave-button' ).disabled           = true;
+		document.getElementById( 'measureErase-button' ).disabled          = true;
 		ipv4AdrMask();
 	}
 	document.getElementById( 'versionSowtware' ).innerHTML = softwareVersion;
 	try {
 		sliderInit();
 	} catch {}
+	chartInit();
+	declareChartList();
+	if ( electronApp > 0 ) {
+	  measureChartInit();
+	}
 	passwordProcessig();
 	declareInterface();
-	oilScaleInit();
 	diInit( 'a' );
 	diInit( 'b' );
 	diInit( 'c' );
@@ -733,6 +855,10 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	doInit( 'd' );
 	doInit( 'e' );
 	doInit( 'f' );
+	doInit( 'g' );
+	doInit( 'h' );
+	doInit( 'i' );
+	doInit( 'j' );
 	ainInit( 'oilPressureSensorType',
 	        [ 'oilPressureOpenCircuitAlarmEnb',
 					  'oilPressureAlarmEnb',
@@ -743,11 +869,12 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 						'sinput-oilPressurePreAlarmLevel',
 						's-slider-oilPressurePreAlarmLevel'
 					],
+					[],
 					function() {
-	  document.getElementById( 'starterStopOilPressureEnb' ).checked = false;
-		document.getElementById( 'sinput-starterStopOilPressureLevel' ).disabled = true;
-		document.getElementById( 's-slider-starterStopOilPressureLevel' ).setAttribute( 'disabled', false );
-		return;
+	  				document.getElementById( 'starterStopOilPressureEnb' ).checked = false;
+						document.getElementById( 'sinput-starterStopOilPressureLevel' ).disabled = true;
+						document.getElementById( 's-slider-starterStopOilPressureLevel' ).setAttribute( 'disabled', false );
+						return;
 	});
 	ainInit( 'coolantTempSensorType',
 	         [ 'coolantTempOpenCircuitAlarmEnb',
@@ -769,6 +896,7 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 						 'sinput-coolantTempCoolerOnLevel',
 						 's-slider-coolantTempCoolerOnLevel'
 					 ],
+					 [],
 					 function() { return; } );
 	ainInit( 'fuelLevelSensorType',
 	        [ 'fuelLevelOpenCircuitAlarmEnb',
@@ -776,18 +904,23 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 	  			  'fuelLevelLowPreAlarmEnb',
 						'fuelLevelHightAlarmEnb',
 						'fuelLevelHightPreAlarmEnb',
-						'fuelPumpEnb'
+						'fuelPumpEnb',
+						'fuelLeakAlarmEnb'
 					],
-					[ 'fuelLevelLowAlarmAction',
-					  'sinput-fuelLevelLowAlarmLevel',
+					[ 'sinput-fuelLevelLowAlarmLevel',
 					  's-slider-fuelLevelLowAlarmLevel',
+						'sinput-fuelTankLevel',
+						's-slider-fuelTankLevel',
+						'sinput-fuelRateIdleLevel',
+						's-slider-fuelRateIdleLevel',
+						'sinput-fuelRateLevel',
+						's-slider-fuelRateLevel',
 					  'sinput-fuelLevelLowAlarmDelay',
 					  's-slider-fuelLevelLowAlarmDelay',
 					  'sinput-fuelLevelLowPreAlarmLevel',
 					  's-slider-fuelLevelLowPreAlarmLevel',
 						'sinput-fuelLevelLowPreAlarmDelay',
 					  's-slider-fuelLevelLowPreAlarmDelay',
-					  'fuelLevelHightAlarmAction',
 					  'sinput-fuelLevelHightAlarmLevel',
 					  's-slider-fuelLevelHightAlarmLevel',
 					  'sinput-fuelLevelHightAlarmDelay',
@@ -801,7 +934,16 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 					  'sinput-fuelPumpOnLevel',
 						's-slider-fuelPumpOnLevel'
 					],
-				  function() { return; } );
+					[ 'sinput-fuelTankLevel',
+					  's-slider-fuelTankLevel',
+					  'sinput-fuelRateIdleLevel',
+					  's-slider-fuelRateIdleLevel',
+					  'sinput-fuelRateLevel',
+					  's-slider-fuelRateLevel',
+					],
+				  function() {
+						return;
+	});
 	powerSliderInit( 'genRatedActivePowerLevel',
 		               'genRatedReactivePowerLevel',
 									 'genRatedApparentPowerLevel',
@@ -811,9 +953,14 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 		connectUpdate();
 	}
 	checkSettings();
+	checkTimers();
+	checkSelect();
 	navbarToogling();
 	updateVersions();
 	starterStopProcessing();
+	if ( electronApp > 0 ) {
+		dashboard.init();
+	}
 	diList.init();
 	doList.init();
 	const genVoltageLims = new slider4InitLimits( 'genUnderVoltageAlarmLevel',
@@ -826,8 +973,9 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 																						 'genOverFrequencyAlarmLevel' );
 	const oilVoltageLims = new slider2InitLimits( 'oilPressureAlarmLevel',
 																								'oilPressurePreAlarmLevel');
-  const coolantLims = new slider2InitLimits( 'coolantHightTempPreAlarmLevel',
-                                                    'coolantHightTempAlarmLevel' );
+  const coolantLims = new slider3InitLimits( 'coolantHightTempPreAlarmLevel',
+																						 'coolantHightTempElectroAlarmLevel',
+                                             'coolantHightTempAlarmLevel' );
   const coolantHeaterLims = new slider2InitLimits('coolantTempHeaterOnLevel','coolantTempHeaterOffLevel');
 	const coolantCoolerLims = new slider2InitLimits('coolantTempCoolerOnLevel','coolantTempCoolerOffLevel');
 	const fuelLims = new slider4InitLimits('fuelLevelLowAlarmLevel',
@@ -840,11 +988,14 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 		                                              'mainsOverVoltageAlarmLevel' );
 	const mainsFreqLims = new slider2InitLimits( 'mainsUnderFrequencyAlarmLevel',
 		                                           'mainsOverFrequencyAlarmLevel' );
+	schemTypeProcessing();
   loadContent( 'devicePage' );
+	doPairsAnalisInit();
 	return;
 });
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-module.exports.electronApp = electronApp;
-module.exports.connectionType = connectionType;
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+module.exports.electronApp        = electronApp;
+module.exports.connectionType     = connectionType;
+module.exports.Password           = Password;

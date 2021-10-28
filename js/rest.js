@@ -1,32 +1,41 @@
-const remote = require( 'electron' ).remote;
-
+const remote  = require( 'electron' ).remote;
 var declareDone = 0;
-
-const diList = new CheckSelectValues( "diFunction" );
-const doList = new CheckSelectValues( "doType" );
-
+var diList;
+var doList;
 var stringLineArray = [];
 var progressArray   = [];
 var slidersArray    = [];
 var switcherArray   = [];
 var selectorArray   = [];
 var radioArray      = [];
-var rtcTime         = new RTC();
-
+var rtcTime;
+var measurement;
 var freeDataArray   = [];
 var freeDataValue   = [];
-var freeDataNames   = ["engineWorkTimeData",
-                       "engineWorkMinutesData",
-                       "engineStartsNumberData",
-											 "maintenanceAlarmOilTimeLeft",
-											 "maintenanceAlarmAirTimeLeft",
-											 "maintenanceAlarmFuelTimeLeft",
-                       "powerReactiveUsage",
-                       "powerActiveUsage",
-                       "powerFullUsage"];
-
-var   logArray     = [];
-const logMaxSize   = 255;
+var freeDataNames   = [
+  "engineWorkTimeData",
+  "engineWorkMinutesData",
+  "engineStartsNumberData",
+	"maintenanceAlarmOilTimeLeft",
+	"maintenanceAlarmAirTimeLeft",
+	"maintenanceAlarmFuelTimeLeft",
+  "powerReactiveUsage",
+  "powerActiveUsage",
+  "powerFullUsage",
+  "fuelUsageData",
+  "fuelRateData"];
+var   logArray             = [];
+const logMaxSize           = 255;
+const userTypeA = 39;
+const userTypeB = 40;
+const userTypeC = 41;
+const userTypeD = 42;
+const logUserTypesDictionary = [
+  " Пользовательский А",
+  " Пользовательский B",
+  " Пользовательский C",
+  " Пользовательский D",
+];
 const logTypesDictionary   = [
   "Нет",
   "Внешная аварийная остановка",
@@ -65,18 +74,22 @@ const logTypesDictionary   = [
   "Сеть востановлена",
   "Ошибка сети",
   "Прерванный старт",
-  "прерванный стоп"
+  "Прерванный стоп"
 ];
 const logActionsDictionary = [
   "Нет",
   "Предупреждение",
   "Аварийная остановка",
+  "Отключение",
   "Плановая остановка",
+  "Остановка до устранения ошибки",
   "Запрет следующего старта",
   "Автостарт",
   "Автостоп"
 ];
-
+/*----------------------------------------------------------------------------*/
+const HTTP_TIMEOUT = 5000;
+/*----------------------------------------------------------------------------*/
 const  LOG_DAY_MASK    = 0xF8000000;
 const  LOG_DAY_SHIFT   = 27;
 const  LOG_MONTH_MASK  = 0x07800000;
@@ -89,7 +102,7 @@ const  LOG_MIN_MASK    = 0x00000FC0;
 const  LOG_MIN_SHIFT   = 6;
 const  LOG_SEC_MASK    = 0x0000003F;
 const  LOG_SEC_SHIFT   = 0;
-
+/*----------------------------------------------------------------------------*/
 function  GET_LOG_DAY ( d ) {
   return ( new Uint32Array( [( ( d  & LOG_DAY_MASK ) >> LOG_DAY_SHIFT ) & 0x1F ] ) )[0];
 }
@@ -126,67 +139,75 @@ function  SET_LOG_DATE ( day, month, year, hour, min, sec ) {
          ( min   << LOG_MIN_SHIFT   ) |
          ( sec   << LOG_SEC_SHIFT   );
 }
-
-//******************************************************************************
-function bitVal( n, reg ) {
-	return ( reg.value & reg.bit[n].mask ) >> reg.bit[n].shift;
+/*----------------------------------------------------------------------------*/
+function bitVal ( n, reg ) {
+  return ( reg.value & reg.bit[n].mask ) >> reg.bit[n].shift;
 }
-//******************************************************************************
-function bitWrite( n, reg, val ) {
+/*----------------------------------------------------------------------------*/
+function bitWrite ( n, reg, val ) {
 	reg.value = ( reg.value & ( ~reg.bit[n].mask ) ) | ( val << reg.bit[n].shift );
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function StrLine ( name ) {
-	var self  = this;
-	this.name = name;
+	var self    = this;
+	this.name   = name.slice( 0, name.length - 1 );
+  this.regNum = []
+  this.object = null;
 
 	this.getData = function() {
-		for ( var i=0; i<dataReg.length; i++ ) {
-			if ( dataReg[i].name == name ) {
-				this.regNum = i;
-			}
-		}
+    for ( var j=0; j<4; j++ ) {
+      for ( var i=0; i<dataReg.length; i++ ) {
+  			if ( dataReg[i].name == ( self.name + j ) ) {
+  				self.regNum.push( i );
+  			}
+  		}
+    }
 		return;
 	}
 	this.init    = function() {
-		this.object = document.getElementById( name );
-		this.getData();
+		self.object = document.getElementById( self.name );
+		self.getData();
 		return;
 	}
 	this.update  = function() {
-		var text = "";
-		reg = dataReg[this.regNum];
-		for ( var i=0; i<reg.len; i++ ) {
-			text += reg.value[i];
-		}
-		this.object.value = text;
+		var text   = "";
+    var buffer = [];
+    self.regNum.forEach( function( n, i ) {
+      reg = dataReg[n];
+      for ( var i=0; i<reg.len; i++ ) {
+  			text += reg.value[i];
+  		}
+    });
+		self.object.value = text;
 		return;
 	}
 	this.grab    = function() {
 		var text = this.object.value;
-		for ( var i=0; i<dataReg[this.regNum].len; i++ ) {
-      if ( i < text.length ) {
-			  dataReg[this.regNum].value[i] = text.charAt( i );
-      } else {
-        dataReg[this.regNum].value[i] = " ";
+    for ( var n=0; n<self.regNum.length; n++) {
+      for ( var i=0; i<dataReg[self.regNum[n]].len; i++ ) {
+        if ( i < text.length ) {
+  			  dataReg[self.regNum[n]].value[i] = text.charAt( i + n * dataReg[self.regNum[n]].len );
+        } else {
+          dataReg[self.regNum[n]].value[i] = " ";
+        }
       }
-		}
+    }
+
 		return;
 	}
-
 	this.init();
 	if ( this.object ) {
 		this.update();
 	}
 	return;
 }
-//******************************************************************************
-function Switch (name) {
-	this.name = name;
-
+/*----------------------------------------------------------------------------*/
+function Switch ( name ) {
+  var self     = this;
+	this.name    = name;
 	this.getData = function() {
-		for ( var i=0; i<dataReg.length; i++ ){
+		for ( var i=0; i<dataReg.length; i++ ) {
 			if ( dataReg[i].bitMapSize > 0 ) {
 				for ( var j=0; j<dataReg[i].bitMapSize; j++ ) {
 					if ( dataReg[i].bit[j].name == this.name ) {
@@ -198,28 +219,26 @@ function Switch (name) {
 		}
 		return;
 	}
-
-	this.getVal = function() {
+	this.getVal  = function() {
 		return bitVal( this.bitNum, dataReg[this.regNum] );
 	}
-
-	this.setVal = function( input ) {
+	this.setVal  = function( input ) {
 		bitWrite( this.bitNum, dataReg[this.regNum], input );
 		return;
 	}
-
-	this.init = function() {
+	this.init    = function() {
 		this.object = document.getElementById( name );
 		this.getData();
 		return;
 	}
-
-	this.update = function() {
-		this.object.checked = this.getVal();
+	this.update  = function() {
+    if ( this.object ) {
+      this.object.checked = this.getVal();
+      this.object.dispatchEvent( new Event( 'change' ) );
+    }
 		return;
 	}
-
-	this.grab = function() {
+	this.grab    = function() {
 		if ( this.object.checked > 0 ) {
 			this.setVal( 1 );
 		} else {
@@ -227,15 +246,13 @@ function Switch (name) {
 		}
 		return;
 	}
-
 	this.init();
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function Progress ( name ) {
-	var self = this;
-	this.name = name;
-
+	var self     = this;
+	this.name    = name;
 	this.getData = function() {
 		for ( var i=0; i<dataReg.length; i++ ){
 			if ( dataReg[i].name == name ) {
@@ -244,8 +261,7 @@ function Progress ( name ) {
 		}
 		return;
 	}
-
-	this.init = function() {
+	this.init    = function() {
 		this.getData();
 		this.object = document.getElementById( "progress-" + this.name );
 		this.object.style.width = "0%";
@@ -284,32 +300,32 @@ function Progress ( name ) {
 			  this.resetSw.disabled = false;
 			}
 		}
+    return;
 	}
-
-	this.update = function() {
+	this.update  = function() {
 		if ( this.object != null ) {
 			var val = dataReg[this.regNum].value / dataReg[this.regNum].max * 100;
 			this.object.style.width = val.toString() + '%';
 		}
+    return;
 	}
-
 	this.init();
 	if ( this.object ) {
 		this.update();
 	}
+  return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function Select ( name ) {
-	var self  = this;
-	this.name = name;
-
+	var self     = this;
+	this.name    = name;
 	this.getData = function() {
 		for ( var i=0; i<dataReg.length; i++ ){
 			if ( dataReg[i].bitMapSize > 0 ) {
 				for ( var j=0; j<dataReg[i].bitMapSize; j++ ) {
 					if ( dataReg[i].bit[j].name == this.name ) {
 						this.regNum = i;
-						this.bitNum = j
+						this.bitNum = j;
 					}
 				}
 			}
@@ -347,9 +363,12 @@ function Select ( name ) {
 		}
 		return;
 	}
-	this.update = function() {
+	this.update  = function() {
 		if ( this.object != null ) {
 			this.object.value = bitVal( this.bitNum, dataReg[this.regNum] );
+      if ( this.sw.object ) {
+  			this.enable = this.sw.getVal();
+      }
 			if ( this.enable == 1 ) {
 				this.object.disabled = false;
 			} else {
@@ -366,7 +385,7 @@ function Select ( name ) {
 		}
 		return;
 	}
-	this.grab   = function() {
+	this.grab    = function() {
 		if ( this.object != null ) {
 			bitWrite( this.bitNum, dataReg[this.regNum], this.object.value );
 		}
@@ -378,7 +397,7 @@ function Select ( name ) {
 	}
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function Radio ( name ) {
 	this.name    = name;
 	this.getData = function() {
@@ -428,12 +447,12 @@ function Radio ( name ) {
 	}
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function Slider ( name, preInit ) {
-	var self = this;
-	this.name      = name;
+	var self  = this;
+	this.name = name;
 	/*--------------------------------------------------------------------------*/
-	this.getData   = function () {
+	this.getData     = function () {
 		for ( var i=0; i<dataReg.length; i++ ) {
 			if ( dataReg[i].name == name )
 			{
@@ -442,29 +461,21 @@ function Slider ( name, preInit ) {
 		}
 		return;
 	}
-	this.setUnits  = function ( units ) {
-		dataReg[this.regNum].units = units;
-		return;
-	}
-	this.setScale  = function( scale ) {
-		dataReg[this.regNum].scale = scale;
-		return;
-	}
   this.enableCheck = function () {
     if ( this.sw.object ) {
       if ( this.sw.object.checked ) {
-        self.enable = 1
+        self.enable         = 1
         self.input.disabled = false;
         self.slider.removeAttribute( 'disabled' );
       } else {
-        self.enable = 0
+        self.enable         = 0
         self.input.disabled = true;
         self.slider.setAttribute( 'disabled', false );
       }
     }
     return;
   }
-	this.init      = function() {
+	this.init        = function() {
 		this.getData();
 		this.slider = document.getElementById( "s-slider-" + this.name );
 		this.input  = document.getElementById( "sinput-" + this.name );
@@ -490,92 +501,20 @@ function Slider ( name, preInit ) {
 		} else {
 			this.enable = 1;
 		}
-		if ( ( this.name.endsWith( "Delay" ) ) || ( this.name.startsWith( "timer" ) ) ) {
-			this.slider.noUiSlider.on( 'change', function() {
-				switch( self.label.textContent ) {
-					case 'сек':
-						if ( self.input.value >= 3602 ){
-							this.scale = 0.1;
-							self.input.step  = 0.1;
-							self.label.textContent = 'ч';
-							self.slider.noUiSlider.updateOptions({
-								step: 	0.1,
-								start: [self.input.value / 3600],
-								range: {
-									'min': 0,
-									'max': dataReg[self.regNum].max / 3600
-								}
-							})
-						} else	if ( self.input.value >= 61 ) {
-							this.scale = 0.1;
-							self.input.step  = 0.1;
-							self.label.textContent = 'мин';
-							self.slider.noUiSlider.updateOptions({
-								step: 	0.1,
-								start: [self.input.value / 60],
-								range: {
-									'min': 0,
-									'max': dataReg[self.regNum].max / 60
-								}
-							})
-						}
-						break;
-					case 'мин':
-						if ( self.input.value >= 62 ) {
-							this.scale = 0.1;
-							self.input.step  = 0.1;
-							self.label.textContent = 'ч';
-							self.slider.noUiSlider.updateOptions({
-								step: 	0.1,
-								start: [self.input.value / 60],
-								range: {
-									'min': 0,
-									'max': dataReg[self.regNum].max / 3600
-								}
-							})
-						} else if ( self.input.value <= 1 ) {
-							self.calcScale();
-							self.input.step  = self.scale;
-							self.label.textContent = 'сек';
-							self.slider.noUiSlider.updateOptions({
-								step: 	this.scale,
-								start: [self.input.value * 60],
-								range: {
-									'min': 0,
-									'max': dataReg[self.regNum].max
-								}
-							})
-						}
-						break;
-					case 'ч':
-						if ( self.input.value <= 1 ) {
-							this.scale = 0.1;
-							self.input.step  = 0.1;
-							self.label.textContent = 'мин';
-							self.slider.noUiSlider.updateOptions({
-								step: 	0.1,
-								start: [self.input.value * 60],
-								range: {
-									'min': 0,
-									'max': dataReg[self.regNum].max / 60
-								}
-							})
-						}
-						break;
-					default:
-						break;
-				}
-			});
-		}
 		return;
 	}
-	this.calcScale = function() {
+	this.calcScale   = function() {
 		this.scl = Math.pow( 10, dataReg[this.regNum].scale );
 		return;
 	}
-	this.update    = function() {
+	this.update      = function() {
 		reg = dataReg[this.regNum];
 		try {
+      for ( var i=0; i<reg.units.length; i++ ) {
+        if ( reg.units.charCodeAt( i ).toString( 16 ) == 0 ) {
+          reg.units = reg.units.substring( 0, i );
+        }
+      }
 		  this.label.textContent = reg.units;
 		  if ( this.enable == 1 ) {
 			  this.input.disabled = false;
@@ -588,7 +527,7 @@ function Slider ( name, preInit ) {
 		  this.input.value = reg.value * this.scl;
 		  this.input.step  = this.scl;
 		  this.input.addEventListener( 'change', function() {
-			  this.value = parseFloat( this.value ).toFixed( calcFracLength( this.scl ) );
+			  self.value = parseFloat( self.value ).toFixed( calcFracLength( self.scl ) );
 		  });
 		  this.slider.noUiSlider.updateOptions({
 			  step: 	this.scl,
@@ -604,7 +543,7 @@ function Slider ( name, preInit ) {
 	  }
 		return;
 	}
-	this.grab      = function() {
+	this.grab        = function() {
 		this.calcScale();
 		val = parseFloat( this.input.value ) / Math.pow( 10, dataReg[this.regNum].scale )
 		dataReg[this.regNum].value = parseFloat( val.toFixed( 0 ) );
@@ -618,19 +557,90 @@ function Slider ( name, preInit ) {
 	/*--------------------------------------------------------------------------*/
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function LogRecord ( type, action, time ) {
   var self    = this;
   this.type   = type;
   this.action = action;
   this.time   = time;
 }
-  function redrawLogTable () {
+function sortingLog () {
+  let buffer   = [];
+  let lastData = logArray[0].time;
+  let pointer  = 0;
+  if ( lastData != 0 ) {
+    for ( var i=1; i<logArray.length; i++ ) {
+      if ( ( lastData <= logArray[i].time ) && ( logArray[i].time != 0 ) ) {
+        pointer  = i;
+        lastData = logArray[i].time;
+      }
+    }
+    for ( var i=pointer; i>=0; i-- ) {
+      buffer.push( logArray[i] );
+    }
+
+    if ( pointer < ( logArray.length - 1 ) ) {
+      if ( logArray[pointer + 1].data != 0 ) {
+        for ( var i=(logArray.length - 1); i>pointer; i-- ) {
+          buffer.push( logArray[i] );
+        }
+      }
+    }
+    logArray = buffer;
+  }
+  return;
+}
+function getLogType ( type ) {
+  let res = "";
+  let adr = 0;
+  if ( type < userTypeA ) {
+    res = logTypesDictionary[type];
+  } else {
+    switch ( type ) {
+      case userTypeA:
+        adr = 36;
+        break;
+      case userTypeB:
+        adr = 39;
+        break;
+      case userTypeC:
+        adr = 42;
+        break;
+      case userTypeD:
+        adr = 45;
+        break;
+    }
+    for ( var i=0; i<dataReg[adr].len; i++ ) {
+      res += dataReg[adr].value[i];
+    }
+    if ( res == "                " ) {
+      switch ( type ) {
+        case userTypeA:
+          res = logUserTypesDictionary[0];
+          break;
+        case userTypeB:
+          res = logUserTypesDictionary[1];
+          break;
+        case userTypeC:
+          res = logUserTypesDictionary[2];
+          break;
+        case userTypeD:
+          res = logUserTypesDictionary[3];
+          break;
+      }
+    }
+  }
+  return res;
+}
+function redrawLogTable () {
   var table = document.getElementById( 'log-body' );
-  var sell;
   var j     = 0;
+  var sell;
   while ( table.rows[0] ) {
     table.deleteRow(0);
+  }
+  if ( logArray.length > 0 ) {
+    sortingLog();
   }
   for ( var i=0; i<logArray.length; i++ ) {
     if ( logArray[i].time != 0 ) {
@@ -646,15 +656,15 @@ function LogRecord ( type, action, time ) {
                          ('0' + GET_LOG_MIN( logArray[i].time  ) ).slice(-2) + ':' +
                          ('0' + GET_LOG_SEC( logArray[i].time  ) ).slice(-2);
       cell = row.insertCell(3);
-      cell.textContent = logTypesDictionary[logArray[i].type];
+      cell.textContent = getLogType( logArray[i].type );
       cell = row.insertCell(4);
       cell.textContent = logActionsDictionary[logArray[i].action];
       if ( logArray[i].action == 1 ) {
         row.className  = "table-warning";
-      } else if ( ( logArray[i].action == 2 ) || ( logArray[i].action == 4 ) ) {
+      } else if ( ( logArray[i].action == 2 ) || ( logArray[i].action == 3 ) ) {
         row.className  = "table-danger";
       } else {
-        //row.className  = "table-success";
+
       }
       j++;
     }
@@ -688,7 +698,7 @@ function saveLogToFile () {
 	SaveAsFile( data, ( name + "_log" + ".txt" ), "text/plain;charset=utf-8" );
   return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function cosFiUpdate () {
 	slider = document.getElementById( "s-slider-cosFi" );
 	input = document.getElementById( "sinput-cosFi" );
@@ -705,11 +715,11 @@ function cosFiUpdate () {
 	})
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function dec2hexString( dec ) {
    return (dec+0x100).toString(16).substr(-2).toUpperCase();
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function updateVersions () {
 	var counter = 0;
 	var major   = 0;
@@ -727,10 +737,17 @@ function updateVersions () {
 			document.getElementById( "versionFirmware" ).textContent = major + '.' + minor;
 			counter++;
 		}
-		if ( dataReg[i].name == "serialNumber" ) {
+		if ( dataReg[i].name == "serialNumber0" ) {
 			document.getElementById( "SerialNumber" ).textContent = "";
 			for ( var j=0; j<dataReg[i].len; j++ ) {
 				document.getElementById( "SerialNumber" ).textContent += dec2hexString( ( ( dataReg[i].value[j] ) >> 8 ) & 0xFF ) + ':' + dec2hexString( ( dataReg[i].value[j] ) & 0xFF );
+				if ( j < ( dataReg[i].len - 1 ) ) {
+					document.getElementById( "SerialNumber" ).textContent += ':';
+				}
+			}
+      document.getElementById( "SerialNumber" ).textContent += ":";
+      for ( var j=0; j<dataReg[i].len; j++ ) {
+				document.getElementById( "SerialNumber" ).textContent += dec2hexString( ( ( dataReg[i+1].value[j] ) >> 8 ) & 0xFF ) + ':' + dec2hexString( ( dataReg[i+1].value[j] ) & 0xFF );
 				if ( j < ( dataReg[i].len - 1 ) ) {
 					document.getElementById( "SerialNumber" ).textContent += ':';
 				}
@@ -743,7 +760,7 @@ function updateVersions () {
 	}
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function FreeData ( name ) {
 	var self = this;
 	this.name     = name;
@@ -751,6 +768,7 @@ function FreeData ( name ) {
   this.input    = null;
 	this.progress = null;
 	this.max      = 100;
+  this.maxRegN  = 0;
 	this.writeBut = null;
 	this.resetBut = null;
 
@@ -774,7 +792,7 @@ function FreeData ( name ) {
 			let str = self.name.slice( 0, self.name.lastIndexOf( "Left" ) );
 			for ( var i=0; i<dataReg.length; i++ ) {
 				if ( dataReg[i].name.search( str ) != -1 ) {
-					self.max = dataReg[i].value;
+          self.maxRegN = i;
 					break;
 				}
 			}
@@ -790,7 +808,7 @@ function FreeData ( name ) {
 			self.resetBut.addEventListener( 'click', function () {
 				freeDataValue[self.adr] = 0;
 				writeFreeData( self.adr, 0 );
-				this.update();
+				self.update();
 				return;
 			});
 		}
@@ -801,7 +819,12 @@ function FreeData ( name ) {
 			self.input.value = parseInt(freeDataValue[self.adr]);
 		}
 		if ( self.progress != null ) {
-			self.progress.style.width = Math.ceil( ( freeDataValue[self.adr] / self.max ) * 100 ) + "%";
+      self.max = dataReg[self.maxRegN].value;
+      let value = Math.ceil( ( freeDataValue[self.adr] / self.max ) * 100 );
+      if ( value > 100 ) {
+        value = 100;
+      }
+      self.progress.style.width = value + "%";
 		}
 		return;
 	}
@@ -815,12 +838,97 @@ function FreeData ( name ) {
 	this.update();
 	return;
 }
-//******************************************************************************
-function CheckSelectValues ( atribut ) {
-	var self     = this;
-	var types    = document.getElementsByClassName( atribut );
-	var usedFunc = new Array( types.length ).fill( 0 );
+/*----------------------------------------------------------------------------*/
+function MeasurementSettings () {
+	var self                 = this;
+	var enable               = document.getElementById( 'recordEnb' );
+	var switches             = document.getElementsByClassName( 'recordEnable' );
+	var recordIntervalInput  = document.getElementById( 'sinput-recordInterval' );
+	var recordIntervalSlider = document.getElementById( 's-slider-recordInterval' );
+	var recordNumberString   = document.getElementById( 'recordNumber' );
+	var recordDurationString = document.getElementById( 'recordDuration' );
+  var recordNumber         = 0;
 
+	this.calcRecords = function () {
+		recordNumber = 0;
+		var size = memorySize / 2;
+		for ( var i=0; i<switches.length; i++ ) {
+			if ( switches[i].checked == true ) {
+				recordNumber++;
+			}
+		}
+		if ( recordNumber > 0 ) {
+			size = Math.floor( memorySize / ( recordNumber * 2 ) );
+		}
+		var time  = size * parseFloat( recordIntervalInput.value );
+		var units = 'сек';
+		if ( time > 60 ) {
+			time  = time / 60;
+			units = 'мин';
+			if ( time > 60 ) {
+				time  = time / 60;
+				units = 'час';
+				if ( time > 24 ) {
+					time = time / 24;
+					units = 'дней'
+				}
+			}
+		}
+		recordNumberString.textContent                               = size;
+		document.getElementById( 'recordDurationUnits' ).textContent = units;
+		recordDurationString.textContent                             = Math.floor( time );
+		return;
+	}
+	this.init = function () {
+		enable.addEventListener( 'click', function () {
+			 updateRecordSwitches();
+			 return;
+		});
+		for ( var i=0; i<switches.length; i++ ) {
+			switches[i].addEventListener( 'click', ( function() {
+				return function() {
+					self.calcRecords();
+				}
+			})());
+		}
+		recordIntervalInput.addEventListener( 'change', function () {
+			self.calcRecords();
+			return;
+		});
+		recordIntervalSlider.noUiSlider.on( 'change', function () {
+			self.calcRecords();
+			return;
+		});
+		updateRecordSwitches();
+		self.calcRecords();
+		return;
+	}
+
+	function  updateRecordSwitches () {
+		for ( var i=0; i<switches.length; i++ ) {
+			if ( enable.checked == false ) {
+			  switches[i].disabled = true;
+			} else {
+				switches[i].disabled = false;
+			}
+		}
+		if ( enable.checked == false ) {
+			recordIntervalInput.disabled = true;
+			recordIntervalSlider.setAttribute( 'disabled', false );
+		} else {
+			recordIntervalInput.disabled = false;
+			recordIntervalSlider.removeAttribute( 'disabled' );
+		}
+		return;
+	}
+	return;
+}
+/*----------------------------------------------------------------------------*/
+function CheckSelectValues ( atribut, enableForAll ) {
+	var self          = this;
+  this.enableForAll = enableForAll;
+	var types         = document.getElementsByClassName( atribut );
+	var usedFunc      = new Array( types.length ).fill( 0 );
   function disableFunc ( func ) {
 		for ( var i=0; i<types.length; i++ ) {
 			types[i].options[func].disabled = true;
@@ -835,7 +943,7 @@ function CheckSelectValues ( atribut ) {
 	}
 	function updateList ( ) {
 		for ( var i=0; i<types.length; i++ ) {
-			usedFunc[i] = parseInt(types[i].value);
+			usedFunc[i] = parseInt( types[i].value );
 		}
 		return;
 	}
@@ -851,17 +959,19 @@ function CheckSelectValues ( atribut ) {
 		updateList();
 		enableAll();
 		for ( var i=0; i<usedFunc.length; i++ ) {
-			disableFunc( usedFunc[i] );
+      if ( usedFunc[i] > self.enableForAll ) {
+        disableFunc( usedFunc[i] );
+      }
 		}
 		return;
 	}
 	this.init   = function() {
     for ( var i=0; i<types.length; i++ ) {
       types[i].addEventListener( "change", function() {
-			  if ( this.value > 0 ) {
-				  updateList();
+        updateList();
+        enableAll();
+			  if ( this.value > self.enableForAll ) {
 			    disableFunc( this.value );
- 			    enableAll();
 			  }
 			  return;
 		  });
@@ -870,7 +980,7 @@ function CheckSelectValues ( atribut ) {
 	}
   return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function RTC () {
 	var self   = this;
 	this.hour  = 0;
@@ -880,9 +990,6 @@ function RTC () {
 	this.month = 1;
 	this.day   = 1;
 	this.wday  = 0;
-
-	var timeInput = document.getElementById("timeInput")
-	var dateInput = document.getElementById("dateInput")
 
 	function makeDateStr () {
 		return ( self.year + 2000 ) + "-" + (self.month < 10 ? "0" : "") + self.month + "-" + (self.day < 10 ? "0" : "") + self.day;
@@ -901,6 +1008,11 @@ function RTC () {
 		}
 		return 1;
 	}
+  this.init          = function () {
+    var timeInput = document.getElementById("timeInput");
+  	var dateInput = document.getElementById("dateInput");
+    return;
+  }
 	this.getSystemTime = function () {
 		var date = new Date();
 		self.hour  = date.getHours();
@@ -941,19 +1053,16 @@ function RTC () {
 	}
   return;
 }
-
 function setInputTime () {
 	rtcTime.readInput();
 	writeTime();
 }
-
 function setSysTime () {
 	rtcTime.getSystemTime();
 	rtcTime.update();
 	writeTime();
 	return;
 }
-
 function writeJSON ( adr, data, message, callback ) {
 	var xhr = new XMLHttpRequest();
   if ( electronApp == 0 ) {
@@ -962,7 +1071,7 @@ function writeJSON ( adr, data, message, callback ) {
     let ipAdr  = document.getElementById( "input-ipaddress" ).value;
   }
 	xhr.open( 'PUT', "http://" + ipAdr + adr, true );
-	xhr.timeout = 10000;
+	xhr.timeout = HTTP_TIMEOUT;
 	xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
 	xhr.send( data );
 	xhr.addEventListener( 'load', function( data ) {
@@ -988,7 +1097,6 @@ function writeJSON ( adr, data, message, callback ) {
 	}
 	return;
 }
-
 function writeFreeDataEth ( adr, data ) {
   function FreeData ( data ) {
     this.value = parseInt( data );
@@ -997,35 +1105,31 @@ function writeFreeDataEth ( adr, data ) {
 	writeJSON( ( '/data/' + adr ), JSON.stringify( buf ), "Данные успешно записаны", function(){} );
 	return;
 }
-
 function writeTimeEth () {
 	writeJSON( '/time/', JSON.stringify( rtcTime ), "Время успешно установленно", function(){} );
 	return;
 }
-
 function eraseLogEth () {
-  writeJSON( '/eraseLog/', JSON.stringify( rtcTime ), "Журнал установленно очищен", function(){} );
+  writeJSON( '/eraseLog/', JSON.stringify( rtcTime ), "Журнал успешно очищен", function(){} );
   return;
 }
-
 function writePasspordEth ( password ) {
   writeJSON( '/password/', JSON.stringify( password ), "Пароль обновлен", function() {});
   return;
 }
-
 function sendAuthorizationEth ( callback ) {
   let password = new Auth( getCurrentPassword() );
   writeJSON( '/auth/', JSON.stringify( password ), "Авторизация успешна", callback );
   return;
 }
-//******************************************************************************
-function declareStrings() {
-	for ( var i=0; i<dataReg.length; i++ ) {
-		if ( dataReg[i].name.endsWith( "Message" ) ) {
-			stringLineArray.push( new StrLine( dataReg[i].name ) );
+/*----------------------------------------------------------------------------*/
+function declareStrings ( configs ) {
+	for ( var i=0; i<configs.length; i++ ) {
+		if ( configs[i].name.endsWith( "Message0" ) ) {
+			stringLineArray.push( new StrLine( configs[i].name ) );
 		}
 	}
-	return;
+	return stringLineArray;
 }
 function declareFreeData () {
 	freeDataArray   = [];
@@ -1040,9 +1144,11 @@ function declareFreeData () {
 function declareSliders () {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		str = dataReg[i].name;
-		if ( dataReg[i].name.endsWith( "Level" )   ||
-		     dataReg[i].name.endsWith( "Delay" )   ||
-				 dataReg[i].name.startsWith( "timer" ) ||
+		if ( dataReg[i].name.endsWith( "Level" )    ||
+         dataReg[i].name.endsWith( "Quantity" )   ||
+         dataReg[i].name.endsWith( "Interval" ) ||
+		     dataReg[i].name.endsWith( "Delay" )    ||
+				 dataReg[i].name.startsWith( "timer" )  ||
 				 dataReg[i].name.endsWith( "Time" ) ) {
 			slidersArray.push( new Slider( dataReg[i].name, 1 ) );
 		}
@@ -1073,6 +1179,7 @@ function declareSelects() {
 					   ( dataReg[i].bit[j].name.endsWith( "Type" ) )     ||
 					   ( dataReg[i].bit[j].name.endsWith( "Function" ) ) ||
 					   ( dataReg[i].bit[j].name.endsWith( "Polarity" ) ) ||
+             ( dataReg[i].bit[j].name.endsWith( "Baudrate" ) ) ||
 					   ( dataReg[i].bit[j].name.endsWith( "Arming" ) ) ) {
 					selectorArray.push( new Select( dataReg[i].bit[j].name ) );
 				}
@@ -1096,15 +1203,23 @@ function declareRadio() {
 function declareInterface() {
   declareSwitches();
   declareSliders();
-	declareStrings();
+	declareStrings( dataReg );
 	declareSelects();
 	declareRadio();
 	declareFreeData();
+  diList  = new CheckSelectValues( "diFunction", 1 );
+  doList  = new CheckSelectValues( "doType",     0 );
+  rtcTime = new RTC();
+  rtcTime.init();
+  if ( electronApp > 0 ) {
+    measurement = new MeasurementSettings();
+  	measurement.init();
+  }
   logArray = [];
+  declareDone = 1;
 	return;
 }
-
-function updateInterface() {
+function updateInterface ( callback = null ) {
 	rtcTime.update();
   for ( var i=0; i<switcherArray.length; i++ ) {
 		switcherArray[i].update();
@@ -1128,10 +1243,13 @@ function updateInterface() {
 	}
   for ( var i=0;i<dataReg.length;i++ ) {
 		if ( dataReg[i].name == "engineSetup" ) {
-		  //bitWrite( 0, dataReg[i], document.getElementById( 'engineStartAttempts' ).value );
+      document.getElementById( 'engineStartAttempts' ).value = bitVal( 0, dataReg[i] );
 		}
     if ( dataReg[i].name == "speedToothNumber" ) {
       document.getElementById( 'speedToothNumber' ).value = dataReg[i].value;
+    }
+    if ( dataReg[i].name == "modbusAdr" ) {
+      document.getElementById( 'modbusAdr' ).value = bitVal( 0, dataReg[i] );
     }
 	}
   redrawLogTable();
@@ -1147,31 +1265,56 @@ function updateInterface() {
   setDisabledDO( 'f' );
   diList.update();
 	doList.update();
+  if ( electronApp > 0 ) {
+    measurement.calcRecords();
+  }
+  if ( callback != null ) {
+    callback();
+  }
 	return;
 }
-
 function grabInterface() {
 	for ( var i=0; i<stringLineArray.length; i++ ) {
-		stringLineArray[i].grab();
+    try {
+      stringLineArray[i].grab();
+    } catch (e) {
+      console.log("Grabing string error on " + stringLineArray[i].name );
+    }
 	}
 	for ( var i=0; i<slidersArray.length; i++ ) {
 		try {
 		  slidersArray[i].grab();
 		} catch (e) {
-			console.log("Grabing error on " + slidersArray[i].name );
+			console.log("Grabing slider error on " + slidersArray[i].name );
 		}
 	}
 	for ( var i=0; i<switcherArray.length; i++ ) {
-		switcherArray[i].grab();
+    try {
+      switcherArray[i].grab();
+    } catch (e) {
+      console.log("Grabing slider error on " + switcherArray[i].name );
+    }
 	}
 	for ( var i=0; i<selectorArray.length; i++ ) {
-		selectorArray[i].grab();
+    try {
+      selectorArray[i].grab();
+    } catch (e) {
+      console.log("Grabing selector error on " + selectorArray[i].name );
+    }
 	}
 	for ( var i=0; i<radioArray.length; i++ ) {
-		radioArray[i].grab();
+    try {
+      radioArray[i].grab();
+    } catch (e) {
+      console.log("Grabing radio error on " + radioArray[i].name );
+    }
 	}
   for ( var i=0; i<freeDataNames.length; i++ ) {
-		freeDataArray[i].grab();
+    try {
+      freeDataArray[i].grab();
+    } catch (e) {
+      console.log("Grabing free data error on " + freeDataArray[i].name );
+    }
 	}
 	for ( var i=0;i<dataReg.length;i++ ) {
 		if ( dataReg[i].name == "engineSetup" ) {
@@ -1183,9 +1326,9 @@ function grabInterface() {
 	}
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function ascii_to_hexa(str) {
 	var arr1 = [];
 	for ( var n=0, l=str.length; n<l; n++)
@@ -1195,7 +1338,6 @@ function ascii_to_hexa(str) {
 	 }
 	return arr1.join( '' );
 }
-
 function ethDataUpdate( alertProgress, callback ) {
 	document.getElementById( "i-loading" ).classList.add( "loading" );
 	try {
@@ -1235,7 +1377,7 @@ function ethDataUpdate( alertProgress, callback ) {
 					callback();
 				}
 				xhr.open( requests[0].method, requests[0].url );
-				xhr.timeout = 2000;
+				xhr.timeout = HTTP_TIMEOUT;
 				xhr.send();
 				var index  = store.length + 1;
 				var length = requests.length + store.length;
@@ -1284,7 +1426,7 @@ function ethDataUpdate( alertProgress, callback ) {
 	}
 	return 0;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function copyLog ( data ) {
   logArray = [];
   for ( var i=0; i<data.length; i++ ) {
@@ -1294,7 +1436,7 @@ function copyLog ( data ) {
   }
   return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function copyDataReg ( data ) {
 	for ( var i=0; i<data.length; i++ ) {
 		for ( var j=0; j<dataReg.length; j++ ) {
@@ -1314,19 +1456,19 @@ function copyDataReg ( data ) {
 	}
 	return;
 }
-
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function resetSettings () {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		dataReg[i].value = dataReg[i].default;
 	}
 	updateInterface();
+  declareChartList();
 	let alert = new Alert( "alert-success", okIco, "Настройки сброшены до заводских" );
 	return;
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 function dataGrab( alertProgress, callback ) {
 	grabInterface();
   try {
@@ -1338,9 +1480,9 @@ function dataGrab( alertProgress, callback ) {
 					const status = data.currentTarget.status;
 					const response = data.currentTarget.response;
 					if ( xhr.readyState == 4 && status === 200 ) {
-						store.push( status );
-						requests.shift();
-						return reqs( requests, content, failback );
+            store.push( status );
+            requests.shift();
+            return reqs( requests, content, failback );
 		  		}
           else if ( status === 401 ) {
             alertProgress.close( 0 );
@@ -1364,7 +1506,7 @@ function dataGrab( alertProgress, callback ) {
 					callback();
 				}
 	  		xhr.open( requests[0].method, requests[0].url, true );
-				xhr.timeout = 600000;
+				xhr.timeout = HTTP_TIMEOUT;
 	  		xhr.setRequestHeader( 'Content-type', 'application/json; charset=utf-8' );
 	  		xhr.send( requests[0].content );
 				var index  = store.length + 1;
@@ -1386,7 +1528,7 @@ function dataGrab( alertProgress, callback ) {
 		if ( ipAdr.length > 0 ) {
 			extUrl = "http://" + ipAdr;
 		}
-		for ( i=3; i<103; i++ ) {
+		for ( i=6; i<dataReg.length; i++ ) {
 			if ( dataReg[i].rw == "rw" ) {
 				restSeq.push( {
 					method:  'PUT',
@@ -1416,20 +1558,10 @@ function dataGrab( alertProgress, callback ) {
 	}
 	return;
 }
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
 function pasteDataReg( data ) {
 	var bitArr = [];
 	var value  = 0;
-	if ( data.bitMapSize > 0 ) {
-		for ( var i=0; i<data.bitMapSize; i++ ) {
-			bitArr.push( {
-				mask  : data.bit[i].mask,
-				min   : data.bit[i].min,
-				max   : data.bit[i].max,
-				shift : data.bit[i].shift,
-			})
-		}
-	}
 	if ( data.type == 'S' ) {
 		value = [];
 		for ( var i=0; i<data.len; i++ ) {
@@ -1443,18 +1575,13 @@ function pasteDataReg( data ) {
 		value = data.value;
 	}
 	return {
-		adr        : data.adr,
-		value      : value,
-		scale      : data.scale,
-		min        : data.min,
-		max        : data.max,
-		units      : encodeURI( data.units ),
-		type       : encodeURI( data.type ),
-		len        : data.len,
-		bitMapSize : data.bitMapSize,
-		bit        : bitArr,
+		value : value,
 	};
 }
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+module.exports.RTC            = RTC;
+module.exports.LogRecord      = LogRecord;
+/* For tests */
+module.exports.declareStrings = declareStrings;

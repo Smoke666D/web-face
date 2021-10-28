@@ -9,25 +9,29 @@
     "start": "electron .",
     "rebuild": "electron-rebuild --force",
     "make": "electron-packager ./ Energan --overwrite --platform=win32,linux,darwin --arch=x64 --icon='./img/favicon.ico' --prune=true --out=release-builds",
-    "test": "mocha  ./test/spec.js",
-    "debug-test": "mocha --inspect-brk test/spec.js"
+    "test-spectron": "mocha  ./test/spectron/spec.ts",
+    "test-usb": "mocha ./test/usb.ts",
+    "test-config": "mocha ./test/data/config.ts",
+    "driver": "./node_modules/.bin/chromedriver --url-base=wd/hub --port=9515"
   },
   "dependencies": {
-    "bootstrap": "4.4.1",
-    "jquery": "3.3.1",
-    "node-hid": "1.2.0",
-    "popper.js": "1.16.1",
-    "usb": "1.6.3"
+    "bootstrap": "=4.4.1",
+    "jquery": "=3.3.1",
+    "node-hid": "=2.1.1",
+    "popper.js": "=1.16.1",
+    "usb": "=1.6.3"
   },
   "devDependencies": {
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
-    "electron": "=8.2.2",
+    "electron": "=8.5.5",
     "electron-builder": "22.4.1",
-    "electron-packager": "14.2.1",
-    "electron-rebuild": "1.10.1",
+    "electron-chromedriver": "^11.0.0",
+    "electron-packager": "15.2.0",
+    "electron-rebuild": "3.3.5",
+    "jsdom": "^16.4.0",
     "mocha": "8.2.0",
     "mocha-logger": "1.0.7",
-    "spectron": "12.0.0"
+    "spectron": "=10.0.0"
   }
 }
