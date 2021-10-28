@@ -1,0 +1,42 @@
+image: "electronuserland/builder:wine"
+
+stages:
+  - build
+  - pages
+
+build:
+  dependencies: []
+  stage: build
+  artifacts:
+    paths:
+    - dist/*.*
+    expire_in: 60 days
+  cache:
+    key: build
+    paths:
+      - node_modules/
+      - electron/
+      - electron-builder/
+  before_script:
+    - mkdir -p electron
+    - mkdir -p electron-builder
+    - mkdir -p $HOME/.cache
+    - cp -R electron $HOME/.cache/electron
+    - cp -R electron-builder $HOME/.cache/electron-builder
+  script:
+    - rm -rf electron-builder
+    - rm -rf electron
+    - yarn && yarn run build-win && yarn run build-linux
+    - cp -R $HOME/.cache/electron electron
+    - cp -R $HOME/.cache/electron-builder electron-builder
+
+pages:
+  stage: pages
+  artifacts:
+    paths:
+    - public
+    expire_in: 1 days
+  only:
+    - master
+  script:
+    - mv ./dist ./public
