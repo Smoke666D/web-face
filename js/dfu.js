@@ -287,7 +287,7 @@ function dfuDevice() {
   /*---------------------------------------------*/
   this.init             = async function ( callback ) {
     var result = 0;
-    device = usb.findByIds( 0x0483, 0xDF11 );
+    device = usb.findByIds( 0x16D0, 0x10BD );
     if ( device != null ) {
       try {
         device.open();
@@ -466,12 +466,12 @@ function dfuDevice() {
     return state;
   }
   this.downloadSector   = async function ( transferSize, data, sector ) {
-    let bytesSent    = 0;
-    let size         = data.length;
-    let chunkSize    = 0;
-    let status       = 0;
-    let adr          = sector.adr;
-    let result       = 0;
+    let bytesSent = 0;
+    let size      = data.length;
+    let chunkSize = 0;
+    let status    = 0;
+    let adr       = sector.adr;
+    let result    = 0;
 
     if ( ( sector.writable ) && ( sector.erasable ) && ( size <= sector.size ) ) {
       result = await this.sectorErase( sector );
@@ -498,6 +498,7 @@ function dfuDevice() {
     let size     = firmware.length;                        /* Firmware size in bytes */
     let startAdr = adr;                                    /* Start sector number for firmware */
     let endAdr   = await this.checkSectors( adr, size );   /* Last sector number for firmware */
+    console.log( this.memory );
     if ( endAdr > 0 ) {
       await this.abortToIdle();
       let progSize = endAdr - startAdr + 1;
@@ -508,19 +509,21 @@ function dfuDevice() {
       let count    = 0;
       /*------------------- FULL ERASE -------------------*/
       if ( fullErase > 0 ) {
-        console.log( "Start chip erasing" );
+        console.log( "Start chip erasing..." );
         progSize += this.memory.sectors.length;
         for ( var i=0; i<this.memory.sectors.length; i++ ) {
           this.sectorErase( this.memory.sectors[i] );
           prog++;
           progCallback( progSize, prog );
         }
+        console.log( "Finish chip erasing!" );
       }
       /*---------------- DOWNLAD FIRMWARE ----------------*/
-      console.log( "Start firmware downloading" );
+      console.log( "Start firmware downloading..." );
       let buffer   = new Buffer.from( firmware );
       for ( var i=startAdr; i<=endAdr; i++ ) {
         let sector = this.memory.sectors[i];
+        console.log("Writing sector " + i );
         result = await this.downloadSector( defTransfSize, buffer.slice( count, ( count + sector.size ) ), sector );
         if ( result == 0 ) {
           errorCallback( "Ошибка загрузки прошивки" );
@@ -530,9 +533,10 @@ function dfuDevice() {
         prog++;
         progCallback( progSize, prog );
       }
+      console.log( "Finish firmware downloading..." );
     /*------------- FIRMWARE VERIFICATION --------------*/
       if ( result > 0 ) {
-        console.log( "Start firmware verification" );
+        console.log( "Start firmware verification..." );
         for ( var i=startAdr; i<=endAdr; i++ ) {
           let sector = this.memory.sectors[i];
           let block = await this.uploadBlod( defTransfSize, sector.size, sector.shift );
@@ -546,6 +550,7 @@ function dfuDevice() {
           prog++;
           progCallback( progSize, prog );
         }
+        console.log( "Finish firmware verification" );
       }
     } else {
       errorCallback( "Неправильная адрессация прошивки" )
