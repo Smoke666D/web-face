@@ -102,7 +102,6 @@ function Firmware ( ) {
             break;
         }
       } else {
-        console.log( line );
         this.valid = 0;
         index      = -1;
       }
@@ -149,7 +148,6 @@ function bootInit () {
   swBootConnect.addEventListener( 'click', function () {
     try {
       dfuDevice.init( async function () {
-        console.log( dfuDevice );
         swBootFile.disabled = false;
       });
     } catch {
@@ -170,7 +168,6 @@ function bootInit () {
         fs.readFile( files.filePaths[0], 'utf8', function ( err, data ) {
           firmware.fromHEX( data );
           if ( firmware.valid > 0 ) {
-            console.log( firmware );
             let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Файл готов к записи" );
             swBootLoad.disabled = false;
           } else {
@@ -188,7 +185,6 @@ function bootInit () {
           let adr    = await dfuDevice.searchSector( firmware.start );
           let result = await dfuDevice.downloadFirmware( firmware.data, adr, function( max, n ) {
             bootProgress.style.width = ( n / max * 100 ) + "%";
-            //console.log( n + "/" + max );
           }, function( mes ) {
             console.log( mes );
           });
