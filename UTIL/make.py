@@ -467,7 +467,7 @@ def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = F
     if compress == True:
         # compilHex( outPath, htmlCompress, 1, 'WEB' );
         compilHex( outPath, html404Compress, 1, 'INDEX' );
-        size = compilHex( "C:\\PROJECTS\\ENERGAN\\217_migrate\\ethernet\\site\\web.h", htmlCompress, 1, 'WEB' );
+        size = compilHex( "C:\\PROJECTS\\ENERGAN\\energan_enb\\ethernet\\site\\web.h", htmlCompress, 1, 'WEB' );
         name = strftime("%y%m%d", gmtime()) + '.ewa';
         compilEWA( os.path.join( path, name ), htmlCompress );
     else:
