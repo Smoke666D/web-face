@@ -86,7 +86,6 @@ function connect () {
   if ( connectionType == 'usb' ) {
     var msg = null;
     if ( usb.controller.isConnected() == false ) {
-
       out           = [];
       charts        = [];
       measureBuffer = [];

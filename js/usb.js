@@ -11,8 +11,9 @@ const USB_DATA_SIZE   = require('./usb-message.js').USB_DATA_SIZE;
 const common          = require('./common.js');
 const CHART_DOTS_SIZE = require('./sensortable.js').CHART_DOTS_SIZE;
 /*----------------------------------------------------------------------------*/
-const chartsLength  = 3;
-var   charts        = [];
+const chartsLength = 3;
+const loopTimeout  = 4000;
+var   charts       = [];
 /*----------------------------------------------------------------------------*/
 const usbStat = {
   "wait"  : 1,
@@ -723,6 +724,9 @@ function EnerganController () {
     }
     connected = false;
     return;
+  }
+  this.getLoopTimeout    = function () {
+    return loopTimeout;
   }
   this.loop              = function () {
     if ( ( loopActive > 0 ) && ( loopBusy == 0 ) ) {

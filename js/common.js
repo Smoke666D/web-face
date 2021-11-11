@@ -1,6 +1,6 @@
 var connetStatus = 0;
 //******************************************************************************
-function setSuccessConnection() {
+function setSuccessConnection () {
 	if ( electronApp == 1 ) {
 		var obj = document.getElementById( 'modalConnect-button' );
 		if ( !( obj.classList.contains( 'btn-success' ) ) ) {

@@ -2,7 +2,8 @@ const usb    = require('./js/usb.js');
 const rest   = require('./js/rest.js');
 const alerts = require('./js/alerts.js');
 /*----------------------------------------------------------------------------*/
-
+var loopCounter = 0;
+var loopTimeout = 100;
 /*----------------------------------------------------------------------------*/
 function connectUpdate () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
@@ -117,7 +118,7 @@ function writeFreeData ( adr, value ) {
 }
 function updateDashBoard () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
-
+    ethOutputUpdate();
   } else if ( connectionType == 'usb' ) {
     usb.controller.readOutput();
   }
@@ -177,9 +178,21 @@ function authorization () {
 }
 function dashLoop () {
     setTimeout( function () {
-      usb.controller.loop();
+      loopCounter += loopTimeout;
+      if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
+        if ( loopCounter >= getEthernetLoopTimeout() ) {
+          ethLoop();
+          loopCounter = 0;
+        }
+
+      } else if ( connectionType == 'usb' ) {
+        if ( loopCounter >= usb.controller.getLoopTimeout() ) {
+          usb.controller.loop();
+          loopCounter = 0;
+        }
+      }
       dashLoop();
-    }, 4000 );
+    }, loopTimeout );
 }
 /*----------------------------------------------------------------------------*/
 var typeIpLastLen = 0;

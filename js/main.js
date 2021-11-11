@@ -42,7 +42,6 @@ function connectClick () {
 	var modal   = document.getElementById( 'connectionModal' );
 	var body    = document.getElementsByTagName( 'body' )[0];
 	var wrapper = document.getElementById( 'wrapper' );
-
 	modal.classList.add( 'show' );
 	modal.style.display = 'block';
 	body.classList.add( 'modal-open' );

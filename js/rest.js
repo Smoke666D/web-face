@@ -1,18 +1,20 @@
-const remote  = require( 'electron' ).remote;
-var declareDone = 0;
-var diList;
-var doList;
-var stringLineArray = [];
-var progressArray   = [];
-var slidersArray    = [];
-var switcherArray   = [];
-var selectorArray   = [];
-var radioArray      = [];
-var rtcTime;
-var measurement;
-var freeDataArray   = [];
-var freeDataValue   = [];
-var freeDataNames   = [
+const remote      = require( 'electron' ).remote;
+var   declareDone = 0;
+var   ethBusy     = 0;
+var   ethLoopEnb  = 1;
+var   diList;
+var   doList;
+var   stringLineArray = [];
+var   progressArray   = [];
+var   slidersArray    = [];
+var   switcherArray   = [];
+var   selectorArray   = [];
+var   radioArray      = [];
+var   rtcTime;
+var   measurement;
+var   freeDataArray   = [];
+var   freeDataValue   = [];
+var   freeDataNames   = [
   "engineWorkTimeData",
   "engineWorkMinutesData",
   "engineStartsNumberData",
@@ -87,6 +89,7 @@ const logActionsDictionary = [
   "Автостарт",
   "Автостоп"
 ];
+const ethernetLoopTimeout  = 1300;
 /*----------------------------------------------------------------------------*/
 const HTTP_TIMEOUT = 5000;
 /*----------------------------------------------------------------------------*/
@@ -193,7 +196,6 @@ function StrLine ( name ) {
         }
       }
     }
-
 		return;
 	}
 	this.init();
@@ -1155,7 +1157,7 @@ function declareSliders () {
 	}
 	return;
 }
-function declareSwitches() {
+function declareSwitches () {
 	var l = 0;
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].bitMapSize > 0 ) {
@@ -1170,7 +1172,7 @@ function declareSwitches() {
 	}
 	return;
 }
-function declareSelects() {
+function declareSelects () {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].bitMapSize > 0 ) {
 			for ( var j=0; j<dataReg[i].bitMapSize; j++ ) {
@@ -1188,7 +1190,7 @@ function declareSelects() {
 	}
 	return;
 }
-function declareRadio() {
+function declareRadio () {
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].bitMapSize > 0 ) {
 			for ( var j=0; j<dataReg[i].bitMapSize; j++ ) {
@@ -1200,7 +1202,7 @@ function declareRadio() {
 	}
 	return;
 }
-function declareInterface() {
+function declareInterface () {
   declareSwitches();
   declareSliders();
 	declareStrings( dataReg );
@@ -1273,7 +1275,7 @@ function updateInterface ( callback = null ) {
   }
 	return;
 }
-function grabInterface() {
+function grabInterface () {
 	for ( var i=0; i<stringLineArray.length; i++ ) {
     try {
       stringLineArray[i].grab();
@@ -1329,7 +1331,7 @@ function grabInterface() {
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
-function ascii_to_hexa(str) {
+function ascii_to_hexa ( str ) {
 	var arr1 = [];
 	for ( var n=0, l=str.length; n<l; n++)
      {
@@ -1338,7 +1340,93 @@ function ascii_to_hexa(str) {
 	 }
 	return arr1.join( '' );
 }
-function ethDataUpdate( alertProgress, callback ) {
+function ethOutputUpdate ( callbackFail, callbackEnd ) {
+  try {
+    const reqs = function( requests, store, failback ) {
+			if ( requests instanceof Array && requests.length > 0 ) {
+				const xhr = new XMLHttpRequest();
+				xhr.addEventListener( 'load', function( data ) {
+					const status = data.currentTarget.status;
+					const response = data.currentTarget.response;
+					if ( status === 200 ) {
+						store.push( JSON.parse( response ) );
+						requests.shift();
+						return reqs( requests, store, failback );
+					}
+          else if ( status === 401 ) {
+            let alert = new Alert( "alert-warning", triIco, "Неправильный пароль" );
+          }
+          else {
+            let alert = new Alert( "alert-danger", triIco, "Ошибка передачи данных" );
+          }
+				});
+				xhr.addEventListener( 'error', function( error ) {
+					if ( failback ) {
+						failback( 'Something went wrong.' );
+						let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
+					}
+				});
+				xhr.ontimeout = function() {
+					xhr.abort();
+					let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
+					callbackFail();
+				}
+				xhr.open( requests[0].method, requests[0].url );
+				xhr.timeout = HTTP_TIMEOUT;
+				xhr.send();
+				var index  = store.length + 1;
+				var length = requests.length + store.length;
+			} else {
+        for ( var i=0; i<outputReg.length; i++ ) {
+          outputReg[i].value = store[i].value;
+        }
+        callbackEnd();
+				return store;
+			}
+		};
+		/* Make GET sequency */
+		restSeq = [];
+    if ( electronApp == 0 ) {
+      ipAdr  = document.domain;
+    } else {
+      ipAdr  = document.getElementById( "input-ipaddress" ).value;
+    }
+		extUrl = "";
+		if ( ipAdr.length > 0 ) {
+			extUrl = "http://" + ipAdr;
+		}
+    for ( var i=0; i<outputReg.length; i++ ) {
+      restSeq.push( { method: 'get', url: ( extUrl + '/output/' + i ) } );
+    }
+    const results = reqs( restSeq, [], function( error ) {
+      console.log( error )
+    });
+  } catch( e ) {
+		let alert = new Alert( "alert-danger", triIco, "Нет связи с сервером" );
+		return;
+	}
+  return;
+}
+function getEthernetLoopTimeout () {
+  return ethernetLoopTimeout;
+}
+function ethLoop () {
+  console.log( getConnectionStatus() );
+  if ( getConnectionStatus() > 0 ) {
+    if ( ( ethBusy == 0 ) && ( ethLoopEnb > 0 ) ) {
+      ethBusy = 1;
+      ethOutputUpdate( function () {
+        resetSuccessConnection();
+      }, function () {
+        dashboard.update( function () {
+          ethBusy = 0;
+        });
+      });
+    }
+  }
+  return;
+}
+function ethDataUpdate ( alertProgress, callback ) {
 	document.getElementById( "i-loading" ).classList.add( "loading" );
 	try {
 		const reqs = function( requests, store, failback ) {
@@ -1408,14 +1496,14 @@ function ethDataUpdate( alertProgress, callback ) {
 		if ( ipAdr.length > 0 ) {
 			extUrl = "http://" + ipAdr;
 		}
-    sendAuthorizationEth( function () {
-      restSeq.push( {method: 'get', url: ( extUrl + '/configs/' )} );
-  		restSeq.push( {method: 'get', url: ( extUrl + '/charts/' )} );
-      restSeq.push( {method: 'get', url: ( extUrl + '/log/' )} );
+    sendAuthorizationEth ( function () {
+      restSeq.push( { method: 'get', url: ( extUrl + '/configs/' ) } );
+  		restSeq.push( { method: 'get', url: ( extUrl + '/charts/'  ) } );
+      restSeq.push( { method: 'get', url: ( extUrl + '/log/'     ) } );
   		for ( var i=0; i<freeDataNames.length; i++ ) {
-  			restSeq.push( {method: 'get', url: ( extUrl + '/data/' + i )} );
+  			restSeq.push( { method: 'get', url: ( extUrl + '/data/' + i ) } );
   		}
-  		restSeq.push( {method: 'get', url: ( extUrl + '/time/' )} );
+  		restSeq.push( { method: 'get', url: ( extUrl + '/time/' ) } );
   		const results = reqs( restSeq, [], function( error ) {
   			console.log( error )
   		});
@@ -1469,7 +1557,7 @@ function resetSettings () {
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
-function dataGrab( alertProgress, callback ) {
+function dataGrab ( alertProgress, callback ) {
 	grabInterface();
   try {
 		const reqs = function ( requests = [], failback ) {
@@ -1559,7 +1647,7 @@ function dataGrab( alertProgress, callback ) {
 	return;
 }
 /*----------------------------------------------------------------------------*/
-function pasteDataReg( data ) {
+function pasteDataReg ( data ) {
 	var bitArr = [];
 	var value  = 0;
 	if ( data.type == 'S' ) {
