@@ -264,7 +264,7 @@ function ChartData () {
     switch ( self.yType ) {
       case yAxisType.oil:
         self.y.min  = 0;
-        self.y.max  = 2;
+        self.y.max  = 15;
         self.y.unit = "Бар";
         break;
       case yAxisType.coolant:
