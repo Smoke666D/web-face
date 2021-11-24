@@ -117,7 +117,7 @@ var dataReg = [
    "value": 10,
    "default": 10,
    "scale": 0,
-   "min": 0,
+   "min": 5,
    "max": 600,
    "units": "сек",
    "type": "U",
