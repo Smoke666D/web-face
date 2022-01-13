@@ -151,7 +151,7 @@ function bootInit () {
         swBootFile.disabled = false;
       });
     } catch {
-      let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Прибор не найден" );
+      let alert = new alerts.Alert( "alert-warning", alerts.triIco, "Контроллер не найден" );
     }
   });
   /*------------------------------------------------------*/

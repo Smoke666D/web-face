@@ -1311,7 +1311,7 @@
       <!------------------------------------------------------------------------------------------------------------->
       <div id="fuelLevelPage" class="content-data hidden">
         <h2>Уровень топлива</h2>
-        <div class="row">
+        <div class="row"> 
           <div class="col-small">
             <label>Тип датчика</label>
           </div>
@@ -2580,7 +2580,6 @@
             <div class="s-slider" id="s-slider-timerWarming"></div>
           </div>
         </div>
-
         <br>
         <h5>Таймеры контроля нагрузки</h5>
         <div class="row">
@@ -2653,7 +2652,6 @@
             <div class="s-slider" id="s-slider-timerMainsBreakerClosePulse"></div>
           </div>
         </div>
-
         <br>
         <h5>Таймеры остановки</h5>
         <div class="row">
@@ -3048,7 +3046,7 @@
             </label>
           </div>
           <div class="col-alarmString">
-            <label>Аварийный сигнал</label>
+            <label>Аварийный</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-genOverFrequencyAlarmLevel" step="1">
@@ -3470,7 +3468,7 @@
               <input type="checkbox" class="check-input" id="batteryOverVoltageEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Перенапряжение</label>
+            <label class="form-check-label">Высокое напряжение</label>
           </div>
         </div>
         <div class="row">
@@ -3568,7 +3566,7 @@
         </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Часы работы двигателя</label>
+            <label>Моточасы</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-maintenanceAlarmOilTime" step="1">
@@ -3620,7 +3618,7 @@
         </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Часы работы двигателя</label>
+            <label>Моточасы</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-maintenanceAlarmAirTime" step="1">
@@ -3672,7 +3670,7 @@
         </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Часы работы двигателя</label>
+            <label>Моточасы</label>
           </div>
           <div class="col-sm-auto">
             <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-maintenanceAlarmFuelTime" step="1">
@@ -3975,7 +3973,7 @@
               <input type="checkbox" class="check-input recordEnable" id="recordPowerActiveEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Мощность активная</label>
+            <label class="form-check-label">Активная мощность</label>
           </div>
         </div>
         <div class="row unselect">
@@ -3984,14 +3982,14 @@
               <input type="checkbox" class="check-input recordEnable" id="recordPowerReactiveEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Мощность реактивная</label>
+            <label class="form-check-label">Реактивная мощность</label>
           </div>
           <div class="col-sm-6 pos-name">
             <label class="switch">
               <input type="checkbox" class="check-input recordEnable" id="recordPowerFullEnb">
               <span class="slider"></span>
             </label>
-            <label class="form-check-label">Мощность полная</label>
+            <label class="form-check-label">Полная мощность</label>
           </div>
         </div>
         <div class="row unselect">
@@ -4044,7 +4042,7 @@
         </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Количество записей:</label>
+            <label>Количество записей</label>
           </div>
           <div class="col-sm-1 pos-info">
             <label id="recordNumber">0</label>
@@ -4055,7 +4053,7 @@
         </div>
         <div class="row">
           <div class="col-sm-2 pos-name">
-            <label>Длительность измерений:</label>
+            <label>Длительность измерений</label>
           </div>
           <div class="col-sm-1 pos-info">
             <label id="recordDuration">0</label>
@@ -4345,7 +4343,7 @@
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Подключение к прибору</h5>
+              <h5 class="modal-title">Подключение к контроллеру</h5>
             </div>
             <div class="modal-body">
               <div class="row">

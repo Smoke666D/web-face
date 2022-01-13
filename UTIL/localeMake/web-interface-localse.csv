@@ -1,0 +1,374 @@
+№,name,ru,en
+1,on,Вкл,On
+2,off,Выкл,Off
+3,yes,Да,Yes
+4,no,Нет,No
+5,close,Закрыть,Close
+6,apply,Применить,Apply
+7,attention,Внимание,Attention
+8,seconds,сек,sec
+9,volts,В,V
+10,hz,Гц,Hz
+11,amps,А,A
+12,bar,Бар,Bar
+13,times,раз,times
+14,hour,ч,h
+15,hours,часов,hours
+16,minut,мин,min
+17,liter,л,l
+18,gr_kW,гр/кВт,gr/kW
+19,kVA,кВА,kVA
+20,kW,кВт,kW
+21,kvar,кВАР,kvar
+22,company,Энерган,Energan
+23,controller,Контроллер,Controller
+24,monitoring,Мониторинг,Monitoring
+25,security,Безопасность,Security
+26,password,Пароль,Password
+27,passwordUse,Использовать пароль,Use password
+28,passwordNew,Новый пароль,New password
+29,passwordRepeat,Повторите пароль,Repeat password
+30,passwordSet,Установить пароль,Set password
+31,input,Вход,Input
+32,inputs,Входы,Inputs
+33,InputActiveFrom,Вход активен с момента,Input is active from the moment
+34,output,Выход,Output
+35,outputs,Выходы,Outputs
+36,digitalInput,Цифровой вход,Digital input
+37,digitalInputs,Цифровые входы,Digital inputs
+38,digitalOutput,Цифровой выход,Digital output
+39,digitalOutputs,Цифровые выходы,Digital outputs
+40,voltage,Напряжение,Voltage
+41,voltageLow,Низкое напряжение,Low voltage
+42,voltageHigh,Высокое напряжение,High voltage
+43,voltageLowSignal,Сигналы низкого напряжения,Low voltage signals
+44,voltageHighSignal,Сигналы высокого напряжения,High voltage signals
+45,voltageControll,Контроль напряжения,Voltage control
+46,voltageWarningSignal,Предупредительный сигнал по напряжению,Voltage warning signal
+47,current,Ток,Current
+48,currentAdj,Токовый,Current
+49,currentOverWarning,Предупредительный сигнал сверхтока,Overcurrent warning signal
+50,currentOverProtect,Токовая защита,Overcurrent protection
+51,currentTempProtect,Тепловая защита,Thermal protection
+52,currectCutoff,Токовая отсечка,Cutoff current
+53,frequency,Частота,Frequency
+54,freqLow,Низкая частота,Low frequency
+55,freqHigh,Высокая частота,High frequency
+56,freqLowSignal,Сигнал понижения частоты,Low frequency signals
+57,freqHighSignal,Сигнал сверх частоты,High frequency signals
+58,freqControl,Контроль частоты,Frequency control
+59,power,Мощность,Power
+60,powerReal,Полная мощность,Real power
+61,powerComplex,Активная мощность,Complex power
+62,powerReactive,Реактивная мощность,Reactive power
+63,powerOverloadProtect,Защита от перегрузки по мощности,Power overload protection
+64,oil,Масло,Oil
+65,oilPressure,Давление масла,Oil pressure
+66,oilLowPressureSignal,Сигналы низкого давления масла,Oil low pressure signal
+67,oilLowPressure,Низкое давление масла,Low oil pressure
+68,oilCheckPressureStart,Перед запуском проверить давление масла,Check oil pressure before the start
+69,byOilPessure,Давлению масла,Oil pressure
+70,coolant,ОЖ,Coolant
+71,coolantTempShort,Температура ОЖ,Coolant temperature
+72,coolantTemp,Температура охлаждающей жидкости,Coolant temperature
+73,coolantHeating,Подогрев ОЖ,Coolant heating
+74,coolantHeater,Нагреватель охлаждающей жидкости,Coolant heater
+75,coolantHeaterShort,Подогреватель ОЖ,Coolant heater
+76,coolantCooling,Охлаждение ОЖ,Coolant cooling
+77,coolantCooler,Охладитель охлаждающей жидкости,Coolant cooler
+78,coolantCoolerShort,Охладитель ОЖ,Coolant cooler
+79,coolantHighTempSignal,Сигналы высокой температуры охлаждающей жидкости,Coolant high-temperature signal
+80,tempOnBelow,При температуре ниже,At temperatures below
+81,fuel,Топливо,Fuel
+82,fuelPumping,Подкачка топлива,Fuel pumping
+83,fuelSpent,Топлива потрачено,Fuel spent
+84,fuelLevel,Уровень топлива,Fuel level
+85,fuelLeakControl,Контроль утечки топлива,Fuel leakage control
+86,fuelTankVolume,Объем бака,Tank volume
+87,fuelConsumption,Расход топлива,Fuel consumption
+88,fuelConsumptionNom,Номинальные расходы топлива,Nominal fuel consumption
+89,fuelLowLevel,Низкий уровень топлива,Fuel low level
+90,fuelPumpRelay,Топливное реле,Fuel pump relay
+91,consumption,Расход,Consumption
+92,consumptionAvr,Расход средний,Average consumption
+93,engine,Двигатель,Engine
+94,engineHighTemp,Высокая температура двигателя,High engine temperature
+95,engineTurn,Обороты двигателя,Engine turnovers
+96,turnovers,Обороты,Turnovers
+97,engineHours,Моточасы,Engine hours
+98,startNumber,Количество пусков,Number of the starts
+99,starts,Пусков,Starts
+100,byEngineTurn,Оборотам двигателя,Engine turnovers
+101,flywheelTeethNumber,Количество зубьев маховика,Number of flywheel teeth
+102,idling,Работа на холостом ходу,Idling
+103,air,Воздух,Air
+104,timer,Таймер,Timer
+105,timers,Таймеры,Timers
+106,generator,Генератор,Generator
+107,genOptions,Опции генератора,Generator options
+108,genVoltage,Напряжение генератора,Generator voltage
+109,genFreq,Частота генератора,Generator frequency
+110,genCurrent,Сила тока генератора,Generator current
+111,genVoltagePhase,Напряжение генератора фазовое,Generator phase voltage
+112,genVoltageLine,Напряжение генератора линейное,Generator line voltage
+113,gebRediness,Готовность генератора,Generator readiness
+114,genPowControl,Контроль силового генератора,Power generator control
+115,genRatings,Номинальные параметры генератора,Generator ratings
+116,mains,Сеть,Mains
+117,mainsOptions,Опции сети,Mains options
+118,mainsAlarms,Сигналы тревоги сети,Mains alarms
+119,mainsFailure,Неисправность сети,Mains failure
+120,mainsControl,Контроль сети,Mains control
+121,mainsVoltagePhase,Напряжение сети фазовое,Mains phase voltage
+122,mainsVoltageLine,Напряжение сети линейное,Mains Line voltage
+123,mainsFreq,Частота сети,Mains frequency
+124,chargingGen,Зарядный генератор,Charging generator
+125,chargerVoltage,Напряжению зарядного генератор,Charging generator voltage
+126,chargerVoltageWarning,Предупредительный сигнал зарядного генератора,Charging generator warning signal
+127,load,Нагрузка,Load
+128,loadWithout,Без нагрузки,Without load
+129,loudWith,Под нагрузкой,With load
+130,remoteStartOnLoad,Дистанционный запуск под нагрузкой,Remote start on load
+131,loadCurrent,Ток нагрузки,Load current
+132,starterOptions,Опции запуска,Start options
+133,starterRelay,Стартерное реле,Starter relay
+134,starterStopBy,Отключение стартера по,Stop starter by
+135,battery,Аккумулятор,Battery
+136,batteryVoltage,Напряжение аккумулятора,Battery voltage
+137,maintenaceSignals,Сигналы техобслуживания,Maintenance signals
+138,log,Журнал событий,Log
+139,logs,Журналы,Logs
+140,writeWarnings,Фиксировать предупреждения,Write warnings to the log
+141,writeStartStop,Фиксировать события запуска и остановки,Write start and stop events to the log
+142,logClean,Очистить журнал,Clean log
+143,logRead,Считать измерения из контроллера,Read measurements from the controller
+144,logSave,Сохранить измерения в файл,Save measurements to the file
+145,logLoad,Загрузить измерения из файла,Read measurements from the controller
+146,statistics,Статистика,Statistics
+147,totalSpent,Всего потрачено,Total spent
+148,averageConsumption,Средний расход,Average consumption
+149,electricalGeneration,Наработка электроэнергии,Electricity generation
+150,events,События,Events
+151,recorderSettings,Настройки самописца,Recorder settings
+152,measurement,Измерения,Measurements
+153,recordInterval,Интервал записи,Recording interval
+154,recordIntervalSelect,Выбор интервала записей,Recording interval selecting
+155,recordNumber,Количество записей,Number of recordings
+156,measurLength,Длительность измерений,Measurement duration
+157,recordActive,Активировать запись измерений,Activate measurement recording
+158,firmwareUpdate,Обновить прошивку,Update firmware
+159,externalMemory,Внешняя память,External memory
+160,info,Справка,Info
+161,dataRefresh,Обновить данные из контроллера,Refresh data from controller
+162,dataUpload,Загрузить данные в контроллер,Load data into controller
+163,configSave,Сохранить конфигурацию в файл,Save configuration to file
+164,configLoad,Загрузить конфигурацию из файла,Load configuration from file
+165,settingsReset,Сбросить настройки,Reset settings
+166,hideShowMenu,Скрыть/показать меню,Hide/Show menu
+167,authorization,Авторизация,Authorization
+168,connectOptions,Параметры подключения,Connection options
+169,verController,Версия контроллера:,Controller version:
+170,verFirmware,Версия прошивки:,Firmware version:
+171,verBootloader,Версия загрузчика:,Bootloader version:
+172,verInterface,Версия интерфейса:,Interface version:
+173,device,Устройство:,Device:
+174,serialNumber,Серийный номер:,Serial number:
+175,display,Дисплей,Display
+176,brightness,Яркость,Brightness
+177,contrast,Контрастность,Contrast
+178,sleepMode,Переход в спящий режим,Entering sleep mode
+179,adr,Адрес,Address
+180,speed,Скорость,Speed
+181,hysteresis,Гистерезис,Hysteresis
+182,value,Величина,Value
+183,clock,Часы контроллера,Controller clock
+184,time,Время,Time
+185,date,Дата,Date
+186,write,Записать,Write
+187,status,Cтатус,Status
+188,notConnected,Не подключен,Not connected
+189,readyToStart,Готов к запуску,Ready to start
+190,remoteStart,Дистанционный пуск,Remote start
+191,starterWork,Работа стартера,Starter operation
+192,starterPause,Пауза стартера,Starter pause
+193,excitation,Возбуждение,Excitation
+194,preheatingIdle,Прогрев Х.Х.,Preheating on Idle
+195,preheating,Предпрогрев,Preheating
+196,working,В работе,Working
+197,cooling,Охлаждение,Cooling
+198,coolingIdle,Охлаждение Х.Х.,Cooling on Idle
+199,stopState,Останов,Stop
+200,emergencyStopState,Аварийный останов,Emergency Stop
+201,startDened,Запрет пуска,Start dened
+202,passwordInfo0,"При установки пароля, конфигурирование контроллера будет возможно только после ввода пароля","When setting a password, controller configuration will be possible only after entering the password."
+203,passwordInfo1,Пароль распространяется на конфигурирование контроллера с панели оператора и с ПК,The password applies to the configuration of the controller from the operator panel and from the PC
+204,passwordInfo2,Пароль должен состоять из четырех чисел,Password must be four numbers
+205,passwordInfo3,"Если Вы забыли пароль, обратитесь в службу поддержки","If you have forgotten your password, please contact support"
+206,sensorWireMonitor,Контроль целостности цепи датчика,Sensor continuity monitoring
+207,sensorType,Тип датчика,Sensor type
+208,resistive,Резистивный,Resistive
+209,noUse,Не использовать,Don't use
+210,polarity,Полярность,Polarity
+211,closeOnAlarm,Замкнут при аварии,Close on alarm
+212,openOnAlarm,Разомкнут при аварии,Open on alarm
+213,normalOpen,НО,NO
+214,normalClose,НЗ,NC
+215,alarmAdj,Аварийный,Alarm
+216,warning,Предупреждение,Warning
+217,warningAdj,Предупредительный,Warning
+218,trip,Отключения,Trip
+219,action,Действие,Action
+220,emergencyStop,Аварийная остановка,Emergency Stop
+221,nextStartBan,Запрет следующего пуска,Next start ban
+222,disconnection,Отключение,Disconnection
+223,alarmsReset,Сброс аварийной сигнализации,Resetting alarms
+224,activate,Активировать,Activate
+225,lowLimitSignals,Сигналы нижнего предела,Lower limit signals
+226,lowLimit,Нижний предел,Lower limit
+227,highLimitSignals,Сигналы верхнего предела,High limit signal
+228,highLimit,Верхний предел,High limit
+229,alarmSignal,Аварийный сигнал,Alarm signal
+230,alarmSignals,Аварийные сигналы,Alarm signals
+231,signaling,Сигнализация,Signaling
+232,delay,Задержка,Delay
+233,warningSignal,Предупредительный сигнал,Warning signal
+234,warningSignals,Предупредительный сигналы,Warning signals
+235,function,Функция,Function
+236,userAdj,Пользовательская,User
+237,disabling,Запреты,Disabling
+238,disableAutoStart,Запрет автоматического запуска,Disable automatic start
+239,disableGenLoad,Запрет нагрузки генератора,Disable generator load
+240,disableAutoStop,Запрет автоматического останова,Disable automatic stop
+241,always,Всегда,Always
+242,onBlockingTimerFinish,Окончания таймера блокировки контроля ДГУ,DGS control blocking timer expiration
+243,onStarterFinish,Окончания прокрутки стартера,Starter scroll end
+244,never,Никогда,Never
+245,responseDelay,Задержка срабатывания,Response delay
+246,displayText,Надпись на экране,Text on display
+247,modes,Режимы,Modes
+248,DGSready,ДЭС готов,DGS ready
+249,commonAlarm,Общий аварийный сигнал,Common alarm
+250,commonMainsAlarm,Общее нарушение сети,Common mains alarm
+251,commonWarning,Общее предупреждение,Common warning
+252,switchToGen,Включить генератор,Switch to generator
+253,switchToGenImp,Включить генератор импульсно,Impulse for switch on generator
+254,switchFromGenImp,Выключить генератор импульсно,Impulse for switch off generator
+255,switchToMains,Включить сеть,Switch to mains
+256,switchToMainsImp,Включить сеть импульсно,Impulse for switch on mains
+257,switchFromMainsImp,Выключить сеть импульсно,Impulse for switch off mains
+258,stopSolenoid,Стоповый соленоид,Stop solenoid
+259,glowPlugRelay,Реле свечи накаливания,Glow plug relay
+260,startTimers,Таймеры запуска,Start timers
+261,timerMainsSwitchingJumps,Коммутационные скачки параметров сети,Switching jumps of mains parameters
+262,timerStartDelay,Задержка запуска,Start delay
+263,timerStarterWork,Прокрутка стартера,Scrolling starter
+264,timerStarterPause,Пауза между прокрутками,Delay between scrolling
+265,timerBlockOnStart,Блокировка контроля параметров при старте,Parameter control block at start
+266,timerIdleToNomDelay,Переход от холостых оборотов на номинальный режим,Transition from idle to nominal
+267,timerPreheat,Время прогрева,Preheat time
+268,timerLoadControl,Таймеры контроля нагрузки,Load control timers
+269,timerSwitchDelay,Пауза между переключениями,Pause between switches
+270,timerGenOffImpLength,Длина импульса отключения генераторного автомата,Generator switch off impulse length
+271,timerGenOnImpLength,Длина импульса включения генераторного автомата,Generator switch on impulse length
+272,timerMainsOffImpLength,Длина импульса отключения сетевого автомата,Mains switch off impulse length
+273,timerMainsOnImpLength,Длина импульса включения сетевого автомата,Mains switch on impulse length
+274,timerStop,Таймеры остановки,Stop timers
+275,timerStopDelay,Задержка останова,Stop delay
+276,timerCooling,Время охлаждения,Cooling time
+277,timerCoolingIdle,Время охлаждения на холостых оборотах,Cooling time at idle
+278,timerStopSolenoid,Работа стопового соленоида,Stop solenoid work time
+279,timerStopErrorDelay,Задержка сигнала «Сбой останова»,"""Stop error"" signal delay"
+280,timerGenSwitchingJumps,Коммутационные скачки параметров генератора,Switching jumps of generator parameters
+281,phaseSeqControl,Контроль чередования фаз,Phase sequence control
+282,acSys,Система переменного тока,AC system
+283,acStar,Звезда,Star
+284,acRect,Треугольник,Rectangle
+285,acSingle,Одна фаза,Single phase
+286,outherOp[tions,Другие опции,Other options
+287,polesNumber,Количество полюсов,Number of poles
+288,currentRatio,Коэффициент трансформатора тока,Current transformer ratio
+289,phaseImbalance,Перекос фаз,Phase imbalance
+290,mainsLossDisconnect,Немедленное отключение при потери сети,Immediate disconnect on mains loss
+291,type,Тип,Type
+292,chartZoomReset,Сбросить масштаб графика,Reset chart zoom
+293,connect,Подключить,Connect
+294,disconnect,Отключить,Disconnect
+295,file,Файл...,File...
+296,load,Загрузить,Load
+297,instruction,Инструкция,Instruction
+298,bootloaderInfo0,Отключите питание устройства,Disconnect the power
+299,bootloaderInfo1,"Зажмите кнопку ""Вверх"" и ""Старт""","Press and hold the ""Up"" and ""Start"" buttons"
+300,bootloaderInfo2,Включите питание устройства,Switch on the power
+301,bootloaderInfo3,Можете отпустить кнопки,You can release the button
+302,bootloaderInfo4,"Если действия были выполнены правильно, зажгуться три светодиода одновременно","If the actions were performed correctly, three LEDs light up at the same time"
+303,bootloaderInfo5,Подключите USB к устройству,Connect USB to device
+304,bootloaderInfo6,"Нажмите кнопку ""Подключить""","Click the ""Connect"" button"
+305,bootloaderInfo7,Выберите файл новой прошивки,Select the new firmware file
+306,bootloaderInfo8,"Нажмите кнопку ""Загрузить""","Click the ""Load"" button"
+307,bootloaderInfo9,Дождитесь окончания загрузки прошивки,Wait for the firmware download to finish
+308,bootloaderInfoA,Перезагрузите устройство,Reboot your device
+309,bootloaderWarnings0,Не пытайтесь загрузить в устройство стороннюю прошивку,Do not try to download third-party firmware to the device
+310,bootloaderWarnings1,Не выключайте питание и не отключайте USB во время загрузки прошивки,Do not turn off the power or disconnect the USB while downloading the firmware
+311,bootloaderWarnings2,Нарушение данных правил может привести к неисправности устройства! В случие неисправности обращайтесь в сервисный центр.,"Violation of these rules may lead to malfunction of the device! In the event of a malfunction, contact the service center."
+312,bootloaderWarnings3,Для записи данных подключите устройсво по USB. Процес записи EWA достаточно продолжителен.,Connect the device via USB to write data. The EWA recording process is quite long.
+313,shortcuts,Горячие клавиши,Keyboard shortcuts
+314,openConnectMenu,Открыть меню подключений,Open connection menu
+315,openAuthorizationMenu,Открыть меню авторизации,Open authorization menu
+316,connectToController,Подключение к контроллеру,Connect to the controller
+317,connectToControllerUSB,Подключиться к контроллеру по USB,Connect to the controller via USB
+318,controllerConected,Контроллер подключен по USB,Controller connected via USB
+319,controllerConectedUSB,Контроллер не подключен по USB,Controller not connected via USB
+320,connectToControllerEth,Подключиться к контроллеру по Ethernet,Connect to the controller via Ethernet
+321,pageUnderConstruction,Страница находиться в разработке,The page is under construction
+322,sensorChartEditor,Редактор графика датчика,Sensor chart editor
+323,saveToFile,Сохранить в файл,Save to the file
+324,loadFromFile,Загрузить из файла,Load from the file
+325,addDot,Добавить точку,Add dot
+326,removeDot,Удалить точку,Remove dot
+327,changeCoordinate,Изменить координаты,Change coordinate
+328,errorRTC,Проблема с временем и датой,Time and data error
+329,errorRTCstr,Время контроллера не совпадают с системным временем. Установить время контроллера на системное время?,The controller time does not match the system time. Set controller time to system time?
+330,ipAdr,IP адрес устройства,device IP address
+331,dataUpdatedSucc,Данные успешно обновленны,Data updated successfully
+332,dataTransferredSucc,Данные успешно переданы,Data transferred successfully 
+333,noServerConnect,Нет связи с сервером,No connection to the server
+334,dataTransmissionError,Ошибка передачи данных,Data transmission error
+335,usbCommunicationError,Ошибка передачи данных по USB,USB communication error
+336,authorizationError,Ошибка авторизации,Authorisation Error
+337,noStopEngineError,Установка не остановлена. Доступ запрещен,The engine has not stopped. Access is denied
+338,noControllerError,Контроллер не найден,Controller not found
+339,fileReadyToWrite,Файл готов к записи,File ready to write
+340,fileValidError,Ошибка проверки файла,File validation error
+341,firmwareLoadedSucc,Прошивка успешно загружена,Firmware loaded successfully
+342,writingError,Ошибка во время записи,Error during writing
+343,loading,Загрузка,Loading
+344,configWriteFileError,Ошибка записи конфигурации в файл,Error writing configuration to file
+345,configReadFromFile,Конфигурация прочитана из файла,Configuration read from file
+346,configNotCompatible,Конфигурация не совместима с используемой версией программы,The configuration is not compatible with the version of the software used
+347,fileExtError,Неправильный формат файла,Wrong file extension
+348,browserFileLoadError,Браузер не поддерживает загрузку файлов,Browser does not support files uploading
+349,noMesurRecords,Нет записей измерений,No measurement records
+350,descriptorReadError,Ошибка чтения дискриптора памяти,Memory descriptor read error
+351,dfuConnected,Устройство подключено по USB в DFU режиме,The device is connected via USB in DFU mode
+352,interfaceReadError,Ошибка чтения интерфейса,Interface reading error
+353,descriptorStrReadError,Ошибка чтения строчного дискриптора,String descriptor reading error
+354,deviceBusy,Устройство занято другим приложением,Device is busy with another application
+355,noConnectedDevice,Устройство не подключенно,Device not connected
+356,pleaseReboot,Контроллер отключен. Требуеться перезагрузка.,The controller is disconnected. Reboot required.
+357,passwordLengthMes,Пароль должен состоять из 4 цифр,Password must be 4 digits
+358,passwordEqError,Введенные пароли не совпадают,The passwords entered do not match
+359,starterTripCondError,Стартер должен иметь хотя бы одино условие отключения,The starter must have at least one trip condition
+360,noOtherTripCondError,Другие условия отключения не доступны. Активируйте соответствующие устройство.,No other trip conditions are available. Activate the appropriate device.
+361,passwordError,Неправильный пароль,Wrong password
+362,dataWriteSecc,Данные успешно записаны,Data written successfully
+363,timeWriteSecc,Время успешно установленно,Time set successfully
+364,factoryReset,Настройки сброшены до заводских,Settings reset to factory
+365,chartSaveSecc,График успешно сохранен,The chart was successfully saved
+366,chartSaveError,Ошибка записи грфика в файл,Error chart saving to file
+367,inputNoConfigError,"Цифровой выход <a class=""text-danger""> {{input}} </a> не сконфигурирован","Digital input <a class=""text-danger""> {{input}} </a> not configured"
+368,outputNoConfigError,"Цифровой выход <a class=""text-danger""> {{output}} </a> не сконфигурирован","Digital output <a class=""text-danger""> {{output}} </a> not configured"
+369,commutationConfigError,Управление комутацией не сконфигурировано,Commutation control not configured
+370,outputTransferMess,Рекомендуем перенести функцию выхода {{fullSlot}} на выход {{emptySlot}}  в целях экономии электроэнергии АКБ,We recommend to transfer the output function {{fullSlot}} to output {{emptySlot}}  in order to save battery power
+371,rpmSensorError,Вход датчика скорости оборотов не сконфигурирован,RPM sensor input not configured
+372,oilSensorError,Вход датчика давления масла не сконфигурирован,Oil pressure sensor input not configured
+373,discreteOilError,Дискретный датчик давления масла недостаточно точен для критерия остановки стартера,Discrete oil pressure sensor is not accurate enough for starter stop criterion

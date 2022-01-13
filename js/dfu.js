@@ -314,14 +314,14 @@ function dfuDevice() {
                   });
                 } catch(e) {
                   device = null;
-                  let alert = new alerts.Alert("alert-warning",alerts.triIco,"Сбой чтения интерфейса");
+                  let alert = new alerts.Alert("alert-warning",alerts.triIco,"Ошибка чтения интерфейса");
                 }
               });
             });
           });
         } catch (e) {
           device = null;
-          let alert = new alerts.Alert("alert-warning",alerts.triIco,"Сбой чтения строчного дискриптора");
+          let alert = new alerts.Alert("alert-warning",alerts.triIco,"Ошибка чтения строчного дискриптора");
         }
       } catch (e) {
         device = null;
