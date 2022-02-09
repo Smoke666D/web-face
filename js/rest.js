@@ -728,15 +728,27 @@ function updateVersions () {
 	var minor   = 0;
 	for ( var i=0; i<dataReg.length; i++ ) {
 		if ( dataReg[i].name == "versionController" ) {
-			major = Math.trunc( dataReg[i].value / 1000 );
-			minor = dataReg[i].value - major * 1000;
-			document.getElementById( "versionController" ).textContent = major + '.' + minor;
+			version = "";
+			for ( var j=0; j<dataReg[i].len; j++ )
+			{
+				version += dataReg[i].value[j];
+				if ( j != ( dataReg[i].len - 1 ) ) {
+					version += ".";
+				}
+			}
+			document.getElementById( "versionController" ).textContent = version;
 			counter++;
 		}
 		if ( dataReg[i].name == "versionFirmware" ) {
-			major = Math.trunc( dataReg[i].value / 1000 );
-			minor = dataReg[i].value - major * 1000;
-			document.getElementById( "versionFirmware" ).textContent = major + '.' + minor;
+			version = "";
+			for ( var j=0; j<dataReg[i].len; j++ )
+			{
+				version += dataReg[i].value[j];
+				if ( j != ( dataReg[i].len - 1 ) ) {
+					version += ".";
+				}
+			}
+			document.getElementById( "versionFirmware" ).textContent = version;
 			counter++;
 		}
 		if ( dataReg[i].name == "serialNumber0" ) {
