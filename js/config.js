@@ -732,8 +732,8 @@ var dataReg = [
 },{
    "adr": 41,
    "name": "diaSetup",
-   "value": 0,
-   "default": 0,
+   "value": 17,
+   "default": 17,
    "scale": 0,
    "min": 0,
    "max": 1023,
@@ -842,8 +842,8 @@ var dataReg = [
 },{
    "adr": 47,
    "name": "dibSetup",
-   "value": 0,
-   "default": 0,
+   "value": 18,
+   "default": 18,
    "scale": 0,
    "min": 0,
    "max": 1023,
