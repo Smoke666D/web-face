@@ -327,7 +327,7 @@ def testSpan ( string ):
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = False, compress = True, outPath = "C:\\PROJECTS\\ENERGAN\\217_migrate\\ethernet\\site\\index.h"):
+def make(  minifyHTML = False, optimCSS = False, minifyCSS = False, minifyJS = False, compress = True, outPath = "C:\\PROJECTS\\ENERGAN\\energan_enb\\ethernet\\site\\index.h"):
     print( "****************************************************" )
     if minifyHTML == True:
         print( "HTML mimnfy   : On" );
