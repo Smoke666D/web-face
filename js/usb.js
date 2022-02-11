@@ -272,7 +272,7 @@ function USBtransport () {
             {
               alert.setProgressBar( output.getProgress() );
               write( output.nextMessage() );
-              output.printState();
+              //output.printState();
             }
         } else {
           console.log("Error with command: " + response.command + " expected: " + msgCMD.USB_PUT_CONFIG_CMD + " or " + msgCMD.USB_PUT_CHART_CMD + " or " + msgCMD.USB_PUT_EWA_CMD );
@@ -758,6 +758,9 @@ function EnerganController () {
     this.disableLoop();
     writeSequency( 0, password, null, false, initWriteAuthorSequency );
     return;
+  }
+  this.getMode           = function ( callback ) {
+
   }
   this.send              = function ( alertIn = null ) {
     this.disableLoop();

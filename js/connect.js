@@ -85,16 +85,25 @@ function loadConfigsFromFile () {
 }
 function connectGrab () {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
-    let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
-    dataGrab( alert, function () {
-      resetSuccessConnection();
-      return;
-    });
-  } else if ( connectionType == 'usb' ) {
-    let state = usb.controller.getStatus();
-    if ( ( state == 1 ) || ( state == 4 ) ) {
+    if ( ( outputReg[40].value & ( 1 << 6 ) ) == 0 ) {
       let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
-      usb.controller.send( alert );
+      dataGrab( alert, function () {
+        resetSuccessConnection();
+        return;
+      });
+    } else {
+      let alert = new Alert( "alert-warning", triIco, "Контроллер в авто режиме. Запись настроек запрещена" );
+    }
+  } else if ( connectionType == 'usb' ) {
+    console.log( outputReg[40].value & ( 1 << 6 ) )
+    if ( ( outputReg[40].value & ( 1 << 6 ) ) == 0 ) {
+      let state = usb.controller.getStatus();
+      if ( ( state == 1 ) || ( state == 4 ) ) {
+        let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
+        usb.controller.send( alert );
+      }
+    } else {
+      let alert = new Alert( "alert-warning", triIco, "Контроллер в авто режиме. Запись настроек запрещена" );
     }
   }
   return;
