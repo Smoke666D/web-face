@@ -139,6 +139,33 @@ function  SET_LOG_DATE ( day, month, year, hour, min, sec ) {
          ( min   << LOG_MIN_SHIFT   ) |
          ( sec   << LOG_SEC_SHIFT   );
 }
+function compareTime ( lesser, greater ) {
+	let res = false;
+	if ( GET_LOG_YEAR( greater ) > GET_LOG_YEAR( lesser ) ) {
+		res = true;
+	} else if ( GET_LOG_YEAR( greater ) == GET_LOG_YEAR( lesser ) ) {
+		if ( GET_LOG_MONTH( greater ) > GET_LOG_MONTH( lesser ) ) {
+			res = true;
+		} else if ( GET_LOG_MONTH( greater ) == GET_LOG_MONTH( lesser ) ) {
+			if ( GET_LOG_DAY( greater ) > GET_LOG_DAY( lesser ) ) {
+				res = true;
+			} else if ( GET_LOG_DAY( greater ) == GET_LOG_DAY( lesser ) ) {
+				if ( GET_LOG_HOUR( greater ) > GET_LOG_HOUR( lesser ) ) {
+					res = true;
+				} else if ( GET_LOG_HOUR( greater ) == GET_LOG_HOUR( lesser ) ) {
+					if ( GET_LOG_MIN( greater ) > GET_LOG_MIN( lesser ) ) {
+						res = true;
+					} else if ( GET_LOG_MIN( greater ) == GET_LOG_MIN( lesser ) ) {
+						if ( GET_LOG_SEC( greater ) > GET_LOG_SEC( lesser ) ) {
+							res = true;
+						}
+					}
+				}
+			}
+		}
+	}
+	return res;
+}
 /*----------------------------------------------------------------------------*/
 function bitVal ( n, reg ) {
   return ( reg.value & reg.bit[n].mask ) >> reg.bit[n].shift;
@@ -564,32 +591,28 @@ function LogRecord ( type, action, time ) {
   this.action = action;
   this.time   = time;
 }
+/*----------------------------------------------------------------------------*/
 function sortingLog () {
-  let buffer   = [];
-  let lastData = logArray[0].time;
-  let pointer  = 0;
-  if ( lastData != 0 ) {
-    for ( var i=1; i<logArray.length; i++ ) {
-      if ( ( lastData <= logArray[i].time ) && ( logArray[i].time != 0 ) ) {
-        pointer  = i;
-        lastData = logArray[i].time;
-      }
-    }
-    for ( var i=pointer; i>=0; i-- ) {
-      buffer.push( logArray[i] );
-    }
-
-    if ( pointer < ( logArray.length - 1 ) ) {
-      if ( logArray[pointer + 1].data != 0 ) {
-        for ( var i=(logArray.length - 1); i>pointer; i-- ) {
-          buffer.push( logArray[i] );
-        }
-      }
-    }
-    logArray = buffer;
-  }
+	let buffer  = [];
+	let sorter  = logArray;
+	let current = sorter[0];
+	let pointer = 0;
+	while ( buffer.length < logArray.length ) {
+		sorter.forEach( function( record, i ) {
+			if ( compareTime( current.time, record.time ) == true ) {
+				current = record;
+				pointer = i;
+			}
+		});
+		buffer.push( current );
+		sorter.splice( pointer, 1 );
+		current = sorter[0];
+		pointer = 0
+	}
+  logArray = buffer;
   return;
 }
+/*----------------------------------------------------------------------------*/
 function getLogType ( type ) {
   let res = "";
   let adr = 0;
@@ -635,7 +658,6 @@ function getLogType ( type ) {
 function redrawLogTable () {
   var table = document.getElementById( 'log-body' );
   var j     = 0;
-  var sell;
   while ( table.rows[0] ) {
     table.deleteRow(0);
   }
