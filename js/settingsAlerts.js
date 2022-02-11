@@ -152,14 +152,17 @@ function checkTimers () {
     input.addEventListener( 'change', ( function() {
       var j = i;
       return function() {
-        checkDO( self.targets[j] );
+        if ( document.getElementById( "sinput-"   + self.names[j] ).value != 0 ){
+          checkDO( self.targets[j] );
+        }
       }
     })());
     slider.noUiSlider.on( 'end', ( function() {
       var j = i;
       return function() {
-        checkDO( self.targets[j] );
-        console.log( self.targets[j] );
+        if ( document.getElementById( "s-slider-" + self.names[j] ).noUiSlider.get() != 0 ) {
+          checkDO( self.targets[j] );
+        }
       }
     })());
   }

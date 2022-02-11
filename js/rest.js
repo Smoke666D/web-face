@@ -1458,12 +1458,15 @@ function copyDataReg ( data ) {
 }
 /*----------------------------------------------------------------------------*/
 function resetSettings () {
-	for ( var i=0; i<dataReg.length; i++ ) {
-		dataReg[i].value = dataReg[i].default;
+	let isReset = confirm( "Сбросить настройки?" );
+	if ( isReset == true ) {
+	  for ( var i=0; i<dataReg.length; i++ ) {
+		  dataReg[i].value = dataReg[i].default;
+	  }
+	  updateInterface();
+    declareChartList();
+	  let alert = new Alert( "alert-success", okIco, "Настройки сброшены до заводских" );
 	}
-	updateInterface();
-  declareChartList();
-	let alert = new Alert( "alert-success", okIco, "Настройки сброшены до заводских" );
 	return;
 }
 /*----------------------------------------------------------------------------*/
