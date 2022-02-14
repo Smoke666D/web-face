@@ -24,7 +24,8 @@ const usbHandler = {
   "error"        : 2,
   "continue"     : 3,
   "unauthorized" : 4,
-  "forbidden"    : 5 };
+  "forbidden"    : 5,
+  "autoMode"     : 6 };
 const usbInit = {
   "fail" : 0,
   "done" : 1 }
@@ -139,6 +140,8 @@ function InputMessageArray () {
         result = usbHandler.forbidden;
       } else if ( message.status == msgSTAT.USB_STAT_UNAUTHORIZED ) {
         result = usbHandler.unauthorized;
+      } else if ( message.status == msgSTAT.USB_AUTO_MODE ) {
+        result = usbHandler.autoMode;
       }
     }
     return result;
@@ -294,6 +297,8 @@ function USBtransport () {
           result = usbHandler.forbidden;
         } else if ( response.status == msgSTAT.USB_STAT_UNAUTHORIZED ) {
           result = usbHandler.unauthorized;
+        } else if ( response.status == msgSTAT.USB_AUTO_MODE ) {
+          result = usbHandler.autoMode;
         }
         if ( alert != undefined ) {
           if ( ( alert != null ) || ( alert != undefined ) ) {
@@ -346,7 +351,7 @@ function USBtransport () {
     }
     return res;
   }
-  this.initEvents  = function ( inCallback, outCallback, errorCallback, unauthorizedCallback, forbiddenCallback, callback ) {
+  this.initEvents  = function ( inCallback, outCallback, errorCallback, unauthorizedCallback, forbiddenCallback, autoModeCallback, callback ) {
     device.on( "data", function( data ) {
       handle = handler( data );
       switch ( handle ) {
@@ -369,6 +374,10 @@ function USBtransport () {
         case usbHandler.unauthorized:
           status = usbStat.wait;
           unauthorizedCallback();
+          break;
+        case usbHandler.autoMode:
+          status = usbStat.wait;
+          autoModeCallback();
           break;
         case usbHandler.error:
           status = usbStat.wait;
@@ -675,12 +684,12 @@ function EnerganController () {
     return;
   }
   /*---------------------------------------------*/
-  this.init              = function ( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback ) {
+  this.init              = function ( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback, automodeCallback ) {
     var result = usbInit.fail;
     var handle = usbHandler.finish;
     transport  = new USBtransport();
     transport.scan( function () {
-      transport.initEvents( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback,  function() {
+      transport.initEvents( inCallback, outCallback, errorCalback, unauthorizedCallback, forbiddenCallback, automodeCallback, function() {
         result    = usbInit.done;
         try {
           let alert = new Alert( "alert-success", alerts.okIco, "Контроллер подключен по USB" );

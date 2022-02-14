@@ -200,6 +200,9 @@ function connect () {
         /* Forbidden callback*/
         }, function() {
           let alert = new Alert( "alert-warning", alerts.triIco, "Установка не остановлена. Доступ запрещен" );
+        /* autoModeCallback */
+        }, function() {
+          let alert = new Alert( "alert-warning", alerts.triIco, "Контроллер в авто режиме. Запись настроек запрещена" );
         /* dashCallback */
         });
       if ( res == 1 ) {
