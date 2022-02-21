@@ -261,7 +261,7 @@ function USBMessage ( buffer ) {
         self.status = msgSTAT.USB_INTERNAL;
         break;
       case msgSTAT.USB_AUTO_MODE:
-        self.status = msgSTAT.USB_INTERNAL;
+        self.status = msgSTAT.USB_AUTO_MODE;
         break;
       default:
         self.status = msgSTAT.USB_BAD_REQ_STAT;
