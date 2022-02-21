@@ -23,9 +23,6 @@ function setSuccessConnection () {
 		document.getElementById( 'refreshMeasure-button' ).disabled        = false;
 		document.getElementById( 'measureSave-button' ).disabled           = false;
 		document.getElementById( 'measureErase-button' ).disabled          = false;
-    if ( connectionType == 'usb' ){
-      document.getElementById( 'flash-file' ).disabled = false;
-    }
 	}
 	connetStatus = 1;
 	return;

@@ -615,14 +615,10 @@ function EnerganController () {
     msg = new USBMessage( [] )
     msg.makeTimeRequest();
     transport.addRequest( msg );
-    /*-------- Memory size ----------*/
-    msg = new USBMessage( [] );
-    msg.makeMemorySizeRequest();
-    transport.addRequest( msg );
     /*----- Measurement Length ------*/
-    msg = new USBMessage( [] );
-    msg.makeMeasurementLengthRequest();
-    transport.addRequest( msg );
+    //msg = new USBMessage( [] );
+    //msg.makeMeasurementLengthRequest();
+    //transport.addRequest( msg );
     /*-------------------------------*/
     callback();
     return;

@@ -15,17 +15,23 @@ var   measurement;
 var   freeDataArray   = [];
 var   freeDataValue   = [];
 var   freeDataNames   = [
-  "engineWorkTimeData",
-  "engineWorkMinutesData",
-  "engineStartsNumberData",
-	"maintenanceAlarmOilTimeLeft",
-	"maintenanceAlarmAirTimeLeft",
-	"maintenanceAlarmFuelTimeLeft",
-  "powerReactiveUsage",
-  "powerActiveUsage",
-  "powerFullUsage",
-  "fuelUsageData",
-  "fuelRateData"];
+  "engineWorkTimeData",           /*  0 */
+  "engineWorkMinutesData",        /*  1 */
+  "engineStartsNumberData",       /*  2 */
+	"maintenanceAlarmOilTimeLeft",  /*  3 */
+	"maintenanceAlarmAirTimeLeft",  /*  4 */
+	"maintenanceAlarmFuelTimeLeft", /*  5 */
+  "powerReactiveUsage",           /*  6 */
+  "powerActiveUsage",             /*  7 */
+  "powerFullUsage",               /*  8 */
+  "fuelUsageData",                /*  9 */
+  "fuelRateData",                 /* 10 */
+	"fuelAverageSizeData",          /* 11 */
+	"sdSizeLowData",                /* 12 */
+	"sdSizeHightData",              /* 13 */
+	"sdFreeLowData",                /* 14 */
+	"sdFreeHight",                  /* 15 */
+];
 var   logArray             = [];
 const logMaxSize           = 255;
 const userTypeA = 39;
