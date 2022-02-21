@@ -7,6 +7,7 @@ const dashUnitType = {
   "discrete" : 4,
   "logic"    : 5,
   "free"     : 6,
+  "mode"     : 7
 }
 const deviceStatusMask = 0x000F;
 const timeMask         = 0xFFF0;
@@ -18,6 +19,10 @@ const logicDic = {
 const discreteDic = {
   "on"  : '✓',
   "off" : '✕',
+}
+const modeDic = {
+  "on"  : "Авто",
+  "off" : "Ручной"
 }
 const deviceStatus = {
   "idle"           : 0,
@@ -257,6 +262,7 @@ const dashboardNames = [
   { name : 'value-dib',                type : dashUnitType.discrete, adr : 38,           shift : 1, },
   { name : 'value-dic',                type : dashUnitType.discrete, adr : 38,           shift : 2, },
   { name : 'value-did',                type : dashUnitType.discrete, adr : 38,           shift : 3, },
+  { name : 'value-mode',               type : dashUnitType.mode,     adr : 40,           shift : 6, }, 
 ];
 /*----------------------------------------------------------------------------*/
 function DashUnit ( ) {
@@ -321,6 +327,13 @@ function DashUnit ( ) {
     }
     return res;
   }
+  function modeCallBack ( adr, shift ) {
+    let res = modeDic.off;
+    if ( outputReg[adr].value & ( 1 << shift ) ) {
+      res = modeDic.on;
+    }
+    return res;
+  }
   function logicCallBack ( adr, shift ) {
     let res = logicDic.off;
     if ( outputReg[adr].value & ( 1 << shift ) ) {
@@ -352,6 +365,8 @@ function DashUnit ( ) {
       case dashUnitType.logic:
         res = logicCallBack( output.adr, output.shift );
         break;
+      case dashUnitType.mode:
+        res = modeCallBack( output.adr, output.shift )
     }
     return res;
   }

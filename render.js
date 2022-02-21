@@ -33,8 +33,6 @@ document.getElementById("close-btn").addEventListener("click", function (e) {
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
-//slet controller = new usb.EnerganController();
-
 function parseConfigFromMsg( msg ){
   console.log( msg );
   return;
@@ -106,15 +104,6 @@ function connect () {
                   msg.addLong( buffer[i].buffer[j] );
                 }
                 if ( msg != null ) {
-                  /*
-                  if ( msg.data.length >= msg.length ) {
-                    out = msg.parse( dataReg );
-                    if ( out[0] == 2 ) {
-                      charts.push( out[1] );
-                      out = [];
-                    }
-                  }
-                  */
                 }
               }
             } else {
@@ -210,6 +199,9 @@ function connect () {
         /* Forbidden callback*/
         }, function() {
           let alert = new Alert( "alert-warning", alerts.triIco, "Установка не остановлена. Доступ запрещен" );
+        /* autoModeCallback */
+        }, function() {
+          let alert = new Alert( "alert-warning", alerts.triIco, "Контроллер в авто режиме. Запись настроек запрещена" );
         /* dashCallback */
         });
       if ( res == 1 ) {

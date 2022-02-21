@@ -751,7 +751,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
-   "bitMapSize": 6,
+   "bitMapSize": 7,
    "bit": [
        {
            "name": "statusAlarm",
@@ -789,6 +789,12 @@ var outputReg = [
            "max": 1,
            "min": 0,
            "shift": 5,
+       },{
+           "name": "statusAutoMode",
+           "mask": 64,
+           "max": 1,
+           "min": 0,
+           "shift": 6,
        },
    ]
 },{

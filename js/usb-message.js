@@ -43,6 +43,7 @@ const msgSTAT = {
   "USB_STAT_UNAUTHORIZED" : 4,
   "USB_FORBIDDEN"         : 5,
   "USB_INTERNAL"          : 6,
+  "USB_AUTO_MODE"         : 7
 };
 const msgType = {
   "config"         : 1,
@@ -258,6 +259,9 @@ function USBMessage ( buffer ) {
         break;
       case msgSTAT.USB_INTERNAL:
         self.status = msgSTAT.USB_INTERNAL;
+        break;
+      case msgSTAT.USB_AUTO_MODE:
+        self.status = msgSTAT.USB_AUTO_MODE;
         break;
       default:
         self.status = msgSTAT.USB_BAD_REQ_STAT;

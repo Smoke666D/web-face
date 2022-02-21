@@ -38,58 +38,65 @@ const logUserTypesDictionary = [
   " Пользовательский C",
   " Пользовательский D",
 ];
-const logTypesDictionary   = [
-  "Нет",
-  "Внешная аварийная остановка",
-  "Ошибка пуска двигателя",
-  "Ошибка остановки двигателя",
-  "Низкое давление масла",
-  "Ошибка датчика давления масла",
-  "Высокая температура ОЖ",
-  "Ошибка датчика температуры ОЖ",
-  "Низкий уровень топлива",
-  "Высокий уровень топлива",
-  "Ошибка датчика топлива",
-  "Высокие обороты",
-  "Низкие обороты",
-  "Ошибка датчика оборотов",
-  "Ошибка зарядного устройства",
-  "Низкое напряжение АКБ",
-  "Высокое напряжение АКБ",
-  "Низкое напряжение генератора",
-  "Высокое напряжение генератора",
-  "Низкая частота генератора",
-  "Высокая частота генератора",
-  "Перекос фаз",
-  "Перегрузка по току",
-  "Перегрузка по мощности",
-  "Короткое замыкание",
-  "Низкое напряжение сети",
-  "Высокое напряжение сети",
-  "Низкая частота сети",
-  "Высокая частота сети",
-  "ТО масло",
-  "ТО воздух",
-  "ТО топливо",
-  "Двигатель запущен",
-  "Двигатель остановлен",
-  "Сеть востановлена",
-  "Ошибка сети",
-  "Прерванный старт",
-  "Прерванный стоп"
+const logTypesDictionary = [
+  "Нет",                               /* 00 */
+  "Внешная аварийная остановка",       /* 01 */
+  "Ошибка пуска двигателя",            /* 02 */
+  "Ошибка остановки двигателя",        /* 03 */
+  "Низкое давление масла",             /* 04 */
+  "Ошибка датчика давления масла",     /* 05 */
+  "Высокая температура ОЖ",            /* 06 */
+  "Ошибка датчика температуры ОЖ",     /* 07 */
+  "Низкий уровень топлива",            /* 08 */
+  "Высокий уровень топлива",           /* 09 */
+  "Ошибка датчика топлива",            /* 10 */
+  "Высокие обороты",                   /* 11 */
+  "Низкие обороты",                    /* 12 */
+  "Ошибка датчика оборотов",           /* 13 */
+  "Ошибка зарядного устройства",       /* 14 */
+  "Низкое напряжение АКБ",             /* 15 */
+  "Высокое напряжение АКБ",            /* 16 */
+  "Низкое напряжение генератора",      /* 17 */
+  "Высокое напряжение генератора",     /* 18 */
+  "Низкая частота генератора",         /* 19 */
+  "Высокая частота генератора",        /* 20 */
+  "Перекос фаз",                       /* 21 */
+  "Перегрузка по току",                /* 22 */
+  "Перегрузка по мощности",            /* 23 */
+  "Короткое замыкание",                /* 24 */
+  "Низкое напряжение сети",            /* 25 */
+  "Высокое напряжение сети",           /* 26 */
+  "Низкая частота сети",               /* 27 */
+  "Высокая частота сети",              /* 28 */
+  "ТО масло",                          /* 29 */
+  "ТО воздух",                         /* 30 */
+  "ТО топливо",                        /* 31 */
+  "Двигатель запущен",                 /* 32 */
+  "Двигатель остановлен",              /* 33 */
+  "Сеть востановлена",                 /* 34 */
+  "Ошибка сети",                       /* 35 */
+  "Прерванный старт",                  /* 36 */
+  "Прерванная остановка",              /* 37 */
+	"Ошибка общего провода датчиков",    /* 38 */
+	"Пользователькое событие А",         /* 39 */
+  "Пользователькое событие B",         /* 40 */
+  "Пользователькое событие C",         /* 41 */
+  "Пользователькое событие D",         /* 42 */
+  "Ошибка чередования фаз сети",       /* 43 */
+  "Ошибка чередования фаз генератора", /* 44 */
+  "Утечка топлива"                     /* 45 */
 ];
 const logActionsDictionary = [
-  "Нет",
-  "Предупреждение",
-  "Аварийная остановка",
-  "Отключение",
-  "Плановая остановка",
-  "Остановка до устранения ошибки",
-  "Запрет следующего старта",
-  "Автостарт",
-  "Автостоп"
-];
-const ethernetLoopTimeout  = 1300;
+  "Нет",                            /* 0 */
+  "Предупреждение",                 /* 1 */
+  "Аварийная остановка",            /* 2 */
+  "Отключение",                     /* 3 */
+  "Плановая остановка",             /* 4 */
+  "Остановка до устранения ошибки", /* 5 */
+  "Запрет следующего старта",       /* 6 */
+  "Автостарт",                      /* 7 */
+  "Автостоп"                        /* 8 */
+]; 
 /*----------------------------------------------------------------------------*/
 const HTTP_TIMEOUT = 5000;
 /*----------------------------------------------------------------------------*/
@@ -141,6 +148,33 @@ function  SET_LOG_DATE ( day, month, year, hour, min, sec ) {
          ( hour  << LOG_HOUR_SHIFT  ) |
          ( min   << LOG_MIN_SHIFT   ) |
          ( sec   << LOG_SEC_SHIFT   );
+}
+function compareTime ( lesser, greater ) {
+	let res = false;
+	if ( GET_LOG_YEAR( greater ) > GET_LOG_YEAR( lesser ) ) {
+		res = true;
+	} else if ( GET_LOG_YEAR( greater ) == GET_LOG_YEAR( lesser ) ) {
+		if ( GET_LOG_MONTH( greater ) > GET_LOG_MONTH( lesser ) ) {
+			res = true;
+		} else if ( GET_LOG_MONTH( greater ) == GET_LOG_MONTH( lesser ) ) {
+			if ( GET_LOG_DAY( greater ) > GET_LOG_DAY( lesser ) ) {
+				res = true;
+			} else if ( GET_LOG_DAY( greater ) == GET_LOG_DAY( lesser ) ) {
+				if ( GET_LOG_HOUR( greater ) > GET_LOG_HOUR( lesser ) ) {
+					res = true;
+				} else if ( GET_LOG_HOUR( greater ) == GET_LOG_HOUR( lesser ) ) {
+					if ( GET_LOG_MIN( greater ) > GET_LOG_MIN( lesser ) ) {
+						res = true;
+					} else if ( GET_LOG_MIN( greater ) == GET_LOG_MIN( lesser ) ) {
+						if ( GET_LOG_SEC( greater ) > GET_LOG_SEC( lesser ) ) {
+							res = true;
+						}
+					}
+				}
+			}
+		}
+	}
+	return res;
 }
 /*----------------------------------------------------------------------------*/
 function bitVal ( n, reg ) {
@@ -566,36 +600,32 @@ function LogRecord ( type, action, time ) {
   this.action = action;
   this.time   = time;
 }
+/*----------------------------------------------------------------------------*/
 function sortingLog () {
-  let buffer   = [];
-  let lastData = logArray[0].time;
-  let pointer  = 0;
-  if ( lastData != 0 ) {
-    for ( var i=1; i<logArray.length; i++ ) {
-      if ( ( lastData <= logArray[i].time ) && ( logArray[i].time != 0 ) ) {
-        pointer  = i;
-        lastData = logArray[i].time;
-      }
-    }
-    for ( var i=pointer; i>=0; i-- ) {
-      buffer.push( logArray[i] );
-    }
-
-    if ( pointer < ( logArray.length - 1 ) ) {
-      if ( logArray[pointer + 1].data != 0 ) {
-        for ( var i=(logArray.length - 1); i>pointer; i-- ) {
-          buffer.push( logArray[i] );
-        }
-      }
-    }
-    logArray = buffer;
-  }
+	let buffer  = [];
+	let sorter  = logArray;
+	let current = sorter[0];
+	let pointer = 0;
+	while ( buffer.length < logArray.length ) {
+		sorter.forEach( function( record, i ) {
+			if ( compareTime( current.time, record.time ) == true ) {
+				current = record;
+				pointer = i;
+			}
+		});
+		buffer.push( current );
+		sorter.splice( pointer, 1 );
+		current = sorter[0];
+		pointer = 0
+	}
+  logArray = buffer;
   return;
 }
+/*----------------------------------------------------------------------------*/
 function getLogType ( type ) {
   let res = "";
   let adr = 0;
-  if ( type < userTypeA ) {
+  if ( ( type < userTypeA ) || ( type > userTypeD ) ) {
     res = logTypesDictionary[type];
   } else {
     switch ( type ) {
@@ -637,7 +667,6 @@ function getLogType ( type ) {
 function redrawLogTable () {
   var table = document.getElementById( 'log-body' );
   var j     = 0;
-  var sell;
   while ( table.rows[0] ) {
     table.deleteRow(0);
   }
