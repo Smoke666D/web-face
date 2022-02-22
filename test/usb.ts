@@ -129,24 +129,6 @@ describe( 'USB message test', function () {
     }
     return;
   });
-	it ( 'make memory size request', function () {
-		let message = new USBMessage( [] );
-		message.makeMemorySizeRequest();
-		assert.equal( message.status,        1,    'Wrong status'  );
-    assert.equal( message.command,       0x11, 'Wrong command' );
-    assert.equal( message.adr,           0,    'Wrong address' );
-    assert.equal( message.length,        0,    'Wrong length'  );
-    assert.equal( message.buffer.length, 65,   'Wrong buffer size' );
-    assert.equal( message.buffer[0],     0x01, 'Wrong status byte' );
-    assert.equal( message.buffer[1],     0x11, 'Wrong command byte' );
-    assert.equal( message.buffer[2],     0x01, 'Wrong status byte' );
-    assert.equal( message.buffer[3],     0x00, 'Wrong second address byte' );
-    assert.equal( message.buffer[4],     0x00, 'Wrong first address byte' );
-    for ( var i=5; i<message.buffer.length; i++ ) {
-      assert.equal( message.buffer[i], 0, 'Wrong buffer data at ' + i );
-    }
-		return;
-	});
 	it ( 'make measurement length request', function () {
 		let message = new USBMessage( [] );
 		message.makeMeasurementLengthRequest();

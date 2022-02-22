@@ -153,7 +153,6 @@
   "measurement": "Measurements",
   "recordInterval": "Recording interval",
   "recordIntervalSelect": "Recording interval selecting",
-  "recordNumber": "Number of recordings",
   "measurLength": "Measurement duration",
   "recordActive": "Activate measurement recording",
   "firmwareUpdate": "Update firmware",

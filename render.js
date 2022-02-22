@@ -145,9 +145,6 @@ function connect () {
                 case msgType.log:
                   logArray[buffer[i].adr] = out[1];
                   break;
-                case msgType.memorySize:
-                  memorySize = out[1];
-                  break;
                 case msgType.measurement:
                   measureBuffer.push( out[1] );
                   break;

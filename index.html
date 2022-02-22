@@ -3900,6 +3900,22 @@
           </div>
         </div>
         <br>
+        <h5>Выбор интервала записей</h5>
+        <div class="row">
+          <div class="col-sm-2 pos-name">
+            <label>Интервал записи</label>
+          </div>
+          <div class="col-sm-auto">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-recordInterval" step="1">
+          </div>
+          <div class="col-dimension">
+            <label class="pos-unit" id="label-recordInterval">сек</label>
+          </div>
+          <div class="col-sm col-slider">
+            <div class="s-slider" id="s-slider-recordInterval"></div>
+          </div>
+        </div>
+        <br>
         <h5>Выбор параметров для записи</h5>
         <div class="row unselect">
           <div class="col-sm-6 pos-name">
@@ -4043,44 +4059,6 @@
               <span class="slider"></span>
             </label>
             <label class="form-check-label">Напряжение аккумулятора</label>
-          </div>
-        </div>
-        <br>
-        <h5>Выбор интервала записей</h5>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Интервал записи</label>
-          </div>
-          <div class="col-sm-auto">
-            <input type="number" onkeypress="return event.charCode >= 48" class="form-control s-sinput" id="sinput-recordInterval" step="1">
-          </div>
-          <div class="col-dimension">
-            <label class="pos-unit" id="label-recordInterval">сек</label>
-          </div>
-          <div class="col-sm col-slider">
-            <div class="s-slider" id="s-slider-recordInterval"></div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Количество записей</label>
-          </div>
-          <div class="col-sm-1 pos-info">
-            <label id="recordNumber">0</label>
-          </div>
-          <div class="col-sm-1 pos-info">
-            <label>шт</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 pos-name">
-            <label>Длительность измерений</label>
-          </div>
-          <div class="col-sm-1 pos-info">
-            <label id="recordDuration">0</label>
-          </div>
-          <div class="col-sm-1 pos-info">
-            <label id="recordDurationUnits">сек</label>
           </div>
         </div>
       </div>

@@ -153,7 +153,6 @@
 152,measurement,Измерения,Measurements
 153,recordInterval,Интервал записи,Recording interval
 154,recordIntervalSelect,Выбор интервала записей,Recording interval selecting
-155,recordNumber,Количество записей,Number of recordings
 156,measurLength,Длительность измерений,Measurement duration
 157,recordActive,Активировать запись измерений,Activate measurement recording
 158,firmwareUpdate,Обновить прошивку,Update firmware

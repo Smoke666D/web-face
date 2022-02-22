@@ -404,9 +404,6 @@ function USBMessage ( buffer ) {
     let record = new LogRecord( type, action, time );
     return record;
   }
-  function parseMemorySize () {
-    return byteToUint32( self.data[0], self.data[1], self.data[2], self.data[3] );
-  }
   function parseMeasurement ( length ) {
     let measure = [];
     let size    = Math.trunc( length / 2 );
@@ -472,10 +469,6 @@ function USBMessage ( buffer ) {
   }
   this.makeLogRequest               = function ( adr ) {
     makeRequest( msgCMD.USB_GET_LOG, adr );
-    return;
-  }
-  this.makeMemorySizeRequest        = function () {
-    makeRequest( msgCMD.USB_GET_MEMORY_SIZE, 0 );
     return;
   }
   this.makeMeasurementRequest       = function ( adr ) {
@@ -650,10 +643,6 @@ function USBMessage ( buffer ) {
       case msgCMD.USB_GET_LOG:
         output = parseLog();
         type   = msgType.log;
-        break;
-      case msgCMD.USB_GET_MEMORY_SIZE:
-        output = parseMemorySize();
-        type   = msgType.memorySize;
         break;
       case msgCMD.USB_GET_MEASUREMENT:
         output = parseMeasurement( self.length );
