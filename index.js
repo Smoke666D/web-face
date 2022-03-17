@@ -19,7 +19,6 @@ function createWindow () {
     mainWindow = null;
   });
 }
-
 app.whenReady().then( function(){
   createWindow();
 });
