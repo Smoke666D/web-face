@@ -50,8 +50,6 @@ function resetSuccessConnection () {
 		document.getElementById( 'refreshMeasure-button' ).disabled        = true;
 		document.getElementById( 'measureSave-button' ).disabled           = true;
 		document.getElementById( 'measureErase-button' ).disabled          = true;
-		document.getElementById( 'flash-load' ).disabled                   = true;
-		document.getElementById( 'flash-file' ).disabled                   = true;
 	}
 	connetStatus = 0;
 	return;

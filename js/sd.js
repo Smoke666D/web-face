@@ -19,7 +19,6 @@ function SD () {
   this.update = function ( sizeLow, sizeHight, usageLow, usageHight ) {
     let size  = mergeSize( sizeLow, sizeHight );
     let usage = size - mergeSize( usageLow, usageHight );
-    console.log( size + " " + usage)
     /* Data come in Kb */
     let dimSize  = 'Кб';
     let dimUsage = 'Кб';

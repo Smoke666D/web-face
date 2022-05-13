@@ -317,6 +317,7 @@ function USBtransport () {
     result = usbHandler.error;
     message.init( function () {
       result = input.process( message );
+      console.log( 'adr: ' + message.adr + ' length: ' + message.length + ' type: ' + message.command )
       if ( ( result == usbHandler.finish ) && ( input.isEnd() == usbHandler.continue ) ) {
         if ( alert != null ) {
           alert.setProgressBar( input.getProgress() );

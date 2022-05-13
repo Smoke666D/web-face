@@ -157,7 +157,6 @@ function connect () {
             }
           });
         }
-        console.log( freeDataValue[12] + ' ' + freeDataValue[13] + ' ' + freeDataValue[14] + ' ' + freeDataValue[15] )
         sdCard.update( freeDataValue[12], freeDataValue[13], freeDataValue[14], freeDataValue[15] );
         if ( charts.length == 3 ) {
           loadCharts( charts );
