@@ -29,7 +29,7 @@ const usbHandler = {
   "autoMode"     : 6 };
 const usbInit = {
   "fail" : 0,
-  "done" : 1 }
+  "done" : 1 };
 /*----------------------------------------------------------------------------*/
 function MessageUnit ( data, adr ) {
   this.data = data;
@@ -310,14 +310,10 @@ function USBtransport () {
     });
     return result;
   }
-
-  let counter = 0;
-
   function readHandler ( message ) {
     result = usbHandler.error;
     message.init( function () {
       result = input.process( message );
-      console.log( 'adr: ' + message.adr + ' length: ' + message.length + ' type: ' + message.command )
       if ( ( result == usbHandler.finish ) && ( input.isEnd() == usbHandler.continue ) ) {
         if ( alert != null ) {
           alert.setProgressBar( input.getProgress() );

@@ -6,8 +6,7 @@ const CHART_DOTS_SIZE = require('../js/sensortable').CHART_DOTS_SIZE;
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
-const msgSIZE         = 17;
-const chartUnitLength = 18;
+const msgSIZE = 14;
 const msgCMD  = {
   "USB_GET_CONFIG_CMD"         : 1,
   "USB_PUT_CONFIG_CMD"         : 2,
@@ -64,12 +63,9 @@ const msgType = {
 const USB_DIR_BYTE  = 0;
 const USB_CMD_BYTE  = 1;
 const USB_STAT_BYTE = 2;
-const USB_ADR1_BYTE = 3;
-const USB_ADR0_BYTE = 4;
-const USB_LEN2_BYTE = 5;
-const USB_LEN1_BYTE = 6;
-const USB_LEN0_BYTE = 7;
-const USB_DATA_BYTE = 8;
+const USB_ADR0_BYTE = 3;
+const USB_LEN0_BYTE = 4;
+const USB_DATA_BYTE = 5;
 const USB_DATA_SIZE = msgSIZE - USB_DATA_BYTE;
 const USB_CHART_HEADER_LENGTH = 54;
 /*----------------------------------------------------------------------------*/
@@ -143,11 +139,8 @@ function USBMessage ( buffer ) {
     buffer[USB_DIR_BYTE]  = 0x01;          /* 1st channel for sending via USB */
     buffer[USB_CMD_BYTE]  = self.command;
     buffer[USB_STAT_BYTE] = self.status;
-    buffer[USB_ADR0_BYTE] =   self.adr & 0x00FF;
-    buffer[USB_ADR1_BYTE] = ( self.adr & 0xFF00 ) >> 8;
-    buffer[USB_LEN0_BYTE] = ( self.length & 0x0000FF );
-    buffer[USB_LEN1_BYTE] = ( self.length & 0x00FF00 ) >> 8;
-    buffer[USB_LEN2_BYTE] = ( self.length & 0xFF0000 ) >> 16;
+    buffer[USB_ADR0_BYTE] = self.adr & 0xFF;
+    buffer[USB_LEN0_BYTE] = self.length & 0xFF;
     self.data = [];
     callback();
     return;
@@ -270,11 +263,11 @@ function USBMessage ( buffer ) {
     return;
   }
   function parsingAddressByte () {
-    self.adr = byteToUint16( self.buffer[USB_ADR0_BYTE], self.buffer[USB_ADR1_BYTE] );
+    self.adr = self.buffer[USB_ADR0_BYTE];
     return;
   }
   function parsingLengthByte () {
-    self.length = byteToUint24( self.buffer[USB_LEN0_BYTE], self.buffer[USB_LEN1_BYTE], self.buffer[USB_LEN2_BYTE] );
+    self.length = self.buffer[USB_LEN0_BYTE];
     return;
   }
   function parsingDataBytes () {
@@ -286,7 +279,7 @@ function USBMessage ( buffer ) {
     }
   }
   function setupLength ( buffer ) {
-    uint24ToByte( self.length, buffer[USB_LEN0_BYTE], buffer[USB_LEN1_BYTE], buffer[USB_LEN2_BYTE] );
+    buffer[USB_LEN0_BYTE] = self.length;
     return;
   }
   function finishMesageWithZero ( buffer ) {
@@ -662,7 +655,6 @@ function USBMessage ( buffer ) {
 module.exports.USBMessage              = USBMessage;
 module.exports.msgCMD                  = msgCMD;
 module.exports.msgSTAT                 = msgSTAT;
-module.exports.msgSIZE                 = msgSIZE;
 module.exports.msgType                 = msgType;
 module.exports.USB_DATA_SIZE           = USB_DATA_SIZE;
 module.exports.USB_DATA_BYTE           = USB_DATA_BYTE;
