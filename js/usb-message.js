@@ -293,7 +293,10 @@ function USBMessage ( buffer ) {
     self.adr     = adr;
     self.length  = 0;
     self.data    = [];
-    self.buffer  = [ 0, 0, 0, 0, 0, 0, 0, 0];
+    self.buffer  = [];
+    for ( var i=0; i<USB_DATA_BYTE; i++ ) {
+      self.buffer.push( 0 );
+    }
     setup( self.buffer, function () {
       finishMesageWithZero( self.buffer );
     });
@@ -304,7 +307,10 @@ function USBMessage ( buffer ) {
     self.adr     = adr;
     self.length  = length;
     self.data    = [];
-    self.buffer  = [ 0, 0, 0, 0, 0, 0, 0, 0];
+    self.buffer  = [];
+    for ( var i=0; i<USB_DATA_BYTE; i++ ) {
+      self.buffer.push( 0 );
+    }
     setup( self.buffer, function () {
       for ( var i=0; i<data.length; i++ ) {
         self.data.push( data[i] );

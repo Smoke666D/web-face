@@ -1005,6 +1005,25 @@ function RTC () {
 	function makeTimeStr () {
 		return (self.hour < 10 ? "0" : "") + self.hour + ":" + (self.min < 10 ? "0" : "") + self.min;
 	}
+	function checkTime () {
+		let res = 0;
+		if ( ( self.sec < 60 )   && ( self.sec >= 0 ) &&
+		     ( self.min < 60 )   && ( self.min >= 0 ) &&
+				 ( self.hourc < 24 ) && ( self.hour >= 0 ) ) {
+			res = 1;
+		}
+		return res;
+	}
+	function checkDate () {
+		let res = 0;
+		if ( ( self.month <= 0x0C ) && ( self.month > 0 ) &&
+				 ( self.day < 32 ) && ( self.day >= 0 ) &&
+				 ( self.year >= 0 ) &&
+				 ( self.wday > 0 ) && ( self.wday <= 7 ) ) {
+			res = 1;
+		}
+		return res;
+	}
 	function isDateCorrect () {
 		var date = new Date();
 		if ( ( self.year  != date.getFullYear() - 2000 ) ||
@@ -1056,6 +1075,10 @@ function RTC () {
 		self.day   = parseInt( d.slice( 8, 10 ) );
 	}
 	this.update    = function () {
+		if ( ( checkTime() == 0 ) || ( checkDate() == 0 ) ) {
+			self.getSystemTime();
+			self.min++;
+		}
 		timeInput.value = makeTimeStr();
 		dateInput.value = makeDateStr();
 	}
