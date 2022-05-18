@@ -759,33 +759,28 @@ function dec2hexString( dec ) {
 /*----------------------------------------------------------------------------*/
 function updateVersions () {
 	var counter = 0;
-	var major   = 0;
-	var minor   = 0;
+
+	function writeVersion ( i, name ) {
+		let res = 0;
+		if ( dataReg[i].name == name ) {
+			let version = "";
+			for ( var j=0; j<dataReg[i].len; j++ )
+			{
+				version += dataReg[i].value[j];
+				if ( j != ( dataReg[i].len - 1 ) ) {
+					version += ".";
+				}
+			}
+			document.getElementById( name ).textContent = version;
+			res = 1;
+		}
+		return res;
+	}
+	
 	for ( var i=0; i<dataReg.length; i++ ) {
-		if ( dataReg[i].name == "versionController" ) {
-			version = "";
-			for ( var j=0; j<dataReg[i].len; j++ )
-			{
-				version += dataReg[i].value[j];
-				if ( j != ( dataReg[i].len - 1 ) ) {
-					version += ".";
-				}
-			}
-			document.getElementById( "versionController" ).textContent = version;
-			counter++;
-		}
-		if ( dataReg[i].name == "versionFirmware" ) {
-			version = "";
-			for ( var j=0; j<dataReg[i].len; j++ )
-			{
-				version += dataReg[i].value[j];
-				if ( j != ( dataReg[i].len - 1 ) ) {
-					version += ".";
-				}
-			}
-			document.getElementById( "versionFirmware" ).textContent = version;
-			counter++;
-		}
+		counter += writeVersion( i, "versionController" );
+		counter += writeVersion( i, "versionFirmware" );
+		counter += writeVersion( i, "versionBootloader" );
 		if ( dataReg[i].name == "serialNumber0" ) {
 			document.getElementById( "SerialNumber" ).textContent = "";
 			for ( var j=0; j<dataReg[i].len; j++ ) {
@@ -803,7 +798,7 @@ function updateVersions () {
 			}
 			counter++;
 		}
-		if ( counter == 3 ) {
+		if ( counter == 4 ) {
 			break;
 		}
 	}
