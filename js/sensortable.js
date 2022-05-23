@@ -510,7 +510,6 @@ function downloadSensorData () {
   return;
 }
 function uploadSensorData () {
-	var newCart;
 	if ( window.File && window.FileReader && window.FileList && window.Blob ) {
 		var input = document.createElement( "input" );
     input.setAttribute( "type", "file" );

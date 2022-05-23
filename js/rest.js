@@ -612,15 +612,22 @@ function sortingLog () {
 	let sorter  = logArray;
 	let current = sorter[0];
 	let pointer = 0;
+	
 	while ( buffer.length < logArray.length ) {
-		sorter.forEach( function( record, i ) {
-			if ( compareTime( current.time, record.time ) == true ) {
-				current = record;
+		for ( var i=1; i<sorter.length; i++ ) {
+			if ( compareTime( current.time, sorter[i].time ) == true ) {
+				current = sorter[i];
 				pointer = i;
 			}
-		});
+		};
 		buffer.push( current );
-		sorter.splice( pointer, 1 );
+		let rem = [];
+		for ( var i=0; i<sorter.length; i++ ) {
+			if ( i != pointer ) {
+				rem.push( sorter[i] );
+			}
+		}
+		sorter  = rem;
 		current = sorter[0];
 		pointer = 0
 	}
@@ -707,6 +714,37 @@ function redrawLogTable () {
     }
   }
   return;
+}
+function loadLogFromFile () {
+	if ( window.File && window.FileReader && window.FileList && window.Blob ) {
+		var input = document.createElement( "input" );
+    input.setAttribute( "type", "file" );
+		input.addEventListener( "change", function() {
+			file = input.files[0];
+			if ( file.type != "text/plain" ) {
+        let alert = new Alert( "alert-warning", triIco, "Выбран файл с неправильным расширением. Выберете TXT файл." );
+			} else {
+				let reader = new FileReader();
+        reader.readAsText( file );
+				reader.onload = function() {
+					let text = reader.result
+					if ( ( !text.startsWith( '[' ) ) && ( !text.endsWith( ']' ) ) ) {
+					  text = '[\n' + text + ']\n'; 
+					}
+					text = text.split( '}\n{' ).join( '},\n{' );
+					logArray = JSON.parse( text );
+					redrawLogTable();
+					try {
+						
+					} catch( e ) {
+            let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
+					}
+  			}
+			}
+		});
+		input.click();
+	}
+	return;
 }
 function saveLogToFile () {
   function SaveAsFile ( data, file, m ) {
