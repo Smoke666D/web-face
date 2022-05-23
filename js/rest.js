@@ -732,10 +732,9 @@ function loadLogFromFile () {
 					  text = '[\n' + text + ']\n'; 
 					}
 					text = text.split( '}\n{' ).join( '},\n{' );
-					logArray = JSON.parse( text );
-					redrawLogTable();
 					try {
-						
+						logArray = JSON.parse( text );
+						redrawLogTable();
 					} catch( e ) {
             let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
 					}
