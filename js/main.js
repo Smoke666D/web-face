@@ -826,7 +826,6 @@ document.addEventListener( "DOMContentLoaded", function( event ) {
 		document.getElementById( 'write-powerReactiveUsage' ).disabled     = true;
 		document.getElementById( 'controllerTimeSetup' ).disabled          = true;
 		document.getElementById( 'eraseLog-button' ).disabled              = true;
-		document.getElementById( 'saveLog-buton' ).disabled                = true;
 		document.getElementById( 'refreshMeasure-button' ).disabled        = true;
 		document.getElementById( 'measureSave-button' ).disabled           = true;
 		document.getElementById( 'measureErase-button' ).disabled          = true;

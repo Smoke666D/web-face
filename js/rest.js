@@ -759,16 +759,7 @@ function saveLogToFile () {
   var name = ( date.getFullYear() - 2000 ).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) +
              ( date.getMonth() + 1 ).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) +
              ( date.getDate() ).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-  var data = "№;Дата;Время;Тип;Действие\r\n";
-  for ( var i=0; i<logArray.length; i++ ) {
-    if ( logArray[i].time != 0 ) {
-      data += ( i + 1 ) + ";" +
-              GET_LOG_DAY( logArray[i].time ) + '.' + GET_LOG_MONTH( logArray[i].time ) + '.' + ( GET_LOG_YEAR( logArray[i].time ) + 2000 ) + ";" +
-              GET_LOG_HOUR( logArray[i].time ) + ':' + GET_LOG_MIN( logArray[i].time ) + ':' + GET_LOG_SEC( logArray[i].time ) + ";" +
-              logTypesDictionary[logArray[i].type] + ";" +
-              logActionsDictionary[logArray[i].action] + "\r\n";
-    }
-  }
+  var data = JSON.stringify( logArray );
 	SaveAsFile( data, ( name + "_log" + ".txt" ), "text/plain;charset=utf-8" );
   return;
 }

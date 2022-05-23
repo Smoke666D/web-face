@@ -19,7 +19,6 @@ function setSuccessConnection () {
 		document.getElementById( 'write-powerReactiveUsage' ).disabled     = false;
 		document.getElementById( 'controllerTimeSetup' ).disabled          = false;
 		document.getElementById( 'eraseLog-button' ).disabled              = false;
-		document.getElementById( 'saveLog-buton' ).disabled                = false;
 		document.getElementById( 'refreshMeasure-button' ).disabled        = false;
 		document.getElementById( 'measureSave-button' ).disabled           = false;
 		document.getElementById( 'measureErase-button' ).disabled          = false;
