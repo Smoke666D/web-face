@@ -727,7 +727,7 @@ function loadLogFromFile () {
 				let reader = new FileReader();
         reader.readAsText( file );
 				reader.onload = function() {
-					let text = reader.result
+					let text = reader.result;
 					if ( ( !text.startsWith( '[' ) ) && ( !text.endsWith( ']' ) ) ) {
 					  text = '[\n' + text + ']\n'; 
 					}

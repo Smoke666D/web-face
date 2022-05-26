@@ -12,6 +12,7 @@ var colorList = [
 var dataChart          = null;
 var measureChartStruct = null;
 var measureBuffer      = [];
+var measurements       = [];
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
@@ -264,25 +265,119 @@ function measureUpdate ( buffer, scales, lables ) {
   return;
 }
 /*----------------------------------------------------------------------------*/
-function measureSave () {
-  function SaveAsFile ( t, file, m ) {
-  	try {
-    	var blob = new Blob( [t], { type: m } );
-      saveAs( blob, file );
-    } catch( e ) {
-    	window.open( ( "data:" + m + "," + encodeURIComponent( t ) ), '_blank', '' );
+function MeasureRecord () {
+  var self = this;
+  var time = null;
+  var acc  = 0;
+  var data = [];
+  this.makeTime = function () {
+    time = new Date( ( GET_LOG_YEAR( acc ) + 2000 ),
+                     GET_LOG_MONTH( acc ),
+                     GET_LOG_DAY( acc ),
+                     GET_LOG_HOUR( acc ),
+                     GET_LOG_MIN( acc ),
+                     GET_LOG_SEC( acc ) );            
+    return;
+  }
+  this.add = function ( adr, input ) {
+    let buffer = parseInt( input ) & 0xFFFFFFFF;
+    if ( adr < outputReg.length ) {
+      data.push( ( buffer * Math.pow( 10, outputReg[adr].scale )).toFixed( Math.abs( outputReg[adr].scale ) ) );
+    } else if ( adr == outputReg.length ) {
+      acc |= ( ( buffer & 0xFFFF ) << 16 );
+    } else if ( adr == ( outputReg.length + 1 ) ) {
+      acc |= buffer & 0xFFFF;
+    } else {
+
     }
     return;
   }
-  let data = measureChartStruct.measure;
-  delete data.initDone;
-  delete data.max;
-  for ( var i=0; i<data.line.length; i++ ) {
-    delete data.line[i].initDone;
-    delete data.line[i].min;
-    delete data.line[i].max;
+  this.getTime = function () {        
+    return time;
   }
-	SaveAsFile( JSON.stringify( data ), "measurement.JSON", "text/plain;charset=utf-8" );
+  this.get = function ( n ) {
+    return( data[n] ); 
+  }
+  return;
+}
+function MeasureSet () {
+  var self     = this;
+  this.time    = null;
+  this.legend  = [];
+  this.records = [];
+  return;
+}
+/*----------------------------------------------------------------------------*/
+function measureRedraw () {
+  let n = document.getElementById( 'measureList' ).value;
+  measrement[n];
+  return;
+}
+/*----------------------------------------------------------------------------*/
+function parseMeasureLines ( lines, callback ) {
+  let output  = [];
+  let current = 0;
+  let legendLength = 0;
+  let error   = false;
+  for ( var i=0; i<lines.length; i++ ) {
+    if ( lines[i].startsWith( '//' ) ) {
+      output.push( new MeasureSet() );
+      lines[i] = lines[i].slice( 2 );
+      current  = output.length - 1;
+      let data = lines[i].split( '.' );
+      if ( data.length != 6 ) {
+        error = true;
+        break;
+      } else {
+        let sub = data[5].split( ' ' );
+        if ( sub.length >= 3 ) {
+          output[current].time = new Date( ( parseInt( data[0] ) + 2000 ), data[1], data[2], data[3], data[4], sub[0] );
+          if ( output[current].time == "Invalid Date" ) {
+            error = true;
+            break;
+          } else {
+            for ( var j=1; j<sub.length; j++ ) {
+              output[current].legend.push( parseInt( sub[j] ) );
+            }
+            legendLength = sub.length - 1;
+          }
+        } else {
+          error = true;
+          break;
+        }
+      }
+    } else {
+      let data = lines[i].split( ' ' );
+      if ( data.length == legendLength ) {
+        output[current].records.push( new MeasureRecord );
+        let last = output[current].records.length - 1;
+        for ( var j=0; j<data.length; j++ ) {
+          let buf = parseInt( data[j] );
+          output[current].records[last].add( output[current].legend[j], buf );
+        }
+        output[current].records[last].makeTime();
+      } else if ( ( data.length == 1 ) && ( data[0] == "" ) ) {
+      } else {
+        error = true;
+        break;
+      }
+    }
+  };
+  callback( output, error );
+  return;
+}
+/*----------------------------------------------------------------------------*/
+function updateMeasureInterface () {
+  let select = document.getElementById( 'measureList' );
+  while ( select.options.length > 0 ) {
+    select.remove( 0 );
+  }
+  for ( var i=0; i<measurement.length; i++ ) {
+    var opt = document.createElement( 'option' );
+    opt.value     = i;
+    opt.innerHTML = measurement[i].time.toLocaleString().replace( ',', '' );
+    select.appendChild( opt );
+  }
   return;
 }
 /*----------------------------------------------------------------------------*/
@@ -295,33 +390,21 @@ function measureLoad () {
     input.setAttribute( "type", "file" );
 		input.addEventListener( "change", function() {
 			file = input.files[0];
-			if ( file.type != "application/json" ) {
-        let alert = new Alert( "alert-warning", triIco, "Выбран файл с неправильным расширением. Выберете JSON файл" );
+			if ( file.type != "text/plain" ) {
+        let alert = new Alert( "alert-warning", triIco, "Выбран файл с неправильным расширением. Выберете TXT файл" );
 			} else {
 				let reader = new FileReader();
         reader.readAsText( file );
-				reader.onload = function() {
-					try {
-						data = JSON.parse( reader.result );
-            if ( ( data.step         == undefined ) ||
-                 ( data.label        == undefined ) ||
-                 ( data.line         == undefined ) ||
-                 ( data.line[0].data == undefined ) )
-            {
-              let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
+				reader.onload = function () {
+          parseMeasureLines( reader.result.split( '\n' ), function ( data, error ) {
+            if ( error == false ) {
+              measurement = data;
+              updateMeasureInterface();
+              measureRedraw();
             } else {
-              lineArray = new MeasureType( data.step );
-              lineArray.setLabel( data.label );
-              for ( var i=0; i<data.line.length; i++ ) {
-                line = new MeasureLine( 1, data.line[i].label );
-                line.init( data.line[i].data );
-                lineArray.addLine( line );
-                measureChartStruct.setData( lineArray );
-              }
+              let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );  
             }
-					} catch( e ) {
-            let alert = new Alert( "alert-warning", triIco, "Неправильный формат файла" );
-					}
+          });
   			};
 			}
 		});

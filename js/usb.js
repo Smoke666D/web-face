@@ -780,20 +780,8 @@ function EnerganController () {
     writeSequency( 0, 0, alert, false, initWriteEraseLog );
     return;
   }
-  this.readMeasurement   = function ( size, alertIn = null ) {
-    this.disableLoop();
-    alert = alertIn;
-    readSequency( 0, 0, alert, false, initReadMeasurementSequency );
-    return;
-  }
   this.readOutput        = function () {
     readSequency( 0, 0, null, true, initReadOutputSequency );
-    return;
-  }
-  this.eraseMeasurement  = function ( alertIn = null ) {
-    this.disableLoop();
-    alert = alertIn;
-    writeSequency( 0, 0, alert, false, initWriteEraseMeasurment );
     return;
   }
   this.sendEWA           = function ( ewa, alertIn = null ) {

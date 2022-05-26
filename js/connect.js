@@ -142,32 +142,6 @@ function eraseLog () {
   redrawLogTable();
   return;
 }
-function eraseMeasurement () {
-  if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
-
-  } else if ( connectionType == 'usb' ) {
-    usb.controller.eraseMeasurement();
-  }
-  measurementLength = 0;
-  measureBuffer     = [];
-  measureClean();
-  /* Clean plot */
-  return;
-}
-function readMeasurement () {
-  if ( measurementLength > 0 ) {
-    if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
-
-    } else if ( connectionType == 'usb' ) {
-      let alert = new Alert( "alert-warning", triIco, "Загрузка", 0, 1 );
-      usb.controller.readMeasurement( measurementLength, alert );
-    }
-  } else {
-    let alert = new Alert( "alert-warning", triIco, "Нет записей измерений" );
-  }
-  /* Clean plot */
-  return;
-}
 function writePassword ( password ) {
   if ( ( electronApp == 0 ) || ( connectionType == 'eth' ) ) {
     writePasspordEth( password );

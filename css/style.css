@@ -8704,7 +8704,8 @@ a[data-toggle="collapse"] {
   }
   .data-select {
     width: 140px!important;}
-  }
+  .measure-select {
+    width: 200px!important;}
   .sensor-select{}
   .content-data .pos-name{
     text-align: left!important;
