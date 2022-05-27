@@ -33,15 +33,6 @@ function DataChartPreset ( color, data, label, dash ) {
     borderDash:           dash,
   };
 }
-function AxeChartPreset ( max, min, label) {
-  return {
-    type: 'linear',
-    scaleLabel: {
-      display:     true,
-      labelString: label
-    }
-  };
-}
 /*----------------------------------------------------------------------------*/
 function Coordinate ( x, y ) {
   this.x = x;
@@ -94,48 +85,6 @@ function MeasureLine ( label = "none" ) {
   return;
 }
 /*----------------------------------------------------------------------------*/
-function MeasureType () {
-  var self      = this;
-  this.initDone = false;
-  this.step     = step;
-  this.line     = [];
-  this.label    = 'сек';
-  this.max      = 0;
-  this.calcStep = function () {
-    if ( this.step > 60 ) {
-      this.step  = this.step / 60;
-      this.label = 'мин';
-      if ( this.step > 60 ) {
-        this.step  = this.step / 60;
-        this.label = 'ч';
-        if ( this.step > 24 ) {
-          this.step  = this.step / 60;
-          this.label = 'д';
-        }
-      }
-      this.step = Math.floor( this.step );
-    }
-  }
-  this.init     = function () {
-    if ( this.initDone == false ) {
-      if ( this.line.length > 0 ) {
-        this.max = this.line[0].data.length * step;
-      }
-      this.initDone = true;
-    }
-    return;
-  }
-  this.addLine  = function ( line ) {
-    this.line.push( line );
-    return;
-  }
-  this.setLabel = function ( label ) {
-    this.label = label;
-    return;
-  }
-  this.calcStep();
-  return;
-}
 /*----------------------------------------------------------------------------*/
 function MeasureChartType () {
   var self      = this;
