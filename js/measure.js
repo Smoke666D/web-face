@@ -365,7 +365,7 @@ function parseMeasureLines ( lines, callback ) {
               output[current].legend.push( parseInt( sub[j] ) );
             }
             for ( var j=2; j<output[current].legend.length; j++ ) {
-              output[current].labels.push( outputReg[ output[current].legend[j] ].units )
+              output[current].labels.push( outputReg[ output[current].legend[j] ].str + ', ' + outputReg[ output[current].legend[j] ].units )
             }
             legendLength = sub.length - 1;
           }
