@@ -11,6 +11,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 3,
+   "str": "Версия контроллера",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -25,6 +26,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 3,
+   "str": "Версия прошивки",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -39,6 +41,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 3,
+   "str": "Версия бутлоудера",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -53,6 +56,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Код изделия",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -67,6 +71,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 3,
+   "str": "Серийный номер",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -81,6 +86,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 3,
+   "str": "Серийный номер",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -95,6 +101,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Яркость дисплея",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -109,6 +116,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Контрастность дисплея",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -123,6 +131,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Время переходя в спящий режим",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -137,6 +146,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Сетевые настройки",
    "bitMapSize": 2,
    "bit": [
        {
@@ -165,6 +175,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Величина гизтерезиса",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -179,6 +190,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "",
    "bitMapSize": 1,
    "bit": [
        {
@@ -201,6 +213,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки давления масла",
    "bitMapSize": 4,
    "bit": [
        {
@@ -241,6 +254,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Аварийный уровень двления масла",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -255,6 +269,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Предупредительный уровень давления масла",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -269,6 +284,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки температуры ОЖ",
    "bitMapSize": 7,
    "bit": [
        {
@@ -327,6 +343,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Аварийный уровень температуры ОЖ",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -341,6 +358,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Плановой остановки уровень температуры ОЖ",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -355,6 +373,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Предупредительный уровень температуры ОЖ",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -369,6 +388,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Уровень отключения нагревателя ОЖ",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -383,6 +403,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Уровень включения нагревателя ОЖ",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -397,6 +418,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Уровень отключения охладителя ОЖ",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -411,6 +433,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Уровень включения нагревателя ОЖ",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -425,6 +448,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки уровня топлива",
    "bitMapSize": 8,
    "bit": [
        {
@@ -489,6 +513,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Объем топливного бака",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -503,6 +528,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Номинальный расход топлива без нагрузки",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -517,6 +543,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Номинальный расход топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -531,6 +558,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Нижний аварийный уровень топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -545,6 +573,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка нижнего аварийного сигнала уровня топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -559,6 +588,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Нижний предупредительный уровень топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -573,6 +603,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка нижнего предупредительного сигнала уровня топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -587,6 +618,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Верхний предупредительный уровень топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -601,6 +633,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка верхнего предупредительного сигнала уровня топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -615,6 +648,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Верхний аварийный уровень топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -629,6 +663,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка аерхнего аварийного сигнала уровня топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -643,6 +678,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Уровень включения подкачки топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -657,6 +693,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Уровень выключения подкачки топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -671,6 +708,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки оборотов двигателя",
    "bitMapSize": 2,
    "bit": [
        {
@@ -699,6 +737,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Количество зубьев маховика",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -713,6 +752,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Нижний аварийный уровень оборотов двигателя",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -727,6 +767,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Верхний аварийный уровень оборотов двигателя",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -741,6 +782,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки цифрового входа А",
    "bitMapSize": 4,
    "bit": [
        {
@@ -781,6 +823,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -795,6 +838,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -809,6 +853,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -823,6 +868,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -837,6 +883,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -851,6 +898,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки цифрового входа B",
    "bitMapSize": 4,
    "bit": [
        {
@@ -891,6 +939,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -905,6 +954,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -919,6 +969,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -933,6 +984,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -947,6 +999,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -961,6 +1014,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки цифрового входа C",
    "bitMapSize": 4,
    "bit": [
        {
@@ -1001,6 +1055,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1015,6 +1070,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1029,6 +1085,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1043,6 +1100,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1057,6 +1115,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1071,6 +1130,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки цифрового входа D",
    "bitMapSize": 4,
    "bit": [
        {
@@ -1111,6 +1171,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1125,6 +1186,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1139,6 +1201,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1153,6 +1216,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1167,6 +1231,7 @@ var dataReg = [
    "type": "C",
    "rw": "rw",
    "len": 4,
+   "str": "Сообщение",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1181,6 +1246,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки цифровых выходов",
    "bitMapSize": 10,
    "bit": [
        {
@@ -1257,6 +1323,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Функция цифровых выходов A и B",
    "bitMapSize": 2,
    "bit": [
        {
@@ -1285,6 +1352,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Функция цифровых выходов C и D",
    "bitMapSize": 2,
    "bit": [
        {
@@ -1313,6 +1381,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Функция цифровых выходов E и F",
    "bitMapSize": 2,
    "bit": [
        {
@@ -1341,6 +1410,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Функция цифровых выходов G и H",
    "bitMapSize": 2,
    "bit": [
        {
@@ -1369,6 +1439,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Функция цифровых выходов I и J",
    "bitMapSize": 2,
    "bit": [
        {
@@ -1397,6 +1468,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Коммутационные скачки сети",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1411,6 +1483,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка запуска",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1425,6 +1498,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Время пркрутки стартера",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1439,6 +1513,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Пауза между прокрутками стартера",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1453,6 +1528,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Время работы на холостых оборотах",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1467,6 +1543,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка перехода на номинальные обороты",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1481,6 +1558,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Время блокировки контроля параметров при старте",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1495,6 +1573,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Время прогрева",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1509,6 +1588,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Пауза между переключениями",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1523,6 +1603,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Длина импульса отключения генераторного автомата",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1537,6 +1618,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Длина импульса включения генераторного автомата",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1551,6 +1633,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Длина импульса отключения сетевого автомата",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1565,6 +1648,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Длина импульса включения сетевого автомата",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1579,6 +1663,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка останова",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1593,6 +1678,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Время охлаждения",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1607,6 +1693,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Время охлаждения на холостых оборотах",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1621,6 +1708,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Время работы стопового соленоида",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1635,6 +1723,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка сигнала «Сбой останова»",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1649,6 +1738,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Коммутационные скачки параметров генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1663,6 +1753,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки генератора",
    "bitMapSize": 3,
    "bit": [
        {
@@ -1697,6 +1788,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Номинальная активная мощность генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1711,6 +1803,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Номинальная реактивная мощность генеартора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1725,6 +1818,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Номинальная полная мощность генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1739,6 +1833,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Номинальная частота генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1753,6 +1848,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Номинальный ток генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1767,6 +1863,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Коэффициент трансформатора тока",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1781,6 +1878,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Количество полюсов генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1795,6 +1893,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки событий генератора",
    "bitMapSize": 10,
    "bit": [
        {
@@ -1871,6 +1970,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Нижний аварийный уровень напряжения генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1885,6 +1985,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Нижний предупредтельный уровень напряжения генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1899,6 +2000,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Верхний предупредительный уровень напряжения генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1913,6 +2015,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Верхний аварийный уровень напряжения генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1927,6 +2030,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Нижний аварийный уровень частоты генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1941,6 +2045,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Нижний предупредительный уровень частоты генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1955,6 +2060,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Верхний предупредительный уровень частоты генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1969,6 +2075,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Верхний аварийный уровень частоты генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1983,6 +2090,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Тепловая защита генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -1997,6 +2105,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Токовая отсечка генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2011,6 +2120,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Верхний аварийный уровень тока генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2025,6 +2135,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка верхнего аваарийного сигнала тревоги тока генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2039,6 +2150,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Уровень защиты от перегрузки генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2053,6 +2165,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка срабатывания защиты от перегрузки генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2067,6 +2180,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Уровень допустимого перекоса фаз генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2081,6 +2195,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка срабатывания защиты перекоса фаз генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2095,6 +2210,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки сети",
    "bitMapSize": 2,
    "bit": [
        {
@@ -2123,6 +2239,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки событий сети",
    "bitMapSize": 4,
    "bit": [
        {
@@ -2163,6 +2280,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Нижний аварийный уровень напряжения сети",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2177,6 +2295,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Верхний аварийный уровень напряжения сети",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2191,6 +2310,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Нижний аварийный уровень частоты сети",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2205,6 +2325,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Верхний аварийный уровень частоты сети",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2219,6 +2340,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки двигателя",
    "bitMapSize": 1,
    "bit": [
        {
@@ -2241,6 +2363,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Уровень включения свечей накаливания",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2255,6 +2378,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Длительность работы свечей накаливания",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2269,6 +2393,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки стартера",
    "bitMapSize": 4,
    "bit": [
        {
@@ -2309,6 +2434,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Отключить стартер по частоте генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2323,6 +2449,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Давление масла отключения стартера",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2337,6 +2464,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Напряжение зарядного генератора отключения стартаера",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2351,6 +2479,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Обороты двигателя отключения стартера",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2365,6 +2494,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки событий АКБ",
    "bitMapSize": 3,
    "bit": [
        {
@@ -2399,6 +2529,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Нижний аварийный уровень напряжения АКБ",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2413,6 +2544,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка нижнего аварийного сигнала напряжения АКБ",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2427,6 +2559,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Верхний аварийный уровень напряжения АКБ",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2441,6 +2574,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка верхнего аварийного сигнала напряжения АКБ",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2455,6 +2589,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Уровень аварийного сигнала зарядного генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2469,6 +2604,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Задержка аварийного сигнала зарядного генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2483,6 +2619,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки событий ТО",
    "bitMapSize": 6,
    "bit": [
        {
@@ -2535,6 +2672,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Периодв срабатывания ТО масло",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2549,6 +2687,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Периодв срабатывания ТО воздух",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2563,6 +2702,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Периодв срабатывания ТО топливо",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -2577,6 +2717,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки журнала",
    "bitMapSize": 2,
    "bit": [
        {
@@ -2605,6 +2746,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки измерений",
    "bitMapSize": 9,
    "bit": [
        {
@@ -2666,8 +2808,8 @@ var dataReg = [
 },{
    "adr": 142,
    "name": "recordSetup1",
-   "value": 1,
-   "default": 1,
+   "value": 0,
+   "default": 0,
    "scale": 0,
    "min": 0,
    "max": 65535,
@@ -2675,6 +2817,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Настройки измерений",
    "bitMapSize": 10,
    "bit": [
        {
@@ -2751,6 +2894,7 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Интервал времени между измерениями",
    "bitMapSize": 0,
    "bit": []
 },];

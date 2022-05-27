@@ -11,6 +11,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Давление масла",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -25,6 +26,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Температура ОЖ",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -39,6 +41,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Уровень топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -53,6 +56,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Скорость двигателя",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -67,6 +71,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Фазное напряжение сети L1",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -81,6 +86,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Фазное напряжение сети L2",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -95,6 +101,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Фазное напряжение сети L3",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -109,6 +116,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Линейное напряжение сети L1",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -123,6 +131,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Линейное напряжение сети L2",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -137,6 +146,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Линейное напряжение сети L3",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -151,6 +161,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Частота сети",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -165,6 +176,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Фазное напряжение генератора L1",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -179,6 +191,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Фазное напряжение генератора L2",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -193,6 +206,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Фазное напряжение генератора L3",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -207,6 +221,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Линейное напряжение генератора L1",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -221,6 +236,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Линейное напряжение генератора L2",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -235,6 +251,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Линейное напряжение генератора L3",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -249,6 +266,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Ток генератора L1",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -263,6 +281,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Ток генератора L2",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -277,6 +296,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Ток генератора L3",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -291,6 +311,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Частота генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -305,6 +326,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Cos F генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -319,6 +341,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Активная мощность генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -333,6 +356,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Реактивная мощность генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -347,6 +371,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Полная мощность генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -361,6 +386,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Напряжение АКБ",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -375,6 +401,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Напряжение зарядного генератора",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -389,6 +416,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Внешние устройства",
    "bitMapSize": 5,
    "bit": [
        {
@@ -435,6 +463,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Моточасы",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -449,6 +478,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Мотоминуты",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -463,6 +493,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Количество пусков",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -477,6 +508,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Реактивна выробатанная мощность",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -491,6 +523,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Активная выробатанная мощность",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -505,6 +538,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Полная выробатанная мощность",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -519,6 +553,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Расход топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -533,6 +568,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Текущий расход топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -547,6 +583,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Средний расход топлива",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -561,6 +598,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Цифровые выходы",
    "bitMapSize": 12,
    "bit": [
        {
@@ -649,6 +687,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Цифровые входы",
    "bitMapSize": 12,
    "bit": [
        {
@@ -737,6 +776,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Статус",
    "bitMapSize": 0,
    "bit": []
 },{
@@ -751,6 +791,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Регистр статуса",
    "bitMapSize": 7,
    "bit": [
        {
@@ -809,6 +850,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "-",
    "bitMapSize": 16,
    "bit": [
        {
@@ -921,6 +963,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "-",
    "bitMapSize": 16,
    "bit": [
        {
@@ -1033,6 +1076,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "-",
    "bitMapSize": 1,
    "bit": [
        {
@@ -1055,6 +1099,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "-",
    "bitMapSize": 16,
    "bit": [
        {
@@ -1167,6 +1212,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "-",
    "bitMapSize": 3,
    "bit": [
        {
@@ -1201,6 +1247,7 @@ var outputReg = [
    "type": "U",
    "rw": "rw",
    "len": 1,
+   "str": "Регистр управления",
    "bitMapSize": 5,
    "bit": [
        {
