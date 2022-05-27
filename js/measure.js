@@ -223,9 +223,9 @@ function MeasureChartType () {
     });
     return;
   }
-  this.setData   = function ( data ) {
+  this.setData   = function ( data, label ) {
     self.data = data;
-    self.setup();
+    self.setup( label );
     dataChart.update();
     return;
   }
@@ -238,11 +238,11 @@ function MeasureChartType () {
     dataChart.update();
     return;
   }
-  this.setup     = function () {
+  this.setup     = function ( label ) {
     cleanDataset();
     dataChart.options.scales.xAxes[0].ticks.max              = self.data[0].start;
     dataChart.options.scales.xAxes[0].ticks.min              = self.data[0].end;
-    dataChart.options.scales.xAxes[0].scaleLabel.labelString = "время";
+    dataChart.options.scales.xAxes[0].scaleLabel.labelString = label;
     for ( var i=0; i<self.data.length; i++ ) {
       addLine( i, self.data[i] );
     }
@@ -259,10 +259,10 @@ function measureClean () {
 }
 /*----------------------------------------------------------------------------*/
 function MeasureRecord () {
-  var self = this;
-  var time = null;
-  var acc  = 0;
-  var data = [];
+  var self  = this;
+  var time  = null;
+  var acc   = 0;
+  var data  = [];
   this.makeTime = function () {
     time = new Date( ( GET_LOG_YEAR( acc ) + 2000 ),
                      GET_LOG_MONTH( acc ),
@@ -297,27 +297,45 @@ function MeasureSet () {
   var self     = this;
   this.time    = null;
   this.legend  = [];
+  this.labels  = [];
   this.records = [];
   return;
 }
 /*----------------------------------------------------------------------------*/
 function measureRedraw () {
-  let n = document.getElementById( 'measureList' ).value;
+  let n       = document.getElementById( 'measureList' ).value;
   let dataSet = measurements[n];
-  let data = [];
+  let data    = [];
   for ( var i=0; i<( dataSet.legend.length - 2 ); i++ ) {
     data.push( new MeasureLine() );
   }
+  let timeDelta = ( dataSet.records[dataSet.records.length - 1].getTime() - dataSet.records[0].getTime() ) / 1000;
+  let timeStep  = timeDelta / ( dataSet.records.length - 1 );
+  let label     = 'сек';
+
+  if ( timeStep > 60 ) {
+    timeStep  = timeStep / 60;
+    label     = 'мин';
+    if ( timeStep > 60 ) {
+      timeStep = timeStep / 60;
+      label    = 'ч';
+      if ( timeStep > 24 ) {
+        timeStep  = timeStep / 60;
+        label     = 'д';
+      }
+    }
+    timeStep = Math.floor( timeStep );
+  }
   for ( var i=0; i<dataSet.records.length; i++ ) {
     for ( var j=0; j<( dataSet.legend.length - 2 ); j++ ) {
-      //data[j].add( dataSet.records[i].getTime(), dataSet.records[i].get( j ) );
-      data[j].add( i, dataSet.records[i].get( j ) );
+      data[j].add( ( i * timeStep ), dataSet.records[i].get( j ) );
     }
   }
   for ( var i=0; i<data.length; i++ ) {
     data[i].init();
+    data[i].label = dataSet.labels[i];
   }
-  measureChartStruct.setData( data );
+  measureChartStruct.setData( data, label );
   return;
 }
 /*----------------------------------------------------------------------------*/
@@ -345,6 +363,9 @@ function parseMeasureLines ( lines, callback ) {
           } else {
             for ( var j=1; j<sub.length; j++ ) {
               output[current].legend.push( parseInt( sub[j] ) );
+            }
+            for ( var j=2; j<output[current].legend.length; j++ ) {
+              output[current].labels.push( outputReg[ output[current].legend[j] ].units )
             }
             legendLength = sub.length - 1;
           }
