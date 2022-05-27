@@ -43,37 +43,58 @@ function AxeChartPreset ( max, min, label) {
   };
 }
 /*----------------------------------------------------------------------------*/
-function MeasureLine ( scale, label ) {
+function Coordinate ( x, y ) {
+  this.x = x;
+  this.y = y;
+}
+function MeasureLine ( label = "none" ) {
   var self      = this;
-  this.initDone = false;
   this.data     = [];
+  this.initDone = false;
   this.label    = label;
-  this.min      = 0;
-  this.max      = 0;
+  this.min      = null;
+  this.max      = null;
+  this.start    = null;
+  this.end      = null;
   /*----------------------------------------------------------------------------*/
-  this.init     = function ( data ) {
-    if ( data != undefined ) {
-      this.data = data;
-    }
-    if ( this.initDone == false ) {
-      this.min = data[0] * Math.pow( 10, scale )
-      for ( var i=0; i<data.length; i++ ) {
-        data[i] = data[i] * Math.pow( 10, scale );
-        if ( data[i] < this.min ) {
-          this.min = data[i];
+  this.init     = function () {
+    if ( self.initDone == false ) {
+      self.min   = self.data[0].y;
+      self.max   = self.data[0].y;
+      self.start = self.data[0].x;
+      self.end   = self.data[0].x
+      for ( var i=1; i<self.data.length; i++ ) {
+        if ( self.data[i].y < self.min ) {
+          self.min = self.data[i].y;
         }
-        if ( data[i] > this.max ) {
-          this.max = data[i];
+        if ( self.data[i].y > self.max ) {
+          self.max = self.data[i].y;
+        }
+        if ( self.data[i].x < self.start ) {
+          self.start = self.data[i].x;
+        }
+        if ( self.data[i].x > self.end ) {
+          self.end = self.data[i].x;
         }
       }
-      this.initDone = true;
+      self.initDone = true;
     }
     return;
+  }
+  this.add = function ( x, y ) {
+    self.data.push( new Coordinate( x, y ) );
+    return;
+  }
+  this.clean = function () {
+    self.data = [];
+  }
+  this.get   = function ( n ) {
+    return self.data[n];
   }
   return;
 }
 /*----------------------------------------------------------------------------*/
-function MeasureType ( step ) {
+function MeasureType () {
   var self      = this;
   this.initDone = false;
   this.step     = step;
@@ -116,7 +137,7 @@ function MeasureType ( step ) {
   return;
 }
 /*----------------------------------------------------------------------------*/
-function MeasureChartType ( step ) {
+function MeasureChartType () {
   var self      = this;
   var dataset   = null;
   var options   = null;
@@ -131,7 +152,7 @@ function MeasureChartType ( step ) {
       min: 0
     }
   };
-  this.measure  = new MeasureType( step );
+  this.data  = null;
   function cleanDataset () {
     dataChart.data.datasets = [];
     return;
@@ -180,19 +201,9 @@ function MeasureChartType ( step ) {
     };
     return;
   }
-  function addLine ( n, line, step ) {
-    var data  = [];
+  function addLine ( n, line ) {
     var dash  = [ 0, 0 ];
     var color = '#ccc';
-    if ( line.data == undefined ) {
-      line.data = [];
-    }
-    for ( i=0; i<line.data.length; i++ ) {
-      data.push({
-        x: i * step,
-        y: line.data[i],
-      });
-    }
     if ( n >= colorList.length ) {
       dash  = [ 10, 5 ];
       var counter = Math.floor( n / colorList.length );
@@ -200,7 +211,7 @@ function MeasureChartType ( step ) {
     } else {
       color = colorList[n];
     }
-    dataChart.data.datasets.push( new DataChartPreset( color, data, line.label, dash ) );
+    dataChart.data.datasets.push( new DataChartPreset( color, line.data, line.label, dash ) );
     return;
   }
   this.init      = function () {
@@ -213,8 +224,8 @@ function MeasureChartType ( step ) {
     return;
   }
   this.setData   = function ( data ) {
-    this.measure = data;
-    this.setup();
+    self.data = data;
+    self.setup();
     dataChart.update();
     return;
   }
@@ -229,12 +240,11 @@ function MeasureChartType ( step ) {
   }
   this.setup     = function () {
     cleanDataset();
-    this.measure.init();
-    dataChart.options.scales.xAxes[0].ticks.max              = this.measure.max;
-    dataChart.options.scales.xAxes[0].ticks.min              = 0;
-    dataChart.options.scales.xAxes[0].scaleLabel.labelString = this.measure.label;
-    for ( var i=0; i<this.measure.line.length; i++ ) {
-      addLine( i, this.measure.line[i], this.measure.step );
+    dataChart.options.scales.xAxes[0].ticks.max              = self.data[0].start;
+    dataChart.options.scales.xAxes[0].ticks.min              = self.data[0].end;
+    dataChart.options.scales.xAxes[0].scaleLabel.labelString = "время";
+    for ( var i=0; i<self.data.length; i++ ) {
+      addLine( i, self.data[i] );
     }
     return;
   }
@@ -245,23 +255,6 @@ function MeasureChartType ( step ) {
 /*----------------------------------------------------------------------------*/
 function measureClean () {
   measureChartStruct.clean();
-  return;
-}
-/*----------------------------------------------------------------------------*/
-function measureUpdate ( buffer, scales, lables ) {
-  var data      = [];
-  var line      = null;
-  var lineArray = new MeasureType( 1 );
-  for ( var i=0; i<buffer[0].length; i++ ) {
-    data = [];
-    for ( var j=0; j<buffer.length; j++ ) {
-      data.push( buffer[j][i] );
-    }
-    line = new MeasureLine( scales[i], lables[i] );
-    line.init( data );
-    lineArray.addLine( line );
-  }
-  measureChartStruct.setData( lineArray );
   return;
 }
 /*----------------------------------------------------------------------------*/
@@ -310,7 +303,21 @@ function MeasureSet () {
 /*----------------------------------------------------------------------------*/
 function measureRedraw () {
   let n = document.getElementById( 'measureList' ).value;
-  measrement[n];
+  let dataSet = measurements[n];
+  let data = [];
+  for ( var i=0; i<( dataSet.legend.length - 2 ); i++ ) {
+    data.push( new MeasureLine() );
+  }
+  for ( var i=0; i<dataSet.records.length; i++ ) {
+    for ( var j=0; j<( dataSet.legend.length - 2 ); j++ ) {
+      //data[j].add( dataSet.records[i].getTime(), dataSet.records[i].get( j ) );
+      data[j].add( i, dataSet.records[i].get( j ) );
+    }
+  }
+  for ( var i=0; i<data.length; i++ ) {
+    data[i].init();
+  }
+  measureChartStruct.setData( data );
   return;
 }
 /*----------------------------------------------------------------------------*/
@@ -372,10 +379,10 @@ function updateMeasureInterface () {
   while ( select.options.length > 0 ) {
     select.remove( 0 );
   }
-  for ( var i=0; i<measurement.length; i++ ) {
+  for ( var i=0; i<measurements.length; i++ ) {
     var opt = document.createElement( 'option' );
     opt.value     = i;
-    opt.innerHTML = measurement[i].time.toLocaleString().replace( ',', '' );
+    opt.innerHTML = measurements[i].time.toLocaleString().replace( ',', '' );
     select.appendChild( opt );
   }
   return;
@@ -398,7 +405,7 @@ function measureLoad () {
 				reader.onload = function () {
           parseMeasureLines( reader.result.split( '\n' ), function ( data, error ) {
             if ( error == false ) {
-              measurement = data;
+              measurements = data;
               updateMeasureInterface();
               measureRedraw();
             } else {
@@ -417,22 +424,7 @@ function measureLoad () {
 }
 /*----------------------------------------------------------------------------*/
 function measureChartInit () {
-  var testData = new MeasureType( 1 );
-  var line     = null;
-  var dd       = [];
-  measureChartStruct = new MeasureChartType( 1 );
+  measureChartStruct = new MeasureChartType();
   measureChartStruct.init();
-/*
-  for ( var i=0; i<8; i++ ) {
-    dd = [];
-    for ( var j=0; j<1200; j++ ) {
-      dd.push( ( i + 1 ) * Math.sin( i * ( Math.PI / 3 ) + j * 0.01 ) );
-    }
-    line = new MeasureLine( 1, i );
-    line.init( dd );
-    testData.addLine( line );
-  }
-  measureChartStruct.setData( testData );
-*/
   return;
 }
