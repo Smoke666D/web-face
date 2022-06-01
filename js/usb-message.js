@@ -358,10 +358,11 @@ function USBMessage ( buffer ) {
           if ( buffer.length == 4) {
             buffer = buffer.slice( 0, 3 );
           }
+          let input = ' ';
           try {
-            let input = decodeURIComponent( buffer );
+            input = decodeURIComponent( buffer );
           } catch {
-            let input = ' ';
+            input = ' ';
           }
           reg.value.push( input );
         } else {

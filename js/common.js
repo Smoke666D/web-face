@@ -43,7 +43,6 @@ function resetSuccessConnection () {
 		document.getElementById( 'write-powerReactiveUsage' ).disabled     = true;
 		document.getElementById( 'controllerTimeSetup' ).disabled          = true;
 		document.getElementById( 'eraseLog-button' ).disabled              = true;
-		document.getElementById( 'refreshMeasure-button' ).disabled        = true;
 	}
 	connetStatus = 0;
 	return;
