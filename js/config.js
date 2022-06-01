@@ -2,8 +2,8 @@ var dataReg = [
 {
    "adr": 0,
    "name": "versionController",
-   "value": [1, 0, 0],
-   "default": [1, 0, 0],
+   "value": [0, 0, 0],
+   "default": [0, 0, 0],
    "scale": 0,
    "min": 0,
    "max": 0,
@@ -17,8 +17,8 @@ var dataReg = [
 },{
    "adr": 1,
    "name": "versionFirmware",
-   "value": [1, 0, 0],
-   "default": [1, 0, 0],
+   "value": [0, 0, 0],
+   "default": [0, 0, 0],
    "scale": 0,
    "min": 0,
    "max": 0,
@@ -32,8 +32,8 @@ var dataReg = [
 },{
    "adr": 2,
    "name": "versionBootloader",
-   "value": [1, 0, 0],
-   "default": [1, 0, 0],
+   "value": [0, 0, 0],
+   "default": [0, 0, 0],
    "scale": 0,
    "min": 0,
    "max": 0,

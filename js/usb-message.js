@@ -354,12 +354,15 @@ function USBMessage ( buffer ) {
           if ( dig < 0x0020 ) {
             dig = 0x0020;
           }
-
           let buffer = "%" + dig.toString( 16 ).slice( 0, 2 ) + "%" + dig.toString( 16 ).slice( 2, 4 );
           if ( buffer.length == 4) {
             buffer = buffer.slice( 0, 3 );
           }
-          let input  = decodeURIComponent( buffer );
+          try {
+            let input = decodeURIComponent( buffer );
+          } catch {
+            let input = ' ';
+          }
           reg.value.push( input );
         } else {
           reg.value.push( byteToUint16( self.data[counter + i * 2], self.data[counter + i * 2 + 1] ) );
