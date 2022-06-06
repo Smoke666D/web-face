@@ -61,7 +61,7 @@ var dataReg = [
    "bit": []
 },{
    "adr": 4,
-   "name": "serialNumber0",
+   "name": "uniqueNumber0",
    "value": [0, 0, 0],
    "default": [0, 0, 0],
    "scale": 0,
@@ -71,12 +71,57 @@ var dataReg = [
    "type": "U",
    "rw": "rw",
    "len": 3,
-   "str": "Серийный номер",
+   "str": "Уникальный номер",
    "bitMapSize": 0,
    "bit": []
 },{
    "adr": 5,
-   "name": "serialNumber1",
+   "name": "uniqueNumber1",
+   "value": [0, 0, 0],
+   "default": [0, 0, 0],
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "",
+   "type": "U",
+   "rw": "rw",
+   "len": 3,
+   "str": "Уникальный номер",
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "adr": 6,
+   "name": "macAddress",
+   "value": [0, 0, 0],
+   "default": [0, 0, 0],
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "",
+   "type": "U",
+   "rw": "rw",
+   "len": 3,
+   "str": "MAC адрес",
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "adr": 7,
+   "name": "releaseDate",
+   "value": [0, 0, 0],
+   "default": [0, 0, 0],
+   "scale": 0,
+   "min": 0,
+   "max": 0,
+   "units": "",
+   "type": "U",
+   "rw": "rw",
+   "len": 3,
+   "str": "Дата выпуска",
+   "bitMapSize": 0,
+   "bit": []
+},{
+   "adr": 8,
+   "name": "serialNumber",
    "value": [0, 0, 0],
    "default": [0, 0, 0],
    "scale": 0,
@@ -90,7 +135,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 6,
+   "adr": 9,
    "name": "displayBrightnesLevel",
    "value": 50,
    "default": 50,
@@ -105,7 +150,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 7,
+   "adr": 10,
    "name": "displayContarstLevel",
    "value": 30,
    "default": 30,
@@ -120,7 +165,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 8,
+   "adr": 11,
    "name": "displaySleepDelay",
    "value": 10,
    "default": 10,
@@ -135,7 +180,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 9,
+   "adr": 12,
    "name": "modbusSetup",
    "value": 2314,
    "default": 2314,
@@ -164,7 +209,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 10,
+   "adr": 13,
    "name": "hysteresisLevel",
    "value": 20,
    "default": 20,
@@ -179,7 +224,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 11,
+   "adr": 14,
    "name": "moduleSetup",
    "value": 0,
    "default": 0,
@@ -202,7 +247,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 12,
+   "adr": 15,
    "name": "oilPressureSetup",
    "value": 115,
    "default": 115,
@@ -243,7 +288,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 13,
+   "adr": 16,
    "name": "oilPressureAlarmLevel",
    "value": 103,
    "default": 103,
@@ -258,7 +303,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 14,
+   "adr": 17,
    "name": "oilPressurePreAlarmLevel",
    "value": 124,
    "default": 124,
@@ -273,7 +318,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 15,
+   "adr": 18,
    "name": "coolantTempSetup",
    "value": 179,
    "default": 179,
@@ -332,7 +377,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 16,
+   "adr": 19,
    "name": "coolantHightTempAlarmLevel",
    "value": 96,
    "default": 96,
@@ -347,7 +392,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 17,
+   "adr": 20,
    "name": "coolantHightTempElectroAlarmLevel",
    "value": 92,
    "default": 92,
@@ -362,7 +407,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 18,
+   "adr": 21,
    "name": "coolantHightTempPreAlarmLevel",
    "value": 90,
    "default": 90,
@@ -377,7 +422,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 19,
+   "adr": 22,
    "name": "coolantTempHeaterOffLevel",
    "value": 50,
    "default": 50,
@@ -392,7 +437,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 20,
+   "adr": 23,
    "name": "coolantTempHeaterOnLevel",
    "value": 35,
    "default": 35,
@@ -407,7 +452,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 21,
+   "adr": 24,
    "name": "coolantTempCoolerOffLevel",
    "value": 70,
    "default": 70,
@@ -422,7 +467,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 22,
+   "adr": 25,
    "name": "coolantTempCoolerOnLevel",
    "value": 75,
    "default": 75,
@@ -437,7 +482,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 23,
+   "adr": 26,
    "name": "fuelLevelSetup",
    "value": 411,
    "default": 411,
@@ -502,7 +547,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 24,
+   "adr": 27,
    "name": "fuelTankLevel",
    "value": 30,
    "default": 30,
@@ -517,7 +562,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 25,
+   "adr": 28,
    "name": "fuelRateIdleLevel",
    "value": 2,
    "default": 2,
@@ -532,7 +577,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 26,
+   "adr": 29,
    "name": "fuelRateLevel",
    "value": 300,
    "default": 300,
@@ -547,7 +592,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 27,
+   "adr": 30,
    "name": "fuelLevelLowAlarmLevel",
    "value": 10,
    "default": 10,
@@ -562,7 +607,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 28,
+   "adr": 31,
    "name": "fuelLevelLowAlarmDelay",
    "value": 10,
    "default": 10,
@@ -577,7 +622,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 29,
+   "adr": 32,
    "name": "fuelLevelLowPreAlarmLevel",
    "value": 25,
    "default": 25,
@@ -592,7 +637,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 30,
+   "adr": 33,
    "name": "fuelLevelLowPreAlarmDelay",
    "value": 10,
    "default": 10,
@@ -607,7 +652,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 31,
+   "adr": 34,
    "name": "fuelLevelHightPreAlarmLevel",
    "value": 90,
    "default": 90,
@@ -622,7 +667,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 32,
+   "adr": 35,
    "name": "fuelLevelHightPreAlarmDelay",
    "value": 0,
    "default": 0,
@@ -637,7 +682,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 33,
+   "adr": 36,
    "name": "fuelLevelHightAlarmLevel",
    "value": 95,
    "default": 95,
@@ -652,7 +697,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 34,
+   "adr": 37,
    "name": "fuelLevelHightAlarmDelay",
    "value": 0,
    "default": 0,
@@ -667,7 +712,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 35,
+   "adr": 38,
    "name": "fuelPumpOnLevel",
    "value": 30,
    "default": 30,
@@ -682,7 +727,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 36,
+   "adr": 39,
    "name": "fuelPumpOffLevel",
    "value": 85,
    "default": 85,
@@ -697,7 +742,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 37,
+   "adr": 40,
    "name": "speedSetup",
    "value": 0,
    "default": 0,
@@ -726,7 +771,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 38,
+   "adr": 41,
    "name": "speedToothNumber",
    "value": 190,
    "default": 190,
@@ -741,7 +786,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 39,
+   "adr": 42,
    "name": "speedLowAlarmLevel",
    "value": 1200,
    "default": 1200,
@@ -756,7 +801,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 40,
+   "adr": 43,
    "name": "speedHightAlarmLevel",
    "value": 1710,
    "default": 1710,
@@ -771,7 +816,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 41,
+   "adr": 44,
    "name": "diaSetup",
    "value": 17,
    "default": 17,
@@ -812,7 +857,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 42,
+   "adr": 45,
    "name": "diaDelay",
    "value": 0,
    "default": 0,
@@ -827,7 +872,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 43,
+   "adr": 46,
    "name": "diaMessage0",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -842,7 +887,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 44,
+   "adr": 47,
    "name": "diaMessage1",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -857,7 +902,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 45,
+   "adr": 48,
    "name": "diaMessage2",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -872,7 +917,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 46,
+   "adr": 49,
    "name": "diaMessage3",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -887,7 +932,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 47,
+   "adr": 50,
    "name": "dibSetup",
    "value": 18,
    "default": 18,
@@ -928,7 +973,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 48,
+   "adr": 51,
    "name": "dibDelay",
    "value": 0,
    "default": 0,
@@ -943,7 +988,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 49,
+   "adr": 52,
    "name": "dibMessage0",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -958,7 +1003,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 50,
+   "adr": 53,
    "name": "dibMessage1",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -973,7 +1018,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 51,
+   "adr": 54,
    "name": "dibMessage2",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -988,7 +1033,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 52,
+   "adr": 55,
    "name": "dibMessage3",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -1003,7 +1048,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 53,
+   "adr": 56,
    "name": "dicSetup",
    "value": 0,
    "default": 0,
@@ -1044,7 +1089,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 54,
+   "adr": 57,
    "name": "dicDelay",
    "value": 0,
    "default": 0,
@@ -1059,7 +1104,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 55,
+   "adr": 58,
    "name": "dicMessage0",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -1074,7 +1119,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 56,
+   "adr": 59,
    "name": "dicMessage1",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -1089,7 +1134,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 57,
+   "adr": 60,
    "name": "dicMessage2",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -1104,7 +1149,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 58,
+   "adr": 61,
    "name": "dicMessage3",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -1119,7 +1164,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 59,
+   "adr": 62,
    "name": "didSetup",
    "value": 64,
    "default": 64,
@@ -1160,7 +1205,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 60,
+   "adr": 63,
    "name": "didDelay",
    "value": 0,
    "default": 0,
@@ -1175,7 +1220,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 61,
+   "adr": 64,
    "name": "didMessage0",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -1190,7 +1235,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 62,
+   "adr": 65,
    "name": "didMessage1",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -1205,7 +1250,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 63,
+   "adr": 66,
    "name": "didMessage2",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -1220,7 +1265,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 64,
+   "adr": 67,
    "name": "didMessage3",
    "value": [' ', ' ', ' ', ' '],
    "default": [' ', ' ', ' ', ' '],
@@ -1235,7 +1280,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 65,
+   "adr": 68,
    "name": "doSetup",
    "value": 0,
    "default": 0,
@@ -1312,7 +1357,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 66,
+   "adr": 69,
    "name": "doabType",
    "value": 4370,
    "default": 4370,
@@ -1341,7 +1386,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 67,
+   "adr": 70,
    "name": "docdType",
    "value": 0,
    "default": 0,
@@ -1370,7 +1415,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 68,
+   "adr": 71,
    "name": "doefType",
    "value": 0,
    "default": 0,
@@ -1399,7 +1444,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 69,
+   "adr": 72,
    "name": "doghType",
    "value": 0,
    "default": 0,
@@ -1428,7 +1473,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 70,
+   "adr": 73,
    "name": "doijType",
    "value": 0,
    "default": 0,
@@ -1457,7 +1502,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 71,
+   "adr": 74,
    "name": "timerMainsTransientDelay",
    "value": 1,
    "default": 1,
@@ -1472,7 +1517,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 72,
+   "adr": 75,
    "name": "timerStartDelay",
    "value": 5,
    "default": 5,
@@ -1487,7 +1532,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 73,
+   "adr": 76,
    "name": "timerCranking",
    "value": 10,
    "default": 10,
@@ -1502,7 +1547,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 74,
+   "adr": 77,
    "name": "timerCrankDelay",
    "value": 10,
    "default": 10,
@@ -1517,7 +1562,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 75,
+   "adr": 78,
    "name": "timerStartupIdleTime",
    "value": 0,
    "default": 0,
@@ -1532,7 +1577,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 76,
+   "adr": 79,
    "name": "timerNominalRPMDelay",
    "value": 0,
    "default": 0,
@@ -1547,7 +1592,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 77,
+   "adr": 80,
    "name": "timerSafetyOnDelay",
    "value": 10,
    "default": 10,
@@ -1562,7 +1607,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 78,
+   "adr": 81,
    "name": "timerWarming",
    "value": 0,
    "default": 0,
@@ -1577,7 +1622,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 79,
+   "adr": 82,
    "name": "timerTransferDelay",
    "value": 6,
    "default": 6,
@@ -1592,7 +1637,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 80,
+   "adr": 83,
    "name": "timerGenBreakerTripPulse",
    "value": 5,
    "default": 5,
@@ -1607,7 +1652,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 81,
+   "adr": 84,
    "name": "timerGenBreakerClosePulse",
    "value": 5,
    "default": 5,
@@ -1622,7 +1667,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 82,
+   "adr": 85,
    "name": "timerMainsBreakerTripPulse",
    "value": 5,
    "default": 5,
@@ -1637,7 +1682,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 83,
+   "adr": 86,
    "name": "timerMainsBreakerClosePulse",
    "value": 5,
    "default": 5,
@@ -1652,7 +1697,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 84,
+   "adr": 87,
    "name": "timerReturnDelay",
    "value": 30,
    "default": 30,
@@ -1667,7 +1712,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 85,
+   "adr": 88,
    "name": "timerCooling",
    "value": 60,
    "default": 60,
@@ -1682,7 +1727,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 86,
+   "adr": 89,
    "name": "timerCoolingIdle",
    "value": 0,
    "default": 0,
@@ -1697,7 +1742,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 87,
+   "adr": 90,
    "name": "timerSolenoidHold",
    "value": 0,
    "default": 0,
@@ -1712,7 +1757,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 88,
+   "adr": 91,
    "name": "timerFailStopDelay",
    "value": 20,
    "default": 20,
@@ -1727,7 +1772,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 89,
+   "adr": 92,
    "name": "timerGenTransientDelay",
    "value": 1,
    "default": 1,
@@ -1742,7 +1787,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 90,
+   "adr": 93,
    "name": "genSetup",
    "value": 9,
    "default": 9,
@@ -1777,7 +1822,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 91,
+   "adr": 94,
    "name": "genRatedActivePowerLevel",
    "value": 400,
    "default": 400,
@@ -1792,7 +1837,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 92,
+   "adr": 95,
    "name": "genRatedReactivePowerLevel",
    "value": 300,
    "default": 300,
@@ -1807,7 +1852,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 93,
+   "adr": 96,
    "name": "genRatedApparentPowerLevel",
    "value": 500,
    "default": 500,
@@ -1822,7 +1867,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 94,
+   "adr": 97,
    "name": "genRatedFrequencyLevel",
    "value": 500,
    "default": 500,
@@ -1837,7 +1882,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 95,
+   "adr": 98,
    "name": "genRatedCurrentLevel",
    "value": 750,
    "default": 750,
@@ -1852,7 +1897,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 96,
+   "adr": 99,
    "name": "genCurrentTrasformRatioLevel",
    "value": 160,
    "default": 160,
@@ -1867,7 +1912,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 97,
+   "adr": 100,
    "name": "genPoleQuantity",
    "value": 2,
    "default": 2,
@@ -1882,7 +1927,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 98,
+   "adr": 101,
    "name": "genAlarms",
    "value": 511,
    "default": 511,
@@ -1959,7 +2004,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 99,
+   "adr": 102,
    "name": "genUnderVoltageAlarmLevel",
    "value": 320,
    "default": 320,
@@ -1974,7 +2019,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 100,
+   "adr": 103,
    "name": "genUnderVoltagePreAlarmLevel",
    "value": 360,
    "default": 360,
@@ -1989,7 +2034,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 101,
+   "adr": 104,
    "name": "genOverVoltagePreAlarmLevel",
    "value": 440,
    "default": 440,
@@ -2004,7 +2049,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 102,
+   "adr": 105,
    "name": "genOverVoltageAlarmLevel",
    "value": 480,
    "default": 480,
@@ -2019,7 +2064,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 103,
+   "adr": 106,
    "name": "genUnderFrequencyAlarmLevel",
    "value": 450,
    "default": 450,
@@ -2034,7 +2079,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 104,
+   "adr": 107,
    "name": "genUnderFrequencyPreAlarmLevel",
    "value": 470,
    "default": 470,
@@ -2049,7 +2094,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 105,
+   "adr": 108,
    "name": "genOverFrequencyPreAlarmLevel",
    "value": 530,
    "default": 530,
@@ -2064,7 +2109,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 106,
+   "adr": 109,
    "name": "genOverFrequencyAlarmLevel",
    "value": 550,
    "default": 550,
@@ -2079,7 +2124,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 107,
+   "adr": 110,
    "name": "genOverCurrentThermalProtectionLevel",
    "value": 100,
    "default": 100,
@@ -2094,7 +2139,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 108,
+   "adr": 111,
    "name": "genOverCurrentCutoffLevel",
    "value": 200,
    "default": 200,
@@ -2109,7 +2154,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 109,
+   "adr": 112,
    "name": "genOverCurrentWarningLevel",
    "value": 100,
    "default": 100,
@@ -2124,7 +2169,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 110,
+   "adr": 113,
    "name": "genOverCurrentWarningDelay",
    "value": 10,
    "default": 10,
@@ -2139,7 +2184,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 111,
+   "adr": 114,
    "name": "genCurrentOverloadProtectionLevel",
    "value": 100,
    "default": 100,
@@ -2154,7 +2199,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 112,
+   "adr": 115,
    "name": "genCurrentOverloadProtectionDelay",
    "value": 5,
    "default": 5,
@@ -2169,7 +2214,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 113,
+   "adr": 116,
    "name": "genCurrentOverPhaseImbalanceLevel",
    "value": 20,
    "default": 20,
@@ -2184,7 +2229,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 114,
+   "adr": 117,
    "name": "genCurrentOverPhaseImbalanceDelay",
    "value": 0,
    "default": 0,
@@ -2199,7 +2244,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 115,
+   "adr": 118,
    "name": "mainsSetup",
    "value": 3,
    "default": 3,
@@ -2228,7 +2273,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 116,
+   "adr": 119,
    "name": "mainsAlarms",
    "value": 15,
    "default": 15,
@@ -2269,7 +2314,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 117,
+   "adr": 120,
    "name": "mainsUnderVoltageAlarmLevel",
    "value": 360,
    "default": 360,
@@ -2284,7 +2329,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 118,
+   "adr": 121,
    "name": "mainsOverVoltageAlarmLevel",
    "value": 440,
    "default": 440,
@@ -2299,7 +2344,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 119,
+   "adr": 122,
    "name": "mainsUnderFrequencyAlarmLevel",
    "value": 475,
    "default": 475,
@@ -2314,7 +2359,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 120,
+   "adr": 123,
    "name": "mainsOverFrequencyAlarmLevel",
    "value": 525,
    "default": 525,
@@ -2329,7 +2374,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 121,
+   "adr": 124,
    "name": "engineSetup",
    "value": 3,
    "default": 3,
@@ -2352,7 +2397,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 122,
+   "adr": 125,
    "name": "enginePreHeatLevel",
    "value": 38,
    "default": 38,
@@ -2367,7 +2412,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 123,
+   "adr": 126,
    "name": "enginePreHeatDelay",
    "value": 5,
    "default": 5,
@@ -2382,7 +2427,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 124,
+   "adr": 127,
    "name": "starterStopSetup",
    "value": 5,
    "default": 5,
@@ -2423,7 +2468,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 125,
+   "adr": 128,
    "name": "starterStopGenFreqLevel",
    "value": 210,
    "default": 210,
@@ -2438,7 +2483,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 126,
+   "adr": 129,
    "name": "starterStopOilPressureLevel",
    "value": 20,
    "default": 20,
@@ -2453,7 +2498,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 127,
+   "adr": 130,
    "name": "starterStopChargeAlternatorLevel",
    "value": 60,
    "default": 60,
@@ -2468,7 +2513,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 128,
+   "adr": 131,
    "name": "starterStopSpeedLevel",
    "value": 4000,
    "default": 4000,
@@ -2483,7 +2528,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 129,
+   "adr": 132,
    "name": "batteryAlarms",
    "value": 7,
    "default": 7,
@@ -2518,7 +2563,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 130,
+   "adr": 133,
    "name": "batteryUnderVoltageLevel",
    "value": 100,
    "default": 100,
@@ -2533,7 +2578,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 131,
+   "adr": 134,
    "name": "batteryUnderVoltageDelay",
    "value": 60,
    "default": 60,
@@ -2548,7 +2593,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 132,
+   "adr": 135,
    "name": "batteryOverVoltageLevel",
    "value": 300,
    "default": 300,
@@ -2563,7 +2608,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 133,
+   "adr": 136,
    "name": "batteryOverVoltageDelay",
    "value": 60,
    "default": 60,
@@ -2578,7 +2623,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 134,
+   "adr": 137,
    "name": "batteryChargeAlarmLevel",
    "value": 40,
    "default": 40,
@@ -2593,7 +2638,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 135,
+   "adr": 138,
    "name": "batteryChargeAlarmDelay",
    "value": 5,
    "default": 5,
@@ -2608,7 +2653,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 136,
+   "adr": 139,
    "name": "maintenanceAlarms",
    "value": 42,
    "default": 42,
@@ -2661,7 +2706,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 137,
+   "adr": 140,
    "name": "maintenanceAlarmOilTime",
    "value": 10,
    "default": 10,
@@ -2676,7 +2721,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 138,
+   "adr": 141,
    "name": "maintenanceAlarmAirTime",
    "value": 10,
    "default": 10,
@@ -2691,7 +2736,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 139,
+   "adr": 142,
    "name": "maintenanceAlarmFuelTime",
    "value": 10,
    "default": 10,
@@ -2706,7 +2751,7 @@ var dataReg = [
    "bitMapSize": 0,
    "bit": []
 },{
-   "adr": 140,
+   "adr": 143,
    "name": "logSetup",
    "value": 3,
    "default": 3,
@@ -2735,7 +2780,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 141,
+   "adr": 144,
    "name": "recordSetup0",
    "value": 1,
    "default": 1,
@@ -2806,7 +2851,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 142,
+   "adr": 145,
    "name": "recordSetup1",
    "value": 0,
    "default": 0,
@@ -2883,7 +2928,7 @@ var dataReg = [
        },
    ]
 },{
-   "adr": 143,
+   "adr": 146,
    "name": "recordInterval",
    "value": 1000,
    "default": 1000,

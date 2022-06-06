@@ -171,7 +171,7 @@
   "verBootloader": "Версия загрузчика:",
   "verInterface": "Версия интерфейса:",
   "device": "Устройство:",
-  "serialNumber": "Серийный номер:",
+  "uniqueNumber": "Серийный номер:",
   "display": "Дисплей",
   "brightness": "Яркость",
   "contrast": "Контрастность",

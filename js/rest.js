@@ -804,29 +804,82 @@ function updateVersions () {
 		}
 		return res;
 	}
+
+	function writeSerialNumber ( i ) {
+		let res = 0;
+		if ( dataReg[i].name == "releaseDate" ) {
+			let date = "";
+			for ( var j=0; j<dataReg[i].len; j++ )
+			{
+				date += dataReg[i].value[j].toString();
+				if ( dataReg[i].value[j] < 10 ) {
+					date = '0' + date;
+				}
+			}
+			let number = 0;
+			for ( var j=0; j<dataReg[i+1].len; j++ )
+			{
+				number += dataReg[i+1].value[j];
+			}
+			if ( number < 9999 ) {
+				number = ( "000" + number ).slice( -4 );
+			}
+			document.getElementById( "serialNumber" ).textContent = date + '.' + number.toString();
+			res = 1;
+		}
+		return res;
+	}
+	function writeMacAddress ( i ) {
+		let res = 0;
+		let number = 0;
+		if ( dataReg[i].name == "macAddress" ) {
+			let adr = "";
+			for ( var j=0; j<dataReg[i].len; j++ ) {
+				number = dataReg[i].value[j] & 0xFF;
+				if ( number < 0x0F ) {
+					adr += '0';	
+				}
+				adr += number.toString( 16 );
+				adr += ":";
+				number = ( dataReg[i].value[j] >> 8 ) & 0xFF;
+				if ( number < 0x0F ) {
+					adr += '0';	
+				}
+				adr += number.toString( 16 );
+				if ( j != ( dataReg[i].len - 1 ) ) {
+					adr += ":";
+				}
+			}
+			document.getElementById( "macAddress" ).textContent = adr;
+			res = 1;
+		}
+		return res;
+	}
 	
 	for ( var i=0; i<dataReg.length; i++ ) {
 		counter += writeVersion( i, "versionController" );
 		counter += writeVersion( i, "versionFirmware" );
 		counter += writeVersion( i, "versionBootloader" );
-		if ( dataReg[i].name == "serialNumber0" ) {
-			document.getElementById( "SerialNumber" ).textContent = "";
+		counter += writeMacAddress( i );
+		counter += writeSerialNumber( i );
+		if ( dataReg[i].name == "uniqueNumber0" ) {
+			document.getElementById( "uniqueNumber" ).textContent = "";
 			for ( var j=0; j<dataReg[i].len; j++ ) {
-				document.getElementById( "SerialNumber" ).textContent += dec2hexString( ( ( dataReg[i].value[j] ) >> 8 ) & 0xFF ) + ':' + dec2hexString( ( dataReg[i].value[j] ) & 0xFF );
+				document.getElementById( "uniqueNumber" ).textContent += dec2hexString( ( ( dataReg[i].value[j] ) >> 8 ) & 0xFF ) + ':' + dec2hexString( ( dataReg[i].value[j] ) & 0xFF );
 				if ( j < ( dataReg[i].len - 1 ) ) {
-					document.getElementById( "SerialNumber" ).textContent += ':';
+					document.getElementById( "uniqueNumber" ).textContent += ':';
 				}
 			}
-      document.getElementById( "SerialNumber" ).textContent += ":";
+      document.getElementById( "uniqueNumber" ).textContent += ":";
       for ( var j=0; j<dataReg[i].len; j++ ) {
-				document.getElementById( "SerialNumber" ).textContent += dec2hexString( ( ( dataReg[i+1].value[j] ) >> 8 ) & 0xFF ) + ':' + dec2hexString( ( dataReg[i+1].value[j] ) & 0xFF );
+				document.getElementById( "uniqueNumber" ).textContent += dec2hexString( ( ( dataReg[i+1].value[j] ) >> 8 ) & 0xFF ) + ':' + dec2hexString( ( dataReg[i+1].value[j] ) & 0xFF );
 				if ( j < ( dataReg[i].len - 1 ) ) {
-					document.getElementById( "SerialNumber" ).textContent += ':';
+					document.getElementById( "uniqueNumber" ).textContent += ':';
 				}
 			}
 			counter++;
 		}
-		if ( counter == 4 ) {
+		if ( counter == 6 ) {
 			break;
 		}
 	}
