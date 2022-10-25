@@ -39,6 +39,7 @@ function Line     ( str, shift ) {
 }
 function Firmware ( ) {
   /*------------------ Private ------------------*/
+  var self      = this;
   var firstData = 0;
   var prevAdr   = 0;
   var prevLen   = 0;
@@ -50,7 +51,15 @@ function Firmware ( ) {
   this.valid = 0;
   this.data  = [];
   /*---------------------------------------------*/
-  this.fromHEX = function( file ) {
+  this.print   = function () {
+    console.log( '****** FIRMWARE ******' );
+    console.log( 'Start: 0x' + self.start.toString( 16 ) );
+    console.log( 'End:   0x' + self.end.toString( 16 ) );
+    console.log( 'Size:  0x' + self.size.toString( 16 ) );
+    console.log( 'Valid: '   + self.valid );
+  }
+  /*---------------------------------------------*/
+  this.fromHEX = function ( file ) {
     let buffer  = file;
     let index   = 0;
     let endLine = 0;
@@ -170,6 +179,7 @@ function bootInit () {
           if ( firmware.valid > 0 ) {
             let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Файл готов к записи" );
             swBootLoad.disabled = false;
+            firmware.print();
           } else {
             let alert   = new alerts.Alert( "alert-warning", alerts.triIco, "Ошибка при проверке файла" );
           }

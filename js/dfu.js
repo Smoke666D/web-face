@@ -285,44 +285,58 @@ function dfuDevice() {
     });
   }
   /*---------------------------------------------*/
+  this.print            = function () {
+    console.log( '******** DFU *********' );
+    console.log( 'Manufacturer: ' + self.manufacturer );
+    console.log( 'Product:      ' + self.product      );
+    console.log( 'Serial:       ' + self.serial       );
+    console.log( 'Memory type:  ' + self.memory.type  );
+    console.log( 'Memory start: 0x' + self.memory.start.toString(16) );
+    console.log( 'Memory end:   0x' + ( self.memory.start + self.memory.size ).toString(16) );
+    console.log( 'Memory size:  ' + ( self.memory.size / 1024 ) + ' Kb'  );
+  }
   this.init             = async function ( callback ) {
     var result = 0;
-    device = usb.findByIds( 0x16D0, 0x10BD );
+    //device = usb.findByIds( 0x16D0, 0x10BD );
+    device = usb.findByIds( 1155, 57105 );
     if ( device != null ) {
       try {
         device.open();
-        try {
-          device.getStringDescriptor( device.deviceDescriptor.iManufacturer, function( error, string ) {
+        device.getStringDescriptor( device.deviceDescriptor.iManufacturer, function( error, string ) {
+          if ( error == undefined ) {
             self.manufacturer = string;
             device.getStringDescriptor( device.deviceDescriptor.iProduct, function( error, string ) {
-              self.product = string;
-              device.getStringDescriptor( device.deviceDescriptor.iSerialNumber, function( error, string ) {
-                self.serial = string;
-                try {
-                  iface = device.interface( ifaceN );
-                  iface.claim();
-                  device.getStringDescriptor( iface.descriptor.iInterface, function( error, flashDescriptor ) {
-                    try {
-                      self.memory = new Memory( flashDescriptor );
-                    } catch(e) {
-                      let alert = new alerts.Alert("alert-warning",alerts.triIco,"Ошибка чтения дискриптора памяти");
-                    }
-                    opened      = true;
-                    let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Устройство подключено по USB в DFU режиме" );
-                    result      = 1;
-                    callback();
-                  });
-                } catch(e) {
-                  device = null;
-                  let alert = new alerts.Alert("alert-warning",alerts.triIco,"Ошибка чтения интерфейса");
-                }
-              });
+              if ( error == undefined ) {
+                self.product = string;
+                device.getStringDescriptor( device.deviceDescriptor.iSerialNumber, function( error, string ) {
+                  if ( error == undefined ) {
+                    self.serial = string;
+                    iface = device.interface( ifaceN );
+                    iface.claim();
+                    device.getStringDescriptor( iface.descriptor.iInterface, function( error, flashDescriptor ) {
+                      if ( error == undefined ) {
+                        self.memory = new Memory( flashDescriptor );
+                        opened      = true;
+                        self.print();
+                        let alert   = new alerts.Alert( "alert-success", alerts.okIco, "Устройство подключено по USB в DFU режиме" );
+                        result      = 1;
+                        callback();
+                      } else {
+                        let alert = new alerts.Alert("alert-warning",alerts.triIco,"Ошибка чтения дискриптора памяти");
+                      }
+                    });
+                  } else {
+                    let alert = new alerts.Alert("alert-warning",alerts.triIco,"Ошибка чтения дискриптора серийного номера");
+                  }
+                });
+              } else {
+                let alert = new alerts.Alert("alert-warning",alerts.triIco,"Ошибка чтения дискриптора продукта");
+              }
             });
-          });
-        } catch (e) {
-          device = null;
-          let alert = new alerts.Alert("alert-warning",alerts.triIco,"Ошибка чтения строчного дискриптора");
-        }
+          } else {
+            let alert = new alerts.Alert("alert-warning",alerts.triIco,"Ошибка чтения дискриптора производителя");
+          }
+        });
       } catch (e) {
         device = null;
         let alert = new alerts.Alert("alert-warning",alerts.triIco,"Устройство занято другим приложением");
@@ -498,7 +512,6 @@ function dfuDevice() {
     let size     = firmware.length;                        /* Firmware size in bytes */
     let startAdr = adr;                                    /* Start sector number for firmware */
     let endAdr   = await this.checkSectors( adr, size );   /* Last sector number for firmware */
-    console.log( this.memory );
     if ( endAdr > 0 ) {
       await this.abortToIdle();
       let progSize = endAdr - startAdr + 1;
@@ -507,6 +520,7 @@ function dfuDevice() {
       }
       let prog     = 0;
       let count    = 0;
+      console.log( '****** LOADING *******' );
       /*------------------- FULL ERASE -------------------*/
       if ( fullErase > 0 ) {
         console.log( "Start chip erasing..." );
@@ -551,6 +565,7 @@ function dfuDevice() {
           progCallback( progSize, prog );
         }
         console.log( "Finish firmware verification" );
+        console.log( '**********************' );
       }
     } else {
       errorCallback( "Неправильная адрессация прошивки" )
